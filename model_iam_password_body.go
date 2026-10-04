@@ -28,8 +28,11 @@ type IamPasswordBody struct {
 	// Password is the new credential. It must satisfy the platform floor and the organization's own complexity options.
 	Password *string `json:"password,omitempty"`
 	// email, username OR phone
-	Username *string `json:"username,omitempty"`
+	Username             *string `json:"username,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamPasswordBody IamPasswordBody
 
 // NewIamPasswordBody instantiates a new IamPasswordBody object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o IamPasswordBody) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamPasswordBody) UnmarshalJSON(data []byte) (err error) {
+	varIamPasswordBody := _IamPasswordBody{}
+
+	err = json.Unmarshal(data, &varIamPasswordBody)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamPasswordBody(varIamPasswordBody)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "oldPassword")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamPasswordBody struct {

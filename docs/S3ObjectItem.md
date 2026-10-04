@@ -1,0 +1,160 @@
+# S3ObjectItem
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Etag** | Pointer to **string** | ETag is the store&#39;s entity tag for the bytes currently at this key, with the quotes the store wraps it in stripped. It is an opaque VERSION and not a checksum to verify against: a single-part upload&#39;s tag happens to be the MD5 of the content and a multipart upload&#39;s is not, and nothing here says which this was. Compare two reads of one key to learn whether the object changed; absent for a folder entry, and for an object the store reports none for. | [optional] 
+**IsDir** | Pointer to **bool** | true for a folder (common prefix) | [optional] 
+**Key** | Pointer to **string** | key RELATIVE to the requested prefix | [optional] 
+**LastModified** | Pointer to **int64** | unix seconds (0 for a folder) | [optional] 
+**Size** | Pointer to **int64** | bytes (0 for a folder) | [optional] 
+
+## Methods
+
+### NewS3ObjectItem
+
+`func NewS3ObjectItem() *S3ObjectItem`
+
+NewS3ObjectItem instantiates a new S3ObjectItem object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewS3ObjectItemWithDefaults
+
+`func NewS3ObjectItemWithDefaults() *S3ObjectItem`
+
+NewS3ObjectItemWithDefaults instantiates a new S3ObjectItem object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetEtag
+
+`func (o *S3ObjectItem) GetEtag() string`
+
+GetEtag returns the Etag field if non-nil, zero value otherwise.
+
+### GetEtagOk
+
+`func (o *S3ObjectItem) GetEtagOk() (*string, bool)`
+
+GetEtagOk returns a tuple with the Etag field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEtag
+
+`func (o *S3ObjectItem) SetEtag(v string)`
+
+SetEtag sets Etag field to given value.
+
+### HasEtag
+
+`func (o *S3ObjectItem) HasEtag() bool`
+
+HasEtag returns a boolean if a field has been set.
+
+### GetIsDir
+
+`func (o *S3ObjectItem) GetIsDir() bool`
+
+GetIsDir returns the IsDir field if non-nil, zero value otherwise.
+
+### GetIsDirOk
+
+`func (o *S3ObjectItem) GetIsDirOk() (*bool, bool)`
+
+GetIsDirOk returns a tuple with the IsDir field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsDir
+
+`func (o *S3ObjectItem) SetIsDir(v bool)`
+
+SetIsDir sets IsDir field to given value.
+
+### HasIsDir
+
+`func (o *S3ObjectItem) HasIsDir() bool`
+
+HasIsDir returns a boolean if a field has been set.
+
+### GetKey
+
+`func (o *S3ObjectItem) GetKey() string`
+
+GetKey returns the Key field if non-nil, zero value otherwise.
+
+### GetKeyOk
+
+`func (o *S3ObjectItem) GetKeyOk() (*string, bool)`
+
+GetKeyOk returns a tuple with the Key field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKey
+
+`func (o *S3ObjectItem) SetKey(v string)`
+
+SetKey sets Key field to given value.
+
+### HasKey
+
+`func (o *S3ObjectItem) HasKey() bool`
+
+HasKey returns a boolean if a field has been set.
+
+### GetLastModified
+
+`func (o *S3ObjectItem) GetLastModified() int64`
+
+GetLastModified returns the LastModified field if non-nil, zero value otherwise.
+
+### GetLastModifiedOk
+
+`func (o *S3ObjectItem) GetLastModifiedOk() (*int64, bool)`
+
+GetLastModifiedOk returns a tuple with the LastModified field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastModified
+
+`func (o *S3ObjectItem) SetLastModified(v int64)`
+
+SetLastModified sets LastModified field to given value.
+
+### HasLastModified
+
+`func (o *S3ObjectItem) HasLastModified() bool`
+
+HasLastModified returns a boolean if a field has been set.
+
+### GetSize
+
+`func (o *S3ObjectItem) GetSize() int64`
+
+GetSize returns the Size field if non-nil, zero value otherwise.
+
+### GetSizeOk
+
+`func (o *S3ObjectItem) GetSizeOk() (*int64, bool)`
+
+GetSizeOk returns a tuple with the Size field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSize
+
+`func (o *S3ObjectItem) SetSize(v int64)`
+
+SetSize sets Size field to given value.
+
+### HasSize
+
+`func (o *S3ObjectItem) HasSize() bool`
+
+HasSize returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

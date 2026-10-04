@@ -27,7 +27,7 @@ type ChannelAPIGetChannelRequest struct {
 	ApiService *ChannelAPIService
 }
 
-func (r ChannelAPIGetChannelRequest) Execute() (*ChatChannels, *http.Response, error) {
+func (r ChannelAPIGetChannelRequest) Execute() (*ChannelChatChannels, *http.Response, error) {
 	return r.ApiService.GetChannelExecute(r)
 }
 
@@ -55,13 +55,13 @@ func (a *ChannelAPIService) GetChannel(ctx context.Context) ChannelAPIGetChannel
 
 // Execute executes the request
 //
-//	@return ChatChannels
-func (a *ChannelAPIService) GetChannelExecute(r ChannelAPIGetChannelRequest) (*ChatChannels, *http.Response, error) {
+//	@return ChannelChatChannels
+func (a *ChannelAPIService) GetChannelExecute(r ChannelAPIGetChannelRequest) (*ChannelChatChannels, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ChatChannels
+		localVarReturnValue *ChannelChatChannels
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannel")
@@ -85,7 +85,7 @@ func (a *ChannelAPIService) GetChannelExecute(r ChannelAPIGetChannelRequest) (*C
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -114,6 +114,14 @@ func (a *ChannelAPIService) GetChannelExecute(r ChannelAPIGetChannelRequest) (*C
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -141,7 +149,7 @@ func (r ChannelAPIGetChannelAgentRequest) Channel(channel string) ChannelAPIGetC
 	return r
 }
 
-func (r ChannelAPIGetChannelAgentRequest) Execute() (*ChannelAgents, *http.Response, error) {
+func (r ChannelAPIGetChannelAgentRequest) Execute() (*ChannelChannelAgents, *http.Response, error) {
 	return r.ApiService.GetChannelAgentExecute(r)
 }
 
@@ -163,13 +171,13 @@ func (a *ChannelAPIService) GetChannelAgent(ctx context.Context) ChannelAPIGetCh
 
 // Execute executes the request
 //
-//	@return ChannelAgents
-func (a *ChannelAPIService) GetChannelAgentExecute(r ChannelAPIGetChannelAgentRequest) (*ChannelAgents, *http.Response, error) {
+//	@return ChannelChannelAgents
+func (a *ChannelAPIService) GetChannelAgentExecute(r ChannelAPIGetChannelAgentRequest) (*ChannelChannelAgents, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ChannelAgents
+		localVarReturnValue *ChannelChannelAgents
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelAgent")
@@ -196,7 +204,7 @@ func (a *ChannelAPIService) GetChannelAgentExecute(r ChannelAPIGetChannelAgentRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -225,6 +233,14 @@ func (a *ChannelAPIService) GetChannelAgentExecute(r ChannelAPIGetChannelAgentRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -252,7 +268,7 @@ func (r ChannelAPIGetChannelAllowlistRequest) Channel(channel string) ChannelAPI
 	return r
 }
 
-func (r ChannelAPIGetChannelAllowlistRequest) Execute() (*AllowlistView, *http.Response, error) {
+func (r ChannelAPIGetChannelAllowlistRequest) Execute() (*ChannelAllowlistView, *http.Response, error) {
 	return r.ApiService.GetChannelAllowlistExecute(r)
 }
 
@@ -277,13 +293,13 @@ func (a *ChannelAPIService) GetChannelAllowlist(ctx context.Context) ChannelAPIG
 
 // Execute executes the request
 //
-//	@return AllowlistView
-func (a *ChannelAPIService) GetChannelAllowlistExecute(r ChannelAPIGetChannelAllowlistRequest) (*AllowlistView, *http.Response, error) {
+//	@return ChannelAllowlistView
+func (a *ChannelAPIService) GetChannelAllowlistExecute(r ChannelAPIGetChannelAllowlistRequest) (*ChannelAllowlistView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AllowlistView
+		localVarReturnValue *ChannelAllowlistView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelAllowlist")
@@ -310,7 +326,7 @@ func (a *ChannelAPIService) GetChannelAllowlistExecute(r ChannelAPIGetChannelAll
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -339,6 +355,14 @@ func (a *ChannelAPIService) GetChannelAllowlistExecute(r ChannelAPIGetChannelAll
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -373,7 +397,7 @@ func (r ChannelAPIGetChannelInboxRequest) Limit(limit string) ChannelAPIGetChann
 	return r
 }
 
-func (r ChannelAPIGetChannelInboxRequest) Execute() (*InboxPage, *http.Response, error) {
+func (r ChannelAPIGetChannelInboxRequest) Execute() (*ChannelInboxPage, *http.Response, error) {
 	return r.ApiService.GetChannelInboxExecute(r)
 }
 
@@ -398,13 +422,13 @@ func (a *ChannelAPIService) GetChannelInbox(ctx context.Context) ChannelAPIGetCh
 
 // Execute executes the request
 //
-//	@return InboxPage
-func (a *ChannelAPIService) GetChannelInboxExecute(r ChannelAPIGetChannelInboxRequest) (*InboxPage, *http.Response, error) {
+//	@return ChannelInboxPage
+func (a *ChannelAPIService) GetChannelInboxExecute(r ChannelAPIGetChannelInboxRequest) (*ChannelInboxPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InboxPage
+		localVarReturnValue *ChannelInboxPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelInbox")
@@ -434,7 +458,7 @@ func (a *ChannelAPIService) GetChannelInboxExecute(r ChannelAPIGetChannelInboxRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -463,6 +487,14 @@ func (a *ChannelAPIService) GetChannelInboxExecute(r ChannelAPIGetChannelInboxRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -483,7 +515,7 @@ type ChannelAPIGetChannelPairingRequest struct {
 	ApiService *ChannelAPIService
 }
 
-func (r ChannelAPIGetChannelPairingRequest) Execute() (*PairingQueue, *http.Response, error) {
+func (r ChannelAPIGetChannelPairingRequest) Execute() (*ChannelPairingQueue, *http.Response, error) {
 	return r.ApiService.GetChannelPairingExecute(r)
 }
 
@@ -508,13 +540,13 @@ func (a *ChannelAPIService) GetChannelPairing(ctx context.Context) ChannelAPIGet
 
 // Execute executes the request
 //
-//	@return PairingQueue
-func (a *ChannelAPIService) GetChannelPairingExecute(r ChannelAPIGetChannelPairingRequest) (*PairingQueue, *http.Response, error) {
+//	@return ChannelPairingQueue
+func (a *ChannelAPIService) GetChannelPairingExecute(r ChannelAPIGetChannelPairingRequest) (*ChannelPairingQueue, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PairingQueue
+		localVarReturnValue *ChannelPairingQueue
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.GetChannelPairing")
@@ -538,7 +570,7 @@ func (a *ChannelAPIService) GetChannelPairingExecute(r ChannelAPIGetChannelPairi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -567,6 +599,14 @@ func (a *ChannelAPIService) GetChannelPairingExecute(r ChannelAPIGetChannelPairi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -599,7 +639,7 @@ Delivers text, attachments and actions to one room on a connected chat transport
 
 The body is the envelope's NARROW outbound projection: `room`, `text`, `attachments`, `actions`, `replyTo` and `idempotency`, and nothing else. Identity is not a field — the channel is the path segment and the sender is the caller's validated org — so a body carrying `sender`, `account` or `channel` is refused with 400 rather than having it silently dropped. `room.id` is required, and so is something to say: text, or at least one attachment.
 
-Requires a validated principal; 403 without one. The room must already belong to the caller's org — each transport verifies the binding itself, so a room this org has not bound is 403 and a room whose route the bot has never learned is 409, meaning someone has to message the bot there first. A route learned only so a pairing reply could be delivered lasts exactly as long as that pairing request does, so a room whose sender was never approved goes back to 409 within the hour. A transport that fails answers 502 carrying status and shape only, never a token.
+Requires a validated principal; 401 without one. The room must already belong to the caller's org — each transport verifies the binding itself, so a room this org has not bound is 403 and a room whose route the bot has never learned is 409, meaning someone has to message the bot there first. A route learned only so a pairing reply could be delivered lasts exactly as long as that pairing request does, so a room whose sender was never approved goes back to 409 within the hour. A transport that fails answers 502 carrying status and shape only, never a token.
 
 Sending is at-most-once only if you ask for it: pass an `idempotency` string and a replay answers 200 with the PRIOR receipt instead of sending twice, while a send that fails releases the key so the caller can re-attempt. Bodies over 1 MiB are refused. Every transport currently renders text only, so attachments and actions are flattened deterministically to one line each after the text rather than dropped.
 
@@ -681,17 +721,17 @@ func (a *ChannelAPIService) PostChannelByChannelSendExecute(r ChannelAPIPostChan
 }
 
 type ChannelAPIPostChannelPairingApproveRequest struct {
-	ctx              context.Context
-	ApiService       *ChannelAPIService
-	approvePairingIn *ApprovePairingIn
+	ctx                     context.Context
+	ApiService              *ChannelAPIService
+	channelApprovePairingIn *ChannelApprovePairingIn
 }
 
-func (r ChannelAPIPostChannelPairingApproveRequest) ApprovePairingIn(approvePairingIn ApprovePairingIn) ChannelAPIPostChannelPairingApproveRequest {
-	r.approvePairingIn = &approvePairingIn
+func (r ChannelAPIPostChannelPairingApproveRequest) ChannelApprovePairingIn(channelApprovePairingIn ChannelApprovePairingIn) ChannelAPIPostChannelPairingApproveRequest {
+	r.channelApprovePairingIn = &channelApprovePairingIn
 	return r
 }
 
-func (r ChannelAPIPostChannelPairingApproveRequest) Execute() (*PairingApproved, *http.Response, error) {
+func (r ChannelAPIPostChannelPairingApproveRequest) Execute() (*ChannelPairingApproved, *http.Response, error) {
 	return r.ApiService.PostChannelPairingApproveExecute(r)
 }
 
@@ -717,13 +757,13 @@ func (a *ChannelAPIService) PostChannelPairingApprove(ctx context.Context) Chann
 
 // Execute executes the request
 //
-//	@return PairingApproved
-func (a *ChannelAPIService) PostChannelPairingApproveExecute(r ChannelAPIPostChannelPairingApproveRequest) (*PairingApproved, *http.Response, error) {
+//	@return ChannelPairingApproved
+func (a *ChannelAPIService) PostChannelPairingApproveExecute(r ChannelAPIPostChannelPairingApproveRequest) (*ChannelPairingApproved, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PairingApproved
+		localVarReturnValue *ChannelPairingApproved
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.PostChannelPairingApprove")
@@ -736,8 +776,8 @@ func (a *ChannelAPIService) PostChannelPairingApproveExecute(r ChannelAPIPostCha
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.approvePairingIn == nil {
-		return localVarReturnValue, nil, reportError("approvePairingIn is required and must be specified")
+	if r.channelApprovePairingIn == nil {
+		return localVarReturnValue, nil, reportError("channelApprovePairingIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -750,7 +790,7 @@ func (a *ChannelAPIService) PostChannelPairingApproveExecute(r ChannelAPIPostCha
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -758,7 +798,7 @@ func (a *ChannelAPIService) PostChannelPairingApproveExecute(r ChannelAPIPostCha
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.approvePairingIn
+	localVarPostBody = r.channelApprovePairingIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -781,6 +821,14 @@ func (a *ChannelAPIService) PostChannelPairingApproveExecute(r ChannelAPIPostCha
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -797,17 +845,17 @@ func (a *ChannelAPIService) PostChannelPairingApproveExecute(r ChannelAPIPostCha
 }
 
 type ChannelAPIPutChannelAgentRequest struct {
-	ctx              context.Context
-	ApiService       *ChannelAPIService
-	channelAgentsPut *ChannelAgentsPut
+	ctx                     context.Context
+	ApiService              *ChannelAPIService
+	channelChannelAgentsPut *ChannelChannelAgentsPut
 }
 
-func (r ChannelAPIPutChannelAgentRequest) ChannelAgentsPut(channelAgentsPut ChannelAgentsPut) ChannelAPIPutChannelAgentRequest {
-	r.channelAgentsPut = &channelAgentsPut
+func (r ChannelAPIPutChannelAgentRequest) ChannelChannelAgentsPut(channelChannelAgentsPut ChannelChannelAgentsPut) ChannelAPIPutChannelAgentRequest {
+	r.channelChannelAgentsPut = &channelChannelAgentsPut
 	return r
 }
 
-func (r ChannelAPIPutChannelAgentRequest) Execute() (*ChannelAgents, *http.Response, error) {
+func (r ChannelAPIPutChannelAgentRequest) Execute() (*ChannelChannelAgents, *http.Response, error) {
 	return r.ApiService.PutChannelAgentExecute(r)
 }
 
@@ -830,13 +878,13 @@ func (a *ChannelAPIService) PutChannelAgent(ctx context.Context) ChannelAPIPutCh
 
 // Execute executes the request
 //
-//	@return ChannelAgents
-func (a *ChannelAPIService) PutChannelAgentExecute(r ChannelAPIPutChannelAgentRequest) (*ChannelAgents, *http.Response, error) {
+//	@return ChannelChannelAgents
+func (a *ChannelAPIService) PutChannelAgentExecute(r ChannelAPIPutChannelAgentRequest) (*ChannelChannelAgents, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ChannelAgents
+		localVarReturnValue *ChannelChannelAgents
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.PutChannelAgent")
@@ -849,8 +897,8 @@ func (a *ChannelAPIService) PutChannelAgentExecute(r ChannelAPIPutChannelAgentRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.channelAgentsPut == nil {
-		return localVarReturnValue, nil, reportError("channelAgentsPut is required and must be specified")
+	if r.channelChannelAgentsPut == nil {
+		return localVarReturnValue, nil, reportError("channelChannelAgentsPut is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -863,7 +911,7 @@ func (a *ChannelAPIService) PutChannelAgentExecute(r ChannelAPIPutChannelAgentRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -871,7 +919,7 @@ func (a *ChannelAPIService) PutChannelAgentExecute(r ChannelAPIPutChannelAgentRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.channelAgentsPut
+	localVarPostBody = r.channelChannelAgentsPut
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -894,6 +942,14 @@ func (a *ChannelAPIService) PutChannelAgentExecute(r ChannelAPIPutChannelAgentRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -910,17 +966,17 @@ func (a *ChannelAPIService) PutChannelAgentExecute(r ChannelAPIPutChannelAgentRe
 }
 
 type ChannelAPIPutChannelAllowlistRequest struct {
-	ctx            context.Context
-	ApiService     *ChannelAPIService
-	allowlistPutIn *AllowlistPutIn
+	ctx                   context.Context
+	ApiService            *ChannelAPIService
+	channelAllowlistPutIn *ChannelAllowlistPutIn
 }
 
-func (r ChannelAPIPutChannelAllowlistRequest) AllowlistPutIn(allowlistPutIn AllowlistPutIn) ChannelAPIPutChannelAllowlistRequest {
-	r.allowlistPutIn = &allowlistPutIn
+func (r ChannelAPIPutChannelAllowlistRequest) ChannelAllowlistPutIn(channelAllowlistPutIn ChannelAllowlistPutIn) ChannelAPIPutChannelAllowlistRequest {
+	r.channelAllowlistPutIn = &channelAllowlistPutIn
 	return r
 }
 
-func (r ChannelAPIPutChannelAllowlistRequest) Execute() (*AllowlistView, *http.Response, error) {
+func (r ChannelAPIPutChannelAllowlistRequest) Execute() (*ChannelAllowlistView, *http.Response, error) {
 	return r.ApiService.PutChannelAllowlistExecute(r)
 }
 
@@ -947,13 +1003,13 @@ func (a *ChannelAPIService) PutChannelAllowlist(ctx context.Context) ChannelAPIP
 
 // Execute executes the request
 //
-//	@return AllowlistView
-func (a *ChannelAPIService) PutChannelAllowlistExecute(r ChannelAPIPutChannelAllowlistRequest) (*AllowlistView, *http.Response, error) {
+//	@return ChannelAllowlistView
+func (a *ChannelAPIService) PutChannelAllowlistExecute(r ChannelAPIPutChannelAllowlistRequest) (*ChannelAllowlistView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AllowlistView
+		localVarReturnValue *ChannelAllowlistView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChannelAPIService.PutChannelAllowlist")
@@ -966,8 +1022,8 @@ func (a *ChannelAPIService) PutChannelAllowlistExecute(r ChannelAPIPutChannelAll
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.allowlistPutIn == nil {
-		return localVarReturnValue, nil, reportError("allowlistPutIn is required and must be specified")
+	if r.channelAllowlistPutIn == nil {
+		return localVarReturnValue, nil, reportError("channelAllowlistPutIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -980,7 +1036,7 @@ func (a *ChannelAPIService) PutChannelAllowlistExecute(r ChannelAPIPutChannelAll
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -988,7 +1044,7 @@ func (a *ChannelAPIService) PutChannelAllowlistExecute(r ChannelAPIPutChannelAll
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.allowlistPutIn
+	localVarPostBody = r.channelAllowlistPutIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1011,6 +1067,14 @@ func (a *ChannelAPIService) PutChannelAllowlistExecute(r ChannelAPIPutChannelAll
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

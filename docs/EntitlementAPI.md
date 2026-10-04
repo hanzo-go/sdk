@@ -4,17 +4,17 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetEntitlement**](EntitlementAPI.md#GetEntitlement) | **Get** /v1/entitlement | Projection reports which console apps the CALLER&#39;s org may open, and the plan slug that decides it.
-[**GetEntitlementOrgsByOrg**](EntitlementAPI.md#GetEntitlementOrgsByOrg) | **Get** /v1/entitlement/orgs/{org} | Get lists the products an org has ENABLED — its own intent, which the console&#39;s paid-product sidebar reads to decide what to show.
-[**PostEntitlementOrgsByOrg**](EntitlementAPI.md#PostEntitlementOrgsByOrg) | **Post** /v1/entitlement/orgs/{org} | Post turns products on or off for an org and returns the enabled set afterwards.
+[**GetEntitlement**](EntitlementAPI.md#GetEntitlement) | **Get** /v1/entitlement | Reports which console apps the CALLER&#39;s org may open, and the plan slug that decides it.
+[**GetEntitlementOrgsByOrg**](EntitlementAPI.md#GetEntitlementOrgsByOrg) | **Get** /v1/entitlement/orgs/{org} | Lists the products an org has ENABLED — its own intent, which the console&#39;s paid-product sidebar reads to decide what to show.
+[**PostEntitlementOrgsByOrg**](EntitlementAPI.md#PostEntitlementOrgsByOrg) | **Post** /v1/entitlement/orgs/{org} | Turns products on or off for an org and returns the enabled set afterwards.
 
 
 
 ## GetEntitlement
 
-> ProjectionView GetEntitlement(ctx).Execute()
+> EntitlementProjectionView GetEntitlement(ctx).Execute()
 
-Projection reports which console apps the CALLER's org may open, and the plan slug that decides it.
+Reports which console apps the CALLER's org may open, and the plan slug that decides it.
 
 
 
@@ -39,7 +39,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EntitlementAPI.GetEntitlement``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEntitlement`: ProjectionView
+	// response from `GetEntitlement`: EntitlementProjectionView
 	fmt.Fprintf(os.Stdout, "Response from `EntitlementAPI.GetEntitlement`: %v\n", resp)
 }
 ```
@@ -55,7 +55,7 @@ Other parameters are passed through a pointer to a apiGetEntitlementRequest stru
 
 ### Return type
 
-[**ProjectionView**](ProjectionView.md)
+[**EntitlementProjectionView**](EntitlementProjectionView.md)
 
 ### Authorization
 
@@ -64,7 +64,7 @@ Other parameters are passed through a pointer to a apiGetEntitlementRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -73,9 +73,9 @@ Other parameters are passed through a pointer to a apiGetEntitlementRequest stru
 
 ## GetEntitlementOrgsByOrg
 
-> EntitlementsView GetEntitlementOrgsByOrg(ctx, org).Execute()
+> EntitlementEntitlementsView GetEntitlementOrgsByOrg(ctx, org).Execute()
 
-Get lists the products an org has ENABLED — its own intent, which the console's paid-product sidebar reads to decide what to show.
+Lists the products an org has ENABLED — its own intent, which the console's paid-product sidebar reads to decide what to show.
 
 
 
@@ -101,7 +101,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EntitlementAPI.GetEntitlementOrgsByOrg``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEntitlementOrgsByOrg`: EntitlementsView
+	// response from `GetEntitlementOrgsByOrg`: EntitlementEntitlementsView
 	fmt.Fprintf(os.Stdout, "Response from `EntitlementAPI.GetEntitlementOrgsByOrg`: %v\n", resp)
 }
 ```
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EntitlementsView**](EntitlementsView.md)
+[**EntitlementEntitlementsView**](EntitlementEntitlementsView.md)
 
 ### Authorization
 
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -143,9 +143,9 @@ Name | Type | Description  | Notes
 
 ## PostEntitlementOrgsByOrg
 
-> EntitlementsView PostEntitlementOrgsByOrg(ctx, org).MutateReq(mutateReq).Execute()
+> EntitlementEntitlementsView PostEntitlementOrgsByOrg(ctx, org).EntitlementMutateReq(entitlementMutateReq).Execute()
 
-Post turns products on or off for an org and returns the enabled set afterwards.
+Turns products on or off for an org and returns the enabled set afterwards.
 
 
 
@@ -163,16 +163,16 @@ import (
 
 func main() {
 	org := "org_example" // string | 
-	mutateReq := *openapiclient.NewMutateReq() // MutateReq | 
+	entitlementMutateReq := *openapiclient.NewEntitlementMutateReq() // EntitlementMutateReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EntitlementAPI.PostEntitlementOrgsByOrg(context.Background(), org).MutateReq(mutateReq).Execute()
+	resp, r, err := apiClient.EntitlementAPI.PostEntitlementOrgsByOrg(context.Background(), org).EntitlementMutateReq(entitlementMutateReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EntitlementAPI.PostEntitlementOrgsByOrg``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEntitlementOrgsByOrg`: EntitlementsView
+	// response from `PostEntitlementOrgsByOrg`: EntitlementEntitlementsView
 	fmt.Fprintf(os.Stdout, "Response from `EntitlementAPI.PostEntitlementOrgsByOrg`: %v\n", resp)
 }
 ```
@@ -193,11 +193,11 @@ Other parameters are passed through a pointer to a apiPostEntitlementOrgsByOrgRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **mutateReq** | [**MutateReq**](MutateReq.md) |  | 
+ **entitlementMutateReq** | [**EntitlementMutateReq**](EntitlementMutateReq.md) |  | 
 
 ### Return type
 
-[**EntitlementsView**](EntitlementsView.md)
+[**EntitlementEntitlementsView**](EntitlementEntitlementsView.md)
 
 ### Authorization
 
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -1,0 +1,290 @@
+# LinkTotalView
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Confidence** | Pointer to **string** | Confidence says how real the row&#39;s numbers are. | [optional] 
+**CostCents** | Pointer to **int64** | CostCents is the period&#39;s spend in cents, in the row&#39;s own ledger. | [optional] 
+**Provider** | Pointer to **string** | Provider is the provider the row totals. | [optional] 
+**Requests** | Pointer to **int64** | Requests is the period&#39;s request count. | [optional] 
+**Scope** | Pointer to **string** | Scope is whose usage the row measures: user or org. | [optional] 
+**Source** | Pointer to **string** | Source is whose meter the row came from: account or hanzo. | [optional] 
+**Tokens** | Pointer to **int64** | Tokens is the period&#39;s total token count. | [optional] 
+**UsedPct** | Pointer to **float64** | UsedPct is the plan consumption percentage, on the account side. | [optional] 
+**Window** | Pointer to **string** | Window is the window class the row totals, on the account side. | [optional] 
+**Windows** | Pointer to **int64** | Windows is how many window instances the row folds. | [optional] 
+
+## Methods
+
+### NewLinkTotalView
+
+`func NewLinkTotalView() *LinkTotalView`
+
+NewLinkTotalView instantiates a new LinkTotalView object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewLinkTotalViewWithDefaults
+
+`func NewLinkTotalViewWithDefaults() *LinkTotalView`
+
+NewLinkTotalViewWithDefaults instantiates a new LinkTotalView object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetConfidence
+
+`func (o *LinkTotalView) GetConfidence() string`
+
+GetConfidence returns the Confidence field if non-nil, zero value otherwise.
+
+### GetConfidenceOk
+
+`func (o *LinkTotalView) GetConfidenceOk() (*string, bool)`
+
+GetConfidenceOk returns a tuple with the Confidence field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfidence
+
+`func (o *LinkTotalView) SetConfidence(v string)`
+
+SetConfidence sets Confidence field to given value.
+
+### HasConfidence
+
+`func (o *LinkTotalView) HasConfidence() bool`
+
+HasConfidence returns a boolean if a field has been set.
+
+### GetCostCents
+
+`func (o *LinkTotalView) GetCostCents() int64`
+
+GetCostCents returns the CostCents field if non-nil, zero value otherwise.
+
+### GetCostCentsOk
+
+`func (o *LinkTotalView) GetCostCentsOk() (*int64, bool)`
+
+GetCostCentsOk returns a tuple with the CostCents field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCostCents
+
+`func (o *LinkTotalView) SetCostCents(v int64)`
+
+SetCostCents sets CostCents field to given value.
+
+### HasCostCents
+
+`func (o *LinkTotalView) HasCostCents() bool`
+
+HasCostCents returns a boolean if a field has been set.
+
+### GetProvider
+
+`func (o *LinkTotalView) GetProvider() string`
+
+GetProvider returns the Provider field if non-nil, zero value otherwise.
+
+### GetProviderOk
+
+`func (o *LinkTotalView) GetProviderOk() (*string, bool)`
+
+GetProviderOk returns a tuple with the Provider field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProvider
+
+`func (o *LinkTotalView) SetProvider(v string)`
+
+SetProvider sets Provider field to given value.
+
+### HasProvider
+
+`func (o *LinkTotalView) HasProvider() bool`
+
+HasProvider returns a boolean if a field has been set.
+
+### GetRequests
+
+`func (o *LinkTotalView) GetRequests() int64`
+
+GetRequests returns the Requests field if non-nil, zero value otherwise.
+
+### GetRequestsOk
+
+`func (o *LinkTotalView) GetRequestsOk() (*int64, bool)`
+
+GetRequestsOk returns a tuple with the Requests field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRequests
+
+`func (o *LinkTotalView) SetRequests(v int64)`
+
+SetRequests sets Requests field to given value.
+
+### HasRequests
+
+`func (o *LinkTotalView) HasRequests() bool`
+
+HasRequests returns a boolean if a field has been set.
+
+### GetScope
+
+`func (o *LinkTotalView) GetScope() string`
+
+GetScope returns the Scope field if non-nil, zero value otherwise.
+
+### GetScopeOk
+
+`func (o *LinkTotalView) GetScopeOk() (*string, bool)`
+
+GetScopeOk returns a tuple with the Scope field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScope
+
+`func (o *LinkTotalView) SetScope(v string)`
+
+SetScope sets Scope field to given value.
+
+### HasScope
+
+`func (o *LinkTotalView) HasScope() bool`
+
+HasScope returns a boolean if a field has been set.
+
+### GetSource
+
+`func (o *LinkTotalView) GetSource() string`
+
+GetSource returns the Source field if non-nil, zero value otherwise.
+
+### GetSourceOk
+
+`func (o *LinkTotalView) GetSourceOk() (*string, bool)`
+
+GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSource
+
+`func (o *LinkTotalView) SetSource(v string)`
+
+SetSource sets Source field to given value.
+
+### HasSource
+
+`func (o *LinkTotalView) HasSource() bool`
+
+HasSource returns a boolean if a field has been set.
+
+### GetTokens
+
+`func (o *LinkTotalView) GetTokens() int64`
+
+GetTokens returns the Tokens field if non-nil, zero value otherwise.
+
+### GetTokensOk
+
+`func (o *LinkTotalView) GetTokensOk() (*int64, bool)`
+
+GetTokensOk returns a tuple with the Tokens field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTokens
+
+`func (o *LinkTotalView) SetTokens(v int64)`
+
+SetTokens sets Tokens field to given value.
+
+### HasTokens
+
+`func (o *LinkTotalView) HasTokens() bool`
+
+HasTokens returns a boolean if a field has been set.
+
+### GetUsedPct
+
+`func (o *LinkTotalView) GetUsedPct() float64`
+
+GetUsedPct returns the UsedPct field if non-nil, zero value otherwise.
+
+### GetUsedPctOk
+
+`func (o *LinkTotalView) GetUsedPctOk() (*float64, bool)`
+
+GetUsedPctOk returns a tuple with the UsedPct field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUsedPct
+
+`func (o *LinkTotalView) SetUsedPct(v float64)`
+
+SetUsedPct sets UsedPct field to given value.
+
+### HasUsedPct
+
+`func (o *LinkTotalView) HasUsedPct() bool`
+
+HasUsedPct returns a boolean if a field has been set.
+
+### GetWindow
+
+`func (o *LinkTotalView) GetWindow() string`
+
+GetWindow returns the Window field if non-nil, zero value otherwise.
+
+### GetWindowOk
+
+`func (o *LinkTotalView) GetWindowOk() (*string, bool)`
+
+GetWindowOk returns a tuple with the Window field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWindow
+
+`func (o *LinkTotalView) SetWindow(v string)`
+
+SetWindow sets Window field to given value.
+
+### HasWindow
+
+`func (o *LinkTotalView) HasWindow() bool`
+
+HasWindow returns a boolean if a field has been set.
+
+### GetWindows
+
+`func (o *LinkTotalView) GetWindows() int64`
+
+GetWindows returns the Windows field if non-nil, zero value otherwise.
+
+### GetWindowsOk
+
+`func (o *LinkTotalView) GetWindowsOk() (*int64, bool)`
+
+GetWindowsOk returns a tuple with the Windows field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWindows
+
+`func (o *LinkTotalView) SetWindows(v int64)`
+
+SetWindows sets Windows field to given value.
+
+### HasWindows
+
+`func (o *LinkTotalView) HasWindows() bool`
+
+HasWindows returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

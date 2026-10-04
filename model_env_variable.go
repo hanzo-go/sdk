@@ -19,9 +19,12 @@ var _ MappedNullable = &EnvVariable{}
 
 // EnvVariable struct for EnvVariable
 type EnvVariable struct {
-	Name  *string `json:"name,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _EnvVariable EnvVariable
 
 // NewEnvVariable instantiates a new EnvVariable object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o EnvVariable) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *EnvVariable) UnmarshalJSON(data []byte) (err error) {
+	varEnvVariable := _EnvVariable{}
+
+	err = json.Unmarshal(data, &varEnvVariable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EnvVariable(varEnvVariable)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableEnvVariable struct {

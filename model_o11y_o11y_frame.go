@@ -28,8 +28,11 @@ type O11yO11yFrame struct {
 	// Line is the line number.
 	Line *int32 `json:"line,omitempty"`
 	// Own marks a frame in the reporting application's own code rather than in a dependency or the runtime.
-	Own *bool `json:"own,omitempty"`
+	Own                  *bool `json:"own,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFrame O11yO11yFrame
 
 // NewO11yO11yFrame instantiates a new O11yO11yFrame object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yFrame) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Own) {
 		toSerialize["own"] = o.Own
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFrame) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFrame := _O11yO11yFrame{}
+
+	err = json.Unmarshal(data, &varO11yO11yFrame)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFrame(varO11yO11yFrame)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "column")
+		delete(additionalProperties, "file")
+		delete(additionalProperties, "function")
+		delete(additionalProperties, "line")
+		delete(additionalProperties, "own")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFrame struct {

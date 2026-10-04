@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## GetHelpArticles
 
-> HelpArticleList GetHelpArticles(ctx).Category(category).Limit(limit).Execute()
+> HelpHelpArticleList GetHelpArticles(ctx).Category(category).Limit(limit).Execute()
 
 Returns the public knowledge base: the help center's Published, publicly-visible articles as cards.
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `HelpAPI.GetHelpArticles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetHelpArticles`: HelpArticleList
+	// response from `GetHelpArticles`: HelpHelpArticleList
 	fmt.Fprintf(os.Stdout, "Response from `HelpAPI.GetHelpArticles`: %v\n", resp)
 }
 ```
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**HelpArticleList**](HelpArticleList.md)
+[**HelpHelpArticleList**](HelpHelpArticleList.md)
 
 ### Authorization
 
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## GetHelpArticlesBySlug
 
-> HelpArticle GetHelpArticlesBySlug(ctx, slug).Execute()
+> HelpHelpArticle GetHelpArticlesBySlug(ctx, slug).Execute()
 
 Returns one public article by slug, with its body.
 
@@ -109,7 +109,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `HelpAPI.GetHelpArticlesBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetHelpArticlesBySlug`: HelpArticle
+	// response from `GetHelpArticlesBySlug`: HelpHelpArticle
 	fmt.Fprintf(os.Stdout, "Response from `HelpAPI.GetHelpArticlesBySlug`: %v\n", resp)
 }
 ```
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**HelpArticle**](HelpArticle.md)
+[**HelpHelpArticle**](HelpHelpArticle.md)
 
 ### Authorization
 
@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 ## GetHelpCategories
 
-> HelpCategoryList GetHelpCategories(ctx).Execute()
+> HelpHelpCategoryList GetHelpCategories(ctx).Execute()
 
 Returns the knowledge-base sections for the public center's navigation — but ONLY the sections that front at least one Published, public article, so an internal (agent-only) category name or description never leaks.
 
@@ -178,7 +178,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `HelpAPI.GetHelpCategories``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetHelpCategories`: HelpCategoryList
+	// response from `GetHelpCategories`: HelpHelpCategoryList
 	fmt.Fprintf(os.Stdout, "Response from `HelpAPI.GetHelpCategories`: %v\n", resp)
 }
 ```
@@ -194,7 +194,7 @@ Other parameters are passed through a pointer to a apiGetHelpCategoriesRequest s
 
 ### Return type
 
-[**HelpCategoryList**](HelpCategoryList.md)
+[**HelpHelpCategoryList**](HelpHelpCategoryList.md)
 
 ### Authorization
 
@@ -203,7 +203,7 @@ Other parameters are passed through a pointer to a apiGetHelpCategoriesRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -212,7 +212,7 @@ Other parameters are passed through a pointer to a apiGetHelpCategoriesRequest s
 
 ## PostHelpTickets
 
-> HelpTicketFiled PostHelpTickets(ctx).HelpTicketIntake(helpTicketIntake).Execute()
+> HelpHelpTicketFiled PostHelpTickets(ctx).HelpHelpTicketIntake(helpHelpTicketIntake).Execute()
 
 Files a customer support ticket into the public help center.
 
@@ -231,16 +231,16 @@ import (
 )
 
 func main() {
-	helpTicketIntake := *openapiclient.NewHelpTicketIntake() // HelpTicketIntake | 
+	helpHelpTicketIntake := *openapiclient.NewHelpHelpTicketIntake() // HelpHelpTicketIntake | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HelpAPI.PostHelpTickets(context.Background()).HelpTicketIntake(helpTicketIntake).Execute()
+	resp, r, err := apiClient.HelpAPI.PostHelpTickets(context.Background()).HelpHelpTicketIntake(helpHelpTicketIntake).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HelpAPI.PostHelpTickets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostHelpTickets`: HelpTicketFiled
+	// response from `PostHelpTickets`: HelpHelpTicketFiled
 	fmt.Fprintf(os.Stdout, "Response from `HelpAPI.PostHelpTickets`: %v\n", resp)
 }
 ```
@@ -256,11 +256,11 @@ Other parameters are passed through a pointer to a apiPostHelpTicketsRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **helpTicketIntake** | [**HelpTicketIntake**](HelpTicketIntake.md) |  | 
+ **helpHelpTicketIntake** | [**HelpHelpTicketIntake**](HelpHelpTicketIntake.md) |  | 
 
 ### Return type
 
-[**HelpTicketFiled**](HelpTicketFiled.md)
+[**HelpHelpTicketFiled**](HelpHelpTicketFiled.md)
 
 ### Authorization
 
@@ -269,7 +269,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

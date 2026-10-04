@@ -68,7 +68,10 @@ type IamProvider struct {
 	Type                   *string           `json:"type,omitempty"`
 	UpdatedAt              *time.Time        `json:"updatedAt,omitempty"`
 	UserMapping            map[string]string `json:"userMapping,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
+
+type _IamProvider IamProvider
 
 // NewIamProvider instantiates a new IamProvider object
 // This constructor will assign default values to properties that have it defined,
@@ -1777,7 +1780,80 @@ func (o IamProvider) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserMapping) {
 		toSerialize["userMapping"] = o.UserMapping
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamProvider) UnmarshalJSON(data []byte) (err error) {
+	varIamProvider := _IamProvider{}
+
+	err = json.Unmarshal(data, &varIamProvider)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamProvider(varIamProvider)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "appId")
+		delete(additionalProperties, "bucket")
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "cert")
+		delete(additionalProperties, "clientId")
+		delete(additionalProperties, "clientId2")
+		delete(additionalProperties, "clientSecret")
+		delete(additionalProperties, "clientSecret2")
+		delete(additionalProperties, "content")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "customAuthUrl")
+		delete(additionalProperties, "customLogo")
+		delete(additionalProperties, "customTokenUrl")
+		delete(additionalProperties, "customUserInfoUrl")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "disableSsl")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "domain")
+		delete(additionalProperties, "emailRegex")
+		delete(additionalProperties, "enablePkce")
+		delete(additionalProperties, "enableProxy")
+		delete(additionalProperties, "enableSignAuthnRequest")
+		delete(additionalProperties, "endpoint")
+		delete(additionalProperties, "host")
+		delete(additionalProperties, "httpHeaders")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "idP")
+		delete(additionalProperties, "intranetEndpoint")
+		delete(additionalProperties, "issuerUrl")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "method")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "pathPrefix")
+		delete(additionalProperties, "port")
+		delete(additionalProperties, "providerUrl")
+		delete(additionalProperties, "receiver")
+		delete(additionalProperties, "regionId")
+		delete(additionalProperties, "scopes")
+		delete(additionalProperties, "signName")
+		delete(additionalProperties, "sslMode")
+		delete(additionalProperties, "subType")
+		delete(additionalProperties, "templateCode")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "userMapping")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamProvider struct {

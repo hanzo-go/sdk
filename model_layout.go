@@ -19,17 +19,20 @@ var _ MappedNullable = &Layout{}
 
 // Layout struct for Layout
 type Layout struct {
-	Category    *string    `json:"category,omitempty"`
-	CreatedTime *string    `json:"createdTime,omitempty"`
-	DisplayName *string    `json:"displayName,omitempty"`
-	FormItems   []FormItem `json:"formItems,omitempty"`
-	Name        *string    `json:"name,omitempty"`
-	Owner       *string    `json:"owner,omitempty"`
-	Position    *string    `json:"position,omitempty"`
-	Tag         *string    `json:"tag,omitempty"`
-	Type        *string    `json:"type,omitempty"`
-	Url         *string    `json:"url,omitempty"`
+	Category             *string    `json:"category,omitempty"`
+	CreatedTime          *string    `json:"createdTime,omitempty"`
+	DisplayName          *string    `json:"displayName,omitempty"`
+	FormItems            []FormItem `json:"formItems,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	Owner                *string    `json:"owner,omitempty"`
+	Position             *string    `json:"position,omitempty"`
+	Tag                  *string    `json:"tag,omitempty"`
+	Type                 *string    `json:"type,omitempty"`
+	Url                  *string    `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Layout Layout
 
 // NewLayout instantiates a new Layout object
 // This constructor will assign default values to properties that have it defined,
@@ -408,7 +411,42 @@ func (o Layout) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Layout) UnmarshalJSON(data []byte) (err error) {
+	varLayout := _Layout{}
+
+	err = json.Unmarshal(data, &varLayout)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Layout(varLayout)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "formItems")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "position")
+		delete(additionalProperties, "tag")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLayout struct {

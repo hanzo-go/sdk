@@ -1,0 +1,82 @@
+# CompanyImportDocumentsOut
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Formation** | Pointer to [**CompanyFormation**](CompanyFormation.md) | Formation is the org&#39;s incorporation record with the imported document ids. | [optional] 
+**Ingested** | Pointer to **int64** | Ingested is how many files this call put in the data room. | [optional] 
+
+## Methods
+
+### NewCompanyImportDocumentsOut
+
+`func NewCompanyImportDocumentsOut() *CompanyImportDocumentsOut`
+
+NewCompanyImportDocumentsOut instantiates a new CompanyImportDocumentsOut object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewCompanyImportDocumentsOutWithDefaults
+
+`func NewCompanyImportDocumentsOutWithDefaults() *CompanyImportDocumentsOut`
+
+NewCompanyImportDocumentsOutWithDefaults instantiates a new CompanyImportDocumentsOut object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetFormation
+
+`func (o *CompanyImportDocumentsOut) GetFormation() CompanyFormation`
+
+GetFormation returns the Formation field if non-nil, zero value otherwise.
+
+### GetFormationOk
+
+`func (o *CompanyImportDocumentsOut) GetFormationOk() (*CompanyFormation, bool)`
+
+GetFormationOk returns a tuple with the Formation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFormation
+
+`func (o *CompanyImportDocumentsOut) SetFormation(v CompanyFormation)`
+
+SetFormation sets Formation field to given value.
+
+### HasFormation
+
+`func (o *CompanyImportDocumentsOut) HasFormation() bool`
+
+HasFormation returns a boolean if a field has been set.
+
+### GetIngested
+
+`func (o *CompanyImportDocumentsOut) GetIngested() int64`
+
+GetIngested returns the Ingested field if non-nil, zero value otherwise.
+
+### GetIngestedOk
+
+`func (o *CompanyImportDocumentsOut) GetIngestedOk() (*int64, bool)`
+
+GetIngestedOk returns a tuple with the Ingested field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIngested
+
+`func (o *CompanyImportDocumentsOut) SetIngested(v int64)`
+
+SetIngested sets Ingested field to given value.
+
+### HasIngested
+
+`func (o *CompanyImportDocumentsOut) HasIngested() bool`
+
+HasIngested returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

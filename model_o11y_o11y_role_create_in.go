@@ -24,8 +24,11 @@ type O11yO11yRoleCreateIn struct {
 	// Name is the role's name: lowercase letters and hyphens, at most 50 characters, not starting with the reserved managed-role prefix. Required.
 	Name *string `json:"name,omitempty"`
 	// TransactionGroups are the grants the role carries.
-	TransactionGroups []O11yO11yTransactionGroup `json:"transactionGroups,omitempty"`
+	TransactionGroups    []O11yO11yTransactionGroup `json:"transactionGroups,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yRoleCreateIn O11yO11yRoleCreateIn
 
 // NewO11yO11yRoleCreateIn instantiates a new O11yO11yRoleCreateIn object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yRoleCreateIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TransactionGroups) {
 		toSerialize["transactionGroups"] = o.TransactionGroups
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yRoleCreateIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yRoleCreateIn := _O11yO11yRoleCreateIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yRoleCreateIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yRoleCreateIn(varO11yO11yRoleCreateIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "transactionGroups")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yRoleCreateIn struct {

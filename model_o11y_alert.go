@@ -20,12 +20,15 @@ var _ MappedNullable = &O11yAlert{}
 
 // O11yAlert struct for O11yAlert
 type O11yAlert struct {
-	Annotations  map[string]string `json:"annotations,omitempty"`
-	EndsAt       *time.Time        `json:"endsAt,omitempty"`
-	GeneratorURL *string           `json:"generatorURL,omitempty"`
-	Labels       map[string]string `json:"labels,omitempty"`
-	StartsAt     *time.Time        `json:"startsAt,omitempty"`
+	Annotations          map[string]string `json:"annotations,omitempty"`
+	EndsAt               *time.Time        `json:"endsAt,omitempty"`
+	GeneratorURL         *string           `json:"generatorURL,omitempty"`
+	Labels               map[string]string `json:"labels,omitempty"`
+	StartsAt             *time.Time        `json:"startsAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAlert O11yAlert
 
 // NewO11yAlert instantiates a new O11yAlert object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o O11yAlert) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StartsAt) {
 		toSerialize["startsAt"] = o.StartsAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAlert) UnmarshalJSON(data []byte) (err error) {
+	varO11yAlert := _O11yAlert{}
+
+	err = json.Unmarshal(data, &varO11yAlert)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAlert(varO11yAlert)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "annotations")
+		delete(additionalProperties, "endsAt")
+		delete(additionalProperties, "generatorURL")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "startsAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAlert struct {

@@ -122,17 +122,17 @@ func (a *AskAPIService) PostAskExecute(r AskAPIPostAskRequest) (*http.Response, 
 }
 
 type AskAPIResearchWebRequest struct {
-	ctx         context.Context
-	ApiService  *AskAPIService
-	webQuestion *WebQuestion
+	ctx            context.Context
+	ApiService     *AskAPIService
+	askWebQuestion *AskWebQuestion
 }
 
-func (r AskAPIResearchWebRequest) WebQuestion(webQuestion WebQuestion) AskAPIResearchWebRequest {
-	r.webQuestion = &webQuestion
+func (r AskAPIResearchWebRequest) AskWebQuestion(askWebQuestion AskWebQuestion) AskAPIResearchWebRequest {
+	r.askWebQuestion = &askWebQuestion
 	return r
 }
 
-func (r AskAPIResearchWebRequest) Execute() (*Report, *http.Response, error) {
+func (r AskAPIResearchWebRequest) Execute() (*AskReport, *http.Response, error) {
 	return r.ApiService.ResearchWebExecute(r)
 }
 
@@ -178,13 +178,13 @@ func (a *AskAPIService) ResearchWeb(ctx context.Context) AskAPIResearchWebReques
 
 // Execute executes the request
 //
-//	@return Report
-func (a *AskAPIService) ResearchWebExecute(r AskAPIResearchWebRequest) (*Report, *http.Response, error) {
+//	@return AskReport
+func (a *AskAPIService) ResearchWebExecute(r AskAPIResearchWebRequest) (*AskReport, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Report
+		localVarReturnValue *AskReport
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AskAPIService.ResearchWeb")
@@ -197,8 +197,8 @@ func (a *AskAPIService) ResearchWebExecute(r AskAPIResearchWebRequest) (*Report,
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.webQuestion == nil {
-		return localVarReturnValue, nil, reportError("webQuestion is required and must be specified")
+	if r.askWebQuestion == nil {
+		return localVarReturnValue, nil, reportError("askWebQuestion is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -211,7 +211,7 @@ func (a *AskAPIService) ResearchWebExecute(r AskAPIResearchWebRequest) (*Report,
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -219,7 +219,7 @@ func (a *AskAPIService) ResearchWebExecute(r AskAPIResearchWebRequest) (*Report,
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.webQuestion
+	localVarPostBody = r.askWebQuestion
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -242,6 +242,14 @@ func (a *AskAPIService) ResearchWebExecute(r AskAPIResearchWebRequest) (*Report,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

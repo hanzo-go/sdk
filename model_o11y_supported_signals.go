@@ -19,9 +19,12 @@ var _ MappedNullable = &O11ySupportedSignals{}
 
 // O11ySupportedSignals struct for O11ySupportedSignals
 type O11ySupportedSignals struct {
-	Logs    *bool `json:"logs,omitempty"`
-	Metrics *bool `json:"metrics,omitempty"`
+	Logs                 *bool `json:"logs,omitempty"`
+	Metrics              *bool `json:"metrics,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySupportedSignals O11ySupportedSignals
 
 // NewO11ySupportedSignals instantiates a new O11ySupportedSignals object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11ySupportedSignals) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metrics) {
 		toSerialize["metrics"] = o.Metrics
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySupportedSignals) UnmarshalJSON(data []byte) (err error) {
+	varO11ySupportedSignals := _O11ySupportedSignals{}
+
+	err = json.Unmarshal(data, &varO11ySupportedSignals)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySupportedSignals(varO11ySupportedSignals)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "logs")
+		delete(additionalProperties, "metrics")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySupportedSignals struct {

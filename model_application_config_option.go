@@ -19,9 +19,12 @@ var _ MappedNullable = &ApplicationConfigOption{}
 
 // ApplicationConfigOption struct for ApplicationConfigOption
 type ApplicationConfigOption struct {
-	Parameter *string `json:"parameter,omitempty"`
-	Setting   *string `json:"setting,omitempty"`
+	Parameter            *string `json:"parameter,omitempty"`
+	Setting              *string `json:"setting,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ApplicationConfigOption ApplicationConfigOption
 
 // NewApplicationConfigOption instantiates a new ApplicationConfigOption object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o ApplicationConfigOption) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Setting) {
 		toSerialize["setting"] = o.Setting
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ApplicationConfigOption) UnmarshalJSON(data []byte) (err error) {
+	varApplicationConfigOption := _ApplicationConfigOption{}
+
+	err = json.Unmarshal(data, &varApplicationConfigOption)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApplicationConfigOption(varApplicationConfigOption)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "parameter")
+		delete(additionalProperties, "setting")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableApplicationConfigOption struct {

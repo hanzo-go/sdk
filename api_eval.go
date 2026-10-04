@@ -42,7 +42,7 @@ This is not a detach: the examples are gone with the set, so a dataset cannot
 be resurrected by re-creating the name. A name this org does not have is 404 —
 never a silent success — and a name belonging to another tenant is the same
 404, because the delete is predicated on the validated org. Requires a
-validated principal; 403 without one. Runs and scores already recorded against
+validated principal; 401 without one. Runs and scores already recorded against
 the dataset are telemetry events and are NOT deleted with it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -87,7 +87,7 @@ func (a *EvalAPIService) DeleteEvalDatasetsByNameExecute(r EvalAPIDeleteEvalData
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -116,6 +116,14 @@ func (a *EvalAPIService) DeleteEvalDatasetsByNameExecute(r EvalAPIDeleteEvalData
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -134,7 +142,7 @@ func (r EvalAPIGetEvalDatasetsRequest) Limit(limit int64) EvalAPIGetEvalDatasets
 	return r
 }
 
-func (r EvalAPIGetEvalDatasetsRequest) Execute() (*DatasetList, *http.Response, error) {
+func (r EvalAPIGetEvalDatasetsRequest) Execute() (*EvalDatasetList, *http.Response, error) {
 	return r.ApiService.GetEvalDatasetsExecute(r)
 }
 
@@ -145,7 +153,7 @@ Is the datasets your org has, each with its name, description,
 metadata and timestamps.
 
 It is the only way to enumerate what an org holds. Requires a validated
-principal; 403 without one. Every row is filtered on the validated org, so
+principal; 401 without one. Every row is filtered on the validated org, so
 there is no parameter that reaches another tenant's datasets. The item count is
 NOT populated here — read one dataset to get it.
 
@@ -161,13 +169,13 @@ func (a *EvalAPIService) GetEvalDatasets(ctx context.Context) EvalAPIGetEvalData
 
 // Execute executes the request
 //
-//	@return DatasetList
-func (a *EvalAPIService) GetEvalDatasetsExecute(r EvalAPIGetEvalDatasetsRequest) (*DatasetList, *http.Response, error) {
+//	@return EvalDatasetList
+func (a *EvalAPIService) GetEvalDatasetsExecute(r EvalAPIGetEvalDatasetsRequest) (*EvalDatasetList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DatasetList
+		localVarReturnValue *EvalDatasetList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.GetEvalDatasets")
@@ -194,7 +202,7 @@ func (a *EvalAPIService) GetEvalDatasetsExecute(r EvalAPIGetEvalDatasetsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -223,6 +231,14 @@ func (a *EvalAPIService) GetEvalDatasetsExecute(r EvalAPIGetEvalDatasetsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,7 +260,7 @@ type EvalAPIGetEvalDatasetsByNameRequest struct {
 	name       string
 }
 
-func (r EvalAPIGetEvalDatasetsByNameRequest) Execute() (*DatasetView, *http.Response, error) {
+func (r EvalAPIGetEvalDatasetsByNameRequest) Execute() (*EvalDatasetView, *http.Response, error) {
 	return r.ApiService.GetEvalDatasetsByNameExecute(r)
 }
 
@@ -255,7 +271,7 @@ Returns one dataset of the caller's org by name, together with its
 live item count — the one read that answers how big the set actually is.
 
 A name this org does not have is 404, which is also what another tenant's
-dataset looks like from here. Requires a validated principal; 403 without one.
+dataset looks like from here. Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the dataset the URL names.
@@ -271,13 +287,13 @@ func (a *EvalAPIService) GetEvalDatasetsByName(ctx context.Context, name string)
 
 // Execute executes the request
 //
-//	@return DatasetView
-func (a *EvalAPIService) GetEvalDatasetsByNameExecute(r EvalAPIGetEvalDatasetsByNameRequest) (*DatasetView, *http.Response, error) {
+//	@return EvalDatasetView
+func (a *EvalAPIService) GetEvalDatasetsByNameExecute(r EvalAPIGetEvalDatasetsByNameRequest) (*EvalDatasetView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DatasetView
+		localVarReturnValue *EvalDatasetView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.GetEvalDatasetsByName")
@@ -302,7 +318,7 @@ func (a *EvalAPIService) GetEvalDatasetsByNameExecute(r EvalAPIGetEvalDatasetsBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -331,6 +347,14 @@ func (a *EvalAPIService) GetEvalDatasetsByNameExecute(r EvalAPIGetEvalDatasetsBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -358,7 +382,7 @@ func (r EvalAPIGetEvalDatasetsByNameItemsRequest) Limit(limit int64) EvalAPIGetE
 	return r
 }
 
-func (r EvalAPIGetEvalDatasetsByNameItemsRequest) Execute() (*ItemList, *http.Response, error) {
+func (r EvalAPIGetEvalDatasetsByNameItemsRequest) Execute() (*EvalItemList, *http.Response, error) {
 	return r.ApiService.GetEvalDatasetsByNameItemsExecute(r)
 }
 
@@ -369,7 +393,7 @@ Is the examples in one of your datasets — the set is named in the
 path, because this collection only exists inside one.
 
 Archived examples are included, so the caller sees the whole set rather than
-only what a run would use. Requires a validated principal; 403 without one, and
+only what a run would use. Requires a validated principal; 401 without one, and
 the read is filtered on the validated org, so naming another tenant's dataset
 returns nothing rather than its contents.
 
@@ -387,13 +411,13 @@ func (a *EvalAPIService) GetEvalDatasetsByNameItems(ctx context.Context, name st
 
 // Execute executes the request
 //
-//	@return ItemList
-func (a *EvalAPIService) GetEvalDatasetsByNameItemsExecute(r EvalAPIGetEvalDatasetsByNameItemsRequest) (*ItemList, *http.Response, error) {
+//	@return EvalItemList
+func (a *EvalAPIService) GetEvalDatasetsByNameItemsExecute(r EvalAPIGetEvalDatasetsByNameItemsRequest) (*EvalItemList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ItemList
+		localVarReturnValue *EvalItemList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.GetEvalDatasetsByNameItems")
@@ -421,7 +445,7 @@ func (a *EvalAPIService) GetEvalDatasetsByNameItemsExecute(r EvalAPIGetEvalDatas
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -450,6 +474,14 @@ func (a *EvalAPIService) GetEvalDatasetsByNameItemsExecute(r EvalAPIGetEvalDatas
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -477,7 +509,7 @@ func (r EvalAPIGetEvalEvaluatorsRequest) Limit(limit int64) EvalAPIGetEvalEvalua
 	return r
 }
 
-func (r EvalAPIGetEvalEvaluatorsRequest) Execute() (*EvaluatorList, *http.Response, error) {
+func (r EvalAPIGetEvalEvaluatorsRequest) Execute() (*EvalEvaluatorList, *http.Response, error) {
 	return r.ApiService.GetEvalEvaluatorsExecute(r)
 }
 
@@ -487,7 +519,7 @@ GetEvalEvaluators Is the judges your org has defined, each with its judge model,
 Is the judges your org has defined, each with its judge model,
 criteria and the score name it writes under.
 
-Requires a validated principal; 403 without one, and the listing is filtered on
+Requires a validated principal; 401 without one, and the listing is filtered on
 the validated org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -502,13 +534,13 @@ func (a *EvalAPIService) GetEvalEvaluators(ctx context.Context) EvalAPIGetEvalEv
 
 // Execute executes the request
 //
-//	@return EvaluatorList
-func (a *EvalAPIService) GetEvalEvaluatorsExecute(r EvalAPIGetEvalEvaluatorsRequest) (*EvaluatorList, *http.Response, error) {
+//	@return EvalEvaluatorList
+func (a *EvalAPIService) GetEvalEvaluatorsExecute(r EvalAPIGetEvalEvaluatorsRequest) (*EvalEvaluatorList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EvaluatorList
+		localVarReturnValue *EvalEvaluatorList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.GetEvalEvaluators")
@@ -535,7 +567,7 @@ func (a *EvalAPIService) GetEvalEvaluatorsExecute(r EvalAPIGetEvalEvaluatorsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -564,6 +596,14 @@ func (a *EvalAPIService) GetEvalEvaluatorsExecute(r EvalAPIGetEvalEvaluatorsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -598,7 +638,7 @@ func (r EvalAPIGetEvalMetricsRequest) Interval(interval string) EvalAPIGetEvalMe
 	return r
 }
 
-func (r EvalAPIGetEvalMetricsRequest) Execute() (*Board, *http.Response, error) {
+func (r EvalAPIGetEvalMetricsRequest) Execute() (*EvalBoard, *http.Response, error) {
 	return r.ApiService.GetEvalMetricsExecute(r)
 }
 
@@ -618,7 +658,7 @@ everyone else sees their own.
 The board is HONEST-EMPTY where it cannot be computed: with no datastore wired,
 or under a named project scope the usage ledger does not yet carry, it answers a
 valid board with zero totals and a flat series rather than a fabricated number
-or a 500. Requires a validated principal; 403 without one.
+or a 500. Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EvalAPIGetEvalMetricsRequest
@@ -632,13 +672,13 @@ func (a *EvalAPIService) GetEvalMetrics(ctx context.Context) EvalAPIGetEvalMetri
 
 // Execute executes the request
 //
-//	@return Board
-func (a *EvalAPIService) GetEvalMetricsExecute(r EvalAPIGetEvalMetricsRequest) (*Board, *http.Response, error) {
+//	@return EvalBoard
+func (a *EvalAPIService) GetEvalMetricsExecute(r EvalAPIGetEvalMetricsRequest) (*EvalBoard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Board
+		localVarReturnValue *EvalBoard
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.GetEvalMetrics")
@@ -668,7 +708,7 @@ func (a *EvalAPIService) GetEvalMetricsExecute(r EvalAPIGetEvalMetricsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -697,6 +737,14 @@ func (a *EvalAPIService) GetEvalMetricsExecute(r EvalAPIGetEvalMetricsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -724,7 +772,7 @@ func (r EvalAPIGetEvalRubricsRequest) Limit(limit int64) EvalAPIGetEvalRubricsRe
 	return r
 }
 
-func (r EvalAPIGetEvalRubricsRequest) Execute() (*ScoreConfigList, *http.Response, error) {
+func (r EvalAPIGetEvalRubricsRequest) Execute() (*EvalScoreConfigList, *http.Response, error) {
 	return r.ApiService.GetEvalRubricsExecute(r)
 }
 
@@ -734,7 +782,7 @@ GetEvalRubrics Is the score shapes your org has declared — each name's data ty
 Is the score shapes your org has declared — each name's data
 type, its numeric bounds and its allowed categories.
 
-Requires a validated principal; 403 without one, and the listing is filtered on
+Requires a validated principal; 401 without one, and the listing is filtered on
 the validated org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -749,13 +797,13 @@ func (a *EvalAPIService) GetEvalRubrics(ctx context.Context) EvalAPIGetEvalRubri
 
 // Execute executes the request
 //
-//	@return ScoreConfigList
-func (a *EvalAPIService) GetEvalRubricsExecute(r EvalAPIGetEvalRubricsRequest) (*ScoreConfigList, *http.Response, error) {
+//	@return EvalScoreConfigList
+func (a *EvalAPIService) GetEvalRubricsExecute(r EvalAPIGetEvalRubricsRequest) (*EvalScoreConfigList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ScoreConfigList
+		localVarReturnValue *EvalScoreConfigList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.GetEvalRubrics")
@@ -782,7 +830,7 @@ func (a *EvalAPIService) GetEvalRubricsExecute(r EvalAPIGetEvalRubricsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -811,6 +859,14 @@ func (a *EvalAPIService) GetEvalRubricsExecute(r EvalAPIGetEvalRubricsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -844,7 +900,7 @@ func (r EvalAPIGetEvalRunsRequest) Limit(limit int64) EvalAPIGetEvalRunsRequest 
 	return r
 }
 
-func (r EvalAPIGetEvalRunsRequest) Execute() (*Runs, *http.Response, error) {
+func (r EvalAPIGetEvalRunsRequest) Execute() (*EvalRuns, *http.Response, error) {
 	return r.ApiService.GetEvalRunsExecute(r)
 }
 
@@ -855,7 +911,7 @@ Is your past runs and how they scored — the dataset and model, the
 judge model, how many examples were attempted and how many scored, the average
 score, and when it happened.
 
-Requires a validated principal; 403 without one, and rows are filtered on the
+Requires a validated principal; 401 without one, and rows are filtered on the
 validated org. These records come from the metastore rather than the datastore,
 so they are readable on a deployment with no telemetry wired — but a run's
 traces and scores are not.
@@ -872,13 +928,13 @@ func (a *EvalAPIService) GetEvalRuns(ctx context.Context) EvalAPIGetEvalRunsRequ
 
 // Execute executes the request
 //
-//	@return Runs
-func (a *EvalAPIService) GetEvalRunsExecute(r EvalAPIGetEvalRunsRequest) (*Runs, *http.Response, error) {
+//	@return EvalRuns
+func (a *EvalAPIService) GetEvalRunsExecute(r EvalAPIGetEvalRunsRequest) (*EvalRuns, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Runs
+		localVarReturnValue *EvalRuns
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.GetEvalRuns")
@@ -908,7 +964,7 @@ func (a *EvalAPIService) GetEvalRunsExecute(r EvalAPIGetEvalRunsRequest) (*Runs,
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -937,6 +993,14 @@ func (a *EvalAPIService) GetEvalRunsExecute(r EvalAPIGetEvalRunsRequest) (*Runs,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -984,7 +1048,7 @@ func (r EvalAPIGetEvalScoresRequest) Limit(limit int64) EvalAPIGetEvalScoresRequ
 	return r
 }
 
-func (r EvalAPIGetEvalScoresRequest) Execute() (*ScoreList, *http.Response, error) {
+func (r EvalAPIGetEvalScoresRequest) Execute() (*EvalScoreList, *http.Response, error) {
 	return r.ApiService.GetEvalScoresExecute(r)
 }
 
@@ -996,7 +1060,7 @@ runName and traceId.
 
 The org is bound as an authoritative predicate on the query, never taken from a
 header, so a filter can narrow the caller's own scores but can never widen past
-them. Requires a validated principal; 403 without one. Scores live in the
+them. Requires a validated principal; 401 without one. Scores live in the
 datastore, so a deployment with none wired answers 503 rather than an empty
 page that would read as "no scores".
 
@@ -1012,13 +1076,13 @@ func (a *EvalAPIService) GetEvalScores(ctx context.Context) EvalAPIGetEvalScores
 
 // Execute executes the request
 //
-//	@return ScoreList
-func (a *EvalAPIService) GetEvalScoresExecute(r EvalAPIGetEvalScoresRequest) (*ScoreList, *http.Response, error) {
+//	@return EvalScoreList
+func (a *EvalAPIService) GetEvalScoresExecute(r EvalAPIGetEvalScoresRequest) (*EvalScoreList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ScoreList
+		localVarReturnValue *EvalScoreList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.GetEvalScores")
@@ -1054,7 +1118,7 @@ func (a *EvalAPIService) GetEvalScoresExecute(r EvalAPIGetEvalScoresRequest) (*S
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1083,6 +1147,14 @@ func (a *EvalAPIService) GetEvalScoresExecute(r EvalAPIGetEvalScoresRequest) (*S
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1130,7 +1202,7 @@ func (r EvalAPIGetEvalTracesRequest) Limit(limit int64) EvalAPIGetEvalTracesRequ
 	return r
 }
 
-func (r EvalAPIGetEvalTracesRequest) Execute() (*TraceList, *http.Response, error) {
+func (r EvalAPIGetEvalTracesRequest) Execute() (*EvalTraceList, *http.Response, error) {
 	return r.ApiService.GetEvalTracesExecute(r)
 }
 
@@ -1143,7 +1215,7 @@ of sessionId, runName and datasetName.
 
 Scoped by org AND by project: the project is the caller's server-minted scope,
 not a parameter, so it cannot be widened by asking. Requires a validated
-principal; 403 without one. Traces live in the datastore, so a deployment with
+principal; 401 without one. Traces live in the datastore, so a deployment with
 none wired answers 503 rather than an empty page.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1158,13 +1230,13 @@ func (a *EvalAPIService) GetEvalTraces(ctx context.Context) EvalAPIGetEvalTraces
 
 // Execute executes the request
 //
-//	@return TraceList
-func (a *EvalAPIService) GetEvalTracesExecute(r EvalAPIGetEvalTracesRequest) (*TraceList, *http.Response, error) {
+//	@return EvalTraceList
+func (a *EvalAPIService) GetEvalTracesExecute(r EvalAPIGetEvalTracesRequest) (*EvalTraceList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TraceList
+		localVarReturnValue *EvalTraceList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.GetEvalTraces")
@@ -1200,7 +1272,7 @@ func (a *EvalAPIService) GetEvalTracesExecute(r EvalAPIGetEvalTracesRequest) (*T
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1229,6 +1301,14 @@ func (a *EvalAPIService) GetEvalTracesExecute(r EvalAPIGetEvalTracesRequest) (*T
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1245,17 +1325,17 @@ func (a *EvalAPIService) GetEvalTracesExecute(r EvalAPIGetEvalTracesRequest) (*T
 }
 
 type EvalAPIPostEvalDatasetsRequest struct {
-	ctx        context.Context
-	ApiService *EvalAPIService
-	datasetReq *DatasetReq
+	ctx            context.Context
+	ApiService     *EvalAPIService
+	evalDatasetReq *EvalDatasetReq
 }
 
-func (r EvalAPIPostEvalDatasetsRequest) DatasetReq(datasetReq DatasetReq) EvalAPIPostEvalDatasetsRequest {
-	r.datasetReq = &datasetReq
+func (r EvalAPIPostEvalDatasetsRequest) EvalDatasetReq(evalDatasetReq EvalDatasetReq) EvalAPIPostEvalDatasetsRequest {
+	r.evalDatasetReq = &evalDatasetReq
 	return r
 }
 
-func (r EvalAPIPostEvalDatasetsRequest) Execute() (*DatasetView, *http.Response, error) {
+func (r EvalAPIPostEvalDatasetsRequest) Execute() (*EvalDatasetView, *http.Response, error) {
 	return r.ApiService.PostEvalDatasetsExecute(r)
 }
 
@@ -1269,7 +1349,7 @@ The NAME is the key, not an id: posting a name the org already has updates that
 dataset's description and metadata and keeps its original creation time, so this
 is create-or-edit and never a duplicate. Its items are untouched.
 
-Requires a validated principal; 403 without one. The org comes from the
+Requires a validated principal; 401 without one. The org comes from the
 validated owner claim, never from a client X-Org-Id, so a dataset can only ever
 be written under the caller's own tenant. A description over 64 KiB is 400.
 
@@ -1285,13 +1365,13 @@ func (a *EvalAPIService) PostEvalDatasets(ctx context.Context) EvalAPIPostEvalDa
 
 // Execute executes the request
 //
-//	@return DatasetView
-func (a *EvalAPIService) PostEvalDatasetsExecute(r EvalAPIPostEvalDatasetsRequest) (*DatasetView, *http.Response, error) {
+//	@return EvalDatasetView
+func (a *EvalAPIService) PostEvalDatasetsExecute(r EvalAPIPostEvalDatasetsRequest) (*EvalDatasetView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DatasetView
+		localVarReturnValue *EvalDatasetView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.PostEvalDatasets")
@@ -1304,8 +1384,8 @@ func (a *EvalAPIService) PostEvalDatasetsExecute(r EvalAPIPostEvalDatasetsReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.datasetReq == nil {
-		return localVarReturnValue, nil, reportError("datasetReq is required and must be specified")
+	if r.evalDatasetReq == nil {
+		return localVarReturnValue, nil, reportError("evalDatasetReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1318,7 +1398,7 @@ func (a *EvalAPIService) PostEvalDatasetsExecute(r EvalAPIPostEvalDatasetsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1326,7 +1406,7 @@ func (a *EvalAPIService) PostEvalDatasetsExecute(r EvalAPIPostEvalDatasetsReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.datasetReq
+	localVarPostBody = r.evalDatasetReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1349,6 +1429,14 @@ func (a *EvalAPIService) PostEvalDatasetsExecute(r EvalAPIPostEvalDatasetsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1365,18 +1453,18 @@ func (a *EvalAPIService) PostEvalDatasetsExecute(r EvalAPIPostEvalDatasetsReques
 }
 
 type EvalAPIPostEvalDatasetsByNameItemsRequest struct {
-	ctx        context.Context
-	ApiService *EvalAPIService
-	name       string
-	itemReq    *ItemReq
+	ctx         context.Context
+	ApiService  *EvalAPIService
+	name        string
+	evalItemReq *EvalItemReq
 }
 
-func (r EvalAPIPostEvalDatasetsByNameItemsRequest) ItemReq(itemReq ItemReq) EvalAPIPostEvalDatasetsByNameItemsRequest {
-	r.itemReq = &itemReq
+func (r EvalAPIPostEvalDatasetsByNameItemsRequest) EvalItemReq(evalItemReq EvalItemReq) EvalAPIPostEvalDatasetsByNameItemsRequest {
+	r.evalItemReq = &evalItemReq
 	return r
 }
 
-func (r EvalAPIPostEvalDatasetsByNameItemsRequest) Execute() (*ItemView, *http.Response, error) {
+func (r EvalAPIPostEvalDatasetsByNameItemsRequest) Execute() (*EvalItemView, *http.Response, error) {
 	return r.ApiService.PostEvalDatasetsByNameItemsExecute(r)
 }
 
@@ -1388,7 +1476,7 @@ free-form metadata and a status — into the dataset named in the path, and
 answers 201 with it.
 
 That dataset MUST already exist for this org: an unknown one is 404, never a
-silent create. Requires a validated principal; 403 without one.
+silent create. Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name
@@ -1404,13 +1492,13 @@ func (a *EvalAPIService) PostEvalDatasetsByNameItems(ctx context.Context, name s
 
 // Execute executes the request
 //
-//	@return ItemView
-func (a *EvalAPIService) PostEvalDatasetsByNameItemsExecute(r EvalAPIPostEvalDatasetsByNameItemsRequest) (*ItemView, *http.Response, error) {
+//	@return EvalItemView
+func (a *EvalAPIService) PostEvalDatasetsByNameItemsExecute(r EvalAPIPostEvalDatasetsByNameItemsRequest) (*EvalItemView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ItemView
+		localVarReturnValue *EvalItemView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.PostEvalDatasetsByNameItems")
@@ -1424,8 +1512,8 @@ func (a *EvalAPIService) PostEvalDatasetsByNameItemsExecute(r EvalAPIPostEvalDat
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.itemReq == nil {
-		return localVarReturnValue, nil, reportError("itemReq is required and must be specified")
+	if r.evalItemReq == nil {
+		return localVarReturnValue, nil, reportError("evalItemReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1438,7 +1526,7 @@ func (a *EvalAPIService) PostEvalDatasetsByNameItemsExecute(r EvalAPIPostEvalDat
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1446,7 +1534,7 @@ func (a *EvalAPIService) PostEvalDatasetsByNameItemsExecute(r EvalAPIPostEvalDat
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.itemReq
+	localVarPostBody = r.evalItemReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1469,6 +1557,14 @@ func (a *EvalAPIService) PostEvalDatasetsByNameItemsExecute(r EvalAPIPostEvalDat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1485,17 +1581,17 @@ func (a *EvalAPIService) PostEvalDatasetsByNameItemsExecute(r EvalAPIPostEvalDat
 }
 
 type EvalAPIPostEvalEvaluatorsRequest struct {
-	ctx          context.Context
-	ApiService   *EvalAPIService
-	evaluatorReq *EvaluatorReq
+	ctx              context.Context
+	ApiService       *EvalAPIService
+	evalEvaluatorReq *EvalEvaluatorReq
 }
 
-func (r EvalAPIPostEvalEvaluatorsRequest) EvaluatorReq(evaluatorReq EvaluatorReq) EvalAPIPostEvalEvaluatorsRequest {
-	r.evaluatorReq = &evaluatorReq
+func (r EvalAPIPostEvalEvaluatorsRequest) EvalEvaluatorReq(evalEvaluatorReq EvalEvaluatorReq) EvalAPIPostEvalEvaluatorsRequest {
+	r.evalEvaluatorReq = &evalEvaluatorReq
 	return r
 }
 
-func (r EvalAPIPostEvalEvaluatorsRequest) Execute() (*EvaluatorView, *http.Response, error) {
+func (r EvalAPIPostEvalEvaluatorsRequest) Execute() (*EvalEvaluatorView, *http.Response, error) {
 	return r.ApiService.PostEvalEvaluatorsExecute(r)
 }
 
@@ -1506,7 +1602,7 @@ Saves a reusable judge for the caller's org — the judge model
 and the written criteria it grades against — and answers 201 with it.
 
 Like a dataset, the NAME is the key: re-posting a name edits that judge rather
-than adding a second one. Requires a validated principal; 403 without one.
+than adding a second one. Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EvalAPIPostEvalEvaluatorsRequest
@@ -1520,13 +1616,13 @@ func (a *EvalAPIService) PostEvalEvaluators(ctx context.Context) EvalAPIPostEval
 
 // Execute executes the request
 //
-//	@return EvaluatorView
-func (a *EvalAPIService) PostEvalEvaluatorsExecute(r EvalAPIPostEvalEvaluatorsRequest) (*EvaluatorView, *http.Response, error) {
+//	@return EvalEvaluatorView
+func (a *EvalAPIService) PostEvalEvaluatorsExecute(r EvalAPIPostEvalEvaluatorsRequest) (*EvalEvaluatorView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EvaluatorView
+		localVarReturnValue *EvalEvaluatorView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.PostEvalEvaluators")
@@ -1539,8 +1635,8 @@ func (a *EvalAPIService) PostEvalEvaluatorsExecute(r EvalAPIPostEvalEvaluatorsRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.evaluatorReq == nil {
-		return localVarReturnValue, nil, reportError("evaluatorReq is required and must be specified")
+	if r.evalEvaluatorReq == nil {
+		return localVarReturnValue, nil, reportError("evalEvaluatorReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1553,7 +1649,7 @@ func (a *EvalAPIService) PostEvalEvaluatorsExecute(r EvalAPIPostEvalEvaluatorsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1561,7 +1657,7 @@ func (a *EvalAPIService) PostEvalEvaluatorsExecute(r EvalAPIPostEvalEvaluatorsRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.evaluatorReq
+	localVarPostBody = r.evalEvaluatorReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1584,6 +1680,14 @@ func (a *EvalAPIService) PostEvalEvaluatorsExecute(r EvalAPIPostEvalEvaluatorsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1600,17 +1704,17 @@ func (a *EvalAPIService) PostEvalEvaluatorsExecute(r EvalAPIPostEvalEvaluatorsRe
 }
 
 type EvalAPIPostEvalRubricsRequest struct {
-	ctx            context.Context
-	ApiService     *EvalAPIService
-	scoreConfigReq *ScoreConfigReq
+	ctx                context.Context
+	ApiService         *EvalAPIService
+	evalScoreConfigReq *EvalScoreConfigReq
 }
 
-func (r EvalAPIPostEvalRubricsRequest) ScoreConfigReq(scoreConfigReq ScoreConfigReq) EvalAPIPostEvalRubricsRequest {
-	r.scoreConfigReq = &scoreConfigReq
+func (r EvalAPIPostEvalRubricsRequest) EvalScoreConfigReq(evalScoreConfigReq EvalScoreConfigReq) EvalAPIPostEvalRubricsRequest {
+	r.evalScoreConfigReq = &evalScoreConfigReq
 	return r
 }
 
-func (r EvalAPIPostEvalRubricsRequest) Execute() (*ScoreConfigView, *http.Response, error) {
+func (r EvalAPIPostEvalRubricsRequest) Execute() (*EvalScoreConfigView, *http.Response, error) {
 	return r.ApiService.PostEvalRubricsExecute(r)
 }
 
@@ -1627,7 +1731,7 @@ Out-of-range values, unlisted labels and non-finite numbers are refused at
 write time.
 
 A CATEGORICAL rubric with no categories is 400, as is a non-finite bound or a
-minValue above maxValue. Requires a validated principal; 403 without one.
+minValue above maxValue. Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EvalAPIPostEvalRubricsRequest
@@ -1641,13 +1745,13 @@ func (a *EvalAPIService) PostEvalRubrics(ctx context.Context) EvalAPIPostEvalRub
 
 // Execute executes the request
 //
-//	@return ScoreConfigView
-func (a *EvalAPIService) PostEvalRubricsExecute(r EvalAPIPostEvalRubricsRequest) (*ScoreConfigView, *http.Response, error) {
+//	@return EvalScoreConfigView
+func (a *EvalAPIService) PostEvalRubricsExecute(r EvalAPIPostEvalRubricsRequest) (*EvalScoreConfigView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ScoreConfigView
+		localVarReturnValue *EvalScoreConfigView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.PostEvalRubrics")
@@ -1660,8 +1764,8 @@ func (a *EvalAPIService) PostEvalRubricsExecute(r EvalAPIPostEvalRubricsRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.scoreConfigReq == nil {
-		return localVarReturnValue, nil, reportError("scoreConfigReq is required and must be specified")
+	if r.evalScoreConfigReq == nil {
+		return localVarReturnValue, nil, reportError("evalScoreConfigReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1674,7 +1778,7 @@ func (a *EvalAPIService) PostEvalRubricsExecute(r EvalAPIPostEvalRubricsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1682,7 +1786,7 @@ func (a *EvalAPIService) PostEvalRubricsExecute(r EvalAPIPostEvalRubricsRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.scoreConfigReq
+	localVarPostBody = r.evalScoreConfigReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1705,6 +1809,14 @@ func (a *EvalAPIService) PostEvalRubricsExecute(r EvalAPIPostEvalRubricsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1721,14 +1833,14 @@ func (a *EvalAPIService) PostEvalRubricsExecute(r EvalAPIPostEvalRubricsRequest)
 }
 
 type EvalAPIPostEvalRunsRequest struct {
-	ctx           context.Context
-	ApiService    *EvalAPIService
-	runRequest    *RunRequest
-	authorization *string
+	ctx            context.Context
+	ApiService     *EvalAPIService
+	evalRunRequest *EvalRunRequest
+	authorization  *string
 }
 
-func (r EvalAPIPostEvalRunsRequest) RunRequest(runRequest RunRequest) EvalAPIPostEvalRunsRequest {
-	r.runRequest = &runRequest
+func (r EvalAPIPostEvalRunsRequest) EvalRunRequest(evalRunRequest EvalRunRequest) EvalAPIPostEvalRunsRequest {
+	r.evalRunRequest = &evalRunRequest
 	return r
 }
 
@@ -1737,7 +1849,7 @@ func (r EvalAPIPostEvalRunsRequest) Authorization(authorization string) EvalAPIP
 	return r
 }
 
-func (r EvalAPIPostEvalRunsRequest) Execute() (*RunSummary, *http.Response, error) {
+func (r EvalAPIPostEvalRunsRequest) Execute() (*EvalRunSummary, *http.Response, error) {
 	return r.ApiService.PostEvalRunsExecute(r)
 }
 
@@ -1766,7 +1878,7 @@ examples past the deadline come back with an error instead of a score, and
 scored counts only real successes. A run where NOTHING scored answers 502, not
 a 200 that looks like an evaluation. A run must be able to persist what it
 produces, so a deployment with no datastore wired is 503 up front. Requires a
-validated principal; 403 without one.
+validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EvalAPIPostEvalRunsRequest
@@ -1780,13 +1892,13 @@ func (a *EvalAPIService) PostEvalRuns(ctx context.Context) EvalAPIPostEvalRunsRe
 
 // Execute executes the request
 //
-//	@return RunSummary
-func (a *EvalAPIService) PostEvalRunsExecute(r EvalAPIPostEvalRunsRequest) (*RunSummary, *http.Response, error) {
+//	@return EvalRunSummary
+func (a *EvalAPIService) PostEvalRunsExecute(r EvalAPIPostEvalRunsRequest) (*EvalRunSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RunSummary
+		localVarReturnValue *EvalRunSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.PostEvalRuns")
@@ -1799,8 +1911,8 @@ func (a *EvalAPIService) PostEvalRunsExecute(r EvalAPIPostEvalRunsRequest) (*Run
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.runRequest == nil {
-		return localVarReturnValue, nil, reportError("runRequest is required and must be specified")
+	if r.evalRunRequest == nil {
+		return localVarReturnValue, nil, reportError("evalRunRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1813,7 +1925,7 @@ func (a *EvalAPIService) PostEvalRunsExecute(r EvalAPIPostEvalRunsRequest) (*Run
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1824,7 +1936,7 @@ func (a *EvalAPIService) PostEvalRunsExecute(r EvalAPIPostEvalRunsRequest) (*Run
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.runRequest
+	localVarPostBody = r.evalRunRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1848,7 +1960,7 @@ func (a *EvalAPIService) PostEvalRunsExecute(r EvalAPIPostEvalRunsRequest) (*Run
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
-			var v RunSummary
+			var v EvalRunSummary
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1856,7 +1968,16 @@ func (a *EvalAPIService) PostEvalRunsExecute(r EvalAPIPostEvalRunsRequest) (*Run
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1873,17 +1994,17 @@ func (a *EvalAPIService) PostEvalRunsExecute(r EvalAPIPostEvalRunsRequest) (*Run
 }
 
 type EvalAPIPostEvalScoresRequest struct {
-	ctx        context.Context
-	ApiService *EvalAPIService
-	scoreReq   *ScoreReq
+	ctx          context.Context
+	ApiService   *EvalAPIService
+	evalScoreReq *EvalScoreReq
 }
 
-func (r EvalAPIPostEvalScoresRequest) ScoreReq(scoreReq ScoreReq) EvalAPIPostEvalScoresRequest {
-	r.scoreReq = &scoreReq
+func (r EvalAPIPostEvalScoresRequest) EvalScoreReq(evalScoreReq EvalScoreReq) EvalAPIPostEvalScoresRequest {
+	r.evalScoreReq = &evalScoreReq
 	return r
 }
 
-func (r EvalAPIPostEvalScoresRequest) Execute() (*ScoreView, *http.Response, error) {
+func (r EvalAPIPostEvalScoresRequest) Execute() (*EvalScoreView, *http.Response, error) {
 	return r.ApiService.PostEvalScoresExecute(r)
 }
 
@@ -1904,7 +2025,7 @@ different dataType.
 
 A score is TELEMETRY, not metadata, so it needs the datastore: a deployment
 with none wired answers 503 rather than accepting a score it cannot persist.
-Requires a validated principal; 403 without one, and the org is stamped from
+Requires a validated principal; 401 without one, and the org is stamped from
 the validated claim rather than read off the body.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1919,13 +2040,13 @@ func (a *EvalAPIService) PostEvalScores(ctx context.Context) EvalAPIPostEvalScor
 
 // Execute executes the request
 //
-//	@return ScoreView
-func (a *EvalAPIService) PostEvalScoresExecute(r EvalAPIPostEvalScoresRequest) (*ScoreView, *http.Response, error) {
+//	@return EvalScoreView
+func (a *EvalAPIService) PostEvalScoresExecute(r EvalAPIPostEvalScoresRequest) (*EvalScoreView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ScoreView
+		localVarReturnValue *EvalScoreView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EvalAPIService.PostEvalScores")
@@ -1938,8 +2059,8 @@ func (a *EvalAPIService) PostEvalScoresExecute(r EvalAPIPostEvalScoresRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.scoreReq == nil {
-		return localVarReturnValue, nil, reportError("scoreReq is required and must be specified")
+	if r.evalScoreReq == nil {
+		return localVarReturnValue, nil, reportError("evalScoreReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1952,7 +2073,7 @@ func (a *EvalAPIService) PostEvalScoresExecute(r EvalAPIPostEvalScoresRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1960,7 +2081,7 @@ func (a *EvalAPIService) PostEvalScoresExecute(r EvalAPIPostEvalScoresRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.scoreReq
+	localVarPostBody = r.evalScoreReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1983,6 +2104,14 @@ func (a *EvalAPIService) PostEvalScoresExecute(r EvalAPIPostEvalScoresRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

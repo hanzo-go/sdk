@@ -21,7 +21,10 @@ var _ MappedNullable = &O11yAWSIntegrationConfig{}
 type O11yAWSIntegrationConfig struct {
 	EnabledRegions              []string                            `json:"enabledRegions,omitempty"`
 	TelemetryCollectionStrategy *O11yAWSTelemetryCollectionStrategy `json:"telemetryCollectionStrategy,omitempty"`
+	AdditionalProperties        map[string]interface{}
 }
+
+type _O11yAWSIntegrationConfig O11yAWSIntegrationConfig
 
 // NewO11yAWSIntegrationConfig instantiates a new O11yAWSIntegrationConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yAWSIntegrationConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TelemetryCollectionStrategy) {
 		toSerialize["telemetryCollectionStrategy"] = o.TelemetryCollectionStrategy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAWSIntegrationConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yAWSIntegrationConfig := _O11yAWSIntegrationConfig{}
+
+	err = json.Unmarshal(data, &varO11yAWSIntegrationConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAWSIntegrationConfig(varO11yAWSIntegrationConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enabledRegions")
+		delete(additionalProperties, "telemetryCollectionStrategy")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAWSIntegrationConfig struct {

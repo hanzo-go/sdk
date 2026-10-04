@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -26,7 +25,8 @@ type O11yO11yErrorUpdateIssueIn struct {
 	// ID is the issue id.
 	Id string `json:"id"`
 	// Status is the new lifecycle state: unresolved, resolved or ignored.
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11yErrorUpdateIssueIn O11yO11yErrorUpdateIssueIn
@@ -154,6 +154,11 @@ func (o O11yO11yErrorUpdateIssueIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -181,15 +186,22 @@ func (o *O11yO11yErrorUpdateIssueIn) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11yErrorUpdateIssueIn := _O11yO11yErrorUpdateIssueIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11yErrorUpdateIssueIn)
+	err = json.Unmarshal(data, &varO11yO11yErrorUpdateIssueIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11yErrorUpdateIssueIn(varO11yO11yErrorUpdateIssueIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "assignee")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

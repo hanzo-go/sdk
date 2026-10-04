@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yPagerdutyLink{}
 
 // O11yPagerdutyLink struct for O11yPagerdutyLink
 type O11yPagerdutyLink struct {
-	Href *string `json:"href,omitempty"`
-	Text *string `json:"text,omitempty"`
+	Href                 *string `json:"href,omitempty"`
+	Text                 *string `json:"text,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPagerdutyLink O11yPagerdutyLink
 
 // NewO11yPagerdutyLink instantiates a new O11yPagerdutyLink object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yPagerdutyLink) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Text) {
 		toSerialize["text"] = o.Text
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPagerdutyLink) UnmarshalJSON(data []byte) (err error) {
+	varO11yPagerdutyLink := _O11yPagerdutyLink{}
+
+	err = json.Unmarshal(data, &varO11yPagerdutyLink)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPagerdutyLink(varO11yPagerdutyLink)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "href")
+		delete(additionalProperties, "text")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPagerdutyLink struct {

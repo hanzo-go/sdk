@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner{}
 
 // O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner struct for O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner
 type O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner struct {
-	FilterPattern      *string `json:"filter_pattern,omitempty"`
-	LogGroupNamePrefix *string `json:"log_group_name_prefix,omitempty"`
+	FilterPattern        *string `json:"filter_pattern,omitempty"`
+	LogGroupNamePrefix   *string `json:"log_group_name_prefix,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner
 
 // NewO11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner instantiates a new O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner) ToMap() (map[str
 	if !IsNil(o.LogGroupNamePrefix) {
 		toSerialize["log_group_name_prefix"] = o.LogGroupNamePrefix
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner) UnmarshalJSON(data []byte) (err error) {
+	varO11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner := _O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner{}
+
+	err = json.Unmarshal(data, &varO11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner(varO11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "filter_pattern")
+		delete(additionalProperties, "log_group_name_prefix")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner struct {

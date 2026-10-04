@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yFilterSet{}
 
 // O11yFilterSet struct for O11yFilterSet
 type O11yFilterSet struct {
-	Items []O11yFilterItem `json:"items,omitempty"`
-	Op    *string          `json:"op,omitempty"`
+	Items                []O11yFilterItem `json:"items,omitempty"`
+	Op                   *string          `json:"op,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yFilterSet O11yFilterSet
 
 // NewO11yFilterSet instantiates a new O11yFilterSet object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yFilterSet) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Op) {
 		toSerialize["op"] = o.Op
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yFilterSet) UnmarshalJSON(data []byte) (err error) {
+	varO11yFilterSet := _O11yFilterSet{}
+
+	err = json.Unmarshal(data, &varO11yFilterSet)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yFilterSet(varO11yFilterSet)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "op")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yFilterSet struct {

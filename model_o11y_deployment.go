@@ -22,8 +22,11 @@ type O11yDeployment struct {
 	// Instance is the replica as the telemetry store labels it — the address the series was recorded against, which is what distinguishes two replicas of one service.
 	Instance *string `json:"instance,omitempty"`
 	// Up is that replica's last reported state. Every target emits on every cycle, so a replica missing from the list is one the prober is not reporting at all, which is a different fact from down.
-	Up *bool `json:"up,omitempty"`
+	Up                   *bool `json:"up,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yDeployment O11yDeployment
 
 // NewO11yDeployment instantiates a new O11yDeployment object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yDeployment) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Up) {
 		toSerialize["up"] = o.Up
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yDeployment) UnmarshalJSON(data []byte) (err error) {
+	varO11yDeployment := _O11yDeployment{}
+
+	err = json.Unmarshal(data, &varO11yDeployment)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yDeployment(varO11yDeployment)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "instance")
+		delete(additionalProperties, "up")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yDeployment struct {

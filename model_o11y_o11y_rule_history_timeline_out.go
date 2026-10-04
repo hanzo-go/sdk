@@ -22,8 +22,11 @@ type O11yO11yRuleHistoryTimelineOut struct {
 	// Data holds the timeline and its paging cursor.
 	Data *O11yGettableRuleStateTimeline `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yRuleHistoryTimelineOut O11yO11yRuleHistoryTimelineOut
 
 // NewO11yO11yRuleHistoryTimelineOut instantiates a new O11yO11yRuleHistoryTimelineOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yRuleHistoryTimelineOut) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yRuleHistoryTimelineOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yRuleHistoryTimelineOut := _O11yO11yRuleHistoryTimelineOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yRuleHistoryTimelineOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yRuleHistoryTimelineOut(varO11yO11yRuleHistoryTimelineOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yRuleHistoryTimelineOut struct {

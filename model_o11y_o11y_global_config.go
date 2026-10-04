@@ -28,8 +28,11 @@ type O11yO11yGlobalConfig struct {
 	// IngestionURL is where telemetry is sent.
 	IngestionUrl *string `json:"ingestion_url,omitempty"`
 	// MCPURL is the MCP endpoint, when one is exposed.
-	McpUrl *string `json:"mcp_url,omitempty"`
+	McpUrl               *string `json:"mcp_url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yGlobalConfig O11yO11yGlobalConfig
 
 // NewO11yO11yGlobalConfig instantiates a new O11yO11yGlobalConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yGlobalConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.McpUrl) {
 		toSerialize["mcp_url"] = o.McpUrl
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yGlobalConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yGlobalConfig := _O11yO11yGlobalConfig{}
+
+	err = json.Unmarshal(data, &varO11yO11yGlobalConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yGlobalConfig(varO11yO11yGlobalConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ai_assistant_url")
+		delete(additionalProperties, "external_url")
+		delete(additionalProperties, "identN")
+		delete(additionalProperties, "ingestion_url")
+		delete(additionalProperties, "mcp_url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yGlobalConfig struct {

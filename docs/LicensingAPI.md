@@ -12,8 +12,6 @@ Method | HTTP request | Description
 [**GetLicensingReleasesByRelease**](LicensingAPI.md#GetLicensingReleasesByRelease) | **Get** /v1/licensing/releases/{release} | Reads one release&#39;s metadata: its product, version, platform and the cosign material a client verifies the binary against.
 [**PostLicensingFingerprint**](LicensingAPI.md#PostLicensingFingerprint) | **Post** /v1/licensing/fingerprint | Fingerprint turns raw device signals into the opaque value that binds a license to one machine.
 [**PostLicensingIssue**](LicensingAPI.md#PostLicensingIssue) | **Post** /v1/licensing/issue | Issue mints a signed license token for a product the caller&#39;s org already pays for.
-[**PostLicensingReleases**](LicensingAPI.md#PostLicensingReleases) | **Post** /v1/licensing/releases | Publishes a signed binary release, answering 201 Created.
-[**PostLicensingRevoke**](LicensingAPI.md#PostLicensingRevoke) | **Post** /v1/licensing/revoke | Revoke turns off tokens that have already been issued.
 [**PostLicensingVerify**](LicensingAPI.md#PostLicensingVerify) | **Post** /v1/licensing/verify | Verify checks a license token online: signature, schema, expiry, app_id and the revocation list.
 
 
@@ -85,7 +83,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -146,7 +144,7 @@ Other parameters are passed through a pointer to a apiGetLicensingHealthzRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -207,7 +205,7 @@ Other parameters are passed through a pointer to a apiGetLicensingJwksRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -268,7 +266,7 @@ Other parameters are passed through a pointer to a apiGetLicensingPubkeyRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -329,7 +327,7 @@ Other parameters are passed through a pointer to a apiGetLicensingReleasesReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -399,7 +397,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -465,7 +463,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -531,139 +529,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostLicensingReleases
-
-> LicensingRelease PostLicensingReleases(ctx).LicensingRelease(licensingRelease).Execute()
-
-Publishes a signed binary release, answering 201 Created.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	licensingRelease := *openapiclient.NewLicensingRelease() // LicensingRelease | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LicensingAPI.PostLicensingReleases(context.Background()).LicensingRelease(licensingRelease).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LicensingAPI.PostLicensingReleases``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostLicensingReleases`: LicensingRelease
-	fmt.Fprintf(os.Stdout, "Response from `LicensingAPI.PostLicensingReleases`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostLicensingReleasesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **licensingRelease** | [**LicensingRelease**](LicensingRelease.md) |  | 
-
-### Return type
-
-[**LicensingRelease**](LicensingRelease.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostLicensingRevoke
-
-> LicensingRevokeResponse PostLicensingRevoke(ctx).LicensingRevokeRequest(licensingRevokeRequest).Execute()
-
-Revoke turns off tokens that have already been issued.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	licensingRevokeRequest := *openapiclient.NewLicensingRevokeRequest("Scope_example", "Value_example") // LicensingRevokeRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LicensingAPI.PostLicensingRevoke(context.Background()).LicensingRevokeRequest(licensingRevokeRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `LicensingAPI.PostLicensingRevoke``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostLicensingRevoke`: LicensingRevokeResponse
-	fmt.Fprintf(os.Stdout, "Response from `LicensingAPI.PostLicensingRevoke`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostLicensingRevokeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **licensingRevokeRequest** | [**LicensingRevokeRequest**](LicensingRevokeRequest.md) |  | 
-
-### Return type
-
-[**LicensingRevokeResponse**](LicensingRevokeResponse.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -729,7 +595,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

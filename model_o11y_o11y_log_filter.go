@@ -22,8 +22,11 @@ type O11yO11yLogFilter struct {
 	// Items are the predicates.
 	Items []O11yO11yLogFilterItem `json:"items,omitempty"`
 	// Op combines the items: AND or OR.
-	Op *string `json:"op,omitempty"`
+	Op                   *string `json:"op,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogFilter O11yO11yLogFilter
 
 // NewO11yO11yLogFilter instantiates a new O11yO11yLogFilter object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yLogFilter) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Op) {
 		toSerialize["op"] = o.Op
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogFilter) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogFilter := _O11yO11yLogFilter{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogFilter(varO11yO11yLogFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "op")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogFilter struct {

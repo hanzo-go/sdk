@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## GetWorld
 
-> WorldIndex GetWorld(ctx).Execute()
+> WorldWorldIndex GetWorld(ctx).Execute()
 
 Answers GET /v1/world — the product's public endpoint, naming every wire this surface answers on.
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorldAPI.GetWorld``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWorld`: WorldIndex
+	// response from `GetWorld`: WorldWorldIndex
 	fmt.Fprintf(os.Stdout, "Response from `WorldAPI.GetWorld`: %v\n", resp)
 }
 ```
@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiGetWorldRequest struct via
 
 ### Return type
 
-[**WorldIndex**](WorldIndex.md)
+[**WorldWorldIndex**](WorldWorldIndex.md)
 
 ### Authorization
 
@@ -67,7 +67,7 @@ Other parameters are passed through a pointer to a apiGetWorldRequest struct via
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -76,7 +76,7 @@ Other parameters are passed through a pointer to a apiGetWorldRequest struct via
 
 ## GetWorldLimits
 
-> LimitsView GetWorldLimits(ctx).Plan(plan).Execute()
+> WorldLimitsView GetWorldLimits(ctx).Plan(plan).Execute()
 
 Echoes a World plan's rate limits, alert quota and model-API grant, read straight from the live @hanzo/plans catalog, so agents and dashboards configure themselves against the catalog instead of hardcoding tier numbers.
 
@@ -104,7 +104,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorldAPI.GetWorldLimits``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWorldLimits`: LimitsView
+	// response from `GetWorldLimits`: WorldLimitsView
 	fmt.Fprintf(os.Stdout, "Response from `WorldAPI.GetWorldLimits`: %v\n", resp)
 }
 ```
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**LimitsView**](LimitsView.md)
+[**WorldLimitsView**](WorldLimitsView.md)
 
 ### Authorization
 
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 
 ## GetWorldNews
 
-> NewsResponse GetWorldNews(ctx).Execute()
+> WorldNewsResponse GetWorldNews(ctx).Execute()
 
 Returns the caller's merged world-news feed: every source their project's pipeline names — GDELT once per keyword, plus each allowlisted RSS or Atom feed — fetched concurrently, narrowed by the pipeline's keyword/region/source filters, deduplicated by link and sorted freshest first, capped at 50 items.
 
@@ -169,7 +169,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorldAPI.GetWorldNews``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWorldNews`: NewsResponse
+	// response from `GetWorldNews`: WorldNewsResponse
 	fmt.Fprintf(os.Stdout, "Response from `WorldAPI.GetWorldNews`: %v\n", resp)
 }
 ```
@@ -185,7 +185,7 @@ Other parameters are passed through a pointer to a apiGetWorldNewsRequest struct
 
 ### Return type
 
-[**NewsResponse**](NewsResponse.md)
+[**WorldNewsResponse**](WorldNewsResponse.md)
 
 ### Authorization
 
@@ -194,7 +194,7 @@ Other parameters are passed through a pointer to a apiGetWorldNewsRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -203,7 +203,7 @@ Other parameters are passed through a pointer to a apiGetWorldNewsRequest struct
 
 ## GetWorldPipeline
 
-> PipelineView GetWorldPipeline(ctx).Execute()
+> WorldPipelineView GetWorldPipeline(ctx).Execute()
 
 Returns the caller project's news pipeline: which feeds it reads and how the merged result is filtered.
 
@@ -230,7 +230,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorldAPI.GetWorldPipeline``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWorldPipeline`: PipelineView
+	// response from `GetWorldPipeline`: WorldPipelineView
 	fmt.Fprintf(os.Stdout, "Response from `WorldAPI.GetWorldPipeline`: %v\n", resp)
 }
 ```
@@ -246,7 +246,7 @@ Other parameters are passed through a pointer to a apiGetWorldPipelineRequest st
 
 ### Return type
 
-[**PipelineView**](PipelineView.md)
+[**WorldPipelineView**](WorldPipelineView.md)
 
 ### Authorization
 
@@ -255,7 +255,7 @@ Other parameters are passed through a pointer to a apiGetWorldPipelineRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -323,7 +323,7 @@ Other parameters are passed through a pointer to a apiGetWorldStreamRequest stru
 
 ## PutWorldPipeline
 
-> PipelineView PutWorldPipeline(ctx).PipelineReq(pipelineReq).Execute()
+> WorldPipelineView PutWorldPipeline(ctx).WorldPipelineReq(worldPipelineReq).Execute()
 
 Replaces the caller project's news pipeline and returns what was stored.
 
@@ -342,16 +342,16 @@ import (
 )
 
 func main() {
-	pipelineReq := *openapiclient.NewPipelineReq() // PipelineReq | 
+	worldPipelineReq := *openapiclient.NewWorldPipelineReq() // WorldPipelineReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WorldAPI.PutWorldPipeline(context.Background()).PipelineReq(pipelineReq).Execute()
+	resp, r, err := apiClient.WorldAPI.PutWorldPipeline(context.Background()).WorldPipelineReq(worldPipelineReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorldAPI.PutWorldPipeline``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutWorldPipeline`: PipelineView
+	// response from `PutWorldPipeline`: WorldPipelineView
 	fmt.Fprintf(os.Stdout, "Response from `WorldAPI.PutWorldPipeline`: %v\n", resp)
 }
 ```
@@ -367,11 +367,11 @@ Other parameters are passed through a pointer to a apiPutWorldPipelineRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pipelineReq** | [**PipelineReq**](PipelineReq.md) |  | 
+ **worldPipelineReq** | [**WorldPipelineReq**](WorldPipelineReq.md) |  | 
 
 ### Return type
 
-[**PipelineView**](PipelineView.md)
+[**WorldPipelineView**](WorldPipelineView.md)
 
 ### Authorization
 
@@ -380,7 +380,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

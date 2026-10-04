@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yVariableItem{}
 
 // O11yVariableItem struct for O11yVariableItem
 type O11yVariableItem struct {
-	Type  interface{}            `json:"type,omitempty"`
-	Value map[string]interface{} `json:"value,omitempty"`
+	Type                 interface{} `json:"type,omitempty"`
+	Value                interface{} `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yVariableItem O11yVariableItem
 
 // NewO11yVariableItem instantiates a new O11yVariableItem object
 // This constructor will assign default values to properties that have it defined,
@@ -73,10 +76,10 @@ func (o *O11yVariableItem) SetType(v interface{}) {
 	o.Type = v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *O11yVariableItem) GetValue() map[string]interface{} {
-	if o == nil || IsNil(o.Value) {
-		var ret map[string]interface{}
+// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *O11yVariableItem) GetValue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Value
@@ -84,11 +87,12 @@ func (o *O11yVariableItem) GetValue() map[string]interface{} {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yVariableItem) GetValueOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *O11yVariableItem) GetValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Value) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
@@ -100,8 +104,8 @@ func (o *O11yVariableItem) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
-func (o *O11yVariableItem) SetValue(v map[string]interface{}) {
+// SetValue gets a reference to the given interface{} and assigns it to the Value field.
+func (o *O11yVariableItem) SetValue(v interface{}) {
 	o.Value = v
 }
 
@@ -118,10 +122,37 @@ func (o O11yVariableItem) ToMap() (map[string]interface{}, error) {
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
-	if !IsNil(o.Value) {
+	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yVariableItem) UnmarshalJSON(data []byte) (err error) {
+	varO11yVariableItem := _O11yVariableItem{}
+
+	err = json.Unmarshal(data, &varO11yVariableItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yVariableItem(varO11yVariableItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yVariableItem struct {

@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yGettableFieldKeys{}
 
 // O11yGettableFieldKeys struct for O11yGettableFieldKeys
 type O11yGettableFieldKeys struct {
-	Complete *bool                              `json:"complete,omitempty"`
-	Keys     map[string][]O11yTelemetryFieldKey `json:"keys,omitempty"`
+	Complete             *bool                              `json:"complete,omitempty"`
+	Keys                 map[string][]O11yTelemetryFieldKey `json:"keys,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableFieldKeys O11yGettableFieldKeys
 
 // NewO11yGettableFieldKeys instantiates a new O11yGettableFieldKeys object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yGettableFieldKeys) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Keys) {
 		toSerialize["keys"] = o.Keys
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableFieldKeys) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableFieldKeys := _O11yGettableFieldKeys{}
+
+	err = json.Unmarshal(data, &varO11yGettableFieldKeys)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableFieldKeys(varO11yGettableFieldKeys)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "complete")
+		delete(additionalProperties, "keys")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableFieldKeys struct {

@@ -24,8 +24,11 @@ type O11yO11yQueryWarning struct {
 	// URL points at the relevant documentation.
 	Url *string `json:"url,omitempty"`
 	// Warnings carries additional notes.
-	Warnings []O11yO11yQueryWarningNote `json:"warnings,omitempty"`
+	Warnings             []O11yO11yQueryWarningNote `json:"warnings,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueryWarning O11yO11yQueryWarning
 
 // NewO11yO11yQueryWarning instantiates a new O11yO11yQueryWarning object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yQueryWarning) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Warnings) {
 		toSerialize["warnings"] = o.Warnings
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueryWarning) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueryWarning := _O11yO11yQueryWarning{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueryWarning)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueryWarning(varO11yO11yQueryWarning)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "warnings")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueryWarning struct {

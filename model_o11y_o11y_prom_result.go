@@ -21,9 +21,12 @@ var _ MappedNullable = &O11yO11yPromResult{}
 type O11yO11yPromResult struct {
 	Result interface{} `json:"result,omitempty"`
 	// ResultType discriminates Result: matrix, vector, scalar or string.
-	ResultType *string     `json:"resultType,omitempty"`
-	Stats      interface{} `json:"stats,omitempty"`
+	ResultType           *string     `json:"resultType,omitempty"`
+	Stats                interface{} `json:"stats,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yPromResult O11yO11yPromResult
 
 // NewO11yO11yPromResult instantiates a new O11yO11yPromResult object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yPromResult) ToMap() (map[string]interface{}, error) {
 	if o.Stats != nil {
 		toSerialize["stats"] = o.Stats
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yPromResult) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yPromResult := _O11yO11yPromResult{}
+
+	err = json.Unmarshal(data, &varO11yO11yPromResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yPromResult(varO11yO11yPromResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "result")
+		delete(additionalProperties, "resultType")
+		delete(additionalProperties, "stats")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yPromResult struct {

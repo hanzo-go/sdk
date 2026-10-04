@@ -19,9 +19,12 @@ var _ MappedNullable = &IamConsentRecord{}
 
 // IamConsentRecord struct for IamConsentRecord
 type IamConsentRecord struct {
-	Application   *string  `json:"application,omitempty"`
-	GrantedScopes []string `json:"grantedScopes,omitempty"`
+	Application          *string  `json:"application,omitempty"`
+	GrantedScopes        []string `json:"grantedScopes,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamConsentRecord IamConsentRecord
 
 // NewIamConsentRecord instantiates a new IamConsentRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o IamConsentRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GrantedScopes) {
 		toSerialize["grantedScopes"] = o.GrantedScopes
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamConsentRecord) UnmarshalJSON(data []byte) (err error) {
+	varIamConsentRecord := _IamConsentRecord{}
+
+	err = json.Unmarshal(data, &varIamConsentRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamConsentRecord(varIamConsentRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "application")
+		delete(additionalProperties, "grantedScopes")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamConsentRecord struct {

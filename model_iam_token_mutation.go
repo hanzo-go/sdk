@@ -19,9 +19,12 @@ var _ MappedNullable = &IamTokenMutation{}
 
 // IamTokenMutation struct for IamTokenMutation
 type IamTokenMutation struct {
-	Affected *bool     `json:"affected,omitempty"`
-	Token    *IamToken `json:"token,omitempty"`
+	Affected             *bool     `json:"affected,omitempty"`
+	Token                *IamToken `json:"token,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamTokenMutation IamTokenMutation
 
 // NewIamTokenMutation instantiates a new IamTokenMutation object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o IamTokenMutation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamTokenMutation) UnmarshalJSON(data []byte) (err error) {
+	varIamTokenMutation := _IamTokenMutation{}
+
+	err = json.Unmarshal(data, &varIamTokenMutation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamTokenMutation(varIamTokenMutation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "affected")
+		delete(additionalProperties, "token")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamTokenMutation struct {

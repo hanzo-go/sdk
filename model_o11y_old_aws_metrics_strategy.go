@@ -20,7 +20,10 @@ var _ MappedNullable = &O11yOldAWSMetricsStrategy{}
 // O11yOldAWSMetricsStrategy struct for O11yOldAWSMetricsStrategy
 type O11yOldAWSMetricsStrategy struct {
 	CloudwatchMetricStreamFilters []O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner `json:"cloudwatch_metric_stream_filters,omitempty"`
+	AdditionalProperties          map[string]interface{}
 }
+
+type _O11yOldAWSMetricsStrategy O11yOldAWSMetricsStrategy
 
 // NewO11yOldAWSMetricsStrategy instantiates a new O11yOldAWSMetricsStrategy object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yOldAWSMetricsStrategy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CloudwatchMetricStreamFilters) {
 		toSerialize["cloudwatch_metric_stream_filters"] = o.CloudwatchMetricStreamFilters
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yOldAWSMetricsStrategy) UnmarshalJSON(data []byte) (err error) {
+	varO11yOldAWSMetricsStrategy := _O11yOldAWSMetricsStrategy{}
+
+	err = json.Unmarshal(data, &varO11yOldAWSMetricsStrategy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yOldAWSMetricsStrategy(varO11yOldAWSMetricsStrategy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cloudwatch_metric_stream_filters")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yOldAWSMetricsStrategy struct {

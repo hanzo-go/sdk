@@ -19,11 +19,14 @@ var _ MappedNullable = &Capability{}
 
 // Capability struct for Capability
 type Capability struct {
-	Description *string `json:"description,omitempty"`
-	Href        *string `json:"href,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Stage       *string `json:"stage,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	Href                 *string `json:"href,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Stage                *string `json:"stage,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Capability Capability
 
 // NewCapability instantiates a new Capability object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o Capability) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Stage) {
 		toSerialize["stage"] = o.Stage
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Capability) UnmarshalJSON(data []byte) (err error) {
+	varCapability := _Capability{}
+
+	err = json.Unmarshal(data, &varCapability)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Capability(varCapability)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "href")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "stage")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCapability struct {

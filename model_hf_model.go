@@ -19,16 +19,19 @@ var _ MappedNullable = &HfModel{}
 
 // HfModel struct for HfModel
 type HfModel struct {
-	Downloads    *int32      `json:"downloads,omitempty"`
-	Gated        interface{} `json:"gated,omitempty"`
-	Id           *string     `json:"id,omitempty"`
-	LastModified *string     `json:"lastModified,omitempty"`
-	LibraryName  *string     `json:"library_name,omitempty"`
-	Likes        *int32      `json:"likes,omitempty"`
-	PipelineTag  *string     `json:"pipeline_tag,omitempty"`
-	Private      *bool       `json:"private,omitempty"`
-	Tags         []string    `json:"tags,omitempty"`
+	Downloads            *int32      `json:"downloads,omitempty"`
+	Gated                interface{} `json:"gated,omitempty"`
+	Id                   *string     `json:"id,omitempty"`
+	LastModified         *string     `json:"lastModified,omitempty"`
+	LibraryName          *string     `json:"library_name,omitempty"`
+	Likes                *int32      `json:"likes,omitempty"`
+	PipelineTag          *string     `json:"pipeline_tag,omitempty"`
+	Private              *bool       `json:"private,omitempty"`
+	Tags                 []string    `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _HfModel HfModel
 
 // NewHfModel instantiates a new HfModel object
 // This constructor will assign default values to properties that have it defined,
@@ -373,7 +376,41 @@ func (o HfModel) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *HfModel) UnmarshalJSON(data []byte) (err error) {
+	varHfModel := _HfModel{}
+
+	err = json.Unmarshal(data, &varHfModel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HfModel(varHfModel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "downloads")
+		delete(additionalProperties, "gated")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "lastModified")
+		delete(additionalProperties, "library_name")
+		delete(additionalProperties, "likes")
+		delete(additionalProperties, "pipeline_tag")
+		delete(additionalProperties, "private")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableHfModel struct {

@@ -19,9 +19,12 @@ var _ MappedNullable = &OpenaiFunctionCall{}
 
 // OpenaiFunctionCall struct for OpenaiFunctionCall
 type OpenaiFunctionCall struct {
-	Arguments *string `json:"arguments,omitempty"`
-	Name      *string `json:"name,omitempty"`
+	Arguments            *string `json:"arguments,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiFunctionCall OpenaiFunctionCall
 
 // NewOpenaiFunctionCall instantiates a new OpenaiFunctionCall object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o OpenaiFunctionCall) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiFunctionCall) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiFunctionCall := _OpenaiFunctionCall{}
+
+	err = json.Unmarshal(data, &varOpenaiFunctionCall)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiFunctionCall(varOpenaiFunctionCall)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "arguments")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiFunctionCall struct {

@@ -19,15 +19,18 @@ var _ MappedNullable = &ScanDraft{}
 
 // ScanDraft struct for ScanDraft
 type ScanDraft struct {
-	Balanced   *bool      `json:"balanced,omitempty"`
-	Category   *string    `json:"category,omitempty"`
-	Confidence *string    `json:"confidence,omitempty"`
-	Extracted  *Extracted `json:"extracted,omitempty"`
-	Questions  []Question `json:"questions,omitempty"`
-	ScanId     *string    `json:"scanId,omitempty"`
-	Vendor     *string    `json:"vendor,omitempty"`
-	Voucher    *Voucher   `json:"voucher,omitempty"`
+	Balanced             *bool      `json:"balanced,omitempty"`
+	Category             *string    `json:"category,omitempty"`
+	Confidence           *string    `json:"confidence,omitempty"`
+	Extracted            *Extracted `json:"extracted,omitempty"`
+	Questions            []Question `json:"questions,omitempty"`
+	ScanId               *string    `json:"scanId,omitempty"`
+	Vendor               *string    `json:"vendor,omitempty"`
+	Voucher              *Voucher   `json:"voucher,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ScanDraft ScanDraft
 
 // NewScanDraft instantiates a new ScanDraft object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o ScanDraft) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Voucher) {
 		toSerialize["voucher"] = o.Voucher
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ScanDraft) UnmarshalJSON(data []byte) (err error) {
+	varScanDraft := _ScanDraft{}
+
+	err = json.Unmarshal(data, &varScanDraft)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ScanDraft(varScanDraft)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "balanced")
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "confidence")
+		delete(additionalProperties, "extracted")
+		delete(additionalProperties, "questions")
+		delete(additionalProperties, "scanId")
+		delete(additionalProperties, "vendor")
+		delete(additionalProperties, "voucher")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableScanDraft struct {

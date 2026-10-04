@@ -34,8 +34,11 @@ type O11yO11yLLMIngestScore struct {
 	// TraceID is the trace the score attaches to. Required.
 	TraceId *string `json:"traceId,omitempty"`
 	// Value is the numeric score.
-	Value *float64 `json:"value,omitempty"`
+	Value                *float64 `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMIngestScore O11yO11yLLMIngestScore
 
 // NewO11yO11yLLMIngestScore instantiates a new O11yO11yLLMIngestScore object
 // This constructor will assign default values to properties that have it defined,
@@ -344,7 +347,40 @@ func (o O11yO11yLLMIngestScore) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMIngestScore) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMIngestScore := _O11yO11yLLMIngestScore{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMIngestScore)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMIngestScore(varO11yO11yLLMIngestScore)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "comment")
+		delete(additionalProperties, "dataType")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "observationId")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "stringValue")
+		delete(additionalProperties, "traceId")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMIngestScore struct {

@@ -27,7 +27,7 @@ type PricingAPIGetPricingRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r PricingAPIGetPricingRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetPricingExecute(r)
 }
 
@@ -52,13 +52,13 @@ func (a *PricingAPIService) GetPricing(ctx context.Context) PricingAPIGetPricing
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *PricingAPIService) GetPricingExecute(r PricingAPIGetPricingRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *PricingAPIService) GetPricingExecute(r PricingAPIGetPricingRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricing")
@@ -82,7 +82,7 @@ func (a *PricingAPIService) GetPricingExecute(r PricingAPIGetPricingRequest) (ma
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -111,6 +111,14 @@ func (a *PricingAPIService) GetPricingExecute(r PricingAPIGetPricingRequest) (ma
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -131,7 +139,7 @@ type PricingAPIGetPricingBaseRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingBaseRequest) Execute() (*PricingPlanList, *http.Response, error) {
+func (r PricingAPIGetPricingBaseRequest) Execute() (*PricingPricingPlanList, *http.Response, error) {
 	return r.ApiService.GetPricingBaseExecute(r)
 }
 
@@ -154,13 +162,13 @@ func (a *PricingAPIService) GetPricingBase(ctx context.Context) PricingAPIGetPri
 
 // Execute executes the request
 //
-//	@return PricingPlanList
-func (a *PricingAPIService) GetPricingBaseExecute(r PricingAPIGetPricingBaseRequest) (*PricingPlanList, *http.Response, error) {
+//	@return PricingPricingPlanList
+func (a *PricingAPIService) GetPricingBaseExecute(r PricingAPIGetPricingBaseRequest) (*PricingPricingPlanList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingPlanList
+		localVarReturnValue *PricingPricingPlanList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingBase")
@@ -184,7 +192,7 @@ func (a *PricingAPIService) GetPricingBaseExecute(r PricingAPIGetPricingBaseRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -213,6 +221,14 @@ func (a *PricingAPIService) GetPricingBaseExecute(r PricingAPIGetPricingBaseRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -233,7 +249,7 @@ type PricingAPIGetPricingBlockchainRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingBlockchainRequest) Execute() (*PricingPlanList, *http.Response, error) {
+func (r PricingAPIGetPricingBlockchainRequest) Execute() (*PricingPricingPlanList, *http.Response, error) {
 	return r.ApiService.GetPricingBlockchainExecute(r)
 }
 
@@ -255,13 +271,13 @@ func (a *PricingAPIService) GetPricingBlockchain(ctx context.Context) PricingAPI
 
 // Execute executes the request
 //
-//	@return PricingPlanList
-func (a *PricingAPIService) GetPricingBlockchainExecute(r PricingAPIGetPricingBlockchainRequest) (*PricingPlanList, *http.Response, error) {
+//	@return PricingPricingPlanList
+func (a *PricingAPIService) GetPricingBlockchainExecute(r PricingAPIGetPricingBlockchainRequest) (*PricingPricingPlanList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingPlanList
+		localVarReturnValue *PricingPricingPlanList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingBlockchain")
@@ -285,7 +301,7 @@ func (a *PricingAPIService) GetPricingBlockchainExecute(r PricingAPIGetPricingBl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -314,6 +330,14 @@ func (a *PricingAPIService) GetPricingBlockchainExecute(r PricingAPIGetPricingBl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -334,7 +358,7 @@ type PricingAPIGetPricingCloudRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingCloudRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r PricingAPIGetPricingCloudRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetPricingCloudExecute(r)
 }
 
@@ -359,13 +383,13 @@ func (a *PricingAPIService) GetPricingCloud(ctx context.Context) PricingAPIGetPr
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *PricingAPIService) GetPricingCloudExecute(r PricingAPIGetPricingCloudRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *PricingAPIService) GetPricingCloudExecute(r PricingAPIGetPricingCloudRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingCloud")
@@ -389,7 +413,7 @@ func (a *PricingAPIService) GetPricingCloudExecute(r PricingAPIGetPricingCloudRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -418,6 +442,14 @@ func (a *PricingAPIService) GetPricingCloudExecute(r PricingAPIGetPricingCloudRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -438,7 +470,7 @@ type PricingAPIGetPricingCloudPlansRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingCloudPlansRequest) Execute() (*PricingPlanList, *http.Response, error) {
+func (r PricingAPIGetPricingCloudPlansRequest) Execute() (*PricingPricingPlanList, *http.Response, error) {
 	return r.ApiService.GetPricingCloudPlansExecute(r)
 }
 
@@ -461,13 +493,13 @@ func (a *PricingAPIService) GetPricingCloudPlans(ctx context.Context) PricingAPI
 
 // Execute executes the request
 //
-//	@return PricingPlanList
-func (a *PricingAPIService) GetPricingCloudPlansExecute(r PricingAPIGetPricingCloudPlansRequest) (*PricingPlanList, *http.Response, error) {
+//	@return PricingPricingPlanList
+func (a *PricingAPIService) GetPricingCloudPlansExecute(r PricingAPIGetPricingCloudPlansRequest) (*PricingPricingPlanList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingPlanList
+		localVarReturnValue *PricingPricingPlanList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingCloudPlans")
@@ -491,7 +523,7 @@ func (a *PricingAPIService) GetPricingCloudPlansExecute(r PricingAPIGetPricingCl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -520,6 +552,14 @@ func (a *PricingAPIService) GetPricingCloudPlansExecute(r PricingAPIGetPricingCl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -540,7 +580,7 @@ type PricingAPIGetPricingCloudRegionsRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingCloudRegionsRequest) Execute() (*PricingRegionList, *http.Response, error) {
+func (r PricingAPIGetPricingCloudRegionsRequest) Execute() (*PricingPricingRegionList, *http.Response, error) {
 	return r.ApiService.GetPricingCloudRegionsExecute(r)
 }
 
@@ -563,13 +603,13 @@ func (a *PricingAPIService) GetPricingCloudRegions(ctx context.Context) PricingA
 
 // Execute executes the request
 //
-//	@return PricingRegionList
-func (a *PricingAPIService) GetPricingCloudRegionsExecute(r PricingAPIGetPricingCloudRegionsRequest) (*PricingRegionList, *http.Response, error) {
+//	@return PricingPricingRegionList
+func (a *PricingAPIService) GetPricingCloudRegionsExecute(r PricingAPIGetPricingCloudRegionsRequest) (*PricingPricingRegionList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingRegionList
+		localVarReturnValue *PricingPricingRegionList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingCloudRegions")
@@ -593,7 +633,7 @@ func (a *PricingAPIService) GetPricingCloudRegionsExecute(r PricingAPIGetPricing
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -622,6 +662,14 @@ func (a *PricingAPIService) GetPricingCloudRegionsExecute(r PricingAPIGetPricing
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -642,7 +690,7 @@ type PricingAPIGetPricingCloudStorageRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingCloudStorageRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r PricingAPIGetPricingCloudStorageRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetPricingCloudStorageExecute(r)
 }
 
@@ -665,13 +713,13 @@ func (a *PricingAPIService) GetPricingCloudStorage(ctx context.Context) PricingA
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *PricingAPIService) GetPricingCloudStorageExecute(r PricingAPIGetPricingCloudStorageRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *PricingAPIService) GetPricingCloudStorageExecute(r PricingAPIGetPricingCloudStorageRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingCloudStorage")
@@ -695,7 +743,7 @@ func (a *PricingAPIService) GetPricingCloudStorageExecute(r PricingAPIGetPricing
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -724,6 +772,14 @@ func (a *PricingAPIService) GetPricingCloudStorageExecute(r PricingAPIGetPricing
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -744,7 +800,7 @@ type PricingAPIGetPricingComputeRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingComputeRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r PricingAPIGetPricingComputeRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetPricingComputeExecute(r)
 }
 
@@ -769,13 +825,13 @@ func (a *PricingAPIService) GetPricingCompute(ctx context.Context) PricingAPIGet
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *PricingAPIService) GetPricingComputeExecute(r PricingAPIGetPricingComputeRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *PricingAPIService) GetPricingComputeExecute(r PricingAPIGetPricingComputeRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingCompute")
@@ -799,7 +855,7 @@ func (a *PricingAPIService) GetPricingComputeExecute(r PricingAPIGetPricingCompu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -828,6 +884,14 @@ func (a *PricingAPIService) GetPricingComputeExecute(r PricingAPIGetPricingCompu
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -848,7 +912,7 @@ type PricingAPIGetPricingComputePresetsRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingComputePresetsRequest) Execute() (*PricingPresetList, *http.Response, error) {
+func (r PricingAPIGetPricingComputePresetsRequest) Execute() (*PricingPricingPresetList, *http.Response, error) {
 	return r.ApiService.GetPricingComputePresetsExecute(r)
 }
 
@@ -873,13 +937,13 @@ func (a *PricingAPIService) GetPricingComputePresets(ctx context.Context) Pricin
 
 // Execute executes the request
 //
-//	@return PricingPresetList
-func (a *PricingAPIService) GetPricingComputePresetsExecute(r PricingAPIGetPricingComputePresetsRequest) (*PricingPresetList, *http.Response, error) {
+//	@return PricingPricingPresetList
+func (a *PricingAPIService) GetPricingComputePresetsExecute(r PricingAPIGetPricingComputePresetsRequest) (*PricingPricingPresetList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingPresetList
+		localVarReturnValue *PricingPricingPresetList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingComputePresets")
@@ -903,7 +967,7 @@ func (a *PricingAPIService) GetPricingComputePresetsExecute(r PricingAPIGetPrici
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -932,6 +996,14 @@ func (a *PricingAPIService) GetPricingComputePresetsExecute(r PricingAPIGetPrici
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -952,7 +1024,7 @@ type PricingAPIGetPricingDatastoreRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingDatastoreRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r PricingAPIGetPricingDatastoreRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetPricingDatastoreExecute(r)
 }
 
@@ -978,13 +1050,13 @@ func (a *PricingAPIService) GetPricingDatastore(ctx context.Context) PricingAPIG
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *PricingAPIService) GetPricingDatastoreExecute(r PricingAPIGetPricingDatastoreRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *PricingAPIService) GetPricingDatastoreExecute(r PricingAPIGetPricingDatastoreRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingDatastore")
@@ -1008,7 +1080,7 @@ func (a *PricingAPIService) GetPricingDatastoreExecute(r PricingAPIGetPricingDat
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1037,6 +1109,14 @@ func (a *PricingAPIService) GetPricingDatastoreExecute(r PricingAPIGetPricingDat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1057,7 +1137,7 @@ type PricingAPIGetPricingEnablementRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingEnablementRequest) Execute() (*EnablementBoard, *http.Response, error) {
+func (r PricingAPIGetPricingEnablementRequest) Execute() (*PricingEnablementBoard, *http.Response, error) {
 	return r.ApiService.GetPricingEnablementExecute(r)
 }
 
@@ -1082,13 +1162,13 @@ func (a *PricingAPIService) GetPricingEnablement(ctx context.Context) PricingAPI
 
 // Execute executes the request
 //
-//	@return EnablementBoard
-func (a *PricingAPIService) GetPricingEnablementExecute(r PricingAPIGetPricingEnablementRequest) (*EnablementBoard, *http.Response, error) {
+//	@return PricingEnablementBoard
+func (a *PricingAPIService) GetPricingEnablementExecute(r PricingAPIGetPricingEnablementRequest) (*PricingEnablementBoard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EnablementBoard
+		localVarReturnValue *PricingEnablementBoard
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingEnablement")
@@ -1112,7 +1192,7 @@ func (a *PricingAPIService) GetPricingEnablementExecute(r PricingAPIGetPricingEn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1141,6 +1221,14 @@ func (a *PricingAPIService) GetPricingEnablementExecute(r PricingAPIGetPricingEn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1161,7 +1249,7 @@ type PricingAPIGetPricingFeaturedRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingFeaturedRequest) Execute() (*PricingModelList, *http.Response, error) {
+func (r PricingAPIGetPricingFeaturedRequest) Execute() (*PricingPricingModelList, *http.Response, error) {
 	return r.ApiService.GetPricingFeaturedExecute(r)
 }
 
@@ -1184,13 +1272,13 @@ func (a *PricingAPIService) GetPricingFeatured(ctx context.Context) PricingAPIGe
 
 // Execute executes the request
 //
-//	@return PricingModelList
-func (a *PricingAPIService) GetPricingFeaturedExecute(r PricingAPIGetPricingFeaturedRequest) (*PricingModelList, *http.Response, error) {
+//	@return PricingPricingModelList
+func (a *PricingAPIService) GetPricingFeaturedExecute(r PricingAPIGetPricingFeaturedRequest) (*PricingPricingModelList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingModelList
+		localVarReturnValue *PricingPricingModelList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingFeatured")
@@ -1214,7 +1302,7 @@ func (a *PricingAPIService) GetPricingFeaturedExecute(r PricingAPIGetPricingFeat
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1243,6 +1331,14 @@ func (a *PricingAPIService) GetPricingFeaturedExecute(r PricingAPIGetPricingFeat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1263,7 +1359,7 @@ type PricingAPIGetPricingFreeRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingFreeRequest) Execute() (*PricingModelList, *http.Response, error) {
+func (r PricingAPIGetPricingFreeRequest) Execute() (*PricingPricingModelList, *http.Response, error) {
 	return r.ApiService.GetPricingFreeExecute(r)
 }
 
@@ -1286,13 +1382,13 @@ func (a *PricingAPIService) GetPricingFree(ctx context.Context) PricingAPIGetPri
 
 // Execute executes the request
 //
-//	@return PricingModelList
-func (a *PricingAPIService) GetPricingFreeExecute(r PricingAPIGetPricingFreeRequest) (*PricingModelList, *http.Response, error) {
+//	@return PricingPricingModelList
+func (a *PricingAPIService) GetPricingFreeExecute(r PricingAPIGetPricingFreeRequest) (*PricingPricingModelList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingModelList
+		localVarReturnValue *PricingPricingModelList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingFree")
@@ -1316,7 +1412,7 @@ func (a *PricingAPIService) GetPricingFreeExecute(r PricingAPIGetPricingFreeRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1345,6 +1441,14 @@ func (a *PricingAPIService) GetPricingFreeExecute(r PricingAPIGetPricingFreeRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1365,7 +1469,7 @@ type PricingAPIGetPricingGpuRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingGpuRequest) Execute() (*PricingTierList, *http.Response, error) {
+func (r PricingAPIGetPricingGpuRequest) Execute() (*PricingPricingTierList, *http.Response, error) {
 	return r.ApiService.GetPricingGpuExecute(r)
 }
 
@@ -1387,13 +1491,13 @@ func (a *PricingAPIService) GetPricingGpu(ctx context.Context) PricingAPIGetPric
 
 // Execute executes the request
 //
-//	@return PricingTierList
-func (a *PricingAPIService) GetPricingGpuExecute(r PricingAPIGetPricingGpuRequest) (*PricingTierList, *http.Response, error) {
+//	@return PricingPricingTierList
+func (a *PricingAPIService) GetPricingGpuExecute(r PricingAPIGetPricingGpuRequest) (*PricingPricingTierList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingTierList
+		localVarReturnValue *PricingPricingTierList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingGpu")
@@ -1417,7 +1521,7 @@ func (a *PricingAPIService) GetPricingGpuExecute(r PricingAPIGetPricingGpuReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1446,6 +1550,14 @@ func (a *PricingAPIService) GetPricingGpuExecute(r PricingAPIGetPricingGpuReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1466,14 +1578,14 @@ type PricingAPIGetPricingHealthRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingHealthRequest) Execute() (*PricingHealth, *http.Response, error) {
+func (r PricingAPIGetPricingHealthRequest) Execute() (*PricingPricingHealth, *http.Response, error) {
 	return r.ApiService.GetPricingHealthExecute(r)
 }
 
 /*
-GetPricingHealth Health reports that the pricing subsystem is mounted and serving.
+GetPricingHealth Reports that the pricing subsystem is mounted and serving.
 
-Health reports that the pricing subsystem is mounted and serving. It answers
+Reports that the pricing subsystem is mounted and serving. It answers
 from the process itself and consults neither the catalog bundle nor the
 enablement store, so it stays "ok" while either is degraded.
 
@@ -1489,13 +1601,13 @@ func (a *PricingAPIService) GetPricingHealth(ctx context.Context) PricingAPIGetP
 
 // Execute executes the request
 //
-//	@return PricingHealth
-func (a *PricingAPIService) GetPricingHealthExecute(r PricingAPIGetPricingHealthRequest) (*PricingHealth, *http.Response, error) {
+//	@return PricingPricingHealth
+func (a *PricingAPIService) GetPricingHealthExecute(r PricingAPIGetPricingHealthRequest) (*PricingPricingHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingHealth
+		localVarReturnValue *PricingPricingHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingHealth")
@@ -1519,7 +1631,7 @@ func (a *PricingAPIService) GetPricingHealthExecute(r PricingAPIGetPricingHealth
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1548,6 +1660,14 @@ func (a *PricingAPIService) GetPricingHealthExecute(r PricingAPIGetPricingHealth
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1568,7 +1688,7 @@ type PricingAPIGetPricingIamRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingIamRequest) Execute() (*PricingPlanList, *http.Response, error) {
+func (r PricingAPIGetPricingIamRequest) Execute() (*PricingPricingPlanList, *http.Response, error) {
 	return r.ApiService.GetPricingIamExecute(r)
 }
 
@@ -1590,13 +1710,13 @@ func (a *PricingAPIService) GetPricingIam(ctx context.Context) PricingAPIGetPric
 
 // Execute executes the request
 //
-//	@return PricingPlanList
-func (a *PricingAPIService) GetPricingIamExecute(r PricingAPIGetPricingIamRequest) (*PricingPlanList, *http.Response, error) {
+//	@return PricingPricingPlanList
+func (a *PricingAPIService) GetPricingIamExecute(r PricingAPIGetPricingIamRequest) (*PricingPricingPlanList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingPlanList
+		localVarReturnValue *PricingPricingPlanList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingIam")
@@ -1620,7 +1740,7 @@ func (a *PricingAPIService) GetPricingIamExecute(r PricingAPIGetPricingIamReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1649,6 +1769,14 @@ func (a *PricingAPIService) GetPricingIamExecute(r PricingAPIGetPricingIamReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1670,7 +1798,7 @@ type PricingAPIGetPricingModelByNameRequest struct {
 	name       string
 }
 
-func (r PricingAPIGetPricingModelByNameRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r PricingAPIGetPricingModelByNameRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetPricingModelByNameExecute(r)
 }
 
@@ -1696,13 +1824,13 @@ func (a *PricingAPIService) GetPricingModelByName(ctx context.Context, name stri
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *PricingAPIService) GetPricingModelByNameExecute(r PricingAPIGetPricingModelByNameRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *PricingAPIService) GetPricingModelByNameExecute(r PricingAPIGetPricingModelByNameRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingModelByName")
@@ -1727,7 +1855,7 @@ func (a *PricingAPIService) GetPricingModelByNameExecute(r PricingAPIGetPricingM
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1756,6 +1884,14 @@ func (a *PricingAPIService) GetPricingModelByNameExecute(r PricingAPIGetPricingM
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1776,7 +1912,7 @@ type PricingAPIGetPricingModelsRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingModelsRequest) Execute() (*PricingModelList, *http.Response, error) {
+func (r PricingAPIGetPricingModelsRequest) Execute() (*PricingPricingModelList, *http.Response, error) {
 	return r.ApiService.GetPricingModelsExecute(r)
 }
 
@@ -1801,13 +1937,13 @@ func (a *PricingAPIService) GetPricingModels(ctx context.Context) PricingAPIGetP
 
 // Execute executes the request
 //
-//	@return PricingModelList
-func (a *PricingAPIService) GetPricingModelsExecute(r PricingAPIGetPricingModelsRequest) (*PricingModelList, *http.Response, error) {
+//	@return PricingPricingModelList
+func (a *PricingAPIService) GetPricingModelsExecute(r PricingAPIGetPricingModelsRequest) (*PricingPricingModelList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingModelList
+		localVarReturnValue *PricingPricingModelList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingModels")
@@ -1831,7 +1967,7 @@ func (a *PricingAPIService) GetPricingModelsExecute(r PricingAPIGetPricingModels
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1860,6 +1996,14 @@ func (a *PricingAPIService) GetPricingModelsExecute(r PricingAPIGetPricingModels
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1880,7 +2024,7 @@ type PricingAPIGetPricingPaasRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingPaasRequest) Execute() (*PricingPlanList, *http.Response, error) {
+func (r PricingAPIGetPricingPaasRequest) Execute() (*PricingPricingPlanList, *http.Response, error) {
 	return r.ApiService.GetPricingPaasExecute(r)
 }
 
@@ -1903,13 +2047,13 @@ func (a *PricingAPIService) GetPricingPaas(ctx context.Context) PricingAPIGetPri
 
 // Execute executes the request
 //
-//	@return PricingPlanList
-func (a *PricingAPIService) GetPricingPaasExecute(r PricingAPIGetPricingPaasRequest) (*PricingPlanList, *http.Response, error) {
+//	@return PricingPricingPlanList
+func (a *PricingAPIService) GetPricingPaasExecute(r PricingAPIGetPricingPaasRequest) (*PricingPricingPlanList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingPlanList
+		localVarReturnValue *PricingPricingPlanList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingPaas")
@@ -1933,7 +2077,7 @@ func (a *PricingAPIService) GetPricingPaasExecute(r PricingAPIGetPricingPaasRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1962,6 +2106,14 @@ func (a *PricingAPIService) GetPricingPaasExecute(r PricingAPIGetPricingPaasRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1982,7 +2134,7 @@ type PricingAPIGetPricingPolicyRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingPolicyRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r PricingAPIGetPricingPolicyRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetPricingPolicyExecute(r)
 }
 
@@ -2006,13 +2158,13 @@ func (a *PricingAPIService) GetPricingPolicy(ctx context.Context) PricingAPIGetP
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *PricingAPIService) GetPricingPolicyExecute(r PricingAPIGetPricingPolicyRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *PricingAPIService) GetPricingPolicyExecute(r PricingAPIGetPricingPolicyRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingPolicy")
@@ -2036,7 +2188,7 @@ func (a *PricingAPIService) GetPricingPolicyExecute(r PricingAPIGetPricingPolicy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2065,6 +2217,14 @@ func (a *PricingAPIService) GetPricingPolicyExecute(r PricingAPIGetPricingPolicy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2085,7 +2245,7 @@ type PricingAPIGetPricingProvidersRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingProvidersRequest) Execute() (*PricingProviderList, *http.Response, error) {
+func (r PricingAPIGetPricingProvidersRequest) Execute() (*PricingPricingProviderList, *http.Response, error) {
 	return r.ApiService.GetPricingProvidersExecute(r)
 }
 
@@ -2109,13 +2269,13 @@ func (a *PricingAPIService) GetPricingProviders(ctx context.Context) PricingAPIG
 
 // Execute executes the request
 //
-//	@return PricingProviderList
-func (a *PricingAPIService) GetPricingProvidersExecute(r PricingAPIGetPricingProvidersRequest) (*PricingProviderList, *http.Response, error) {
+//	@return PricingPricingProviderList
+func (a *PricingAPIService) GetPricingProvidersExecute(r PricingAPIGetPricingProvidersRequest) (*PricingPricingProviderList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingProviderList
+		localVarReturnValue *PricingPricingProviderList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingProviders")
@@ -2139,7 +2299,7 @@ func (a *PricingAPIService) GetPricingProvidersExecute(r PricingAPIGetPricingPro
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2168,6 +2328,14 @@ func (a *PricingAPIService) GetPricingProvidersExecute(r PricingAPIGetPricingPro
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2188,7 +2356,7 @@ type PricingAPIGetPricingServicesRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingServicesRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r PricingAPIGetPricingServicesRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetPricingServicesExecute(r)
 }
 
@@ -2214,13 +2382,13 @@ func (a *PricingAPIService) GetPricingServices(ctx context.Context) PricingAPIGe
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *PricingAPIService) GetPricingServicesExecute(r PricingAPIGetPricingServicesRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *PricingAPIService) GetPricingServicesExecute(r PricingAPIGetPricingServicesRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingServices")
@@ -2244,7 +2412,7 @@ func (a *PricingAPIService) GetPricingServicesExecute(r PricingAPIGetPricingServ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2273,6 +2441,14 @@ func (a *PricingAPIService) GetPricingServicesExecute(r PricingAPIGetPricingServ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2293,7 +2469,7 @@ type PricingAPIGetPricingSubscriptionsRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingSubscriptionsRequest) Execute() (*PricingPlanList, *http.Response, error) {
+func (r PricingAPIGetPricingSubscriptionsRequest) Execute() (*PricingPricingPlanList, *http.Response, error) {
 	return r.ApiService.GetPricingSubscriptionsExecute(r)
 }
 
@@ -2316,13 +2492,13 @@ func (a *PricingAPIService) GetPricingSubscriptions(ctx context.Context) Pricing
 
 // Execute executes the request
 //
-//	@return PricingPlanList
-func (a *PricingAPIService) GetPricingSubscriptionsExecute(r PricingAPIGetPricingSubscriptionsRequest) (*PricingPlanList, *http.Response, error) {
+//	@return PricingPricingPlanList
+func (a *PricingAPIService) GetPricingSubscriptionsExecute(r PricingAPIGetPricingSubscriptionsRequest) (*PricingPricingPlanList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingPlanList
+		localVarReturnValue *PricingPricingPlanList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingSubscriptions")
@@ -2346,7 +2522,7 @@ func (a *PricingAPIService) GetPricingSubscriptionsExecute(r PricingAPIGetPricin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2375,6 +2551,14 @@ func (a *PricingAPIService) GetPricingSubscriptionsExecute(r PricingAPIGetPricin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2395,7 +2579,7 @@ type PricingAPIGetPricingSummaryRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingSummaryRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r PricingAPIGetPricingSummaryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetPricingSummaryExecute(r)
 }
 
@@ -2419,13 +2603,13 @@ func (a *PricingAPIService) GetPricingSummary(ctx context.Context) PricingAPIGet
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *PricingAPIService) GetPricingSummaryExecute(r PricingAPIGetPricingSummaryRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *PricingAPIService) GetPricingSummaryExecute(r PricingAPIGetPricingSummaryRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingSummary")
@@ -2449,7 +2633,7 @@ func (a *PricingAPIService) GetPricingSummaryExecute(r PricingAPIGetPricingSumma
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2478,6 +2662,138 @@ func (a *PricingAPIService) GetPricingSummaryExecute(r PricingAPIGetPricingSumma
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PricingAPIGetPricingTariffRequest struct {
+	ctx        context.Context
+	ApiService *PricingAPIService
+}
+
+func (r PricingAPIGetPricingTariffRequest) Execute() (*PricingCard, *http.Response, error) {
+	return r.ApiService.GetPricingTariffExecute(r)
+}
+
+/*
+GetPricingTariff Returns the platform's rate card: what a bill is made of, what each part costs, and the completion windows a request may ask for.
+
+Returns the platform's rate card: what a bill is made of, what each
+part costs, and the completion windows a request may ask for.
+
+FOUR COMPONENTS, and every charge is one of them — model inference, computer,
+web tools and media generation. Two are quoted before they run, so an agent is
+refused before it breaches its budget; two are booked from what they used,
+because neither a provider's charge nor a render's cost is knowable in advance.
+
+EVERY AMOUNT IS INTEGER MICRO-USD (1 USD = 1,000,000), stated once in `unit`,
+and each rate says what one unit of it is in `per`. The compute rates are per
+HOUR because that is the unit a span is priced in — rate × seconds / 3600 — and
+because a GiB-second is four and a half micro-USD, which no integer holds.
+
+The rates are the ones the ledger books: each is resolved through the same
+authority the metering path reads, falling back to the same compiled floor. A
+rate of zero is a price and not an absence — a paused computer, a computer's
+creation, the interfaces and a seat all cost nothing by design.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return PricingAPIGetPricingTariffRequest
+*/
+func (a *PricingAPIService) GetPricingTariff(ctx context.Context) PricingAPIGetPricingTariffRequest {
+	return PricingAPIGetPricingTariffRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PricingCard
+func (a *PricingAPIService) GetPricingTariffExecute(r PricingAPIGetPricingTariffRequest) (*PricingCard, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PricingCard
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingTariff")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/pricing/tariff"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2498,17 +2814,23 @@ type PricingAPIGetPricingToolsRequest struct {
 	ApiService *PricingAPIService
 }
 
-func (r PricingAPIGetPricingToolsRequest) Execute() (*PricingToolList, *http.Response, error) {
+func (r PricingAPIGetPricingToolsRequest) Execute() (*PricingPricingToolList, *http.Response, error) {
 	return r.ApiService.GetPricingToolsExecute(r)
 }
 
 /*
-GetPricingTools Returns the per-use tool prices — web search, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
+GetPricingTools Returns the per-use tool prices — web search, web fetch, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
 
-Returns the per-use tool prices — web search, code
+Returns the per-use tool prices — web search, web fetch, code
 interpreter, file storage, image generation, speech-to-text and
 text-to-speech — each with the unit it is billed by and its price in that
 unit.
+
+The two WEB rows are priced from the rate card rather than from the catalog,
+because those are the rows the platform charges by the call and a published
+number that is also a charged one has exactly one home (see tariff.go). Read
+them as integer micro-USD at /v1/pricing/tariff; the decimal here is the
+display this list has always carried.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PricingAPIGetPricingToolsRequest
@@ -2522,13 +2844,13 @@ func (a *PricingAPIService) GetPricingTools(ctx context.Context) PricingAPIGetPr
 
 // Execute executes the request
 //
-//	@return PricingToolList
-func (a *PricingAPIService) GetPricingToolsExecute(r PricingAPIGetPricingToolsRequest) (*PricingToolList, *http.Response, error) {
+//	@return PricingPricingToolList
+func (a *PricingAPIService) GetPricingToolsExecute(r PricingAPIGetPricingToolsRequest) (*PricingPricingToolList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PricingToolList
+		localVarReturnValue *PricingPricingToolList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.GetPricingTools")
@@ -2552,7 +2874,7 @@ func (a *PricingAPIService) GetPricingToolsExecute(r PricingAPIGetPricingToolsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2581,6 +2903,14 @@ func (a *PricingAPIService) GetPricingToolsExecute(r PricingAPIGetPricingToolsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2597,17 +2927,17 @@ func (a *PricingAPIService) GetPricingToolsExecute(r PricingAPIGetPricingToolsRe
 }
 
 type PricingAPIPostPricingEnablementOptinRequest struct {
-	ctx              context.Context
-	ApiService       *PricingAPIService
-	enablementOptRef *EnablementOptRef
+	ctx                     context.Context
+	ApiService              *PricingAPIService
+	pricingEnablementOptRef *PricingEnablementOptRef
 }
 
-func (r PricingAPIPostPricingEnablementOptinRequest) EnablementOptRef(enablementOptRef EnablementOptRef) PricingAPIPostPricingEnablementOptinRequest {
-	r.enablementOptRef = &enablementOptRef
+func (r PricingAPIPostPricingEnablementOptinRequest) PricingEnablementOptRef(pricingEnablementOptRef PricingEnablementOptRef) PricingAPIPostPricingEnablementOptinRequest {
+	r.pricingEnablementOptRef = &pricingEnablementOptRef
 	return r
 }
 
-func (r PricingAPIPostPricingEnablementOptinRequest) Execute() (*UserEnablementItem, *http.Response, error) {
+func (r PricingAPIPostPricingEnablementOptinRequest) Execute() (*PricingUserEnablementItem, *http.Response, error) {
 	return r.ApiService.PostPricingEnablementOptinExecute(r)
 }
 
@@ -2632,13 +2962,13 @@ func (a *PricingAPIService) PostPricingEnablementOptin(ctx context.Context) Pric
 
 // Execute executes the request
 //
-//	@return UserEnablementItem
-func (a *PricingAPIService) PostPricingEnablementOptinExecute(r PricingAPIPostPricingEnablementOptinRequest) (*UserEnablementItem, *http.Response, error) {
+//	@return PricingUserEnablementItem
+func (a *PricingAPIService) PostPricingEnablementOptinExecute(r PricingAPIPostPricingEnablementOptinRequest) (*PricingUserEnablementItem, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UserEnablementItem
+		localVarReturnValue *PricingUserEnablementItem
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.PostPricingEnablementOptin")
@@ -2651,8 +2981,8 @@ func (a *PricingAPIService) PostPricingEnablementOptinExecute(r PricingAPIPostPr
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.enablementOptRef == nil {
-		return localVarReturnValue, nil, reportError("enablementOptRef is required and must be specified")
+	if r.pricingEnablementOptRef == nil {
+		return localVarReturnValue, nil, reportError("pricingEnablementOptRef is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2665,7 +2995,7 @@ func (a *PricingAPIService) PostPricingEnablementOptinExecute(r PricingAPIPostPr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2673,7 +3003,7 @@ func (a *PricingAPIService) PostPricingEnablementOptinExecute(r PricingAPIPostPr
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.enablementOptRef
+	localVarPostBody = r.pricingEnablementOptRef
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2696,6 +3026,14 @@ func (a *PricingAPIService) PostPricingEnablementOptinExecute(r PricingAPIPostPr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2712,17 +3050,17 @@ func (a *PricingAPIService) PostPricingEnablementOptinExecute(r PricingAPIPostPr
 }
 
 type PricingAPIPostPricingEnablementOptoutRequest struct {
-	ctx              context.Context
-	ApiService       *PricingAPIService
-	enablementOptRef *EnablementOptRef
+	ctx                     context.Context
+	ApiService              *PricingAPIService
+	pricingEnablementOptRef *PricingEnablementOptRef
 }
 
-func (r PricingAPIPostPricingEnablementOptoutRequest) EnablementOptRef(enablementOptRef EnablementOptRef) PricingAPIPostPricingEnablementOptoutRequest {
-	r.enablementOptRef = &enablementOptRef
+func (r PricingAPIPostPricingEnablementOptoutRequest) PricingEnablementOptRef(pricingEnablementOptRef PricingEnablementOptRef) PricingAPIPostPricingEnablementOptoutRequest {
+	r.pricingEnablementOptRef = &pricingEnablementOptRef
 	return r
 }
 
-func (r PricingAPIPostPricingEnablementOptoutRequest) Execute() (*UserEnablementItem, *http.Response, error) {
+func (r PricingAPIPostPricingEnablementOptoutRequest) Execute() (*PricingUserEnablementItem, *http.Response, error) {
 	return r.ApiService.PostPricingEnablementOptoutExecute(r)
 }
 
@@ -2746,13 +3084,13 @@ func (a *PricingAPIService) PostPricingEnablementOptout(ctx context.Context) Pri
 
 // Execute executes the request
 //
-//	@return UserEnablementItem
-func (a *PricingAPIService) PostPricingEnablementOptoutExecute(r PricingAPIPostPricingEnablementOptoutRequest) (*UserEnablementItem, *http.Response, error) {
+//	@return PricingUserEnablementItem
+func (a *PricingAPIService) PostPricingEnablementOptoutExecute(r PricingAPIPostPricingEnablementOptoutRequest) (*PricingUserEnablementItem, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UserEnablementItem
+		localVarReturnValue *PricingUserEnablementItem
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.PostPricingEnablementOptout")
@@ -2765,8 +3103,8 @@ func (a *PricingAPIService) PostPricingEnablementOptoutExecute(r PricingAPIPostP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.enablementOptRef == nil {
-		return localVarReturnValue, nil, reportError("enablementOptRef is required and must be specified")
+	if r.pricingEnablementOptRef == nil {
+		return localVarReturnValue, nil, reportError("pricingEnablementOptRef is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2779,7 +3117,7 @@ func (a *PricingAPIService) PostPricingEnablementOptoutExecute(r PricingAPIPostP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2787,7 +3125,7 @@ func (a *PricingAPIService) PostPricingEnablementOptoutExecute(r PricingAPIPostP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.enablementOptRef
+	localVarPostBody = r.pricingEnablementOptRef
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2810,109 +3148,14 @@ func (a *PricingAPIService) PostPricingEnablementOptoutExecute(r PricingAPIPostP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PricingAPIPostPricingSyncRequest struct {
-	ctx        context.Context
-	ApiService *PricingAPIService
-}
-
-func (r PricingAPIPostPricingSyncRequest) Execute() (*PricingSyncOut, *http.Response, error) {
-	return r.ApiService.PostPricingSyncExecute(r)
-}
-
-/*
-PostPricingSync Refreshes the third-party section of the catalog from its upstream listings and returns the time the refreshed catalog was stamped with.
-
-Refreshes the third-party section of the catalog from its upstream
-listings and returns the time the refreshed catalog was stamped with. The
-fetch runs in Go and the markup transform in the pricing bundle. SuperAdmin
-only; every other caller is refused.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return PricingAPIPostPricingSyncRequest
-*/
-func (a *PricingAPIService) PostPricingSync(ctx context.Context) PricingAPIPostPricingSyncRequest {
-	return PricingAPIPostPricingSyncRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PricingSyncOut
-func (a *PricingAPIService) PostPricingSyncExecute(r PricingAPIPostPricingSyncRequest) (*PricingSyncOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PricingSyncOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PricingAPIService.PostPricingSync")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/pricing/sync"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

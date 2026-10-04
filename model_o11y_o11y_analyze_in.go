@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -24,7 +23,8 @@ type O11yO11yAnalyzeIn struct {
 	// Query is the query text. Required.
 	Query string `json:"query"`
 	// QueryType says which language the query is in — promql or the datastore's SQL dialect. Required.
-	QueryType string `json:"queryType"`
+	QueryType            string `json:"queryType"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11yAnalyzeIn O11yO11yAnalyzeIn
@@ -108,6 +108,11 @@ func (o O11yO11yAnalyzeIn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["query"] = o.Query
 	toSerialize["queryType"] = o.QueryType
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -136,15 +141,21 @@ func (o *O11yO11yAnalyzeIn) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11yAnalyzeIn := _O11yO11yAnalyzeIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11yAnalyzeIn)
+	err = json.Unmarshal(data, &varO11yO11yAnalyzeIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11yAnalyzeIn(varO11yO11yAnalyzeIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "query")
+		delete(additionalProperties, "queryType")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

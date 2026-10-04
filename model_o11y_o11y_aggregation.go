@@ -34,8 +34,11 @@ type O11yO11yAggregation struct {
 	// Series are the aggregated time series.
 	Series []O11yO11yMetricSeries `json:"series,omitempty"`
 	// UpperBoundSeries are forecast upper bounds.
-	UpperBoundSeries []O11yO11yMetricSeries `json:"upperBoundSeries,omitempty"`
+	UpperBoundSeries     []O11yO11yMetricSeries `json:"upperBoundSeries,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yAggregation O11yO11yAggregation
 
 // NewO11yO11yAggregation instantiates a new O11yO11yAggregation object
 // This constructor will assign default values to properties that have it defined,
@@ -344,7 +347,40 @@ func (o O11yO11yAggregation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpperBoundSeries) {
 		toSerialize["upperBoundSeries"] = o.UpperBoundSeries
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yAggregation) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yAggregation := _O11yO11yAggregation{}
+
+	err = json.Unmarshal(data, &varO11yO11yAggregation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yAggregation(varO11yO11yAggregation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alias")
+		delete(additionalProperties, "anomalyScores")
+		delete(additionalProperties, "index")
+		delete(additionalProperties, "lowerBoundSeries")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "predictedSeries")
+		delete(additionalProperties, "series")
+		delete(additionalProperties, "upperBoundSeries")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yAggregation struct {

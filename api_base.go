@@ -27,7 +27,7 @@ type BaseAPIGetBaseBasesRequest struct {
 	ApiService *BaseAPIService
 }
 
-func (r BaseAPIGetBaseBasesRequest) Execute() ([]BaseView, *http.Response, error) {
+func (r BaseAPIGetBaseBasesRequest) Execute() ([]BaseBaseView, *http.Response, error) {
 	return r.ApiService.GetBaseBasesExecute(r)
 }
 
@@ -57,13 +57,13 @@ func (a *BaseAPIService) GetBaseBases(ctx context.Context) BaseAPIGetBaseBasesRe
 
 // Execute executes the request
 //
-//	@return []BaseView
-func (a *BaseAPIService) GetBaseBasesExecute(r BaseAPIGetBaseBasesRequest) ([]BaseView, *http.Response, error) {
+//	@return []BaseBaseView
+func (a *BaseAPIService) GetBaseBasesExecute(r BaseAPIGetBaseBasesRequest) ([]BaseBaseView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []BaseView
+		localVarReturnValue []BaseBaseView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BaseAPIService.GetBaseBases")
@@ -87,7 +87,7 @@ func (a *BaseAPIService) GetBaseBasesExecute(r BaseAPIGetBaseBasesRequest) ([]Ba
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -116,6 +116,14 @@ func (a *BaseAPIService) GetBaseBasesExecute(r BaseAPIGetBaseBasesRequest) ([]Ba
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -137,7 +145,7 @@ type BaseAPIGetBaseBasesByOrgRequest struct {
 	org        string
 }
 
-func (r BaseAPIGetBaseBasesByOrgRequest) Execute() (*BaseView, *http.Response, error) {
+func (r BaseAPIGetBaseBasesByOrgRequest) Execute() (*BaseBaseView, *http.Response, error) {
 	return r.ApiService.GetBaseBasesByOrgExecute(r)
 }
 
@@ -165,13 +173,13 @@ func (a *BaseAPIService) GetBaseBasesByOrg(ctx context.Context, org string) Base
 
 // Execute executes the request
 //
-//	@return BaseView
-func (a *BaseAPIService) GetBaseBasesByOrgExecute(r BaseAPIGetBaseBasesByOrgRequest) (*BaseView, *http.Response, error) {
+//	@return BaseBaseView
+func (a *BaseAPIService) GetBaseBasesByOrgExecute(r BaseAPIGetBaseBasesByOrgRequest) (*BaseBaseView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BaseView
+		localVarReturnValue *BaseBaseView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BaseAPIService.GetBaseBasesByOrg")
@@ -196,7 +204,7 @@ func (a *BaseAPIService) GetBaseBasesByOrgExecute(r BaseAPIGetBaseBasesByOrgRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -225,6 +233,14 @@ func (a *BaseAPIService) GetBaseBasesByOrgExecute(r BaseAPIGetBaseBasesByOrgRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -245,7 +261,7 @@ type BaseAPIGetBaseHealthRequest struct {
 	ApiService *BaseAPIService
 }
 
-func (r BaseAPIGetBaseHealthRequest) Execute() (*BaseHealth, *http.Response, error) {
+func (r BaseAPIGetBaseHealthRequest) Execute() (*BaseBaseHealth, *http.Response, error) {
 	return r.ApiService.GetBaseHealthExecute(r)
 }
 
@@ -272,13 +288,13 @@ func (a *BaseAPIService) GetBaseHealth(ctx context.Context) BaseAPIGetBaseHealth
 
 // Execute executes the request
 //
-//	@return BaseHealth
-func (a *BaseAPIService) GetBaseHealthExecute(r BaseAPIGetBaseHealthRequest) (*BaseHealth, *http.Response, error) {
+//	@return BaseBaseHealth
+func (a *BaseAPIService) GetBaseHealthExecute(r BaseAPIGetBaseHealthRequest) (*BaseBaseHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BaseHealth
+		localVarReturnValue *BaseBaseHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BaseAPIService.GetBaseHealth")
@@ -302,7 +318,7 @@ func (a *BaseAPIService) GetBaseHealthExecute(r BaseAPIGetBaseHealthRequest) (*B
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -331,6 +347,14 @@ func (a *BaseAPIService) GetBaseHealthExecute(r BaseAPIGetBaseHealthRequest) (*B
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

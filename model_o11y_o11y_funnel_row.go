@@ -20,10 +20,13 @@ var _ MappedNullable = &O11yO11yFunnelRow{}
 // O11yO11yFunnelRow struct for O11yO11yFunnelRow
 type O11yO11yFunnelRow struct {
 	// Data are the row's columns, keyed by column name.
-	Data map[string]map[string]interface{} `json:"data,omitempty"`
+	Data map[string]interface{} `json:"data,omitempty"`
 	// Timestamp is the row's time.
-	Timestamp *string `json:"timestamp,omitempty"`
+	Timestamp            *string `json:"timestamp,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFunnelRow O11yO11yFunnelRow
 
 // NewO11yO11yFunnelRow instantiates a new O11yO11yFunnelRow object
 // This constructor will assign default values to properties that have it defined,
@@ -43,9 +46,9 @@ func NewO11yO11yFunnelRowWithDefaults() *O11yO11yFunnelRow {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *O11yO11yFunnelRow) GetData() map[string]map[string]interface{} {
+func (o *O11yO11yFunnelRow) GetData() map[string]interface{} {
 	if o == nil || IsNil(o.Data) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Data
@@ -53,9 +56,9 @@ func (o *O11yO11yFunnelRow) GetData() map[string]map[string]interface{} {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yFunnelRow) GetDataOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yO11yFunnelRow) GetDataOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Data) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Data, true
 }
@@ -69,8 +72,8 @@ func (o *O11yO11yFunnelRow) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given map[string]map[string]interface{} and assigns it to the Data field.
-func (o *O11yO11yFunnelRow) SetData(v map[string]map[string]interface{}) {
+// SetData gets a reference to the given map[string]interface{} and assigns it to the Data field.
+func (o *O11yO11yFunnelRow) SetData(v map[string]interface{}) {
 	o.Data = v
 }
 
@@ -122,7 +125,34 @@ func (o O11yO11yFunnelRow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Timestamp) {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFunnelRow) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFunnelRow := _O11yO11yFunnelRow{}
+
+	err = json.Unmarshal(data, &varO11yO11yFunnelRow)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFunnelRow(varO11yO11yFunnelRow)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "timestamp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFunnelRow struct {

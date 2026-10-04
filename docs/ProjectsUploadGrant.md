@@ -4,11 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExpiresAt** | Pointer to **int64** | ExpiresAt is when the grant stops being accepted, as Unix seconds. It is short-lived by design and is handed out ONCE, on the response that queues the deployment — a later read of that deployment does not carry it, so a grant cannot be fetched again after the build it was minted for. | [optional] 
-**Fields** | Pointer to **map[string]string** | Fields are form values every POST must carry VERBATIM, alongside &#x60;key&#x60; and &#x60;file&#x60;. The signature covers them, so altering any one of them — including widening the key to reach outside the prefix — invalidates the grant rather than extending it. | [optional] 
-**MaxBytes** | Pointer to **int64** | MaxBytes bounds ONE object, not the upload as a whole. | [optional] 
-**Prefix** | Pointer to **string** | Prefix is the only place this grant can write: the deployment&#39;s own key prefix. It authorizes WRITES ONLY, which is why completing a deployment reconciles the prefix against a manifest instead of letting CI delete. | [optional] 
-**Url** | Pointer to **string** | URL is the address to POST each object to. It is signed for the PUBLIC endpoint, because the signature covers the host and CI posts from outside the cluster. | [optional] 
+**Copy** | Pointer to **bool** |  | [optional] 
+**ExpiresAt** | Pointer to **int32** |  | [optional] 
+**Fields** | Pointer to **map[string]string** |  | [optional] 
+**MaxBytes** | Pointer to **int32** |  | [optional] 
+**Prefix** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -29,22 +30,47 @@ NewProjectsUploadGrantWithDefaults instantiates a new ProjectsUploadGrant object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetCopy
+
+`func (o *ProjectsUploadGrant) GetCopy() bool`
+
+GetCopy returns the Copy field if non-nil, zero value otherwise.
+
+### GetCopyOk
+
+`func (o *ProjectsUploadGrant) GetCopyOk() (*bool, bool)`
+
+GetCopyOk returns a tuple with the Copy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCopy
+
+`func (o *ProjectsUploadGrant) SetCopy(v bool)`
+
+SetCopy sets Copy field to given value.
+
+### HasCopy
+
+`func (o *ProjectsUploadGrant) HasCopy() bool`
+
+HasCopy returns a boolean if a field has been set.
+
 ### GetExpiresAt
 
-`func (o *ProjectsUploadGrant) GetExpiresAt() int64`
+`func (o *ProjectsUploadGrant) GetExpiresAt() int32`
 
 GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
 
 ### GetExpiresAtOk
 
-`func (o *ProjectsUploadGrant) GetExpiresAtOk() (*int64, bool)`
+`func (o *ProjectsUploadGrant) GetExpiresAtOk() (*int32, bool)`
 
 GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpiresAt
 
-`func (o *ProjectsUploadGrant) SetExpiresAt(v int64)`
+`func (o *ProjectsUploadGrant) SetExpiresAt(v int32)`
 
 SetExpiresAt sets ExpiresAt field to given value.
 
@@ -81,20 +107,20 @@ HasFields returns a boolean if a field has been set.
 
 ### GetMaxBytes
 
-`func (o *ProjectsUploadGrant) GetMaxBytes() int64`
+`func (o *ProjectsUploadGrant) GetMaxBytes() int32`
 
 GetMaxBytes returns the MaxBytes field if non-nil, zero value otherwise.
 
 ### GetMaxBytesOk
 
-`func (o *ProjectsUploadGrant) GetMaxBytesOk() (*int64, bool)`
+`func (o *ProjectsUploadGrant) GetMaxBytesOk() (*int32, bool)`
 
 GetMaxBytesOk returns a tuple with the MaxBytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxBytes
 
-`func (o *ProjectsUploadGrant) SetMaxBytes(v int64)`
+`func (o *ProjectsUploadGrant) SetMaxBytes(v int32)`
 
 SetMaxBytes sets MaxBytes field to given value.
 

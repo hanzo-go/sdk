@@ -22,18 +22,19 @@ type O11yO11yPreference struct {
 	// AllowedScopes are the scopes the preference may be set at — org, user.
 	AllowedScopes []string `json:"allowedScopes,omitempty"`
 	// AllowedValues restricts a string preference to these values.
-	AllowedValues []string `json:"allowedValues,omitempty"`
-	// DefaultValue is the value before anyone set one.
-	DefaultValue map[string]interface{} `json:"defaultValue,omitempty"`
+	AllowedValues []string    `json:"allowedValues,omitempty"`
+	DefaultValue  interface{} `json:"defaultValue,omitempty"`
 	// Description says what the preference does.
 	Description *string `json:"description,omitempty"`
 	// Name is the preference name.
-	Name *string `json:"name,omitempty"`
-	// Value is the current value.
-	Value map[string]interface{} `json:"value,omitempty"`
+	Name  *string     `json:"name,omitempty"`
+	Value interface{} `json:"value,omitempty"`
 	// ValueType is the JSON type a value must have — string, integer, float or boolean.
-	ValueType *string `json:"valueType,omitempty"`
+	ValueType            *string `json:"valueType,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yPreference O11yO11yPreference
 
 // NewO11yO11yPreference instantiates a new O11yO11yPreference object
 // This constructor will assign default values to properties that have it defined,
@@ -116,10 +117,10 @@ func (o *O11yO11yPreference) SetAllowedValues(v []string) {
 	o.AllowedValues = v
 }
 
-// GetDefaultValue returns the DefaultValue field value if set, zero value otherwise.
-func (o *O11yO11yPreference) GetDefaultValue() map[string]interface{} {
-	if o == nil || IsNil(o.DefaultValue) {
-		var ret map[string]interface{}
+// GetDefaultValue returns the DefaultValue field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *O11yO11yPreference) GetDefaultValue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.DefaultValue
@@ -127,11 +128,12 @@ func (o *O11yO11yPreference) GetDefaultValue() map[string]interface{} {
 
 // GetDefaultValueOk returns a tuple with the DefaultValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yPreference) GetDefaultValueOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *O11yO11yPreference) GetDefaultValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.DefaultValue) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.DefaultValue, true
+	return &o.DefaultValue, true
 }
 
 // HasDefaultValue returns a boolean if a field has been set.
@@ -143,8 +145,8 @@ func (o *O11yO11yPreference) HasDefaultValue() bool {
 	return false
 }
 
-// SetDefaultValue gets a reference to the given map[string]interface{} and assigns it to the DefaultValue field.
-func (o *O11yO11yPreference) SetDefaultValue(v map[string]interface{}) {
+// SetDefaultValue gets a reference to the given interface{} and assigns it to the DefaultValue field.
+func (o *O11yO11yPreference) SetDefaultValue(v interface{}) {
 	o.DefaultValue = v
 }
 
@@ -212,10 +214,10 @@ func (o *O11yO11yPreference) SetName(v string) {
 	o.Name = &v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *O11yO11yPreference) GetValue() map[string]interface{} {
-	if o == nil || IsNil(o.Value) {
-		var ret map[string]interface{}
+// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *O11yO11yPreference) GetValue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Value
@@ -223,11 +225,12 @@ func (o *O11yO11yPreference) GetValue() map[string]interface{} {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yPreference) GetValueOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *O11yO11yPreference) GetValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Value) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
@@ -239,8 +242,8 @@ func (o *O11yO11yPreference) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
-func (o *O11yO11yPreference) SetValue(v map[string]interface{}) {
+// SetValue gets a reference to the given interface{} and assigns it to the Value field.
+func (o *O11yO11yPreference) SetValue(v interface{}) {
 	o.Value = v
 }
 
@@ -292,7 +295,7 @@ func (o O11yO11yPreference) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AllowedValues) {
 		toSerialize["allowedValues"] = o.AllowedValues
 	}
-	if !IsNil(o.DefaultValue) {
+	if o.DefaultValue != nil {
 		toSerialize["defaultValue"] = o.DefaultValue
 	}
 	if !IsNil(o.Description) {
@@ -301,13 +304,45 @@ func (o O11yO11yPreference) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if !IsNil(o.Value) {
+	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
 	if !IsNil(o.ValueType) {
 		toSerialize["valueType"] = o.ValueType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yPreference) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yPreference := _O11yO11yPreference{}
+
+	err = json.Unmarshal(data, &varO11yO11yPreference)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yPreference(varO11yO11yPreference)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "allowedScopes")
+		delete(additionalProperties, "allowedValues")
+		delete(additionalProperties, "defaultValue")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "valueType")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yPreference struct {

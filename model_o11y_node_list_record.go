@@ -26,7 +26,10 @@ type O11yNodeListRecord struct {
 	NodeMemoryAllocatable *float64                  `json:"nodeMemoryAllocatable,omitempty"`
 	NodeMemoryUsage       *float64                  `json:"nodeMemoryUsage,omitempty"`
 	NodeUID               *string                   `json:"nodeUID,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
+
+type _O11yNodeListRecord O11yNodeListRecord
 
 // NewO11yNodeListRecord instantiates a new O11yNodeListRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o O11yNodeListRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.NodeUID) {
 		toSerialize["nodeUID"] = o.NodeUID
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yNodeListRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yNodeListRecord := _O11yNodeListRecord{}
+
+	err = json.Unmarshal(data, &varO11yNodeListRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yNodeListRecord(varO11yNodeListRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "countByCondition")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "nodeCPUAllocatable")
+		delete(additionalProperties, "nodeCPUUsage")
+		delete(additionalProperties, "nodeMemoryAllocatable")
+		delete(additionalProperties, "nodeMemoryUsage")
+		delete(additionalProperties, "nodeUID")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yNodeListRecord struct {

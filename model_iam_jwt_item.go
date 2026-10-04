@@ -19,11 +19,14 @@ var _ MappedNullable = &IamJwtItem{}
 
 // IamJwtItem struct for IamJwtItem
 type IamJwtItem struct {
-	Category *string `json:"category,omitempty"`
-	Name     *string `json:"name,omitempty"`
-	Type     *string `json:"type,omitempty"`
-	Value    *string `json:"value,omitempty"`
+	Category             *string `json:"category,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamJwtItem IamJwtItem
 
 // NewIamJwtItem instantiates a new IamJwtItem object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o IamJwtItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamJwtItem) UnmarshalJSON(data []byte) (err error) {
+	varIamJwtItem := _IamJwtItem{}
+
+	err = json.Unmarshal(data, &varIamJwtItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamJwtItem(varIamJwtItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamJwtItem struct {

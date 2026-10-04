@@ -19,11 +19,14 @@ var _ MappedNullable = &AiAiConnResponse{}
 
 // AiAiConnResponse struct for AiAiConnResponse
 type AiAiConnResponse struct {
-	AccountLabel *string `json:"account_label,omitempty"`
-	Connected    *bool   `json:"connected,omitempty"`
-	Provider     *string `json:"provider,omitempty"`
-	UpdatedAt    *string `json:"updated_at,omitempty"`
+	AccountLabel         *string `json:"account_label,omitempty"`
+	Connected            *bool   `json:"connected,omitempty"`
+	Provider             *string `json:"provider,omitempty"`
+	UpdatedAt            *string `json:"updated_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiAiConnResponse AiAiConnResponse
 
 // NewAiAiConnResponse instantiates a new AiAiConnResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o AiAiConnResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiAiConnResponse) UnmarshalJSON(data []byte) (err error) {
+	varAiAiConnResponse := _AiAiConnResponse{}
+
+	err = json.Unmarshal(data, &varAiAiConnResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiAiConnResponse(varAiAiConnResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_label")
+		delete(additionalProperties, "connected")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "updated_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiAiConnResponse struct {

@@ -5,15 +5,15 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteCloudflareD1DatabasesByDatabase**](CloudflareAPI.md#DeleteCloudflareD1DatabasesByDatabase) | **Delete** /v1/cloudflare/d1/databases/{database} | Deletes a D1 database and everything stored in it.
-[**DeleteCloudflareKvNamespacesByNamespace**](CloudflareAPI.md#DeleteCloudflareKvNamespacesByNamespace) | **Delete** /v1/cloudflare/kv/namespaces/{namespace} | KVNamespaceDelete deletes a Workers KV namespace and every key in it.
-[**DeleteCloudflareKvNamespacesByNamespaceValuesByKey**](CloudflareAPI.md#DeleteCloudflareKvNamespacesByNamespaceValuesByKey) | **Delete** /v1/cloudflare/kv/namespaces/{namespace}/values/{key} | KVValueDelete removes one key from a Workers KV namespace.
+[**DeleteCloudflareKvNamespacesByNamespace**](CloudflareAPI.md#DeleteCloudflareKvNamespacesByNamespace) | **Delete** /v1/cloudflare/kv/namespaces/{namespace} | Deletes a Workers KV namespace and every key in it.
+[**DeleteCloudflareKvNamespacesByNamespaceValuesByKey**](CloudflareAPI.md#DeleteCloudflareKvNamespacesByNamespaceValuesByKey) | **Delete** /v1/cloudflare/kv/namespaces/{namespace}/values/{key} | Removes one key from a Workers KV namespace.
 [**DeleteCloudflarePagesProjectsByProject**](CloudflareAPI.md#DeleteCloudflarePagesProjectsByProject) | **Delete** /v1/cloudflare/pages/projects/{project} | Deletes a Cloudflare Pages project, and with it every deployment it has ever made.
 [**DeleteCloudflarePagesProjectsByProjectDomainsByDomain**](CloudflareAPI.md#DeleteCloudflarePagesProjectsByProjectDomainsByDomain) | **Delete** /v1/cloudflare/pages/projects/{project}/domains/{domain} | Detaches a custom domain from a Cloudflare Pages project.
 [**DeleteCloudflareR2BucketsByBucket**](CloudflareAPI.md#DeleteCloudflareR2BucketsByBucket) | **Delete** /v1/cloudflare/r2/buckets/{bucket} | Deletes an R2 bucket.
 [**DeleteCloudflareWorkersScriptsByScript**](CloudflareAPI.md#DeleteCloudflareWorkersScriptsByScript) | **Delete** /v1/cloudflare/workers/scripts/{script} | Removes a Worker script from the org&#39;s Cloudflare account.
 [**DeleteCloudflareWorkersZonesByZoneRoutesByRoute**](CloudflareAPI.md#DeleteCloudflareWorkersZonesByZoneRoutesByRoute) | **Delete** /v1/cloudflare/workers/zones/{zone}/routes/{route} | Unbinds a Worker route, so its pattern stops dispatching to a script.
 [**GetCloudflareD1Databases**](CloudflareAPI.md#GetCloudflareD1Databases) | **Get** /v1/cloudflare/d1/databases | Lists the D1 databases on the org&#39;s Cloudflare account.
-[**GetCloudflareKvNamespaces**](CloudflareAPI.md#GetCloudflareKvNamespaces) | **Get** /v1/cloudflare/kv/namespaces | KVNamespaceList lists the Workers KV namespaces on the org&#39;s Cloudflare account.
+[**GetCloudflareKvNamespaces**](CloudflareAPI.md#GetCloudflareKvNamespaces) | **Get** /v1/cloudflare/kv/namespaces | Lists the Workers KV namespaces on the org&#39;s Cloudflare account.
 [**GetCloudflareKvNamespacesByNamespaceValuesByKey**](CloudflareAPI.md#GetCloudflareKvNamespacesByNamespaceValuesByKey) | **Get** /v1/cloudflare/kv/namespaces/{namespace}/values/{key} | Read a Workers KV value as its stored bytes
 [**GetCloudflarePagesProjects**](CloudflareAPI.md#GetCloudflarePagesProjects) | **Get** /v1/cloudflare/pages/projects | Lists the org&#39;s Cloudflare Pages projects.
 [**GetCloudflarePagesProjectsByProject**](CloudflareAPI.md#GetCloudflarePagesProjectsByProject) | **Get** /v1/cloudflare/pages/projects/{project} | Reads one Cloudflare Pages project — its build config, deployment configs and latest deployment.
@@ -26,7 +26,7 @@ Method | HTTP request | Description
 [**GetCloudflareZonesByZoneAnalytics**](CloudflareAPI.md#GetCloudflareZonesByZoneAnalytics) | **Get** /v1/cloudflare/zones/{zone}/analytics | Reads a zone&#39;s Cloudflare traffic dashboard — requests, bandwidth, threats and pageviews over the since/until window.
 [**PostCloudflareD1Databases**](CloudflareAPI.md#PostCloudflareD1Databases) | **Post** /v1/cloudflare/d1/databases | Creates a D1 database on the org&#39;s Cloudflare account.
 [**PostCloudflareD1DatabasesByDatabaseQuery**](CloudflareAPI.md#PostCloudflareD1DatabasesByDatabaseQuery) | **Post** /v1/cloudflare/d1/databases/{database}/query | Runs one SQL statement against a D1 database.
-[**PostCloudflareKvNamespaces**](CloudflareAPI.md#PostCloudflareKvNamespaces) | **Post** /v1/cloudflare/kv/namespaces | KVNamespaceCreate creates a Workers KV namespace on the org&#39;s Cloudflare account.
+[**PostCloudflareKvNamespaces**](CloudflareAPI.md#PostCloudflareKvNamespaces) | **Post** /v1/cloudflare/kv/namespaces | Creates a Workers KV namespace on the org&#39;s Cloudflare account.
 [**PostCloudflarePagesProjects**](CloudflareAPI.md#PostCloudflarePagesProjects) | **Post** /v1/cloudflare/pages/projects | Creates a Cloudflare Pages project on the org&#39;s account.
 [**PostCloudflarePagesProjectsByProjectDeployments**](CloudflareAPI.md#PostCloudflarePagesProjectsByProjectDeployments) | **Post** /v1/cloudflare/pages/projects/{project}/deployments | Trigger a new Pages deployment for a project
 [**PostCloudflarePagesProjectsByProjectDomains**](CloudflareAPI.md#PostCloudflarePagesProjectsByProjectDomains) | **Post** /v1/cloudflare/pages/projects/{project}/domains | Attaches a custom domain to a Cloudflare Pages project.
@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 
 > interface{} DeleteCloudflareKvNamespacesByNamespace(ctx, namespace).Execute()
 
-KVNamespaceDelete deletes a Workers KV namespace and every key in it.
+Deletes a Workers KV namespace and every key in it.
 
 
 
@@ -172,7 +172,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -183,7 +183,7 @@ Name | Type | Description  | Notes
 
 > interface{} DeleteCloudflareKvNamespacesByNamespaceValuesByKey(ctx, namespace, key).Execute()
 
-KVValueDelete removes one key from a Workers KV namespace.
+Removes one key from a Workers KV namespace.
 
 
 
@@ -245,7 +245,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -315,7 +315,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -458,7 +458,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -528,7 +528,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -601,7 +601,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -671,7 +671,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -682,7 +682,7 @@ Name | Type | Description  | Notes
 
 > interface{} GetCloudflareKvNamespaces(ctx).Page(page).PerPage(perPage).Order(order).Direction(direction).Execute()
 
-KVNamespaceList lists the Workers KV namespaces on the org's Cloudflare account.
+Lists the Workers KV namespaces on the org's Cloudflare account.
 
 
 
@@ -743,7 +743,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -875,7 +875,7 @@ Other parameters are passed through a pointer to a apiGetCloudflarePagesProjects
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -945,7 +945,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1019,7 +1019,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1080,7 +1080,7 @@ Other parameters are passed through a pointer to a apiGetCloudflareWorkersScript
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1141,7 +1141,7 @@ Other parameters are passed through a pointer to a apiGetCloudflareWorkersSubdom
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1211,7 +1211,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1287,7 +1287,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1357,7 +1357,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1433,7 +1433,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1442,7 +1442,7 @@ Name | Type | Description  | Notes
 
 ## PostCloudflareD1Databases
 
-> interface{} PostCloudflareD1Databases(ctx).DatabaseCreateIn(databaseCreateIn).Execute()
+> interface{} PostCloudflareD1Databases(ctx).CloudflareDatabaseCreateIn(cloudflareDatabaseCreateIn).Execute()
 
 Creates a D1 database on the org's Cloudflare account.
 
@@ -1461,11 +1461,11 @@ import (
 )
 
 func main() {
-	databaseCreateIn := *openapiclient.NewDatabaseCreateIn() // DatabaseCreateIn | 
+	cloudflareDatabaseCreateIn := *openapiclient.NewCloudflareDatabaseCreateIn() // CloudflareDatabaseCreateIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.PostCloudflareD1Databases(context.Background()).DatabaseCreateIn(databaseCreateIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareD1Databases(context.Background()).CloudflareDatabaseCreateIn(cloudflareDatabaseCreateIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareD1Databases``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1486,7 +1486,7 @@ Other parameters are passed through a pointer to a apiPostCloudflareD1DatabasesR
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **databaseCreateIn** | [**DatabaseCreateIn**](DatabaseCreateIn.md) |  | 
+ **cloudflareDatabaseCreateIn** | [**CloudflareDatabaseCreateIn**](CloudflareDatabaseCreateIn.md) |  | 
 
 ### Return type
 
@@ -1499,7 +1499,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1508,7 +1508,7 @@ Name | Type | Description  | Notes
 
 ## PostCloudflareD1DatabasesByDatabaseQuery
 
-> interface{} PostCloudflareD1DatabasesByDatabaseQuery(ctx, database).D1Query(d1Query).Execute()
+> interface{} PostCloudflareD1DatabasesByDatabaseQuery(ctx, database).CloudflareD1Query(cloudflareD1Query).Execute()
 
 Runs one SQL statement against a D1 database.
 
@@ -1528,11 +1528,11 @@ import (
 
 func main() {
 	database := "database_example" // string | 
-	d1Query := *openapiclient.NewD1Query() // D1Query | 
+	cloudflareD1Query := *openapiclient.NewCloudflareD1Query() // CloudflareD1Query | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.PostCloudflareD1DatabasesByDatabaseQuery(context.Background(), database).D1Query(d1Query).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareD1DatabasesByDatabaseQuery(context.Background(), database).CloudflareD1Query(cloudflareD1Query).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareD1DatabasesByDatabaseQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1558,7 +1558,7 @@ Other parameters are passed through a pointer to a apiPostCloudflareD1DatabasesB
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **d1Query** | [**D1Query**](D1Query.md) |  | 
+ **cloudflareD1Query** | [**CloudflareD1Query**](CloudflareD1Query.md) |  | 
 
 ### Return type
 
@@ -1571,7 +1571,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1580,9 +1580,9 @@ Name | Type | Description  | Notes
 
 ## PostCloudflareKvNamespaces
 
-> interface{} PostCloudflareKvNamespaces(ctx).NamespaceCreateIn(namespaceCreateIn).Execute()
+> interface{} PostCloudflareKvNamespaces(ctx).CloudflareNamespaceCreateIn(cloudflareNamespaceCreateIn).Execute()
 
-KVNamespaceCreate creates a Workers KV namespace on the org's Cloudflare account.
+Creates a Workers KV namespace on the org's Cloudflare account.
 
 
 
@@ -1599,11 +1599,11 @@ import (
 )
 
 func main() {
-	namespaceCreateIn := *openapiclient.NewNamespaceCreateIn() // NamespaceCreateIn | 
+	cloudflareNamespaceCreateIn := *openapiclient.NewCloudflareNamespaceCreateIn() // CloudflareNamespaceCreateIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.PostCloudflareKvNamespaces(context.Background()).NamespaceCreateIn(namespaceCreateIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareKvNamespaces(context.Background()).CloudflareNamespaceCreateIn(cloudflareNamespaceCreateIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareKvNamespaces``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1624,7 +1624,7 @@ Other parameters are passed through a pointer to a apiPostCloudflareKvNamespaces
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **namespaceCreateIn** | [**NamespaceCreateIn**](NamespaceCreateIn.md) |  | 
+ **cloudflareNamespaceCreateIn** | [**CloudflareNamespaceCreateIn**](CloudflareNamespaceCreateIn.md) |  | 
 
 ### Return type
 
@@ -1637,7 +1637,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1646,7 +1646,7 @@ Name | Type | Description  | Notes
 
 ## PostCloudflarePagesProjects
 
-> interface{} PostCloudflarePagesProjects(ctx).PagesProjectCreate(pagesProjectCreate).Execute()
+> interface{} PostCloudflarePagesProjects(ctx).CloudflarePagesProjectCreate(cloudflarePagesProjectCreate).Execute()
 
 Creates a Cloudflare Pages project on the org's account.
 
@@ -1665,11 +1665,11 @@ import (
 )
 
 func main() {
-	pagesProjectCreate := *openapiclient.NewPagesProjectCreate() // PagesProjectCreate | 
+	cloudflarePagesProjectCreate := *openapiclient.NewCloudflarePagesProjectCreate() // CloudflarePagesProjectCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.PostCloudflarePagesProjects(context.Background()).PagesProjectCreate(pagesProjectCreate).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflarePagesProjects(context.Background()).CloudflarePagesProjectCreate(cloudflarePagesProjectCreate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflarePagesProjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1690,7 +1690,7 @@ Other parameters are passed through a pointer to a apiPostCloudflarePagesProject
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **pagesProjectCreate** | [**PagesProjectCreate**](PagesProjectCreate.md) |  | 
+ **cloudflarePagesProjectCreate** | [**CloudflarePagesProjectCreate**](CloudflarePagesProjectCreate.md) |  | 
 
 ### Return type
 
@@ -1703,7 +1703,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1784,7 +1784,7 @@ Name | Type | Description  | Notes
 
 ## PostCloudflarePagesProjectsByProjectDomains
 
-> interface{} PostCloudflarePagesProjectsByProjectDomains(ctx, project).DomainAddIn(domainAddIn).Execute()
+> interface{} PostCloudflarePagesProjectsByProjectDomains(ctx, project).CloudflareDomainAddIn(cloudflareDomainAddIn).Execute()
 
 Attaches a custom domain to a Cloudflare Pages project.
 
@@ -1804,11 +1804,11 @@ import (
 
 func main() {
 	project := "marketing-site" // string | Project is the Pages project name, from the path.
-	domainAddIn := *openapiclient.NewDomainAddIn() // DomainAddIn | 
+	cloudflareDomainAddIn := *openapiclient.NewCloudflareDomainAddIn() // CloudflareDomainAddIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.PostCloudflarePagesProjectsByProjectDomains(context.Background(), project).DomainAddIn(domainAddIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflarePagesProjectsByProjectDomains(context.Background(), project).CloudflareDomainAddIn(cloudflareDomainAddIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflarePagesProjectsByProjectDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1834,7 +1834,7 @@ Other parameters are passed through a pointer to a apiPostCloudflarePagesProject
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **domainAddIn** | [**DomainAddIn**](DomainAddIn.md) |  | 
+ **cloudflareDomainAddIn** | [**CloudflareDomainAddIn**](CloudflareDomainAddIn.md) |  | 
 
 ### Return type
 
@@ -1847,7 +1847,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1856,7 +1856,7 @@ Name | Type | Description  | Notes
 
 ## PostCloudflareR2Buckets
 
-> interface{} PostCloudflareR2Buckets(ctx).BucketCreateIn(bucketCreateIn).Execute()
+> interface{} PostCloudflareR2Buckets(ctx).CloudflareBucketCreateIn(cloudflareBucketCreateIn).Execute()
 
 Creates an R2 bucket on the org's Cloudflare account.
 
@@ -1875,11 +1875,11 @@ import (
 )
 
 func main() {
-	bucketCreateIn := *openapiclient.NewBucketCreateIn() // BucketCreateIn | 
+	cloudflareBucketCreateIn := *openapiclient.NewCloudflareBucketCreateIn() // CloudflareBucketCreateIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.PostCloudflareR2Buckets(context.Background()).BucketCreateIn(bucketCreateIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareR2Buckets(context.Background()).CloudflareBucketCreateIn(cloudflareBucketCreateIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareR2Buckets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1900,7 +1900,7 @@ Other parameters are passed through a pointer to a apiPostCloudflareR2BucketsReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **bucketCreateIn** | [**BucketCreateIn**](BucketCreateIn.md) |  | 
+ **cloudflareBucketCreateIn** | [**CloudflareBucketCreateIn**](CloudflareBucketCreateIn.md) |  | 
 
 ### Return type
 
@@ -1913,7 +1913,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1922,7 +1922,7 @@ Name | Type | Description  | Notes
 
 ## PostCloudflareWorkersScriptsByScriptSubdomain
 
-> interface{} PostCloudflareWorkersScriptsByScriptSubdomain(ctx, script).SubdomainSetIn(subdomainSetIn).Execute()
+> interface{} PostCloudflareWorkersScriptsByScriptSubdomain(ctx, script).CloudflareSubdomainSetIn(cloudflareSubdomainSetIn).Execute()
 
 Publishes or withdraws one Worker script on the account's workers.dev subdomain.
 
@@ -1942,11 +1942,11 @@ import (
 
 func main() {
 	script := "edge-router" // string | Script is the Worker script name, from the path.
-	subdomainSetIn := *openapiclient.NewSubdomainSetIn() // SubdomainSetIn | 
+	cloudflareSubdomainSetIn := *openapiclient.NewCloudflareSubdomainSetIn() // CloudflareSubdomainSetIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.PostCloudflareWorkersScriptsByScriptSubdomain(context.Background(), script).SubdomainSetIn(subdomainSetIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareWorkersScriptsByScriptSubdomain(context.Background(), script).CloudflareSubdomainSetIn(cloudflareSubdomainSetIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareWorkersScriptsByScriptSubdomain``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1972,7 +1972,7 @@ Other parameters are passed through a pointer to a apiPostCloudflareWorkersScrip
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **subdomainSetIn** | [**SubdomainSetIn**](SubdomainSetIn.md) |  | 
+ **cloudflareSubdomainSetIn** | [**CloudflareSubdomainSetIn**](CloudflareSubdomainSetIn.md) |  | 
 
 ### Return type
 
@@ -1985,7 +1985,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1994,7 +1994,7 @@ Name | Type | Description  | Notes
 
 ## PostCloudflareWorkersZonesByZoneRoutes
 
-> interface{} PostCloudflareWorkersZonesByZoneRoutes(ctx, zone).RouteCreateIn(routeCreateIn).Execute()
+> interface{} PostCloudflareWorkersZonesByZoneRoutes(ctx, zone).CloudflareRouteCreateIn(cloudflareRouteCreateIn).Execute()
 
 Binds a URL pattern in a zone to a Worker script.
 
@@ -2014,11 +2014,11 @@ import (
 
 func main() {
 	zone := "0123456789abcdef0123456789abcdef" // string | Zone is the 32-hex Cloudflare zone id, from the path.
-	routeCreateIn := *openapiclient.NewRouteCreateIn() // RouteCreateIn | 
+	cloudflareRouteCreateIn := *openapiclient.NewCloudflareRouteCreateIn() // CloudflareRouteCreateIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.PostCloudflareWorkersZonesByZoneRoutes(context.Background(), zone).RouteCreateIn(routeCreateIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareWorkersZonesByZoneRoutes(context.Background(), zone).CloudflareRouteCreateIn(cloudflareRouteCreateIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareWorkersZonesByZoneRoutes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2044,7 +2044,7 @@ Other parameters are passed through a pointer to a apiPostCloudflareWorkersZones
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **routeCreateIn** | [**RouteCreateIn**](RouteCreateIn.md) |  | 
+ **cloudflareRouteCreateIn** | [**CloudflareRouteCreateIn**](CloudflareRouteCreateIn.md) |  | 
 
 ### Return type
 
@@ -2057,7 +2057,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2066,7 +2066,7 @@ Name | Type | Description  | Notes
 
 ## PostCloudflareZonesByZonePurge
 
-> interface{} PostCloudflareZonesByZonePurge(ctx, zone).PurgeIn(purgeIn).Execute()
+> interface{} PostCloudflareZonesByZonePurge(ctx, zone).CloudflarePurgeIn(cloudflarePurgeIn).Execute()
 
 Drops a zone's Cloudflare edge cache — either the whole zone (purge_everything) or exactly the listed file URLs.
 
@@ -2086,11 +2086,11 @@ import (
 
 func main() {
 	zone := "0123456789abcdef0123456789abcdef" // string | Zone is the 32-hex Cloudflare zone id, from the path.
-	purgeIn := *openapiclient.NewPurgeIn() // PurgeIn | 
+	cloudflarePurgeIn := *openapiclient.NewCloudflarePurgeIn() // CloudflarePurgeIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.PostCloudflareZonesByZonePurge(context.Background(), zone).PurgeIn(purgeIn).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PostCloudflareZonesByZonePurge(context.Background(), zone).CloudflarePurgeIn(cloudflarePurgeIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PostCloudflareZonesByZonePurge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2116,7 +2116,7 @@ Other parameters are passed through a pointer to a apiPostCloudflareZonesByZoneP
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **purgeIn** | [**PurgeIn**](PurgeIn.md) |  | 
+ **cloudflarePurgeIn** | [**CloudflarePurgeIn**](CloudflarePurgeIn.md) |  | 
 
 ### Return type
 
@@ -2129,7 +2129,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2209,7 +2209,7 @@ Name | Type | Description  | Notes
 
 ## PutCloudflareWorkersScriptsByScript
 
-> interface{} PutCloudflareWorkersScriptsByScript(ctx, script).WorkerScriptPut(workerScriptPut).Execute()
+> interface{} PutCloudflareWorkersScriptsByScript(ctx, script).CloudflareWorkerScriptPut(cloudflareWorkerScriptPut).Execute()
 
 Uploads or replaces a module Worker script.
 
@@ -2229,11 +2229,11 @@ import (
 
 func main() {
 	script := "script_example" // string | Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker's ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker.
-	workerScriptPut := *openapiclient.NewWorkerScriptPut() // WorkerScriptPut | 
+	cloudflareWorkerScriptPut := *openapiclient.NewCloudflareWorkerScriptPut() // CloudflareWorkerScriptPut | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CloudflareAPI.PutCloudflareWorkersScriptsByScript(context.Background(), script).WorkerScriptPut(workerScriptPut).Execute()
+	resp, r, err := apiClient.CloudflareAPI.PutCloudflareWorkersScriptsByScript(context.Background(), script).CloudflareWorkerScriptPut(cloudflareWorkerScriptPut).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CloudflareAPI.PutCloudflareWorkersScriptsByScript``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2259,7 +2259,7 @@ Other parameters are passed through a pointer to a apiPutCloudflareWorkersScript
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **workerScriptPut** | [**WorkerScriptPut**](WorkerScriptPut.md) |  | 
+ **cloudflareWorkerScriptPut** | [**CloudflareWorkerScriptPut**](CloudflareWorkerScriptPut.md) |  | 
 
 ### Return type
 
@@ -2272,7 +2272,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

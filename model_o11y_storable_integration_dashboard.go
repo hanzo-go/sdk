@@ -20,13 +20,16 @@ var _ MappedNullable = &O11yStorableIntegrationDashboard{}
 
 // O11yStorableIntegrationDashboard struct for O11yStorableIntegrationDashboard
 type O11yStorableIntegrationDashboard struct {
-	CreatedAt   *time.Time  `json:"createdAt,omitempty"`
-	DashboardId *string     `json:"dashboardId,omitempty"`
-	Id          *string     `json:"id,omitempty"`
-	Provider    interface{} `json:"provider,omitempty"`
-	Slug        *string     `json:"slug,omitempty"`
-	UpdatedAt   *time.Time  `json:"updatedAt,omitempty"`
+	CreatedAt            *time.Time  `json:"createdAt,omitempty"`
+	DashboardId          *string     `json:"dashboardId,omitempty"`
+	Id                   *string     `json:"id,omitempty"`
+	Provider             interface{} `json:"provider,omitempty"`
+	Slug                 *string     `json:"slug,omitempty"`
+	UpdatedAt            *time.Time  `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yStorableIntegrationDashboard O11yStorableIntegrationDashboard
 
 // NewO11yStorableIntegrationDashboard instantiates a new O11yStorableIntegrationDashboard object
 // This constructor will assign default values to properties that have it defined,
@@ -266,7 +269,38 @@ func (o O11yStorableIntegrationDashboard) ToMap() (map[string]interface{}, error
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yStorableIntegrationDashboard) UnmarshalJSON(data []byte) (err error) {
+	varO11yStorableIntegrationDashboard := _O11yStorableIntegrationDashboard{}
+
+	err = json.Unmarshal(data, &varO11yStorableIntegrationDashboard)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yStorableIntegrationDashboard(varO11yStorableIntegrationDashboard)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "dashboardId")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "slug")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yStorableIntegrationDashboard struct {

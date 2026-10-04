@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yO11yTraceFlamegraphIn{}
 
 // O11yO11yTraceFlamegraphIn struct for O11yO11yTraceFlamegraphIn
 type O11yO11yTraceFlamegraphIn struct {
-	SelectFields   []O11yTelemetryFieldKey `json:"selectFields,omitempty"`
-	SelectedSpanId *string                 `json:"selectedSpanId,omitempty"`
+	SelectFields         []O11yTelemetryFieldKey `json:"selectFields,omitempty"`
+	SelectedSpanId       *string                 `json:"selectedSpanId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTraceFlamegraphIn O11yO11yTraceFlamegraphIn
 
 // NewO11yO11yTraceFlamegraphIn instantiates a new O11yO11yTraceFlamegraphIn object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yO11yTraceFlamegraphIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SelectedSpanId) {
 		toSerialize["selectedSpanId"] = o.SelectedSpanId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTraceFlamegraphIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTraceFlamegraphIn := _O11yO11yTraceFlamegraphIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yTraceFlamegraphIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTraceFlamegraphIn(varO11yO11yTraceFlamegraphIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "selectFields")
+		delete(additionalProperties, "selectedSpanId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTraceFlamegraphIn struct {

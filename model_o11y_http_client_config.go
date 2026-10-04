@@ -38,8 +38,11 @@ type O11yHTTPClientConfig struct {
 	ProxyFromEnvironment *bool                    `json:"proxy_from_environment,omitempty"`
 	ProxyUrl             interface{}              `json:"proxy_url,omitempty"`
 	// TLSConfig to use to connect to the targets.
-	TlsConfig *O11yTLSConfig `json:"tls_config,omitempty"`
+	TlsConfig            *O11yTLSConfig `json:"tls_config,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yHTTPClientConfig O11yHTTPClientConfig
 
 // NewO11yHTTPClientConfig instantiates a new O11yHTTPClientConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -526,7 +529,45 @@ func (o O11yHTTPClientConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TlsConfig) {
 		toSerialize["tls_config"] = o.TlsConfig
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yHTTPClientConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yHTTPClientConfig := _O11yHTTPClientConfig{}
+
+	err = json.Unmarshal(data, &varO11yHTTPClientConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yHTTPClientConfig(varO11yHTTPClientConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "authorization")
+		delete(additionalProperties, "basic_auth")
+		delete(additionalProperties, "bearer_token")
+		delete(additionalProperties, "bearer_token_file")
+		delete(additionalProperties, "enable_http2")
+		delete(additionalProperties, "follow_redirects")
+		delete(additionalProperties, "http_headers")
+		delete(additionalProperties, "no_proxy")
+		delete(additionalProperties, "oauth2")
+		delete(additionalProperties, "proxy_connect_header")
+		delete(additionalProperties, "proxy_from_environment")
+		delete(additionalProperties, "proxy_url")
+		delete(additionalProperties, "tls_config")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yHTTPClientConfig struct {

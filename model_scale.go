@@ -19,13 +19,16 @@ var _ MappedNullable = &Scale{}
 
 // Scale struct for Scale
 type Scale struct {
-	CreatedTime *string `json:"createdTime,omitempty"`
-	DisplayName *string `json:"displayName,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Owner       *string `json:"owner,omitempty"`
-	State       *string `json:"state,omitempty"`
-	Text        *string `json:"text,omitempty"`
+	CreatedTime          *string `json:"createdTime,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	State                *string `json:"state,omitempty"`
+	Text                 *string `json:"text,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Scale Scale
 
 // NewScale instantiates a new Scale object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o Scale) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Text) {
 		toSerialize["text"] = o.Text
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Scale) UnmarshalJSON(data []byte) (err error) {
+	varScale := _Scale{}
+
+	err = json.Unmarshal(data, &varScale)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Scale(varScale)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "text")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableScale struct {

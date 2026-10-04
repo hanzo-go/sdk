@@ -19,11 +19,14 @@ var _ MappedNullable = &Session{}
 
 // Session struct for Session
 type Session struct {
-	CreatedTime *string  `json:"createdTime,omitempty"`
-	Name        *string  `json:"name,omitempty"`
-	Owner       *string  `json:"owner,omitempty"`
-	SessionId   []string `json:"sessionId,omitempty"`
+	CreatedTime          *string  `json:"createdTime,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	Owner                *string  `json:"owner,omitempty"`
+	SessionId            []string `json:"sessionId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Session Session
 
 // NewSession instantiates a new Session object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o Session) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SessionId) {
 		toSerialize["sessionId"] = o.SessionId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Session) UnmarshalJSON(data []byte) (err error) {
+	varSession := _Session{}
+
+	err = json.Unmarshal(data, &varSession)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Session(varSession)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "sessionId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSession struct {

@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,12 +20,13 @@ var _ MappedNullable = &O11yGroupByKey{}
 
 // O11yGroupByKey struct for O11yGroupByKey
 type O11yGroupByKey struct {
-	Description   *string     `json:"description,omitempty"`
-	FieldContext  interface{} `json:"fieldContext,omitempty"`
-	FieldDataType interface{} `json:"fieldDataType,omitempty"`
-	Name          string      `json:"name"`
-	Signal        interface{} `json:"signal,omitempty"`
-	Unit          *string     `json:"unit,omitempty"`
+	Description          *string     `json:"description,omitempty"`
+	FieldContext         interface{} `json:"fieldContext,omitempty"`
+	FieldDataType        interface{} `json:"fieldDataType,omitempty"`
+	Name                 string      `json:"name"`
+	Signal               interface{} `json:"signal,omitempty"`
+	Unit                 *string     `json:"unit,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yGroupByKey O11yGroupByKey
@@ -262,6 +262,11 @@ func (o O11yGroupByKey) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Unit) {
 		toSerialize["unit"] = o.Unit
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -289,15 +294,25 @@ func (o *O11yGroupByKey) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yGroupByKey := _O11yGroupByKey{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yGroupByKey)
+	err = json.Unmarshal(data, &varO11yGroupByKey)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yGroupByKey(varO11yGroupByKey)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "fieldContext")
+		delete(additionalProperties, "fieldDataType")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "signal")
+		delete(additionalProperties, "unit")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -22,8 +22,11 @@ type O11yO11ySpanPercentile struct {
 	// Percentiles are the peer group's duration percentiles.
 	Percentiles *O11yO11yPercentiles `json:"percentiles,omitempty"`
 	// Position is where the given duration lands.
-	Position *O11yO11yPercentilePosition `json:"position,omitempty"`
+	Position             *O11yO11yPercentilePosition `json:"position,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11ySpanPercentile O11yO11ySpanPercentile
 
 // NewO11yO11ySpanPercentile instantiates a new O11yO11ySpanPercentile object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11ySpanPercentile) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Position) {
 		toSerialize["position"] = o.Position
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11ySpanPercentile) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11ySpanPercentile := _O11yO11ySpanPercentile{}
+
+	err = json.Unmarshal(data, &varO11yO11ySpanPercentile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11ySpanPercentile(varO11yO11ySpanPercentile)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "percentiles")
+		delete(additionalProperties, "position")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11ySpanPercentile struct {

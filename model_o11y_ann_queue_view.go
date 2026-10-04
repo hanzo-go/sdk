@@ -30,8 +30,11 @@ type O11yAnnQueueView struct {
 	// ScoreConfigIDs are the eval score-configs reviewers grade against.
 	ScoreConfigIds []string `json:"scoreConfigIds,omitempty"`
 	// UpdatedAt is when it last changed, RFC3339 in UTC.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	UpdatedAt            *string `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAnnQueueView O11yAnnQueueView
 
 // NewO11yAnnQueueView instantiates a new O11yAnnQueueView object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o O11yAnnQueueView) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAnnQueueView) UnmarshalJSON(data []byte) (err error) {
+	varO11yAnnQueueView := _O11yAnnQueueView{}
+
+	err = json.Unmarshal(data, &varO11yAnnQueueView)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAnnQueueView(varO11yAnnQueueView)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "scoreConfigIds")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAnnQueueView struct {

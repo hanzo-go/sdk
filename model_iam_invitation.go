@@ -28,19 +28,26 @@ type IamInvitation struct {
 	Deleted     *bool      `json:"deleted,omitempty"`
 	DisplayName *string    `json:"displayName,omitempty"`
 	Email       *string    `json:"email,omitempty"`
-	Id          *string    `json:"id,omitempty"`
-	IsRegexp    *bool      `json:"isRegexp,omitempty"`
-	Name        *string    `json:"name,omitempty"`
-	Owner       *string    `json:"owner,omitempty"`
-	Phone       *string    `json:"phone,omitempty"`
-	Quota       *int64     `json:"quota,omitempty"`
-	SignupGroup *string    `json:"signupGroup,omitempty"`
-	State       *string    `json:"state,omitempty"`
-	UpdatedAt   *time.Time `json:"updatedAt,omitempty"`
-	UpdatedTime *string    `json:"updatedTime,omitempty"`
-	UsedCount   *int64     `json:"usedCount,omitempty"`
-	Username    *string    `json:"username,omitempty"`
+	// Generated reports that IAM minted Code itself, from crypto/rand, when the invitation was created. Only such a code is compared without limit; any code a caller wrote is compared only while the org is not being guessed at, however it looks, because a code that looks random need not be.
+	Generated *bool   `json:"generated,omitempty"`
+	Id        *string `json:"id,omitempty"`
+	IsRegexp  *bool   `json:"isRegexp,omitempty"`
+	Name      *string `json:"name,omitempty"`
+	Owner     *string `json:"owner,omitempty"`
+	Phone     *string `json:"phone,omitempty"`
+	Quota     *int64  `json:"quota,omitempty"`
+	// SentTime is when an email about this invitation last went to its pinned address (RFC 3339), \"\" when none has. It paces resends, so the send endpoint cannot be used to mail one address over and over.
+	SentTime             *string    `json:"sentTime,omitempty"`
+	SignupGroup          *string    `json:"signupGroup,omitempty"`
+	State                *string    `json:"state,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	UpdatedTime          *string    `json:"updatedTime,omitempty"`
+	UsedCount            *int64     `json:"usedCount,omitempty"`
+	Username             *string    `json:"username,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamInvitation IamInvitation
 
 // NewIamInvitation instantiates a new IamInvitation object
 // This constructor will assign default values to properties that have it defined,
@@ -315,6 +322,38 @@ func (o *IamInvitation) SetEmail(v string) {
 	o.Email = &v
 }
 
+// GetGenerated returns the Generated field value if set, zero value otherwise.
+func (o *IamInvitation) GetGenerated() bool {
+	if o == nil || IsNil(o.Generated) {
+		var ret bool
+		return ret
+	}
+	return *o.Generated
+}
+
+// GetGeneratedOk returns a tuple with the Generated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamInvitation) GetGeneratedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Generated) {
+		return nil, false
+	}
+	return o.Generated, true
+}
+
+// HasGenerated returns a boolean if a field has been set.
+func (o *IamInvitation) HasGenerated() bool {
+	if o != nil && !IsNil(o.Generated) {
+		return true
+	}
+
+	return false
+}
+
+// SetGenerated gets a reference to the given bool and assigns it to the Generated field.
+func (o *IamInvitation) SetGenerated(v bool) {
+	o.Generated = &v
+}
+
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *IamInvitation) GetId() string {
 	if o == nil || IsNil(o.Id) {
@@ -505,6 +544,38 @@ func (o *IamInvitation) HasQuota() bool {
 // SetQuota gets a reference to the given int64 and assigns it to the Quota field.
 func (o *IamInvitation) SetQuota(v int64) {
 	o.Quota = &v
+}
+
+// GetSentTime returns the SentTime field value if set, zero value otherwise.
+func (o *IamInvitation) GetSentTime() string {
+	if o == nil || IsNil(o.SentTime) {
+		var ret string
+		return ret
+	}
+	return *o.SentTime
+}
+
+// GetSentTimeOk returns a tuple with the SentTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamInvitation) GetSentTimeOk() (*string, bool) {
+	if o == nil || IsNil(o.SentTime) {
+		return nil, false
+	}
+	return o.SentTime, true
+}
+
+// HasSentTime returns a boolean if a field has been set.
+func (o *IamInvitation) HasSentTime() bool {
+	if o != nil && !IsNil(o.SentTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetSentTime gets a reference to the given string and assigns it to the SentTime field.
+func (o *IamInvitation) SetSentTime(v string) {
+	o.SentTime = &v
 }
 
 // GetSignupGroup returns the SignupGroup field value if set, zero value otherwise.
@@ -733,6 +804,9 @@ func (o IamInvitation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
+	if !IsNil(o.Generated) {
+		toSerialize["generated"] = o.Generated
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -750,6 +824,9 @@ func (o IamInvitation) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Quota) {
 		toSerialize["quota"] = o.Quota
+	}
+	if !IsNil(o.SentTime) {
+		toSerialize["sentTime"] = o.SentTime
 	}
 	if !IsNil(o.SignupGroup) {
 		toSerialize["signupGroup"] = o.SignupGroup
@@ -769,7 +846,54 @@ func (o IamInvitation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamInvitation) UnmarshalJSON(data []byte) (err error) {
+	varIamInvitation := _IamInvitation{}
+
+	err = json.Unmarshal(data, &varIamInvitation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamInvitation(varIamInvitation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "application")
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "defaultCode")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "generated")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "isRegexp")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "phone")
+		delete(additionalProperties, "quota")
+		delete(additionalProperties, "sentTime")
+		delete(additionalProperties, "signupGroup")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedTime")
+		delete(additionalProperties, "usedCount")
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamInvitation struct {

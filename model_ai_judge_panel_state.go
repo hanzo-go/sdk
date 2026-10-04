@@ -19,13 +19,16 @@ var _ MappedNullable = &AiJudgePanelState{}
 
 // AiJudgePanelState struct for AiJudgePanelState
 type AiJudgePanelState struct {
-	Available  *bool             `json:"available,omitempty"`
-	Benchmark  *AiJudgeBenchmark `json:"benchmark,omitempty"`
-	Enabled    *bool             `json:"enabled,omitempty"`
-	Judges     []AiPanelJudge    `json:"judges,omitempty"`
-	Models     []string          `json:"models,omitempty"`
-	SampleRate *float32          `json:"sampleRate,omitempty"`
+	Available            *bool             `json:"available,omitempty"`
+	Benchmark            *AiJudgeBenchmark `json:"benchmark,omitempty"`
+	Enabled              *bool             `json:"enabled,omitempty"`
+	Judges               []AiPanelJudge    `json:"judges,omitempty"`
+	Models               []string          `json:"models,omitempty"`
+	SampleRate           *float32          `json:"sampleRate,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiJudgePanelState AiJudgePanelState
 
 // NewAiJudgePanelState instantiates a new AiJudgePanelState object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o AiJudgePanelState) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SampleRate) {
 		toSerialize["sampleRate"] = o.SampleRate
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiJudgePanelState) UnmarshalJSON(data []byte) (err error) {
+	varAiJudgePanelState := _AiJudgePanelState{}
+
+	err = json.Unmarshal(data, &varAiJudgePanelState)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiJudgePanelState(varAiJudgePanelState)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "available")
+		delete(additionalProperties, "benchmark")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "judges")
+		delete(additionalProperties, "models")
+		delete(additionalProperties, "sampleRate")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiJudgePanelState struct {

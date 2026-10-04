@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Args** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**Args** | Pointer to **[]interface{}** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**NamedArgs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**NamedArgs** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetArgs
 
-`func (o *O11yFunction) GetArgs() []map[string]interface{}`
+`func (o *O11yFunction) GetArgs() []interface{}`
 
 GetArgs returns the Args field if non-nil, zero value otherwise.
 
 ### GetArgsOk
 
-`func (o *O11yFunction) GetArgsOk() (*[]map[string]interface{}, bool)`
+`func (o *O11yFunction) GetArgsOk() (*[]interface{}, bool)`
 
 GetArgsOk returns a tuple with the Args field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetArgs
 
-`func (o *O11yFunction) SetArgs(v []map[string]interface{})`
+`func (o *O11yFunction) SetArgs(v []interface{})`
 
 SetArgs sets Args field to given value.
 
@@ -79,20 +79,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetNamedArgs
 
-`func (o *O11yFunction) GetNamedArgs() map[string]map[string]interface{}`
+`func (o *O11yFunction) GetNamedArgs() map[string]interface{}`
 
 GetNamedArgs returns the NamedArgs field if non-nil, zero value otherwise.
 
 ### GetNamedArgsOk
 
-`func (o *O11yFunction) GetNamedArgsOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yFunction) GetNamedArgsOk() (*map[string]interface{}, bool)`
 
 GetNamedArgsOk returns a tuple with the NamedArgs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNamedArgs
 
-`func (o *O11yFunction) SetNamedArgs(v map[string]map[string]interface{})`
+`func (o *O11yFunction) SetNamedArgs(v map[string]interface{})`
 
 SetNamedArgs sets NamedArgs field to given value.
 

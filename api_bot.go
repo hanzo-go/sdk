@@ -27,7 +27,7 @@ type BotAPIGetBotMembersRequest struct {
 	ApiService *BotAPIService
 }
 
-func (r BotAPIGetBotMembersRequest) Execute() (*BotRoster, *http.Response, error) {
+func (r BotAPIGetBotMembersRequest) Execute() (*BotBotRoster, *http.Response, error) {
 	return r.ApiService.GetBotMembersExecute(r)
 }
 
@@ -54,13 +54,13 @@ func (a *BotAPIService) GetBotMembers(ctx context.Context) BotAPIGetBotMembersRe
 
 // Execute executes the request
 //
-//	@return BotRoster
-func (a *BotAPIService) GetBotMembersExecute(r BotAPIGetBotMembersRequest) (*BotRoster, *http.Response, error) {
+//	@return BotBotRoster
+func (a *BotAPIService) GetBotMembersExecute(r BotAPIGetBotMembersRequest) (*BotBotRoster, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BotRoster
+		localVarReturnValue *BotBotRoster
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotAPIService.GetBotMembers")
@@ -84,7 +84,7 @@ func (a *BotAPIService) GetBotMembersExecute(r BotAPIGetBotMembersRequest) (*Bot
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -113,6 +113,14 @@ func (a *BotAPIService) GetBotMembersExecute(r BotAPIGetBotMembersRequest) (*Bot
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -133,14 +141,14 @@ type BotAPIGetBotRunsRequest struct {
 	ApiService *BotAPIService
 }
 
-func (r BotAPIGetBotRunsRequest) Execute() (*BotRuns, *http.Response, error) {
+func (r BotAPIGetBotRunsRequest) Execute() (*BotBotRuns, *http.Response, error) {
 	return r.ApiService.GetBotRunsExecute(r)
 }
 
 /*
-GetBotRuns List returns the caller org's live bot runs, read from the bot runtime and projected into the console contract with each run's live session URL derived here.
+GetBotRuns Returns the caller org's live bot runs, read from the bot runtime and projected into the console contract with each run's live session URL derived here.
 
-List returns the caller org's live bot runs, read from the bot runtime and projected
+Returns the caller org's live bot runs, read from the bot runtime and projected
 into the console contract with each run's live session URL derived here.
 
 The org is ALWAYS the validated principal's org, NEVER a request field, and it is
@@ -161,13 +169,13 @@ func (a *BotAPIService) GetBotRuns(ctx context.Context) BotAPIGetBotRunsRequest 
 
 // Execute executes the request
 //
-//	@return BotRuns
-func (a *BotAPIService) GetBotRunsExecute(r BotAPIGetBotRunsRequest) (*BotRuns, *http.Response, error) {
+//	@return BotBotRuns
+func (a *BotAPIService) GetBotRunsExecute(r BotAPIGetBotRunsRequest) (*BotBotRuns, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BotRuns
+		localVarReturnValue *BotBotRuns
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotAPIService.GetBotRuns")
@@ -191,7 +199,7 @@ func (a *BotAPIService) GetBotRunsExecute(r BotAPIGetBotRunsRequest) (*BotRuns, 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -220,6 +228,14 @@ func (a *BotAPIService) GetBotRunsExecute(r BotAPIGetBotRunsRequest) (*BotRuns, 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -240,7 +256,7 @@ type BotAPIPostBotMembersSyncRequest struct {
 	ApiService *BotAPIService
 }
 
-func (r BotAPIPostBotMembersSyncRequest) Execute() (*BotSync, *http.Response, error) {
+func (r BotAPIPostBotMembersSyncRequest) Execute() (*BotBotSync, *http.Response, error) {
 	return r.ApiService.PostBotMembersSyncExecute(r)
 }
 
@@ -263,13 +279,13 @@ func (a *BotAPIService) PostBotMembersSync(ctx context.Context) BotAPIPostBotMem
 
 // Execute executes the request
 //
-//	@return BotSync
-func (a *BotAPIService) PostBotMembersSyncExecute(r BotAPIPostBotMembersSyncRequest) (*BotSync, *http.Response, error) {
+//	@return BotBotSync
+func (a *BotAPIService) PostBotMembersSyncExecute(r BotAPIPostBotMembersSyncRequest) (*BotBotSync, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BotSync
+		localVarReturnValue *BotBotSync
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotAPIService.PostBotMembersSync")
@@ -293,7 +309,7 @@ func (a *BotAPIService) PostBotMembersSyncExecute(r BotAPIPostBotMembersSyncRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -322,6 +338,14 @@ func (a *BotAPIService) PostBotMembersSyncExecute(r BotAPIPostBotMembersSyncRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -337,123 +361,20 @@ func (a *BotAPIService) PostBotMembersSyncExecute(r BotAPIPostBotMembersSyncRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type BotAPIPostBotRunsRequest struct {
-	ctx        context.Context
-	ApiService *BotAPIService
-}
-
-func (r BotAPIPostBotRunsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostBotRunsExecute(r)
-}
-
-/*
-PostBotRuns Answers 501 to every call: launching a bot run is not implemented.
-
-Answers 501 to every call: launching a bot run is not implemented.
-
-The bot runtime exposes no launch operation, so nothing here can start a sandbox.
-This address is published rather than dropped because it is the collection every
-run is created in: GET lists them, POST would launch one.
-
-The refusal is total and takes no input. No run id is minted, no session URL is
-handed back, and no per-run fee is charged. That is the point: the earlier version
-minted an id the runtime had never heard of, pointed it at a VNC node that did not
-exist, and took real money for it. 501 is the truth, and the truth is cheaper than
-a plausible lie.
-
-Listing and stopping runs are live and org-scoped. Only the launch is missing, and
-it returns in the same change that can prove a bot boots — a runtime-side launch
-operation first (TS, cross-repo), with the entitlement gate and the meter beside
-it.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return BotAPIPostBotRunsRequest
-*/
-func (a *BotAPIService) PostBotRuns(ctx context.Context) BotAPIPostBotRunsRequest {
-	return BotAPIPostBotRunsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *BotAPIService) PostBotRunsExecute(r BotAPIPostBotRunsRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotAPIService.PostBotRuns")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/bot/runs"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type BotAPIPostBotRunsByRunidStopRequest struct {
 	ctx        context.Context
 	ApiService *BotAPIService
 	runId      string
 }
 
-func (r BotAPIPostBotRunsByRunidStopRequest) Execute() (*BotStopped, *http.Response, error) {
+func (r BotAPIPostBotRunsByRunidStopRequest) Execute() (*BotBotStopped, *http.Response, error) {
 	return r.ApiService.PostBotRunsByRunidStopExecute(r)
 }
 
 /*
-PostBotRunsByRunidStop Stop terminates one of the caller org's own bot runs and reports its terminal state.
+PostBotRunsByRunidStop Terminates one of the caller org's own bot runs and reports its terminal state.
 
-Stop terminates one of the caller org's own bot runs and reports its terminal state.
+Terminates one of the caller org's own bot runs and reports its terminal state.
 
 The own-key guard is the org: it is the caller's validated org, never theirs to
 choose, and the runtime resolves the run id UNDER it. A run belonging to another
@@ -478,13 +399,13 @@ func (a *BotAPIService) PostBotRunsByRunidStop(ctx context.Context, runId string
 
 // Execute executes the request
 //
-//	@return BotStopped
-func (a *BotAPIService) PostBotRunsByRunidStopExecute(r BotAPIPostBotRunsByRunidStopRequest) (*BotStopped, *http.Response, error) {
+//	@return BotBotStopped
+func (a *BotAPIService) PostBotRunsByRunidStopExecute(r BotAPIPostBotRunsByRunidStopRequest) (*BotBotStopped, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BotStopped
+		localVarReturnValue *BotBotStopped
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotAPIService.PostBotRunsByRunidStop")
@@ -509,7 +430,7 @@ func (a *BotAPIService) PostBotRunsByRunidStopExecute(r BotAPIPostBotRunsByRunid
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -538,6 +459,14 @@ func (a *BotAPIService) PostBotRunsByRunidStopExecute(r BotAPIPostBotRunsByRunid
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

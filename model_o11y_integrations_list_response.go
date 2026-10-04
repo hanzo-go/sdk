@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yIntegrationsListResponse{}
 
 // O11yIntegrationsListResponse struct for O11yIntegrationsListResponse
 type O11yIntegrationsListResponse struct {
-	Integrations []O11yIntegrationsListItem `json:"integrations,omitempty"`
+	Integrations         []O11yIntegrationsListItem `json:"integrations,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yIntegrationsListResponse O11yIntegrationsListResponse
 
 // NewO11yIntegrationsListResponse instantiates a new O11yIntegrationsListResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yIntegrationsListResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Integrations) {
 		toSerialize["integrations"] = o.Integrations
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yIntegrationsListResponse) UnmarshalJSON(data []byte) (err error) {
+	varO11yIntegrationsListResponse := _O11yIntegrationsListResponse{}
+
+	err = json.Unmarshal(data, &varO11yIntegrationsListResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yIntegrationsListResponse(varO11yIntegrationsListResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "integrations")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yIntegrationsListResponse struct {

@@ -19,9 +19,12 @@ var _ MappedNullable = &OpenaiJailBreak{}
 
 // OpenaiJailBreak struct for OpenaiJailBreak
 type OpenaiJailBreak struct {
-	Detected *bool `json:"detected,omitempty"`
-	Filtered *bool `json:"filtered,omitempty"`
+	Detected             *bool `json:"detected,omitempty"`
+	Filtered             *bool `json:"filtered,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiJailBreak OpenaiJailBreak
 
 // NewOpenaiJailBreak instantiates a new OpenaiJailBreak object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o OpenaiJailBreak) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Filtered) {
 		toSerialize["filtered"] = o.Filtered
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiJailBreak) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiJailBreak := _OpenaiJailBreak{}
+
+	err = json.Unmarshal(data, &varOpenaiJailBreak)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiJailBreak(varOpenaiJailBreak)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "detected")
+		delete(additionalProperties, "filtered")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiJailBreak struct {

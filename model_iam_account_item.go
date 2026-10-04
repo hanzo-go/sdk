@@ -19,13 +19,16 @@ var _ MappedNullable = &IamAccountItem{}
 
 // IamAccountItem struct for IamAccountItem
 type IamAccountItem struct {
-	ModifyRule *string `json:"modifyRule,omitempty"`
-	Name       *string `json:"name,omitempty"`
-	Regex      *string `json:"regex,omitempty"`
-	Tab        *string `json:"tab,omitempty"`
-	ViewRule   *string `json:"viewRule,omitempty"`
-	Visible    *bool   `json:"visible,omitempty"`
+	ModifyRule           *string `json:"modifyRule,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Regex                *string `json:"regex,omitempty"`
+	Tab                  *string `json:"tab,omitempty"`
+	ViewRule             *string `json:"viewRule,omitempty"`
+	Visible              *bool   `json:"visible,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamAccountItem IamAccountItem
 
 // NewIamAccountItem instantiates a new IamAccountItem object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o IamAccountItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Visible) {
 		toSerialize["visible"] = o.Visible
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamAccountItem) UnmarshalJSON(data []byte) (err error) {
+	varIamAccountItem := _IamAccountItem{}
+
+	err = json.Unmarshal(data, &varIamAccountItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamAccountItem(varIamAccountItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "modifyRule")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "regex")
+		delete(additionalProperties, "tab")
+		delete(additionalProperties, "viewRule")
+		delete(additionalProperties, "visible")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamAccountItem struct {

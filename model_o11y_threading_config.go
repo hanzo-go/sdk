@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yThreadingConfig{}
 
 // O11yThreadingConfig struct for O11yThreadingConfig
 type O11yThreadingConfig struct {
-	Enabled      *bool   `json:"enabled,omitempty"`
-	ThreadByDate *string `json:"thread_by_date,omitempty"`
+	Enabled              *bool   `json:"enabled,omitempty"`
+	ThreadByDate         *string `json:"thread_by_date,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yThreadingConfig O11yThreadingConfig
 
 // NewO11yThreadingConfig instantiates a new O11yThreadingConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yThreadingConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ThreadByDate) {
 		toSerialize["thread_by_date"] = o.ThreadByDate
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yThreadingConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yThreadingConfig := _O11yThreadingConfig{}
+
+	err = json.Unmarshal(data, &varO11yThreadingConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yThreadingConfig(varO11yThreadingConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "thread_by_date")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yThreadingConfig struct {

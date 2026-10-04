@@ -33,9 +33,9 @@ func (r SyncAPIDeleteSyncByIdRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteSyncById Delete removes one sync and tears down the outbound mirror it derived, answering 204.
+DeleteSyncById Removes one sync and tears down the outbound mirror it derived, answering 204.
 
-Delete removes one sync and tears down the outbound mirror it derived, answering
+Removes one sync and tears down the outbound mirror it derived, answering
 204. The teardown is the point: without it an unsynced repository would keep
 force-pushing to the upstream it is no longer linked to. Org-scoped, so another
 tenant's id is the same 404 an unknown id gives.
@@ -82,7 +82,7 @@ func (a *SyncAPIService) DeleteSyncByIdExecute(r SyncAPIDeleteSyncByIdRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -111,6 +111,14 @@ func (a *SyncAPIService) DeleteSyncByIdExecute(r SyncAPIDeleteSyncByIdRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -122,16 +130,18 @@ type SyncAPIGetSyncRequest struct {
 	ApiService *SyncAPIService
 }
 
-func (r SyncAPIGetSyncRequest) Execute() (*SyncList, *http.Response, error) {
+func (r SyncAPIGetSyncRequest) Execute() (*SyncSyncList, *http.Response, error) {
 	return r.ApiService.GetSyncExecute(r)
 }
 
 /*
-GetSync List returns every sync link the caller's org has, each with its two endpoints, its direction and trigger policy, and the time it last reconciled.
+GetSync Returns every sync link the caller's org has, each with its two endpoints, its direction and trigger policy, the time it last reconciled, and for a repo link its native copy on the forge — the address to clone it from, its default branch and whether it is in step.
 
-List returns every sync link the caller's org has, each with its two endpoints, its
-direction and trigger policy, and the time it last reconciled. Scoped to the
-caller's own org — another tenant's links are structurally unreachable.
+Returns every sync link the caller's org has, each with its two endpoints, its
+direction and trigger policy, the time it last reconciled, and for a repo link its
+native copy on the forge — the address to clone it from, its default branch and
+whether it is in step. Scoped to the caller's own org — another tenant's links are
+structurally unreachable.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return SyncAPIGetSyncRequest
@@ -145,13 +155,13 @@ func (a *SyncAPIService) GetSync(ctx context.Context) SyncAPIGetSyncRequest {
 
 // Execute executes the request
 //
-//	@return SyncList
-func (a *SyncAPIService) GetSyncExecute(r SyncAPIGetSyncRequest) (*SyncList, *http.Response, error) {
+//	@return SyncSyncList
+func (a *SyncAPIService) GetSyncExecute(r SyncAPIGetSyncRequest) (*SyncSyncList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SyncList
+		localVarReturnValue *SyncSyncList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SyncAPIService.GetSync")
@@ -175,7 +185,7 @@ func (a *SyncAPIService) GetSyncExecute(r SyncAPIGetSyncRequest) (*SyncList, *ht
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -204,6 +214,14 @@ func (a *SyncAPIService) GetSyncExecute(r SyncAPIGetSyncRequest) (*SyncList, *ht
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -225,14 +243,14 @@ type SyncAPIGetSyncByIdRequest struct {
 	id         string
 }
 
-func (r SyncAPIGetSyncByIdRequest) Execute() (*SyncView, *http.Response, error) {
+func (r SyncAPIGetSyncByIdRequest) Execute() (*SyncSyncView, *http.Response, error) {
 	return r.ApiService.GetSyncByIdExecute(r)
 }
 
 /*
-GetSyncById Get returns one sync by id.
+GetSyncById Returns one sync by id.
 
-Get returns one sync by id. It is org-scoped: an id belonging to another tenant is
+Returns one sync by id. It is org-scoped: an id belonging to another tenant is
 the same 404 an unknown id gives, so a probe learns nothing about what exists.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -249,13 +267,13 @@ func (a *SyncAPIService) GetSyncById(ctx context.Context, id string) SyncAPIGetS
 
 // Execute executes the request
 //
-//	@return SyncView
-func (a *SyncAPIService) GetSyncByIdExecute(r SyncAPIGetSyncByIdRequest) (*SyncView, *http.Response, error) {
+//	@return SyncSyncView
+func (a *SyncAPIService) GetSyncByIdExecute(r SyncAPIGetSyncByIdRequest) (*SyncSyncView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SyncView
+		localVarReturnValue *SyncSyncView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SyncAPIService.GetSyncById")
@@ -280,7 +298,7 @@ func (a *SyncAPIService) GetSyncByIdExecute(r SyncAPIGetSyncByIdRequest) (*SyncV
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -309,6 +327,14 @@ func (a *SyncAPIService) GetSyncByIdExecute(r SyncAPIGetSyncByIdRequest) (*SyncV
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -325,25 +351,25 @@ func (a *SyncAPIService) GetSyncByIdExecute(r SyncAPIGetSyncByIdRequest) (*SyncV
 }
 
 type SyncAPIPatchSyncByIdRequest struct {
-	ctx         context.Context
-	ApiService  *SyncAPIService
-	id          string
-	patchSyncIn *PatchSyncIn
+	ctx             context.Context
+	ApiService      *SyncAPIService
+	id              string
+	syncPatchSyncIn *SyncPatchSyncIn
 }
 
-func (r SyncAPIPatchSyncByIdRequest) PatchSyncIn(patchSyncIn PatchSyncIn) SyncAPIPatchSyncByIdRequest {
-	r.patchSyncIn = &patchSyncIn
+func (r SyncAPIPatchSyncByIdRequest) SyncPatchSyncIn(syncPatchSyncIn SyncPatchSyncIn) SyncAPIPatchSyncByIdRequest {
+	r.syncPatchSyncIn = &syncPatchSyncIn
 	return r
 }
 
-func (r SyncAPIPatchSyncByIdRequest) Execute() (*SyncView, *http.Response, error) {
+func (r SyncAPIPatchSyncByIdRequest) Execute() (*SyncSyncView, *http.Response, error) {
 	return r.ApiService.PatchSyncByIdExecute(r)
 }
 
 /*
-PatchSyncById Patch updates one sync's mutable policy — direction, trigger and actor — in place.
+PatchSyncById Updates one sync's mutable policy — direction, trigger and actor — in place.
 
-Patch updates one sync's mutable policy — direction, trigger and actor — in place.
+Updates one sync's mutable policy — direction, trigger and actor — in place.
 The endpoints and the kind are immutable: re-pointing a sync is a delete and a
 create, so a link can never silently start syncing somewhere else. A field the
 request omits is left as it was. Changing the direction immediately reconciles the
@@ -364,13 +390,13 @@ func (a *SyncAPIService) PatchSyncById(ctx context.Context, id string) SyncAPIPa
 
 // Execute executes the request
 //
-//	@return SyncView
-func (a *SyncAPIService) PatchSyncByIdExecute(r SyncAPIPatchSyncByIdRequest) (*SyncView, *http.Response, error) {
+//	@return SyncSyncView
+func (a *SyncAPIService) PatchSyncByIdExecute(r SyncAPIPatchSyncByIdRequest) (*SyncSyncView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SyncView
+		localVarReturnValue *SyncSyncView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SyncAPIService.PatchSyncById")
@@ -384,8 +410,8 @@ func (a *SyncAPIService) PatchSyncByIdExecute(r SyncAPIPatchSyncByIdRequest) (*S
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.patchSyncIn == nil {
-		return localVarReturnValue, nil, reportError("patchSyncIn is required and must be specified")
+	if r.syncPatchSyncIn == nil {
+		return localVarReturnValue, nil, reportError("syncPatchSyncIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -398,7 +424,7 @@ func (a *SyncAPIService) PatchSyncByIdExecute(r SyncAPIPatchSyncByIdRequest) (*S
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -406,7 +432,7 @@ func (a *SyncAPIService) PatchSyncByIdExecute(r SyncAPIPatchSyncByIdRequest) (*S
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.patchSyncIn
+	localVarPostBody = r.syncPatchSyncIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -429,6 +455,14 @@ func (a *SyncAPIService) PatchSyncByIdExecute(r SyncAPIPatchSyncByIdRequest) (*S
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -445,30 +479,33 @@ func (a *SyncAPIService) PatchSyncByIdExecute(r SyncAPIPatchSyncByIdRequest) (*S
 }
 
 type SyncAPIPostSyncRequest struct {
-	ctx        context.Context
-	ApiService *SyncAPIService
-	syncReq    *SyncReq
+	ctx         context.Context
+	ApiService  *SyncAPIService
+	syncSyncReq *SyncSyncReq
 }
 
-func (r SyncAPIPostSyncRequest) SyncReq(syncReq SyncReq) SyncAPIPostSyncRequest {
-	r.syncReq = &syncReq
+func (r SyncAPIPostSyncRequest) SyncSyncReq(syncSyncReq SyncSyncReq) SyncAPIPostSyncRequest {
+	r.syncSyncReq = &syncSyncReq
 	return r
 }
 
-func (r SyncAPIPostSyncRequest) Execute() (*SyncView, *http.Response, error) {
+func (r SyncAPIPostSyncRequest) Execute() (*SyncSyncView, *http.Response, error) {
 	return r.ApiService.PostSyncExecute(r)
 }
 
 /*
-PostSync Create declares a sync between two endpoints and returns it.
+PostSync Declares a sync between two endpoints and returns it.
 
-Create declares a sync between two endpoints and returns it. It is an UPSERT:
+Declares a sync between two endpoints and returns it. It is an UPSERT:
 re-declaring the same source and target updates that link rather than piling up
 duplicates, so a console that re-submits is safe. The org comes from the validated
 principal, never from the request, so a sync can only ever bind endpoints inside
 the caller's own org. A git source must be an https clone URL on the provider's own
 host with no embedded credentials; a target left empty is derived as a native
-repository named after the source. With run=true the first reconcile is queued in
+repository named after the source. A source naming only a GitHub account
+(https://github.com/<account>) links the whole account: every repository the org's
+GitHub installation grants on it gets a repo link of its own, with this link's
+direction and trigger, and so does every repository created there later. With run=true the first reconcile is queued in
 the background, so a large initial import never blocks this response.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -483,13 +520,13 @@ func (a *SyncAPIService) PostSync(ctx context.Context) SyncAPIPostSyncRequest {
 
 // Execute executes the request
 //
-//	@return SyncView
-func (a *SyncAPIService) PostSyncExecute(r SyncAPIPostSyncRequest) (*SyncView, *http.Response, error) {
+//	@return SyncSyncView
+func (a *SyncAPIService) PostSyncExecute(r SyncAPIPostSyncRequest) (*SyncSyncView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SyncView
+		localVarReturnValue *SyncSyncView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SyncAPIService.PostSync")
@@ -502,8 +539,8 @@ func (a *SyncAPIService) PostSyncExecute(r SyncAPIPostSyncRequest) (*SyncView, *
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.syncReq == nil {
-		return localVarReturnValue, nil, reportError("syncReq is required and must be specified")
+	if r.syncSyncReq == nil {
+		return localVarReturnValue, nil, reportError("syncSyncReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -516,7 +553,7 @@ func (a *SyncAPIService) PostSyncExecute(r SyncAPIPostSyncRequest) (*SyncView, *
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -524,7 +561,7 @@ func (a *SyncAPIService) PostSyncExecute(r SyncAPIPostSyncRequest) (*SyncView, *
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.syncReq
+	localVarPostBody = r.syncSyncReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -547,6 +584,14 @@ func (a *SyncAPIService) PostSyncExecute(r SyncAPIPostSyncRequest) (*SyncView, *
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -568,14 +613,14 @@ type SyncAPIPostSyncByIdRunRequest struct {
 	id         string
 }
 
-func (r SyncAPIPostSyncByIdRunRequest) Execute() (*SyncQueued, *http.Response, error) {
+func (r SyncAPIPostSyncByIdRunRequest) Execute() (*SyncSyncQueued, *http.Response, error) {
 	return r.ApiService.PostSyncByIdRunExecute(r)
 }
 
 /*
-PostSyncByIdRun Run reconciles one sync now — the manual re-sync, and the initial import for a link created without run=true.
+PostSyncByIdRun Reconciles one sync now — the manual re-sync, and the initial import for a link created without run=true.
 
-Run reconciles one sync now — the manual re-sync, and the initial import for a link
+Reconciles one sync now — the manual re-sync, and the initial import for a link
 created without run=true. The work is handed to a bounded background worker and the
 call answers 202 immediately, so a large mirror-in never holds the request open;
 queued=true means accepted, not finished.
@@ -594,13 +639,13 @@ func (a *SyncAPIService) PostSyncByIdRun(ctx context.Context, id string) SyncAPI
 
 // Execute executes the request
 //
-//	@return SyncQueued
-func (a *SyncAPIService) PostSyncByIdRunExecute(r SyncAPIPostSyncByIdRunRequest) (*SyncQueued, *http.Response, error) {
+//	@return SyncSyncQueued
+func (a *SyncAPIService) PostSyncByIdRunExecute(r SyncAPIPostSyncByIdRunRequest) (*SyncSyncQueued, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SyncQueued
+		localVarReturnValue *SyncSyncQueued
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SyncAPIService.PostSyncByIdRun")
@@ -625,7 +670,7 @@ func (a *SyncAPIService) PostSyncByIdRunExecute(r SyncAPIPostSyncByIdRunRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -654,6 +699,14 @@ func (a *SyncAPIService) PostSyncByIdRunExecute(r SyncAPIPostSyncByIdRunRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

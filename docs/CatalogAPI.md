@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCatalog**](CatalogAPI.md#GetCatalog) | **Get** /v1/catalog | Browse searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
+[**GetCatalog**](CatalogAPI.md#GetCatalog) | **Get** /v1/catalog | Searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
 
 
 
 ## GetCatalog
 
-> CatalogPage GetCatalog(ctx).Q(q).Org(org).Kind(kind).Origin(origin).Archetype(archetype).Language(language).Template(template).Forkable(forkable).Limit(limit).Offset(offset).Execute()
+> CatalogCatalogPage GetCatalog(ctx).Q(q).Org(org).Kind(kind).Origin(origin).Archetype(archetype).Language(language).Template(template).Forkable(forkable).Limit(limit).Offset(offset).Execute()
 
-Browse searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
+Searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
 
 
 
@@ -47,7 +47,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.GetCatalog``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCatalog`: CatalogPage
+	// response from `GetCatalog`: CatalogCatalogPage
 	fmt.Fprintf(os.Stdout, "Response from `CatalogAPI.GetCatalog`: %v\n", resp)
 }
 ```
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CatalogPage**](CatalogPage.md)
+[**CatalogCatalogPage**](CatalogCatalogPage.md)
 
 ### Authorization
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

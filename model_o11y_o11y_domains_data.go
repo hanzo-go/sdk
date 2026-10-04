@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yDomainsData{}
 // O11yO11yDomainsData struct for O11yO11yDomainsData
 type O11yO11yDomainsData struct {
 	// Results is one entry per query. Each entry's shape follows the answer's type — time-series data, scalar data or raw rows — so the bytes pass through verbatim.
-	Results []interface{} `json:"results,omitempty"`
+	Results              []interface{} `json:"results,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDomainsData O11yO11yDomainsData
 
 // NewO11yO11yDomainsData instantiates a new O11yO11yDomainsData object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yDomainsData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Results) {
 		toSerialize["results"] = o.Results
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDomainsData) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDomainsData := _O11yO11yDomainsData{}
+
+	err = json.Unmarshal(data, &varO11yO11yDomainsData)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDomainsData(varO11yO11yDomainsData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "results")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDomainsData struct {

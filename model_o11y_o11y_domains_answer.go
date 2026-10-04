@@ -26,8 +26,11 @@ type O11yO11yDomainsAnswer struct {
 	// Type names the result shape: scalar, time_series or raw.
 	Type *string `json:"type,omitempty"`
 	// Warning carries the store's warning for this read, when it raised one.
-	Warning *O11yO11yQueryWarning `json:"warning,omitempty"`
+	Warning              *O11yO11yQueryWarning `json:"warning,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDomainsAnswer O11yO11yDomainsAnswer
 
 // NewO11yO11yDomainsAnswer instantiates a new O11yO11yDomainsAnswer object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yDomainsAnswer) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Warning) {
 		toSerialize["warning"] = o.Warning
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDomainsAnswer) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDomainsAnswer := _O11yO11yDomainsAnswer{}
+
+	err = json.Unmarshal(data, &varO11yO11yDomainsAnswer)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDomainsAnswer(varO11yO11yDomainsAnswer)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "warning")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDomainsAnswer struct {

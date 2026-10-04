@@ -22,8 +22,11 @@ type O11yO11yGlobalConfigOut struct {
 	// Data is the configuration.
 	Data *O11yO11yGlobalConfig `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yGlobalConfigOut O11yO11yGlobalConfigOut
 
 // NewO11yO11yGlobalConfigOut instantiates a new O11yO11yGlobalConfigOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yGlobalConfigOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yGlobalConfigOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yGlobalConfigOut := _O11yO11yGlobalConfigOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yGlobalConfigOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yGlobalConfigOut(varO11yO11yGlobalConfigOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yGlobalConfigOut struct {

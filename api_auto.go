@@ -22,6 +22,107 @@ import (
 // AutoAPIService AutoAPI service
 type AutoAPIService service
 
+type AutoAPIDeleteAutoAutomationsByIdRequest struct {
+	ctx        context.Context
+	ApiService *AutoAPIService
+	id         string
+}
+
+func (r AutoAPIDeleteAutoAutomationsByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAutoAutomationsByIdExecute(r)
+}
+
+/*
+DeleteAutoAutomationsById Deletes an automation, its schedule and its run history, and stops a Dev run it has going.
+
+Deletes an automation, its schedule and its run history, and
+stops a Dev run it has going. It answers no content.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the automation, from the path.
+	@return AutoAPIDeleteAutoAutomationsByIdRequest
+*/
+func (a *AutoAPIService) DeleteAutoAutomationsById(ctx context.Context, id string) AutoAPIDeleteAutoAutomationsByIdRequest {
+	return AutoAPIDeleteAutoAutomationsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *AutoAPIService) DeleteAutoAutomationsByIdExecute(r AutoAPIDeleteAutoAutomationsByIdRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.DeleteAutoAutomationsById")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/auto/automations/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AutoAPIDeleteAutoFlowsByIdRequest struct {
 	ctx        context.Context
 	ApiService *AutoAPIService
@@ -80,7 +181,7 @@ func (a *AutoAPIService) DeleteAutoFlowsByIdExecute(r AutoAPIDeleteAutoFlowsById
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -109,34 +210,55 @@ func (a *AutoAPIService) DeleteAutoFlowsByIdExecute(r AutoAPIDeleteAutoFlowsById
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
 	return localVarHTTPResponse, nil
 }
 
-type AutoAPIGetAutoConnectorsRequest struct {
+type AutoAPIGetAutoAutomationsRequest struct {
 	ctx        context.Context
 	ApiService *AutoAPIService
+	q          *string
+	sort       *string
 }
 
-func (r AutoAPIGetAutoConnectorsRequest) Execute() (*Catalog, *http.Response, error) {
-	return r.ApiService.GetAutoConnectorsExecute(r)
+// Q keeps the automations whose name or instructions contain it, ignoring case.
+func (r AutoAPIGetAutoAutomationsRequest) Q(q string) AutoAPIGetAutoAutomationsRequest {
+	r.q = &q
+	return r
+}
+
+// Sort is name, next or updated (the default, newest first).
+func (r AutoAPIGetAutoAutomationsRequest) Sort(sort string) AutoAPIGetAutoAutomationsRequest {
+	r.sort = &sort
+	return r
+}
+
+func (r AutoAPIGetAutoAutomationsRequest) Execute() (*AutoAutomationPage, *http.Response, error) {
+	return r.ApiService.GetAutoAutomationsExecute(r)
 }
 
 /*
-GetAutoConnectors Connectors returns the connector catalogue.
+GetAutoAutomations Returns the org's automations.
 
-Connectors returns the connector catalogue. Each entry is an external service a
-flow step can invoke, carrying its auth descriptor and the input properties of its
-actions and triggers. The catalogue is the same for every tenant, so the gate is a
-validated principal rather than a per-org view.
+Returns the org's automations. `q` keeps those whose name or
+instructions contain it, ignoring case; `sort` is `updated` (the default,
+newest first), `name`, or `next` (soonest first, unscheduled last).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AutoAPIGetAutoConnectorsRequest
+	@return AutoAPIGetAutoAutomationsRequest
 */
-func (a *AutoAPIService) GetAutoConnectors(ctx context.Context) AutoAPIGetAutoConnectorsRequest {
-	return AutoAPIGetAutoConnectorsRequest{
+func (a *AutoAPIService) GetAutoAutomations(ctx context.Context) AutoAPIGetAutoAutomationsRequest {
+	return AutoAPIGetAutoAutomationsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -144,26 +266,32 @@ func (a *AutoAPIService) GetAutoConnectors(ctx context.Context) AutoAPIGetAutoCo
 
 // Execute executes the request
 //
-//	@return Catalog
-func (a *AutoAPIService) GetAutoConnectorsExecute(r AutoAPIGetAutoConnectorsRequest) (*Catalog, *http.Response, error) {
+//	@return AutoAutomationPage
+func (a *AutoAPIService) GetAutoAutomationsExecute(r AutoAPIGetAutoAutomationsRequest) (*AutoAutomationPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Catalog
+		localVarReturnValue *AutoAutomationPage
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.GetAutoConnectors")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.GetAutoAutomations")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/auto/connectors"
+	localVarPath := localBasePath + "/v1/auto/automations"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.q != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	}
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -174,7 +302,7 @@ func (a *AutoAPIService) GetAutoConnectorsExecute(r AutoAPIGetAutoConnectorsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -203,6 +331,251 @@ func (a *AutoAPIService) GetAutoConnectorsExecute(r AutoAPIGetAutoConnectorsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AutoAPIGetAutoAutomationsByIdRequest struct {
+	ctx        context.Context
+	ApiService *AutoAPIService
+	id         string
+}
+
+func (r AutoAPIGetAutoAutomationsByIdRequest) Execute() (*AutoAutomation, *http.Response, error) {
+	return r.ApiService.GetAutoAutomationsByIdExecute(r)
+}
+
+/*
+GetAutoAutomationsById Returns one automation.
+
+Returns one automation. A flow of the org that is not an
+automation, and anything of another org, answers not-found.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the automation, from the path.
+	@return AutoAPIGetAutoAutomationsByIdRequest
+*/
+func (a *AutoAPIService) GetAutoAutomationsById(ctx context.Context, id string) AutoAPIGetAutoAutomationsByIdRequest {
+	return AutoAPIGetAutoAutomationsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AutoAutomation
+func (a *AutoAPIService) GetAutoAutomationsByIdExecute(r AutoAPIGetAutoAutomationsByIdRequest) (*AutoAutomation, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AutoAutomation
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.GetAutoAutomationsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/auto/automations/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AutoAPIGetAutoAutomationsByIdRunsRequest struct {
+	ctx        context.Context
+	ApiService *AutoAPIService
+	id         string
+	limit      *int64
+}
+
+// Limit bounds the page (default 200, maximum 1000).
+func (r AutoAPIGetAutoAutomationsByIdRunsRequest) Limit(limit int64) AutoAPIGetAutoAutomationsByIdRunsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r AutoAPIGetAutoAutomationsByIdRunsRequest) Execute() (*AutoAutomationRunPage, *http.Response, error) {
+	return r.ApiService.GetAutoAutomationsByIdRunsExecute(r)
+}
+
+/*
+GetAutoAutomationsByIdRuns Returns one automation's runs, newest first, to the person it runs as or an admin of the org.
+
+Returns one automation's runs, newest first, to the person
+it runs as or an admin of the org. Each links the
+Dev run it started as `transcript`. The optional `limit` bounds the page.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the automation, from the path.
+	@return AutoAPIGetAutoAutomationsByIdRunsRequest
+*/
+func (a *AutoAPIService) GetAutoAutomationsByIdRuns(ctx context.Context, id string) AutoAPIGetAutoAutomationsByIdRunsRequest {
+	return AutoAPIGetAutoAutomationsByIdRunsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AutoAutomationRunPage
+func (a *AutoAPIService) GetAutoAutomationsByIdRunsExecute(r AutoAPIGetAutoAutomationsByIdRunsRequest) (*AutoAutomationRunPage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AutoAutomationRunPage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.GetAutoAutomationsByIdRuns")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/auto/automations/{id}/runs"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -230,7 +603,7 @@ func (r AutoAPIGetAutoFlowsRequest) Limit(limit int64) AutoAPIGetAutoFlowsReques
 	return r
 }
 
-func (r AutoAPIGetAutoFlowsRequest) Execute() (*FlowPage, *http.Response, error) {
+func (r AutoAPIGetAutoFlowsRequest) Execute() (*AutoFlowPage, *http.Response, error) {
 	return r.ApiService.GetAutoFlowsExecute(r)
 }
 
@@ -252,13 +625,13 @@ func (a *AutoAPIService) GetAutoFlows(ctx context.Context) AutoAPIGetAutoFlowsRe
 
 // Execute executes the request
 //
-//	@return FlowPage
-func (a *AutoAPIService) GetAutoFlowsExecute(r AutoAPIGetAutoFlowsRequest) (*FlowPage, *http.Response, error) {
+//	@return AutoFlowPage
+func (a *AutoAPIService) GetAutoFlowsExecute(r AutoAPIGetAutoFlowsRequest) (*AutoFlowPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FlowPage
+		localVarReturnValue *AutoFlowPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.GetAutoFlows")
@@ -285,7 +658,7 @@ func (a *AutoAPIService) GetAutoFlowsExecute(r AutoAPIGetAutoFlowsRequest) (*Flo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -314,6 +687,14 @@ func (a *AutoAPIService) GetAutoFlowsExecute(r AutoAPIGetAutoFlowsRequest) (*Flo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -335,7 +716,7 @@ type AutoAPIGetAutoFlowsByIdRequest struct {
 	id         string
 }
 
-func (r AutoAPIGetAutoFlowsByIdRequest) Execute() (*PopulatedFlow, *http.Response, error) {
+func (r AutoAPIGetAutoFlowsByIdRequest) Execute() (*AutoPopulatedFlow, *http.Response, error) {
 	return r.ApiService.GetAutoFlowsByIdExecute(r)
 }
 
@@ -359,13 +740,13 @@ func (a *AutoAPIService) GetAutoFlowsById(ctx context.Context, id string) AutoAP
 
 // Execute executes the request
 //
-//	@return PopulatedFlow
-func (a *AutoAPIService) GetAutoFlowsByIdExecute(r AutoAPIGetAutoFlowsByIdRequest) (*PopulatedFlow, *http.Response, error) {
+//	@return AutoPopulatedFlow
+func (a *AutoAPIService) GetAutoFlowsByIdExecute(r AutoAPIGetAutoFlowsByIdRequest) (*AutoPopulatedFlow, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PopulatedFlow
+		localVarReturnValue *AutoPopulatedFlow
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.GetAutoFlowsById")
@@ -390,7 +771,7 @@ func (a *AutoAPIService) GetAutoFlowsByIdExecute(r AutoAPIGetAutoFlowsByIdReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -419,6 +800,14 @@ func (a *AutoAPIService) GetAutoFlowsByIdExecute(r AutoAPIGetAutoFlowsByIdReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -447,7 +836,7 @@ func (r AutoAPIGetAutoFlowsByIdVersionsRequest) Limit(limit int64) AutoAPIGetAut
 	return r
 }
 
-func (r AutoAPIGetAutoFlowsByIdVersionsRequest) Execute() (*VersionPage, *http.Response, error) {
+func (r AutoAPIGetAutoFlowsByIdVersionsRequest) Execute() (*AutoVersionPage, *http.Response, error) {
 	return r.ApiService.GetAutoFlowsByIdVersionsExecute(r)
 }
 
@@ -471,13 +860,13 @@ func (a *AutoAPIService) GetAutoFlowsByIdVersions(ctx context.Context, id string
 
 // Execute executes the request
 //
-//	@return VersionPage
-func (a *AutoAPIService) GetAutoFlowsByIdVersionsExecute(r AutoAPIGetAutoFlowsByIdVersionsRequest) (*VersionPage, *http.Response, error) {
+//	@return AutoVersionPage
+func (a *AutoAPIService) GetAutoFlowsByIdVersionsExecute(r AutoAPIGetAutoFlowsByIdVersionsRequest) (*AutoVersionPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *VersionPage
+		localVarReturnValue *AutoVersionPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.GetAutoFlowsByIdVersions")
@@ -505,7 +894,7 @@ func (a *AutoAPIService) GetAutoFlowsByIdVersionsExecute(r AutoAPIGetAutoFlowsBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -534,6 +923,125 @@ func (a *AutoAPIService) GetAutoFlowsByIdVersionsExecute(r AutoAPIGetAutoFlowsBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AutoAPIGetAutoProviderRequest struct {
+	ctx        context.Context
+	ApiService *AutoAPIService
+}
+
+func (r AutoAPIGetAutoProviderRequest) Execute() (*AutoCatalog, *http.Response, error) {
+	return r.ApiService.GetAutoProviderExecute(r)
+}
+
+/*
+GetAutoProvider Returns the connector catalogue.
+
+Returns the connector catalogue. Each entry is an external service a
+flow step can invoke, carrying its auth descriptor and the input properties of its
+actions and triggers. The catalogue is the same for every tenant, so the gate is a
+validated principal rather than a per-org view.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AutoAPIGetAutoProviderRequest
+*/
+func (a *AutoAPIService) GetAutoProvider(ctx context.Context) AutoAPIGetAutoProviderRequest {
+	return AutoAPIGetAutoProviderRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AutoCatalog
+func (a *AutoAPIService) GetAutoProviderExecute(r AutoAPIGetAutoProviderRequest) (*AutoCatalog, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AutoCatalog
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.GetAutoProvider")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/auto/provider"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -568,7 +1076,7 @@ func (r AutoAPIGetAutoRunsRequest) Limit(limit int64) AutoAPIGetAutoRunsRequest 
 	return r
 }
 
-func (r AutoAPIGetAutoRunsRequest) Execute() (*RunPage, *http.Response, error) {
+func (r AutoAPIGetAutoRunsRequest) Execute() (*AutoRunPage, *http.Response, error) {
 	return r.ApiService.GetAutoRunsExecute(r)
 }
 
@@ -590,13 +1098,13 @@ func (a *AutoAPIService) GetAutoRuns(ctx context.Context) AutoAPIGetAutoRunsRequ
 
 // Execute executes the request
 //
-//	@return RunPage
-func (a *AutoAPIService) GetAutoRunsExecute(r AutoAPIGetAutoRunsRequest) (*RunPage, *http.Response, error) {
+//	@return AutoRunPage
+func (a *AutoAPIService) GetAutoRunsExecute(r AutoAPIGetAutoRunsRequest) (*AutoRunPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RunPage
+		localVarReturnValue *AutoRunPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.GetAutoRuns")
@@ -626,7 +1134,7 @@ func (a *AutoAPIService) GetAutoRunsExecute(r AutoAPIGetAutoRunsRequest) (*RunPa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -655,6 +1163,14 @@ func (a *AutoAPIService) GetAutoRunsExecute(r AutoAPIGetAutoRunsRequest) (*RunPa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -676,7 +1192,7 @@ type AutoAPIGetAutoRunsByIdRequest struct {
 	id         string
 }
 
-func (r AutoAPIGetAutoRunsByIdRequest) Execute() (*FlowRun, *http.Response, error) {
+func (r AutoAPIGetAutoRunsByIdRequest) Execute() (*AutoFlowRun, *http.Response, error) {
 	return r.ApiService.GetAutoRunsByIdExecute(r)
 }
 
@@ -701,13 +1217,13 @@ func (a *AutoAPIService) GetAutoRunsById(ctx context.Context, id string) AutoAPI
 
 // Execute executes the request
 //
-//	@return FlowRun
-func (a *AutoAPIService) GetAutoRunsByIdExecute(r AutoAPIGetAutoRunsByIdRequest) (*FlowRun, *http.Response, error) {
+//	@return AutoFlowRun
+func (a *AutoAPIService) GetAutoRunsByIdExecute(r AutoAPIGetAutoRunsByIdRequest) (*AutoFlowRun, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FlowRun
+		localVarReturnValue *AutoFlowRun
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.GetAutoRunsById")
@@ -732,7 +1248,7 @@ func (a *AutoAPIService) GetAutoRunsByIdExecute(r AutoAPIGetAutoRunsByIdRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -761,6 +1277,252 @@ func (a *AutoAPIService) GetAutoRunsByIdExecute(r AutoAPIGetAutoRunsByIdRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AutoAPIGetAutoTemplatesRequest struct {
+	ctx        context.Context
+	ApiService *AutoAPIService
+}
+
+func (r AutoAPIGetAutoTemplatesRequest) Execute() (*AutoStarterPage, *http.Response, error) {
+	return r.ApiService.GetAutoTemplatesExecute(r)
+}
+
+/*
+GetAutoTemplates Returns the starter automations: a name, what it does, the instructions it runs and the schedule it suggests, in the caller's own zone.
+
+Returns the starter automations: a name, what it does, the
+instructions it runs and the schedule it suggests, in the caller's own zone.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AutoAPIGetAutoTemplatesRequest
+*/
+func (a *AutoAPIService) GetAutoTemplates(ctx context.Context) AutoAPIGetAutoTemplatesRequest {
+	return AutoAPIGetAutoTemplatesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AutoStarterPage
+func (a *AutoAPIService) GetAutoTemplatesExecute(r AutoAPIGetAutoTemplatesRequest) (*AutoStarterPage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AutoStarterPage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.GetAutoTemplates")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/auto/templates"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AutoAPIPatchAutoAutomationsByIdRequest struct {
+	ctx                 context.Context
+	ApiService          *AutoAPIService
+	id                  string
+	autoAutomationPatch *AutoAutomationPatch
+}
+
+func (r AutoAPIPatchAutoAutomationsByIdRequest) AutoAutomationPatch(autoAutomationPatch AutoAutomationPatch) AutoAPIPatchAutoAutomationsByIdRequest {
+	r.autoAutomationPatch = &autoAutomationPatch
+	return r
+}
+
+func (r AutoAPIPatchAutoAutomationsByIdRequest) Execute() (*AutoAutomation, *http.Response, error) {
+	return r.ApiService.PatchAutoAutomationsByIdExecute(r)
+}
+
+/*
+PatchAutoAutomationsById Changes an automation, for the person it runs as or an admin of the org: any field it was created with, and `enabled`, which arms or disarms its schedule.
+
+Changes an automation, for the person it runs as or an admin
+of the org: any field it was created with, and
+`enabled`, which arms or disarms its schedule. A field the request omits is
+left alone; `project` or `model` sent as null (or "") clears it. Any change
+but `enabled` makes the caller the person it runs as from then on. A draft is
+finished by saving its `instructions`: it becomes an automation in place, on
+unless `enabled` says otherwise.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the automation, from the path.
+	@return AutoAPIPatchAutoAutomationsByIdRequest
+*/
+func (a *AutoAPIService) PatchAutoAutomationsById(ctx context.Context, id string) AutoAPIPatchAutoAutomationsByIdRequest {
+	return AutoAPIPatchAutoAutomationsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AutoAutomation
+func (a *AutoAPIService) PatchAutoAutomationsByIdExecute(r AutoAPIPatchAutoAutomationsByIdRequest) (*AutoAutomation, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AutoAutomation
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.PatchAutoAutomationsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/auto/automations/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.autoAutomationPatch == nil {
+		return localVarReturnValue, nil, reportError("autoAutomationPatch is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.autoAutomationPatch
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -777,18 +1539,18 @@ func (a *AutoAPIService) GetAutoRunsByIdExecute(r AutoAPIGetAutoRunsByIdRequest)
 }
 
 type AutoAPIPatchAutoFlowsByIdRequest struct {
-	ctx         context.Context
-	ApiService  *AutoAPIService
-	id          string
-	patchFlowIn *PatchFlowIn
+	ctx             context.Context
+	ApiService      *AutoAPIService
+	id              string
+	autoPatchFlowIn *AutoPatchFlowIn
 }
 
-func (r AutoAPIPatchAutoFlowsByIdRequest) PatchFlowIn(patchFlowIn PatchFlowIn) AutoAPIPatchAutoFlowsByIdRequest {
-	r.patchFlowIn = &patchFlowIn
+func (r AutoAPIPatchAutoFlowsByIdRequest) AutoPatchFlowIn(autoPatchFlowIn AutoPatchFlowIn) AutoAPIPatchAutoFlowsByIdRequest {
+	r.autoPatchFlowIn = &autoPatchFlowIn
 	return r
 }
 
-func (r AutoAPIPatchAutoFlowsByIdRequest) Execute() (*Flow, *http.Response, error) {
+func (r AutoAPIPatchAutoFlowsByIdRequest) Execute() (*AutoFlow, *http.Response, error) {
 	return r.ApiService.PatchAutoFlowsByIdExecute(r)
 }
 
@@ -813,13 +1575,13 @@ func (a *AutoAPIService) PatchAutoFlowsById(ctx context.Context, id string) Auto
 
 // Execute executes the request
 //
-//	@return Flow
-func (a *AutoAPIService) PatchAutoFlowsByIdExecute(r AutoAPIPatchAutoFlowsByIdRequest) (*Flow, *http.Response, error) {
+//	@return AutoFlow
+func (a *AutoAPIService) PatchAutoFlowsByIdExecute(r AutoAPIPatchAutoFlowsByIdRequest) (*AutoFlow, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Flow
+		localVarReturnValue *AutoFlow
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.PatchAutoFlowsById")
@@ -833,8 +1595,8 @@ func (a *AutoAPIService) PatchAutoFlowsByIdExecute(r AutoAPIPatchAutoFlowsByIdRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.patchFlowIn == nil {
-		return localVarReturnValue, nil, reportError("patchFlowIn is required and must be specified")
+	if r.autoPatchFlowIn == nil {
+		return localVarReturnValue, nil, reportError("autoPatchFlowIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -847,7 +1609,7 @@ func (a *AutoAPIService) PatchAutoFlowsByIdExecute(r AutoAPIPatchAutoFlowsByIdRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -855,7 +1617,7 @@ func (a *AutoAPIService) PatchAutoFlowsByIdExecute(r AutoAPIPatchAutoFlowsByIdRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.patchFlowIn
+	localVarPostBody = r.autoPatchFlowIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -878,6 +1640,14 @@ func (a *AutoAPIService) PatchAutoFlowsByIdExecute(r AutoAPIPatchAutoFlowsByIdRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -893,68 +1663,63 @@ func (a *AutoAPIService) PatchAutoFlowsByIdExecute(r AutoAPIPatchAutoFlowsByIdRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AutoAPIPostAutoConnectorsByIdRunRequest struct {
-	ctx        context.Context
-	ApiService *AutoAPIService
-	id         string
-	runIn      *RunIn
+type AutoAPIPostAutoAutomationsRequest struct {
+	ctx              context.Context
+	ApiService       *AutoAPIService
+	autoAutomationIn *AutoAutomationIn
 }
 
-func (r AutoAPIPostAutoConnectorsByIdRunRequest) RunIn(runIn RunIn) AutoAPIPostAutoConnectorsByIdRunRequest {
-	r.runIn = &runIn
+func (r AutoAPIPostAutoAutomationsRequest) AutoAutomationIn(autoAutomationIn AutoAutomationIn) AutoAPIPostAutoAutomationsRequest {
+	r.autoAutomationIn = &autoAutomationIn
 	return r
 }
 
-func (r AutoAPIPostAutoConnectorsByIdRunRequest) Execute() (*RunResp, *http.Response, error) {
-	return r.ApiService.PostAutoConnectorsByIdRunExecute(r)
+func (r AutoAPIPostAutoAutomationsRequest) Execute() (*AutoAutomation, *http.Response, error) {
+	return r.ApiService.PostAutoAutomationsExecute(r)
 }
 
 /*
-PostAutoConnectorsByIdRun Run executes one connector action in-process and answers the outcome.
+PostAutoAutomations Creates an automation and arms its schedule.
 
-Run executes one connector action in-process and answers the outcome. The
-caller's resolved credential travels in `auth`, delivered to the action
-verbatim — the runtime resolves no credential itself. An action that ran and
-failed (or an action name the connector does not have) answers ok:false with
-the failure message, not an HTTP error; an unknown connector is 404 and a
-missing action 422.
+Creates an automation and arms its schedule. It runs as the
+caller: their Dev run, in this org, each time it fires. `name` and
+`instructions` are required; no `schedule` runs it only on demand, no
+`permissions` is ask: it proposes what it would do and changes nothing, and
+`enabled: false` creates it off, its schedule unarmed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the connector to run, from the path.
-	@return AutoAPIPostAutoConnectorsByIdRunRequest
+	@return AutoAPIPostAutoAutomationsRequest
 */
-func (a *AutoAPIService) PostAutoConnectorsByIdRun(ctx context.Context, id string) AutoAPIPostAutoConnectorsByIdRunRequest {
-	return AutoAPIPostAutoConnectorsByIdRunRequest{
+func (a *AutoAPIService) PostAutoAutomations(ctx context.Context) AutoAPIPostAutoAutomationsRequest {
+	return AutoAPIPostAutoAutomationsRequest{
 		ApiService: a,
 		ctx:        ctx,
-		id:         id,
 	}
 }
 
 // Execute executes the request
 //
-//	@return RunResp
-func (a *AutoAPIService) PostAutoConnectorsByIdRunExecute(r AutoAPIPostAutoConnectorsByIdRunRequest) (*RunResp, *http.Response, error) {
+//	@return AutoAutomation
+func (a *AutoAPIService) PostAutoAutomationsExecute(r AutoAPIPostAutoAutomationsRequest) (*AutoAutomation, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RunResp
+		localVarReturnValue *AutoAutomation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.PostAutoConnectorsByIdRun")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.PostAutoAutomations")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/auto/connectors/{id}/run"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath := localBasePath + "/v1/auto/automations"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.runIn == nil {
-		return localVarReturnValue, nil, reportError("runIn is required and must be specified")
+	if r.autoAutomationIn == nil {
+		return localVarReturnValue, nil, reportError("autoAutomationIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -967,7 +1732,7 @@ func (a *AutoAPIService) PostAutoConnectorsByIdRunExecute(r AutoAPIPostAutoConne
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -975,7 +1740,7 @@ func (a *AutoAPIService) PostAutoConnectorsByIdRunExecute(r AutoAPIPostAutoConne
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.runIn
+	localVarPostBody = r.autoAutomationIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -998,6 +1763,131 @@ func (a *AutoAPIService) PostAutoConnectorsByIdRunExecute(r AutoAPIPostAutoConne
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AutoAPIPostAutoAutomationsByIdRunRequest struct {
+	ctx        context.Context
+	ApiService *AutoAPIService
+	id         string
+}
+
+func (r AutoAPIPostAutoAutomationsByIdRunRequest) Execute() (*AutoRunStarted, *http.Response, error) {
+	return r.ApiService.PostAutoAutomationsByIdRunExecute(r)
+}
+
+/*
+PostAutoAutomationsByIdRun Starts one run now, whether or not its schedule is armed.
+
+Starts one run now, whether or not its schedule is armed. Only
+the person it runs as, or an admin of the org, may start one; who did is kept. An
+automation runs one at a time: while a run is going, this records a skipped
+start and answers it. Every run first asks IAM whether the person it runs as
+is still a member of the org; one who is not makes the run refused and turns
+the automation off.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the automation, from the path.
+	@return AutoAPIPostAutoAutomationsByIdRunRequest
+*/
+func (a *AutoAPIService) PostAutoAutomationsByIdRun(ctx context.Context, id string) AutoAPIPostAutoAutomationsByIdRunRequest {
+	return AutoAPIPostAutoAutomationsByIdRunRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AutoRunStarted
+func (a *AutoAPIService) PostAutoAutomationsByIdRunExecute(r AutoAPIPostAutoAutomationsByIdRunRequest) (*AutoRunStarted, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AutoRunStarted
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.PostAutoAutomationsByIdRun")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/auto/automations/{id}/run"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1014,17 +1904,17 @@ func (a *AutoAPIService) PostAutoConnectorsByIdRunExecute(r AutoAPIPostAutoConne
 }
 
 type AutoAPIPostAutoFlowsRequest struct {
-	ctx           context.Context
-	ApiService    *AutoAPIService
-	createFlowReq *CreateFlowReq
+	ctx               context.Context
+	ApiService        *AutoAPIService
+	autoCreateFlowReq *AutoCreateFlowReq
 }
 
-func (r AutoAPIPostAutoFlowsRequest) CreateFlowReq(createFlowReq CreateFlowReq) AutoAPIPostAutoFlowsRequest {
-	r.createFlowReq = &createFlowReq
+func (r AutoAPIPostAutoFlowsRequest) AutoCreateFlowReq(autoCreateFlowReq AutoCreateFlowReq) AutoAPIPostAutoFlowsRequest {
+	r.autoCreateFlowReq = &autoCreateFlowReq
 	return r
 }
 
-func (r AutoAPIPostAutoFlowsRequest) Execute() (*PopulatedFlow, *http.Response, error) {
+func (r AutoAPIPostAutoFlowsRequest) Execute() (*AutoPopulatedFlow, *http.Response, error) {
 	return r.ApiService.PostAutoFlowsExecute(r)
 }
 
@@ -1047,13 +1937,13 @@ func (a *AutoAPIService) PostAutoFlows(ctx context.Context) AutoAPIPostAutoFlows
 
 // Execute executes the request
 //
-//	@return PopulatedFlow
-func (a *AutoAPIService) PostAutoFlowsExecute(r AutoAPIPostAutoFlowsRequest) (*PopulatedFlow, *http.Response, error) {
+//	@return AutoPopulatedFlow
+func (a *AutoAPIService) PostAutoFlowsExecute(r AutoAPIPostAutoFlowsRequest) (*AutoPopulatedFlow, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PopulatedFlow
+		localVarReturnValue *AutoPopulatedFlow
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.PostAutoFlows")
@@ -1066,8 +1956,8 @@ func (a *AutoAPIService) PostAutoFlowsExecute(r AutoAPIPostAutoFlowsRequest) (*P
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createFlowReq == nil {
-		return localVarReturnValue, nil, reportError("createFlowReq is required and must be specified")
+	if r.autoCreateFlowReq == nil {
+		return localVarReturnValue, nil, reportError("autoCreateFlowReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1080,7 +1970,7 @@ func (a *AutoAPIService) PostAutoFlowsExecute(r AutoAPIPostAutoFlowsRequest) (*P
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1088,7 +1978,7 @@ func (a *AutoAPIService) PostAutoFlowsExecute(r AutoAPIPostAutoFlowsRequest) (*P
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createFlowReq
+	localVarPostBody = r.autoCreateFlowReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1111,6 +2001,14 @@ func (a *AutoAPIService) PostAutoFlowsExecute(r AutoAPIPostAutoFlowsRequest) (*P
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1132,7 +2030,7 @@ type AutoAPIPostAutoFlowsByIdDisableRequest struct {
 	id         string
 }
 
-func (r AutoAPIPostAutoFlowsByIdDisableRequest) Execute() (*Flow, *http.Response, error) {
+func (r AutoAPIPostAutoFlowsByIdDisableRequest) Execute() (*AutoFlow, *http.Response, error) {
 	return r.ApiService.PostAutoFlowsByIdDisableExecute(r)
 }
 
@@ -1157,13 +2055,13 @@ func (a *AutoAPIService) PostAutoFlowsByIdDisable(ctx context.Context, id string
 
 // Execute executes the request
 //
-//	@return Flow
-func (a *AutoAPIService) PostAutoFlowsByIdDisableExecute(r AutoAPIPostAutoFlowsByIdDisableRequest) (*Flow, *http.Response, error) {
+//	@return AutoFlow
+func (a *AutoAPIService) PostAutoFlowsByIdDisableExecute(r AutoAPIPostAutoFlowsByIdDisableRequest) (*AutoFlow, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Flow
+		localVarReturnValue *AutoFlow
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.PostAutoFlowsByIdDisable")
@@ -1188,7 +2086,7 @@ func (a *AutoAPIService) PostAutoFlowsByIdDisableExecute(r AutoAPIPostAutoFlowsB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1217,6 +2115,14 @@ func (a *AutoAPIService) PostAutoFlowsByIdDisableExecute(r AutoAPIPostAutoFlowsB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1238,7 +2144,7 @@ type AutoAPIPostAutoFlowsByIdEnableRequest struct {
 	id         string
 }
 
-func (r AutoAPIPostAutoFlowsByIdEnableRequest) Execute() (*Flow, *http.Response, error) {
+func (r AutoAPIPostAutoFlowsByIdEnableRequest) Execute() (*AutoFlow, *http.Response, error) {
 	return r.ApiService.PostAutoFlowsByIdEnableExecute(r)
 }
 
@@ -1264,13 +2170,13 @@ func (a *AutoAPIService) PostAutoFlowsByIdEnable(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return Flow
-func (a *AutoAPIService) PostAutoFlowsByIdEnableExecute(r AutoAPIPostAutoFlowsByIdEnableRequest) (*Flow, *http.Response, error) {
+//	@return AutoFlow
+func (a *AutoAPIService) PostAutoFlowsByIdEnableExecute(r AutoAPIPostAutoFlowsByIdEnableRequest) (*AutoFlow, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Flow
+		localVarReturnValue *AutoFlow
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.PostAutoFlowsByIdEnable")
@@ -1295,7 +2201,7 @@ func (a *AutoAPIService) PostAutoFlowsByIdEnableExecute(r AutoAPIPostAutoFlowsBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1324,6 +2230,14 @@ func (a *AutoAPIService) PostAutoFlowsByIdEnableExecute(r AutoAPIPostAutoFlowsBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1354,7 +2268,7 @@ PostAutoFlowsByIdOperations Edit a flow — rename it, retarget its trigger, or 
 
 Applies ONE flow operation and answers the thing it changed. The operation is named by `type`, with its arguments under `request`: `CHANGE_NAME`, `UPDATE_TRIGGER`, `ADD_ACTION`, `UPDATE_ACTION`, `MOVE_ACTION`, `DELETE_ACTION` edit the flow's LATEST version and answer with that version, and `CHANGE_STATUS` instead enables or disables the flow and answers with the FLOW. Two response shapes on one address is the rule a reader would otherwise get wrong, and it is why this route is not a typed op.
 
-Edits land on the latest version only — the published version a run executes is untouched until it is republished — and the whole resulting step tree is re-validated against the step-count and size caps after every operation, so a long sequence of `ADD_ACTION` calls cannot grow a flow past a bound one step at a time (422 when it would). Org-scoped and fails closed: a validated principal is required (403 without one), the flow and its version are read under the caller's OWN org so another tenant's id is a 404, and an operation whose `request` does not decode is a 400.
+Edits land on the latest version only — the published version a run executes is untouched until it is republished — and the whole resulting step tree is re-validated against the step-count and size caps after every operation, so a long sequence of `ADD_ACTION` calls cannot grow a flow past a bound one step at a time (422 when it would). Org-scoped and fails closed: a validated principal is required (401 without one), the flow and its version are read under the caller's OWN org so another tenant's id is a 404, and an operation whose `request` does not decode is a 400.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -1439,7 +2353,7 @@ type AutoAPIPostAutoFlowsByIdRunRequest struct {
 	id         string
 }
 
-func (r AutoAPIPostAutoFlowsByIdRunRequest) Execute() (*FlowRun, *http.Response, error) {
+func (r AutoAPIPostAutoFlowsByIdRunRequest) Execute() (*AutoFlowRun, *http.Response, error) {
 	return r.ApiService.PostAutoFlowsByIdRunExecute(r)
 }
 
@@ -1466,13 +2380,13 @@ func (a *AutoAPIService) PostAutoFlowsByIdRun(ctx context.Context, id string) Au
 
 // Execute executes the request
 //
-//	@return FlowRun
-func (a *AutoAPIService) PostAutoFlowsByIdRunExecute(r AutoAPIPostAutoFlowsByIdRunRequest) (*FlowRun, *http.Response, error) {
+//	@return AutoFlowRun
+func (a *AutoAPIService) PostAutoFlowsByIdRunExecute(r AutoAPIPostAutoFlowsByIdRunRequest) (*AutoFlowRun, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FlowRun
+		localVarReturnValue *AutoFlowRun
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.PostAutoFlowsByIdRun")
@@ -1497,7 +2411,7 @@ func (a *AutoAPIService) PostAutoFlowsByIdRunExecute(r AutoAPIPostAutoFlowsByIdR
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1526,6 +2440,14 @@ func (a *AutoAPIService) PostAutoFlowsByIdRunExecute(r AutoAPIPostAutoFlowsByIdR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1542,18 +2464,18 @@ func (a *AutoAPIService) PostAutoFlowsByIdRunExecute(r AutoAPIPostAutoFlowsByIdR
 }
 
 type AutoAPIPostAutoFlowsByIdVersionsRequest struct {
-	ctx             context.Context
-	ApiService      *AutoAPIService
-	id              string
-	createVersionIn *CreateVersionIn
+	ctx                 context.Context
+	ApiService          *AutoAPIService
+	id                  string
+	autoCreateVersionIn *AutoCreateVersionIn
 }
 
-func (r AutoAPIPostAutoFlowsByIdVersionsRequest) CreateVersionIn(createVersionIn CreateVersionIn) AutoAPIPostAutoFlowsByIdVersionsRequest {
-	r.createVersionIn = &createVersionIn
+func (r AutoAPIPostAutoFlowsByIdVersionsRequest) AutoCreateVersionIn(autoCreateVersionIn AutoCreateVersionIn) AutoAPIPostAutoFlowsByIdVersionsRequest {
+	r.autoCreateVersionIn = &autoCreateVersionIn
 	return r
 }
 
-func (r AutoAPIPostAutoFlowsByIdVersionsRequest) Execute() (*FlowVersion, *http.Response, error) {
+func (r AutoAPIPostAutoFlowsByIdVersionsRequest) Execute() (*AutoFlowVersion, *http.Response, error) {
 	return r.ApiService.PostAutoFlowsByIdVersionsExecute(r)
 }
 
@@ -1578,13 +2500,13 @@ func (a *AutoAPIService) PostAutoFlowsByIdVersions(ctx context.Context, id strin
 
 // Execute executes the request
 //
-//	@return FlowVersion
-func (a *AutoAPIService) PostAutoFlowsByIdVersionsExecute(r AutoAPIPostAutoFlowsByIdVersionsRequest) (*FlowVersion, *http.Response, error) {
+//	@return AutoFlowVersion
+func (a *AutoAPIService) PostAutoFlowsByIdVersionsExecute(r AutoAPIPostAutoFlowsByIdVersionsRequest) (*AutoFlowVersion, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FlowVersion
+		localVarReturnValue *AutoFlowVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.PostAutoFlowsByIdVersions")
@@ -1598,8 +2520,8 @@ func (a *AutoAPIService) PostAutoFlowsByIdVersionsExecute(r AutoAPIPostAutoFlows
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createVersionIn == nil {
-		return localVarReturnValue, nil, reportError("createVersionIn is required and must be specified")
+	if r.autoCreateVersionIn == nil {
+		return localVarReturnValue, nil, reportError("autoCreateVersionIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1612,7 +2534,7 @@ func (a *AutoAPIService) PostAutoFlowsByIdVersionsExecute(r AutoAPIPostAutoFlows
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1620,7 +2542,7 @@ func (a *AutoAPIService) PostAutoFlowsByIdVersionsExecute(r AutoAPIPostAutoFlows
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createVersionIn
+	localVarPostBody = r.autoCreateVersionIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1643,6 +2565,14 @@ func (a *AutoAPIService) PostAutoFlowsByIdVersionsExecute(r AutoAPIPostAutoFlows
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1676,7 +2606,7 @@ Delivers one event to the org's automation triggers and answers `{matched:n}` �
 
 The path is the trigger key and the JSON object body is the event payload, threaded into each started run as `{{trigger.*}}` with all of its keys intact — which is why this is not a typed op, since a declared input struct would silently DISCARD every payload key it had no field for. Re-delivery is a no-op: an `X-Idempotency-Key` header dedupes, and with none the body is content-hashed instead, so a hammer of identical posts collapses to ONE run rather than minting a fresh one per post. An in-platform producer may propagate `X-Causation-Depth` so a firing that a flow caused is bounded against a loop; an absent or invalid header reads as depth 0, an external origin.
 
-Authenticated and org-scoped, unlike a provider's public webhook URL: a validated principal is required (403 without one) and the org is that principal's, never the body's, so a producer can only fire into its own tenant's flows. Both path segments are required (400) and a payload over the size limit is a 413.
+Authenticated and org-scoped, unlike a provider's public webhook URL: a validated principal is required (401 without one) and the org is that principal's, never the body's, so a producer can only fire into its own tenant's flows. Both path segments are required (400) and a payload over the size limit is a 413.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param source
@@ -1758,6 +2688,134 @@ func (a *AutoAPIService) PostAutoHooksBySourceByEventExecute(r AutoAPIPostAutoHo
 	return localVarHTTPResponse, nil
 }
 
+type AutoAPIPostAutoProviderByIdRunRequest struct {
+	ctx        context.Context
+	ApiService *AutoAPIService
+	id         string
+	autoRunIn  *AutoRunIn
+}
+
+func (r AutoAPIPostAutoProviderByIdRunRequest) AutoRunIn(autoRunIn AutoRunIn) AutoAPIPostAutoProviderByIdRunRequest {
+	r.autoRunIn = &autoRunIn
+	return r
+}
+
+func (r AutoAPIPostAutoProviderByIdRunRequest) Execute() (*AutoRunResp, *http.Response, error) {
+	return r.ApiService.PostAutoProviderByIdRunExecute(r)
+}
+
+/*
+PostAutoProviderByIdRun Executes one provider action in-process and answers the outcome.
+
+Executes one provider action in-process and answers the outcome. The
+caller's resolved credential travels in `auth`, delivered to the action
+verbatim — the runtime resolves no credential itself. An action that ran and
+failed (or an action name the provider does not have) answers ok:false with
+the failure message, not an HTTP error; an unknown provider is 404 and a
+missing action 422.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the provider to run, from the path.
+	@return AutoAPIPostAutoProviderByIdRunRequest
+*/
+func (a *AutoAPIService) PostAutoProviderByIdRun(ctx context.Context, id string) AutoAPIPostAutoProviderByIdRunRequest {
+	return AutoAPIPostAutoProviderByIdRunRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AutoRunResp
+func (a *AutoAPIService) PostAutoProviderByIdRunExecute(r AutoAPIPostAutoProviderByIdRunRequest) (*AutoRunResp, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AutoRunResp
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoAPIService.PostAutoProviderByIdRun")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/auto/provider/{id}/run"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.autoRunIn == nil {
+		return localVarReturnValue, nil, reportError("autoRunIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.autoRunIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type AutoAPIPostAutoRunsByIdResumeRequest struct {
 	ctx        context.Context
 	ApiService *AutoAPIService
@@ -1775,7 +2833,7 @@ Delivers the durable `resume` signal to a run parked on a `wait_for_approval` wa
 
 The body is an ARBITRARY JSON value — object, array, string, number — delivered VERBATIM into the workflow as that waitpoint's output, so it is what the steps after the approval read as their input. An empty body resumes with no payload. That open shape is why this route is not a typed op: an operation's input can carry the payload or the run address, never both.
 
-Org-scoped and fails closed: a validated principal is required (403 without one), the run is read under the caller's OWN org so another tenant's run id is a 404, a body that is not JSON is a 400, and a payload over the size limit is a 413 — it becomes durable engine state, so it is bounded here rather than after it lands. The resume is audited as `automations.run.resume`.
+Org-scoped and fails closed: a validated principal is required (401 without one), the run is read under the caller's OWN org so another tenant's run id is a 404, a body that is not JSON is a 400, and a payload over the size limit is a 413 — it becomes durable engine state, so it is bounded here rather than after it lands. The resume is audited as `automations.run.resume`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id

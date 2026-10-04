@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attributes** | Pointer to **map[string]map[string]interface{}** | Attributes are free-form event properties. | [optional] 
+**Attributes** | Pointer to **map[string]interface{}** | Attributes are free-form event properties. | [optional] 
 **EventName** | Pointer to **string** | EventName names the event; required for track events. | [optional] 
 **EventType** | **string** | EventType is the kind of event — track, identify or group. Required. | 
 **RateLimited** | Pointer to **bool** | RateLimited marks an event the reporting client rate-limited. | [optional] 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAttributes
 
-`func (o *O11yO11yEventIn) GetAttributes() map[string]map[string]interface{}`
+`func (o *O11yO11yEventIn) GetAttributes() map[string]interface{}`
 
 GetAttributes returns the Attributes field if non-nil, zero value otherwise.
 
 ### GetAttributesOk
 
-`func (o *O11yO11yEventIn) GetAttributesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yO11yEventIn) GetAttributesOk() (*map[string]interface{}, bool)`
 
 GetAttributesOk returns a tuple with the Attributes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttributes
 
-`func (o *O11yO11yEventIn) SetAttributes(v map[string]map[string]interface{})`
+`func (o *O11yO11yEventIn) SetAttributes(v map[string]interface{})`
 
 SetAttributes sets Attributes field to given value.
 

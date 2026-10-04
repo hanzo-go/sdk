@@ -19,10 +19,13 @@ var _ MappedNullable = &AiRankedDoc{}
 
 // AiRankedDoc struct for AiRankedDoc
 type AiRankedDoc struct {
-	Document       *AiRankedText `json:"document,omitempty"`
-	Index          *int32        `json:"index,omitempty"`
-	RelevanceScore *float32      `json:"relevance_score,omitempty"`
+	Document             *AiRankedText `json:"document,omitempty"`
+	Index                *int32        `json:"index,omitempty"`
+	RelevanceScore       *float32      `json:"relevance_score,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiRankedDoc AiRankedDoc
 
 // NewAiRankedDoc instantiates a new AiRankedDoc object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o AiRankedDoc) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RelevanceScore) {
 		toSerialize["relevance_score"] = o.RelevanceScore
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiRankedDoc) UnmarshalJSON(data []byte) (err error) {
+	varAiRankedDoc := _AiRankedDoc{}
+
+	err = json.Unmarshal(data, &varAiRankedDoc)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiRankedDoc(varAiRankedDoc)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "document")
+		delete(additionalProperties, "index")
+		delete(additionalProperties, "relevance_score")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiRankedDoc struct {

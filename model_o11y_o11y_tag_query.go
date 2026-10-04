@@ -30,8 +30,11 @@ type O11yO11yTagQuery struct {
 	// StringValues are the string values to test against.
 	StringValues []string `json:"stringValues,omitempty"`
 	// TagType is where the tag lives, e.g. ResourceAttribute, SpanAttribute.
-	TagType *string `json:"tagType,omitempty"`
+	TagType              *string `json:"tagType,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTagQuery O11yO11yTagQuery
 
 // NewO11yO11yTagQuery instantiates a new O11yO11yTagQuery object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o O11yO11yTagQuery) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TagType) {
 		toSerialize["tagType"] = o.TagType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTagQuery) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTagQuery := _O11yO11yTagQuery{}
+
+	err = json.Unmarshal(data, &varO11yO11yTagQuery)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTagQuery(varO11yO11yTagQuery)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "boolValues")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "numberValues")
+		delete(additionalProperties, "operator")
+		delete(additionalProperties, "stringValues")
+		delete(additionalProperties, "tagType")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTagQuery struct {

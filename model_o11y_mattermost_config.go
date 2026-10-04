@@ -19,20 +19,23 @@ var _ MappedNullable = &O11yMattermostConfig{}
 
 // O11yMattermostConfig struct for O11yMattermostConfig
 type O11yMattermostConfig struct {
-	NotifierConfig *O11yNotifierConfig        `json:"NotifierConfig,omitempty"`
-	Attachments    []O11yMattermostAttachment `json:"attachments,omitempty"`
-	Channel        *string                    `json:"channel,omitempty"`
-	HttpConfig     *O11yHTTPClientConfig      `json:"http_config,omitempty"`
-	IconEmoji      *string                    `json:"icon_emoji,omitempty"`
-	IconUrl        *string                    `json:"icon_url,omitempty"`
-	Priority       *O11yMattermostPriority    `json:"priority,omitempty"`
-	Props          *O11yMattermostProps       `json:"props,omitempty"`
-	Text           *string                    `json:"text,omitempty"`
-	Type           *string                    `json:"type,omitempty"`
-	Username       *string                    `json:"username,omitempty"`
-	WebhookUrl     interface{}                `json:"webhook_url,omitempty"`
-	WebhookUrlFile *string                    `json:"webhook_url_file,omitempty"`
+	NotifierConfig       *O11yNotifierConfig        `json:"NotifierConfig,omitempty"`
+	Attachments          []O11yMattermostAttachment `json:"attachments,omitempty"`
+	Channel              *string                    `json:"channel,omitempty"`
+	HttpConfig           *O11yHTTPClientConfig      `json:"http_config,omitempty"`
+	IconEmoji            *string                    `json:"icon_emoji,omitempty"`
+	IconUrl              *string                    `json:"icon_url,omitempty"`
+	Priority             *O11yMattermostPriority    `json:"priority,omitempty"`
+	Props                *O11yMattermostProps       `json:"props,omitempty"`
+	Text                 *string                    `json:"text,omitempty"`
+	Type                 *string                    `json:"type,omitempty"`
+	Username             *string                    `json:"username,omitempty"`
+	WebhookUrl           interface{}                `json:"webhook_url,omitempty"`
+	WebhookUrlFile       *string                    `json:"webhook_url_file,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yMattermostConfig O11yMattermostConfig
 
 // NewO11yMattermostConfig instantiates a new O11yMattermostConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -517,7 +520,45 @@ func (o O11yMattermostConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WebhookUrlFile) {
 		toSerialize["webhook_url_file"] = o.WebhookUrlFile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yMattermostConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yMattermostConfig := _O11yMattermostConfig{}
+
+	err = json.Unmarshal(data, &varO11yMattermostConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yMattermostConfig(varO11yMattermostConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "attachments")
+		delete(additionalProperties, "channel")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "icon_emoji")
+		delete(additionalProperties, "icon_url")
+		delete(additionalProperties, "priority")
+		delete(additionalProperties, "props")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "webhook_url")
+		delete(additionalProperties, "webhook_url_file")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yMattermostConfig struct {

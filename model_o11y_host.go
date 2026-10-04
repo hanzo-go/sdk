@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yHost{}
 
 // O11yHost struct for O11yHost
 type O11yHost struct {
-	IsDefault *bool   `json:"is_default,omitempty"`
-	Name      *string `json:"name,omitempty"`
-	Url       *string `json:"url,omitempty"`
+	IsDefault            *bool   `json:"is_default,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yHost O11yHost
 
 // NewO11yHost instantiates a new O11yHost object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yHost) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yHost) UnmarshalJSON(data []byte) (err error) {
+	varO11yHost := _O11yHost{}
+
+	err = json.Unmarshal(data, &varO11yHost)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yHost(varO11yHost)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "is_default")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yHost struct {

@@ -22,8 +22,11 @@ type O11yO11yRetentionRule struct {
 	// Conditions all have to hold for the rule to match.
 	Conditions []O11yO11yRetentionMatch `json:"conditions,omitempty"`
 	// TTLDays is the retention applied when it does, in days.
-	TtlDays *int64 `json:"ttlDays,omitempty"`
+	TtlDays              *int64 `json:"ttlDays,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yRetentionRule O11yO11yRetentionRule
 
 // NewO11yO11yRetentionRule instantiates a new O11yO11yRetentionRule object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yRetentionRule) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TtlDays) {
 		toSerialize["ttlDays"] = o.TtlDays
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yRetentionRule) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yRetentionRule := _O11yO11yRetentionRule{}
+
+	err = json.Unmarshal(data, &varO11yO11yRetentionRule)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yRetentionRule(varO11yO11yRetentionRule)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "conditions")
+		delete(additionalProperties, "ttlDays")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yRetentionRule struct {

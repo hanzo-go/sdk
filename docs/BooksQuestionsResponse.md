@@ -1,0 +1,56 @@
+# BooksQuestionsResponse
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Questions** | Pointer to [**[]BooksQuestion**](BooksQuestion.md) | Questions are what the books want explained, SHARPEST FIRST — largest amounts ahead of smaller ones, and capped, so this is the top of the list rather than everything. Empty means the ledger looks clean; the detector is deterministic over what was posted and invents nothing. | [optional] 
+
+## Methods
+
+### NewBooksQuestionsResponse
+
+`func NewBooksQuestionsResponse() *BooksQuestionsResponse`
+
+NewBooksQuestionsResponse instantiates a new BooksQuestionsResponse object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewBooksQuestionsResponseWithDefaults
+
+`func NewBooksQuestionsResponseWithDefaults() *BooksQuestionsResponse`
+
+NewBooksQuestionsResponseWithDefaults instantiates a new BooksQuestionsResponse object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetQuestions
+
+`func (o *BooksQuestionsResponse) GetQuestions() []BooksQuestion`
+
+GetQuestions returns the Questions field if non-nil, zero value otherwise.
+
+### GetQuestionsOk
+
+`func (o *BooksQuestionsResponse) GetQuestionsOk() (*[]BooksQuestion, bool)`
+
+GetQuestionsOk returns a tuple with the Questions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuestions
+
+`func (o *BooksQuestionsResponse) SetQuestions(v []BooksQuestion)`
+
+SetQuestions sets Questions field to given value.
+
+### HasQuestions
+
+`func (o *BooksQuestionsResponse) HasQuestions() bool`
+
+HasQuestions returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

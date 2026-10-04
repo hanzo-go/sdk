@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yAlertmanagertypesReceiver{}
 
 // O11yAlertmanagertypesReceiver struct for O11yAlertmanagertypesReceiver
 type O11yAlertmanagertypesReceiver struct {
-	Receiver          *O11yReceiver                  `json:"Receiver,omitempty"`
-	GooglechatConfigs []O11yGoogleChatReceiverConfig `json:"googlechat_configs,omitempty"`
+	Receiver             *O11yReceiver                  `json:"Receiver,omitempty"`
+	GooglechatConfigs    []O11yGoogleChatReceiverConfig `json:"googlechat_configs,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAlertmanagertypesReceiver O11yAlertmanagertypesReceiver
 
 // NewO11yAlertmanagertypesReceiver instantiates a new O11yAlertmanagertypesReceiver object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yAlertmanagertypesReceiver) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GooglechatConfigs) {
 		toSerialize["googlechat_configs"] = o.GooglechatConfigs
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAlertmanagertypesReceiver) UnmarshalJSON(data []byte) (err error) {
+	varO11yAlertmanagertypesReceiver := _O11yAlertmanagertypesReceiver{}
+
+	err = json.Unmarshal(data, &varO11yAlertmanagertypesReceiver)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAlertmanagertypesReceiver(varO11yAlertmanagertypesReceiver)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "Receiver")
+		delete(additionalProperties, "googlechat_configs")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAlertmanagertypesReceiver struct {

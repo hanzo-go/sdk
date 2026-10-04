@@ -57,8 +57,11 @@ type O11yO11yErrorIssue struct {
 	// UpdatedAt is when the issue last changed.
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	// Value is the exception value.
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yErrorIssue O11yO11yErrorIssue
 
 // NewO11yO11yErrorIssue instantiates a new O11yO11yErrorIssue object
 // This constructor will assign default values to properties that have it defined,
@@ -752,7 +755,51 @@ func (o O11yO11yErrorIssue) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yErrorIssue) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yErrorIssue := _O11yO11yErrorIssue{}
+
+	err = json.Unmarshal(data, &varO11yO11yErrorIssue)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yErrorIssue(varO11yO11yErrorIssue)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "assignee")
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "culprit")
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "fingerprint")
+		delete(additionalProperties, "firstSeen")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "lastSeen")
+		delete(additionalProperties, "level")
+		delete(additionalProperties, "platform")
+		delete(additionalProperties, "regressed")
+		delete(additionalProperties, "release")
+		delete(additionalProperties, "resolvedAt")
+		delete(additionalProperties, "serviceName")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yErrorIssue struct {

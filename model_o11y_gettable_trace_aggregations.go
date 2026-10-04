@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yGettableTraceAggregations{}
 
 // O11yGettableTraceAggregations struct for O11yGettableTraceAggregations
 type O11yGettableTraceAggregations struct {
-	Aggregations []O11ySpanAggregationResult `json:"aggregations,omitempty"`
+	Aggregations         []O11ySpanAggregationResult `json:"aggregations,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableTraceAggregations O11yGettableTraceAggregations
 
 // NewO11yGettableTraceAggregations instantiates a new O11yGettableTraceAggregations object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yGettableTraceAggregations) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Aggregations) {
 		toSerialize["aggregations"] = o.Aggregations
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableTraceAggregations) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableTraceAggregations := _O11yGettableTraceAggregations{}
+
+	err = json.Unmarshal(data, &varO11yGettableTraceAggregations)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableTraceAggregations(varO11yGettableTraceAggregations)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aggregations")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableTraceAggregations struct {

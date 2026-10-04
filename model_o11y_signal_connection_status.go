@@ -22,8 +22,11 @@ type O11ySignalConnectionStatus struct {
 	// resource identifier
 	LastReceivedFrom *string `json:"last_received_from,omitempty"`
 	// epoch milliseconds
-	LastReceivedTsMs *int64 `json:"last_received_ts_ms,omitempty"`
+	LastReceivedTsMs     *int64 `json:"last_received_ts_ms,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySignalConnectionStatus O11ySignalConnectionStatus
 
 // NewO11ySignalConnectionStatus instantiates a new O11ySignalConnectionStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11ySignalConnectionStatus) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastReceivedTsMs) {
 		toSerialize["last_received_ts_ms"] = o.LastReceivedTsMs
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySignalConnectionStatus) UnmarshalJSON(data []byte) (err error) {
+	varO11ySignalConnectionStatus := _O11ySignalConnectionStatus{}
+
+	err = json.Unmarshal(data, &varO11ySignalConnectionStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySignalConnectionStatus(varO11ySignalConnectionStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "last_received_from")
+		delete(additionalProperties, "last_received_ts_ms")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySignalConnectionStatus struct {

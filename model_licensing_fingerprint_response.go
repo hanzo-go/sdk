@@ -22,8 +22,11 @@ type LicensingFingerprintResponse struct {
 	// Fingerprint is the OPAQUE binding value to pass to POST /v1/licensing/issue. It is one-way: the raw signals cannot be recovered from it and are never echoed back.
 	Fingerprint *string `json:"fingerprint,omitempty"`
 	// Version is the binding algorithm revision, so a stored fingerprint stays recognizable across a recipe rotation.
-	Version *string `json:"version,omitempty"`
+	Version              *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicensingFingerprintResponse LicensingFingerprintResponse
 
 // NewLicensingFingerprintResponse instantiates a new LicensingFingerprintResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o LicensingFingerprintResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicensingFingerprintResponse) UnmarshalJSON(data []byte) (err error) {
+	varLicensingFingerprintResponse := _LicensingFingerprintResponse{}
+
+	err = json.Unmarshal(data, &varLicensingFingerprintResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicensingFingerprintResponse(varLicensingFingerprintResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fingerprint")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicensingFingerprintResponse struct {

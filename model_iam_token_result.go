@@ -19,8 +19,11 @@ var _ MappedNullable = &IamTokenResult{}
 
 // IamTokenResult struct for IamTokenResult
 type IamTokenResult struct {
-	Token *IamToken `json:"token,omitempty"`
+	Token                *IamToken `json:"token,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamTokenResult IamTokenResult
 
 // NewIamTokenResult instantiates a new IamTokenResult object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o IamTokenResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamTokenResult) UnmarshalJSON(data []byte) (err error) {
+	varIamTokenResult := _IamTokenResult{}
+
+	err = json.Unmarshal(data, &varIamTokenResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamTokenResult(varIamTokenResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "token")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamTokenResult struct {

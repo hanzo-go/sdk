@@ -4,16 +4,16 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostPubsubPublish**](PubsubAPI.md#PostPubsubPublish) | **Post** /v1/pubsub/publish | Publish puts one message on the org&#39;s bus.
-[**PostPubsubRequest**](PubsubAPI.md#PostPubsubRequest) | **Post** /v1/pubsub/request | Request sends one request on the org&#39;s bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
+[**PostPubsubPublish**](PubsubAPI.md#PostPubsubPublish) | **Post** /v1/pubsub/publish | Puts one message on the org&#39;s bus.
+[**PostPubsubRequest**](PubsubAPI.md#PostPubsubRequest) | **Post** /v1/pubsub/request | Sends one request on the org&#39;s bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
 
 
 
 ## PostPubsubPublish
 
-> BusAck PostPubsubPublish(ctx).BusPublish(busPublish).Execute()
+> PubsubBusAck PostPubsubPublish(ctx).PubsubBusPublish(pubsubBusPublish).Execute()
 
-Publish puts one message on the org's bus.
+Puts one message on the org's bus.
 
 
 
@@ -30,16 +30,16 @@ import (
 )
 
 func main() {
-	busPublish := *openapiclient.NewBusPublish() // BusPublish | 
+	pubsubBusPublish := *openapiclient.NewPubsubBusPublish() // PubsubBusPublish | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PubsubAPI.PostPubsubPublish(context.Background()).BusPublish(busPublish).Execute()
+	resp, r, err := apiClient.PubsubAPI.PostPubsubPublish(context.Background()).PubsubBusPublish(pubsubBusPublish).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PubsubAPI.PostPubsubPublish``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPubsubPublish`: BusAck
+	// response from `PostPubsubPublish`: PubsubBusAck
 	fmt.Fprintf(os.Stdout, "Response from `PubsubAPI.PostPubsubPublish`: %v\n", resp)
 }
 ```
@@ -55,11 +55,11 @@ Other parameters are passed through a pointer to a apiPostPubsubPublishRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **busPublish** | [**BusPublish**](BusPublish.md) |  | 
+ **pubsubBusPublish** | [**PubsubBusPublish**](PubsubBusPublish.md) |  | 
 
 ### Return type
 
-[**BusAck**](BusAck.md)
+[**PubsubBusAck**](PubsubBusAck.md)
 
 ### Authorization
 
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -77,9 +77,9 @@ Name | Type | Description  | Notes
 
 ## PostPubsubRequest
 
-> BusMessage PostPubsubRequest(ctx).BusRequest(busRequest).Execute()
+> PubsubBusMessage PostPubsubRequest(ctx).PubsubBusRequest(pubsubBusRequest).Execute()
 
-Request sends one request on the org's bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
+Sends one request on the org's bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
 
 
 
@@ -96,16 +96,16 @@ import (
 )
 
 func main() {
-	busRequest := *openapiclient.NewBusRequest() // BusRequest | 
+	pubsubBusRequest := *openapiclient.NewPubsubBusRequest() // PubsubBusRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PubsubAPI.PostPubsubRequest(context.Background()).BusRequest(busRequest).Execute()
+	resp, r, err := apiClient.PubsubAPI.PostPubsubRequest(context.Background()).PubsubBusRequest(pubsubBusRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PubsubAPI.PostPubsubRequest``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPubsubRequest`: BusMessage
+	// response from `PostPubsubRequest`: PubsubBusMessage
 	fmt.Fprintf(os.Stdout, "Response from `PubsubAPI.PostPubsubRequest`: %v\n", resp)
 }
 ```
@@ -121,11 +121,11 @@ Other parameters are passed through a pointer to a apiPostPubsubRequestRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **busRequest** | [**BusRequest**](BusRequest.md) |  | 
+ **pubsubBusRequest** | [**PubsubBusRequest**](PubsubBusRequest.md) |  | 
 
 ### Return type
 
-[**BusMessage**](BusMessage.md)
+[**PubsubBusMessage**](PubsubBusMessage.md)
 
 ### Authorization
 
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

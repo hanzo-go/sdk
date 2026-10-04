@@ -19,12 +19,15 @@ var _ MappedNullable = &O11yRuleStateHistoryContributor{}
 
 // O11yRuleStateHistoryContributor struct for O11yRuleStateHistoryContributor
 type O11yRuleStateHistoryContributor struct {
-	Count             *int32      `json:"count,omitempty"`
-	Fingerprint       *int32      `json:"fingerprint,omitempty"`
-	Labels            interface{} `json:"labels,omitempty"`
-	RelatedLogsLink   *string     `json:"relatedLogsLink,omitempty"`
-	RelatedTracesLink *string     `json:"relatedTracesLink,omitempty"`
+	Count                *int32      `json:"count,omitempty"`
+	Fingerprint          *int32      `json:"fingerprint,omitempty"`
+	Labels               interface{} `json:"labels,omitempty"`
+	RelatedLogsLink      *string     `json:"relatedLogsLink,omitempty"`
+	RelatedTracesLink    *string     `json:"relatedTracesLink,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yRuleStateHistoryContributor O11yRuleStateHistoryContributor
 
 // NewO11yRuleStateHistoryContributor instantiates a new O11yRuleStateHistoryContributor object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o O11yRuleStateHistoryContributor) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.RelatedTracesLink) {
 		toSerialize["relatedTracesLink"] = o.RelatedTracesLink
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yRuleStateHistoryContributor) UnmarshalJSON(data []byte) (err error) {
+	varO11yRuleStateHistoryContributor := _O11yRuleStateHistoryContributor{}
+
+	err = json.Unmarshal(data, &varO11yRuleStateHistoryContributor)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yRuleStateHistoryContributor(varO11yRuleStateHistoryContributor)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "fingerprint")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "relatedLogsLink")
+		delete(additionalProperties, "relatedTracesLink")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yRuleStateHistoryContributor struct {

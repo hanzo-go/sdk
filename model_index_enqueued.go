@@ -19,17 +19,15 @@ var _ MappedNullable = &IndexEnqueued{}
 
 // IndexEnqueued struct for IndexEnqueued
 type IndexEnqueued struct {
-	// EnqueuedAt is when the task was recorded, RFC 3339 — which is also when it completed.
-	EnqueuedAt *string `json:"enqueuedAt,omitempty"`
-	// IndexUID names the index the write landed in.
-	IndexUid *string `json:"indexUid,omitempty"`
-	// Status is always `enqueued`, for dialect compatibility. The work is already done.
-	Status *string `json:"status,omitempty"`
-	// TaskUID identifies the task for a client that polls it. Polling resolves immediately.
-	TaskUid *int64 `json:"taskUid,omitempty"`
-	// Type is the dialect's name for the kind of write: indexCreation, indexDeletion, settingsUpdate, documentAdditionOrUpdate, documentDeletion.
-	Type *string `json:"type,omitempty"`
+	EnqueuedAt           *string `json:"enqueuedAt,omitempty"`
+	IndexUid             *string `json:"indexUid,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	TaskUid              *int32  `json:"taskUid,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IndexEnqueued IndexEnqueued
 
 // NewIndexEnqueued instantiates a new IndexEnqueued object
 // This constructor will assign default values to properties that have it defined,
@@ -145,9 +143,9 @@ func (o *IndexEnqueued) SetStatus(v string) {
 }
 
 // GetTaskUid returns the TaskUid field value if set, zero value otherwise.
-func (o *IndexEnqueued) GetTaskUid() int64 {
+func (o *IndexEnqueued) GetTaskUid() int32 {
 	if o == nil || IsNil(o.TaskUid) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.TaskUid
@@ -155,7 +153,7 @@ func (o *IndexEnqueued) GetTaskUid() int64 {
 
 // GetTaskUidOk returns a tuple with the TaskUid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexEnqueued) GetTaskUidOk() (*int64, bool) {
+func (o *IndexEnqueued) GetTaskUidOk() (*int32, bool) {
 	if o == nil || IsNil(o.TaskUid) {
 		return nil, false
 	}
@@ -171,8 +169,8 @@ func (o *IndexEnqueued) HasTaskUid() bool {
 	return false
 }
 
-// SetTaskUid gets a reference to the given int64 and assigns it to the TaskUid field.
-func (o *IndexEnqueued) SetTaskUid(v int64) {
+// SetTaskUid gets a reference to the given int32 and assigns it to the TaskUid field.
+func (o *IndexEnqueued) SetTaskUid(v int32) {
 	o.TaskUid = &v
 }
 
@@ -233,7 +231,37 @@ func (o IndexEnqueued) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IndexEnqueued) UnmarshalJSON(data []byte) (err error) {
+	varIndexEnqueued := _IndexEnqueued{}
+
+	err = json.Unmarshal(data, &varIndexEnqueued)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IndexEnqueued(varIndexEnqueued)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enqueuedAt")
+		delete(additionalProperties, "indexUid")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "taskUid")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIndexEnqueued struct {

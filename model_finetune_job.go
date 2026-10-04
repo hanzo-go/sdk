@@ -19,37 +19,40 @@ var _ MappedNullable = &FinetuneJob{}
 
 // FinetuneJob struct for FinetuneJob
 type FinetuneJob struct {
-	BaseModel     *string `json:"baseModel,omitempty"`
-	CostCents     *int32  `json:"costCents,omitempty"`
-	CrName        *string `json:"crName,omitempty"`
-	CreatedBy     *string `json:"createdBy,omitempty"`
-	CreatedTime   *string `json:"createdTime,omitempty"`
-	Dataset       *string `json:"dataset,omitempty"`
-	DeployUrl     *string `json:"deployUrl,omitempty"`
-	DeployedModel *string `json:"deployedModel,omitempty"`
-	DisplayName   *string `json:"displayName,omitempty"`
-	Error         *string `json:"error,omitempty"`
-	FinishedTime  *string `json:"finishedTime,omitempty"`
-	GpuCount      *int32  `json:"gpuCount,omitempty"`
-	GpuSeconds    *int32  `json:"gpuSeconds,omitempty"`
-	GpuType       *string `json:"gpuType,omitempty"`
-	Hyperparams   *string `json:"hyperparams,omitempty"`
-	Message       *string `json:"message,omitempty"`
-	Metered       *bool   `json:"metered,omitempty"`
-	Method        *string `json:"method,omitempty"`
-	Name          *string `json:"name,omitempty"`
-	Namespace     *string `json:"namespace,omitempty"`
-	NumNodes      *int32  `json:"numNodes,omitempty"`
-	OutputUri     *string `json:"outputUri,omitempty"`
-	Owner         *string `json:"owner,omitempty"`
-	Preset        *string `json:"preset,omitempty"`
-	Progress      *int32  `json:"progress,omitempty"`
-	Runtime       *string `json:"runtime,omitempty"`
-	StartedTime   *string `json:"startedTime,omitempty"`
-	Status        *string `json:"status,omitempty"`
-	Task          *string `json:"task,omitempty"`
-	UpdatedTime   *string `json:"updatedTime,omitempty"`
+	BaseModel            *string `json:"baseModel,omitempty"`
+	CostCents            *int32  `json:"costCents,omitempty"`
+	CrName               *string `json:"crName,omitempty"`
+	CreatedBy            *string `json:"createdBy,omitempty"`
+	CreatedTime          *string `json:"createdTime,omitempty"`
+	Dataset              *string `json:"dataset,omitempty"`
+	DeployUrl            *string `json:"deployUrl,omitempty"`
+	DeployedModel        *string `json:"deployedModel,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
+	Error                *string `json:"error,omitempty"`
+	FinishedTime         *string `json:"finishedTime,omitempty"`
+	GpuCount             *int32  `json:"gpuCount,omitempty"`
+	GpuSeconds           *int32  `json:"gpuSeconds,omitempty"`
+	GpuType              *string `json:"gpuType,omitempty"`
+	Hyperparams          *string `json:"hyperparams,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	Metered              *bool   `json:"metered,omitempty"`
+	Method               *string `json:"method,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Namespace            *string `json:"namespace,omitempty"`
+	NumNodes             *int32  `json:"numNodes,omitempty"`
+	OutputUri            *string `json:"outputUri,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	Preset               *string `json:"preset,omitempty"`
+	Progress             *int32  `json:"progress,omitempty"`
+	Runtime              *string `json:"runtime,omitempty"`
+	StartedTime          *string `json:"startedTime,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	Task                 *string `json:"task,omitempty"`
+	UpdatedTime          *string `json:"updatedTime,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FinetuneJob FinetuneJob
 
 // NewFinetuneJob instantiates a new FinetuneJob object
 // This constructor will assign default values to properties that have it defined,
@@ -1128,7 +1131,62 @@ func (o FinetuneJob) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedTime) {
 		toSerialize["updatedTime"] = o.UpdatedTime
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FinetuneJob) UnmarshalJSON(data []byte) (err error) {
+	varFinetuneJob := _FinetuneJob{}
+
+	err = json.Unmarshal(data, &varFinetuneJob)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FinetuneJob(varFinetuneJob)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "baseModel")
+		delete(additionalProperties, "costCents")
+		delete(additionalProperties, "crName")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "dataset")
+		delete(additionalProperties, "deployUrl")
+		delete(additionalProperties, "deployedModel")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "error")
+		delete(additionalProperties, "finishedTime")
+		delete(additionalProperties, "gpuCount")
+		delete(additionalProperties, "gpuSeconds")
+		delete(additionalProperties, "gpuType")
+		delete(additionalProperties, "hyperparams")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "metered")
+		delete(additionalProperties, "method")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "numNodes")
+		delete(additionalProperties, "outputUri")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "preset")
+		delete(additionalProperties, "progress")
+		delete(additionalProperties, "runtime")
+		delete(additionalProperties, "startedTime")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "task")
+		delete(additionalProperties, "updatedTime")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFinetuneJob struct {

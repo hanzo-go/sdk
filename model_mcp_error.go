@@ -19,10 +19,13 @@ var _ MappedNullable = &MCPError{}
 
 // MCPError struct for MCPError
 type MCPError struct {
-	Code    *int32      `json:"code,omitempty"`
-	Data    interface{} `json:"data,omitempty"`
-	Message *string     `json:"message,omitempty"`
+	Code                 *int32      `json:"code,omitempty"`
+	Data                 interface{} `json:"data,omitempty"`
+	Message              *string     `json:"message,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MCPError MCPError
 
 // NewMCPError instantiates a new MCPError object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o MCPError) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MCPError) UnmarshalJSON(data []byte) (err error) {
+	varMCPError := _MCPError{}
+
+	err = json.Unmarshal(data, &varMCPError)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MCPError(varMCPError)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "message")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMCPError struct {

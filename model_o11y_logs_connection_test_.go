@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yLogsConnectionTest{}
 
 // O11yLogsConnectionTest struct for O11yLogsConnectionTest
 type O11yLogsConnectionTest struct {
-	AttributeKey   *string `json:"attribute_key,omitempty"`
-	AttributeValue *string `json:"attribute_value,omitempty"`
+	AttributeKey         *string `json:"attribute_key,omitempty"`
+	AttributeValue       *string `json:"attribute_value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yLogsConnectionTest O11yLogsConnectionTest
 
 // NewO11yLogsConnectionTest instantiates a new O11yLogsConnectionTest object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yLogsConnectionTest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AttributeValue) {
 		toSerialize["attribute_value"] = o.AttributeValue
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yLogsConnectionTest) UnmarshalJSON(data []byte) (err error) {
+	varO11yLogsConnectionTest := _O11yLogsConnectionTest{}
+
+	err = json.Unmarshal(data, &varO11yLogsConnectionTest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yLogsConnectionTest(varO11yLogsConnectionTest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attribute_key")
+		delete(additionalProperties, "attribute_value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yLogsConnectionTest struct {

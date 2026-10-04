@@ -1,0 +1,82 @@
+# IamTermsBody
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Aup** | Pointer to **string** |  | [optional] 
+**Terms** | Pointer to **string** |  | [optional] 
+
+## Methods
+
+### NewIamTermsBody
+
+`func NewIamTermsBody() *IamTermsBody`
+
+NewIamTermsBody instantiates a new IamTermsBody object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewIamTermsBodyWithDefaults
+
+`func NewIamTermsBodyWithDefaults() *IamTermsBody`
+
+NewIamTermsBodyWithDefaults instantiates a new IamTermsBody object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetAup
+
+`func (o *IamTermsBody) GetAup() string`
+
+GetAup returns the Aup field if non-nil, zero value otherwise.
+
+### GetAupOk
+
+`func (o *IamTermsBody) GetAupOk() (*string, bool)`
+
+GetAupOk returns a tuple with the Aup field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAup
+
+`func (o *IamTermsBody) SetAup(v string)`
+
+SetAup sets Aup field to given value.
+
+### HasAup
+
+`func (o *IamTermsBody) HasAup() bool`
+
+HasAup returns a boolean if a field has been set.
+
+### GetTerms
+
+`func (o *IamTermsBody) GetTerms() string`
+
+GetTerms returns the Terms field if non-nil, zero value otherwise.
+
+### GetTermsOk
+
+`func (o *IamTermsBody) GetTermsOk() (*string, bool)`
+
+GetTermsOk returns a tuple with the Terms field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTerms
+
+`func (o *IamTermsBody) SetTerms(v string)`
+
+SetTerms sets Terms field to given value.
+
+### HasTerms
+
+`func (o *IamTermsBody) HasTerms() bool`
+
+HasTerms returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

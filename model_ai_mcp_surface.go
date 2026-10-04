@@ -24,8 +24,11 @@ type AiMCPSurface struct {
 	// Names are this process's own tool names, present only when the query asked for them.
 	Names []string `json:"names,omitempty"`
 	// Tools is how many tools THIS PROCESS's MCP server carries: its own typed-op registry, projected. It is the only number a subsystem can state honestly — what the FLEET's server carries is a question only the host can ask, and it asks it by asking every subsystem (POST /v1/mcp, tools/list).
-	Tools *int64 `json:"tools,omitempty"`
+	Tools                *int64 `json:"tools,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiMCPSurface AiMCPSurface
 
 // NewAiMCPSurface instantiates a new AiMCPSurface object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o AiMCPSurface) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tools) {
 		toSerialize["tools"] = o.Tools
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiMCPSurface) UnmarshalJSON(data []byte) (err error) {
+	varAiMCPSurface := _AiMCPSurface{}
+
+	err = json.Unmarshal(data, &varAiMCPSurface)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiMCPSurface(varAiMCPSurface)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "apps")
+		delete(additionalProperties, "names")
+		delete(additionalProperties, "tools")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiMCPSurface struct {

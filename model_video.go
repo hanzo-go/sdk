@@ -19,49 +19,52 @@ var _ MappedNullable = &Video{}
 
 // Video struct for Video
 type Video struct {
-	AudioUrl       *string          `json:"audioUrl,omitempty"`
-	Class          *string          `json:"class,omitempty"`
-	CoverUrl       *string          `json:"coverUrl,omitempty"`
-	CreatedTime    *string          `json:"createdTime,omitempty"`
-	DataUrl        *string          `json:"dataUrl,omitempty"`
-	DataUrls       []string         `json:"dataUrls,omitempty"`
-	Description    *string          `json:"description,omitempty"`
-	DisplayName    *string          `json:"displayName,omitempty"`
-	DownloadUrl    *string          `json:"downloadUrl,omitempty"`
-	EditMode       *string          `json:"editMode,omitempty"`
-	ExcellentCount *int32           `json:"excellentCount,omitempty"`
-	Grade          *string          `json:"grade,omitempty"`
-	Grade2         *string          `json:"grade2,omitempty"`
-	IsPublic       *bool            `json:"isPublic,omitempty"`
-	Keywords       []string         `json:"keywords,omitempty"`
-	LabelCount     *int32           `json:"labelCount,omitempty"`
-	Labels         []Label          `json:"labels,omitempty"`
-	Lesson         *string          `json:"lesson,omitempty"`
-	Name           *string          `json:"name,omitempty"`
-	Owner          *string          `json:"owner,omitempty"`
-	PlayAuth       *string          `json:"playAuth,omitempty"`
-	Remarks        []Remark         `json:"remarks,omitempty"`
-	Remarks2       []Remark         `json:"remarks2,omitempty"`
-	ReviewState    *string          `json:"reviewState,omitempty"`
-	School         *string          `json:"school,omitempty"`
-	SegmentCount   *int32           `json:"segmentCount,omitempty"`
-	Segments       []Label          `json:"segments,omitempty"`
-	Stage          *string          `json:"stage,omitempty"`
-	State          *string          `json:"state,omitempty"`
-	Subject        *string          `json:"subject,omitempty"`
-	Tag            *string          `json:"tag,omitempty"`
-	TagOnPause     *bool            `json:"tagOnPause,omitempty"`
-	Task1          *string          `json:"task1,omitempty"`
-	Task2          *string          `json:"task2,omitempty"`
-	Task3          *string          `json:"task3,omitempty"`
-	Template       *string          `json:"template,omitempty"`
-	Topic          *string          `json:"topic,omitempty"`
-	Type           *string          `json:"type,omitempty"`
-	Unit           *string          `json:"unit,omitempty"`
-	VideoId        *string          `json:"videoId,omitempty"`
-	VideoLength    *string          `json:"videoLength,omitempty"`
-	WordCountMap   map[string]int32 `json:"wordCountMap,omitempty"`
+	AudioUrl             *string          `json:"audioUrl,omitempty"`
+	Class                *string          `json:"class,omitempty"`
+	CoverUrl             *string          `json:"coverUrl,omitempty"`
+	CreatedTime          *string          `json:"createdTime,omitempty"`
+	DataUrl              *string          `json:"dataUrl,omitempty"`
+	DataUrls             []string         `json:"dataUrls,omitempty"`
+	Description          *string          `json:"description,omitempty"`
+	DisplayName          *string          `json:"displayName,omitempty"`
+	DownloadUrl          *string          `json:"downloadUrl,omitempty"`
+	EditMode             *string          `json:"editMode,omitempty"`
+	ExcellentCount       *int32           `json:"excellentCount,omitempty"`
+	Grade                *string          `json:"grade,omitempty"`
+	Grade2               *string          `json:"grade2,omitempty"`
+	IsPublic             *bool            `json:"isPublic,omitempty"`
+	Keywords             []string         `json:"keywords,omitempty"`
+	LabelCount           *int32           `json:"labelCount,omitempty"`
+	Labels               []Label          `json:"labels,omitempty"`
+	Lesson               *string          `json:"lesson,omitempty"`
+	Name                 *string          `json:"name,omitempty"`
+	Owner                *string          `json:"owner,omitempty"`
+	PlayAuth             *string          `json:"playAuth,omitempty"`
+	Remarks              []Remark         `json:"remarks,omitempty"`
+	Remarks2             []Remark         `json:"remarks2,omitempty"`
+	ReviewState          *string          `json:"reviewState,omitempty"`
+	School               *string          `json:"school,omitempty"`
+	SegmentCount         *int32           `json:"segmentCount,omitempty"`
+	Segments             []Label          `json:"segments,omitempty"`
+	Stage                *string          `json:"stage,omitempty"`
+	State                *string          `json:"state,omitempty"`
+	Subject              *string          `json:"subject,omitempty"`
+	Tag                  *string          `json:"tag,omitempty"`
+	TagOnPause           *bool            `json:"tagOnPause,omitempty"`
+	Task1                *string          `json:"task1,omitempty"`
+	Task2                *string          `json:"task2,omitempty"`
+	Task3                *string          `json:"task3,omitempty"`
+	Template             *string          `json:"template,omitempty"`
+	Topic                *string          `json:"topic,omitempty"`
+	Type                 *string          `json:"type,omitempty"`
+	Unit                 *string          `json:"unit,omitempty"`
+	VideoId              *string          `json:"videoId,omitempty"`
+	VideoLength          *string          `json:"videoLength,omitempty"`
+	WordCountMap         map[string]int32 `json:"wordCountMap,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Video Video
 
 // NewVideo instantiates a new Video object
 // This constructor will assign default values to properties that have it defined,
@@ -1560,7 +1563,74 @@ func (o Video) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WordCountMap) {
 		toSerialize["wordCountMap"] = o.WordCountMap
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Video) UnmarshalJSON(data []byte) (err error) {
+	varVideo := _Video{}
+
+	err = json.Unmarshal(data, &varVideo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Video(varVideo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "audioUrl")
+		delete(additionalProperties, "class")
+		delete(additionalProperties, "coverUrl")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "dataUrl")
+		delete(additionalProperties, "dataUrls")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "downloadUrl")
+		delete(additionalProperties, "editMode")
+		delete(additionalProperties, "excellentCount")
+		delete(additionalProperties, "grade")
+		delete(additionalProperties, "grade2")
+		delete(additionalProperties, "isPublic")
+		delete(additionalProperties, "keywords")
+		delete(additionalProperties, "labelCount")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "lesson")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "playAuth")
+		delete(additionalProperties, "remarks")
+		delete(additionalProperties, "remarks2")
+		delete(additionalProperties, "reviewState")
+		delete(additionalProperties, "school")
+		delete(additionalProperties, "segmentCount")
+		delete(additionalProperties, "segments")
+		delete(additionalProperties, "stage")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "subject")
+		delete(additionalProperties, "tag")
+		delete(additionalProperties, "tagOnPause")
+		delete(additionalProperties, "task1")
+		delete(additionalProperties, "task2")
+		delete(additionalProperties, "task3")
+		delete(additionalProperties, "template")
+		delete(additionalProperties, "topic")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "unit")
+		delete(additionalProperties, "videoId")
+		delete(additionalProperties, "videoLength")
+		delete(additionalProperties, "wordCountMap")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableVideo struct {

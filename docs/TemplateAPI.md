@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## GetTemplate
 
-> KitList GetTemplate(ctx).Execute()
+> TemplateKitList GetTemplate(ctx).Execute()
 
 Lists the public starter-kit catalog plus, for a validated caller, that org's own private kits.
 
@@ -109,7 +109,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.GetTemplate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTemplate`: KitList
+	// response from `GetTemplate`: TemplateKitList
 	fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.GetTemplate`: %v\n", resp)
 }
 ```
@@ -125,7 +125,7 @@ Other parameters are passed through a pointer to a apiGetTemplateRequest struct 
 
 ### Return type
 
-[**KitList**](KitList.md)
+[**TemplateKitList**](TemplateKitList.md)
 
 ### Authorization
 
@@ -134,7 +134,7 @@ Other parameters are passed through a pointer to a apiGetTemplateRequest struct 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -143,7 +143,7 @@ Other parameters are passed through a pointer to a apiGetTemplateRequest struct 
 
 ## GetTemplateBySlug
 
-> StarterKit GetTemplateBySlug(ctx, slug).Execute()
+> TemplateStarterKit GetTemplateBySlug(ctx, slug).Execute()
 
 Returns one starter kit: the caller org's own by that slug, else the public catalog's.
 
@@ -171,7 +171,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.GetTemplateBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTemplateBySlug`: StarterKit
+	// response from `GetTemplateBySlug`: TemplateStarterKit
 	fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.GetTemplateBySlug`: %v\n", resp)
 }
 ```
@@ -195,7 +195,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StarterKit**](StarterKit.md)
+[**TemplateStarterKit**](TemplateStarterKit.md)
 
 ### Authorization
 
@@ -204,7 +204,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 
 ## PostTemplate
 
-> StarterKit PostTemplate(ctx).PublishKitIn(publishKitIn).Execute()
+> TemplateStarterKit PostTemplate(ctx).TemplatePublishKitIn(templatePublishKitIn).Execute()
 
 Creates a starter kit PRIVATE to the caller's org and answers 201 with the stored kit.
 
@@ -232,16 +232,16 @@ import (
 )
 
 func main() {
-	publishKitIn := *openapiclient.NewPublishKitIn() // PublishKitIn | 
+	templatePublishKitIn := *openapiclient.NewTemplatePublishKitIn() // TemplatePublishKitIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TemplateAPI.PostTemplate(context.Background()).PublishKitIn(publishKitIn).Execute()
+	resp, r, err := apiClient.TemplateAPI.PostTemplate(context.Background()).TemplatePublishKitIn(templatePublishKitIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.PostTemplate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostTemplate`: StarterKit
+	// response from `PostTemplate`: TemplateStarterKit
 	fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.PostTemplate`: %v\n", resp)
 }
 ```
@@ -257,11 +257,11 @@ Other parameters are passed through a pointer to a apiPostTemplateRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **publishKitIn** | [**PublishKitIn**](PublishKitIn.md) |  | 
+ **templatePublishKitIn** | [**TemplatePublishKitIn**](TemplatePublishKitIn.md) |  | 
 
 ### Return type
 
-[**StarterKit**](StarterKit.md)
+[**TemplateStarterKit**](TemplateStarterKit.md)
 
 ### Authorization
 
@@ -270,7 +270,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 
 ## PutTemplateBySlug
 
-> StarterKit PutTemplateBySlug(ctx, slug).ReplaceKitIn(replaceKitIn).Execute()
+> TemplateStarterKit PutTemplateBySlug(ctx, slug).TemplateReplaceKitIn(templateReplaceKitIn).Execute()
 
 Overwrites the caller org's OWN starter kit at the path slug, answering the stored kit.
 
@@ -299,16 +299,16 @@ import (
 
 func main() {
 	slug := "acme-portal" // string | Slug is the kit to replace, from the path.
-	replaceKitIn := *openapiclient.NewReplaceKitIn() // ReplaceKitIn | 
+	templateReplaceKitIn := *openapiclient.NewTemplateReplaceKitIn() // TemplateReplaceKitIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TemplateAPI.PutTemplateBySlug(context.Background(), slug).ReplaceKitIn(replaceKitIn).Execute()
+	resp, r, err := apiClient.TemplateAPI.PutTemplateBySlug(context.Background(), slug).TemplateReplaceKitIn(templateReplaceKitIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.PutTemplateBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutTemplateBySlug`: StarterKit
+	// response from `PutTemplateBySlug`: TemplateStarterKit
 	fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.PutTemplateBySlug`: %v\n", resp)
 }
 ```
@@ -329,11 +329,11 @@ Other parameters are passed through a pointer to a apiPutTemplateBySlugRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **replaceKitIn** | [**ReplaceKitIn**](ReplaceKitIn.md) |  | 
+ **templateReplaceKitIn** | [**TemplateReplaceKitIn**](TemplateReplaceKitIn.md) |  | 
 
 ### Return type
 
-[**StarterKit**](StarterKit.md)
+[**TemplateStarterKit**](TemplateStarterKit.md)
 
 ### Authorization
 
@@ -342,7 +342,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

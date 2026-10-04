@@ -4,17 +4,17 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetTranslateMemory**](TranslateAPI.md#GetTranslateMemory) | **Get** /v1/translate/memory | List returns the org&#39;s own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
+[**GetTranslateMemory**](TranslateAPI.md#GetTranslateMemory) | **Get** /v1/translate/memory | Returns the org&#39;s own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
 [**PostTranslate**](TranslateAPI.md#PostTranslate) | **Post** /v1/translate | Translate a string or a batch into one target language
-[**PutTranslateMemory**](TranslateAPI.md#PutTranslateMemory) | **Put** /v1/translate/memory | Review records a human decision on one translation-memory entry, and returns the entry as stored.
+[**PutTranslateMemory**](TranslateAPI.md#PutTranslateMemory) | **Put** /v1/translate/memory | Records a human decision on one translation-memory entry, and returns the entry as stored.
 
 
 
 ## GetTranslateMemory
 
-> MemoryPage GetTranslateMemory(ctx).Target(target).State(state).Limit(limit).Execute()
+> TranslateMemoryPage GetTranslateMemory(ctx).Target(target).State(state).Limit(limit).Execute()
 
-List returns the org's own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
+Returns the org's own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
 
 
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TranslateAPI.GetTranslateMemory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTranslateMemory`: MemoryPage
+	// response from `GetTranslateMemory`: TranslateMemoryPage
 	fmt.Fprintf(os.Stdout, "Response from `TranslateAPI.GetTranslateMemory`: %v\n", resp)
 }
 ```
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MemoryPage**](MemoryPage.md)
+[**TranslateMemoryPage**](TranslateMemoryPage.md)
 
 ### Authorization
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -141,9 +141,9 @@ Other parameters are passed through a pointer to a apiPostTranslateRequest struc
 
 ## PutTranslateMemory
 
-> MemoryEntry PutTranslateMemory(ctx).ReviewRequest(reviewRequest).Execute()
+> TranslateMemoryEntry PutTranslateMemory(ctx).TranslateReviewRequest(translateReviewRequest).Execute()
 
-Review records a human decision on one translation-memory entry, and returns the entry as stored.
+Records a human decision on one translation-memory entry, and returns the entry as stored.
 
 
 
@@ -160,16 +160,16 @@ import (
 )
 
 func main() {
-	reviewRequest := *openapiclient.NewReviewRequest() // ReviewRequest | 
+	translateReviewRequest := *openapiclient.NewTranslateReviewRequest() // TranslateReviewRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TranslateAPI.PutTranslateMemory(context.Background()).ReviewRequest(reviewRequest).Execute()
+	resp, r, err := apiClient.TranslateAPI.PutTranslateMemory(context.Background()).TranslateReviewRequest(translateReviewRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TranslateAPI.PutTranslateMemory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutTranslateMemory`: MemoryEntry
+	// response from `PutTranslateMemory`: TranslateMemoryEntry
 	fmt.Fprintf(os.Stdout, "Response from `TranslateAPI.PutTranslateMemory`: %v\n", resp)
 }
 ```
@@ -185,11 +185,11 @@ Other parameters are passed through a pointer to a apiPutTranslateMemoryRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **reviewRequest** | [**ReviewRequest**](ReviewRequest.md) |  | 
+ **translateReviewRequest** | [**TranslateReviewRequest**](TranslateReviewRequest.md) |  | 
 
 ### Return type
 
-[**MemoryEntry**](MemoryEntry.md)
+[**TranslateMemoryEntry**](TranslateMemoryEntry.md)
 
 ### Authorization
 
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

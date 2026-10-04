@@ -4,15 +4,15 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAudit**](AuditAPI.md#GetAudit) | **Get** /v1/audit | List reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
+[**GetAudit**](AuditAPI.md#GetAudit) | **Get** /v1/audit | Reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
 
 
 
 ## GetAudit
 
-> TrailPage GetAudit(ctx).Sub(sub).Action(action).Resource(resource).ResourceId(resourceId).Result(result).Since(since).Until(until).PageSize(pageSize).P(p).Execute()
+> AuditTrailPage GetAudit(ctx).Sub(sub).Action(action).Resource(resource).ResourceId(resourceId).Result(result).Since(since).Until(until).PageSize(pageSize).P(p).Execute()
 
-List reads the caller's OWN org audit trail, newest first, with the total the filter matched so a console can page it.
+Reads the caller's OWN org audit trail, newest first, with the total the filter matched so a console can page it.
 
 
 
@@ -46,7 +46,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuditAPI.GetAudit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAudit`: TrailPage
+	// response from `GetAudit`: AuditTrailPage
 	fmt.Fprintf(os.Stdout, "Response from `AuditAPI.GetAudit`: %v\n", resp)
 }
 ```
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrailPage**](TrailPage.md)
+[**AuditTrailPage**](AuditTrailPage.md)
 
 ### Authorization
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

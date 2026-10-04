@@ -26,14 +26,14 @@ type RegistryAPIGetRegistryImagesRequest struct {
 	ApiService *RegistryAPIService
 }
 
-func (r RegistryAPIGetRegistryImagesRequest) Execute() (*RegistryImageList, *http.Response, error) {
+func (r RegistryAPIGetRegistryImagesRequest) Execute() (*RegistryRegistryImageList, *http.Response, error) {
 	return r.ApiService.GetRegistryImagesExecute(r)
 }
 
 /*
-GetRegistryImages Images lists the org's container repositories, read live from the OCI catalog and filtered server-side to the org's namespace — the page can only ever hold the caller's own images.
+GetRegistryImages Lists the org's container repositories, read live from the OCI catalog and filtered server-side to the org's namespace — the page can only ever hold the caller's own images.
 
-Images lists the org's container repositories, read live from the OCI
+Lists the org's container repositories, read live from the OCI
 catalog and filtered server-side to the org's namespace — the page can only
 ever hold the caller's own images.
 
@@ -49,13 +49,13 @@ func (a *RegistryAPIService) GetRegistryImages(ctx context.Context) RegistryAPIG
 
 // Execute executes the request
 //
-//	@return RegistryImageList
-func (a *RegistryAPIService) GetRegistryImagesExecute(r RegistryAPIGetRegistryImagesRequest) (*RegistryImageList, *http.Response, error) {
+//	@return RegistryRegistryImageList
+func (a *RegistryAPIService) GetRegistryImagesExecute(r RegistryAPIGetRegistryImagesRequest) (*RegistryRegistryImageList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RegistryImageList
+		localVarReturnValue *RegistryRegistryImageList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistryAPIService.GetRegistryImages")
@@ -79,7 +79,7 @@ func (a *RegistryAPIService) GetRegistryImagesExecute(r RegistryAPIGetRegistryIm
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -108,6 +108,14 @@ func (a *RegistryAPIService) GetRegistryImagesExecute(r RegistryAPIGetRegistryIm
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -135,14 +143,14 @@ func (r RegistryAPIGetRegistryPackagesRequest) Query(query string) RegistryAPIGe
 	return r
 }
 
-func (r RegistryAPIGetRegistryPackagesRequest) Execute() (*RegistryPackageList, *http.Response, error) {
+func (r RegistryAPIGetRegistryPackagesRequest) Execute() (*RegistryRegistryPackageList, *http.Response, error) {
 	return r.ApiService.GetRegistryPackagesExecute(r)
 }
 
 /*
-GetRegistryPackages Packages lists the org's npm packages — `<org>` and `@<org>/…` — from the npm registry's search index, optionally narrowed by a query within that scope.
+GetRegistryPackages Lists the org's npm packages — `<org>` and `@<org>/…` — from the npm registry's search index, optionally narrowed by a query within that scope.
 
-Packages lists the org's npm packages — `<org>` and `@<org>/…` — from the
+Lists the org's npm packages — `<org>` and `@<org>/…` — from the
 npm registry's search index, optionally narrowed by a query within that
 scope. The org boundary is applied server-side after the search, so a query
 can never widen it.
@@ -159,13 +167,13 @@ func (a *RegistryAPIService) GetRegistryPackages(ctx context.Context) RegistryAP
 
 // Execute executes the request
 //
-//	@return RegistryPackageList
-func (a *RegistryAPIService) GetRegistryPackagesExecute(r RegistryAPIGetRegistryPackagesRequest) (*RegistryPackageList, *http.Response, error) {
+//	@return RegistryRegistryPackageList
+func (a *RegistryAPIService) GetRegistryPackagesExecute(r RegistryAPIGetRegistryPackagesRequest) (*RegistryRegistryPackageList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RegistryPackageList
+		localVarReturnValue *RegistryRegistryPackageList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistryAPIService.GetRegistryPackages")
@@ -192,7 +200,7 @@ func (a *RegistryAPIService) GetRegistryPackagesExecute(r RegistryAPIGetRegistry
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -221,6 +229,14 @@ func (a *RegistryAPIService) GetRegistryPackagesExecute(r RegistryAPIGetRegistry
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -241,14 +257,14 @@ type RegistryAPIGetRegistryProjectsRequest struct {
 	ApiService *RegistryAPIService
 }
 
-func (r RegistryAPIGetRegistryProjectsRequest) Execute() (*RegistryProjectList, *http.Response, error) {
+func (r RegistryAPIGetRegistryProjectsRequest) Execute() (*RegistryRegistryProjectList, *http.Response, error) {
 	return r.ApiService.GetRegistryProjectsExecute(r)
 }
 
 /*
-GetRegistryProjects Projects lists the namespaces the caller can see with what each holds: the org's slug, its repository count on the OCI catalog, and its package count on the npm registry.
+GetRegistryProjects Lists the namespaces the caller can see with what each holds: the org's slug, its repository count on the OCI catalog, and its package count on the npm registry.
 
-Projects lists the namespaces the caller can see with what each holds: the
+Lists the namespaces the caller can see with what each holds: the
 org's slug, its repository count on the OCI catalog, and its package count
 on the npm registry. Today that is exactly one row — the caller's org.
 
@@ -264,13 +280,13 @@ func (a *RegistryAPIService) GetRegistryProjects(ctx context.Context) RegistryAP
 
 // Execute executes the request
 //
-//	@return RegistryProjectList
-func (a *RegistryAPIService) GetRegistryProjectsExecute(r RegistryAPIGetRegistryProjectsRequest) (*RegistryProjectList, *http.Response, error) {
+//	@return RegistryRegistryProjectList
+func (a *RegistryAPIService) GetRegistryProjectsExecute(r RegistryAPIGetRegistryProjectsRequest) (*RegistryRegistryProjectList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RegistryProjectList
+		localVarReturnValue *RegistryRegistryProjectList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistryAPIService.GetRegistryProjects")
@@ -294,7 +310,7 @@ func (a *RegistryAPIService) GetRegistryProjectsExecute(r RegistryAPIGetRegistry
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -323,6 +339,14 @@ func (a *RegistryAPIService) GetRegistryProjectsExecute(r RegistryAPIGetRegistry
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -343,14 +367,14 @@ type RegistryAPIGetRegistryStatusRequest struct {
 	ApiService *RegistryAPIService
 }
 
-func (r RegistryAPIGetRegistryStatusRequest) Execute() (*RegistryStatus, *http.Response, error) {
+func (r RegistryAPIGetRegistryStatusRequest) Execute() (*RegistryRegistryStatus, *http.Response, error) {
 	return r.ApiService.GetRegistryStatusExecute(r)
 }
 
 /*
-GetRegistryStatus Status reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \"is the registry plane up\", never a fabricated ok.
+GetRegistryStatus Reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \"is the registry plane up\", never a fabricated ok.
 
-Status reports whether the OCI and npm registries are reachable and, when
+Reports whether the OCI and npm registries are reachable and, when
 the OCI half is auth-gated, which token realm its challenge advertises — an
 honest lens for "is the registry plane up", never a fabricated ok.
 
@@ -366,13 +390,13 @@ func (a *RegistryAPIService) GetRegistryStatus(ctx context.Context) RegistryAPIG
 
 // Execute executes the request
 //
-//	@return RegistryStatus
-func (a *RegistryAPIService) GetRegistryStatusExecute(r RegistryAPIGetRegistryStatusRequest) (*RegistryStatus, *http.Response, error) {
+//	@return RegistryRegistryStatus
+func (a *RegistryAPIService) GetRegistryStatusExecute(r RegistryAPIGetRegistryStatusRequest) (*RegistryRegistryStatus, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RegistryStatus
+		localVarReturnValue *RegistryRegistryStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistryAPIService.GetRegistryStatus")
@@ -396,7 +420,7 @@ func (a *RegistryAPIService) GetRegistryStatusExecute(r RegistryAPIGetRegistrySt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -425,6 +449,14 @@ func (a *RegistryAPIService) GetRegistryStatusExecute(r RegistryAPIGetRegistrySt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -452,14 +484,14 @@ func (r RegistryAPIGetRegistryTagsRequest) Image(image string) RegistryAPIGetReg
 	return r
 }
 
-func (r RegistryAPIGetRegistryTagsRequest) Execute() (*RegistryTagList, *http.Response, error) {
+func (r RegistryAPIGetRegistryTagsRequest) Execute() (*RegistryRegistryTagList, *http.Response, error) {
 	return r.ApiService.GetRegistryTagsExecute(r)
 }
 
 /*
-GetRegistryTags Tags lists one org-owned repository's tags, read live from the OCI registry.
+GetRegistryTags Lists one org-owned repository's tags, read live from the OCI registry.
 
-Tags lists one org-owned repository's tags, read live from the OCI registry.
+Lists one org-owned repository's tags, read live from the OCI registry.
 The repository is addressed inside the org's namespace — a name outside it
 cannot be expressed, and an unknown one answers 404.
 
@@ -475,13 +507,13 @@ func (a *RegistryAPIService) GetRegistryTags(ctx context.Context) RegistryAPIGet
 
 // Execute executes the request
 //
-//	@return RegistryTagList
-func (a *RegistryAPIService) GetRegistryTagsExecute(r RegistryAPIGetRegistryTagsRequest) (*RegistryTagList, *http.Response, error) {
+//	@return RegistryRegistryTagList
+func (a *RegistryAPIService) GetRegistryTagsExecute(r RegistryAPIGetRegistryTagsRequest) (*RegistryRegistryTagList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RegistryTagList
+		localVarReturnValue *RegistryRegistryTagList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistryAPIService.GetRegistryTags")
@@ -508,7 +540,7 @@ func (a *RegistryAPIService) GetRegistryTagsExecute(r RegistryAPIGetRegistryTags
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -537,6 +569,14 @@ func (a *RegistryAPIService) GetRegistryTagsExecute(r RegistryAPIGetRegistryTags
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -553,24 +593,24 @@ func (a *RegistryAPIService) GetRegistryTagsExecute(r RegistryAPIGetRegistryTags
 }
 
 type RegistryAPIPostRegistryTokenRequest struct {
-	ctx          context.Context
-	ApiService   *RegistryAPIService
-	registryMint *RegistryMint
+	ctx                  context.Context
+	ApiService           *RegistryAPIService
+	registryRegistryMint *RegistryRegistryMint
 }
 
-func (r RegistryAPIPostRegistryTokenRequest) RegistryMint(registryMint RegistryMint) RegistryAPIPostRegistryTokenRequest {
-	r.registryMint = &registryMint
+func (r RegistryAPIPostRegistryTokenRequest) RegistryRegistryMint(registryRegistryMint RegistryRegistryMint) RegistryAPIPostRegistryTokenRequest {
+	r.registryRegistryMint = &registryRegistryMint
 	return r
 }
 
-func (r RegistryAPIPostRegistryTokenRequest) Execute() (*RegistryToken, *http.Response, error) {
+func (r RegistryAPIPostRegistryTokenRequest) Execute() (*RegistryRegistryToken, *http.Response, error) {
 	return r.ApiService.PostRegistryTokenExecute(r)
 }
 
 /*
-PostRegistryToken Token mints a short-lived, pull-only registry token for exactly one of the org's images, through the same IAM realm the docker CLI authenticates against.
+PostRegistryToken Mints a short-lived, pull-only registry token for exactly one of the org's images, through the same IAM realm the docker CLI authenticates against.
 
-Token mints a short-lived, pull-only registry token for exactly one of the
+Mints a short-lived, pull-only registry token for exactly one of the
 org's images, through the same IAM realm the docker CLI authenticates
 against. The scope is pinned server-side to `<org>/<image>` with the `pull`
 action — no field exists to name another org's image or ask for push. Use it
@@ -588,13 +628,13 @@ func (a *RegistryAPIService) PostRegistryToken(ctx context.Context) RegistryAPIP
 
 // Execute executes the request
 //
-//	@return RegistryToken
-func (a *RegistryAPIService) PostRegistryTokenExecute(r RegistryAPIPostRegistryTokenRequest) (*RegistryToken, *http.Response, error) {
+//	@return RegistryRegistryToken
+func (a *RegistryAPIService) PostRegistryTokenExecute(r RegistryAPIPostRegistryTokenRequest) (*RegistryRegistryToken, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RegistryToken
+		localVarReturnValue *RegistryRegistryToken
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistryAPIService.PostRegistryToken")
@@ -607,8 +647,8 @@ func (a *RegistryAPIService) PostRegistryTokenExecute(r RegistryAPIPostRegistryT
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.registryMint == nil {
-		return localVarReturnValue, nil, reportError("registryMint is required and must be specified")
+	if r.registryRegistryMint == nil {
+		return localVarReturnValue, nil, reportError("registryRegistryMint is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -621,7 +661,7 @@ func (a *RegistryAPIService) PostRegistryTokenExecute(r RegistryAPIPostRegistryT
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -629,7 +669,7 @@ func (a *RegistryAPIService) PostRegistryTokenExecute(r RegistryAPIPostRegistryT
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.registryMint
+	localVarPostBody = r.registryRegistryMint
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -652,6 +692,14 @@ func (a *RegistryAPIService) PostRegistryTokenExecute(r RegistryAPIPostRegistryT
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

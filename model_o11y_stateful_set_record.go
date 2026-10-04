@@ -30,7 +30,10 @@ type O11yStatefulSetRecord struct {
 	StatefulSetMemoryLimit   *float64              `json:"statefulSetMemoryLimit,omitempty"`
 	StatefulSetMemoryRequest *float64              `json:"statefulSetMemoryRequest,omitempty"`
 	StatefulSetName          *string               `json:"statefulSetName,omitempty"`
+	AdditionalProperties     map[string]interface{}
 }
+
+type _O11yStatefulSetRecord O11yStatefulSetRecord
 
 // NewO11yStatefulSetRecord instantiates a new O11yStatefulSetRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o O11yStatefulSetRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StatefulSetName) {
 		toSerialize["statefulSetName"] = o.StatefulSetName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yStatefulSetRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yStatefulSetRecord := _O11yStatefulSetRecord{}
+
+	err = json.Unmarshal(data, &varO11yStatefulSetRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yStatefulSetRecord(varO11yStatefulSetRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "currentPods")
+		delete(additionalProperties, "desiredPods")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "podCountsByPhase")
+		delete(additionalProperties, "statefulSetCPU")
+		delete(additionalProperties, "statefulSetCPULimit")
+		delete(additionalProperties, "statefulSetCPURequest")
+		delete(additionalProperties, "statefulSetMemory")
+		delete(additionalProperties, "statefulSetMemoryLimit")
+		delete(additionalProperties, "statefulSetMemoryRequest")
+		delete(additionalProperties, "statefulSetName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yStatefulSetRecord struct {

@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -26,7 +25,8 @@ type O11yO11yDependencyGraphIn struct {
 	// Start is the window start, as epoch nanoseconds. Required.
 	Start string `json:"start"`
 	// Tags narrow the graph to spans matching every condition.
-	Tags []O11yO11yTagFilter `json:"tags,omitempty"`
+	Tags                 []O11yO11yTagFilter `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11yDependencyGraphIn O11yO11yDependencyGraphIn
@@ -145,6 +145,11 @@ func (o O11yO11yDependencyGraphIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -173,15 +178,22 @@ func (o *O11yO11yDependencyGraphIn) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11yDependencyGraphIn := _O11yO11yDependencyGraphIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11yDependencyGraphIn)
+	err = json.Unmarshal(data, &varO11yO11yDependencyGraphIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11yDependencyGraphIn(varO11yO11yDependencyGraphIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

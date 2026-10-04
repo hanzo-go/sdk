@@ -19,42 +19,45 @@ var _ MappedNullable = &Message{}
 
 // Message struct for Message
 type Message struct {
-	AnsweredTime      *string             `json:"answeredTime,omitempty"`
-	Author            *string             `json:"author,omitempty"`
-	Chat              *string             `json:"chat,omitempty"`
-	ClaimedTime       *string             `json:"claimedTime,omitempty"`
-	Comment           *string             `json:"comment,omitempty"`
-	CreatedTime       *string             `json:"createdTime,omitempty"`
-	Currency          *string             `json:"currency,omitempty"`
-	DislikeUsers      []string            `json:"dislikeUsers,omitempty"`
-	EmbeddingProvider *string             `json:"embeddingProvider,omitempty"`
-	ErrorText         *string             `json:"errorText,omitempty"`
-	FileName          *string             `json:"fileName,omitempty"`
-	IsAlerted         *bool               `json:"isAlerted,omitempty"`
-	IsDeleted         *bool               `json:"isDeleted,omitempty"`
-	IsHidden          *bool               `json:"isHidden,omitempty"`
-	IsRegenerated     *bool               `json:"isRegenerated,omitempty"`
-	LikeUsers         []string            `json:"likeUsers,omitempty"`
-	ModelProvider     *string             `json:"modelProvider,omitempty"`
-	Name              *string             `json:"name,omitempty"`
-	NeedNotify        *bool               `json:"needNotify,omitempty"`
-	Organization      *string             `json:"organization,omitempty"`
-	Owner             *string             `json:"owner,omitempty"`
-	Price             *float32            `json:"price,omitempty"`
-	ReasonText        *string             `json:"reasonText,omitempty"`
-	ReplyTo           *string             `json:"replyTo,omitempty"`
-	SearchResults     []ModelSearchResult `json:"searchResults,omitempty"`
-	Store             *string             `json:"store,omitempty"`
-	Suggestions       []Candidate         `json:"suggestions,omitempty"`
-	Text              *string             `json:"text,omitempty"`
-	TextTokenCount    *int32              `json:"textTokenCount,omitempty"`
-	TokenCount        *int32              `json:"tokenCount,omitempty"`
-	ToolCalls         []ModelToolCall     `json:"toolCalls,omitempty"`
-	TransactionId     *string             `json:"transactionId,omitempty"`
-	User              *string             `json:"user,omitempty"`
-	VectorScores      []VectorScore       `json:"vectorScores,omitempty"`
-	WebSearchEnabled  *bool               `json:"webSearchEnabled,omitempty"`
+	AnsweredTime         *string             `json:"answeredTime,omitempty"`
+	Author               *string             `json:"author,omitempty"`
+	Chat                 *string             `json:"chat,omitempty"`
+	ClaimedTime          *string             `json:"claimedTime,omitempty"`
+	Comment              *string             `json:"comment,omitempty"`
+	CreatedTime          *string             `json:"createdTime,omitempty"`
+	Currency             *string             `json:"currency,omitempty"`
+	DislikeUsers         []string            `json:"dislikeUsers,omitempty"`
+	EmbeddingProvider    *string             `json:"embeddingProvider,omitempty"`
+	ErrorText            *string             `json:"errorText,omitempty"`
+	FileName             *string             `json:"fileName,omitempty"`
+	IsAlerted            *bool               `json:"isAlerted,omitempty"`
+	IsDeleted            *bool               `json:"isDeleted,omitempty"`
+	IsHidden             *bool               `json:"isHidden,omitempty"`
+	IsRegenerated        *bool               `json:"isRegenerated,omitempty"`
+	LikeUsers            []string            `json:"likeUsers,omitempty"`
+	ModelProvider        *string             `json:"modelProvider,omitempty"`
+	Name                 *string             `json:"name,omitempty"`
+	NeedNotify           *bool               `json:"needNotify,omitempty"`
+	Organization         *string             `json:"organization,omitempty"`
+	Owner                *string             `json:"owner,omitempty"`
+	Price                *float32            `json:"price,omitempty"`
+	ReasonText           *string             `json:"reasonText,omitempty"`
+	ReplyTo              *string             `json:"replyTo,omitempty"`
+	SearchResults        []ModelSearchResult `json:"searchResults,omitempty"`
+	Store                *string             `json:"store,omitempty"`
+	Suggestions          []Candidate         `json:"suggestions,omitempty"`
+	Text                 *string             `json:"text,omitempty"`
+	TextTokenCount       *int32              `json:"textTokenCount,omitempty"`
+	TokenCount           *int32              `json:"tokenCount,omitempty"`
+	ToolCalls            []ModelToolCall     `json:"toolCalls,omitempty"`
+	TransactionId        *string             `json:"transactionId,omitempty"`
+	User                 *string             `json:"user,omitempty"`
+	VectorScores         []VectorScore       `json:"vectorScores,omitempty"`
+	WebSearchEnabled     *bool               `json:"webSearchEnabled,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Message Message
 
 // NewMessage instantiates a new Message object
 // This constructor will assign default values to properties that have it defined,
@@ -1308,7 +1311,67 @@ func (o Message) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WebSearchEnabled) {
 		toSerialize["webSearchEnabled"] = o.WebSearchEnabled
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Message) UnmarshalJSON(data []byte) (err error) {
+	varMessage := _Message{}
+
+	err = json.Unmarshal(data, &varMessage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Message(varMessage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "answeredTime")
+		delete(additionalProperties, "author")
+		delete(additionalProperties, "chat")
+		delete(additionalProperties, "claimedTime")
+		delete(additionalProperties, "comment")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "dislikeUsers")
+		delete(additionalProperties, "embeddingProvider")
+		delete(additionalProperties, "errorText")
+		delete(additionalProperties, "fileName")
+		delete(additionalProperties, "isAlerted")
+		delete(additionalProperties, "isDeleted")
+		delete(additionalProperties, "isHidden")
+		delete(additionalProperties, "isRegenerated")
+		delete(additionalProperties, "likeUsers")
+		delete(additionalProperties, "modelProvider")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "needNotify")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "price")
+		delete(additionalProperties, "reasonText")
+		delete(additionalProperties, "replyTo")
+		delete(additionalProperties, "searchResults")
+		delete(additionalProperties, "store")
+		delete(additionalProperties, "suggestions")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "textTokenCount")
+		delete(additionalProperties, "tokenCount")
+		delete(additionalProperties, "toolCalls")
+		delete(additionalProperties, "transactionId")
+		delete(additionalProperties, "user")
+		delete(additionalProperties, "vectorScores")
+		delete(additionalProperties, "webSearchEnabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMessage struct {

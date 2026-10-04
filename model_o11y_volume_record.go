@@ -27,7 +27,10 @@ type O11yVolumeRecord struct {
 	VolumeInodesFree          *float64          `json:"volumeInodesFree,omitempty"`
 	VolumeInodesUsed          *float64          `json:"volumeInodesUsed,omitempty"`
 	VolumeUsage               *float64          `json:"volumeUsage,omitempty"`
+	AdditionalProperties      map[string]interface{}
 }
+
+type _O11yVolumeRecord O11yVolumeRecord
 
 // NewO11yVolumeRecord instantiates a new O11yVolumeRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o O11yVolumeRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.VolumeUsage) {
 		toSerialize["volumeUsage"] = o.VolumeUsage
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yVolumeRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yVolumeRecord := _O11yVolumeRecord{}
+
+	err = json.Unmarshal(data, &varO11yVolumeRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yVolumeRecord(varO11yVolumeRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "persistentVolumeClaimName")
+		delete(additionalProperties, "volumeAvailable")
+		delete(additionalProperties, "volumeCapacity")
+		delete(additionalProperties, "volumeInodes")
+		delete(additionalProperties, "volumeInodesFree")
+		delete(additionalProperties, "volumeInodesUsed")
+		delete(additionalProperties, "volumeUsage")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yVolumeRecord struct {

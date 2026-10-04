@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yO11yCreateLimitIn{}
 
 // O11yO11yCreateLimitIn struct for O11yO11yCreateLimitIn
 type O11yO11yCreateLimitIn struct {
-	Config *O11yLimitConfig `json:"config,omitempty"`
-	Signal *string          `json:"signal,omitempty"`
-	Tags   []string         `json:"tags,omitempty"`
+	Config               *O11yLimitConfig `json:"config,omitempty"`
+	Signal               *string          `json:"signal,omitempty"`
+	Tags                 []string         `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yCreateLimitIn O11yO11yCreateLimitIn
 
 // NewO11yO11yCreateLimitIn instantiates a new O11yO11yCreateLimitIn object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yO11yCreateLimitIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yCreateLimitIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yCreateLimitIn := _O11yO11yCreateLimitIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yCreateLimitIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yCreateLimitIn(varO11yO11yCreateLimitIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "signal")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yCreateLimitIn struct {

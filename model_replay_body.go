@@ -19,11 +19,14 @@ var _ MappedNullable = &ReplayBody{}
 
 // ReplayBody struct for ReplayBody
 type ReplayBody struct {
-	DistinctId *string       `json:"distinctId,omitempty"`
-	Events     []interface{} `json:"events,omitempty"`
-	SessionId  *string       `json:"sessionId,omitempty"`
-	WindowId   *string       `json:"windowId,omitempty"`
+	DistinctId           *string       `json:"distinctId,omitempty"`
+	Events               []interface{} `json:"events,omitempty"`
+	SessionId            *string       `json:"sessionId,omitempty"`
+	WindowId             *string       `json:"windowId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ReplayBody ReplayBody
 
 // NewReplayBody instantiates a new ReplayBody object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o ReplayBody) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WindowId) {
 		toSerialize["windowId"] = o.WindowId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ReplayBody) UnmarshalJSON(data []byte) (err error) {
+	varReplayBody := _ReplayBody{}
+
+	err = json.Unmarshal(data, &varReplayBody)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReplayBody(varReplayBody)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "distinctId")
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "sessionId")
+		delete(additionalProperties, "windowId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableReplayBody struct {

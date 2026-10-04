@@ -31,8 +31,11 @@ type O11yO11yServiceAccountRole struct {
 	// ServiceAccountID is the account holding the role.
 	ServiceAccountId *string `json:"serviceAccountId,omitempty"`
 	// UpdatedAt is when the assignment last changed.
-	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yServiceAccountRole O11yO11yServiceAccountRole
 
 // NewO11yO11yServiceAccountRole instantiates a new O11yO11yServiceAccountRole object
 // This constructor will assign default values to properties that have it defined,
@@ -271,7 +274,38 @@ func (o O11yO11yServiceAccountRole) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yServiceAccountRole) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yServiceAccountRole := _O11yO11yServiceAccountRole{}
+
+	err = json.Unmarshal(data, &varO11yO11yServiceAccountRole)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yServiceAccountRole(varO11yO11yServiceAccountRole)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "role")
+		delete(additionalProperties, "roleId")
+		delete(additionalProperties, "serviceAccountId")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yServiceAccountRole struct {

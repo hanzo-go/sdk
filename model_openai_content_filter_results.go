@@ -19,13 +19,16 @@ var _ MappedNullable = &OpenaiContentFilterResults{}
 
 // OpenaiContentFilterResults struct for OpenaiContentFilterResults
 type OpenaiContentFilterResults struct {
-	Hate      *OpenaiHate      `json:"hate,omitempty"`
-	Jailbreak *OpenaiJailBreak `json:"jailbreak,omitempty"`
-	Profanity *OpenaiProfanity `json:"profanity,omitempty"`
-	SelfHarm  *OpenaiSelfHarm  `json:"self_harm,omitempty"`
-	Sexual    *OpenaiSexual    `json:"sexual,omitempty"`
-	Violence  *OpenaiViolence  `json:"violence,omitempty"`
+	Hate                 *OpenaiHate      `json:"hate,omitempty"`
+	Jailbreak            *OpenaiJailBreak `json:"jailbreak,omitempty"`
+	Profanity            *OpenaiProfanity `json:"profanity,omitempty"`
+	SelfHarm             *OpenaiSelfHarm  `json:"self_harm,omitempty"`
+	Sexual               *OpenaiSexual    `json:"sexual,omitempty"`
+	Violence             *OpenaiViolence  `json:"violence,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiContentFilterResults OpenaiContentFilterResults
 
 // NewOpenaiContentFilterResults instantiates a new OpenaiContentFilterResults object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o OpenaiContentFilterResults) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Violence) {
 		toSerialize["violence"] = o.Violence
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiContentFilterResults) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiContentFilterResults := _OpenaiContentFilterResults{}
+
+	err = json.Unmarshal(data, &varOpenaiContentFilterResults)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiContentFilterResults(varOpenaiContentFilterResults)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "hate")
+		delete(additionalProperties, "jailbreak")
+		delete(additionalProperties, "profanity")
+		delete(additionalProperties, "self_harm")
+		delete(additionalProperties, "sexual")
+		delete(additionalProperties, "violence")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiContentFilterResults struct {

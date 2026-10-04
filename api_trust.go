@@ -29,7 +29,7 @@ type TrustAPIDeleteTrustByKindByIdRequest struct {
 	id         string
 }
 
-func (r TrustAPIDeleteTrustByKindByIdRequest) Execute() (*Dropped, *http.Response, error) {
+func (r TrustAPIDeleteTrustByKindByIdRequest) Execute() (*TrustDropped, *http.Response, error) {
 	return r.ApiService.DeleteTrustByKindByIdExecute(r)
 }
 
@@ -57,13 +57,13 @@ func (a *TrustAPIService) DeleteTrustByKindById(ctx context.Context, kind string
 
 // Execute executes the request
 //
-//	@return Dropped
-func (a *TrustAPIService) DeleteTrustByKindByIdExecute(r TrustAPIDeleteTrustByKindByIdRequest) (*Dropped, *http.Response, error) {
+//	@return TrustDropped
+func (a *TrustAPIService) DeleteTrustByKindByIdExecute(r TrustAPIDeleteTrustByKindByIdRequest) (*TrustDropped, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Dropped
+		localVarReturnValue *TrustDropped
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.DeleteTrustByKindById")
@@ -89,7 +89,7 @@ func (a *TrustAPIService) DeleteTrustByKindByIdExecute(r TrustAPIDeleteTrustByKi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -118,6 +118,14 @@ func (a *TrustAPIService) DeleteTrustByKindByIdExecute(r TrustAPIDeleteTrustByKi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -138,7 +146,7 @@ type TrustAPIGetTrustRequest struct {
 	ApiService *TrustAPIService
 }
 
-func (r TrustAPIGetTrustRequest) Execute() (*Centre, *http.Response, error) {
+func (r TrustAPIGetTrustRequest) Execute() (*TrustCentre, *http.Response, error) {
 	return r.ApiService.GetTrustExecute(r)
 }
 
@@ -162,13 +170,13 @@ func (a *TrustAPIService) GetTrust(ctx context.Context) TrustAPIGetTrustRequest 
 
 // Execute executes the request
 //
-//	@return Centre
-func (a *TrustAPIService) GetTrustExecute(r TrustAPIGetTrustRequest) (*Centre, *http.Response, error) {
+//	@return TrustCentre
+func (a *TrustAPIService) GetTrustExecute(r TrustAPIGetTrustRequest) (*TrustCentre, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Centre
+		localVarReturnValue *TrustCentre
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.GetTrust")
@@ -192,7 +200,7 @@ func (a *TrustAPIService) GetTrustExecute(r TrustAPIGetTrustRequest) (*Centre, *
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -221,6 +229,14 @@ func (a *TrustAPIService) GetTrustExecute(r TrustAPIGetTrustRequest) (*Centre, *
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -241,7 +257,7 @@ type TrustAPIGetTrustControlsRequest struct {
 	ApiService *TrustAPIService
 }
 
-func (r TrustAPIGetTrustControlsRequest) Execute() (*ControlList, *http.Response, error) {
+func (r TrustAPIGetTrustControlsRequest) Execute() (*TrustControlList, *http.Response, error) {
 	return r.ApiService.GetTrustControlsExecute(r)
 }
 
@@ -268,13 +284,13 @@ func (a *TrustAPIService) GetTrustControls(ctx context.Context) TrustAPIGetTrust
 
 // Execute executes the request
 //
-//	@return ControlList
-func (a *TrustAPIService) GetTrustControlsExecute(r TrustAPIGetTrustControlsRequest) (*ControlList, *http.Response, error) {
+//	@return TrustControlList
+func (a *TrustAPIService) GetTrustControlsExecute(r TrustAPIGetTrustControlsRequest) (*TrustControlList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ControlList
+		localVarReturnValue *TrustControlList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.GetTrustControls")
@@ -298,7 +314,7 @@ func (a *TrustAPIService) GetTrustControlsExecute(r TrustAPIGetTrustControlsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -327,6 +343,14 @@ func (a *TrustAPIService) GetTrustControlsExecute(r TrustAPIGetTrustControlsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -402,7 +426,7 @@ func (a *TrustAPIService) GetTrustControlsByIdExecute(r TrustAPIGetTrustControls
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -431,6 +455,14 @@ func (a *TrustAPIService) GetTrustControlsByIdExecute(r TrustAPIGetTrustControls
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -451,7 +483,7 @@ type TrustAPIGetTrustCoverageRequest struct {
 	ApiService *TrustAPIService
 }
 
-func (r TrustAPIGetTrustCoverageRequest) Execute() (*TrustCoverage, *http.Response, error) {
+func (r TrustAPIGetTrustCoverageRequest) Execute() (*TrustTrustCoverage, *http.Response, error) {
 	return r.ApiService.GetTrustCoverageExecute(r)
 }
 
@@ -479,13 +511,13 @@ func (a *TrustAPIService) GetTrustCoverage(ctx context.Context) TrustAPIGetTrust
 
 // Execute executes the request
 //
-//	@return TrustCoverage
-func (a *TrustAPIService) GetTrustCoverageExecute(r TrustAPIGetTrustCoverageRequest) (*TrustCoverage, *http.Response, error) {
+//	@return TrustTrustCoverage
+func (a *TrustAPIService) GetTrustCoverageExecute(r TrustAPIGetTrustCoverageRequest) (*TrustTrustCoverage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrustCoverage
+		localVarReturnValue *TrustTrustCoverage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.GetTrustCoverage")
@@ -509,7 +541,7 @@ func (a *TrustAPIService) GetTrustCoverageExecute(r TrustAPIGetTrustCoverageRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -538,6 +570,14 @@ func (a *TrustAPIService) GetTrustCoverageExecute(r TrustAPIGetTrustCoverageRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -559,7 +599,7 @@ type TrustAPIGetTrustCoverageByFrameworkRequest struct {
 	framework  string
 }
 
-func (r TrustAPIGetTrustCoverageByFrameworkRequest) Execute() (*ClauseCoverage, *http.Response, error) {
+func (r TrustAPIGetTrustCoverageByFrameworkRequest) Execute() (*TrustClauseCoverage, *http.Response, error) {
 	return r.ApiService.GetTrustCoverageByFrameworkExecute(r)
 }
 
@@ -584,13 +624,13 @@ func (a *TrustAPIService) GetTrustCoverageByFramework(ctx context.Context, frame
 
 // Execute executes the request
 //
-//	@return ClauseCoverage
-func (a *TrustAPIService) GetTrustCoverageByFrameworkExecute(r TrustAPIGetTrustCoverageByFrameworkRequest) (*ClauseCoverage, *http.Response, error) {
+//	@return TrustClauseCoverage
+func (a *TrustAPIService) GetTrustCoverageByFrameworkExecute(r TrustAPIGetTrustCoverageByFrameworkRequest) (*TrustClauseCoverage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClauseCoverage
+		localVarReturnValue *TrustClauseCoverage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.GetTrustCoverageByFramework")
@@ -615,7 +655,7 @@ func (a *TrustAPIService) GetTrustCoverageByFrameworkExecute(r TrustAPIGetTrustC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -644,6 +684,14 @@ func (a *TrustAPIService) GetTrustCoverageByFrameworkExecute(r TrustAPIGetTrustC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -664,7 +712,7 @@ type TrustAPIGetTrustDocumentsRequest struct {
 	ApiService *TrustAPIService
 }
 
-func (r TrustAPIGetTrustDocumentsRequest) Execute() (*TrustDocuments, *http.Response, error) {
+func (r TrustAPIGetTrustDocumentsRequest) Execute() (*TrustTrustDocuments, *http.Response, error) {
 	return r.ApiService.GetTrustDocumentsExecute(r)
 }
 
@@ -686,13 +734,13 @@ func (a *TrustAPIService) GetTrustDocuments(ctx context.Context) TrustAPIGetTrus
 
 // Execute executes the request
 //
-//	@return TrustDocuments
-func (a *TrustAPIService) GetTrustDocumentsExecute(r TrustAPIGetTrustDocumentsRequest) (*TrustDocuments, *http.Response, error) {
+//	@return TrustTrustDocuments
+func (a *TrustAPIService) GetTrustDocumentsExecute(r TrustAPIGetTrustDocumentsRequest) (*TrustTrustDocuments, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrustDocuments
+		localVarReturnValue *TrustTrustDocuments
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.GetTrustDocuments")
@@ -716,7 +764,7 @@ func (a *TrustAPIService) GetTrustDocumentsExecute(r TrustAPIGetTrustDocumentsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -745,6 +793,14 @@ func (a *TrustAPIService) GetTrustDocumentsExecute(r TrustAPIGetTrustDocumentsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -867,7 +923,7 @@ func (a *TrustAPIService) GetTrustEvidenceExecute(r TrustAPIGetTrustEvidenceRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -896,6 +952,14 @@ func (a *TrustAPIService) GetTrustEvidenceExecute(r TrustAPIGetTrustEvidenceRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -916,7 +980,7 @@ type TrustAPIGetTrustFaqRequest struct {
 	ApiService *TrustAPIService
 }
 
-func (r TrustAPIGetTrustFaqRequest) Execute() (*FaqList, *http.Response, error) {
+func (r TrustAPIGetTrustFaqRequest) Execute() (*TrustFaqList, *http.Response, error) {
 	return r.ApiService.GetTrustFaqExecute(r)
 }
 
@@ -937,13 +1001,13 @@ func (a *TrustAPIService) GetTrustFaq(ctx context.Context) TrustAPIGetTrustFaqRe
 
 // Execute executes the request
 //
-//	@return FaqList
-func (a *TrustAPIService) GetTrustFaqExecute(r TrustAPIGetTrustFaqRequest) (*FaqList, *http.Response, error) {
+//	@return TrustFaqList
+func (a *TrustAPIService) GetTrustFaqExecute(r TrustAPIGetTrustFaqRequest) (*TrustFaqList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FaqList
+		localVarReturnValue *TrustFaqList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.GetTrustFaq")
@@ -967,7 +1031,7 @@ func (a *TrustAPIService) GetTrustFaqExecute(r TrustAPIGetTrustFaqRequest) (*Faq
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -996,6 +1060,14 @@ func (a *TrustAPIService) GetTrustFaqExecute(r TrustAPIGetTrustFaqRequest) (*Faq
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1016,7 +1088,7 @@ type TrustAPIGetTrustFrameworksRequest struct {
 	ApiService *TrustAPIService
 }
 
-func (r TrustAPIGetTrustFrameworksRequest) Execute() (*FrameworkList, *http.Response, error) {
+func (r TrustAPIGetTrustFrameworksRequest) Execute() (*TrustFrameworkList, *http.Response, error) {
 	return r.ApiService.GetTrustFrameworksExecute(r)
 }
 
@@ -1040,13 +1112,13 @@ func (a *TrustAPIService) GetTrustFrameworks(ctx context.Context) TrustAPIGetTru
 
 // Execute executes the request
 //
-//	@return FrameworkList
-func (a *TrustAPIService) GetTrustFrameworksExecute(r TrustAPIGetTrustFrameworksRequest) (*FrameworkList, *http.Response, error) {
+//	@return TrustFrameworkList
+func (a *TrustAPIService) GetTrustFrameworksExecute(r TrustAPIGetTrustFrameworksRequest) (*TrustFrameworkList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FrameworkList
+		localVarReturnValue *TrustFrameworkList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.GetTrustFrameworks")
@@ -1070,7 +1142,7 @@ func (a *TrustAPIService) GetTrustFrameworksExecute(r TrustAPIGetTrustFrameworks
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1099,6 +1171,14 @@ func (a *TrustAPIService) GetTrustFrameworksExecute(r TrustAPIGetTrustFrameworks
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1119,7 +1199,7 @@ type TrustAPIGetTrustPoliciesRequest struct {
 	ApiService *TrustAPIService
 }
 
-func (r TrustAPIGetTrustPoliciesRequest) Execute() (*PolicyList, *http.Response, error) {
+func (r TrustAPIGetTrustPoliciesRequest) Execute() (*TrustPolicyList, *http.Response, error) {
 	return r.ApiService.GetTrustPoliciesExecute(r)
 }
 
@@ -1140,13 +1220,13 @@ func (a *TrustAPIService) GetTrustPolicies(ctx context.Context) TrustAPIGetTrust
 
 // Execute executes the request
 //
-//	@return PolicyList
-func (a *TrustAPIService) GetTrustPoliciesExecute(r TrustAPIGetTrustPoliciesRequest) (*PolicyList, *http.Response, error) {
+//	@return TrustPolicyList
+func (a *TrustAPIService) GetTrustPoliciesExecute(r TrustAPIGetTrustPoliciesRequest) (*TrustPolicyList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PolicyList
+		localVarReturnValue *TrustPolicyList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.GetTrustPolicies")
@@ -1170,7 +1250,7 @@ func (a *TrustAPIService) GetTrustPoliciesExecute(r TrustAPIGetTrustPoliciesRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1199,6 +1279,14 @@ func (a *TrustAPIService) GetTrustPoliciesExecute(r TrustAPIGetTrustPoliciesRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1272,7 +1360,7 @@ func (a *TrustAPIService) GetTrustProfileExecute(r TrustAPIGetTrustProfileReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1301,6 +1389,14 @@ func (a *TrustAPIService) GetTrustProfileExecute(r TrustAPIGetTrustProfileReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1322,7 +1418,7 @@ type TrustAPIGetTrustPublishedByOrgRequest struct {
 	org        string
 }
 
-func (r TrustAPIGetTrustPublishedByOrgRequest) Execute() (*Centre, *http.Response, error) {
+func (r TrustAPIGetTrustPublishedByOrgRequest) Execute() (*TrustCentre, *http.Response, error) {
 	return r.ApiService.GetTrustPublishedByOrgExecute(r)
 }
 
@@ -1359,13 +1455,13 @@ func (a *TrustAPIService) GetTrustPublishedByOrg(ctx context.Context, org string
 
 // Execute executes the request
 //
-//	@return Centre
-func (a *TrustAPIService) GetTrustPublishedByOrgExecute(r TrustAPIGetTrustPublishedByOrgRequest) (*Centre, *http.Response, error) {
+//	@return TrustCentre
+func (a *TrustAPIService) GetTrustPublishedByOrgExecute(r TrustAPIGetTrustPublishedByOrgRequest) (*TrustCentre, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Centre
+		localVarReturnValue *TrustCentre
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.GetTrustPublishedByOrg")
@@ -1390,7 +1486,7 @@ func (a *TrustAPIService) GetTrustPublishedByOrgExecute(r TrustAPIGetTrustPublis
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1419,6 +1515,14 @@ func (a *TrustAPIService) GetTrustPublishedByOrgExecute(r TrustAPIGetTrustPublis
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1491,7 +1595,7 @@ func (a *TrustAPIService) GetTrustRiskExecute(r TrustAPIGetTrustRiskRequest) (in
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1520,6 +1624,14 @@ func (a *TrustAPIService) GetTrustRiskExecute(r TrustAPIGetTrustRiskRequest) (in
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1540,7 +1652,7 @@ type TrustAPIGetTrustSubprocessorsRequest struct {
 	ApiService *TrustAPIService
 }
 
-func (r TrustAPIGetTrustSubprocessorsRequest) Execute() (*SubprocessorList, *http.Response, error) {
+func (r TrustAPIGetTrustSubprocessorsRequest) Execute() (*TrustSubprocessorList, *http.Response, error) {
 	return r.ApiService.GetTrustSubprocessorsExecute(r)
 }
 
@@ -1562,13 +1674,13 @@ func (a *TrustAPIService) GetTrustSubprocessors(ctx context.Context) TrustAPIGet
 
 // Execute executes the request
 //
-//	@return SubprocessorList
-func (a *TrustAPIService) GetTrustSubprocessorsExecute(r TrustAPIGetTrustSubprocessorsRequest) (*SubprocessorList, *http.Response, error) {
+//	@return TrustSubprocessorList
+func (a *TrustAPIService) GetTrustSubprocessorsExecute(r TrustAPIGetTrustSubprocessorsRequest) (*TrustSubprocessorList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SubprocessorList
+		localVarReturnValue *TrustSubprocessorList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.GetTrustSubprocessors")
@@ -1592,7 +1704,7 @@ func (a *TrustAPIService) GetTrustSubprocessorsExecute(r TrustAPIGetTrustSubproc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1621,6 +1733,14 @@ func (a *TrustAPIService) GetTrustSubprocessorsExecute(r TrustAPIGetTrustSubproc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1641,7 +1761,7 @@ type TrustAPIGetTrustUpdatesRequest struct {
 	ApiService *TrustAPIService
 }
 
-func (r TrustAPIGetTrustUpdatesRequest) Execute() (*UpdateList, *http.Response, error) {
+func (r TrustAPIGetTrustUpdatesRequest) Execute() (*TrustUpdateList, *http.Response, error) {
 	return r.ApiService.GetTrustUpdatesExecute(r)
 }
 
@@ -1662,13 +1782,13 @@ func (a *TrustAPIService) GetTrustUpdates(ctx context.Context) TrustAPIGetTrustU
 
 // Execute executes the request
 //
-//	@return UpdateList
-func (a *TrustAPIService) GetTrustUpdatesExecute(r TrustAPIGetTrustUpdatesRequest) (*UpdateList, *http.Response, error) {
+//	@return TrustUpdateList
+func (a *TrustAPIService) GetTrustUpdatesExecute(r TrustAPIGetTrustUpdatesRequest) (*TrustUpdateList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UpdateList
+		localVarReturnValue *TrustUpdateList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.GetTrustUpdates")
@@ -1692,7 +1812,7 @@ func (a *TrustAPIService) GetTrustUpdatesExecute(r TrustAPIGetTrustUpdatesReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1721,6 +1841,14 @@ func (a *TrustAPIService) GetTrustUpdatesExecute(r TrustAPIGetTrustUpdatesReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1737,19 +1865,19 @@ func (a *TrustAPIService) GetTrustUpdatesExecute(r TrustAPIGetTrustUpdatesReques
 }
 
 type TrustAPIPutTrustByKindByIdRequest struct {
-	ctx          context.Context
-	ApiService   *TrustAPIService
-	kind         string
-	id           string
-	sectionWrite *SectionWrite
+	ctx               context.Context
+	ApiService        *TrustAPIService
+	kind              string
+	id                string
+	trustSectionWrite *TrustSectionWrite
 }
 
-func (r TrustAPIPutTrustByKindByIdRequest) SectionWrite(sectionWrite SectionWrite) TrustAPIPutTrustByKindByIdRequest {
-	r.sectionWrite = &sectionWrite
+func (r TrustAPIPutTrustByKindByIdRequest) TrustSectionWrite(trustSectionWrite TrustSectionWrite) TrustAPIPutTrustByKindByIdRequest {
+	r.trustSectionWrite = &trustSectionWrite
 	return r
 }
 
-func (r TrustAPIPutTrustByKindByIdRequest) Execute() (*Written, *http.Response, error) {
+func (r TrustAPIPutTrustByKindByIdRequest) Execute() (*TrustWritten, *http.Response, error) {
 	return r.ApiService.PutTrustByKindByIdExecute(r)
 }
 
@@ -1766,8 +1894,8 @@ the mappings, where it arrives attached to a number), anything short of
 automated must say what is missing, and a mapping to a clause no framework
 declares is refused rather than scored as nothing.
 
-A document defaults to GATED. An artifact an independent auditor signed — a
-SOC 2 report, an ISO certificate, a penetration test, an auditor letter —
+A document defaults to GATED. An artifact an independent auditor signed — an
+attestation report, a certificate, a penetration test, an auditor letter —
 cannot be made public at all; it is released through a grant. A
 self-assessment can, because the organization is the one attesting it.
 
@@ -1790,13 +1918,13 @@ func (a *TrustAPIService) PutTrustByKindById(ctx context.Context, kind string, i
 
 // Execute executes the request
 //
-//	@return Written
-func (a *TrustAPIService) PutTrustByKindByIdExecute(r TrustAPIPutTrustByKindByIdRequest) (*Written, *http.Response, error) {
+//	@return TrustWritten
+func (a *TrustAPIService) PutTrustByKindByIdExecute(r TrustAPIPutTrustByKindByIdRequest) (*TrustWritten, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Written
+		localVarReturnValue *TrustWritten
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustAPIService.PutTrustByKindById")
@@ -1811,8 +1939,8 @@ func (a *TrustAPIService) PutTrustByKindByIdExecute(r TrustAPIPutTrustByKindById
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.sectionWrite == nil {
-		return localVarReturnValue, nil, reportError("sectionWrite is required and must be specified")
+	if r.trustSectionWrite == nil {
+		return localVarReturnValue, nil, reportError("trustSectionWrite is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1825,7 +1953,7 @@ func (a *TrustAPIService) PutTrustByKindByIdExecute(r TrustAPIPutTrustByKindById
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1833,7 +1961,7 @@ func (a *TrustAPIService) PutTrustByKindByIdExecute(r TrustAPIPutTrustByKindById
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.sectionWrite
+	localVarPostBody = r.trustSectionWrite
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1856,6 +1984,14 @@ func (a *TrustAPIService) PutTrustByKindByIdExecute(r TrustAPIPutTrustByKindById
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

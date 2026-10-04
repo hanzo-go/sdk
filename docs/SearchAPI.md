@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## Search
 
-> Fusion Search(ctx).Request(request).Execute()
+> SearchFusion Search(ctx).SearchRequest(searchRequest).Execute()
 
 Hybrid search over the org's own corpora
 
@@ -29,16 +29,16 @@ import (
 )
 
 func main() {
-	request := *openapiclient.NewRequest() // Request | 
+	searchRequest := *openapiclient.NewSearchRequest() // SearchRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SearchAPI.Search(context.Background()).Request(request).Execute()
+	resp, r, err := apiClient.SearchAPI.Search(context.Background()).SearchRequest(searchRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.Search``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `Search`: Fusion
+	// response from `Search`: SearchFusion
 	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.Search`: %v\n", resp)
 }
 ```
@@ -54,11 +54,11 @@ Other parameters are passed through a pointer to a apiSearchRequest struct via t
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request** | [**Request**](Request.md) |  | 
+ **searchRequest** | [**SearchRequest**](SearchRequest.md) |  | 
 
 ### Return type
 
-[**Fusion**](Fusion.md)
+[**SearchFusion**](SearchFusion.md)
 
 ### Authorization
 
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

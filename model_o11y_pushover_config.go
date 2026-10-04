@@ -19,25 +19,28 @@ var _ MappedNullable = &O11yPushoverConfig{}
 
 // O11yPushoverConfig struct for O11yPushoverConfig
 type O11yPushoverConfig struct {
-	NotifierConfig *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
-	Device         *string               `json:"device,omitempty"`
-	Expire         *int64                `json:"expire,omitempty"`
-	Html           *bool                 `json:"html,omitempty"`
-	HttpConfig     *O11yHTTPClientConfig `json:"http_config,omitempty"`
-	Message        *string               `json:"message,omitempty"`
-	Monospace      *bool                 `json:"monospace,omitempty"`
-	Priority       *string               `json:"priority,omitempty"`
-	Retry          *int64                `json:"retry,omitempty"`
-	Sound          *string               `json:"sound,omitempty"`
-	Title          *string               `json:"title,omitempty"`
-	Token          interface{}           `json:"token,omitempty"`
-	TokenFile      *string               `json:"token_file,omitempty"`
-	Ttl            *int64                `json:"ttl,omitempty"`
-	Url            *string               `json:"url,omitempty"`
-	UrlTitle       *string               `json:"url_title,omitempty"`
-	UserKey        interface{}           `json:"user_key,omitempty"`
-	UserKeyFile    *string               `json:"user_key_file,omitempty"`
+	NotifierConfig       *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
+	Device               *string               `json:"device,omitempty"`
+	Expire               *int64                `json:"expire,omitempty"`
+	Html                 *bool                 `json:"html,omitempty"`
+	HttpConfig           *O11yHTTPClientConfig `json:"http_config,omitempty"`
+	Message              *string               `json:"message,omitempty"`
+	Monospace            *bool                 `json:"monospace,omitempty"`
+	Priority             *string               `json:"priority,omitempty"`
+	Retry                *int64                `json:"retry,omitempty"`
+	Sound                *string               `json:"sound,omitempty"`
+	Title                *string               `json:"title,omitempty"`
+	Token                interface{}           `json:"token,omitempty"`
+	TokenFile            *string               `json:"token_file,omitempty"`
+	Ttl                  *int64                `json:"ttl,omitempty"`
+	Url                  *string               `json:"url,omitempty"`
+	UrlTitle             *string               `json:"url_title,omitempty"`
+	UserKey              interface{}           `json:"user_key,omitempty"`
+	UserKeyFile          *string               `json:"user_key_file,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPushoverConfig O11yPushoverConfig
 
 // NewO11yPushoverConfig instantiates a new O11yPushoverConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -698,7 +701,50 @@ func (o O11yPushoverConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserKeyFile) {
 		toSerialize["user_key_file"] = o.UserKeyFile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPushoverConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yPushoverConfig := _O11yPushoverConfig{}
+
+	err = json.Unmarshal(data, &varO11yPushoverConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPushoverConfig(varO11yPushoverConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "device")
+		delete(additionalProperties, "expire")
+		delete(additionalProperties, "html")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "monospace")
+		delete(additionalProperties, "priority")
+		delete(additionalProperties, "retry")
+		delete(additionalProperties, "sound")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "token")
+		delete(additionalProperties, "token_file")
+		delete(additionalProperties, "ttl")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "url_title")
+		delete(additionalProperties, "user_key")
+		delete(additionalProperties, "user_key_file")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPushoverConfig struct {

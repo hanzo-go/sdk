@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yDatastoreQuery{}
 
 // O11yDatastoreQuery struct for O11yDatastoreQuery
 type O11yDatastoreQuery struct {
-	Disabled *bool   `json:"disabled,omitempty"`
-	Legend   *string `json:"legend,omitempty"`
-	Query    *string `json:"query,omitempty"`
+	Disabled             *bool   `json:"disabled,omitempty"`
+	Legend               *string `json:"legend,omitempty"`
+	Query                *string `json:"query,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yDatastoreQuery O11yDatastoreQuery
 
 // NewO11yDatastoreQuery instantiates a new O11yDatastoreQuery object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yDatastoreQuery) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Query) {
 		toSerialize["query"] = o.Query
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yDatastoreQuery) UnmarshalJSON(data []byte) (err error) {
+	varO11yDatastoreQuery := _O11yDatastoreQuery{}
+
+	err = json.Unmarshal(data, &varO11yDatastoreQuery)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yDatastoreQuery(varO11yDatastoreQuery)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "legend")
+		delete(additionalProperties, "query")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yDatastoreQuery struct {

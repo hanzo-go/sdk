@@ -19,18 +19,21 @@ var _ MappedNullable = &IamProviderItem{}
 
 // IamProviderItem struct for IamProviderItem
 type IamProviderItem struct {
-	BindingRule  []string     `json:"bindingRule,omitempty"`
-	CanSignIn    *bool        `json:"canSignIn,omitempty"`
-	CanSignUp    *bool        `json:"canSignUp,omitempty"`
-	CanUnlink    *bool        `json:"canUnlink,omitempty"`
-	CountryCodes []string     `json:"countryCodes,omitempty"`
-	Name         *string      `json:"name,omitempty"`
-	Owner        *string      `json:"owner,omitempty"`
-	Prompted     *bool        `json:"prompted,omitempty"`
-	Provider     *IamProvider `json:"provider,omitempty"`
-	Rule         *string      `json:"rule,omitempty"`
-	SignupGroup  *string      `json:"signupGroup,omitempty"`
+	BindingRule          []string     `json:"bindingRule,omitempty"`
+	CanSignIn            *bool        `json:"canSignIn,omitempty"`
+	CanSignUp            *bool        `json:"canSignUp,omitempty"`
+	CanUnlink            *bool        `json:"canUnlink,omitempty"`
+	CountryCodes         []string     `json:"countryCodes,omitempty"`
+	Name                 *string      `json:"name,omitempty"`
+	Owner                *string      `json:"owner,omitempty"`
+	Prompted             *bool        `json:"prompted,omitempty"`
+	Provider             *IamProvider `json:"provider,omitempty"`
+	Rule                 *string      `json:"rule,omitempty"`
+	SignupGroup          *string      `json:"signupGroup,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamProviderItem IamProviderItem
 
 // NewIamProviderItem instantiates a new IamProviderItem object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o IamProviderItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SignupGroup) {
 		toSerialize["signupGroup"] = o.SignupGroup
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamProviderItem) UnmarshalJSON(data []byte) (err error) {
+	varIamProviderItem := _IamProviderItem{}
+
+	err = json.Unmarshal(data, &varIamProviderItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamProviderItem(varIamProviderItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "bindingRule")
+		delete(additionalProperties, "canSignIn")
+		delete(additionalProperties, "canSignUp")
+		delete(additionalProperties, "canUnlink")
+		delete(additionalProperties, "countryCodes")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "prompted")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "rule")
+		delete(additionalProperties, "signupGroup")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamProviderItem struct {

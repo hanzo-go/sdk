@@ -93,7 +93,7 @@ func (a *O11yAPIService) AgentCheckInExecute(r O11yAPIAgentCheckInRequest) (*O11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -124,6 +124,14 @@ func (a *O11yAPIService) AgentCheckInExecute(r O11yAPIAgentCheckInRequest) (*O11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -210,7 +218,7 @@ func (a *O11yAPIService) AgentCheckInDeprecatedExecute(r O11yAPIAgentCheckInDepr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -241,6 +249,14 @@ func (a *O11yAPIService) AgentCheckInDeprecatedExecute(r O11yAPIAgentCheckInDepr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -324,7 +340,7 @@ func (a *O11yAPIService) AuthzCheckExecute(r O11yAPIAuthzCheckRequest) (*O11yO11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -355,6 +371,14 @@ func (a *O11yAPIService) AuthzCheckExecute(r O11yAPIAuthzCheckRequest) (*O11yO11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -436,7 +460,7 @@ func (a *O11yAPIService) CloneDashboardV2Execute(r O11yAPICloneDashboardV2Reques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -465,6 +489,14 @@ func (a *O11yAPIService) CloneDashboardV2Execute(r O11yAPICloneDashboardV2Reques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -551,7 +583,7 @@ func (a *O11yAPIService) CreateAccountExecute(r O11yAPICreateAccountRequest) (*O
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -582,231 +614,14 @@ func (a *O11yAPIService) CreateAccountExecute(r O11yAPICreateAccountRequest) (*O
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPICreateAuthDomainRequest struct {
-	ctx                        context.Context
-	ApiService                 *O11yAPIService
-	o11yO11yPostableAuthDomain *O11yO11yPostableAuthDomain
-}
-
-func (r O11yAPICreateAuthDomainRequest) O11yO11yPostableAuthDomain(o11yO11yPostableAuthDomain O11yO11yPostableAuthDomain) O11yAPICreateAuthDomainRequest {
-	r.o11yO11yPostableAuthDomain = &o11yO11yPostableAuthDomain
-	return r
-}
-
-func (r O11yAPICreateAuthDomainRequest) Execute() (*O11yO11yCreatedOut, *http.Response, error) {
-	return r.ApiService.CreateAuthDomainExecute(r)
-}
-
-/*
-CreateAuthDomain Claims an email domain for the org and configures how its users sign in; the answer is the new domain's id.
-
-Claims an email domain for the org and configures how its
-users sign in; the answer is the new domain's id. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPICreateAuthDomainRequest
-*/
-func (a *O11yAPIService) CreateAuthDomain(ctx context.Context) O11yAPICreateAuthDomainRequest {
-	return O11yAPICreateAuthDomainRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yCreatedOut
-func (a *O11yAPIService) CreateAuthDomainExecute(r O11yAPICreateAuthDomainRequest) (*O11yO11yCreatedOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yCreatedOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.CreateAuthDomain")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/domains"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yPostableAuthDomain == nil {
-		return localVarReturnValue, nil, reportError("o11yO11yPostableAuthDomain is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yPostableAuthDomain
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPICreateBulkInviteRequest struct {
-	ctx                  context.Context
-	ApiService           *O11yAPIService
-	o11yO11yBulkInviteIn *O11yO11yBulkInviteIn
-}
-
-func (r O11yAPICreateBulkInviteRequest) O11yO11yBulkInviteIn(o11yO11yBulkInviteIn O11yO11yBulkInviteIn) O11yAPICreateBulkInviteRequest {
-	r.o11yO11yBulkInviteIn = &o11yO11yBulkInviteIn
-	return r
-}
-
-func (r O11yAPICreateBulkInviteRequest) Execute() (*O11yO11yAck, *http.Response, error) {
-	return r.ApiService.CreateBulkInviteExecute(r)
-}
-
-/*
-CreateBulkInvite Invites several people to the caller's org in one call, refusing the whole batch when any email repeats.
-
-Invites several people to the caller's org in one call,
-refusing the whole batch when any email repeats. Deprecated alongside
-createInvite. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPICreateBulkInviteRequest
-*/
-func (a *O11yAPIService) CreateBulkInvite(ctx context.Context) O11yAPICreateBulkInviteRequest {
-	return O11yAPICreateBulkInviteRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yAck
-func (a *O11yAPIService) CreateBulkInviteExecute(r O11yAPICreateBulkInviteRequest) (*O11yO11yAck, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yAck
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.CreateBulkInvite")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/invite/bulk"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yBulkInviteIn == nil {
-		return localVarReturnValue, nil, reportError("o11yO11yBulkInviteIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yBulkInviteIn
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -888,7 +703,7 @@ func (a *O11yAPIService) CreateChannelExecute(r O11yAPICreateChannelRequest) (*O
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -919,6 +734,14 @@ func (a *O11yAPIService) CreateChannelExecute(r O11yAPICreateChannelRequest) (*O
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1002,7 +825,7 @@ func (a *O11yAPIService) CreateDashboardV2Execute(r O11yAPICreateDashboardV2Requ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1033,6 +856,14 @@ func (a *O11yAPIService) CreateDashboardV2Execute(r O11yAPICreateDashboardV2Requ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1116,7 +947,7 @@ func (a *O11yAPIService) CreateDashboardViewExecute(r O11yAPICreateDashboardView
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1147,6 +978,14 @@ func (a *O11yAPIService) CreateDashboardViewExecute(r O11yAPICreateDashboardView
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1228,7 +1067,7 @@ func (a *O11yAPIService) CreateDowntimeScheduleExecute(r O11yAPICreateDowntimeSc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1259,6 +1098,14 @@ func (a *O11yAPIService) CreateDowntimeScheduleExecute(r O11yAPICreateDowntimeSc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1340,7 +1187,7 @@ func (a *O11yAPIService) CreateIngestionKeyExecute(r O11yAPICreateIngestionKeyRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1371,6 +1218,14 @@ func (a *O11yAPIService) CreateIngestionKeyExecute(r O11yAPICreateIngestionKeyRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1456,7 +1311,7 @@ func (a *O11yAPIService) CreateIngestionKeyLimitExecute(r O11yAPICreateIngestion
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1487,120 +1342,14 @@ func (a *O11yAPIService) CreateIngestionKeyLimitExecute(r O11yAPICreateIngestion
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPICreateInviteRequest struct {
-	ctx              context.Context
-	ApiService       *O11yAPIService
-	o11yO11yInviteIn *O11yO11yInviteIn
-}
-
-func (r O11yAPICreateInviteRequest) O11yO11yInviteIn(o11yO11yInviteIn O11yO11yInviteIn) O11yAPICreateInviteRequest {
-	r.o11yO11yInviteIn = &o11yO11yInviteIn
-	return r
-}
-
-func (r O11yAPICreateInviteRequest) Execute() (*O11yO11yInviteOut, *http.Response, error) {
-	return r.ApiService.CreateInviteExecute(r)
-}
-
-/*
-CreateInvite Invites one person to the caller's org by email, with the role they will hold when they accept.
-
-Invites one person to the caller's org by email, with the role
-they will hold when they accept. Deprecated in favor of creating users
-directly; kept because callers still hold it. Admin gate, enforced by the
-runtime this op relays to.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPICreateInviteRequest
-*/
-func (a *O11yAPIService) CreateInvite(ctx context.Context) O11yAPICreateInviteRequest {
-	return O11yAPICreateInviteRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yInviteOut
-func (a *O11yAPIService) CreateInviteExecute(r O11yAPICreateInviteRequest) (*O11yO11yInviteOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yInviteOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.CreateInvite")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/invite"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yInviteIn == nil {
-		return localVarReturnValue, nil, reportError("o11yO11yInviteIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yInviteIn
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1685,7 +1434,7 @@ func (a *O11yAPIService) CreateLLMAnnotationExecute(r O11yAPICreateLLMAnnotation
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1716,6 +1465,14 @@ func (a *O11yAPIService) CreateLLMAnnotationExecute(r O11yAPICreateLLMAnnotation
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1800,7 +1557,7 @@ func (a *O11yAPIService) CreateLLMScoreExecute(r O11yAPICreateLLMScoreRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1831,6 +1588,14 @@ func (a *O11yAPIService) CreateLLMScoreExecute(r O11yAPICreateLLMScoreRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1912,7 +1677,7 @@ func (a *O11yAPIService) CreateMetricReductionRuleExecute(r O11yAPICreateMetricR
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1943,6 +1708,14 @@ func (a *O11yAPIService) CreateMetricReductionRuleExecute(r O11yAPICreateMetricR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1969,7 +1742,7 @@ func (r O11yAPICreateOrUpdateLLMPricingRulesRequest) O11yO11yLLMUpdatablePricing
 	return r
 }
 
-func (r O11yAPICreateOrUpdateLLMPricingRulesRequest) Execute() (*http.Response, error) {
+func (r O11yAPICreateOrUpdateLLMPricingRulesRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.CreateOrUpdateLLMPricingRulesExecute(r)
 }
 
@@ -1994,16 +1767,19 @@ func (a *O11yAPIService) CreateOrUpdateLLMPricingRules(ctx context.Context) O11y
 }
 
 // Execute executes the request
-func (a *O11yAPIService) CreateOrUpdateLLMPricingRulesExecute(r O11yAPICreateOrUpdateLLMPricingRulesRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) CreateOrUpdateLLMPricingRulesExecute(r O11yAPICreateOrUpdateLLMPricingRulesRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.CreateOrUpdateLLMPricingRules")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/llm_pricing_rules"
@@ -2012,7 +1788,7 @@ func (a *O11yAPIService) CreateOrUpdateLLMPricingRulesExecute(r O11yAPICreateOrU
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yLLMUpdatablePricingRules == nil {
-		return nil, reportError("o11yO11yLLMUpdatablePricingRules is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yLLMUpdatablePricingRules is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2025,7 +1801,7 @@ func (a *O11yAPIService) CreateOrUpdateLLMPricingRulesExecute(r O11yAPICreateOrU
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2036,19 +1812,19 @@ func (a *O11yAPIService) CreateOrUpdateLLMPricingRulesExecute(r O11yAPICreateOrU
 	localVarPostBody = r.o11yO11yLLMUpdatablePricingRules
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2056,10 +1832,27 @@ func (a *O11yAPIService) CreateOrUpdateLLMPricingRulesExecute(r O11yAPICreateOrU
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPICreatePublicDashboardRequest struct {
@@ -2134,7 +1927,7 @@ func (a *O11yAPIService) CreatePublicDashboardExecute(r O11yAPICreatePublicDashb
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2165,111 +1958,14 @@ func (a *O11yAPIService) CreatePublicDashboardExecute(r O11yAPICreatePublicDashb
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPICreateResetPasswordTokenRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPICreateResetPasswordTokenRequest) Execute() (*O11yO11yResetTokenOut, *http.Response, error) {
-	return r.ApiService.CreateResetPasswordTokenExecute(r)
-}
-
-/*
-CreateResetPasswordToken Creates or regenerates a user's reset-password token: a live token is returned as it is, an expired one is replaced.
-
-Creates or regenerates a user's reset-password token: a
-live token is returned as it is, an expired one is replaced. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPICreateResetPasswordTokenRequest
-*/
-func (a *O11yAPIService) CreateResetPasswordToken(ctx context.Context, id string) O11yAPICreateResetPasswordTokenRequest {
-	return O11yAPICreateResetPasswordTokenRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yResetTokenOut
-func (a *O11yAPIService) CreateResetPasswordTokenExecute(r O11yAPICreateResetPasswordTokenRequest) (*O11yO11yResetTokenOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yResetTokenOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.CreateResetPasswordToken")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/users/{id}/reset_password_tokens"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2354,7 +2050,7 @@ func (a *O11yAPIService) CreateRoleExecute(r O11yAPICreateRoleRequest) (*O11yO11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2385,6 +2081,14 @@ func (a *O11yAPIService) CreateRoleExecute(r O11yAPICreateRoleRequest) (*O11yO11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2465,7 +2169,7 @@ func (a *O11yAPIService) CreateRoutePolicyExecute(r O11yAPICreateRoutePolicyRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2496,6 +2200,14 @@ func (a *O11yAPIService) CreateRoutePolicyExecute(r O11yAPICreateRoutePolicyRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2576,7 +2288,7 @@ func (a *O11yAPIService) CreateRuleExecute(r O11yAPICreateRuleRequest) (*O11yO11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2607,6 +2319,14 @@ func (a *O11yAPIService) CreateRuleExecute(r O11yAPICreateRuleRequest) (*O11yO11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2689,7 +2409,7 @@ func (a *O11yAPIService) CreateServiceAccountExecute(r O11yAPICreateServiceAccou
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2720,6 +2440,14 @@ func (a *O11yAPIService) CreateServiceAccountExecute(r O11yAPICreateServiceAccou
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2808,7 +2536,7 @@ func (a *O11yAPIService) CreateServiceAccountKeyExecute(r O11yAPICreateServiceAc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2839,6 +2567,14 @@ func (a *O11yAPIService) CreateServiceAccountKeyExecute(r O11yAPICreateServiceAc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2866,7 +2602,7 @@ func (r O11yAPICreateServiceAccountRoleRequest) O11yO11yServiceAccountRoleGrantI
 	return r
 }
 
-func (r O11yAPICreateServiceAccountRoleRequest) Execute() (*http.Response, error) {
+func (r O11yAPICreateServiceAccountRoleRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.CreateServiceAccountRoleExecute(r)
 }
 
@@ -2889,16 +2625,19 @@ func (a *O11yAPIService) CreateServiceAccountRole(ctx context.Context, id string
 }
 
 // Execute executes the request
-func (a *O11yAPIService) CreateServiceAccountRoleExecute(r O11yAPICreateServiceAccountRoleRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) CreateServiceAccountRoleExecute(r O11yAPICreateServiceAccountRoleRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.CreateServiceAccountRole")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/service_accounts/{id}/roles"
@@ -2908,7 +2647,7 @@ func (a *O11yAPIService) CreateServiceAccountRoleExecute(r O11yAPICreateServiceA
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yServiceAccountRoleGrantIn == nil {
-		return nil, reportError("o11yO11yServiceAccountRoleGrantIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yServiceAccountRoleGrantIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2921,7 +2660,7 @@ func (a *O11yAPIService) CreateServiceAccountRoleExecute(r O11yAPICreateServiceA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2930,110 +2669,6 @@ func (a *O11yAPIService) CreateServiceAccountRoleExecute(r O11yAPICreateServiceA
 	}
 	// body params
 	localVarPostBody = r.o11yO11yServiceAccountRoleGrantIn
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPICreateSessionByEmailPasswordRequest struct {
-	ctx                            context.Context
-	ApiService                     *O11yAPIService
-	o11yO11yEmailPasswordSessionIn *O11yO11yEmailPasswordSessionIn
-}
-
-func (r O11yAPICreateSessionByEmailPasswordRequest) O11yO11yEmailPasswordSessionIn(o11yO11yEmailPasswordSessionIn O11yO11yEmailPasswordSessionIn) O11yAPICreateSessionByEmailPasswordRequest {
-	r.o11yO11yEmailPasswordSessionIn = &o11yO11yEmailPasswordSessionIn
-	return r
-}
-
-func (r O11yAPICreateSessionByEmailPasswordRequest) Execute() (*O11yO11yTokenOut, *http.Response, error) {
-	return r.ApiService.CreateSessionByEmailPasswordExecute(r)
-}
-
-/*
-CreateSessionByEmailPassword Signs a user in with email and password and answers with the session's token pair.
-
-Signs a user in with email and password and
-answers with the session's token pair. Unauthenticated: this call is how
-authentication begins.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPICreateSessionByEmailPasswordRequest
-*/
-func (a *O11yAPIService) CreateSessionByEmailPassword(ctx context.Context) O11yAPICreateSessionByEmailPasswordRequest {
-	return O11yAPICreateSessionByEmailPasswordRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yTokenOut
-func (a *O11yAPIService) CreateSessionByEmailPasswordExecute(r O11yAPICreateSessionByEmailPasswordRequest) (*O11yO11yTokenOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yTokenOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.CreateSessionByEmailPassword")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/sessions/email_password"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yEmailPasswordSessionIn == nil {
-		return localVarReturnValue, nil, reportError("o11yO11yEmailPasswordSessionIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yEmailPasswordSessionIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3056,6 +2691,14 @@ func (a *O11yAPIService) CreateSessionByEmailPasswordExecute(r O11yAPICreateSess
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3143,7 +2786,7 @@ func (a *O11yAPIService) CreateSpanMapperExecute(r O11yAPICreateSpanMapperReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3174,6 +2817,14 @@ func (a *O11yAPIService) CreateSpanMapperExecute(r O11yAPICreateSpanMapperReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3258,7 +2909,7 @@ func (a *O11yAPIService) CreateSpanMapperGroupExecute(r O11yAPICreateSpanMapperG
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3289,6 +2940,14 @@ func (a *O11yAPIService) CreateSpanMapperGroupExecute(r O11yAPICreateSpanMapperG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3372,7 +3031,7 @@ func (a *O11yAPIService) CreateTraceFunnelExecute(r O11yAPICreateTraceFunnelRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3403,6 +3062,14 @@ func (a *O11yAPIService) CreateTraceFunnelExecute(r O11yAPICreateTraceFunnelRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3418,64 +3085,58 @@ func (a *O11yAPIService) CreateTraceFunnelExecute(r O11yAPICreateTraceFunnelRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type O11yAPICreateUserRequest struct {
-	ctx                  context.Context
-	ApiService           *O11yAPIService
-	o11yO11yPostableUser *O11yO11yPostableUser
+type O11yAPIDeleteChannelByIDRequest struct {
+	ctx        context.Context
+	ApiService *O11yAPIService
+	id         string
 }
 
-func (r O11yAPICreateUserRequest) O11yO11yPostableUser(o11yO11yPostableUser O11yO11yPostableUser) O11yAPICreateUserRequest {
-	r.o11yO11yPostableUser = &o11yO11yPostableUser
-	return r
-}
-
-func (r O11yAPICreateUserRequest) Execute() (*O11yO11yCreatedOut, *http.Response, error) {
-	return r.ApiService.CreateUserExecute(r)
+func (r O11yAPIDeleteChannelByIDRequest) Execute() (*Approval, *http.Response, error) {
+	return r.ApiService.DeleteChannelByIDExecute(r)
 }
 
 /*
-CreateUser Creates a member of the caller's org in the pending-invite state and mails them their invitation; the answer is the new user's id.
+DeleteChannelByID Removes a notification channel, by id.
 
-Creates a member of the caller's org in the pending-invite state
-and mails them their invitation; the answer is the new user's id. Admin gate.
+Removes a notification channel, by id. Admin gate.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPICreateUserRequest
+	@param id
+	@return O11yAPIDeleteChannelByIDRequest
 */
-func (a *O11yAPIService) CreateUser(ctx context.Context) O11yAPICreateUserRequest {
-	return O11yAPICreateUserRequest{
+func (a *O11yAPIService) DeleteChannelByID(ctx context.Context, id string) O11yAPIDeleteChannelByIDRequest {
+	return O11yAPIDeleteChannelByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
 //
-//	@return O11yO11yCreatedOut
-func (a *O11yAPIService) CreateUserExecute(r O11yAPICreateUserRequest) (*O11yO11yCreatedOut, *http.Response, error) {
+//	@return Approval
+func (a *O11yAPIService) DeleteChannelByIDExecute(r O11yAPIDeleteChannelByIDRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
+		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *O11yO11yCreatedOut
+		localVarReturnValue *Approval
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.CreateUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteChannelByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/o11y/users"
+	localVarPath := localBasePath + "/v1/o11y/channels/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.o11yO11yPostableUser == nil {
-		return localVarReturnValue, nil, reportError("o11yO11yPostableUser is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -3484,15 +3145,13 @@ func (a *O11yAPIService) CreateUserExecute(r O11yAPICreateUserRequest) (*O11yO11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.o11yO11yPostableUser
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3515,6 +3174,14 @@ func (a *O11yAPIService) CreateUserExecute(r O11yAPICreateUserRequest) (*O11yO11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3530,198 +3197,13 @@ func (a *O11yAPIService) CreateUserExecute(r O11yAPICreateUserRequest) (*O11yO11
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type O11yAPIDeleteAuthDomainRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPIDeleteAuthDomainRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteAuthDomainExecute(r)
-}
-
-/*
-DeleteAuthDomain Releases an email domain and discards its SSO configuration, by id.
-
-Releases an email domain and discards its SSO
-configuration, by id. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIDeleteAuthDomainRequest
-*/
-func (a *O11yAPIService) DeleteAuthDomain(ctx context.Context, id string) O11yAPIDeleteAuthDomainRequest {
-	return O11yAPIDeleteAuthDomainRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) DeleteAuthDomainExecute(r O11yAPIDeleteAuthDomainRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteAuthDomain")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/domains/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIDeleteChannelByIDRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPIDeleteChannelByIDRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteChannelByIDExecute(r)
-}
-
-/*
-DeleteChannelByID Removes a notification channel, by id.
-
-Removes a notification channel, by id. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIDeleteChannelByIDRequest
-*/
-func (a *O11yAPIService) DeleteChannelByID(ctx context.Context, id string) O11yAPIDeleteChannelByIDRequest {
-	return O11yAPIDeleteChannelByIDRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) DeleteChannelByIDExecute(r O11yAPIDeleteChannelByIDRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteChannelByID")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/channels/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type O11yAPIDeleteDashboardV2Request struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
 	id         string
 }
 
-func (r O11yAPIDeleteDashboardV2Request) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteDashboardV2Request) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteDashboardV2Execute(r)
 }
 
@@ -3746,16 +3228,19 @@ func (a *O11yAPIService) DeleteDashboardV2(ctx context.Context, id string) O11yA
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteDashboardV2Execute(r O11yAPIDeleteDashboardV2Request) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteDashboardV2Execute(r O11yAPIDeleteDashboardV2Request) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteDashboardV2")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/dashboards/{id}"
@@ -3775,7 +3260,7 @@ func (a *O11yAPIService) DeleteDashboardV2Execute(r O11yAPIDeleteDashboardV2Requ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3784,19 +3269,19 @@ func (a *O11yAPIService) DeleteDashboardV2Execute(r O11yAPIDeleteDashboardV2Requ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3804,10 +3289,27 @@ func (a *O11yAPIService) DeleteDashboardV2Execute(r O11yAPIDeleteDashboardV2Requ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteDashboardViewRequest struct {
@@ -3816,7 +3318,7 @@ type O11yAPIDeleteDashboardViewRequest struct {
 	id         string
 }
 
-func (r O11yAPIDeleteDashboardViewRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteDashboardViewRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteDashboardViewExecute(r)
 }
 
@@ -3841,16 +3343,19 @@ func (a *O11yAPIService) DeleteDashboardView(ctx context.Context, id string) O11
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteDashboardViewExecute(r O11yAPIDeleteDashboardViewRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteDashboardViewExecute(r O11yAPIDeleteDashboardViewRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteDashboardView")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/dashboard_views/{id}"
@@ -3870,7 +3375,7 @@ func (a *O11yAPIService) DeleteDashboardViewExecute(r O11yAPIDeleteDashboardView
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3879,19 +3384,19 @@ func (a *O11yAPIService) DeleteDashboardViewExecute(r O11yAPIDeleteDashboardView
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3899,10 +3404,27 @@ func (a *O11yAPIService) DeleteDashboardViewExecute(r O11yAPIDeleteDashboardView
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteDowntimeScheduleByIDRequest struct {
@@ -3911,7 +3433,7 @@ type O11yAPIDeleteDowntimeScheduleByIDRequest struct {
 	id         string
 }
 
-func (r O11yAPIDeleteDowntimeScheduleByIDRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteDowntimeScheduleByIDRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteDowntimeScheduleByIDExecute(r)
 }
 
@@ -3933,16 +3455,19 @@ func (a *O11yAPIService) DeleteDowntimeScheduleByID(ctx context.Context, id stri
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteDowntimeScheduleByIDExecute(r O11yAPIDeleteDowntimeScheduleByIDRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteDowntimeScheduleByIDExecute(r O11yAPIDeleteDowntimeScheduleByIDRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteDowntimeScheduleByID")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/downtime_schedules/{id}"
@@ -3962,7 +3487,7 @@ func (a *O11yAPIService) DeleteDowntimeScheduleByIDExecute(r O11yAPIDeleteDownti
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3971,19 +3496,19 @@ func (a *O11yAPIService) DeleteDowntimeScheduleByIDExecute(r O11yAPIDeleteDownti
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3991,10 +3516,27 @@ func (a *O11yAPIService) DeleteDowntimeScheduleByIDExecute(r O11yAPIDeleteDownti
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteIngestionKeyRequest struct {
@@ -4003,7 +3545,7 @@ type O11yAPIDeleteIngestionKeyRequest struct {
 	keyId      string
 }
 
-func (r O11yAPIDeleteIngestionKeyRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteIngestionKeyRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteIngestionKeyExecute(r)
 }
 
@@ -4025,16 +3567,19 @@ func (a *O11yAPIService) DeleteIngestionKey(ctx context.Context, keyId string) O
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteIngestionKeyExecute(r O11yAPIDeleteIngestionKeyRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteIngestionKeyExecute(r O11yAPIDeleteIngestionKeyRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteIngestionKey")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/gateway/ingestion_keys/{keyId}"
@@ -4054,7 +3599,7 @@ func (a *O11yAPIService) DeleteIngestionKeyExecute(r O11yAPIDeleteIngestionKeyRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4063,19 +3608,19 @@ func (a *O11yAPIService) DeleteIngestionKeyExecute(r O11yAPIDeleteIngestionKeyRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4083,10 +3628,27 @@ func (a *O11yAPIService) DeleteIngestionKeyExecute(r O11yAPIDeleteIngestionKeyRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteIngestionKeyLimitRequest struct {
@@ -4095,7 +3657,7 @@ type O11yAPIDeleteIngestionKeyLimitRequest struct {
 	limitId    string
 }
 
-func (r O11yAPIDeleteIngestionKeyLimitRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteIngestionKeyLimitRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteIngestionKeyLimitExecute(r)
 }
 
@@ -4118,16 +3680,19 @@ func (a *O11yAPIService) DeleteIngestionKeyLimit(ctx context.Context, limitId st
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteIngestionKeyLimitExecute(r O11yAPIDeleteIngestionKeyLimitRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteIngestionKeyLimitExecute(r O11yAPIDeleteIngestionKeyLimitRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteIngestionKeyLimit")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/gateway/ingestion_keys/limits/{limitId}"
@@ -4147,7 +3712,7 @@ func (a *O11yAPIService) DeleteIngestionKeyLimitExecute(r O11yAPIDeleteIngestion
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4156,19 +3721,19 @@ func (a *O11yAPIService) DeleteIngestionKeyLimitExecute(r O11yAPIDeleteIngestion
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4176,10 +3741,27 @@ func (a *O11yAPIService) DeleteIngestionKeyLimitExecute(r O11yAPIDeleteIngestion
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteLLMPricingRuleRequest struct {
@@ -4188,7 +3770,7 @@ type O11yAPIDeleteLLMPricingRuleRequest struct {
 	id         string
 }
 
-func (r O11yAPIDeleteLLMPricingRuleRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteLLMPricingRuleRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteLLMPricingRuleExecute(r)
 }
 
@@ -4213,16 +3795,19 @@ func (a *O11yAPIService) DeleteLLMPricingRule(ctx context.Context, id string) O1
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteLLMPricingRuleExecute(r O11yAPIDeleteLLMPricingRuleRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteLLMPricingRuleExecute(r O11yAPIDeleteLLMPricingRuleRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteLLMPricingRule")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/llm_pricing_rules/{id}"
@@ -4242,7 +3827,7 @@ func (a *O11yAPIService) DeleteLLMPricingRuleExecute(r O11yAPIDeleteLLMPricingRu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4251,19 +3836,19 @@ func (a *O11yAPIService) DeleteLLMPricingRuleExecute(r O11yAPIDeleteLLMPricingRu
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4271,10 +3856,27 @@ func (a *O11yAPIService) DeleteLLMPricingRuleExecute(r O11yAPIDeleteLLMPricingRu
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteLLMScoreRequest struct {
@@ -4283,7 +3885,7 @@ type O11yAPIDeleteLLMScoreRequest struct {
 	id         string
 }
 
-func (r O11yAPIDeleteLLMScoreRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteLLMScoreRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteLLMScoreExecute(r)
 }
 
@@ -4307,16 +3909,19 @@ func (a *O11yAPIService) DeleteLLMScore(ctx context.Context, id string) O11yAPID
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteLLMScoreExecute(r O11yAPIDeleteLLMScoreRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteLLMScoreExecute(r O11yAPIDeleteLLMScoreRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteLLMScore")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/llm/score/{id}"
@@ -4336,7 +3941,7 @@ func (a *O11yAPIService) DeleteLLMScoreExecute(r O11yAPIDeleteLLMScoreRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4345,19 +3950,19 @@ func (a *O11yAPIService) DeleteLLMScoreExecute(r O11yAPIDeleteLLMScoreRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4365,10 +3970,27 @@ func (a *O11yAPIService) DeleteLLMScoreExecute(r O11yAPIDeleteLLMScoreRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteMetricReductionRuleByIDRequest struct {
@@ -4377,7 +3999,7 @@ type O11yAPIDeleteMetricReductionRuleByIDRequest struct {
 	id         string
 }
 
-func (r O11yAPIDeleteMetricReductionRuleByIDRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteMetricReductionRuleByIDRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteMetricReductionRuleByIDExecute(r)
 }
 
@@ -4399,16 +4021,19 @@ func (a *O11yAPIService) DeleteMetricReductionRuleByID(ctx context.Context, id s
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteMetricReductionRuleByIDExecute(r O11yAPIDeleteMetricReductionRuleByIDRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteMetricReductionRuleByIDExecute(r O11yAPIDeleteMetricReductionRuleByIDRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteMetricReductionRuleByID")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/metric_reduction_rules/{id}"
@@ -4428,7 +4053,7 @@ func (a *O11yAPIService) DeleteMetricReductionRuleByIDExecute(r O11yAPIDeleteMet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4437,19 +4062,19 @@ func (a *O11yAPIService) DeleteMetricReductionRuleByIDExecute(r O11yAPIDeleteMet
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4457,10 +4082,27 @@ func (a *O11yAPIService) DeleteMetricReductionRuleByIDExecute(r O11yAPIDeleteMet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteO11yExplorerViewsByViewidRequest struct {
@@ -4525,7 +4167,7 @@ func (a *O11yAPIService) DeleteO11yExplorerViewsByViewidExecute(r O11yAPIDeleteO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4554,6 +4196,14 @@ func (a *O11yAPIService) DeleteO11yExplorerViewsByViewidExecute(r O11yAPIDeleteO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -4631,7 +4281,7 @@ func (a *O11yAPIService) DeleteO11yReviewsByIdExecute(r O11yAPIDeleteO11yReviews
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4660,6 +4310,14 @@ func (a *O11yAPIService) DeleteO11yReviewsByIdExecute(r O11yAPIDeleteO11yReviews
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -4681,16 +4339,15 @@ type O11yAPIDeleteO11ySentinelProjectsByIdRequest struct {
 	id         string
 }
 
-func (r O11yAPIDeleteO11ySentinelProjectsByIdRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteO11ySentinelProjectsByIdRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteO11ySentinelProjectsByIdExecute(r)
 }
 
 /*
-DeleteO11ySentinelProjectsById Deletes one Sentry project of the caller's org.
+DeleteO11ySentinelProjectsById Deletes one Sentry project of the caller's org; retained events are not touched.
 
-Deletes one Sentry project of the caller's org. Its DSN
-stops resolving immediately, so ingest for that id fails closed exactly as an
-unknown project does; retained events are not touched. Answers 204.
+Deletes one Sentry project of the caller's org; retained
+events are not touched. Answers 204.
 
 Callers need the editor role; the runtime's own gate enforces it.
 
@@ -4707,16 +4364,19 @@ func (a *O11yAPIService) DeleteO11ySentinelProjectsById(ctx context.Context, id 
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteO11ySentinelProjectsByIdExecute(r O11yAPIDeleteO11ySentinelProjectsByIdRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteO11ySentinelProjectsByIdExecute(r O11yAPIDeleteO11ySentinelProjectsByIdRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteO11ySentinelProjectsById")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/sentinel/projects/{id}"
@@ -4736,7 +4396,7 @@ func (a *O11yAPIService) DeleteO11ySentinelProjectsByIdExecute(r O11yAPIDeleteO1
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4745,19 +4405,19 @@ func (a *O11yAPIService) DeleteO11ySentinelProjectsByIdExecute(r O11yAPIDeleteO1
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4765,10 +4425,27 @@ func (a *O11yAPIService) DeleteO11ySentinelProjectsByIdExecute(r O11yAPIDeleteO1
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeletePublicDashboardRequest struct {
@@ -4777,7 +4454,7 @@ type O11yAPIDeletePublicDashboardRequest struct {
 	id         string
 }
 
-func (r O11yAPIDeletePublicDashboardRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeletePublicDashboardRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeletePublicDashboardExecute(r)
 }
 
@@ -4802,16 +4479,19 @@ func (a *O11yAPIService) DeletePublicDashboard(ctx context.Context, id string) O
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeletePublicDashboardExecute(r O11yAPIDeletePublicDashboardRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeletePublicDashboardExecute(r O11yAPIDeletePublicDashboardRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeletePublicDashboard")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/dashboards/{id}/public"
@@ -4831,7 +4511,7 @@ func (a *O11yAPIService) DeletePublicDashboardExecute(r O11yAPIDeletePublicDashb
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4840,19 +4520,19 @@ func (a *O11yAPIService) DeletePublicDashboardExecute(r O11yAPIDeletePublicDashb
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4860,10 +4540,27 @@ func (a *O11yAPIService) DeletePublicDashboardExecute(r O11yAPIDeletePublicDashb
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteRoleRequest struct {
@@ -4872,7 +4569,7 @@ type O11yAPIDeleteRoleRequest struct {
 	id         string
 }
 
-func (r O11yAPIDeleteRoleRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteRoleRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteRoleExecute(r)
 }
 
@@ -4896,16 +4593,19 @@ func (a *O11yAPIService) DeleteRole(ctx context.Context, id string) O11yAPIDelet
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteRoleExecute(r O11yAPIDeleteRoleRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteRoleExecute(r O11yAPIDeleteRoleRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteRole")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/roles/{id}"
@@ -4925,7 +4625,7 @@ func (a *O11yAPIService) DeleteRoleExecute(r O11yAPIDeleteRoleRequest) (*http.Re
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4934,19 +4634,19 @@ func (a *O11yAPIService) DeleteRoleExecute(r O11yAPIDeleteRoleRequest) (*http.Re
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4954,10 +4654,27 @@ func (a *O11yAPIService) DeleteRoleExecute(r O11yAPIDeleteRoleRequest) (*http.Re
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteRoutePolicyByIDRequest struct {
@@ -4966,7 +4683,7 @@ type O11yAPIDeleteRoutePolicyByIDRequest struct {
 	id         string
 }
 
-func (r O11yAPIDeleteRoutePolicyByIDRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteRoutePolicyByIDRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteRoutePolicyByIDExecute(r)
 }
 
@@ -4988,16 +4705,19 @@ func (a *O11yAPIService) DeleteRoutePolicyByID(ctx context.Context, id string) O
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteRoutePolicyByIDExecute(r O11yAPIDeleteRoutePolicyByIDRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteRoutePolicyByIDExecute(r O11yAPIDeleteRoutePolicyByIDRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteRoutePolicyByID")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/route_policies/{id}"
@@ -5017,7 +4737,7 @@ func (a *O11yAPIService) DeleteRoutePolicyByIDExecute(r O11yAPIDeleteRoutePolicy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5026,19 +4746,19 @@ func (a *O11yAPIService) DeleteRoutePolicyByIDExecute(r O11yAPIDeleteRoutePolicy
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5046,10 +4766,27 @@ func (a *O11yAPIService) DeleteRoutePolicyByIDExecute(r O11yAPIDeleteRoutePolicy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteRuleByIDRequest struct {
@@ -5058,7 +4795,7 @@ type O11yAPIDeleteRuleByIDRequest struct {
 	id         string
 }
 
-func (r O11yAPIDeleteRuleByIDRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteRuleByIDRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteRuleByIDExecute(r)
 }
 
@@ -5080,16 +4817,19 @@ func (a *O11yAPIService) DeleteRuleByID(ctx context.Context, id string) O11yAPID
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteRuleByIDExecute(r O11yAPIDeleteRuleByIDRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteRuleByIDExecute(r O11yAPIDeleteRuleByIDRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteRuleByID")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/rules/{id}"
@@ -5109,7 +4849,7 @@ func (a *O11yAPIService) DeleteRuleByIDExecute(r O11yAPIDeleteRuleByIDRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5118,19 +4858,19 @@ func (a *O11yAPIService) DeleteRuleByIDExecute(r O11yAPIDeleteRuleByIDRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5138,10 +4878,27 @@ func (a *O11yAPIService) DeleteRuleByIDExecute(r O11yAPIDeleteRuleByIDRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteServiceAccountRequest struct {
@@ -5150,7 +4907,7 @@ type O11yAPIDeleteServiceAccountRequest struct {
 	id         string
 }
 
-func (r O11yAPIDeleteServiceAccountRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteServiceAccountRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteServiceAccountExecute(r)
 }
 
@@ -5173,16 +4930,19 @@ func (a *O11yAPIService) DeleteServiceAccount(ctx context.Context, id string) O1
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteServiceAccountExecute(r O11yAPIDeleteServiceAccountRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteServiceAccountExecute(r O11yAPIDeleteServiceAccountRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteServiceAccount")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/service_accounts/{id}"
@@ -5202,7 +4962,7 @@ func (a *O11yAPIService) DeleteServiceAccountExecute(r O11yAPIDeleteServiceAccou
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5211,19 +4971,19 @@ func (a *O11yAPIService) DeleteServiceAccountExecute(r O11yAPIDeleteServiceAccou
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5231,10 +4991,27 @@ func (a *O11yAPIService) DeleteServiceAccountExecute(r O11yAPIDeleteServiceAccou
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteServiceAccountRoleRequest struct {
@@ -5244,7 +5021,7 @@ type O11yAPIDeleteServiceAccountRoleRequest struct {
 	rid        string
 }
 
-func (r O11yAPIDeleteServiceAccountRoleRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteServiceAccountRoleRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteServiceAccountRoleExecute(r)
 }
 
@@ -5268,16 +5045,19 @@ func (a *O11yAPIService) DeleteServiceAccountRole(ctx context.Context, id string
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteServiceAccountRoleExecute(r O11yAPIDeleteServiceAccountRoleRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteServiceAccountRoleExecute(r O11yAPIDeleteServiceAccountRoleRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteServiceAccountRole")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/service_accounts/{id}/roles/{rid}"
@@ -5298,7 +5078,7 @@ func (a *O11yAPIService) DeleteServiceAccountRoleExecute(r O11yAPIDeleteServiceA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5307,19 +5087,19 @@ func (a *O11yAPIService) DeleteServiceAccountRoleExecute(r O11yAPIDeleteServiceA
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5327,99 +5107,27 @@ func (a *O11yAPIService) DeleteServiceAccountRoleExecute(r O11yAPIDeleteServiceA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIDeleteSessionRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-}
-
-func (r O11yAPIDeleteSessionRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteSessionExecute(r)
-}
-
-/*
-DeleteSession Signs the calling session out, invalidating its tokens.
-
-Signs the calling session out, invalidating its tokens. The
-access token on the call names the session to end.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIDeleteSessionRequest
-*/
-func (a *O11yAPIService) DeleteSession(ctx context.Context) O11yAPIDeleteSessionRequest {
-	return O11yAPIDeleteSessionRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) DeleteSessionExecute(r O11yAPIDeleteSessionRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteSession")
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/sessions"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
+			error: err.Error(),
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteSpanMapperRequest struct {
@@ -5429,7 +5137,7 @@ type O11yAPIDeleteSpanMapperRequest struct {
 	mapperId   string
 }
 
-func (r O11yAPIDeleteSpanMapperRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteSpanMapperRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteSpanMapperExecute(r)
 }
 
@@ -5455,16 +5163,19 @@ func (a *O11yAPIService) DeleteSpanMapper(ctx context.Context, groupId string, m
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteSpanMapperExecute(r O11yAPIDeleteSpanMapperRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteSpanMapperExecute(r O11yAPIDeleteSpanMapperRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteSpanMapper")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/span_mapper_groups/{groupId}/span_mappers/{mapperId}"
@@ -5485,7 +5196,7 @@ func (a *O11yAPIService) DeleteSpanMapperExecute(r O11yAPIDeleteSpanMapperReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5494,19 +5205,19 @@ func (a *O11yAPIService) DeleteSpanMapperExecute(r O11yAPIDeleteSpanMapperReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5514,10 +5225,27 @@ func (a *O11yAPIService) DeleteSpanMapperExecute(r O11yAPIDeleteSpanMapperReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteSpanMapperGroupRequest struct {
@@ -5526,7 +5254,7 @@ type O11yAPIDeleteSpanMapperGroupRequest struct {
 	groupId    string
 }
 
-func (r O11yAPIDeleteSpanMapperGroupRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDeleteSpanMapperGroupRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DeleteSpanMapperGroupExecute(r)
 }
 
@@ -5550,16 +5278,19 @@ func (a *O11yAPIService) DeleteSpanMapperGroup(ctx context.Context, groupId stri
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DeleteSpanMapperGroupExecute(r O11yAPIDeleteSpanMapperGroupRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DeleteSpanMapperGroupExecute(r O11yAPIDeleteSpanMapperGroupRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteSpanMapperGroup")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/span_mapper_groups/{groupId}"
@@ -5579,7 +5310,7 @@ func (a *O11yAPIService) DeleteSpanMapperGroupExecute(r O11yAPIDeleteSpanMapperG
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5588,19 +5319,19 @@ func (a *O11yAPIService) DeleteSpanMapperGroupExecute(r O11yAPIDeleteSpanMapperG
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5608,10 +5339,27 @@ func (a *O11yAPIService) DeleteSpanMapperGroupExecute(r O11yAPIDeleteSpanMapperG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIDeleteTraceFunnelRequest struct {
@@ -5677,7 +5425,7 @@ func (a *O11yAPIService) DeleteTraceFunnelExecute(r O11yAPIDeleteTraceFunnelRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5706,6 +5454,14 @@ func (a *O11yAPIService) DeleteTraceFunnelExecute(r O11yAPIDeleteTraceFunnelRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -5721,191 +5477,6 @@ func (a *O11yAPIService) DeleteTraceFunnelExecute(r O11yAPIDeleteTraceFunnelRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type O11yAPIDeleteUserRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPIDeleteUserRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteUserExecute(r)
-}
-
-/*
-DeleteUser Removes one org member, by user id.
-
-Removes one org member, by user id. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIDeleteUserRequest
-*/
-func (a *O11yAPIService) DeleteUser(ctx context.Context, id string) O11yAPIDeleteUserRequest {
-	return O11yAPIDeleteUserRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) DeleteUserExecute(r O11yAPIDeleteUserRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteUser")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/users/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIDeleteUserDeprecatedRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPIDeleteUserDeprecatedRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteUserDeprecatedExecute(r)
-}
-
-/*
-DeleteUserDeprecated Removes one org member, by user id.
-
-Removes one org member, by user id. The same operation
-as deleteUser on the legacy singular path. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIDeleteUserDeprecatedRequest
-*/
-func (a *O11yAPIService) DeleteUserDeprecated(ctx context.Context, id string) O11yAPIDeleteUserDeprecatedRequest {
-	return O11yAPIDeleteUserDeprecatedRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) DeleteUserDeprecatedExecute(r O11yAPIDeleteUserDeprecatedRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DeleteUserDeprecated")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/user/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type O11yAPIDisconnectAccountRequest struct {
 	ctx           context.Context
 	ApiService    *O11yAPIService
@@ -5913,7 +5484,7 @@ type O11yAPIDisconnectAccountRequest struct {
 	id            string
 }
 
-func (r O11yAPIDisconnectAccountRequest) Execute() (*http.Response, error) {
+func (r O11yAPIDisconnectAccountRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.DisconnectAccountExecute(r)
 }
 
@@ -5938,16 +5509,19 @@ func (a *O11yAPIService) DisconnectAccount(ctx context.Context, cloudProvider st
 }
 
 // Execute executes the request
-func (a *O11yAPIService) DisconnectAccountExecute(r O11yAPIDisconnectAccountRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) DisconnectAccountExecute(r O11yAPIDisconnectAccountRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.DisconnectAccount")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/cloud_integrations/{cloud_provider}/accounts/{id}"
@@ -5968,7 +5542,7 @@ func (a *O11yAPIService) DisconnectAccountExecute(r O11yAPIDisconnectAccountRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5977,19 +5551,19 @@ func (a *O11yAPIService) DisconnectAccountExecute(r O11yAPIDisconnectAccountRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -5997,111 +5571,27 @@ func (a *O11yAPIService) DisconnectAccountExecute(r O11yAPIDisconnectAccountRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIForgotPasswordRequest struct {
-	ctx                      context.Context
-	ApiService               *O11yAPIService
-	o11yO11yForgotPasswordIn *O11yO11yForgotPasswordIn
-}
-
-func (r O11yAPIForgotPasswordRequest) O11yO11yForgotPasswordIn(o11yO11yForgotPasswordIn O11yO11yForgotPasswordIn) O11yAPIForgotPasswordRequest {
-	r.o11yO11yForgotPasswordIn = &o11yO11yForgotPasswordIn
-	return r
-}
-
-func (r O11yAPIForgotPasswordRequest) Execute() (*http.Response, error) {
-	return r.ApiService.ForgotPasswordExecute(r)
-}
-
-/*
-ForgotPassword Starts the forgotten-password flow: the named user is mailed a reset link.
-
-Starts the forgotten-password flow: the named user is mailed
-a reset link. Unauthenticated by design, and deliberately quiet about
-whether the address exists.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIForgotPasswordRequest
-*/
-func (a *O11yAPIService) ForgotPassword(ctx context.Context) O11yAPIForgotPasswordRequest {
-	return O11yAPIForgotPasswordRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) ForgotPasswordExecute(r O11yAPIForgotPasswordRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.ForgotPassword")
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/factor_password/forgot"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yForgotPasswordIn == nil {
-		return nil, reportError("o11yO11yForgotPasswordIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yForgotPasswordIn
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
+			error: err.Error(),
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIGetAccountRequest struct {
@@ -6169,7 +5659,7 @@ func (a *O11yAPIService) GetAccountExecute(r O11yAPIGetAccountRequest) (*O11yO11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6198,6 +5688,14 @@ func (a *O11yAPIService) GetAccountExecute(r O11yAPIGetAccountRequest) (*O11yO11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6282,7 +5780,7 @@ func (a *O11yAPIService) GetAccountServiceExecute(r O11yAPIGetAccountServiceRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6311,6 +5809,14 @@ func (a *O11yAPIService) GetAccountServiceExecute(r O11yAPIGetAccountServiceRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6382,7 +5888,7 @@ func (a *O11yAPIService) GetAlertsExecute(r O11yAPIGetAlertsRequest) (*O11yO11yA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6411,6 +5917,14 @@ func (a *O11yAPIService) GetAlertsExecute(r O11yAPIGetAlertsRequest) (*O11yO11yA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6482,7 +5996,7 @@ func (a *O11yAPIService) GetAllRoutePoliciesExecute(r O11yAPIGetAllRoutePolicies
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6511,111 +6025,14 @@ func (a *O11yAPIService) GetAllRoutePoliciesExecute(r O11yAPIGetAllRoutePolicies
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIGetAuthDomainRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPIGetAuthDomainRequest) Execute() (*O11yO11yAuthDomainOut, *http.Response, error) {
-	return r.ApiService.GetAuthDomainExecute(r)
-}
-
-/*
-GetAuthDomain Returns one auth domain with its SSO configuration, by id.
-
-Returns one auth domain with its SSO configuration, by id.
-Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIGetAuthDomainRequest
-*/
-func (a *O11yAPIService) GetAuthDomain(ctx context.Context, id string) O11yAPIGetAuthDomainRequest {
-	return O11yAPIGetAuthDomainRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yAuthDomainOut
-func (a *O11yAPIService) GetAuthDomainExecute(r O11yAPIGetAuthDomainRequest) (*O11yO11yAuthDomainOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yAuthDomainOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetAuthDomain")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/domains/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6691,7 +6108,7 @@ func (a *O11yAPIService) GetChannelByIDExecute(r O11yAPIGetChannelByIDRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6720,6 +6137,14 @@ func (a *O11yAPIService) GetChannelByIDExecute(r O11yAPIGetChannelByIDRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6796,7 +6221,7 @@ func (a *O11yAPIService) GetConnectionCredentialsExecute(r O11yAPIGetConnectionC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6825,6 +6250,14 @@ func (a *O11yAPIService) GetConnectionCredentialsExecute(r O11yAPIGetConnectionC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6902,7 +6335,7 @@ func (a *O11yAPIService) GetDashboardV2Execute(r O11yAPIGetDashboardV2Request) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6931,6 +6364,14 @@ func (a *O11yAPIService) GetDashboardV2Execute(r O11yAPIGetDashboardV2Request) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -7006,7 +6447,7 @@ func (a *O11yAPIService) GetDowntimeScheduleByIDExecute(r O11yAPIGetDowntimeSche
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7035,6 +6476,14 @@ func (a *O11yAPIService) GetDowntimeScheduleByIDExecute(r O11yAPIGetDowntimeSche
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -7116,7 +6565,7 @@ func (a *O11yAPIService) GetDraftFunnelErrorTracesExecute(r O11yAPIGetDraftFunne
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7147,6 +6596,14 @@ func (a *O11yAPIService) GetDraftFunnelErrorTracesExecute(r O11yAPIGetDraftFunne
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -7228,7 +6685,7 @@ func (a *O11yAPIService) GetDraftFunnelOverviewExecute(r O11yAPIGetDraftFunnelOv
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7259,6 +6716,14 @@ func (a *O11yAPIService) GetDraftFunnelOverviewExecute(r O11yAPIGetDraftFunnelOv
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -7340,7 +6805,7 @@ func (a *O11yAPIService) GetDraftFunnelSlowTracesExecute(r O11yAPIGetDraftFunnel
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7371,6 +6836,14 @@ func (a *O11yAPIService) GetDraftFunnelSlowTracesExecute(r O11yAPIGetDraftFunnel
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -7451,7 +6924,7 @@ func (a *O11yAPIService) GetDraftFunnelStepMetricsExecute(r O11yAPIGetDraftFunne
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7482,6 +6955,14 @@ func (a *O11yAPIService) GetDraftFunnelStepMetricsExecute(r O11yAPIGetDraftFunne
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -7563,7 +7044,7 @@ func (a *O11yAPIService) GetDraftFunnelStepOverviewExecute(r O11yAPIGetDraftFunn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7594,6 +7075,14 @@ func (a *O11yAPIService) GetDraftFunnelStepOverviewExecute(r O11yAPIGetDraftFunn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -7681,7 +7170,7 @@ func (a *O11yAPIService) GetFlamegraphExecute(r O11yAPIGetFlamegraphRequest) (*O
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7712,6 +7201,14 @@ func (a *O11yAPIService) GetFlamegraphExecute(r O11yAPIGetFlamegraphRequest) (*O
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -7783,7 +7280,7 @@ func (a *O11yAPIService) GetHostsExecute(r O11yAPIGetHostsRequest) (*O11yO11yGet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7812,6 +7309,14 @@ func (a *O11yAPIService) GetHostsExecute(r O11yAPIGetHostsRequest) (*O11yO11yGet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -7904,7 +7409,7 @@ func (a *O11yAPIService) GetIngestionKeysExecute(r O11yAPIGetIngestionKeysReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7933,6 +7438,14 @@ func (a *O11yAPIService) GetIngestionKeysExecute(r O11yAPIGetIngestionKeysReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8010,7 +7523,7 @@ func (a *O11yAPIService) GetIntegrationExecute(r O11yAPIGetIntegrationRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8039,6 +7552,14 @@ func (a *O11yAPIService) GetIntegrationExecute(r O11yAPIGetIntegrationRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8127,7 +7648,7 @@ func (a *O11yAPIService) GetIntegrationConnectionStatusExecute(r O11yAPIGetInteg
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8156,6 +7677,14 @@ func (a *O11yAPIService) GetIntegrationConnectionStatusExecute(r O11yAPIGetInteg
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8233,7 +7762,7 @@ func (a *O11yAPIService) GetLLMPricingRuleExecute(r O11yAPIGetLLMPricingRuleRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8262,6 +7791,14 @@ func (a *O11yAPIService) GetLLMPricingRuleExecute(r O11yAPIGetLLMPricingRuleRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8339,7 +7876,7 @@ func (a *O11yAPIService) GetLLMScoreExecute(r O11yAPIGetLLMScoreRequest) (*O11yO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8368,6 +7905,14 @@ func (a *O11yAPIService) GetLLMScoreExecute(r O11yAPIGetLLMScoreRequest) (*O11yO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8450,7 +7995,7 @@ func (a *O11yAPIService) GetMetricAlertsExecute(r O11yAPIGetMetricAlertsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8479,6 +8024,14 @@ func (a *O11yAPIService) GetMetricAlertsExecute(r O11yAPIGetMetricAlertsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8582,7 +8135,7 @@ func (a *O11yAPIService) GetMetricAttributesExecute(r O11yAPIGetMetricAttributes
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8611,6 +8164,14 @@ func (a *O11yAPIService) GetMetricAttributesExecute(r O11yAPIGetMetricAttributes
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8693,7 +8254,7 @@ func (a *O11yAPIService) GetMetricDashboardsV2Execute(r O11yAPIGetMetricDashboar
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8722,6 +8283,14 @@ func (a *O11yAPIService) GetMetricDashboardsV2Execute(r O11yAPIGetMetricDashboar
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8805,7 +8374,7 @@ func (a *O11yAPIService) GetMetricHighlightsExecute(r O11yAPIGetMetricHighlights
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8834,6 +8403,14 @@ func (a *O11yAPIService) GetMetricHighlightsExecute(r O11yAPIGetMetricHighlights
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8917,7 +8494,7 @@ func (a *O11yAPIService) GetMetricMetadataExecute(r O11yAPIGetMetricMetadataRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8946,6 +8523,14 @@ func (a *O11yAPIService) GetMetricMetadataExecute(r O11yAPIGetMetricMetadataRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9021,7 +8606,7 @@ func (a *O11yAPIService) GetMetricReductionRuleByIDExecute(r O11yAPIGetMetricRed
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9050,6 +8635,14 @@ func (a *O11yAPIService) GetMetricReductionRuleByIDExecute(r O11yAPIGetMetricRed
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9122,7 +8715,7 @@ func (a *O11yAPIService) GetMetricReductionRuleStatsExecute(r O11yAPIGetMetricRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9151,6 +8744,14 @@ func (a *O11yAPIService) GetMetricReductionRuleStatsExecute(r O11yAPIGetMetricRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9224,7 +8825,7 @@ func (a *O11yAPIService) GetMetricReductionRuleTimeseriesExecute(r O11yAPIGetMet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9253,6 +8854,14 @@ func (a *O11yAPIService) GetMetricReductionRuleTimeseriesExecute(r O11yAPIGetMet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9325,7 +8934,7 @@ func (a *O11yAPIService) GetMetricsOnboardingStatusExecute(r O11yAPIGetMetricsOn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9354,6 +8963,14 @@ func (a *O11yAPIService) GetMetricsOnboardingStatusExecute(r O11yAPIGetMetricsOn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9435,7 +9052,7 @@ func (a *O11yAPIService) GetMetricsStatsExecute(r O11yAPIGetMetricsStatsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9466,6 +9083,14 @@ func (a *O11yAPIService) GetMetricsStatsExecute(r O11yAPIGetMetricsStatsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9547,7 +9172,7 @@ func (a *O11yAPIService) GetMetricsTreemapExecute(r O11yAPIGetMetricsTreemapRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9578,6 +9203,14 @@ func (a *O11yAPIService) GetMetricsTreemapExecute(r O11yAPIGetMetricsTreemapRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9649,7 +9282,7 @@ func (a *O11yAPIService) GetMyOrganizationExecute(r O11yAPIGetMyOrganizationRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9678,6 +9311,14 @@ func (a *O11yAPIService) GetMyOrganizationExecute(r O11yAPIGetMyOrganizationRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9750,7 +9391,7 @@ func (a *O11yAPIService) GetMyServiceAccountExecute(r O11yAPIGetMyServiceAccount
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9779,6 +9420,14 @@ func (a *O11yAPIService) GetMyServiceAccountExecute(r O11yAPIGetMyServiceAccount
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9799,7 +9448,7 @@ type O11yAPIGetMyUserRequest struct {
 	ApiService *O11yAPIService
 }
 
-func (r O11yAPIGetMyUserRequest) Execute() (*O11yO11yUserWithRolesOut, *http.Response, error) {
+func (r O11yAPIGetMyUserRequest) Execute() (*O11yO11yUserOut, *http.Response, error) {
 	return r.ApiService.GetMyUserExecute(r)
 }
 
@@ -9821,13 +9470,13 @@ func (a *O11yAPIService) GetMyUser(ctx context.Context) O11yAPIGetMyUserRequest 
 
 // Execute executes the request
 //
-//	@return O11yO11yUserWithRolesOut
-func (a *O11yAPIService) GetMyUserExecute(r O11yAPIGetMyUserRequest) (*O11yO11yUserWithRolesOut, *http.Response, error) {
+//	@return O11yO11yUserOut
+func (a *O11yAPIService) GetMyUserExecute(r O11yAPIGetMyUserRequest) (*O11yO11yUserOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *O11yO11yUserWithRolesOut
+		localVarReturnValue *O11yO11yUserOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetMyUser")
@@ -9851,7 +9500,7 @@ func (a *O11yAPIService) GetMyUserExecute(r O11yAPIGetMyUserRequest) (*O11yO11yU
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9880,6 +9529,14 @@ func (a *O11yAPIService) GetMyUserExecute(r O11yAPIGetMyUserRequest) (*O11yO11yU
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9895,26 +9552,35 @@ func (a *O11yAPIService) GetMyUserExecute(r O11yAPIGetMyUserRequest) (*O11yO11yU
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type O11yAPIGetMyUserDeprecatedRequest struct {
+type O11yAPIGetO11yAlertsHeartbeatRequest struct {
 	ctx        context.Context
 	ApiService *O11yAPIService
 }
 
-func (r O11yAPIGetMyUserDeprecatedRequest) Execute() (*O11yO11yDeprecatedUserOut, *http.Response, error) {
-	return r.ApiService.GetMyUserDeprecatedExecute(r)
+func (r O11yAPIGetO11yAlertsHeartbeatRequest) Execute() (*O11yHeartbeat, *http.Response, error) {
+	return r.ApiService.GetO11yAlertsHeartbeatExecute(r)
 }
 
 /*
-GetMyUserDeprecated Returns the calling user with their single legacy role.
+GetO11yAlertsHeartbeat Reports whether the alert path's heartbeat is still arriving: the dead-man's switch for paging.
 
-Returns the calling user with their single legacy role.
-Deprecated in favor of getMyUser. Open to any authenticated caller.
+Reports whether the alert path's heartbeat is still arriving:
+the dead-man's switch for paging. The o11y ruler fires one alert forever,
+labelled watchdog="true", and every notification of it that reaches this
+process is a heartbeat — recorded as ALERT-HEARTBEAT, never sent to a human.
+
+It answers 200 with the heartbeat's age while one arrived within the last 15
+minutes, and 503 once none has. A 503 means the path from the ruler to this
+receiver stopped — the ruler, its Alertmanager, or this process — which nothing
+inside the cluster can be trusted to say, so something OUTSIDE it polls this and
+pages on the 503. Process-local, like the replay ring: a restart starts the
+clock again rather than answering 503 before the first beat can arrive.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIGetMyUserDeprecatedRequest
+	@return O11yAPIGetO11yAlertsHeartbeatRequest
 */
-func (a *O11yAPIService) GetMyUserDeprecated(ctx context.Context) O11yAPIGetMyUserDeprecatedRequest {
-	return O11yAPIGetMyUserDeprecatedRequest{
+func (a *O11yAPIService) GetO11yAlertsHeartbeat(ctx context.Context) O11yAPIGetO11yAlertsHeartbeatRequest {
+	return O11yAPIGetO11yAlertsHeartbeatRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -9922,21 +9588,21 @@ func (a *O11yAPIService) GetMyUserDeprecated(ctx context.Context) O11yAPIGetMyUs
 
 // Execute executes the request
 //
-//	@return O11yO11yDeprecatedUserOut
-func (a *O11yAPIService) GetMyUserDeprecatedExecute(r O11yAPIGetMyUserDeprecatedRequest) (*O11yO11yDeprecatedUserOut, *http.Response, error) {
+//	@return O11yHeartbeat
+func (a *O11yAPIService) GetO11yAlertsHeartbeatExecute(r O11yAPIGetO11yAlertsHeartbeatRequest) (*O11yHeartbeat, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *O11yO11yDeprecatedUserOut
+		localVarReturnValue *O11yHeartbeat
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetMyUserDeprecated")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11yAlertsHeartbeat")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/o11y/user/me"
+	localVarPath := localBasePath + "/v1/o11y/alerts/heartbeat"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -9952,7 +9618,7 @@ func (a *O11yAPIService) GetMyUserDeprecatedExecute(r O11yAPIGetMyUserDeprecated
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9981,6 +9647,14 @@ func (a *O11yAPIService) GetMyUserDeprecatedExecute(r O11yAPIGetMyUserDeprecated
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -10188,7 +9862,7 @@ func (a *O11yAPIService) GetO11yAutocompleteAggregateAttributesExecute(r O11yAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10217,6 +9891,14 @@ func (a *O11yAPIService) GetO11yAutocompleteAggregateAttributesExecute(r O11yAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -10351,7 +10033,7 @@ func (a *O11yAPIService) GetO11yAutocompleteAttributeKeysExecute(r O11yAPIGetO11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10380,6 +10062,14 @@ func (a *O11yAPIService) GetO11yAutocompleteAttributeKeysExecute(r O11yAPIGetO11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -10534,7 +10224,7 @@ func (a *O11yAPIService) GetO11yAutocompleteAttributeValuesExecute(r O11yAPIGetO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10563,133 +10253,14 @@ func (a *O11yAPIService) GetO11yAutocompleteAttributeValuesExecute(r O11yAPIGetO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIGetO11yAvailabilityRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	range_     *int64
-	stepSec    *int64
-}
-
-// Range is the trend window in seconds. Default 3600, capped at 604800 (7d).
-func (r O11yAPIGetO11yAvailabilityRequest) Range_(range_ int64) O11yAPIGetO11yAvailabilityRequest {
-	r.range_ = &range_
-	return r
-}
-
-// StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range.
-func (r O11yAPIGetO11yAvailabilityRequest) StepSec(stepSec int64) O11yAPIGetO11yAvailabilityRequest {
-	r.stepSec = &stepSec
-	return r
-}
-
-func (r O11yAPIGetO11yAvailabilityRequest) Execute() (*O11yAvailabilityResponse, *http.Response, error) {
-	return r.ApiService.GetO11yAvailabilityExecute(r)
-}
-
-/*
-GetO11yAvailability Reports how much of the Hanzo fleet is up — the current per-service inventory plus an up-versus-reporting trend across the window.
-
-Reports how much of the Hanzo fleet is up — the current
-per-service inventory plus an up-versus-reporting trend across the window.
-Both come from the fleet prober's own measurements: every service is asked its
-health URL every 30 seconds, so a service is listed as down because it did not
-answer, never because something failed to collect it. PLATFORM SUDO ONLY —
-this is the whole fleet's inventory, not tenant data, so every customer is
-403. An unreachable telemetry store answers 503 rather than an empty trend,
-because a board of zeroes and a fleet that is down look identical.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIGetO11yAvailabilityRequest
-*/
-func (a *O11yAPIService) GetO11yAvailability(ctx context.Context) O11yAPIGetO11yAvailabilityRequest {
-	return O11yAPIGetO11yAvailabilityRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yAvailabilityResponse
-func (a *O11yAPIService) GetO11yAvailabilityExecute(r O11yAPIGetO11yAvailabilityRequest) (*O11yAvailabilityResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yAvailabilityResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11yAvailability")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/availability"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.range_ != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "range", r.range_, "form", "")
-	}
-	if r.stepSec != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "stepSec", r.stepSec, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -10822,7 +10393,7 @@ func (a *O11yAPIService) GetO11yClustersAttributeKeysExecute(r O11yAPIGetO11yClu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10851,6 +10422,14 @@ func (a *O11yAPIService) GetO11yClustersAttributeKeysExecute(r O11yAPIGetO11yClu
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -11003,7 +10582,7 @@ func (a *O11yAPIService) GetO11yClustersAttributeValuesExecute(r O11yAPIGetO11yC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -11032,6 +10611,14 @@ func (a *O11yAPIService) GetO11yClustersAttributeValuesExecute(r O11yAPIGetO11yC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -11045,188 +10632,6 @@ func (a *O11yAPIService) GetO11yClustersAttributeValuesExecute(r O11yAPIGetO11yC
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIGetO11yCompleteGoogleRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-}
-
-func (r O11yAPIGetO11yCompleteGoogleRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetO11yCompleteGoogleExecute(r)
-}
-
-/*
-GetO11yCompleteGoogle Complete a Google sign-in
-
-The callback Google redirects a user back to after they approve the sign-in. It exchanges the authorization code, establishes the session and answers 303 to the console.
-
-The answer is a Location header and no body, which is why it is not a typed operation — declaring a JSON response for a redirect would publish a shape that does not exist and hide the header that is the entire point.
-
-UNAUTHENTICATED by necessity: it is how a caller GETS a principal, so requiring one would be circular. It is not an open endpoint — the code it carries is single-use and verified against the provider.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIGetO11yCompleteGoogleRequest
-*/
-func (a *O11yAPIService) GetO11yCompleteGoogle(ctx context.Context) O11yAPIGetO11yCompleteGoogleRequest {
-	return O11yAPIGetO11yCompleteGoogleRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) GetO11yCompleteGoogleExecute(r O11yAPIGetO11yCompleteGoogleRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11yCompleteGoogle")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/complete/google"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIGetO11yCompleteOidcRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-}
-
-func (r O11yAPIGetO11yCompleteOidcRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetO11yCompleteOidcExecute(r)
-}
-
-/*
-GetO11yCompleteOidc Complete a generic OIDC sign-in
-
-The callback any configured OIDC provider redirects back to. Same shape and same reasoning as the Google callback: the code is exchanged, the session is established, and the answer is a 303 to the console rather than a body.
-
-UNAUTHENTICATED by necessity — this is the act of obtaining a principal, and the provider's own code is what authenticates it.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIGetO11yCompleteOidcRequest
-*/
-func (a *O11yAPIService) GetO11yCompleteOidc(ctx context.Context) O11yAPIGetO11yCompleteOidcRequest {
-	return O11yAPIGetO11yCompleteOidcRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) GetO11yCompleteOidcExecute(r O11yAPIGetO11yCompleteOidcRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetO11yCompleteOidc")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/complete/oidc"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
 }
 
 type O11yAPIGetO11yDaemonsetsAttributeKeysRequest struct {
@@ -11346,7 +10751,7 @@ func (a *O11yAPIService) GetO11yDaemonsetsAttributeKeysExecute(r O11yAPIGetO11yD
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -11375,6 +10780,14 @@ func (a *O11yAPIService) GetO11yDaemonsetsAttributeKeysExecute(r O11yAPIGetO11yD
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -11527,7 +10940,7 @@ func (a *O11yAPIService) GetO11yDaemonsetsAttributeValuesExecute(r O11yAPIGetO11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -11556,6 +10969,14 @@ func (a *O11yAPIService) GetO11yDaemonsetsAttributeValuesExecute(r O11yAPIGetO11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -11688,7 +11109,7 @@ func (a *O11yAPIService) GetO11yDeploymentsAttributeKeysExecute(r O11yAPIGetO11y
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -11717,6 +11138,14 @@ func (a *O11yAPIService) GetO11yDeploymentsAttributeKeysExecute(r O11yAPIGetO11y
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -11869,7 +11298,7 @@ func (a *O11yAPIService) GetO11yDeploymentsAttributeValuesExecute(r O11yAPIGetO1
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -11898,6 +11327,14 @@ func (a *O11yAPIService) GetO11yDeploymentsAttributeValuesExecute(r O11yAPIGetO1
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -11972,7 +11409,7 @@ func (a *O11yAPIService) GetO11yDisksExecute(r O11yAPIGetO11yDisksRequest) ([]O1
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -12001,6 +11438,14 @@ func (a *O11yAPIService) GetO11yDisksExecute(r O11yAPIGetO11yDisksRequest) ([]O1
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -12107,7 +11552,7 @@ func (a *O11yAPIService) GetO11yErrorfromerroridExecute(r O11yAPIGetO11yErrorfro
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -12136,6 +11581,14 @@ func (a *O11yAPIService) GetO11yErrorfromerroridExecute(r O11yAPIGetO11yErrorfro
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -12242,7 +11695,7 @@ func (a *O11yAPIService) GetO11yErrorfromgroupidExecute(r O11yAPIGetO11yErrorfro
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -12271,6 +11724,14 @@ func (a *O11yAPIService) GetO11yErrorfromgroupidExecute(r O11yAPIGetO11yErrorfro
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -12425,7 +11886,7 @@ func (a *O11yAPIService) GetO11yErrortrackingIssuesExecute(r O11yAPIGetO11yError
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -12454,6 +11915,14 @@ func (a *O11yAPIService) GetO11yErrortrackingIssuesExecute(r O11yAPIGetO11yError
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -12531,7 +12000,7 @@ func (a *O11yAPIService) GetO11yErrortrackingIssuesByIdExecute(r O11yAPIGetO11yE
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -12560,6 +12029,14 @@ func (a *O11yAPIService) GetO11yErrortrackingIssuesByIdExecute(r O11yAPIGetO11yE
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -12664,7 +12141,7 @@ func (a *O11yAPIService) GetO11yExplorerViewsExecute(r O11yAPIGetO11yExplorerVie
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -12693,6 +12170,14 @@ func (a *O11yAPIService) GetO11yExplorerViewsExecute(r O11yAPIGetO11yExplorerVie
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -12770,7 +12255,7 @@ func (a *O11yAPIService) GetO11yExplorerViewsByViewidExecute(r O11yAPIGetO11yExp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -12799,6 +12284,14 @@ func (a *O11yAPIService) GetO11yExplorerViewsByViewidExecute(r O11yAPIGetO11yExp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -12873,7 +12366,7 @@ func (a *O11yAPIService) GetO11yFeaturesExecute(r O11yAPIGetO11yFeaturesRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -12902,6 +12395,14 @@ func (a *O11yAPIService) GetO11yFeaturesExecute(r O11yAPIGetO11yFeaturesRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -13076,7 +12577,7 @@ func (a *O11yAPIService) GetO11yFieldsKeysExecute(r O11yAPIGetO11yFieldsKeysRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -13105,6 +12606,14 @@ func (a *O11yAPIService) GetO11yFieldsKeysExecute(r O11yAPIGetO11yFieldsKeysRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -13299,7 +12808,7 @@ func (a *O11yAPIService) GetO11yFieldsValuesExecute(r O11yAPIGetO11yFieldsValues
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -13328,6 +12837,14 @@ func (a *O11yAPIService) GetO11yFieldsValuesExecute(r O11yAPIGetO11yFieldsValues
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -13454,7 +12971,7 @@ func (a *O11yAPIService) GetO11yFilterSuggestionsExecute(r O11yAPIGetO11yFilterS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -13483,6 +13000,14 @@ func (a *O11yAPIService) GetO11yFilterSuggestionsExecute(r O11yAPIGetO11yFilterS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -13558,7 +13083,7 @@ func (a *O11yAPIService) GetO11yGlobalConfigExecute(r O11yAPIGetO11yGlobalConfig
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -13587,6 +13112,14 @@ func (a *O11yAPIService) GetO11yGlobalConfigExecute(r O11yAPIGetO11yGlobalConfig
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -13671,7 +13204,7 @@ func (a *O11yAPIService) GetO11yHealthExecute(r O11yAPIGetO11yHealthRequest) (*O
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -13700,6 +13233,14 @@ func (a *O11yAPIService) GetO11yHealthExecute(r O11yAPIGetO11yHealthRequest) (*O
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -13923,7 +13464,7 @@ func (a *O11yAPIService) GetO11yHostsAttributeKeysExecute(r O11yAPIGetO11yHostsA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -13952,6 +13493,14 @@ func (a *O11yAPIService) GetO11yHostsAttributeKeysExecute(r O11yAPIGetO11yHostsA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14104,7 +13653,7 @@ func (a *O11yAPIService) GetO11yHostsAttributeValuesExecute(r O11yAPIGetO11yHost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14133,6 +13682,14 @@ func (a *O11yAPIService) GetO11yHostsAttributeValuesExecute(r O11yAPIGetO11yHost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14219,7 +13776,7 @@ func (a *O11yAPIService) GetO11yInfraMonitoringChecksExecute(r O11yAPIGetO11yInf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14248,6 +13805,14 @@ func (a *O11yAPIService) GetO11yInfraMonitoringChecksExecute(r O11yAPIGetO11yInf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14323,7 +13888,7 @@ func (a *O11yAPIService) GetO11yInfraOnboardingK8sStatusExecute(r O11yAPIGetO11y
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14352,6 +13917,14 @@ func (a *O11yAPIService) GetO11yInfraOnboardingK8sStatusExecute(r O11yAPIGetO11y
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14484,7 +14057,7 @@ func (a *O11yAPIService) GetO11yJobsAttributeKeysExecute(r O11yAPIGetO11yJobsAtt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14513,6 +14086,14 @@ func (a *O11yAPIService) GetO11yJobsAttributeKeysExecute(r O11yAPIGetO11yJobsAtt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14665,7 +14246,7 @@ func (a *O11yAPIService) GetO11yJobsAttributeValuesExecute(r O11yAPIGetO11yJobsA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14694,6 +14275,14 @@ func (a *O11yAPIService) GetO11yJobsAttributeValuesExecute(r O11yAPIGetO11yJobsA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14768,7 +14357,7 @@ func (a *O11yAPIService) GetO11yLicensesExecute(r O11yAPIGetO11yLicensesRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14797,6 +14386,14 @@ func (a *O11yAPIService) GetO11yLicensesExecute(r O11yAPIGetO11yLicensesRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14871,7 +14468,7 @@ func (a *O11yAPIService) GetO11yLicensesActiveExecute(r O11yAPIGetO11yLicensesAc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14900,6 +14497,14 @@ func (a *O11yAPIService) GetO11yLicensesActiveExecute(r O11yAPIGetO11yLicensesAc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15185,7 +14790,7 @@ func (a *O11yAPIService) GetO11yLogsExecute(r O11yAPIGetO11yLogsRequest) (*O11yO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15214,6 +14819,14 @@ func (a *O11yAPIService) GetO11yLogsExecute(r O11yAPIGetO11yLogsRequest) (*O11yO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15288,7 +14901,7 @@ func (a *O11yAPIService) GetO11yLogsAggregateExecute(r O11yAPIGetO11yLogsAggrega
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15317,6 +14930,14 @@ func (a *O11yAPIService) GetO11yLogsAggregateExecute(r O11yAPIGetO11yLogsAggrega
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15391,7 +15012,7 @@ func (a *O11yAPIService) GetO11yLogsFieldsExecute(r O11yAPIGetO11yLogsFieldsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15420,6 +15041,14 @@ func (a *O11yAPIService) GetO11yLogsFieldsExecute(r O11yAPIGetO11yLogsFieldsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15591,7 +15220,7 @@ func (a *O11yAPIService) GetO11yLogsPipelinesByVersionExecute(r O11yAPIGetO11yLo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15620,6 +15249,14 @@ func (a *O11yAPIService) GetO11yLogsPipelinesByVersionExecute(r O11yAPIGetO11yLo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15694,7 +15331,7 @@ func (a *O11yAPIService) GetO11yLogsPromotePathsExecute(r O11yAPIGetO11yLogsProm
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15723,6 +15360,14 @@ func (a *O11yAPIService) GetO11yLogsPromotePathsExecute(r O11yAPIGetO11yLogsProm
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15824,7 +15469,7 @@ func (a *O11yAPIService) GetO11yMetricMetricMetadataExecute(r O11yAPIGetO11yMetr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15853,6 +15498,14 @@ func (a *O11yAPIService) GetO11yMetricMetricMetadataExecute(r O11yAPIGetO11yMetr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15985,7 +15638,7 @@ func (a *O11yAPIService) GetO11yNamespacesAttributeKeysExecute(r O11yAPIGetO11yN
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16014,6 +15667,14 @@ func (a *O11yAPIService) GetO11yNamespacesAttributeKeysExecute(r O11yAPIGetO11yN
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16166,7 +15827,7 @@ func (a *O11yAPIService) GetO11yNamespacesAttributeValuesExecute(r O11yAPIGetO11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16195,6 +15856,14 @@ func (a *O11yAPIService) GetO11yNamespacesAttributeValuesExecute(r O11yAPIGetO11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16302,7 +15971,7 @@ func (a *O11yAPIService) GetO11yNextpreverroridsExecute(r O11yAPIGetO11yNextprev
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16331,6 +16000,14 @@ func (a *O11yAPIService) GetO11yNextpreverroridsExecute(r O11yAPIGetO11yNextprev
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16463,7 +16140,7 @@ func (a *O11yAPIService) GetO11yNodesAttributeKeysExecute(r O11yAPIGetO11yNodesA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16492,6 +16169,14 @@ func (a *O11yAPIService) GetO11yNodesAttributeKeysExecute(r O11yAPIGetO11yNodesA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16644,7 +16329,7 @@ func (a *O11yAPIService) GetO11yNodesAttributeValuesExecute(r O11yAPIGetO11yNode
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16673,6 +16358,14 @@ func (a *O11yAPIService) GetO11yNodesAttributeValuesExecute(r O11yAPIGetO11yNode
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16805,7 +16498,7 @@ func (a *O11yAPIService) GetO11yPodsAttributeKeysExecute(r O11yAPIGetO11yPodsAtt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16834,6 +16527,14 @@ func (a *O11yAPIService) GetO11yPodsAttributeKeysExecute(r O11yAPIGetO11yPodsAtt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16986,7 +16687,7 @@ func (a *O11yAPIService) GetO11yPodsAttributeValuesExecute(r O11yAPIGetO11yPodsA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -17015,6 +16716,14 @@ func (a *O11yAPIService) GetO11yPodsAttributeValuesExecute(r O11yAPIGetO11yPodsA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -17147,7 +16856,7 @@ func (a *O11yAPIService) GetO11yProcessesAttributeKeysExecute(r O11yAPIGetO11yPr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -17176,6 +16885,14 @@ func (a *O11yAPIService) GetO11yProcessesAttributeKeysExecute(r O11yAPIGetO11yPr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -17328,7 +17045,7 @@ func (a *O11yAPIService) GetO11yProcessesAttributeValuesExecute(r O11yAPIGetO11y
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -17357,6 +17074,14 @@ func (a *O11yAPIService) GetO11yProcessesAttributeValuesExecute(r O11yAPIGetO11y
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -17464,7 +17189,7 @@ func (a *O11yAPIService) GetO11yProductMetricsExecute(r O11yAPIGetO11yProductMet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -17493,6 +17218,14 @@ func (a *O11yAPIService) GetO11yProductMetricsExecute(r O11yAPIGetO11yProductMet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -17625,7 +17358,7 @@ func (a *O11yAPIService) GetO11yPvcsAttributeKeysExecute(r O11yAPIGetO11yPvcsAtt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -17654,6 +17387,14 @@ func (a *O11yAPIService) GetO11yPvcsAttributeKeysExecute(r O11yAPIGetO11yPvcsAtt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -17806,7 +17547,7 @@ func (a *O11yAPIService) GetO11yPvcsAttributeValuesExecute(r O11yAPIGetO11yPvcsA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -17835,6 +17576,14 @@ func (a *O11yAPIService) GetO11yPvcsAttributeValuesExecute(r O11yAPIGetO11yPvcsA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -17954,7 +17703,7 @@ func (a *O11yAPIService) GetO11yQueryExecute(r O11yAPIGetO11yQueryRequest) (*O11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -17983,6 +17732,14 @@ func (a *O11yAPIService) GetO11yQueryExecute(r O11yAPIGetO11yQueryRequest) (*O11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -18216,7 +17973,7 @@ func (a *O11yAPIService) GetO11yQueryRangeExecute(r O11yAPIGetO11yQueryRangeRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -18245,6 +18002,14 @@ func (a *O11yAPIService) GetO11yQueryRangeExecute(r O11yAPIGetO11yQueryRangeRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -18428,7 +18193,7 @@ func (a *O11yAPIService) GetO11yReviewsExecute(r O11yAPIGetO11yReviewsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -18457,6 +18222,14 @@ func (a *O11yAPIService) GetO11yReviewsExecute(r O11yAPIGetO11yReviewsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -18534,7 +18307,7 @@ func (a *O11yAPIService) GetO11yReviewsByIdExecute(r O11yAPIGetO11yReviewsByIdRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -18563,6 +18336,14 @@ func (a *O11yAPIService) GetO11yReviewsByIdExecute(r O11yAPIGetO11yReviewsByIdRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -18670,7 +18451,7 @@ func (a *O11yAPIService) GetO11yReviewsByIdItemsExecute(r O11yAPIGetO11yReviewsB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -18699,6 +18480,14 @@ func (a *O11yAPIService) GetO11yReviewsByIdItemsExecute(r O11yAPIGetO11yReviewsB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -18787,7 +18576,7 @@ func (a *O11yAPIService) GetO11ySentinelEventsByIdExecute(r O11yAPIGetO11ySentin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -18816,6 +18605,14 @@ func (a *O11yAPIService) GetO11ySentinelEventsByIdExecute(r O11yAPIGetO11ySentin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -18991,7 +18788,7 @@ func (a *O11yAPIService) GetO11ySentinelIssuesExecute(r O11yAPIGetO11ySentinelIs
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -19020,6 +18817,14 @@ func (a *O11yAPIService) GetO11ySentinelIssuesExecute(r O11yAPIGetO11ySentinelIs
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -19098,7 +18903,7 @@ func (a *O11yAPIService) GetO11ySentinelIssuesByIdExecute(r O11yAPIGetO11ySentin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -19127,6 +18932,14 @@ func (a *O11yAPIService) GetO11ySentinelIssuesByIdExecute(r O11yAPIGetO11ySentin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -19227,7 +19040,7 @@ func (a *O11yAPIService) GetO11ySentinelIssuesByIdEventsExecute(r O11yAPIGetO11y
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -19256,6 +19069,14 @@ func (a *O11yAPIService) GetO11ySentinelIssuesByIdEventsExecute(r O11yAPIGetO11y
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -19369,7 +19190,7 @@ func (a *O11yAPIService) GetO11ySentinelLogsExecute(r O11yAPIGetO11ySentinelLogs
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -19398,6 +19219,14 @@ func (a *O11yAPIService) GetO11ySentinelLogsExecute(r O11yAPIGetO11ySentinelLogs
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -19423,10 +19252,10 @@ func (r O11yAPIGetO11ySentinelProjectsRequest) Execute() (*O11yO11ySentryProject
 }
 
 /*
-GetO11ySentinelProjects Lists the caller's org's Sentry projects, each with its freshly-derived DSN.
+GetO11ySentinelProjects Lists the caller's org's Sentry projects — one per product that has reported an error, plus any created by hand.
 
-Lists the caller's org's Sentry projects, each with its
-freshly-derived DSN.
+Lists the caller's org's Sentry projects — one per product
+that has reported an error, plus any created by hand.
 
 Callers need the viewer role; the runtime's own gate enforces it.
 
@@ -19472,7 +19301,7 @@ func (a *O11yAPIService) GetO11ySentinelProjectsExecute(r O11yAPIGetO11ySentinel
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -19501,6 +19330,14 @@ func (a *O11yAPIService) GetO11ySentinelProjectsExecute(r O11yAPIGetO11ySentinel
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -19527,9 +19364,9 @@ func (r O11yAPIGetO11ySentinelProjectsByIdRequest) Execute() (*O11yO11ySentryPro
 }
 
 /*
-GetO11ySentinelProjectsById Returns one Sentry project of the caller's org, DSN included.
+GetO11ySentinelProjectsById Returns one Sentry project of the caller's org.
 
-Returns one Sentry project of the caller's org, DSN included.
+Returns one Sentry project of the caller's org.
 
 Callers need the viewer role; the runtime's own gate enforces it.
 
@@ -19578,7 +19415,7 @@ func (a *O11yAPIService) GetO11ySentinelProjectsByIdExecute(r O11yAPIGetO11ySent
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -19607,6 +19444,14 @@ func (a *O11yAPIService) GetO11ySentinelProjectsByIdExecute(r O11yAPIGetO11ySent
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -19710,7 +19555,7 @@ func (a *O11yAPIService) GetO11ySentinelStatsExecute(r O11yAPIGetO11ySentinelSta
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -19739,6 +19584,14 @@ func (a *O11yAPIService) GetO11ySentinelStatsExecute(r O11yAPIGetO11ySentinelSta
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -19843,7 +19696,7 @@ func (a *O11yAPIService) GetO11ySentinelTracesExecute(r O11yAPIGetO11ySentinelTr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -19872,6 +19725,14 @@ func (a *O11yAPIService) GetO11ySentinelTracesExecute(r O11yAPIGetO11ySentinelTr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -19959,7 +19820,7 @@ func (a *O11yAPIService) GetO11ySentinelTracesByIdExecute(r O11yAPIGetO11ySentin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -19988,6 +19849,14 @@ func (a *O11yAPIService) GetO11ySentinelTracesByIdExecute(r O11yAPIGetO11ySentin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -20060,7 +19929,7 @@ func (a *O11yAPIService) GetO11yServicesListExecute(r O11yAPIGetO11yServicesList
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -20089,6 +19958,14 @@ func (a *O11yAPIService) GetO11yServicesListExecute(r O11yAPIGetO11yServicesList
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -20264,7 +20141,7 @@ func (a *O11yAPIService) GetO11ySettingsApdexExecute(r O11yAPIGetO11ySettingsApd
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -20293,6 +20170,14 @@ func (a *O11yAPIService) GetO11ySettingsApdexExecute(r O11yAPIGetO11ySettingsApd
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -20367,7 +20252,7 @@ func (a *O11yAPIService) GetO11ySettingsTtlExecute(r O11yAPIGetO11ySettingsTtlRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -20396,6 +20281,14 @@ func (a *O11yAPIService) GetO11ySettingsTtlExecute(r O11yAPIGetO11ySettingsTtlRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -20528,7 +20421,7 @@ func (a *O11yAPIService) GetO11yStatefulsetsAttributeKeysExecute(r O11yAPIGetO11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -20557,6 +20450,14 @@ func (a *O11yAPIService) GetO11yStatefulsetsAttributeKeysExecute(r O11yAPIGetO11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -20709,7 +20610,7 @@ func (a *O11yAPIService) GetO11yStatefulsetsAttributeValuesExecute(r O11yAPIGetO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -20738,6 +20639,14 @@ func (a *O11yAPIService) GetO11yStatefulsetsAttributeValuesExecute(r O11yAPIGetO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -20813,7 +20722,7 @@ func (a *O11yAPIService) GetO11yStatsExecute(r O11yAPIGetO11yStatsRequest) (*O11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -20842,6 +20751,14 @@ func (a *O11yAPIService) GetO11yStatsExecute(r O11yAPIGetO11yStatsRequest) (*O11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -20928,7 +20845,7 @@ func (a *O11yAPIService) GetO11yStatusExecute(r O11yAPIGetO11yStatusRequest) (*O
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -20957,6 +20874,14 @@ func (a *O11yAPIService) GetO11yStatusExecute(r O11yAPIGetO11yStatusRequest) (*O
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -21037,7 +20962,7 @@ func (a *O11yAPIService) GetO11ySummaryExecute(r O11yAPIGetO11ySummaryRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -21066,6 +20991,14 @@ func (a *O11yAPIService) GetO11ySummaryExecute(r O11yAPIGetO11ySummaryRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -21175,7 +21108,7 @@ func (a *O11yAPIService) GetO11yTracesExecute(r O11yAPIGetO11yTracesRequest) (*O
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -21204,6 +21137,14 @@ func (a *O11yAPIService) GetO11yTracesExecute(r O11yAPIGetO11yTracesRequest) (*O
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -21320,7 +21261,7 @@ func (a *O11yAPIService) GetO11yUsageExecute(r O11yAPIGetO11yUsageRequest) ([]O1
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -21349,6 +21290,14 @@ func (a *O11yAPIService) GetO11yUsageExecute(r O11yAPIGetO11yUsageRequest) ([]O1
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -21424,7 +21373,7 @@ func (a *O11yAPIService) GetO11yVersionExecute(r O11yAPIGetO11yVersionRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -21453,6 +21402,14 @@ func (a *O11yAPIService) GetO11yVersionExecute(r O11yAPIGetO11yVersionRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -21528,7 +21485,7 @@ func (a *O11yAPIService) GetOrgPreferenceExecute(r O11yAPIGetOrgPreferenceReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -21557,6 +21514,14 @@ func (a *O11yAPIService) GetOrgPreferenceExecute(r O11yAPIGetOrgPreferenceReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -21642,7 +21607,7 @@ func (a *O11yAPIService) GetOverallStateTransitionsExecute(r O11yAPIGetOverallSt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -21673,6 +21638,14 @@ func (a *O11yAPIService) GetOverallStateTransitionsExecute(r O11yAPIGetOverallSt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -21750,7 +21723,7 @@ func (a *O11yAPIService) GetPublicDashboardExecute(r O11yAPIGetPublicDashboardRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -21779,6 +21752,14 @@ func (a *O11yAPIService) GetPublicDashboardExecute(r O11yAPIGetPublicDashboardRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -21858,7 +21839,7 @@ func (a *O11yAPIService) GetPublicDashboardDataExecute(r O11yAPIGetPublicDashboa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -21887,6 +21868,14 @@ func (a *O11yAPIService) GetPublicDashboardDataExecute(r O11yAPIGetPublicDashboa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -21992,7 +21981,7 @@ func (a *O11yAPIService) GetPublicDashboardWidgetQueryRangeExecute(r O11yAPIGetP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -22021,6 +22010,14 @@ func (a *O11yAPIService) GetPublicDashboardWidgetQueryRangeExecute(r O11yAPIGetP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -22093,7 +22090,7 @@ func (a *O11yAPIService) GetQuickFiltersExecute(r O11yAPIGetQuickFiltersRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -22122,217 +22119,14 @@ func (a *O11yAPIService) GetQuickFiltersExecute(r O11yAPIGetQuickFiltersRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIGetResetPasswordTokenRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPIGetResetPasswordTokenRequest) Execute() (*O11yO11yResetTokenOut, *http.Response, error) {
-	return r.ApiService.GetResetPasswordTokenExecute(r)
-}
-
-/*
-GetResetPasswordToken Returns the reset-password token a user already has; absent one, the answer is a not-found rather than a fresh token.
-
-Returns the reset-password token a user already has; absent
-one, the answer is a not-found rather than a fresh token. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIGetResetPasswordTokenRequest
-*/
-func (a *O11yAPIService) GetResetPasswordToken(ctx context.Context, id string) O11yAPIGetResetPasswordTokenRequest {
-	return O11yAPIGetResetPasswordTokenRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yResetTokenOut
-func (a *O11yAPIService) GetResetPasswordTokenExecute(r O11yAPIGetResetPasswordTokenRequest) (*O11yO11yResetTokenOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yResetTokenOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetResetPasswordToken")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/users/{id}/reset_password_tokens"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIGetResetPasswordTokenDeprecatedRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPIGetResetPasswordTokenDeprecatedRequest) Execute() (*O11yO11yResetTokenOut, *http.Response, error) {
-	return r.ApiService.GetResetPasswordTokenDeprecatedExecute(r)
-}
-
-/*
-GetResetPasswordTokenDeprecated Returns a user's password-reset token, creating one if none is live.
-
-Returns a user's password-reset token, creating one
-if none is live. Deprecated in favor of the reset_password_tokens pair,
-which separates reading from minting. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIGetResetPasswordTokenDeprecatedRequest
-*/
-func (a *O11yAPIService) GetResetPasswordTokenDeprecated(ctx context.Context, id string) O11yAPIGetResetPasswordTokenDeprecatedRequest {
-	return O11yAPIGetResetPasswordTokenDeprecatedRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yResetTokenOut
-func (a *O11yAPIService) GetResetPasswordTokenDeprecatedExecute(r O11yAPIGetResetPasswordTokenDeprecatedRequest) (*O11yO11yResetTokenOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yResetTokenOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetResetPasswordTokenDeprecated")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/getResetPasswordToken/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -22408,7 +22202,7 @@ func (a *O11yAPIService) GetRoleExecute(r O11yAPIGetRoleRequest) (*O11yO11yRoleO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -22437,111 +22231,14 @@ func (a *O11yAPIService) GetRoleExecute(r O11yAPIGetRoleRequest) (*O11yO11yRoleO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIGetRolesByUserIDRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPIGetRolesByUserIDRequest) Execute() (*O11yO11yRolesOut, *http.Response, error) {
-	return r.ApiService.GetRolesByUserIDExecute(r)
-}
-
-/*
-GetRolesByUserID Returns every role one org member holds, by user id.
-
-Returns every role one org member holds, by user id. Admin
-gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIGetRolesByUserIDRequest
-*/
-func (a *O11yAPIService) GetRolesByUserID(ctx context.Context, id string) O11yAPIGetRolesByUserIDRequest {
-	return O11yAPIGetRolesByUserIDRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yRolesOut
-func (a *O11yAPIService) GetRolesByUserIDExecute(r O11yAPIGetRolesByUserIDRequest) (*O11yO11yRolesOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yRolesOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetRolesByUserID")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/users/{id}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -22617,7 +22314,7 @@ func (a *O11yAPIService) GetRoutePolicyByIDExecute(r O11yAPIGetRoutePolicyByIDRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -22646,6 +22343,14 @@ func (a *O11yAPIService) GetRoutePolicyByIDExecute(r O11yAPIGetRoutePolicyByIDRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -22721,7 +22426,7 @@ func (a *O11yAPIService) GetRuleByIDExecute(r O11yAPIGetRuleByIDRequest) (*O11yO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -22750,6 +22455,14 @@ func (a *O11yAPIService) GetRuleByIDExecute(r O11yAPIGetRuleByIDRequest) (*O11yO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -22866,7 +22579,7 @@ func (a *O11yAPIService) GetRuleHistoryFilterKeysExecute(r O11yAPIGetRuleHistory
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -22895,6 +22608,14 @@ func (a *O11yAPIService) GetRuleHistoryFilterKeysExecute(r O11yAPIGetRuleHistory
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -23028,7 +22749,7 @@ func (a *O11yAPIService) GetRuleHistoryFilterValuesExecute(r O11yAPIGetRuleHisto
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -23057,6 +22778,14 @@ func (a *O11yAPIService) GetRuleHistoryFilterValuesExecute(r O11yAPIGetRuleHisto
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -23153,7 +22882,7 @@ func (a *O11yAPIService) GetRuleHistoryOverallStatusExecute(r O11yAPIGetRuleHist
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -23182,6 +22911,14 @@ func (a *O11yAPIService) GetRuleHistoryOverallStatusExecute(r O11yAPIGetRuleHist
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -23278,7 +23015,7 @@ func (a *O11yAPIService) GetRuleHistoryStatsExecute(r O11yAPIGetRuleHistoryStats
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -23307,6 +23044,14 @@ func (a *O11yAPIService) GetRuleHistoryStatsExecute(r O11yAPIGetRuleHistoryStats
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -23453,7 +23198,7 @@ func (a *O11yAPIService) GetRuleHistoryTimelineExecute(r O11yAPIGetRuleHistoryTi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -23482,6 +23227,14 @@ func (a *O11yAPIService) GetRuleHistoryTimelineExecute(r O11yAPIGetRuleHistoryTi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -23578,7 +23331,7 @@ func (a *O11yAPIService) GetRuleHistoryTopContributorsExecute(r O11yAPIGetRuleHi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -23607,6 +23360,14 @@ func (a *O11yAPIService) GetRuleHistoryTopContributorsExecute(r O11yAPIGetRuleHi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -23692,7 +23453,7 @@ func (a *O11yAPIService) GetRuleStateHistoryExecute(r O11yAPIGetRuleStateHistory
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -23723,6 +23484,14 @@ func (a *O11yAPIService) GetRuleStateHistoryExecute(r O11yAPIGetRuleStateHistory
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -23808,7 +23577,7 @@ func (a *O11yAPIService) GetRuleStateHistoryTopContributorsExecute(r O11yAPIGetR
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -23839,6 +23608,14 @@ func (a *O11yAPIService) GetRuleStateHistoryTopContributorsExecute(r O11yAPIGetR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -23924,7 +23701,7 @@ func (a *O11yAPIService) GetRuleStatsExecute(r O11yAPIGetRuleStatsRequest) (*O11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -23955,6 +23732,14 @@ func (a *O11yAPIService) GetRuleStatsExecute(r O11yAPIGetRuleStatsRequest) (*O11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -24045,7 +23830,7 @@ func (a *O11yAPIService) GetServiceExecute(r O11yAPIGetServiceRequest) (*O11yO11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -24074,6 +23859,14 @@ func (a *O11yAPIService) GetServiceExecute(r O11yAPIGetServiceRequest) (*O11yO11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -24149,7 +23942,7 @@ func (a *O11yAPIService) GetServiceAccountExecute(r O11yAPIGetServiceAccountRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -24178,6 +23971,14 @@ func (a *O11yAPIService) GetServiceAccountExecute(r O11yAPIGetServiceAccountRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -24253,7 +24054,7 @@ func (a *O11yAPIService) GetServiceAccountRolesExecute(r O11yAPIGetServiceAccoun
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -24282,128 +24083,14 @@ func (a *O11yAPIService) GetServiceAccountRolesExecute(r O11yAPIGetServiceAccoun
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIGetSessionContextRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	email      *string
-	ref        *string
-}
-
-// Email is the address about to sign in. Required.
-func (r O11yAPIGetSessionContextRequest) Email(email string) O11yAPIGetSessionContextRequest {
-	r.email = &email
-	return r
-}
-
-// Ref is the page the sign-in started from, carried into SSO redirects.
-func (r O11yAPIGetSessionContextRequest) Ref(ref string) O11yAPIGetSessionContextRequest {
-	r.ref = &ref
-	return r
-}
-
-func (r O11yAPIGetSessionContextRequest) Execute() (*O11yO11ySessionContextOut, *http.Response, error) {
-	return r.ApiService.GetSessionContextExecute(r)
-}
-
-/*
-GetSessionContext Tells a sign-in page what an email address can do: which orgs the address belongs to and, per org, which password and SSO routes are open to it.
-
-Tells a sign-in page what an email address can do: which
-orgs the address belongs to and, per org, which password and SSO routes are
-open to it. Unauthenticated: it runs before any session exists.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIGetSessionContextRequest
-*/
-func (a *O11yAPIService) GetSessionContext(ctx context.Context) O11yAPIGetSessionContextRequest {
-	return O11yAPIGetSessionContextRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11ySessionContextOut
-func (a *O11yAPIService) GetSessionContextExecute(r O11yAPIGetSessionContextRequest) (*O11yO11ySessionContextOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11ySessionContextOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetSessionContext")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/sessions/context"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.email != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "email", r.email, "form", "")
-	}
-	if r.ref != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ref", r.ref, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -24480,7 +24167,7 @@ func (a *O11yAPIService) GetSignalFiltersExecute(r O11yAPIGetSignalFiltersReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -24509,6 +24196,14 @@ func (a *O11yAPIService) GetSignalFiltersExecute(r O11yAPIGetSignalFiltersReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -24597,7 +24292,7 @@ func (a *O11yAPIService) GetTraceAggregationsExecute(r O11yAPIGetTraceAggregatio
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -24628,6 +24323,14 @@ func (a *O11yAPIService) GetTraceAggregationsExecute(r O11yAPIGetTraceAggregatio
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -24702,7 +24405,7 @@ func (a *O11yAPIService) GetTraceFieldsExecute(r O11yAPIGetTraceFieldsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -24731,6 +24434,14 @@ func (a *O11yAPIService) GetTraceFieldsExecute(r O11yAPIGetTraceFieldsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -24808,7 +24519,7 @@ func (a *O11yAPIService) GetTraceFunnelExecute(r O11yAPIGetTraceFunnelRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -24837,6 +24548,14 @@ func (a *O11yAPIService) GetTraceFunnelExecute(r O11yAPIGetTraceFunnelRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -24922,7 +24641,7 @@ func (a *O11yAPIService) GetTraceFunnelErrorTracesExecute(r O11yAPIGetTraceFunne
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -24953,6 +24672,14 @@ func (a *O11yAPIService) GetTraceFunnelErrorTracesExecute(r O11yAPIGetTraceFunne
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -25038,7 +24765,7 @@ func (a *O11yAPIService) GetTraceFunnelOverviewExecute(r O11yAPIGetTraceFunnelOv
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -25069,6 +24796,14 @@ func (a *O11yAPIService) GetTraceFunnelOverviewExecute(r O11yAPIGetTraceFunnelOv
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -25154,7 +24889,7 @@ func (a *O11yAPIService) GetTraceFunnelSlowTracesExecute(r O11yAPIGetTraceFunnel
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -25185,6 +24920,14 @@ func (a *O11yAPIService) GetTraceFunnelSlowTracesExecute(r O11yAPIGetTraceFunnel
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -25270,7 +25013,7 @@ func (a *O11yAPIService) GetTraceFunnelStepMetricsExecute(r O11yAPIGetTraceFunne
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -25301,6 +25044,14 @@ func (a *O11yAPIService) GetTraceFunnelStepMetricsExecute(r O11yAPIGetTraceFunne
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -25386,7 +25137,7 @@ func (a *O11yAPIService) GetTraceFunnelStepOverviewExecute(r O11yAPIGetTraceFunn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -25417,217 +25168,14 @@ func (a *O11yAPIService) GetTraceFunnelStepOverviewExecute(r O11yAPIGetTraceFunn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIGetUserRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPIGetUserRequest) Execute() (*O11yO11yUserWithRolesOut, *http.Response, error) {
-	return r.ApiService.GetUserExecute(r)
-}
-
-/*
-GetUser Returns one org member together with every role they hold, by user id.
-
-Returns one org member together with every role they hold, by user
-id. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIGetUserRequest
-*/
-func (a *O11yAPIService) GetUser(ctx context.Context, id string) O11yAPIGetUserRequest {
-	return O11yAPIGetUserRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yUserWithRolesOut
-func (a *O11yAPIService) GetUserExecute(r O11yAPIGetUserRequest) (*O11yO11yUserWithRolesOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yUserWithRolesOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetUser")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/users/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIGetUserDeprecatedRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPIGetUserDeprecatedRequest) Execute() (*O11yO11yDeprecatedUserOut, *http.Response, error) {
-	return r.ApiService.GetUserDeprecatedExecute(r)
-}
-
-/*
-GetUserDeprecated Returns one org member with their single legacy role, by user id.
-
-Returns one org member with their single legacy role, by
-user id. Admins may read anyone; a non-admin only themselves (the runtime's
-self-access gate).
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIGetUserDeprecatedRequest
-*/
-func (a *O11yAPIService) GetUserDeprecated(ctx context.Context, id string) O11yAPIGetUserDeprecatedRequest {
-	return O11yAPIGetUserDeprecatedRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yDeprecatedUserOut
-func (a *O11yAPIService) GetUserDeprecatedExecute(r O11yAPIGetUserDeprecatedRequest) (*O11yO11yDeprecatedUserOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yDeprecatedUserOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetUserDeprecated")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/user/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -25704,7 +25252,7 @@ func (a *O11yAPIService) GetUserPreferenceExecute(r O11yAPIGetUserPreferenceRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -25733,111 +25281,14 @@ func (a *O11yAPIService) GetUserPreferenceExecute(r O11yAPIGetUserPreferenceRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIGetUsersByRoleIDRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPIGetUsersByRoleIDRequest) Execute() (*O11yO11yUsersOut, *http.Response, error) {
-	return r.ApiService.GetUsersByRoleIDExecute(r)
-}
-
-/*
-GetUsersByRoleID Returns every org member holding a role, by role id.
-
-Returns every org member holding a role, by role id. Admin
-gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIGetUsersByRoleIDRequest
-*/
-func (a *O11yAPIService) GetUsersByRoleID(ctx context.Context, id string) O11yAPIGetUsersByRoleIDRequest {
-	return O11yAPIGetUsersByRoleIDRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yUsersOut
-func (a *O11yAPIService) GetUsersByRoleIDExecute(r O11yAPIGetUsersByRoleIDRequest) (*O11yO11yUsersOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yUsersOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.GetUsersByRoleID")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/roles/{id}/users"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -25926,7 +25377,7 @@ func (a *O11yAPIService) GetWaterfallV4Execute(r O11yAPIGetWaterfallV4Request) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -25957,6 +25408,14 @@ func (a *O11yAPIService) GetWaterfallV4Execute(r O11yAPIGetWaterfallV4Request) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -26038,7 +25497,7 @@ func (a *O11yAPIService) InspectMetricsExecute(r O11yAPIInspectMetricsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -26069,6 +25528,14 @@ func (a *O11yAPIService) InspectMetricsExecute(r O11yAPIInspectMetricsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -26150,7 +25617,7 @@ func (a *O11yAPIService) InstallIntegrationExecute(r O11yAPIInstallIntegrationRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -26181,6 +25648,14 @@ func (a *O11yAPIService) InstallIntegrationExecute(r O11yAPIInstallIntegrationRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -26261,7 +25736,7 @@ func (a *O11yAPIService) ListAccountServicesMetadataExecute(r O11yAPIListAccount
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -26290,6 +25765,14 @@ func (a *O11yAPIService) ListAccountServicesMetadataExecute(r O11yAPIListAccount
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -26366,7 +25849,7 @@ func (a *O11yAPIService) ListAccountsExecute(r O11yAPIListAccountsRequest) (*O11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -26395,107 +25878,14 @@ func (a *O11yAPIService) ListAccountsExecute(r O11yAPIListAccountsRequest) (*O11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIListAuthDomainsRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-}
-
-func (r O11yAPIListAuthDomainsRequest) Execute() (*O11yO11yAuthDomainsOut, *http.Response, error) {
-	return r.ApiService.ListAuthDomainsExecute(r)
-}
-
-/*
-ListAuthDomains Lists the org's auth domains — the email domains whose SSO configuration this org owns.
-
-Lists the org's auth domains — the email domains whose SSO
-configuration this org owns. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIListAuthDomainsRequest
-*/
-func (a *O11yAPIService) ListAuthDomains(ctx context.Context) O11yAPIListAuthDomainsRequest {
-	return O11yAPIListAuthDomainsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yAuthDomainsOut
-func (a *O11yAPIService) ListAuthDomainsExecute(r O11yAPIListAuthDomainsRequest) (*O11yO11yAuthDomainsOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yAuthDomainsOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.ListAuthDomains")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/domains"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -26567,7 +25957,7 @@ func (a *O11yAPIService) ListChannelsExecute(r O11yAPIListChannelsRequest) (*O11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -26596,6 +25986,14 @@ func (a *O11yAPIService) ListChannelsExecute(r O11yAPIListChannelsRequest) (*O11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -26670,7 +26068,7 @@ func (a *O11yAPIService) ListDashboardViewsExecute(r O11yAPIListDashboardViewsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -26699,6 +26097,14 @@ func (a *O11yAPIService) ListDashboardViewsExecute(r O11yAPIListDashboardViewsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -26825,7 +26231,7 @@ func (a *O11yAPIService) ListDashboardsForUserV2Execute(r O11yAPIListDashboardsF
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -26854,6 +26260,14 @@ func (a *O11yAPIService) ListDashboardsForUserV2Execute(r O11yAPIListDashboardsF
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -26981,7 +26395,7 @@ func (a *O11yAPIService) ListDashboardsV2Execute(r O11yAPIListDashboardsV2Reques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -27010,6 +26424,14 @@ func (a *O11yAPIService) ListDashboardsV2Execute(r O11yAPIListDashboardsV2Reques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -27102,7 +26524,7 @@ func (a *O11yAPIService) ListDowntimeSchedulesExecute(r O11yAPIListDowntimeSched
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -27131,6 +26553,14 @@ func (a *O11yAPIService) ListDowntimeSchedulesExecute(r O11yAPIListDowntimeSched
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -27214,7 +26644,7 @@ func (a *O11yAPIService) ListIntegrationsExecute(r O11yAPIListIntegrationsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -27243,6 +26673,14 @@ func (a *O11yAPIService) ListIntegrationsExecute(r O11yAPIListIntegrationsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -27367,7 +26805,7 @@ func (a *O11yAPIService) ListLLMAnnotationsExecute(r O11yAPIListLLMAnnotationsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -27396,6 +26834,14 @@ func (a *O11yAPIService) ListLLMAnnotationsExecute(r O11yAPIListLLMAnnotationsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -27562,7 +27008,7 @@ func (a *O11yAPIService) ListLLMObservationsExecute(r O11yAPIListLLMObservations
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -27591,6 +27037,14 @@ func (a *O11yAPIService) ListLLMObservationsExecute(r O11yAPIListLLMObservations
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -27705,7 +27159,7 @@ func (a *O11yAPIService) ListLLMPricingRulesExecute(r O11yAPIListLLMPricingRules
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -27734,6 +27188,14 @@ func (a *O11yAPIService) ListLLMPricingRulesExecute(r O11yAPIListLLMPricingRules
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -27868,7 +27330,7 @@ func (a *O11yAPIService) ListLLMScoresExecute(r O11yAPIListLLMScoresRequest) (*O
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -27897,6 +27359,14 @@ func (a *O11yAPIService) ListLLMScoresExecute(r O11yAPIListLLMScoresRequest) (*O
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -28061,7 +27531,7 @@ func (a *O11yAPIService) ListLLMSessionsExecute(r O11yAPIListLLMSessionsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -28090,6 +27560,14 @@ func (a *O11yAPIService) ListLLMSessionsExecute(r O11yAPIListLLMSessionsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -28254,7 +27732,7 @@ func (a *O11yAPIService) ListLLMTracesExecute(r O11yAPIListLLMTracesRequest) (*O
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -28283,6 +27761,14 @@ func (a *O11yAPIService) ListLLMTracesExecute(r O11yAPIListLLMTracesRequest) (*O
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -28447,7 +27933,7 @@ func (a *O11yAPIService) ListLLMUsersExecute(r O11yAPIListLLMUsersRequest) (*O11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -28476,6 +27962,14 @@ func (a *O11yAPIService) ListLLMUsersExecute(r O11yAPIListLLMUsersRequest) (*O11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -28608,7 +28102,7 @@ func (a *O11yAPIService) ListMetricReductionRulesExecute(r O11yAPIListMetricRedu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -28637,6 +28131,14 @@ func (a *O11yAPIService) ListMetricReductionRulesExecute(r O11yAPIListMetricRedu
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -28759,7 +28261,7 @@ func (a *O11yAPIService) ListMetricsExecute(r O11yAPIListMetricsRequest) (*O11yO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -28788,6 +28290,14 @@ func (a *O11yAPIService) ListMetricsExecute(r O11yAPIListMetricsRequest) (*O11yO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -28860,7 +28370,7 @@ func (a *O11yAPIService) ListOrgPreferencesExecute(r O11yAPIListOrgPreferencesRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -28889,6 +28399,14 @@ func (a *O11yAPIService) ListOrgPreferencesExecute(r O11yAPIListOrgPreferencesRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -28961,7 +28479,7 @@ func (a *O11yAPIService) ListRolesExecute(r O11yAPIListRolesRequest) (*O11yO11yR
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -28990,6 +28508,14 @@ func (a *O11yAPIService) ListRolesExecute(r O11yAPIListRolesRequest) (*O11yO11yR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -29061,7 +28587,7 @@ func (a *O11yAPIService) ListRulesExecute(r O11yAPIListRulesRequest) (*O11yO11yR
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -29090,6 +28616,14 @@ func (a *O11yAPIService) ListRulesExecute(r O11yAPIListRulesRequest) (*O11yO11yR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -29166,7 +28700,7 @@ func (a *O11yAPIService) ListServiceAccountKeysExecute(r O11yAPIListServiceAccou
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -29195,6 +28729,14 @@ func (a *O11yAPIService) ListServiceAccountKeysExecute(r O11yAPIListServiceAccou
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -29266,7 +28808,7 @@ func (a *O11yAPIService) ListServiceAccountsExecute(r O11yAPIListServiceAccounts
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -29295,6 +28837,14 @@ func (a *O11yAPIService) ListServiceAccountsExecute(r O11yAPIListServiceAccounts
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -29381,7 +28931,7 @@ func (a *O11yAPIService) ListServicesMetadataExecute(r O11yAPIListServicesMetada
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -29410,6 +28960,14 @@ func (a *O11yAPIService) ListServicesMetadataExecute(r O11yAPIListServicesMetada
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -29493,7 +29051,7 @@ func (a *O11yAPIService) ListSpanMapperGroupsExecute(r O11yAPIListSpanMapperGrou
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -29522,6 +29080,14 @@ func (a *O11yAPIService) ListSpanMapperGroupsExecute(r O11yAPIListSpanMapperGrou
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -29600,7 +29166,7 @@ func (a *O11yAPIService) ListSpanMappersExecute(r O11yAPIListSpanMappersRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -29629,6 +29195,14 @@ func (a *O11yAPIService) ListSpanMappersExecute(r O11yAPIListSpanMappersRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -29703,7 +29277,7 @@ func (a *O11yAPIService) ListTraceFunnelsExecute(r O11yAPIListTraceFunnelsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -29732,6 +29306,14 @@ func (a *O11yAPIService) ListTraceFunnelsExecute(r O11yAPIListTraceFunnelsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -29804,7 +29386,7 @@ func (a *O11yAPIService) ListUserPreferencesExecute(r O11yAPIListUserPreferences
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -29833,207 +29415,14 @@ func (a *O11yAPIService) ListUserPreferencesExecute(r O11yAPIListUserPreferences
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIListUsersRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-}
-
-func (r O11yAPIListUsersRequest) Execute() (*O11yO11yUsersOut, *http.Response, error) {
-	return r.ApiService.ListUsersExecute(r)
-}
-
-/*
-ListUsers Lists the caller's org members.
-
-Lists the caller's org members. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIListUsersRequest
-*/
-func (a *O11yAPIService) ListUsers(ctx context.Context) O11yAPIListUsersRequest {
-	return O11yAPIListUsersRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yUsersOut
-func (a *O11yAPIService) ListUsersExecute(r O11yAPIListUsersRequest) (*O11yO11yUsersOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yUsersOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.ListUsers")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/users"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIListUsersDeprecatedRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-}
-
-func (r O11yAPIListUsersDeprecatedRequest) Execute() (*O11yO11yDeprecatedUsersOut, *http.Response, error) {
-	return r.ApiService.ListUsersDeprecatedExecute(r)
-}
-
-/*
-ListUsersDeprecated Lists the org's members with their single legacy role.
-
-Lists the org's members with their single legacy role.
-Deprecated in favor of listUsers, which answers without the role. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIListUsersDeprecatedRequest
-*/
-func (a *O11yAPIService) ListUsersDeprecated(ctx context.Context) O11yAPIListUsersDeprecatedRequest {
-	return O11yAPIListUsersDeprecatedRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yDeprecatedUsersOut
-func (a *O11yAPIService) ListUsersDeprecatedExecute(r O11yAPIListUsersDeprecatedRequest) (*O11yO11yDeprecatedUsersOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yDeprecatedUsersOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.ListUsersDeprecated")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/user"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -30055,7 +29444,7 @@ type O11yAPILockDashboardV2Request struct {
 	id         string
 }
 
-func (r O11yAPILockDashboardV2Request) Execute() (*http.Response, error) {
+func (r O11yAPILockDashboardV2Request) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.LockDashboardV2Execute(r)
 }
 
@@ -30080,16 +29469,19 @@ func (a *O11yAPIService) LockDashboardV2(ctx context.Context, id string) O11yAPI
 }
 
 // Execute executes the request
-func (a *O11yAPIService) LockDashboardV2Execute(r O11yAPILockDashboardV2Request) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) LockDashboardV2Execute(r O11yAPILockDashboardV2Request) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.LockDashboardV2")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/dashboards/{id}/lock"
@@ -30109,7 +29501,7 @@ func (a *O11yAPIService) LockDashboardV2Execute(r O11yAPILockDashboardV2Request)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -30118,19 +29510,19 @@ func (a *O11yAPIService) LockDashboardV2Execute(r O11yAPILockDashboardV2Request)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -30138,10 +29530,27 @@ func (a *O11yAPIService) LockDashboardV2Execute(r O11yAPILockDashboardV2Request)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIPatchDashboardV2Request struct {
@@ -30220,7 +29629,7 @@ func (a *O11yAPIService) PatchDashboardV2Execute(r O11yAPIPatchDashboardV2Reques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -30251,6 +29660,14 @@ func (a *O11yAPIService) PatchDashboardV2Execute(r O11yAPIPatchDashboardV2Reques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -30338,7 +29755,7 @@ func (a *O11yAPIService) PatchO11yReviewsByIdExecute(r O11yAPIPatchO11yReviewsBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -30369,6 +29786,14 @@ func (a *O11yAPIService) PatchO11yReviewsByIdExecute(r O11yAPIPatchO11yReviewsBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -30460,7 +29885,7 @@ func (a *O11yAPIService) PatchO11yReviewsByIdItemsByItemidExecute(r O11yAPIPatch
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -30491,6 +29916,14 @@ func (a *O11yAPIService) PatchO11yReviewsByIdItemsByItemidExecute(r O11yAPIPatch
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -30577,7 +30010,7 @@ func (a *O11yAPIService) PatchRuleByIDExecute(r O11yAPIPatchRuleByIDRequest) (*O
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -30608,6 +30041,14 @@ func (a *O11yAPIService) PatchRuleByIDExecute(r O11yAPIPatchRuleByIDRequest) (*O
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -30629,7 +30070,7 @@ type O11yAPIPinDashboardV2Request struct {
 	id         string
 }
 
-func (r O11yAPIPinDashboardV2Request) Execute() (*http.Response, error) {
+func (r O11yAPIPinDashboardV2Request) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.PinDashboardV2Execute(r)
 }
 
@@ -30656,16 +30097,19 @@ func (a *O11yAPIService) PinDashboardV2(ctx context.Context, id string) O11yAPIP
 }
 
 // Execute executes the request
-func (a *O11yAPIService) PinDashboardV2Execute(r O11yAPIPinDashboardV2Request) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) PinDashboardV2Execute(r O11yAPIPinDashboardV2Request) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.PinDashboardV2")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/users/me/dashboards/{id}/pins"
@@ -30685,7 +30129,7 @@ func (a *O11yAPIService) PinDashboardV2Execute(r O11yAPIPinDashboardV2Request) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -30694,19 +30138,19 @@ func (a *O11yAPIService) PinDashboardV2Execute(r O11yAPIPinDashboardV2Request) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -30714,10 +30158,27 @@ func (a *O11yAPIService) PinDashboardV2Execute(r O11yAPIPinDashboardV2Request) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIPostO11yAlertsByReceiverRequest struct {
@@ -30733,7 +30194,7 @@ func (r O11yAPIPostO11yAlertsByReceiverRequest) Execute() (*http.Response, error
 /*
 PostO11yAlertsByReceiver Take an Alertmanager notification and page a human
 
-Records one Alertmanager webhook delivery and pages the on-call. Each alert prints an `ALERT-RECEIVED` line and joins the replay ring, then the batch is carried out of the process by the egress chain: the org's KMS-custodied Slack bot token first (the ONE product Slack egress, not a second webhook credential), falling back to a plain POST to `CLOUD_ALERTS_WEBHOOK_URL` — which needs no Slack connection and so works in exactly the state that silences the first. Resolved notifications page too: "it recovered" is the half of an incident people are actually waiting for.
+Records one Alertmanager webhook delivery and pages the on-call. Each alert prints an `ALERT-RECEIVED` line and joins the replay ring, then the batch is carried out of the process by the egress chain: the org's KMS-custodied Slack bot token first (the ONE product Slack egress, not a second webhook credential), then an email to `CLOUD_ALERTS_EMAIL_TO` on the org's own notify credential, then a plain POST to `CLOUD_ALERTS_WEBHOOK_URL` — which needs no Slack connection and so works in exactly the state that silences the first. Resolved notifications page too: "it recovered" is the half of an incident people are actually waiting for. An alert labelled `watchdog="true"` is the path's heartbeat (see `GET /v1/o11y/alerts/heartbeat`) and pages nobody.
 
 THE STATUS CODE REPORTS DELIVERY, NOT ARRIVAL. 200 `ok` means an egress accepted the batch. If none did — including when none is configured at all — it answers **503** naming the failure, so Alertmanager retries and counts it in `alertmanager_notifications_failed_total`. An alert nobody could be told about must never answer the same way as one that was delivered.
 
@@ -30768,196 +30229,6 @@ func (a *O11yAPIService) PostO11yAlertsByReceiverExecute(r O11yAPIPostO11yAlerts
 
 	localVarPath := localBasePath + "/v1/o11y/alerts/{receiver}"
 	localVarPath = strings.Replace(localVarPath, "{"+"receiver"+"}", url.PathEscape(parameterValueToString(r.receiver, "receiver")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIPostO11yApiByProjectIdEnvelopeRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	projectId  string
-}
-
-func (r O11yAPIPostO11yApiByProjectIdEnvelopeRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostO11yApiByProjectIdEnvelopeExecute(r)
-}
-
-/*
-PostO11yApiByProjectIdEnvelope Receive a Sentry envelope on the SDK's own DSN path
-
-Accepts an application/x-sentry-envelope frame from a Sentry SDK — the batched wire format carrying events, sessions and attachments — and ingests it against the project named in the path.
-
-THE /api/ SEGMENT IS NOT OURS TO NAME. An SDK appends its own fixed /api/<project>/envelope/ suffix to whatever DSN it is given, so this address is the SDK's, received verbatim. We receive this shape; we do not publish it. The clean spelling of the same wire is /v1/event/{project}/envelope/.
-
-AUTHENTICATED BY THE DSN PUBLIC KEY, never a Hanzo session, and therefore exempt from the principal gate: the ingest verifier checks the key in constant time, fails closed, and derives the org from it. A keyless submission is a 401 from that verifier — not a 403 from the gate, and not a 404 — which is how you tell the hops apart. The exemption is matched by method plus prefix plus suffix, never a bare prefix, so no read is reachable through it.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param projectId
-	@return O11yAPIPostO11yApiByProjectIdEnvelopeRequest
-*/
-func (a *O11yAPIService) PostO11yApiByProjectIdEnvelope(ctx context.Context, projectId string) O11yAPIPostO11yApiByProjectIdEnvelopeRequest {
-	return O11yAPIPostO11yApiByProjectIdEnvelopeRequest{
-		ApiService: a,
-		ctx:        ctx,
-		projectId:  projectId,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) PostO11yApiByProjectIdEnvelopeExecute(r O11yAPIPostO11yApiByProjectIdEnvelopeRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.PostO11yApiByProjectIdEnvelope")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/api/{project_id}/envelope/"
-	localVarPath = strings.Replace(localVarPath, "{"+"project_id"+"}", url.PathEscape(parameterValueToString(r.projectId, "projectId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIPostO11yApiByProjectIdStoreRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	projectId  string
-}
-
-func (r O11yAPIPostO11yApiByProjectIdStoreRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostO11yApiByProjectIdStoreExecute(r)
-}
-
-/*
-PostO11yApiByProjectIdStore Receive a single Sentry event on the SDK's own DSN path
-
-The legacy single-event form of the envelope ingest: one JSON event rather than a framed batch, kept because SDKs in the field still send it.
-
-Same address ownership and same authentication as the envelope route — the /api/ segment is the SDK's, the DSN public key is the credential, the principal gate does not apply, and a keyless submission is a 401 from the ingest verifier.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param projectId
-	@return O11yAPIPostO11yApiByProjectIdStoreRequest
-*/
-func (a *O11yAPIService) PostO11yApiByProjectIdStore(ctx context.Context, projectId string) O11yAPIPostO11yApiByProjectIdStoreRequest {
-	return O11yAPIPostO11yApiByProjectIdStoreRequest{
-		ApiService: a,
-		ctx:        ctx,
-		projectId:  projectId,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) PostO11yApiByProjectIdStoreExecute(r O11yAPIPostO11yApiByProjectIdStoreRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.PostO11yApiByProjectIdStore")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/api/{project_id}/store/"
-	localVarPath = strings.Replace(localVarPath, "{"+"project_id"+"}", url.PathEscape(parameterValueToString(r.projectId, "projectId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -31077,7 +30348,7 @@ func (a *O11yAPIService) PostO11yAutoCompleteAttributeValuesExecute(r O11yAPIPos
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -31108,6 +30379,14 @@ func (a *O11yAPIService) PostO11yAutoCompleteAttributeValuesExecute(r O11yAPIPos
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -31190,7 +30469,7 @@ func (a *O11yAPIService) PostO11yClustersListExecute(r O11yAPIPostO11yClustersLi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -31221,6 +30500,14 @@ func (a *O11yAPIService) PostO11yClustersListExecute(r O11yAPIPostO11yClustersLi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -31234,96 +30521,6 @@ func (a *O11yAPIService) PostO11yClustersListExecute(r O11yAPIPostO11yClustersLi
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIPostO11yCompleteSamlRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-}
-
-func (r O11yAPIPostO11yCompleteSamlRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostO11yCompleteSamlExecute(r)
-}
-
-/*
-PostO11yCompleteSaml Complete a SAML sign-in
-
-The assertion consumer service: the identity provider POSTs its signed assertion here, and a valid one establishes the session and answers 303 to the console.
-
-A redirect, not a value, so it is not a typed operation. UNAUTHENTICATED by necessity and authenticated in fact by the assertion's signature, which is checked against the configured provider before any session exists.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIPostO11yCompleteSamlRequest
-*/
-func (a *O11yAPIService) PostO11yCompleteSaml(ctx context.Context) O11yAPIPostO11yCompleteSamlRequest {
-	return O11yAPIPostO11yCompleteSamlRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) PostO11yCompleteSamlExecute(r O11yAPIPostO11yCompleteSamlRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.PostO11yCompleteSaml")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/complete/saml"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
 }
 
 type O11yAPIPostO11yCounterrorsRequest struct {
@@ -31394,7 +30591,7 @@ func (a *O11yAPIService) PostO11yCounterrorsExecute(r O11yAPIPostO11yCounterrors
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -31425,6 +30622,14 @@ func (a *O11yAPIService) PostO11yCounterrorsExecute(r O11yAPIPostO11yCounterrors
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -31508,7 +30713,7 @@ func (a *O11yAPIService) PostO11yDaemonsetsListExecute(r O11yAPIPostO11yDaemonse
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -31539,6 +30744,14 @@ func (a *O11yAPIService) PostO11yDaemonsetsListExecute(r O11yAPIPostO11yDaemonse
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -31623,7 +30836,7 @@ func (a *O11yAPIService) PostO11yDependencyGraphExecute(r O11yAPIPostO11yDepende
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -31654,6 +30867,14 @@ func (a *O11yAPIService) PostO11yDependencyGraphExecute(r O11yAPIPostO11yDepende
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -31737,7 +30958,7 @@ func (a *O11yAPIService) PostO11yDeploymentsListExecute(r O11yAPIPostO11yDeploym
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -31768,6 +30989,14 @@ func (a *O11yAPIService) PostO11yDeploymentsListExecute(r O11yAPIPostO11yDeploym
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -31855,7 +31084,7 @@ func (a *O11yAPIService) PostO11yErrortrackingIssuesByIdExecute(r O11yAPIPostO11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -31886,6 +31115,14 @@ func (a *O11yAPIService) PostO11yErrortrackingIssuesByIdExecute(r O11yAPIPostO11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -31969,7 +31206,7 @@ func (a *O11yAPIService) PostO11yEventExecute(r O11yAPIPostO11yEventRequest) (*O
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -32000,6 +31237,14 @@ func (a *O11yAPIService) PostO11yEventExecute(r O11yAPIPostO11yEventRequest) (*O
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -32083,7 +31328,7 @@ func (a *O11yAPIService) PostO11yExplorerViewsExecute(r O11yAPIPostO11yExplorerV
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -32114,6 +31359,14 @@ func (a *O11yAPIService) PostO11yExplorerViewsExecute(r O11yAPIPostO11yExplorerV
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -32291,7 +31544,7 @@ func (a *O11yAPIService) PostO11yHostsListExecute(r O11yAPIPostO11yHostsListRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -32322,6 +31575,14 @@ func (a *O11yAPIService) PostO11yHostsListExecute(r O11yAPIPostO11yHostsListRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -32407,7 +31668,7 @@ func (a *O11yAPIService) PostO11yInfraMonitoringClustersExecute(r O11yAPIPostO11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -32438,6 +31699,14 @@ func (a *O11yAPIService) PostO11yInfraMonitoringClustersExecute(r O11yAPIPostO11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -32524,7 +31793,7 @@ func (a *O11yAPIService) PostO11yInfraMonitoringDaemonsetsExecute(r O11yAPIPostO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -32555,6 +31824,14 @@ func (a *O11yAPIService) PostO11yInfraMonitoringDaemonsetsExecute(r O11yAPIPostO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -32641,7 +31918,7 @@ func (a *O11yAPIService) PostO11yInfraMonitoringDeploymentsExecute(r O11yAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -32672,6 +31949,14 @@ func (a *O11yAPIService) PostO11yInfraMonitoringDeploymentsExecute(r O11yAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -32758,7 +32043,7 @@ func (a *O11yAPIService) PostO11yInfraMonitoringHostsExecute(r O11yAPIPostO11yIn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -32789,6 +32074,14 @@ func (a *O11yAPIService) PostO11yInfraMonitoringHostsExecute(r O11yAPIPostO11yIn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -32876,7 +32169,7 @@ func (a *O11yAPIService) PostO11yInfraMonitoringJobsExecute(r O11yAPIPostO11yInf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -32907,6 +32200,14 @@ func (a *O11yAPIService) PostO11yInfraMonitoringJobsExecute(r O11yAPIPostO11yInf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -32992,7 +32293,7 @@ func (a *O11yAPIService) PostO11yInfraMonitoringNamespacesExecute(r O11yAPIPostO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -33023,6 +32324,14 @@ func (a *O11yAPIService) PostO11yInfraMonitoringNamespacesExecute(r O11yAPIPostO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -33109,7 +32418,7 @@ func (a *O11yAPIService) PostO11yInfraMonitoringNodesExecute(r O11yAPIPostO11yIn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -33140,6 +32449,14 @@ func (a *O11yAPIService) PostO11yInfraMonitoringNodesExecute(r O11yAPIPostO11yIn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -33226,7 +32543,7 @@ func (a *O11yAPIService) PostO11yInfraMonitoringPodsExecute(r O11yAPIPostO11yInf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -33257,6 +32574,14 @@ func (a *O11yAPIService) PostO11yInfraMonitoringPodsExecute(r O11yAPIPostO11yInf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -33343,7 +32668,7 @@ func (a *O11yAPIService) PostO11yInfraMonitoringPvcsExecute(r O11yAPIPostO11yInf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -33374,6 +32699,14 @@ func (a *O11yAPIService) PostO11yInfraMonitoringPvcsExecute(r O11yAPIPostO11yInf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -33460,7 +32793,7 @@ func (a *O11yAPIService) PostO11yInfraMonitoringStatefulsetsExecute(r O11yAPIPos
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -33491,6 +32824,14 @@ func (a *O11yAPIService) PostO11yInfraMonitoringStatefulsetsExecute(r O11yAPIPos
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -33574,7 +32915,7 @@ func (a *O11yAPIService) PostO11yJobsListExecute(r O11yAPIPostO11yJobsListReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -33605,6 +32946,14 @@ func (a *O11yAPIService) PostO11yJobsListExecute(r O11yAPIPostO11yJobsListReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -33689,7 +33038,7 @@ func (a *O11yAPIService) PostO11yListerrorsExecute(r O11yAPIPostO11yListerrorsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -33720,6 +33069,14 @@ func (a *O11yAPIService) PostO11yListerrorsExecute(r O11yAPIPostO11yListerrorsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -33803,7 +33160,7 @@ func (a *O11yAPIService) PostO11yLogsFieldsExecute(r O11yAPIPostO11yLogsFieldsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -33834,6 +33191,14 @@ func (a *O11yAPIService) PostO11yLogsFieldsExecute(r O11yAPIPostO11yLogsFieldsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -33919,7 +33284,7 @@ func (a *O11yAPIService) PostO11yLogsPipelinesExecute(r O11yAPIPostO11yLogsPipel
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -33950,6 +33315,14 @@ func (a *O11yAPIService) PostO11yLogsPipelinesExecute(r O11yAPIPostO11yLogsPipel
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -34034,7 +33407,7 @@ func (a *O11yAPIService) PostO11yLogsPipelinesPreviewExecute(r O11yAPIPostO11yLo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -34065,6 +33438,14 @@ func (a *O11yAPIService) PostO11yLogsPipelinesPreviewExecute(r O11yAPIPostO11yLo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -34149,7 +33530,7 @@ func (a *O11yAPIService) PostO11yLogsPromotePathsExecute(r O11yAPIPostO11yLogsPr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -34180,6 +33561,14 @@ func (a *O11yAPIService) PostO11yLogsPromotePathsExecute(r O11yAPIPostO11yLogsPr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -34262,7 +33651,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaConsumerLagConsumerDetailsE
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -34293,6 +33682,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaConsumerLagConsumerDetailsE
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -34375,7 +33772,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaConsumerLagNetworkLatencyEx
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -34406,6 +33803,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaConsumerLagNetworkLatencyEx
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -34488,7 +33893,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaConsumerLagProducerDetailsE
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -34519,6 +33924,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaConsumerLagProducerDetailsE
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -34600,7 +34013,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaOnboardingConsumersExecute(
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -34631,6 +34044,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaOnboardingConsumersExecute(
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -34712,7 +34133,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaOnboardingKafkaExecute(r O1
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -34743,6 +34164,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaOnboardingKafkaExecute(r O1
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -34825,7 +34254,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaOnboardingProducersExecute(
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -34856,6 +34285,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaOnboardingProducersExecute(
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -34937,7 +34374,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaPartitionLatencyConsumerExe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -34968,6 +34405,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaPartitionLatencyConsumerExe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -35049,7 +34494,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaPartitionLatencyOverviewExe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -35080,6 +34525,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaPartitionLatencyOverviewExe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -35162,7 +34615,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaSpanEvaluationExecute(r O11
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -35193,6 +34646,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaSpanEvaluationExecute(r O11
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -35274,7 +34735,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaTopicThroughputConsumerExec
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -35305,6 +34766,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaTopicThroughputConsumerExec
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -35386,7 +34855,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaTopicThroughputConsumerDeta
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -35417,6 +34886,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaTopicThroughputConsumerDeta
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -35498,7 +34975,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaTopicThroughputProducerExec
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -35529,6 +35006,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaTopicThroughputProducerExec
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -35610,7 +35095,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaTopicThroughputProducerDeta
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -35641,6 +35126,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesKafkaTopicThroughputProducerDeta
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -35724,7 +35217,7 @@ func (a *O11yAPIService) PostO11yMessagingQueuesQueueOverviewExecute(r O11yAPIPo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -35755,6 +35248,14 @@ func (a *O11yAPIService) PostO11yMessagingQueuesQueueOverviewExecute(r O11yAPIPo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -35837,7 +35338,7 @@ func (a *O11yAPIService) PostO11yNamespacesListExecute(r O11yAPIPostO11yNamespac
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -35868,6 +35369,14 @@ func (a *O11yAPIService) PostO11yNamespacesListExecute(r O11yAPIPostO11yNamespac
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -35950,7 +35459,7 @@ func (a *O11yAPIService) PostO11yNodesListExecute(r O11yAPIPostO11yNodesListRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -35981,6 +35490,14 @@ func (a *O11yAPIService) PostO11yNodesListExecute(r O11yAPIPostO11yNodesListRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -36063,7 +35580,7 @@ func (a *O11yAPIService) PostO11yPodsListExecute(r O11yAPIPostO11yPodsListReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -36094,6 +35611,14 @@ func (a *O11yAPIService) PostO11yPodsListExecute(r O11yAPIPostO11yPodsListReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -36176,7 +35701,7 @@ func (a *O11yAPIService) PostO11yProcessesListExecute(r O11yAPIPostO11yProcesses
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -36207,6 +35732,14 @@ func (a *O11yAPIService) PostO11yProcessesListExecute(r O11yAPIPostO11yProcesses
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -36289,7 +35822,7 @@ func (a *O11yAPIService) PostO11yPvcsListExecute(r O11yAPIPostO11yPvcsListReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -36320,6 +35853,14 @@ func (a *O11yAPIService) PostO11yPvcsListExecute(r O11yAPIPostO11yPvcsListReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -36403,7 +35944,7 @@ func (a *O11yAPIService) PostO11yQueryFilterAnalyzeExecute(r O11yAPIPostO11yQuer
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -36434,6 +35975,14 @@ func (a *O11yAPIService) PostO11yQueryFilterAnalyzeExecute(r O11yAPIPostO11yQuer
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -36519,7 +36068,7 @@ func (a *O11yAPIService) PostO11yQueryRangeExecute(r O11yAPIPostO11yQueryRangeRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -36550,6 +36099,14 @@ func (a *O11yAPIService) PostO11yQueryRangeExecute(r O11yAPIPostO11yQueryRangeRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -36634,7 +36191,7 @@ func (a *O11yAPIService) PostO11yQueryRangeFormatExecute(r O11yAPIPostO11yQueryR
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -36665,6 +36222,14 @@ func (a *O11yAPIService) PostO11yQueryRangeFormatExecute(r O11yAPIPostO11yQueryR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -36750,7 +36315,7 @@ func (a *O11yAPIService) PostO11yQueryRangePreviewExecute(r O11yAPIPostO11yQuery
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -36781,121 +36346,14 @@ func (a *O11yAPIService) PostO11yQueryRangePreviewExecute(r O11yAPIPostO11yQuery
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIPostO11yRegisterRequest struct {
-	ctx                context.Context
-	ApiService         *O11yAPIService
-	o11yO11yRegisterIn *O11yO11yRegisterIn
-}
-
-func (r O11yAPIPostO11yRegisterRequest) O11yO11yRegisterIn(o11yO11yRegisterIn O11yO11yRegisterIn) O11yAPIPostO11yRegisterRequest {
-	r.o11yO11yRegisterIn = &o11yO11yRegisterIn
-	return r
-}
-
-func (r O11yAPIPostO11yRegisterRequest) Execute() (*O11yO11yRegisterOut, *http.Response, error) {
-	return r.ApiService.PostO11yRegisterExecute(r)
-}
-
-/*
-PostO11yRegister Creates the FIRST organization and its admin user.
-
-Creates the FIRST organization and its admin user. It is open by
-design — there is nobody to be signed in as yet — and refuses once setup has
-completed, after which new users arrive by invitation only.
-
-Open by design; the runtime's own gate is OpenAccess.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIPostO11yRegisterRequest
-*/
-func (a *O11yAPIService) PostO11yRegister(ctx context.Context) O11yAPIPostO11yRegisterRequest {
-	return O11yAPIPostO11yRegisterRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yRegisterOut
-func (a *O11yAPIService) PostO11yRegisterExecute(r O11yAPIPostO11yRegisterRequest) (*O11yO11yRegisterOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yRegisterOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.PostO11yRegister")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/register"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yRegisterIn == nil {
-		return localVarReturnValue, nil, reportError("o11yO11yRegisterIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yRegisterIn
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -36977,7 +36435,7 @@ func (a *O11yAPIService) PostO11yReviewsExecute(r O11yAPIPostO11yReviewsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -37008,6 +36466,14 @@ func (a *O11yAPIService) PostO11yReviewsExecute(r O11yAPIPostO11yReviewsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -37095,7 +36561,7 @@ func (a *O11yAPIService) PostO11yReviewsByIdItemsExecute(r O11yAPIPostO11yReview
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -37126,6 +36592,14 @@ func (a *O11yAPIService) PostO11yReviewsByIdItemsExecute(r O11yAPIPostO11yReview
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -37212,7 +36686,7 @@ func (a *O11yAPIService) PostO11ySentinelDiscoverExecute(r O11yAPIPostO11ySentin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -37243,6 +36717,14 @@ func (a *O11yAPIService) PostO11ySentinelDiscoverExecute(r O11yAPIPostO11ySentin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -37274,11 +36756,12 @@ func (r O11yAPIPostO11ySentinelProjectsRequest) Execute() (*O11yO11ySentryProjec
 }
 
 /*
-PostO11ySentinelProjects Creates a Sentry project under the caller's org and returns it, DSN included.
+PostO11ySentinelProjects Creates a Sentry project under the caller's org and returns it.
 
 Creates a Sentry project under the caller's org and
-returns it, DSN included. Only the name, and optionally a slug and platform,
-are the caller's to set; the org, id and key are server-assigned.
+returns it. Only the name, and optionally a slug and platform, are the caller's
+to set; the org and id are server-assigned. The slug is the product name the
+event plane stores, so a project reads that product's errors.
 
 Callers need the editor role; the runtime's own gate enforces it.
 
@@ -37327,7 +36810,7 @@ func (a *O11yAPIService) PostO11ySentinelProjectsExecute(r O11yAPIPostO11ySentin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -37358,114 +36841,14 @@ func (a *O11yAPIService) PostO11ySentinelProjectsExecute(r O11yAPIPostO11ySentin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIPostO11ySentinelProjectsByIdKeysRotateRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-}
-
-func (r O11yAPIPostO11ySentinelProjectsByIdKeysRotateRequest) Execute() (*O11yO11ySentryProjectOut, *http.Response, error) {
-	return r.ApiService.PostO11ySentinelProjectsByIdKeysRotateExecute(r)
-}
-
-/*
-PostO11ySentinelProjectsByIdKeysRotate Rotates a project's DSN key — bumping its rotation watermark so keys below it stop verifying — and returns the project with its new DSN.
-
-Rotates a project's DSN key — bumping its rotation
-watermark so keys below it stop verifying — and returns the project with its
-new DSN.
-
-Callers need the editor role; the runtime's own gate enforces it.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the project id.
-	@return O11yAPIPostO11ySentinelProjectsByIdKeysRotateRequest
-*/
-func (a *O11yAPIService) PostO11ySentinelProjectsByIdKeysRotate(ctx context.Context, id string) O11yAPIPostO11ySentinelProjectsByIdKeysRotateRequest {
-	return O11yAPIPostO11ySentinelProjectsByIdKeysRotateRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11ySentryProjectOut
-func (a *O11yAPIService) PostO11ySentinelProjectsByIdKeysRotateExecute(r O11yAPIPostO11ySentinelProjectsByIdKeysRotateRequest) (*O11yO11ySentryProjectOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11ySentryProjectOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.PostO11ySentinelProjectsByIdKeysRotate")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/sentinel/projects/{id}/keys/rotate"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -37547,7 +36930,7 @@ func (a *O11yAPIService) PostO11yServiceEntryPointOperationsExecute(r O11yAPIPos
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -37578,6 +36961,14 @@ func (a *O11yAPIService) PostO11yServiceEntryPointOperationsExecute(r O11yAPIPos
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -37659,7 +37050,7 @@ func (a *O11yAPIService) PostO11yServiceTopLevelOperationsExecute(r O11yAPIPostO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -37690,6 +37081,14 @@ func (a *O11yAPIService) PostO11yServiceTopLevelOperationsExecute(r O11yAPIPostO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -37771,7 +37170,7 @@ func (a *O11yAPIService) PostO11yServiceTopOperationsExecute(r O11yAPIPostO11ySe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -37802,6 +37201,14 @@ func (a *O11yAPIService) PostO11yServiceTopOperationsExecute(r O11yAPIPostO11ySe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -37884,7 +37291,7 @@ func (a *O11yAPIService) PostO11yServicesExecute(r O11yAPIPostO11yServicesReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -37915,6 +37322,14 @@ func (a *O11yAPIService) PostO11yServicesExecute(r O11yAPIPostO11yServicesReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -37999,7 +37414,7 @@ func (a *O11yAPIService) PostO11ySettingsApdexExecute(r O11yAPIPostO11ySettingsA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -38030,6 +37445,14 @@ func (a *O11yAPIService) PostO11ySettingsApdexExecute(r O11yAPIPostO11ySettingsA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -38115,7 +37538,7 @@ func (a *O11yAPIService) PostO11ySettingsTtlExecute(r O11yAPIPostO11ySettingsTtl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -38146,6 +37569,14 @@ func (a *O11yAPIService) PostO11ySettingsTtlExecute(r O11yAPIPostO11ySettingsTtl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -38229,7 +37660,7 @@ func (a *O11yAPIService) PostO11ySpanPercentileExecute(r O11yAPIPostO11ySpanPerc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -38260,6 +37691,14 @@ func (a *O11yAPIService) PostO11ySpanPercentileExecute(r O11yAPIPostO11ySpanPerc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -38343,7 +37782,7 @@ func (a *O11yAPIService) PostO11yStatefulsetsListExecute(r O11yAPIPostO11yStatef
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -38374,6 +37813,14 @@ func (a *O11yAPIService) PostO11yStatefulsetsListExecute(r O11yAPIPostO11yStatef
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -38458,7 +37905,7 @@ func (a *O11yAPIService) PostO11ySubstituteVarsExecute(r O11yAPIPostO11ySubstitu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -38489,6 +37936,14 @@ func (a *O11yAPIService) PostO11ySubstituteVarsExecute(r O11yAPIPostO11ySubstitu
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -38570,7 +38025,7 @@ func (a *O11yAPIService) PostO11yThirdPartyApisOverviewDomainExecute(r O11yAPIPo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -38601,6 +38056,14 @@ func (a *O11yAPIService) PostO11yThirdPartyApisOverviewDomainExecute(r O11yAPIPo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -38683,7 +38146,7 @@ func (a *O11yAPIService) PostO11yThirdPartyApisOverviewListExecute(r O11yAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -38714,6 +38177,14 @@ func (a *O11yAPIService) PostO11yThirdPartyApisOverviewListExecute(r O11yAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -38797,7 +38268,7 @@ func (a *O11yAPIService) PostO11yVariablesQueryExecute(r O11yAPIPostO11yVariable
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -38828,6 +38299,14 @@ func (a *O11yAPIService) PostO11yVariablesQueryExecute(r O11yAPIPostO11yVariable
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -38909,7 +38388,7 @@ func (a *O11yAPIService) PreviewMetricReductionRuleExecute(r O11yAPIPreviewMetri
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -38940,6 +38419,14 @@ func (a *O11yAPIService) PreviewMetricReductionRuleExecute(r O11yAPIPreviewMetri
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -38966,7 +38453,7 @@ func (r O11yAPIPutHostRequest) O11yPostableHost(o11yPostableHost O11yPostableHos
 	return r
 }
 
-func (r O11yAPIPutHostRequest) Execute() (*http.Response, error) {
+func (r O11yAPIPutHostRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.PutHostExecute(r)
 }
 
@@ -38987,16 +38474,19 @@ func (a *O11yAPIService) PutHost(ctx context.Context) O11yAPIPutHostRequest {
 }
 
 // Execute executes the request
-func (a *O11yAPIService) PutHostExecute(r O11yAPIPutHostRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) PutHostExecute(r O11yAPIPutHostRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.PutHost")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/zeus/hosts"
@@ -39005,7 +38495,7 @@ func (a *O11yAPIService) PutHostExecute(r O11yAPIPutHostRequest) (*http.Response
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yPostableHost == nil {
-		return nil, reportError("o11yPostableHost is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yPostableHost is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -39018,7 +38508,7 @@ func (a *O11yAPIService) PutHostExecute(r O11yAPIPutHostRequest) (*http.Response
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -39029,19 +38519,19 @@ func (a *O11yAPIService) PutHostExecute(r O11yAPIPutHostRequest) (*http.Response
 	localVarPostBody = r.o11yPostableHost
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -39049,10 +38539,27 @@ func (a *O11yAPIService) PutHostExecute(r O11yAPIPutHostRequest) (*http.Response
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIPutO11yExplorerViewsByViewidRequest struct {
@@ -39127,7 +38634,7 @@ func (a *O11yAPIService) PutO11yExplorerViewsByViewidExecute(r O11yAPIPutO11yExp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -39158,6 +38665,14 @@ func (a *O11yAPIService) PutO11yExplorerViewsByViewidExecute(r O11yAPIPutO11yExp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -39245,7 +38760,7 @@ func (a *O11yAPIService) PutO11ySentinelIssuesByIdExecute(r O11yAPIPutO11ySentin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -39276,6 +38791,14 @@ func (a *O11yAPIService) PutO11ySentinelIssuesByIdExecute(r O11yAPIPutO11ySentin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -39302,7 +38825,7 @@ func (r O11yAPIPutProfileRequest) O11yPostableProfile(o11yPostableProfile O11yPo
 	return r
 }
 
-func (r O11yAPIPutProfileRequest) Execute() (*http.Response, error) {
+func (r O11yAPIPutProfileRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.PutProfileExecute(r)
 }
 
@@ -39324,16 +38847,19 @@ func (a *O11yAPIService) PutProfile(ctx context.Context) O11yAPIPutProfileReques
 }
 
 // Execute executes the request
-func (a *O11yAPIService) PutProfileExecute(r O11yAPIPutProfileRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) PutProfileExecute(r O11yAPIPutProfileRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.PutProfile")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/zeus/profiles"
@@ -39342,7 +38868,7 @@ func (a *O11yAPIService) PutProfileExecute(r O11yAPIPutProfileRequest) (*http.Re
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yPostableProfile == nil {
-		return nil, reportError("o11yPostableProfile is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yPostableProfile is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -39355,7 +38881,7 @@ func (a *O11yAPIService) PutProfileExecute(r O11yAPIPutProfileRequest) (*http.Re
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -39366,19 +38892,19 @@ func (a *O11yAPIService) PutProfileExecute(r O11yAPIPutProfileRequest) (*http.Re
 	localVarPostBody = r.o11yPostableProfile
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -39386,207 +38912,27 @@ func (a *O11yAPIService) PutProfileExecute(r O11yAPIPutProfileRequest) (*http.Re
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIRemoveUserRoleByUserIDAndRoleIDRequest struct {
-	ctx        context.Context
-	ApiService *O11yAPIService
-	id         string
-	roleId     string
-}
-
-func (r O11yAPIRemoveUserRoleByUserIDAndRoleIDRequest) Execute() (*http.Response, error) {
-	return r.ApiService.RemoveUserRoleByUserIDAndRoleIDExecute(r)
-}
-
-/*
-RemoveUserRoleByUserIDAndRoleID Takes a role away from one org member, by user id and role id — someone else, never the caller.
-
-Takes a role away from one org member, by user id and role
-id — someone else, never the caller. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@param roleId
-	@return O11yAPIRemoveUserRoleByUserIDAndRoleIDRequest
-*/
-func (a *O11yAPIService) RemoveUserRoleByUserIDAndRoleID(ctx context.Context, id string, roleId string) O11yAPIRemoveUserRoleByUserIDAndRoleIDRequest {
-	return O11yAPIRemoveUserRoleByUserIDAndRoleIDRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		roleId:     roleId,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) RemoveUserRoleByUserIDAndRoleIDExecute(r O11yAPIRemoveUserRoleByUserIDAndRoleIDRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.RemoveUserRoleByUserIDAndRoleID")
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/users/{id}/roles/{roleId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"roleId"+"}", url.PathEscape(parameterValueToString(r.roleId, "roleId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
+			error: err.Error(),
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIResetPasswordRequest struct {
-	ctx                     context.Context
-	ApiService              *O11yAPIService
-	o11yO11yResetPasswordIn *O11yO11yResetPasswordIn
-}
-
-func (r O11yAPIResetPasswordRequest) O11yO11yResetPasswordIn(o11yO11yResetPasswordIn O11yO11yResetPasswordIn) O11yAPIResetPasswordRequest {
-	r.o11yO11yResetPasswordIn = &o11yO11yResetPasswordIn
-	return r
-}
-
-func (r O11yAPIResetPasswordRequest) Execute() (*http.Response, error) {
-	return r.ApiService.ResetPasswordExecute(r)
-}
-
-/*
-ResetPassword Sets a new password for whoever the reset token was minted for, consuming the token.
-
-Sets a new password for whoever the reset token was minted
-for, consuming the token. Unauthenticated: the token is the proof.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIResetPasswordRequest
-*/
-func (a *O11yAPIService) ResetPassword(ctx context.Context) O11yAPIResetPasswordRequest {
-	return O11yAPIResetPasswordRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) ResetPasswordExecute(r O11yAPIResetPasswordRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.ResetPassword")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/resetPassword"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yResetPasswordIn == nil {
-		return nil, reportError("o11yO11yResetPasswordIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yResetPasswordIn
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIRevokeServiceAccountKeyRequest struct {
@@ -39596,7 +38942,7 @@ type O11yAPIRevokeServiceAccountKeyRequest struct {
 	fid        string
 }
 
-func (r O11yAPIRevokeServiceAccountKeyRequest) Execute() (*http.Response, error) {
+func (r O11yAPIRevokeServiceAccountKeyRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.RevokeServiceAccountKeyExecute(r)
 }
 
@@ -39621,16 +38967,19 @@ func (a *O11yAPIService) RevokeServiceAccountKey(ctx context.Context, id string,
 }
 
 // Execute executes the request
-func (a *O11yAPIService) RevokeServiceAccountKeyExecute(r O11yAPIRevokeServiceAccountKeyRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) RevokeServiceAccountKeyExecute(r O11yAPIRevokeServiceAccountKeyRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.RevokeServiceAccountKey")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/service_accounts/{id}/keys/{fid}"
@@ -39651,116 +39000,13 @@ func (a *O11yAPIService) RevokeServiceAccountKeyExecute(r O11yAPIRevokeServiceAc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIRotateSessionRequest struct {
-	ctx                     context.Context
-	ApiService              *O11yAPIService
-	o11yO11yRotateSessionIn *O11yO11yRotateSessionIn
-}
-
-func (r O11yAPIRotateSessionRequest) O11yO11yRotateSessionIn(o11yO11yRotateSessionIn O11yO11yRotateSessionIn) O11yAPIRotateSessionRequest {
-	r.o11yO11yRotateSessionIn = &o11yO11yRotateSessionIn
-	return r
-}
-
-func (r O11yAPIRotateSessionRequest) Execute() (*O11yO11yTokenOut, *http.Response, error) {
-	return r.ApiService.RotateSessionExecute(r)
-}
-
-/*
-RotateSession Exchanges a refresh token for a fresh token pair, retiring the old pair.
-
-Exchanges a refresh token for a fresh token pair, retiring the
-old pair. The access token being rotated identifies the session.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIRotateSessionRequest
-*/
-func (a *O11yAPIService) RotateSession(ctx context.Context) O11yAPIRotateSessionRequest {
-	return O11yAPIRotateSessionRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yTokenOut
-func (a *O11yAPIService) RotateSessionExecute(r O11yAPIRotateSessionRequest) (*O11yO11yTokenOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yTokenOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.RotateSession")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/sessions/rotate"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yRotateSessionIn == nil {
-		return localVarReturnValue, nil, reportError("o11yO11yRotateSessionIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yRotateSessionIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -39783,6 +39029,14 @@ func (a *O11yAPIService) RotateSessionExecute(r O11yAPIRotateSessionRequest) (*O
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -39885,7 +39139,7 @@ func (a *O11yAPIService) SearchIngestionKeysExecute(r O11yAPISearchIngestionKeys
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -39914,6 +39168,14 @@ func (a *O11yAPIService) SearchIngestionKeysExecute(r O11yAPISearchIngestionKeys
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -40029,7 +39291,7 @@ func (a *O11yAPIService) SearchTracesExecute(r O11yAPISearchTracesRequest) ([]O1
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -40058,122 +39320,14 @@ func (a *O11yAPIService) SearchTracesExecute(r O11yAPISearchTracesRequest) ([]O1
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPISetRoleByUserIDRequest struct {
-	ctx               context.Context
-	ApiService        *O11yAPIService
-	id                string
-	o11yO11ySetRoleIn *O11yO11ySetRoleIn
-}
-
-func (r O11yAPISetRoleByUserIDRequest) O11yO11ySetRoleIn(o11yO11ySetRoleIn O11yO11ySetRoleIn) O11yAPISetRoleByUserIDRequest {
-	r.o11yO11ySetRoleIn = &o11yO11ySetRoleIn
-	return r
-}
-
-func (r O11yAPISetRoleByUserIDRequest) Execute() (*O11yO11yAck, *http.Response, error) {
-	return r.ApiService.SetRoleByUserIDExecute(r)
-}
-
-/*
-SetRoleByUserID Assigns a role, by role name, to one org member — someone else, never the caller.
-
-Assigns a role, by role name, to one org member — someone else,
-never the caller. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPISetRoleByUserIDRequest
-*/
-func (a *O11yAPIService) SetRoleByUserID(ctx context.Context, id string) O11yAPISetRoleByUserIDRequest {
-	return O11yAPISetRoleByUserIDRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yAck
-func (a *O11yAPIService) SetRoleByUserIDExecute(r O11yAPISetRoleByUserIDRequest) (*O11yO11yAck, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yAck
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.SetRoleByUserID")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/users/{id}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11ySetRoleIn == nil {
-		return localVarReturnValue, nil, reportError("o11yO11ySetRoleIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11ySetRoleIn
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -40200,7 +39354,7 @@ func (r O11yAPITestChannelRequest) O11yAlertmanagertypesReceiver(o11yAlertmanage
 	return r
 }
 
-func (r O11yAPITestChannelRequest) Execute() (*http.Response, error) {
+func (r O11yAPITestChannelRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.TestChannelExecute(r)
 }
 
@@ -40220,16 +39374,19 @@ func (a *O11yAPIService) TestChannel(ctx context.Context) O11yAPITestChannelRequ
 }
 
 // Execute executes the request
-func (a *O11yAPIService) TestChannelExecute(r O11yAPITestChannelRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) TestChannelExecute(r O11yAPITestChannelRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.TestChannel")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/channels/test"
@@ -40238,7 +39395,7 @@ func (a *O11yAPIService) TestChannelExecute(r O11yAPITestChannelRequest) (*http.
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yAlertmanagertypesReceiver == nil {
-		return nil, reportError("o11yAlertmanagertypesReceiver is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yAlertmanagertypesReceiver is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -40251,7 +39408,7 @@ func (a *O11yAPIService) TestChannelExecute(r O11yAPITestChannelRequest) (*http.
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -40262,19 +39419,19 @@ func (a *O11yAPIService) TestChannelExecute(r O11yAPITestChannelRequest) (*http.
 	localVarPostBody = r.o11yAlertmanagertypesReceiver
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -40282,10 +39439,27 @@ func (a *O11yAPIService) TestChannelExecute(r O11yAPITestChannelRequest) (*http.
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPITestChannelDeprecatedRequest struct {
@@ -40299,7 +39473,7 @@ func (r O11yAPITestChannelDeprecatedRequest) O11yAlertmanagertypesReceiver(o11yA
 	return r
 }
 
-func (r O11yAPITestChannelDeprecatedRequest) Execute() (*http.Response, error) {
+func (r O11yAPITestChannelDeprecatedRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.TestChannelDeprecatedExecute(r)
 }
 
@@ -40320,16 +39494,19 @@ func (a *O11yAPIService) TestChannelDeprecated(ctx context.Context) O11yAPITestC
 }
 
 // Execute executes the request
-func (a *O11yAPIService) TestChannelDeprecatedExecute(r O11yAPITestChannelDeprecatedRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) TestChannelDeprecatedExecute(r O11yAPITestChannelDeprecatedRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.TestChannelDeprecated")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/testChannel"
@@ -40338,7 +39515,7 @@ func (a *O11yAPIService) TestChannelDeprecatedExecute(r O11yAPITestChannelDeprec
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yAlertmanagertypesReceiver == nil {
-		return nil, reportError("o11yAlertmanagertypesReceiver is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yAlertmanagertypesReceiver is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -40351,7 +39528,7 @@ func (a *O11yAPIService) TestChannelDeprecatedExecute(r O11yAPITestChannelDeprec
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -40362,19 +39539,19 @@ func (a *O11yAPIService) TestChannelDeprecatedExecute(r O11yAPITestChannelDeprec
 	localVarPostBody = r.o11yAlertmanagertypesReceiver
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -40382,10 +39559,27 @@ func (a *O11yAPIService) TestChannelDeprecatedExecute(r O11yAPITestChannelDeprec
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPITestRuleRequest struct {
@@ -40454,7 +39648,7 @@ func (a *O11yAPIService) TestRuleExecute(r O11yAPITestRuleRequest) (*O11yO11yTes
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -40485,6 +39679,14 @@ func (a *O11yAPIService) TestRuleExecute(r O11yAPITestRuleRequest) (*O11yO11yTes
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -40567,7 +39769,7 @@ func (a *O11yAPIService) TestRuleNotificationExecute(r O11yAPITestRuleNotificati
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -40598,6 +39800,14 @@ func (a *O11yAPIService) TestRuleNotificationExecute(r O11yAPITestRuleNotificati
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -40679,7 +39889,7 @@ func (a *O11yAPIService) UninstallIntegrationExecute(r O11yAPIUninstallIntegrati
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -40710,6 +39920,14 @@ func (a *O11yAPIService) UninstallIntegrationExecute(r O11yAPIUninstallIntegrati
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -40731,7 +39949,7 @@ type O11yAPIUnlockDashboardV2Request struct {
 	id         string
 }
 
-func (r O11yAPIUnlockDashboardV2Request) Execute() (*http.Response, error) {
+func (r O11yAPIUnlockDashboardV2Request) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UnlockDashboardV2Execute(r)
 }
 
@@ -40756,16 +39974,19 @@ func (a *O11yAPIService) UnlockDashboardV2(ctx context.Context, id string) O11yA
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UnlockDashboardV2Execute(r O11yAPIUnlockDashboardV2Request) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UnlockDashboardV2Execute(r O11yAPIUnlockDashboardV2Request) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UnlockDashboardV2")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/dashboards/{id}/lock"
@@ -40785,7 +40006,7 @@ func (a *O11yAPIService) UnlockDashboardV2Execute(r O11yAPIUnlockDashboardV2Requ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -40794,19 +40015,19 @@ func (a *O11yAPIService) UnlockDashboardV2Execute(r O11yAPIUnlockDashboardV2Requ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -40814,10 +40035,27 @@ func (a *O11yAPIService) UnlockDashboardV2Execute(r O11yAPIUnlockDashboardV2Requ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUnpinDashboardV2Request struct {
@@ -40826,7 +40064,7 @@ type O11yAPIUnpinDashboardV2Request struct {
 	id         string
 }
 
-func (r O11yAPIUnpinDashboardV2Request) Execute() (*http.Response, error) {
+func (r O11yAPIUnpinDashboardV2Request) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UnpinDashboardV2Execute(r)
 }
 
@@ -40851,16 +40089,19 @@ func (a *O11yAPIService) UnpinDashboardV2(ctx context.Context, id string) O11yAP
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UnpinDashboardV2Execute(r O11yAPIUnpinDashboardV2Request) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UnpinDashboardV2Execute(r O11yAPIUnpinDashboardV2Request) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UnpinDashboardV2")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/users/me/dashboards/{id}/pins"
@@ -40880,7 +40121,7 @@ func (a *O11yAPIService) UnpinDashboardV2Execute(r O11yAPIUnpinDashboardV2Reques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -40889,19 +40130,19 @@ func (a *O11yAPIService) UnpinDashboardV2Execute(r O11yAPIUnpinDashboardV2Reques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -40909,10 +40150,27 @@ func (a *O11yAPIService) UnpinDashboardV2Execute(r O11yAPIUnpinDashboardV2Reques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateAccountRequest struct {
@@ -40928,7 +40186,7 @@ func (r O11yAPIUpdateAccountRequest) O11yO11yUpdateAccountIn(o11yO11yUpdateAccou
 	return r
 }
 
-func (r O11yAPIUpdateAccountRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateAccountRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateAccountExecute(r)
 }
 
@@ -40953,16 +40211,19 @@ func (a *O11yAPIService) UpdateAccount(ctx context.Context, cloudProvider string
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateAccountExecute(r O11yAPIUpdateAccountRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateAccountExecute(r O11yAPIUpdateAccountRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateAccount")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/cloud_integrations/{cloud_provider}/accounts/{id}"
@@ -40973,7 +40234,7 @@ func (a *O11yAPIService) UpdateAccountExecute(r O11yAPIUpdateAccountRequest) (*h
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yUpdateAccountIn == nil {
-		return nil, reportError("o11yO11yUpdateAccountIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yUpdateAccountIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -40986,7 +40247,7 @@ func (a *O11yAPIService) UpdateAccountExecute(r O11yAPIUpdateAccountRequest) (*h
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -40997,19 +40258,19 @@ func (a *O11yAPIService) UpdateAccountExecute(r O11yAPIUpdateAccountRequest) (*h
 	localVarPostBody = r.o11yO11yUpdateAccountIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -41017,114 +40278,27 @@ func (a *O11yAPIService) UpdateAccountExecute(r O11yAPIUpdateAccountRequest) (*h
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIUpdateAuthDomainRequest struct {
-	ctx                         context.Context
-	ApiService                  *O11yAPIService
-	id                          string
-	o11yO11yUpdatableAuthDomain *O11yO11yUpdatableAuthDomain
-}
-
-func (r O11yAPIUpdateAuthDomainRequest) O11yO11yUpdatableAuthDomain(o11yO11yUpdatableAuthDomain O11yO11yUpdatableAuthDomain) O11yAPIUpdateAuthDomainRequest {
-	r.o11yO11yUpdatableAuthDomain = &o11yO11yUpdatableAuthDomain
-	return r
-}
-
-func (r O11yAPIUpdateAuthDomainRequest) Execute() (*http.Response, error) {
-	return r.ApiService.UpdateAuthDomainExecute(r)
-}
-
-/*
-UpdateAuthDomain Replaces one auth domain's SSO configuration, by id.
-
-Replaces one auth domain's SSO configuration, by id. Admin
-gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIUpdateAuthDomainRequest
-*/
-func (a *O11yAPIService) UpdateAuthDomain(ctx context.Context, id string) O11yAPIUpdateAuthDomainRequest {
-	return O11yAPIUpdateAuthDomainRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) UpdateAuthDomainExecute(r O11yAPIUpdateAuthDomainRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateAuthDomain")
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/domains/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yUpdatableAuthDomain == nil {
-		return nil, reportError("o11yO11yUpdatableAuthDomain is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yUpdatableAuthDomain
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
+			error: err.Error(),
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateChannelByIDRequest struct {
@@ -41139,7 +40313,7 @@ func (r O11yAPIUpdateChannelByIDRequest) O11yO11yChannelUpdateIn(o11yO11yChannel
 	return r
 }
 
-func (r O11yAPIUpdateChannelByIDRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateChannelByIDRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateChannelByIDExecute(r)
 }
 
@@ -41161,16 +40335,19 @@ func (a *O11yAPIService) UpdateChannelByID(ctx context.Context, id string) O11yA
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateChannelByIDExecute(r O11yAPIUpdateChannelByIDRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateChannelByIDExecute(r O11yAPIUpdateChannelByIDRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateChannelByID")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/channels/{id}"
@@ -41180,7 +40357,7 @@ func (a *O11yAPIService) UpdateChannelByIDExecute(r O11yAPIUpdateChannelByIDRequ
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yChannelUpdateIn == nil {
-		return nil, reportError("o11yO11yChannelUpdateIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yChannelUpdateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -41193,7 +40370,7 @@ func (a *O11yAPIService) UpdateChannelByIDExecute(r O11yAPIUpdateChannelByIDRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -41204,19 +40381,19 @@ func (a *O11yAPIService) UpdateChannelByIDExecute(r O11yAPIUpdateChannelByIDRequ
 	localVarPostBody = r.o11yO11yChannelUpdateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -41224,10 +40401,27 @@ func (a *O11yAPIService) UpdateChannelByIDExecute(r O11yAPIUpdateChannelByIDRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateDashboardV2Request struct {
@@ -41302,7 +40496,7 @@ func (a *O11yAPIService) UpdateDashboardV2Execute(r O11yAPIUpdateDashboardV2Requ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -41333,6 +40527,14 @@ func (a *O11yAPIService) UpdateDashboardV2Execute(r O11yAPIUpdateDashboardV2Requ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -41420,7 +40622,7 @@ func (a *O11yAPIService) UpdateDashboardViewExecute(r O11yAPIUpdateDashboardView
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -41451,6 +40653,14 @@ func (a *O11yAPIService) UpdateDashboardViewExecute(r O11yAPIUpdateDashboardView
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -41478,7 +40688,7 @@ func (r O11yAPIUpdateDowntimeScheduleByIDRequest) O11yO11yDowntimeUpdateIn(o11yO
 	return r
 }
 
-func (r O11yAPIUpdateDowntimeScheduleByIDRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateDowntimeScheduleByIDRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateDowntimeScheduleByIDExecute(r)
 }
 
@@ -41500,16 +40710,19 @@ func (a *O11yAPIService) UpdateDowntimeScheduleByID(ctx context.Context, id stri
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateDowntimeScheduleByIDExecute(r O11yAPIUpdateDowntimeScheduleByIDRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateDowntimeScheduleByIDExecute(r O11yAPIUpdateDowntimeScheduleByIDRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateDowntimeScheduleByID")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/downtime_schedules/{id}"
@@ -41519,7 +40732,7 @@ func (a *O11yAPIService) UpdateDowntimeScheduleByIDExecute(r O11yAPIUpdateDownti
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yDowntimeUpdateIn == nil {
-		return nil, reportError("o11yO11yDowntimeUpdateIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yDowntimeUpdateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -41532,7 +40745,7 @@ func (a *O11yAPIService) UpdateDowntimeScheduleByIDExecute(r O11yAPIUpdateDownti
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -41543,19 +40756,19 @@ func (a *O11yAPIService) UpdateDowntimeScheduleByIDExecute(r O11yAPIUpdateDownti
 	localVarPostBody = r.o11yO11yDowntimeUpdateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -41563,10 +40776,27 @@ func (a *O11yAPIService) UpdateDowntimeScheduleByIDExecute(r O11yAPIUpdateDownti
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateIngestionKeyRequest struct {
@@ -41581,7 +40811,7 @@ func (r O11yAPIUpdateIngestionKeyRequest) O11yO11yUpdateIngestionKeyIn(o11yO11yU
 	return r
 }
 
-func (r O11yAPIUpdateIngestionKeyRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateIngestionKeyRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateIngestionKeyExecute(r)
 }
 
@@ -41603,16 +40833,19 @@ func (a *O11yAPIService) UpdateIngestionKey(ctx context.Context, keyId string) O
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateIngestionKeyExecute(r O11yAPIUpdateIngestionKeyRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateIngestionKeyExecute(r O11yAPIUpdateIngestionKeyRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPatch
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateIngestionKey")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/gateway/ingestion_keys/{keyId}"
@@ -41622,7 +40855,7 @@ func (a *O11yAPIService) UpdateIngestionKeyExecute(r O11yAPIUpdateIngestionKeyRe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yUpdateIngestionKeyIn == nil {
-		return nil, reportError("o11yO11yUpdateIngestionKeyIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yUpdateIngestionKeyIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -41635,7 +40868,7 @@ func (a *O11yAPIService) UpdateIngestionKeyExecute(r O11yAPIUpdateIngestionKeyRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -41646,19 +40879,19 @@ func (a *O11yAPIService) UpdateIngestionKeyExecute(r O11yAPIUpdateIngestionKeyRe
 	localVarPostBody = r.o11yO11yUpdateIngestionKeyIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -41666,10 +40899,27 @@ func (a *O11yAPIService) UpdateIngestionKeyExecute(r O11yAPIUpdateIngestionKeyRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateIngestionKeyLimitRequest struct {
@@ -41684,7 +40934,7 @@ func (r O11yAPIUpdateIngestionKeyLimitRequest) O11yO11yUpdateLimitIn(o11yO11yUpd
 	return r
 }
 
-func (r O11yAPIUpdateIngestionKeyLimitRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateIngestionKeyLimitRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateIngestionKeyLimitExecute(r)
 }
 
@@ -41707,16 +40957,19 @@ func (a *O11yAPIService) UpdateIngestionKeyLimit(ctx context.Context, limitId st
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateIngestionKeyLimitExecute(r O11yAPIUpdateIngestionKeyLimitRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateIngestionKeyLimitExecute(r O11yAPIUpdateIngestionKeyLimitRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPatch
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateIngestionKeyLimit")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/gateway/ingestion_keys/limits/{limitId}"
@@ -41726,7 +40979,7 @@ func (a *O11yAPIService) UpdateIngestionKeyLimitExecute(r O11yAPIUpdateIngestion
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yUpdateLimitIn == nil {
-		return nil, reportError("o11yO11yUpdateLimitIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yUpdateLimitIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -41739,7 +40992,7 @@ func (a *O11yAPIService) UpdateIngestionKeyLimitExecute(r O11yAPIUpdateIngestion
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -41750,19 +41003,19 @@ func (a *O11yAPIService) UpdateIngestionKeyLimitExecute(r O11yAPIUpdateIngestion
 	localVarPostBody = r.o11yO11yUpdateLimitIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -41770,10 +41023,27 @@ func (a *O11yAPIService) UpdateIngestionKeyLimitExecute(r O11yAPIUpdateIngestion
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateMetricMetadataRequest struct {
@@ -41842,7 +41112,7 @@ func (a *O11yAPIService) UpdateMetricMetadataExecute(r O11yAPIUpdateMetricMetada
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -41873,6 +41143,14 @@ func (a *O11yAPIService) UpdateMetricMetadataExecute(r O11yAPIUpdateMetricMetada
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -41958,7 +41236,7 @@ func (a *O11yAPIService) UpdateMetricReductionRuleByIDExecute(r O11yAPIUpdateMet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -41989,6 +41267,14 @@ func (a *O11yAPIService) UpdateMetricReductionRuleByIDExecute(r O11yAPIUpdateMet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -42015,7 +41301,7 @@ func (r O11yAPIUpdateMyOrganizationRequest) O11yO11yOrganization(o11yO11yOrganiz
 	return r
 }
 
-func (r O11yAPIUpdateMyOrganizationRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateMyOrganizationRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateMyOrganizationExecute(r)
 }
 
@@ -42036,16 +41322,19 @@ func (a *O11yAPIService) UpdateMyOrganization(ctx context.Context) O11yAPIUpdate
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateMyOrganizationExecute(r O11yAPIUpdateMyOrganizationRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateMyOrganizationExecute(r O11yAPIUpdateMyOrganizationRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateMyOrganization")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/orgs/me"
@@ -42054,7 +41343,7 @@ func (a *O11yAPIService) UpdateMyOrganizationExecute(r O11yAPIUpdateMyOrganizati
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yOrganization == nil {
-		return nil, reportError("o11yO11yOrganization is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yOrganization is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -42067,7 +41356,7 @@ func (a *O11yAPIService) UpdateMyOrganizationExecute(r O11yAPIUpdateMyOrganizati
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -42078,19 +41367,19 @@ func (a *O11yAPIService) UpdateMyOrganizationExecute(r O11yAPIUpdateMyOrganizati
 	localVarPostBody = r.o11yO11yOrganization
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -42098,110 +41387,27 @@ func (a *O11yAPIService) UpdateMyOrganizationExecute(r O11yAPIUpdateMyOrganizati
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIUpdateMyPasswordRequest struct {
-	ctx                      context.Context
-	ApiService               *O11yAPIService
-	o11yO11yChangePasswordIn *O11yO11yChangePasswordIn
-}
-
-func (r O11yAPIUpdateMyPasswordRequest) O11yO11yChangePasswordIn(o11yO11yChangePasswordIn O11yO11yChangePasswordIn) O11yAPIUpdateMyPasswordRequest {
-	r.o11yO11yChangePasswordIn = &o11yO11yChangePasswordIn
-	return r
-}
-
-func (r O11yAPIUpdateMyPasswordRequest) Execute() (*http.Response, error) {
-	return r.ApiService.UpdateMyPasswordExecute(r)
-}
-
-/*
-UpdateMyPassword Replaces the calling user's password, refusing when the old one does not match.
-
-Replaces the calling user's password, refusing when the old
-one does not match. Open to any authenticated caller.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIUpdateMyPasswordRequest
-*/
-func (a *O11yAPIService) UpdateMyPassword(ctx context.Context) O11yAPIUpdateMyPasswordRequest {
-	return O11yAPIUpdateMyPasswordRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) UpdateMyPasswordExecute(r O11yAPIUpdateMyPasswordRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateMyPassword")
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/users/me/factor_password"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yChangePasswordIn == nil {
-		return nil, reportError("o11yO11yChangePasswordIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yChangePasswordIn
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
+			error: err.Error(),
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateMyServiceAccountRequest struct {
@@ -42215,7 +41421,7 @@ func (r O11yAPIUpdateMyServiceAccountRequest) O11yO11yMyServiceAccountUpdateIn(o
 	return r
 }
 
-func (r O11yAPIUpdateMyServiceAccountRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateMyServiceAccountRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateMyServiceAccountExecute(r)
 }
 
@@ -42235,16 +41441,19 @@ func (a *O11yAPIService) UpdateMyServiceAccount(ctx context.Context) O11yAPIUpda
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateMyServiceAccountExecute(r O11yAPIUpdateMyServiceAccountRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateMyServiceAccountExecute(r O11yAPIUpdateMyServiceAccountRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateMyServiceAccount")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/service_accounts/me"
@@ -42253,7 +41462,7 @@ func (a *O11yAPIService) UpdateMyServiceAccountExecute(r O11yAPIUpdateMyServiceA
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yMyServiceAccountUpdateIn == nil {
-		return nil, reportError("o11yO11yMyServiceAccountUpdateIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yMyServiceAccountUpdateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -42266,7 +41475,7 @@ func (a *O11yAPIService) UpdateMyServiceAccountExecute(r O11yAPIUpdateMyServiceA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -42277,19 +41486,19 @@ func (a *O11yAPIService) UpdateMyServiceAccountExecute(r O11yAPIUpdateMyServiceA
 	localVarPostBody = r.o11yO11yMyServiceAccountUpdateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -42297,109 +41506,27 @@ func (a *O11yAPIService) UpdateMyServiceAccountExecute(r O11yAPIUpdateMyServiceA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIUpdateMyUserV2Request struct {
-	ctx                   context.Context
-	ApiService            *O11yAPIService
-	o11yO11yUpdatableUser *O11yO11yUpdatableUser
-}
-
-func (r O11yAPIUpdateMyUserV2Request) O11yO11yUpdatableUser(o11yO11yUpdatableUser O11yO11yUpdatableUser) O11yAPIUpdateMyUserV2Request {
-	r.o11yO11yUpdatableUser = &o11yO11yUpdatableUser
-	return r
-}
-
-func (r O11yAPIUpdateMyUserV2Request) Execute() (*http.Response, error) {
-	return r.ApiService.UpdateMyUserV2Execute(r)
-}
-
-/*
-UpdateMyUserV2 Renames the calling user.
-
-Renames the calling user. Open to any authenticated caller.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIUpdateMyUserV2Request
-*/
-func (a *O11yAPIService) UpdateMyUserV2(ctx context.Context) O11yAPIUpdateMyUserV2Request {
-	return O11yAPIUpdateMyUserV2Request{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) UpdateMyUserV2Execute(r O11yAPIUpdateMyUserV2Request) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateMyUserV2")
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/users/me"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yUpdatableUser == nil {
-		return nil, reportError("o11yO11yUpdatableUser is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yUpdatableUser
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
+			error: err.Error(),
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateOrgPreferenceRequest struct {
@@ -42414,7 +41541,7 @@ func (r O11yAPIUpdateOrgPreferenceRequest) O11yO11yUpdatablePreference(o11yO11yU
 	return r
 }
 
-func (r O11yAPIUpdateOrgPreferenceRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateOrgPreferenceRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateOrgPreferenceExecute(r)
 }
 
@@ -42436,16 +41563,19 @@ func (a *O11yAPIService) UpdateOrgPreference(ctx context.Context, name string) O
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateOrgPreferenceExecute(r O11yAPIUpdateOrgPreferenceRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateOrgPreferenceExecute(r O11yAPIUpdateOrgPreferenceRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateOrgPreference")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/org/preferences/{name}"
@@ -42455,7 +41585,7 @@ func (a *O11yAPIService) UpdateOrgPreferenceExecute(r O11yAPIUpdateOrgPreference
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yUpdatablePreference == nil {
-		return nil, reportError("o11yO11yUpdatablePreference is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yUpdatablePreference is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -42468,7 +41598,7 @@ func (a *O11yAPIService) UpdateOrgPreferenceExecute(r O11yAPIUpdateOrgPreference
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -42479,19 +41609,19 @@ func (a *O11yAPIService) UpdateOrgPreferenceExecute(r O11yAPIUpdateOrgPreference
 	localVarPostBody = r.o11yO11yUpdatablePreference
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -42499,10 +41629,27 @@ func (a *O11yAPIService) UpdateOrgPreferenceExecute(r O11yAPIUpdateOrgPreference
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdatePublicDashboardRequest struct {
@@ -42517,7 +41664,7 @@ func (r O11yAPIUpdatePublicDashboardRequest) O11yO11yPublicDashboardWriteIn(o11y
 	return r
 }
 
-func (r O11yAPIUpdatePublicDashboardRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdatePublicDashboardRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdatePublicDashboardExecute(r)
 }
 
@@ -42541,16 +41688,19 @@ func (a *O11yAPIService) UpdatePublicDashboard(ctx context.Context, id string) O
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdatePublicDashboardExecute(r O11yAPIUpdatePublicDashboardRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdatePublicDashboardExecute(r O11yAPIUpdatePublicDashboardRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdatePublicDashboard")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/dashboards/{id}/public"
@@ -42560,7 +41710,7 @@ func (a *O11yAPIService) UpdatePublicDashboardExecute(r O11yAPIUpdatePublicDashb
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yPublicDashboardWriteIn == nil {
-		return nil, reportError("o11yO11yPublicDashboardWriteIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yPublicDashboardWriteIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -42573,7 +41723,7 @@ func (a *O11yAPIService) UpdatePublicDashboardExecute(r O11yAPIUpdatePublicDashb
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -42584,19 +41734,19 @@ func (a *O11yAPIService) UpdatePublicDashboardExecute(r O11yAPIUpdatePublicDashb
 	localVarPostBody = r.o11yO11yPublicDashboardWriteIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -42604,10 +41754,27 @@ func (a *O11yAPIService) UpdatePublicDashboardExecute(r O11yAPIUpdatePublicDashb
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateQuickFiltersRequest struct {
@@ -42621,7 +41788,7 @@ func (r O11yAPIUpdateQuickFiltersRequest) O11yO11yUpdatableQuickFilters(o11yO11y
 	return r
 }
 
-func (r O11yAPIUpdateQuickFiltersRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateQuickFiltersRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateQuickFiltersExecute(r)
 }
 
@@ -42642,16 +41809,19 @@ func (a *O11yAPIService) UpdateQuickFilters(ctx context.Context) O11yAPIUpdateQu
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateQuickFiltersExecute(r O11yAPIUpdateQuickFiltersRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateQuickFiltersExecute(r O11yAPIUpdateQuickFiltersRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateQuickFilters")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/orgs/me/filters"
@@ -42660,7 +41830,7 @@ func (a *O11yAPIService) UpdateQuickFiltersExecute(r O11yAPIUpdateQuickFiltersRe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yUpdatableQuickFilters == nil {
-		return nil, reportError("o11yO11yUpdatableQuickFilters is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yUpdatableQuickFilters is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -42673,7 +41843,7 @@ func (a *O11yAPIService) UpdateQuickFiltersExecute(r O11yAPIUpdateQuickFiltersRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -42684,19 +41854,19 @@ func (a *O11yAPIService) UpdateQuickFiltersExecute(r O11yAPIUpdateQuickFiltersRe
 	localVarPostBody = r.o11yO11yUpdatableQuickFilters
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -42704,10 +41874,27 @@ func (a *O11yAPIService) UpdateQuickFiltersExecute(r O11yAPIUpdateQuickFiltersRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateRoleRequest struct {
@@ -42722,7 +41909,7 @@ func (r O11yAPIUpdateRoleRequest) O11yO11yRoleUpdateIn(o11yO11yRoleUpdateIn O11y
 	return r
 }
 
-func (r O11yAPIUpdateRoleRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateRoleRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateRoleExecute(r)
 }
 
@@ -42746,16 +41933,19 @@ func (a *O11yAPIService) UpdateRole(ctx context.Context, id string) O11yAPIUpdat
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateRoleExecute(r O11yAPIUpdateRoleRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateRoleExecute(r O11yAPIUpdateRoleRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateRole")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/roles/{id}"
@@ -42765,7 +41955,7 @@ func (a *O11yAPIService) UpdateRoleExecute(r O11yAPIUpdateRoleRequest) (*http.Re
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yRoleUpdateIn == nil {
-		return nil, reportError("o11yO11yRoleUpdateIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yRoleUpdateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -42778,7 +41968,7 @@ func (a *O11yAPIService) UpdateRoleExecute(r O11yAPIUpdateRoleRequest) (*http.Re
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -42789,19 +41979,19 @@ func (a *O11yAPIService) UpdateRoleExecute(r O11yAPIUpdateRoleRequest) (*http.Re
 	localVarPostBody = r.o11yO11yRoleUpdateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -42809,10 +41999,27 @@ func (a *O11yAPIService) UpdateRoleExecute(r O11yAPIUpdateRoleRequest) (*http.Re
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateRoutePolicyRequest struct {
@@ -42885,7 +42092,7 @@ func (a *O11yAPIService) UpdateRoutePolicyExecute(r O11yAPIUpdateRoutePolicyRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -42916,6 +42123,14 @@ func (a *O11yAPIService) UpdateRoutePolicyExecute(r O11yAPIUpdateRoutePolicyRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -42943,7 +42158,7 @@ func (r O11yAPIUpdateRuleByIDRequest) Body(body interface{}) O11yAPIUpdateRuleBy
 	return r
 }
 
-func (r O11yAPIUpdateRuleByIDRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateRuleByIDRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateRuleByIDExecute(r)
 }
 
@@ -42965,16 +42180,19 @@ func (a *O11yAPIService) UpdateRuleByID(ctx context.Context, id string) O11yAPIU
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateRuleByIDExecute(r O11yAPIUpdateRuleByIDRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateRuleByIDExecute(r O11yAPIUpdateRuleByIDRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateRuleByID")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/rules/{id}"
@@ -42984,7 +42202,7 @@ func (a *O11yAPIService) UpdateRuleByIDExecute(r O11yAPIUpdateRuleByIDRequest) (
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.body == nil {
-		return nil, reportError("body is required and must be specified")
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -42997,7 +42215,7 @@ func (a *O11yAPIService) UpdateRuleByIDExecute(r O11yAPIUpdateRuleByIDRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -43008,19 +42226,19 @@ func (a *O11yAPIService) UpdateRuleByIDExecute(r O11yAPIUpdateRuleByIDRequest) (
 	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -43028,10 +42246,27 @@ func (a *O11yAPIService) UpdateRuleByIDExecute(r O11yAPIUpdateRuleByIDRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateServiceRequest struct {
@@ -43048,7 +42283,7 @@ func (r O11yAPIUpdateServiceRequest) O11yO11yUpdateServiceIn(o11yO11yUpdateServi
 	return r
 }
 
-func (r O11yAPIUpdateServiceRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateServiceRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateServiceExecute(r)
 }
 
@@ -43075,16 +42310,19 @@ func (a *O11yAPIService) UpdateService(ctx context.Context, cloudProvider string
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateServiceExecute(r O11yAPIUpdateServiceRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateServiceExecute(r O11yAPIUpdateServiceRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateService")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/cloud_integrations/{cloud_provider}/accounts/{id}/services/{service_id}"
@@ -43096,7 +42334,7 @@ func (a *O11yAPIService) UpdateServiceExecute(r O11yAPIUpdateServiceRequest) (*h
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yUpdateServiceIn == nil {
-		return nil, reportError("o11yO11yUpdateServiceIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yUpdateServiceIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -43109,7 +42347,7 @@ func (a *O11yAPIService) UpdateServiceExecute(r O11yAPIUpdateServiceRequest) (*h
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -43120,19 +42358,19 @@ func (a *O11yAPIService) UpdateServiceExecute(r O11yAPIUpdateServiceRequest) (*h
 	localVarPostBody = r.o11yO11yUpdateServiceIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -43140,10 +42378,27 @@ func (a *O11yAPIService) UpdateServiceExecute(r O11yAPIUpdateServiceRequest) (*h
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateServiceAccountRequest struct {
@@ -43158,7 +42413,7 @@ func (r O11yAPIUpdateServiceAccountRequest) O11yO11yServiceAccountUpdateIn(o11yO
 	return r
 }
 
-func (r O11yAPIUpdateServiceAccountRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateServiceAccountRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateServiceAccountExecute(r)
 }
 
@@ -43180,16 +42435,19 @@ func (a *O11yAPIService) UpdateServiceAccount(ctx context.Context, id string) O1
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateServiceAccountExecute(r O11yAPIUpdateServiceAccountRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateServiceAccountExecute(r O11yAPIUpdateServiceAccountRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateServiceAccount")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/service_accounts/{id}"
@@ -43199,7 +42457,7 @@ func (a *O11yAPIService) UpdateServiceAccountExecute(r O11yAPIUpdateServiceAccou
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yServiceAccountUpdateIn == nil {
-		return nil, reportError("o11yO11yServiceAccountUpdateIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yServiceAccountUpdateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -43212,7 +42470,7 @@ func (a *O11yAPIService) UpdateServiceAccountExecute(r O11yAPIUpdateServiceAccou
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -43223,19 +42481,19 @@ func (a *O11yAPIService) UpdateServiceAccountExecute(r O11yAPIUpdateServiceAccou
 	localVarPostBody = r.o11yO11yServiceAccountUpdateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -43243,10 +42501,27 @@ func (a *O11yAPIService) UpdateServiceAccountExecute(r O11yAPIUpdateServiceAccou
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateServiceAccountKeyRequest struct {
@@ -43262,7 +42537,7 @@ func (r O11yAPIUpdateServiceAccountKeyRequest) O11yO11yAPIKeyUpdateIn(o11yO11yAP
 	return r
 }
 
-func (r O11yAPIUpdateServiceAccountKeyRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateServiceAccountKeyRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateServiceAccountKeyExecute(r)
 }
 
@@ -43286,16 +42561,19 @@ func (a *O11yAPIService) UpdateServiceAccountKey(ctx context.Context, id string,
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateServiceAccountKeyExecute(r O11yAPIUpdateServiceAccountKeyRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateServiceAccountKeyExecute(r O11yAPIUpdateServiceAccountKeyRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateServiceAccountKey")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/service_accounts/{id}/keys/{fid}"
@@ -43306,7 +42584,7 @@ func (a *O11yAPIService) UpdateServiceAccountKeyExecute(r O11yAPIUpdateServiceAc
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yAPIKeyUpdateIn == nil {
-		return nil, reportError("o11yO11yAPIKeyUpdateIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yAPIKeyUpdateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -43319,7 +42597,7 @@ func (a *O11yAPIService) UpdateServiceAccountKeyExecute(r O11yAPIUpdateServiceAc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -43330,19 +42608,19 @@ func (a *O11yAPIService) UpdateServiceAccountKeyExecute(r O11yAPIUpdateServiceAc
 	localVarPostBody = r.o11yO11yAPIKeyUpdateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -43350,10 +42628,27 @@ func (a *O11yAPIService) UpdateServiceAccountKeyExecute(r O11yAPIUpdateServiceAc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateSpanMapperRequest struct {
@@ -43369,7 +42664,7 @@ func (r O11yAPIUpdateSpanMapperRequest) O11yO11ySpanMapperUpdateIn(o11yO11ySpanM
 	return r
 }
 
-func (r O11yAPIUpdateSpanMapperRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateSpanMapperRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateSpanMapperExecute(r)
 }
 
@@ -43396,16 +42691,19 @@ func (a *O11yAPIService) UpdateSpanMapper(ctx context.Context, groupId string, m
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateSpanMapperExecute(r O11yAPIUpdateSpanMapperRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateSpanMapperExecute(r O11yAPIUpdateSpanMapperRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPatch
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateSpanMapper")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/span_mapper_groups/{groupId}/span_mappers/{mapperId}"
@@ -43416,7 +42714,7 @@ func (a *O11yAPIService) UpdateSpanMapperExecute(r O11yAPIUpdateSpanMapperReques
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11ySpanMapperUpdateIn == nil {
-		return nil, reportError("o11yO11ySpanMapperUpdateIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11ySpanMapperUpdateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -43429,7 +42727,7 @@ func (a *O11yAPIService) UpdateSpanMapperExecute(r O11yAPIUpdateSpanMapperReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -43440,19 +42738,19 @@ func (a *O11yAPIService) UpdateSpanMapperExecute(r O11yAPIUpdateSpanMapperReques
 	localVarPostBody = r.o11yO11ySpanMapperUpdateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -43460,10 +42758,27 @@ func (a *O11yAPIService) UpdateSpanMapperExecute(r O11yAPIUpdateSpanMapperReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateSpanMapperGroupRequest struct {
@@ -43478,7 +42793,7 @@ func (r O11yAPIUpdateSpanMapperGroupRequest) O11yO11ySpanMapperGroupUpdateIn(o11
 	return r
 }
 
-func (r O11yAPIUpdateSpanMapperGroupRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateSpanMapperGroupRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateSpanMapperGroupExecute(r)
 }
 
@@ -43503,16 +42818,19 @@ func (a *O11yAPIService) UpdateSpanMapperGroup(ctx context.Context, groupId stri
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateSpanMapperGroupExecute(r O11yAPIUpdateSpanMapperGroupRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateSpanMapperGroupExecute(r O11yAPIUpdateSpanMapperGroupRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPatch
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateSpanMapperGroup")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/span_mapper_groups/{groupId}"
@@ -43522,7 +42840,7 @@ func (a *O11yAPIService) UpdateSpanMapperGroupExecute(r O11yAPIUpdateSpanMapperG
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11ySpanMapperGroupUpdateIn == nil {
-		return nil, reportError("o11yO11ySpanMapperGroupUpdateIn is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11ySpanMapperGroupUpdateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -43535,7 +42853,7 @@ func (a *O11yAPIService) UpdateSpanMapperGroupExecute(r O11yAPIUpdateSpanMapperG
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -43546,19 +42864,19 @@ func (a *O11yAPIService) UpdateSpanMapperGroupExecute(r O11yAPIUpdateSpanMapperG
 	localVarPostBody = r.o11yO11ySpanMapperGroupUpdateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -43566,10 +42884,27 @@ func (a *O11yAPIService) UpdateSpanMapperGroupExecute(r O11yAPIUpdateSpanMapperG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIUpdateTraceFieldRequest struct {
@@ -43640,7 +42975,7 @@ func (a *O11yAPIService) UpdateTraceFieldExecute(r O11yAPIUpdateTraceFieldReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -43671,6 +43006,14 @@ func (a *O11yAPIService) UpdateTraceFieldExecute(r O11yAPIUpdateTraceFieldReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -43758,7 +43101,7 @@ func (a *O11yAPIService) UpdateTraceFunnelExecute(r O11yAPIUpdateTraceFunnelRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -43789,6 +43132,14 @@ func (a *O11yAPIService) UpdateTraceFunnelExecute(r O11yAPIUpdateTraceFunnelRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -43873,7 +43224,7 @@ func (a *O11yAPIService) UpdateTraceFunnelStepsExecute(r O11yAPIUpdateTraceFunne
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -43904,227 +43255,14 @@ func (a *O11yAPIService) UpdateTraceFunnelStepsExecute(r O11yAPIUpdateTraceFunne
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIUpdateUserRequest struct {
-	ctx                context.Context
-	ApiService         *O11yAPIService
-	id                 string
-	o11yO11yUserUpdate *O11yO11yUserUpdate
-}
-
-func (r O11yAPIUpdateUserRequest) O11yO11yUserUpdate(o11yO11yUserUpdate O11yO11yUserUpdate) O11yAPIUpdateUserRequest {
-	r.o11yO11yUserUpdate = &o11yO11yUserUpdate
-	return r
-}
-
-func (r O11yAPIUpdateUserRequest) Execute() (*http.Response, error) {
-	return r.ApiService.UpdateUserExecute(r)
-}
-
-/*
-UpdateUser Renames one org member, by user id — someone else, never the caller, who renames themselves through updateMyUser.
-
-Renames one org member, by user id — someone else, never the
-caller, who renames themselves through updateMyUser. Admin gate.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIUpdateUserRequest
-*/
-func (a *O11yAPIService) UpdateUser(ctx context.Context, id string) O11yAPIUpdateUserRequest {
-	return O11yAPIUpdateUserRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) UpdateUserExecute(r O11yAPIUpdateUserRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateUser")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/users/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yUserUpdate == nil {
-		return nil, reportError("o11yO11yUserUpdate is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yUserUpdate
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type O11yAPIUpdateUserDeprecatedRequest struct {
-	ctx                          context.Context
-	ApiService                   *O11yAPIService
-	id                           string
-	o11yO11yDeprecatedUserUpdate *O11yO11yDeprecatedUserUpdate
-}
-
-func (r O11yAPIUpdateUserDeprecatedRequest) O11yO11yDeprecatedUserUpdate(o11yO11yDeprecatedUserUpdate O11yO11yDeprecatedUserUpdate) O11yAPIUpdateUserDeprecatedRequest {
-	r.o11yO11yDeprecatedUserUpdate = &o11yO11yDeprecatedUserUpdate
-	return r
-}
-
-func (r O11yAPIUpdateUserDeprecatedRequest) Execute() (*O11yO11yDeprecatedUserOut, *http.Response, error) {
-	return r.ApiService.UpdateUserDeprecatedExecute(r)
-}
-
-/*
-UpdateUserDeprecated Renames one org member and may move their legacy role, answering with the updated record.
-
-Renames one org member and may move their legacy role,
-answering with the updated record. Admins may update anyone; a non-admin
-only themselves (the runtime's self-access gate).
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id
-	@return O11yAPIUpdateUserDeprecatedRequest
-*/
-func (a *O11yAPIService) UpdateUserDeprecated(ctx context.Context, id string) O11yAPIUpdateUserDeprecatedRequest {
-	return O11yAPIUpdateUserDeprecatedRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return O11yO11yDeprecatedUserOut
-func (a *O11yAPIService) UpdateUserDeprecatedExecute(r O11yAPIUpdateUserDeprecatedRequest) (*O11yO11yDeprecatedUserOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *O11yO11yDeprecatedUserOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateUserDeprecated")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/user/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yDeprecatedUserUpdate == nil {
-		return localVarReturnValue, nil, reportError("o11yO11yDeprecatedUserUpdate is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yDeprecatedUserUpdate
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -44152,7 +43290,7 @@ func (r O11yAPIUpdateUserPreferenceRequest) O11yO11yUpdatablePreference(o11yO11y
 	return r
 }
 
-func (r O11yAPIUpdateUserPreferenceRequest) Execute() (*http.Response, error) {
+func (r O11yAPIUpdateUserPreferenceRequest) Execute() (*Approval, *http.Response, error) {
 	return r.ApiService.UpdateUserPreferenceExecute(r)
 }
 
@@ -44175,16 +43313,19 @@ func (a *O11yAPIService) UpdateUserPreference(ctx context.Context, name string) 
 }
 
 // Execute executes the request
-func (a *O11yAPIService) UpdateUserPreferenceExecute(r O11yAPIUpdateUserPreferenceRequest) (*http.Response, error) {
+//
+//	@return Approval
+func (a *O11yAPIService) UpdateUserPreferenceExecute(r O11yAPIUpdateUserPreferenceRequest) (*Approval, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Approval
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.UpdateUserPreference")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/o11y/user/preferences/{name}"
@@ -44194,7 +43335,7 @@ func (a *O11yAPIService) UpdateUserPreferenceExecute(r O11yAPIUpdateUserPreferen
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.o11yO11yUpdatablePreference == nil {
-		return nil, reportError("o11yO11yUpdatablePreference is required and must be specified")
+		return localVarReturnValue, nil, reportError("o11yO11yUpdatablePreference is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -44207,7 +43348,7 @@ func (a *O11yAPIService) UpdateUserPreferenceExecute(r O11yAPIUpdateUserPreferen
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -44218,19 +43359,19 @@ func (a *O11yAPIService) UpdateUserPreferenceExecute(r O11yAPIUpdateUserPreferen
 	localVarPostBody = r.o11yO11yUpdatablePreference
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -44238,10 +43379,27 @@ func (a *O11yAPIService) UpdateUserPreferenceExecute(r O11yAPIUpdateUserPreferen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type O11yAPIValidateDraftFunnelTracesRequest struct {
@@ -44310,7 +43468,7 @@ func (a *O11yAPIService) ValidateDraftFunnelTracesExecute(r O11yAPIValidateDraft
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -44341,6 +43499,14 @@ func (a *O11yAPIService) ValidateDraftFunnelTracesExecute(r O11yAPIValidateDraft
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -44426,7 +43592,7 @@ func (a *O11yAPIService) ValidateTraceFunnelTracesExecute(r O11yAPIValidateTrace
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -44457,6 +43623,14 @@ func (a *O11yAPIService) ValidateTraceFunnelTracesExecute(r O11yAPIValidateTrace
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -44470,104 +43644,4 @@ func (a *O11yAPIService) ValidateTraceFunnelTracesExecute(r O11yAPIValidateTrace
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type O11yAPIVerifyResetPasswordTokenRequest struct {
-	ctx                   context.Context
-	ApiService            *O11yAPIService
-	o11yO11yResetTokenRef *O11yO11yResetTokenRef
-}
-
-func (r O11yAPIVerifyResetPasswordTokenRequest) O11yO11yResetTokenRef(o11yO11yResetTokenRef O11yO11yResetTokenRef) O11yAPIVerifyResetPasswordTokenRequest {
-	r.o11yO11yResetTokenRef = &o11yO11yResetTokenRef
-	return r
-}
-
-func (r O11yAPIVerifyResetPasswordTokenRequest) Execute() (*http.Response, error) {
-	return r.ApiService.VerifyResetPasswordTokenExecute(r)
-}
-
-/*
-VerifyResetPasswordToken Checks that a reset-password token exists and has not expired, without consuming it.
-
-Checks that a reset-password token exists and has not
-expired, without consuming it. Unauthenticated: the token is the proof.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return O11yAPIVerifyResetPasswordTokenRequest
-*/
-func (a *O11yAPIService) VerifyResetPasswordToken(ctx context.Context) O11yAPIVerifyResetPasswordTokenRequest {
-	return O11yAPIVerifyResetPasswordTokenRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *O11yAPIService) VerifyResetPasswordTokenExecute(r O11yAPIVerifyResetPasswordTokenRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "O11yAPIService.VerifyResetPasswordToken")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/o11y/reset_password_tokens/verify"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.o11yO11yResetTokenRef == nil {
-		return nil, reportError("o11yO11yResetTokenRef is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.o11yO11yResetTokenRef
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
 }

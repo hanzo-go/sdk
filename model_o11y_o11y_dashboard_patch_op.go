@@ -24,9 +24,12 @@ type O11yO11yDashboardPatchOp struct {
 	// Op is the verb: add, remove, replace, move, copy or test.
 	Op *string `json:"op,omitempty"`
 	// Path is a JSON Pointer into the postable dashboard, e.g. /spec/display/name, /spec/panels/<id>, /tags/-.
-	Path  *string     `json:"path,omitempty"`
-	Value interface{} `json:"value,omitempty"`
+	Path                 *string     `json:"path,omitempty"`
+	Value                interface{} `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardPatchOp O11yO11yDashboardPatchOp
 
 // NewO11yO11yDashboardPatchOp instantiates a new O11yO11yDashboardPatchOp object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yDashboardPatchOp) ToMap() (map[string]interface{}, error) {
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardPatchOp) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardPatchOp := _O11yO11yDashboardPatchOp{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardPatchOp)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardPatchOp(varO11yO11yDashboardPatchOp)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "from")
+		delete(additionalProperties, "op")
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardPatchOp struct {

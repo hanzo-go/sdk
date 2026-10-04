@@ -19,12 +19,15 @@ var _ MappedNullable = &Remark{}
 
 // Remark struct for Remark
 type Remark struct {
-	IsPublic  *bool   `json:"isPublic,omitempty"`
-	Score     *string `json:"score,omitempty"`
-	Text      *string `json:"text,omitempty"`
-	Timestamp *string `json:"timestamp,omitempty"`
-	User      *string `json:"user,omitempty"`
+	IsPublic             *bool   `json:"isPublic,omitempty"`
+	Score                *string `json:"score,omitempty"`
+	Text                 *string `json:"text,omitempty"`
+	Timestamp            *string `json:"timestamp,omitempty"`
+	User                 *string `json:"user,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Remark Remark
 
 // NewRemark instantiates a new Remark object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o Remark) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Remark) UnmarshalJSON(data []byte) (err error) {
+	varRemark := _Remark{}
+
+	err = json.Unmarshal(data, &varRemark)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Remark(varRemark)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "isPublic")
+		delete(additionalProperties, "score")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "user")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRemark struct {

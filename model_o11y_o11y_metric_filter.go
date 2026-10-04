@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yMetricFilter{}
 // O11yO11yMetricFilter struct for O11yO11yMetricFilter
 type O11yO11yMetricFilter struct {
 	// Expression is the filter, in the query-builder filter syntax.
-	Expression *string `json:"expression,omitempty"`
+	Expression           *string `json:"expression,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricFilter O11yO11yMetricFilter
 
 // NewO11yO11yMetricFilter instantiates a new O11yO11yMetricFilter object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yMetricFilter) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Expression) {
 		toSerialize["expression"] = o.Expression
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricFilter) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricFilter := _O11yO11yMetricFilter{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricFilter(varO11yO11yMetricFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "expression")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricFilter struct {

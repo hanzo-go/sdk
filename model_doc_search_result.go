@@ -19,14 +19,17 @@ var _ MappedNullable = &DocSearchResult{}
 
 // DocSearchResult struct for DocSearchResult
 type DocSearchResult struct {
-	Breadcrumbs []string `json:"breadcrumbs,omitempty"`
-	Content     *string  `json:"content,omitempty"`
-	FileId      *string  `json:"file_id,omitempty"`
-	Id          *string  `json:"id,omitempty"`
-	Title       *string  `json:"title,omitempty"`
-	Type        *string  `json:"type,omitempty"`
-	Url         *string  `json:"url,omitempty"`
+	Breadcrumbs          []string `json:"breadcrumbs,omitempty"`
+	Content              *string  `json:"content,omitempty"`
+	FileId               *string  `json:"file_id,omitempty"`
+	Id                   *string  `json:"id,omitempty"`
+	Title                *string  `json:"title,omitempty"`
+	Type                 *string  `json:"type,omitempty"`
+	Url                  *string  `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DocSearchResult DocSearchResult
 
 // NewDocSearchResult instantiates a new DocSearchResult object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o DocSearchResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DocSearchResult) UnmarshalJSON(data []byte) (err error) {
+	varDocSearchResult := _DocSearchResult{}
+
+	err = json.Unmarshal(data, &varDocSearchResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DocSearchResult(varDocSearchResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "breadcrumbs")
+		delete(additionalProperties, "content")
+		delete(additionalProperties, "file_id")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDocSearchResult struct {

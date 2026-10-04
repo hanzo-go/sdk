@@ -19,17 +19,20 @@ var _ MappedNullable = &O11yO11yQueryRangePreviewIn{}
 
 // O11yO11yQueryRangePreviewIn struct for O11yO11yQueryRangePreviewIn
 type O11yO11yQueryRangePreviewIn struct {
-	CompositeQuery *O11yQuerybuildertypesv5CompositeQuery `json:"compositeQuery,omitempty"`
-	End            *int32                                 `json:"end,omitempty"`
-	FormatOptions  *O11yFormatOptions                     `json:"formatOptions,omitempty"`
-	NoCache        *bool                                  `json:"noCache,omitempty"`
-	RequestType    interface{}                            `json:"requestType,omitempty"`
-	SchemaVersion  *string                                `json:"schemaVersion,omitempty"`
-	Start          *int32                                 `json:"start,omitempty"`
-	Variables      map[string]O11yVariableItem            `json:"variables,omitempty"`
+	CompositeQuery *O11yCompositeQuery         `json:"compositeQuery,omitempty"`
+	End            *int32                      `json:"end,omitempty"`
+	FormatOptions  *O11yFormatOptions          `json:"formatOptions,omitempty"`
+	NoCache        *bool                       `json:"noCache,omitempty"`
+	RequestType    interface{}                 `json:"requestType,omitempty"`
+	SchemaVersion  *string                     `json:"schemaVersion,omitempty"`
+	Start          *int32                      `json:"start,omitempty"`
+	Variables      map[string]O11yVariableItem `json:"variables,omitempty"`
 	// Verbose selects the answer's depth. Empty or \"true\" renders the underlying Datastore SQL with EXPLAIN and granule analysis; \"false\" returns only the per-query valid/error/warnings verdict with no Datastore round trips.
-	Verbose *string `json:"verbose,omitempty"`
+	Verbose              *string `json:"verbose,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueryRangePreviewIn O11yO11yQueryRangePreviewIn
 
 // NewO11yO11yQueryRangePreviewIn instantiates a new O11yO11yQueryRangePreviewIn object
 // This constructor will assign default values to properties that have it defined,
@@ -49,9 +52,9 @@ func NewO11yO11yQueryRangePreviewInWithDefaults() *O11yO11yQueryRangePreviewIn {
 }
 
 // GetCompositeQuery returns the CompositeQuery field value if set, zero value otherwise.
-func (o *O11yO11yQueryRangePreviewIn) GetCompositeQuery() O11yQuerybuildertypesv5CompositeQuery {
+func (o *O11yO11yQueryRangePreviewIn) GetCompositeQuery() O11yCompositeQuery {
 	if o == nil || IsNil(o.CompositeQuery) {
-		var ret O11yQuerybuildertypesv5CompositeQuery
+		var ret O11yCompositeQuery
 		return ret
 	}
 	return *o.CompositeQuery
@@ -59,7 +62,7 @@ func (o *O11yO11yQueryRangePreviewIn) GetCompositeQuery() O11yQuerybuildertypesv
 
 // GetCompositeQueryOk returns a tuple with the CompositeQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yQueryRangePreviewIn) GetCompositeQueryOk() (*O11yQuerybuildertypesv5CompositeQuery, bool) {
+func (o *O11yO11yQueryRangePreviewIn) GetCompositeQueryOk() (*O11yCompositeQuery, bool) {
 	if o == nil || IsNil(o.CompositeQuery) {
 		return nil, false
 	}
@@ -75,8 +78,8 @@ func (o *O11yO11yQueryRangePreviewIn) HasCompositeQuery() bool {
 	return false
 }
 
-// SetCompositeQuery gets a reference to the given O11yQuerybuildertypesv5CompositeQuery and assigns it to the CompositeQuery field.
-func (o *O11yO11yQueryRangePreviewIn) SetCompositeQuery(v O11yQuerybuildertypesv5CompositeQuery) {
+// SetCompositeQuery gets a reference to the given O11yCompositeQuery and assigns it to the CompositeQuery field.
+func (o *O11yO11yQueryRangePreviewIn) SetCompositeQuery(v O11yCompositeQuery) {
 	o.CompositeQuery = &v
 }
 
@@ -374,7 +377,41 @@ func (o O11yO11yQueryRangePreviewIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Verbose) {
 		toSerialize["verbose"] = o.Verbose
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueryRangePreviewIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueryRangePreviewIn := _O11yO11yQueryRangePreviewIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueryRangePreviewIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueryRangePreviewIn(varO11yO11yQueryRangePreviewIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "compositeQuery")
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "formatOptions")
+		delete(additionalProperties, "noCache")
+		delete(additionalProperties, "requestType")
+		delete(additionalProperties, "schemaVersion")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "variables")
+		delete(additionalProperties, "verbose")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueryRangePreviewIn struct {

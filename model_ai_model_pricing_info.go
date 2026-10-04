@@ -19,9 +19,15 @@ var _ MappedNullable = &AiModelPricingInfo{}
 
 // AiModelPricingInfo struct for AiModelPricingInfo
 type AiModelPricingInfo struct {
-	Input  *float32 `json:"input,omitempty"`
-	Output *float32 `json:"output,omitempty"`
+	Completion           *string  `json:"completion,omitempty"`
+	InputPerMillion      *float32 `json:"input_per_million,omitempty"`
+	OutputPerMillion     *float32 `json:"output_per_million,omitempty"`
+	Prompt               *string  `json:"prompt,omitempty"`
+	Variable             *bool    `json:"variable,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiModelPricingInfo AiModelPricingInfo
 
 // NewAiModelPricingInfo instantiates a new AiModelPricingInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -40,68 +46,164 @@ func NewAiModelPricingInfoWithDefaults() *AiModelPricingInfo {
 	return &this
 }
 
-// GetInput returns the Input field value if set, zero value otherwise.
-func (o *AiModelPricingInfo) GetInput() float32 {
-	if o == nil || IsNil(o.Input) {
-		var ret float32
+// GetCompletion returns the Completion field value if set, zero value otherwise.
+func (o *AiModelPricingInfo) GetCompletion() string {
+	if o == nil || IsNil(o.Completion) {
+		var ret string
 		return ret
 	}
-	return *o.Input
+	return *o.Completion
 }
 
-// GetInputOk returns a tuple with the Input field value if set, nil otherwise
+// GetCompletionOk returns a tuple with the Completion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiModelPricingInfo) GetInputOk() (*float32, bool) {
-	if o == nil || IsNil(o.Input) {
+func (o *AiModelPricingInfo) GetCompletionOk() (*string, bool) {
+	if o == nil || IsNil(o.Completion) {
 		return nil, false
 	}
-	return o.Input, true
+	return o.Completion, true
 }
 
-// HasInput returns a boolean if a field has been set.
-func (o *AiModelPricingInfo) HasInput() bool {
-	if o != nil && !IsNil(o.Input) {
+// HasCompletion returns a boolean if a field has been set.
+func (o *AiModelPricingInfo) HasCompletion() bool {
+	if o != nil && !IsNil(o.Completion) {
 		return true
 	}
 
 	return false
 }
 
-// SetInput gets a reference to the given float32 and assigns it to the Input field.
-func (o *AiModelPricingInfo) SetInput(v float32) {
-	o.Input = &v
+// SetCompletion gets a reference to the given string and assigns it to the Completion field.
+func (o *AiModelPricingInfo) SetCompletion(v string) {
+	o.Completion = &v
 }
 
-// GetOutput returns the Output field value if set, zero value otherwise.
-func (o *AiModelPricingInfo) GetOutput() float32 {
-	if o == nil || IsNil(o.Output) {
+// GetInputPerMillion returns the InputPerMillion field value if set, zero value otherwise.
+func (o *AiModelPricingInfo) GetInputPerMillion() float32 {
+	if o == nil || IsNil(o.InputPerMillion) {
 		var ret float32
 		return ret
 	}
-	return *o.Output
+	return *o.InputPerMillion
 }
 
-// GetOutputOk returns a tuple with the Output field value if set, nil otherwise
+// GetInputPerMillionOk returns a tuple with the InputPerMillion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiModelPricingInfo) GetOutputOk() (*float32, bool) {
-	if o == nil || IsNil(o.Output) {
+func (o *AiModelPricingInfo) GetInputPerMillionOk() (*float32, bool) {
+	if o == nil || IsNil(o.InputPerMillion) {
 		return nil, false
 	}
-	return o.Output, true
+	return o.InputPerMillion, true
 }
 
-// HasOutput returns a boolean if a field has been set.
-func (o *AiModelPricingInfo) HasOutput() bool {
-	if o != nil && !IsNil(o.Output) {
+// HasInputPerMillion returns a boolean if a field has been set.
+func (o *AiModelPricingInfo) HasInputPerMillion() bool {
+	if o != nil && !IsNil(o.InputPerMillion) {
 		return true
 	}
 
 	return false
 }
 
-// SetOutput gets a reference to the given float32 and assigns it to the Output field.
-func (o *AiModelPricingInfo) SetOutput(v float32) {
-	o.Output = &v
+// SetInputPerMillion gets a reference to the given float32 and assigns it to the InputPerMillion field.
+func (o *AiModelPricingInfo) SetInputPerMillion(v float32) {
+	o.InputPerMillion = &v
+}
+
+// GetOutputPerMillion returns the OutputPerMillion field value if set, zero value otherwise.
+func (o *AiModelPricingInfo) GetOutputPerMillion() float32 {
+	if o == nil || IsNil(o.OutputPerMillion) {
+		var ret float32
+		return ret
+	}
+	return *o.OutputPerMillion
+}
+
+// GetOutputPerMillionOk returns a tuple with the OutputPerMillion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelPricingInfo) GetOutputPerMillionOk() (*float32, bool) {
+	if o == nil || IsNil(o.OutputPerMillion) {
+		return nil, false
+	}
+	return o.OutputPerMillion, true
+}
+
+// HasOutputPerMillion returns a boolean if a field has been set.
+func (o *AiModelPricingInfo) HasOutputPerMillion() bool {
+	if o != nil && !IsNil(o.OutputPerMillion) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputPerMillion gets a reference to the given float32 and assigns it to the OutputPerMillion field.
+func (o *AiModelPricingInfo) SetOutputPerMillion(v float32) {
+	o.OutputPerMillion = &v
+}
+
+// GetPrompt returns the Prompt field value if set, zero value otherwise.
+func (o *AiModelPricingInfo) GetPrompt() string {
+	if o == nil || IsNil(o.Prompt) {
+		var ret string
+		return ret
+	}
+	return *o.Prompt
+}
+
+// GetPromptOk returns a tuple with the Prompt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelPricingInfo) GetPromptOk() (*string, bool) {
+	if o == nil || IsNil(o.Prompt) {
+		return nil, false
+	}
+	return o.Prompt, true
+}
+
+// HasPrompt returns a boolean if a field has been set.
+func (o *AiModelPricingInfo) HasPrompt() bool {
+	if o != nil && !IsNil(o.Prompt) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrompt gets a reference to the given string and assigns it to the Prompt field.
+func (o *AiModelPricingInfo) SetPrompt(v string) {
+	o.Prompt = &v
+}
+
+// GetVariable returns the Variable field value if set, zero value otherwise.
+func (o *AiModelPricingInfo) GetVariable() bool {
+	if o == nil || IsNil(o.Variable) {
+		var ret bool
+		return ret
+	}
+	return *o.Variable
+}
+
+// GetVariableOk returns a tuple with the Variable field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelPricingInfo) GetVariableOk() (*bool, bool) {
+	if o == nil || IsNil(o.Variable) {
+		return nil, false
+	}
+	return o.Variable, true
+}
+
+// HasVariable returns a boolean if a field has been set.
+func (o *AiModelPricingInfo) HasVariable() bool {
+	if o != nil && !IsNil(o.Variable) {
+		return true
+	}
+
+	return false
+}
+
+// SetVariable gets a reference to the given bool and assigns it to the Variable field.
+func (o *AiModelPricingInfo) SetVariable(v bool) {
+	o.Variable = &v
 }
 
 func (o AiModelPricingInfo) MarshalJSON() ([]byte, error) {
@@ -114,13 +216,52 @@ func (o AiModelPricingInfo) MarshalJSON() ([]byte, error) {
 
 func (o AiModelPricingInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Input) {
-		toSerialize["input"] = o.Input
+	if !IsNil(o.Completion) {
+		toSerialize["completion"] = o.Completion
 	}
-	if !IsNil(o.Output) {
-		toSerialize["output"] = o.Output
+	if !IsNil(o.InputPerMillion) {
+		toSerialize["input_per_million"] = o.InputPerMillion
 	}
+	if !IsNil(o.OutputPerMillion) {
+		toSerialize["output_per_million"] = o.OutputPerMillion
+	}
+	if !IsNil(o.Prompt) {
+		toSerialize["prompt"] = o.Prompt
+	}
+	if !IsNil(o.Variable) {
+		toSerialize["variable"] = o.Variable
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiModelPricingInfo) UnmarshalJSON(data []byte) (err error) {
+	varAiModelPricingInfo := _AiModelPricingInfo{}
+
+	err = json.Unmarshal(data, &varAiModelPricingInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiModelPricingInfo(varAiModelPricingInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "completion")
+		delete(additionalProperties, "input_per_million")
+		delete(additionalProperties, "output_per_million")
+		delete(additionalProperties, "prompt")
+		delete(additionalProperties, "variable")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiModelPricingInfo struct {

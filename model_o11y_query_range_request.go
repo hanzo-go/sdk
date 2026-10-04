@@ -20,7 +20,7 @@ var _ MappedNullable = &O11yQueryRangeRequest{}
 // O11yQueryRangeRequest struct for O11yQueryRangeRequest
 type O11yQueryRangeRequest struct {
 	// CompositeQuery is the composite query to use for the request.
-	CompositeQuery *O11yQuerybuildertypesv5CompositeQuery `json:"compositeQuery,omitempty"`
+	CompositeQuery *O11yCompositeQuery `json:"compositeQuery,omitempty"`
 	// End is the end time of the query in epoch milliseconds.
 	End           *int32             `json:"end,omitempty"`
 	FormatOptions *O11yFormatOptions `json:"formatOptions,omitempty"`
@@ -32,8 +32,11 @@ type O11yQueryRangeRequest struct {
 	// Start is the start time of the query in epoch milliseconds.
 	Start *int32 `json:"start,omitempty"`
 	// Variables is the variables to use for the request.
-	Variables map[string]O11yVariableItem `json:"variables,omitempty"`
+	Variables            map[string]O11yVariableItem `json:"variables,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yQueryRangeRequest O11yQueryRangeRequest
 
 // NewO11yQueryRangeRequest instantiates a new O11yQueryRangeRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -53,9 +56,9 @@ func NewO11yQueryRangeRequestWithDefaults() *O11yQueryRangeRequest {
 }
 
 // GetCompositeQuery returns the CompositeQuery field value if set, zero value otherwise.
-func (o *O11yQueryRangeRequest) GetCompositeQuery() O11yQuerybuildertypesv5CompositeQuery {
+func (o *O11yQueryRangeRequest) GetCompositeQuery() O11yCompositeQuery {
 	if o == nil || IsNil(o.CompositeQuery) {
-		var ret O11yQuerybuildertypesv5CompositeQuery
+		var ret O11yCompositeQuery
 		return ret
 	}
 	return *o.CompositeQuery
@@ -63,7 +66,7 @@ func (o *O11yQueryRangeRequest) GetCompositeQuery() O11yQuerybuildertypesv5Compo
 
 // GetCompositeQueryOk returns a tuple with the CompositeQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yQueryRangeRequest) GetCompositeQueryOk() (*O11yQuerybuildertypesv5CompositeQuery, bool) {
+func (o *O11yQueryRangeRequest) GetCompositeQueryOk() (*O11yCompositeQuery, bool) {
 	if o == nil || IsNil(o.CompositeQuery) {
 		return nil, false
 	}
@@ -79,8 +82,8 @@ func (o *O11yQueryRangeRequest) HasCompositeQuery() bool {
 	return false
 }
 
-// SetCompositeQuery gets a reference to the given O11yQuerybuildertypesv5CompositeQuery and assigns it to the CompositeQuery field.
-func (o *O11yQueryRangeRequest) SetCompositeQuery(v O11yQuerybuildertypesv5CompositeQuery) {
+// SetCompositeQuery gets a reference to the given O11yCompositeQuery and assigns it to the CompositeQuery field.
+func (o *O11yQueryRangeRequest) SetCompositeQuery(v O11yCompositeQuery) {
 	o.CompositeQuery = &v
 }
 
@@ -343,7 +346,40 @@ func (o O11yQueryRangeRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yQueryRangeRequest) UnmarshalJSON(data []byte) (err error) {
+	varO11yQueryRangeRequest := _O11yQueryRangeRequest{}
+
+	err = json.Unmarshal(data, &varO11yQueryRangeRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yQueryRangeRequest(varO11yQueryRangeRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "compositeQuery")
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "formatOptions")
+		delete(additionalProperties, "noCache")
+		delete(additionalProperties, "requestType")
+		delete(additionalProperties, "schemaVersion")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "variables")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yQueryRangeRequest struct {

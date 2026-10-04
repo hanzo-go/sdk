@@ -19,16 +19,19 @@ var _ MappedNullable = &Article{}
 
 // Article struct for Article
 type Article struct {
-	Content     []Block  `json:"content,omitempty"`
-	CreatedTime *string  `json:"createdTime,omitempty"`
-	DisplayName *string  `json:"displayName,omitempty"`
-	Glossary    []string `json:"glossary,omitempty"`
-	Name        *string  `json:"name,omitempty"`
-	Owner       *string  `json:"owner,omitempty"`
-	Text        *string  `json:"text,omitempty"`
-	Type        *string  `json:"type,omitempty"`
-	Workflow    *string  `json:"workflow,omitempty"`
+	Content              []Block  `json:"content,omitempty"`
+	CreatedTime          *string  `json:"createdTime,omitempty"`
+	DisplayName          *string  `json:"displayName,omitempty"`
+	Glossary             []string `json:"glossary,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	Owner                *string  `json:"owner,omitempty"`
+	Text                 *string  `json:"text,omitempty"`
+	Type                 *string  `json:"type,omitempty"`
+	Workflow             *string  `json:"workflow,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Article Article
 
 // NewArticle instantiates a new Article object
 // This constructor will assign default values to properties that have it defined,
@@ -372,7 +375,41 @@ func (o Article) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Workflow) {
 		toSerialize["workflow"] = o.Workflow
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Article) UnmarshalJSON(data []byte) (err error) {
+	varArticle := _Article{}
+
+	err = json.Unmarshal(data, &varArticle)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Article(varArticle)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "content")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "glossary")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "workflow")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableArticle struct {

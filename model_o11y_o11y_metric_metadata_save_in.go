@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -32,7 +31,8 @@ type O11yO11yMetricMetadataSaveIn struct {
 	// Type is the metric type, e.g. gauge, sum, histogram.
 	Type *string `json:"type,omitempty"`
 	// Unit is the metric's unit.
-	Unit *string `json:"unit,omitempty"`
+	Unit                 *string `json:"unit,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11yMetricMetadataSaveIn O11yO11yMetricMetadataSaveIn
@@ -265,6 +265,11 @@ func (o O11yO11yMetricMetadataSaveIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Unit) {
 		toSerialize["unit"] = o.Unit
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -292,15 +297,25 @@ func (o *O11yO11yMetricMetadataSaveIn) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11yMetricMetadataSaveIn := _O11yO11yMetricMetadataSaveIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11yMetricMetadataSaveIn)
+	err = json.Unmarshal(data, &varO11yO11yMetricMetadataSaveIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11yMetricMetadataSaveIn(varO11yO11yMetricMetadataSaveIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "isMonotonic")
+		delete(additionalProperties, "metricName")
+		delete(additionalProperties, "temporality")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "unit")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

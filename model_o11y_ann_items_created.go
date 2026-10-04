@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yAnnItemsCreated{}
 // O11yAnnItemsCreated struct for O11yAnnItemsCreated
 type O11yAnnItemsCreated struct {
 	// Data is every item created by this request, in request order.
-	Data []O11yAnnItemView `json:"data,omitempty"`
+	Data                 []O11yAnnItemView `json:"data,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAnnItemsCreated O11yAnnItemsCreated
 
 // NewO11yAnnItemsCreated instantiates a new O11yAnnItemsCreated object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yAnnItemsCreated) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAnnItemsCreated) UnmarshalJSON(data []byte) (err error) {
+	varO11yAnnItemsCreated := _O11yAnnItemsCreated{}
+
+	err = json.Unmarshal(data, &varO11yAnnItemsCreated)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAnnItemsCreated(varO11yAnnItemsCreated)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAnnItemsCreated struct {

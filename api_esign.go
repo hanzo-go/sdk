@@ -27,7 +27,7 @@ type EsignAPIGetEsignDocumentsRequest struct {
 	ApiService *EsignAPIService
 }
 
-func (r EsignAPIGetEsignDocumentsRequest) Execute() (*EsignDocuments, *http.Response, error) {
+func (r EsignAPIGetEsignDocumentsRequest) Execute() (*EsignEsignDocuments, *http.Response, error) {
 	return r.ApiService.GetEsignDocumentsExecute(r)
 }
 
@@ -53,13 +53,13 @@ func (a *EsignAPIService) GetEsignDocuments(ctx context.Context) EsignAPIGetEsig
 
 // Execute executes the request
 //
-//	@return EsignDocuments
-func (a *EsignAPIService) GetEsignDocumentsExecute(r EsignAPIGetEsignDocumentsRequest) (*EsignDocuments, *http.Response, error) {
+//	@return EsignEsignDocuments
+func (a *EsignAPIService) GetEsignDocumentsExecute(r EsignAPIGetEsignDocumentsRequest) (*EsignEsignDocuments, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignDocuments
+		localVarReturnValue *EsignEsignDocuments
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.GetEsignDocuments")
@@ -83,7 +83,7 @@ func (a *EsignAPIService) GetEsignDocumentsExecute(r EsignAPIGetEsignDocumentsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -112,6 +112,14 @@ func (a *EsignAPIService) GetEsignDocumentsExecute(r EsignAPIGetEsignDocumentsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -133,7 +141,7 @@ type EsignAPIGetEsignDocumentsByIdRequest struct {
 	id         string
 }
 
-func (r EsignAPIGetEsignDocumentsByIdRequest) Execute() (*EsignDocument, *http.Response, error) {
+func (r EsignAPIGetEsignDocumentsByIdRequest) Execute() (*EsignEsignDocument, *http.Response, error) {
 	return r.ApiService.GetEsignDocumentsByIdExecute(r)
 }
 
@@ -162,13 +170,13 @@ func (a *EsignAPIService) GetEsignDocumentsById(ctx context.Context, id string) 
 
 // Execute executes the request
 //
-//	@return EsignDocument
-func (a *EsignAPIService) GetEsignDocumentsByIdExecute(r EsignAPIGetEsignDocumentsByIdRequest) (*EsignDocument, *http.Response, error) {
+//	@return EsignEsignDocument
+func (a *EsignAPIService) GetEsignDocumentsByIdExecute(r EsignAPIGetEsignDocumentsByIdRequest) (*EsignEsignDocument, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignDocument
+		localVarReturnValue *EsignEsignDocument
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.GetEsignDocumentsById")
@@ -193,7 +201,7 @@ func (a *EsignAPIService) GetEsignDocumentsByIdExecute(r EsignAPIGetEsignDocumen
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -222,6 +230,14 @@ func (a *EsignAPIService) GetEsignDocumentsByIdExecute(r EsignAPIGetEsignDocumen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -243,7 +259,7 @@ type EsignAPIGetEsignDocumentsByIdAuditRequest struct {
 	id         string
 }
 
-func (r EsignAPIGetEsignDocumentsByIdAuditRequest) Execute() (*EsignTrail, *http.Response, error) {
+func (r EsignAPIGetEsignDocumentsByIdAuditRequest) Execute() (*EsignEsignTrail, *http.Response, error) {
 	return r.ApiService.GetEsignDocumentsByIdAuditExecute(r)
 }
 
@@ -275,13 +291,13 @@ func (a *EsignAPIService) GetEsignDocumentsByIdAudit(ctx context.Context, id str
 
 // Execute executes the request
 //
-//	@return EsignTrail
-func (a *EsignAPIService) GetEsignDocumentsByIdAuditExecute(r EsignAPIGetEsignDocumentsByIdAuditRequest) (*EsignTrail, *http.Response, error) {
+//	@return EsignEsignTrail
+func (a *EsignAPIService) GetEsignDocumentsByIdAuditExecute(r EsignAPIGetEsignDocumentsByIdAuditRequest) (*EsignEsignTrail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignTrail
+		localVarReturnValue *EsignEsignTrail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.GetEsignDocumentsByIdAudit")
@@ -306,7 +322,7 @@ func (a *EsignAPIService) GetEsignDocumentsByIdAuditExecute(r EsignAPIGetEsignDo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -335,6 +351,14 @@ func (a *EsignAPIService) GetEsignDocumentsByIdAuditExecute(r EsignAPIGetEsignDo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -356,7 +380,7 @@ type EsignAPIGetEsignDocumentsByIdDownloadRequest struct {
 	id         string
 }
 
-func (r EsignAPIGetEsignDocumentsByIdDownloadRequest) Execute() (*EsignPDF, *http.Response, error) {
+func (r EsignAPIGetEsignDocumentsByIdDownloadRequest) Execute() (*EsignEsignPDF, *http.Response, error) {
 	return r.ApiService.GetEsignDocumentsByIdDownloadExecute(r)
 }
 
@@ -388,13 +412,13 @@ func (a *EsignAPIService) GetEsignDocumentsByIdDownload(ctx context.Context, id 
 
 // Execute executes the request
 //
-//	@return EsignPDF
-func (a *EsignAPIService) GetEsignDocumentsByIdDownloadExecute(r EsignAPIGetEsignDocumentsByIdDownloadRequest) (*EsignPDF, *http.Response, error) {
+//	@return EsignEsignPDF
+func (a *EsignAPIService) GetEsignDocumentsByIdDownloadExecute(r EsignAPIGetEsignDocumentsByIdDownloadRequest) (*EsignEsignPDF, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignPDF
+		localVarReturnValue *EsignEsignPDF
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.GetEsignDocumentsByIdDownload")
@@ -419,7 +443,7 @@ func (a *EsignAPIService) GetEsignDocumentsByIdDownloadExecute(r EsignAPIGetEsig
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -448,6 +472,14 @@ func (a *EsignAPIService) GetEsignDocumentsByIdDownloadExecute(r EsignAPIGetEsig
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -468,7 +500,7 @@ type EsignAPIGetEsignHealthRequest struct {
 	ApiService *EsignAPIService
 }
 
-func (r EsignAPIGetEsignHealthRequest) Execute() (*EsignHealth, *http.Response, error) {
+func (r EsignAPIGetEsignHealthRequest) Execute() (*EsignEsignHealth, *http.Response, error) {
 	return r.ApiService.GetEsignHealthExecute(r)
 }
 
@@ -495,13 +527,13 @@ func (a *EsignAPIService) GetEsignHealth(ctx context.Context) EsignAPIGetEsignHe
 
 // Execute executes the request
 //
-//	@return EsignHealth
-func (a *EsignAPIService) GetEsignHealthExecute(r EsignAPIGetEsignHealthRequest) (*EsignHealth, *http.Response, error) {
+//	@return EsignEsignHealth
+func (a *EsignAPIService) GetEsignHealthExecute(r EsignAPIGetEsignHealthRequest) (*EsignEsignHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignHealth
+		localVarReturnValue *EsignEsignHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.GetEsignHealth")
@@ -525,7 +557,7 @@ func (a *EsignAPIService) GetEsignHealthExecute(r EsignAPIGetEsignHealthRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -554,6 +586,14 @@ func (a *EsignAPIService) GetEsignHealthExecute(r EsignAPIGetEsignHealthRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -576,7 +616,7 @@ type EsignAPIGetEsignOByOrgSignByTokenRequest struct {
 	token      string
 }
 
-func (r EsignAPIGetEsignOByOrgSignByTokenRequest) Execute() (*EsignSession, *http.Response, error) {
+func (r EsignAPIGetEsignOByOrgSignByTokenRequest) Execute() (*EsignEsignSession, *http.Response, error) {
 	return r.ApiService.GetEsignOByOrgSignByTokenExecute(r)
 }
 
@@ -613,13 +653,13 @@ func (a *EsignAPIService) GetEsignOByOrgSignByToken(ctx context.Context, org str
 
 // Execute executes the request
 //
-//	@return EsignSession
-func (a *EsignAPIService) GetEsignOByOrgSignByTokenExecute(r EsignAPIGetEsignOByOrgSignByTokenRequest) (*EsignSession, *http.Response, error) {
+//	@return EsignEsignSession
+func (a *EsignAPIService) GetEsignOByOrgSignByTokenExecute(r EsignAPIGetEsignOByOrgSignByTokenRequest) (*EsignEsignSession, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignSession
+		localVarReturnValue *EsignEsignSession
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.GetEsignOByOrgSignByToken")
@@ -645,7 +685,7 @@ func (a *EsignAPIService) GetEsignOByOrgSignByTokenExecute(r EsignAPIGetEsignOBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -674,6 +714,14 @@ func (a *EsignAPIService) GetEsignOByOrgSignByTokenExecute(r EsignAPIGetEsignOBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -690,17 +738,17 @@ func (a *EsignAPIService) GetEsignOByOrgSignByTokenExecute(r EsignAPIGetEsignOBy
 }
 
 type EsignAPIPostEsignDocumentsRequest struct {
-	ctx           context.Context
-	ApiService    *EsignAPIService
-	esignUploadIn *EsignUploadIn
+	ctx                context.Context
+	ApiService         *EsignAPIService
+	esignEsignUploadIn *EsignEsignUploadIn
 }
 
-func (r EsignAPIPostEsignDocumentsRequest) EsignUploadIn(esignUploadIn EsignUploadIn) EsignAPIPostEsignDocumentsRequest {
-	r.esignUploadIn = &esignUploadIn
+func (r EsignAPIPostEsignDocumentsRequest) EsignEsignUploadIn(esignEsignUploadIn EsignEsignUploadIn) EsignAPIPostEsignDocumentsRequest {
+	r.esignEsignUploadIn = &esignEsignUploadIn
 	return r
 }
 
-func (r EsignAPIPostEsignDocumentsRequest) Execute() (*EsignDocument, *http.Response, error) {
+func (r EsignAPIPostEsignDocumentsRequest) Execute() (*EsignEsignDocument, *http.Response, error) {
 	return r.ApiService.PostEsignDocumentsExecute(r)
 }
 
@@ -732,13 +780,13 @@ func (a *EsignAPIService) PostEsignDocuments(ctx context.Context) EsignAPIPostEs
 
 // Execute executes the request
 //
-//	@return EsignDocument
-func (a *EsignAPIService) PostEsignDocumentsExecute(r EsignAPIPostEsignDocumentsRequest) (*EsignDocument, *http.Response, error) {
+//	@return EsignEsignDocument
+func (a *EsignAPIService) PostEsignDocumentsExecute(r EsignAPIPostEsignDocumentsRequest) (*EsignEsignDocument, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignDocument
+		localVarReturnValue *EsignEsignDocument
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignDocuments")
@@ -751,8 +799,8 @@ func (a *EsignAPIService) PostEsignDocumentsExecute(r EsignAPIPostEsignDocuments
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.esignUploadIn == nil {
-		return localVarReturnValue, nil, reportError("esignUploadIn is required and must be specified")
+	if r.esignEsignUploadIn == nil {
+		return localVarReturnValue, nil, reportError("esignEsignUploadIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -765,7 +813,7 @@ func (a *EsignAPIService) PostEsignDocumentsExecute(r EsignAPIPostEsignDocuments
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -773,7 +821,7 @@ func (a *EsignAPIService) PostEsignDocumentsExecute(r EsignAPIPostEsignDocuments
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.esignUploadIn
+	localVarPostBody = r.esignEsignUploadIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -796,6 +844,14 @@ func (a *EsignAPIService) PostEsignDocumentsExecute(r EsignAPIPostEsignDocuments
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -812,18 +868,18 @@ func (a *EsignAPIService) PostEsignDocumentsExecute(r EsignAPIPostEsignDocuments
 }
 
 type EsignAPIPostEsignDocumentsByIdFieldsRequest struct {
-	ctx          context.Context
-	ApiService   *EsignAPIService
-	id           string
-	esignFieldIn *EsignFieldIn
+	ctx               context.Context
+	ApiService        *EsignAPIService
+	id                string
+	esignEsignFieldIn *EsignEsignFieldIn
 }
 
-func (r EsignAPIPostEsignDocumentsByIdFieldsRequest) EsignFieldIn(esignFieldIn EsignFieldIn) EsignAPIPostEsignDocumentsByIdFieldsRequest {
-	r.esignFieldIn = &esignFieldIn
+func (r EsignAPIPostEsignDocumentsByIdFieldsRequest) EsignEsignFieldIn(esignEsignFieldIn EsignEsignFieldIn) EsignAPIPostEsignDocumentsByIdFieldsRequest {
+	r.esignEsignFieldIn = &esignEsignFieldIn
 	return r
 }
 
-func (r EsignAPIPostEsignDocumentsByIdFieldsRequest) Execute() (*EsignPlacement, *http.Response, error) {
+func (r EsignAPIPostEsignDocumentsByIdFieldsRequest) Execute() (*EsignEsignPlacement, *http.Response, error) {
 	return r.ApiService.PostEsignDocumentsByIdFieldsExecute(r)
 }
 
@@ -855,13 +911,13 @@ func (a *EsignAPIService) PostEsignDocumentsByIdFields(ctx context.Context, id s
 
 // Execute executes the request
 //
-//	@return EsignPlacement
-func (a *EsignAPIService) PostEsignDocumentsByIdFieldsExecute(r EsignAPIPostEsignDocumentsByIdFieldsRequest) (*EsignPlacement, *http.Response, error) {
+//	@return EsignEsignPlacement
+func (a *EsignAPIService) PostEsignDocumentsByIdFieldsExecute(r EsignAPIPostEsignDocumentsByIdFieldsRequest) (*EsignEsignPlacement, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignPlacement
+		localVarReturnValue *EsignEsignPlacement
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignDocumentsByIdFields")
@@ -875,8 +931,8 @@ func (a *EsignAPIService) PostEsignDocumentsByIdFieldsExecute(r EsignAPIPostEsig
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.esignFieldIn == nil {
-		return localVarReturnValue, nil, reportError("esignFieldIn is required and must be specified")
+	if r.esignEsignFieldIn == nil {
+		return localVarReturnValue, nil, reportError("esignEsignFieldIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -889,7 +945,7 @@ func (a *EsignAPIService) PostEsignDocumentsByIdFieldsExecute(r EsignAPIPostEsig
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -897,7 +953,7 @@ func (a *EsignAPIService) PostEsignDocumentsByIdFieldsExecute(r EsignAPIPostEsig
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.esignFieldIn
+	localVarPostBody = r.esignEsignFieldIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -920,6 +976,14 @@ func (a *EsignAPIService) PostEsignDocumentsByIdFieldsExecute(r EsignAPIPostEsig
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -936,18 +1000,18 @@ func (a *EsignAPIService) PostEsignDocumentsByIdFieldsExecute(r EsignAPIPostEsig
 }
 
 type EsignAPIPostEsignDocumentsByIdRecipientsRequest struct {
-	ctx              context.Context
-	ApiService       *EsignAPIService
-	id               string
-	esignRecipientIn *EsignRecipientIn
+	ctx                   context.Context
+	ApiService            *EsignAPIService
+	id                    string
+	esignEsignRecipientIn *EsignEsignRecipientIn
 }
 
-func (r EsignAPIPostEsignDocumentsByIdRecipientsRequest) EsignRecipientIn(esignRecipientIn EsignRecipientIn) EsignAPIPostEsignDocumentsByIdRecipientsRequest {
-	r.esignRecipientIn = &esignRecipientIn
+func (r EsignAPIPostEsignDocumentsByIdRecipientsRequest) EsignEsignRecipientIn(esignEsignRecipientIn EsignEsignRecipientIn) EsignAPIPostEsignDocumentsByIdRecipientsRequest {
+	r.esignEsignRecipientIn = &esignEsignRecipientIn
 	return r
 }
 
-func (r EsignAPIPostEsignDocumentsByIdRecipientsRequest) Execute() (*EsignInvite, *http.Response, error) {
+func (r EsignAPIPostEsignDocumentsByIdRecipientsRequest) Execute() (*EsignEsignInvite, *http.Response, error) {
 	return r.ApiService.PostEsignDocumentsByIdRecipientsExecute(r)
 }
 
@@ -980,13 +1044,13 @@ func (a *EsignAPIService) PostEsignDocumentsByIdRecipients(ctx context.Context, 
 
 // Execute executes the request
 //
-//	@return EsignInvite
-func (a *EsignAPIService) PostEsignDocumentsByIdRecipientsExecute(r EsignAPIPostEsignDocumentsByIdRecipientsRequest) (*EsignInvite, *http.Response, error) {
+//	@return EsignEsignInvite
+func (a *EsignAPIService) PostEsignDocumentsByIdRecipientsExecute(r EsignAPIPostEsignDocumentsByIdRecipientsRequest) (*EsignEsignInvite, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignInvite
+		localVarReturnValue *EsignEsignInvite
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignDocumentsByIdRecipients")
@@ -1000,8 +1064,8 @@ func (a *EsignAPIService) PostEsignDocumentsByIdRecipientsExecute(r EsignAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.esignRecipientIn == nil {
-		return localVarReturnValue, nil, reportError("esignRecipientIn is required and must be specified")
+	if r.esignEsignRecipientIn == nil {
+		return localVarReturnValue, nil, reportError("esignEsignRecipientIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1014,7 +1078,7 @@ func (a *EsignAPIService) PostEsignDocumentsByIdRecipientsExecute(r EsignAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1022,7 +1086,7 @@ func (a *EsignAPIService) PostEsignDocumentsByIdRecipientsExecute(r EsignAPIPost
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.esignRecipientIn
+	localVarPostBody = r.esignEsignRecipientIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1045,6 +1109,14 @@ func (a *EsignAPIService) PostEsignDocumentsByIdRecipientsExecute(r EsignAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1066,7 +1138,7 @@ type EsignAPIPostEsignDocumentsByIdSendRequest struct {
 	id         string
 }
 
-func (r EsignAPIPostEsignDocumentsByIdSendRequest) Execute() (*EsignLinks, *http.Response, error) {
+func (r EsignAPIPostEsignDocumentsByIdSendRequest) Execute() (*EsignEsignLinks, *http.Response, error) {
 	return r.ApiService.PostEsignDocumentsByIdSendExecute(r)
 }
 
@@ -1100,13 +1172,13 @@ func (a *EsignAPIService) PostEsignDocumentsByIdSend(ctx context.Context, id str
 
 // Execute executes the request
 //
-//	@return EsignLinks
-func (a *EsignAPIService) PostEsignDocumentsByIdSendExecute(r EsignAPIPostEsignDocumentsByIdSendRequest) (*EsignLinks, *http.Response, error) {
+//	@return EsignEsignLinks
+func (a *EsignAPIService) PostEsignDocumentsByIdSendExecute(r EsignAPIPostEsignDocumentsByIdSendRequest) (*EsignEsignLinks, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignLinks
+		localVarReturnValue *EsignEsignLinks
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignDocumentsByIdSend")
@@ -1131,7 +1203,7 @@ func (a *EsignAPIService) PostEsignDocumentsByIdSendExecute(r EsignAPIPostEsignD
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1160,6 +1232,14 @@ func (a *EsignAPIService) PostEsignDocumentsByIdSendExecute(r EsignAPIPostEsignD
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1182,7 +1262,7 @@ type EsignAPIPostEsignOByOrgSignByTokenCompleteRequest struct {
 	token      string
 }
 
-func (r EsignAPIPostEsignOByOrgSignByTokenCompleteRequest) Execute() (*EsignCompletion, *http.Response, error) {
+func (r EsignAPIPostEsignOByOrgSignByTokenCompleteRequest) Execute() (*EsignEsignCompletion, *http.Response, error) {
 	return r.ApiService.PostEsignOByOrgSignByTokenCompleteExecute(r)
 }
 
@@ -1223,13 +1303,13 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenComplete(ctx context.Context
 
 // Execute executes the request
 //
-//	@return EsignCompletion
-func (a *EsignAPIService) PostEsignOByOrgSignByTokenCompleteExecute(r EsignAPIPostEsignOByOrgSignByTokenCompleteRequest) (*EsignCompletion, *http.Response, error) {
+//	@return EsignEsignCompletion
+func (a *EsignAPIService) PostEsignOByOrgSignByTokenCompleteExecute(r EsignAPIPostEsignOByOrgSignByTokenCompleteRequest) (*EsignEsignCompletion, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignCompletion
+		localVarReturnValue *EsignEsignCompletion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignOByOrgSignByTokenComplete")
@@ -1255,7 +1335,7 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenCompleteExecute(r EsignAPIPo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1284,6 +1364,14 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenCompleteExecute(r EsignAPIPo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1300,20 +1388,20 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenCompleteExecute(r EsignAPIPo
 }
 
 type EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest struct {
-	ctx          context.Context
-	ApiService   *EsignAPIService
-	org          string
-	token        string
-	fieldId      string
-	esignValueIn *EsignValueIn
+	ctx               context.Context
+	ApiService        *EsignAPIService
+	org               string
+	token             string
+	fieldId           string
+	esignEsignValueIn *EsignEsignValueIn
 }
 
-func (r EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest) EsignValueIn(esignValueIn EsignValueIn) EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest {
-	r.esignValueIn = &esignValueIn
+func (r EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest) EsignEsignValueIn(esignEsignValueIn EsignEsignValueIn) EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest {
+	r.esignEsignValueIn = &esignEsignValueIn
 	return r
 }
 
-func (r EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest) Execute() (*EsignInsertion, *http.Response, error) {
+func (r EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest) Execute() (*EsignEsignInsertion, *http.Response, error) {
 	return r.ApiService.PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r)
 }
 
@@ -1354,13 +1442,13 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldid(ctx context.
 
 // Execute executes the request
 //
-//	@return EsignInsertion
-func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest) (*EsignInsertion, *http.Response, error) {
+//	@return EsignEsignInsertion
+func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r EsignAPIPostEsignOByOrgSignByTokenFieldsByFieldidRequest) (*EsignEsignInsertion, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignInsertion
+		localVarReturnValue *EsignEsignInsertion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignOByOrgSignByTokenFieldsByFieldid")
@@ -1376,8 +1464,8 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r Esi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.esignValueIn == nil {
-		return localVarReturnValue, nil, reportError("esignValueIn is required and must be specified")
+	if r.esignEsignValueIn == nil {
+		return localVarReturnValue, nil, reportError("esignEsignValueIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1390,7 +1478,7 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r Esi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1398,7 +1486,7 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r Esi
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.esignValueIn
+	localVarPostBody = r.esignEsignValueIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1421,6 +1509,14 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r Esi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1437,19 +1533,19 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenFieldsByFieldidExecute(r Esi
 }
 
 type EsignAPIPostEsignOByOrgSignByTokenRejectRequest struct {
-	ctx           context.Context
-	ApiService    *EsignAPIService
-	org           string
-	token         string
-	esignRejectIn *EsignRejectIn
+	ctx                context.Context
+	ApiService         *EsignAPIService
+	org                string
+	token              string
+	esignEsignRejectIn *EsignEsignRejectIn
 }
 
-func (r EsignAPIPostEsignOByOrgSignByTokenRejectRequest) EsignRejectIn(esignRejectIn EsignRejectIn) EsignAPIPostEsignOByOrgSignByTokenRejectRequest {
-	r.esignRejectIn = &esignRejectIn
+func (r EsignAPIPostEsignOByOrgSignByTokenRejectRequest) EsignEsignRejectIn(esignEsignRejectIn EsignEsignRejectIn) EsignAPIPostEsignOByOrgSignByTokenRejectRequest {
+	r.esignEsignRejectIn = &esignEsignRejectIn
 	return r
 }
 
-func (r EsignAPIPostEsignOByOrgSignByTokenRejectRequest) Execute() (*EsignRejection, *http.Response, error) {
+func (r EsignAPIPostEsignOByOrgSignByTokenRejectRequest) Execute() (*EsignEsignRejection, *http.Response, error) {
 	return r.ApiService.PostEsignOByOrgSignByTokenRejectExecute(r)
 }
 
@@ -1484,13 +1580,13 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenReject(ctx context.Context, 
 
 // Execute executes the request
 //
-//	@return EsignRejection
-func (a *EsignAPIService) PostEsignOByOrgSignByTokenRejectExecute(r EsignAPIPostEsignOByOrgSignByTokenRejectRequest) (*EsignRejection, *http.Response, error) {
+//	@return EsignEsignRejection
+func (a *EsignAPIService) PostEsignOByOrgSignByTokenRejectExecute(r EsignAPIPostEsignOByOrgSignByTokenRejectRequest) (*EsignEsignRejection, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignRejection
+		localVarReturnValue *EsignEsignRejection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EsignAPIService.PostEsignOByOrgSignByTokenReject")
@@ -1505,8 +1601,8 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenRejectExecute(r EsignAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.esignRejectIn == nil {
-		return localVarReturnValue, nil, reportError("esignRejectIn is required and must be specified")
+	if r.esignEsignRejectIn == nil {
+		return localVarReturnValue, nil, reportError("esignEsignRejectIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1519,7 +1615,7 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenRejectExecute(r EsignAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1527,7 +1623,7 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenRejectExecute(r EsignAPIPost
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.esignRejectIn
+	localVarPostBody = r.esignEsignRejectIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1550,6 +1646,14 @@ func (a *EsignAPIService) PostEsignOByOrgSignByTokenRejectExecute(r EsignAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

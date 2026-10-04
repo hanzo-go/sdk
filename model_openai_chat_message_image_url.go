@@ -19,9 +19,12 @@ var _ MappedNullable = &OpenaiChatMessageImageURL{}
 
 // OpenaiChatMessageImageURL struct for OpenaiChatMessageImageURL
 type OpenaiChatMessageImageURL struct {
-	Detail *string `json:"detail,omitempty"`
-	Url    *string `json:"url,omitempty"`
+	Detail               *string `json:"detail,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiChatMessageImageURL OpenaiChatMessageImageURL
 
 // NewOpenaiChatMessageImageURL instantiates a new OpenaiChatMessageImageURL object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o OpenaiChatMessageImageURL) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiChatMessageImageURL) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiChatMessageImageURL := _OpenaiChatMessageImageURL{}
+
+	err = json.Unmarshal(data, &varOpenaiChatMessageImageURL)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiChatMessageImageURL(varOpenaiChatMessageImageURL)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "detail")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiChatMessageImageURL struct {

@@ -80,7 +80,7 @@ func (a *MarketingAPIService) DeleteMarketingAudiencesByIdExecute(r MarketingAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -109,6 +109,14 @@ func (a *MarketingAPIService) DeleteMarketingAudiencesByIdExecute(r MarketingAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -174,7 +182,7 @@ func (a *MarketingAPIService) DeleteMarketingCalendarByIdExecute(r MarketingAPID
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -203,6 +211,14 @@ func (a *MarketingAPIService) DeleteMarketingCalendarByIdExecute(r MarketingAPID
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -267,7 +283,7 @@ func (a *MarketingAPIService) DeleteMarketingCampaignsByIdExecute(r MarketingAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -296,6 +312,14 @@ func (a *MarketingAPIService) DeleteMarketingCampaignsByIdExecute(r MarketingAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -396,7 +420,7 @@ func (a *MarketingAPIService) DeleteMarketingSuppressionsExecute(r MarketingAPID
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -425,6 +449,14 @@ func (a *MarketingAPIService) DeleteMarketingSuppressionsExecute(r MarketingAPID
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -443,7 +475,7 @@ func (r MarketingAPIGetMarketingAudiencesRequest) Limit(limit int64) MarketingAP
 	return r
 }
 
-func (r MarketingAPIGetMarketingAudiencesRequest) Execute() (*AudienceList, *http.Response, error) {
+func (r MarketingAPIGetMarketingAudiencesRequest) Execute() (*MarketingAudienceList, *http.Response, error) {
 	return r.ApiService.GetMarketingAudiencesExecute(r)
 }
 
@@ -464,13 +496,13 @@ func (a *MarketingAPIService) GetMarketingAudiences(ctx context.Context) Marketi
 
 // Execute executes the request
 //
-//	@return AudienceList
-func (a *MarketingAPIService) GetMarketingAudiencesExecute(r MarketingAPIGetMarketingAudiencesRequest) (*AudienceList, *http.Response, error) {
+//	@return MarketingAudienceList
+func (a *MarketingAPIService) GetMarketingAudiencesExecute(r MarketingAPIGetMarketingAudiencesRequest) (*MarketingAudienceList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AudienceList
+		localVarReturnValue *MarketingAudienceList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingAudiences")
@@ -497,7 +529,7 @@ func (a *MarketingAPIService) GetMarketingAudiencesExecute(r MarketingAPIGetMark
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -526,6 +558,14 @@ func (a *MarketingAPIService) GetMarketingAudiencesExecute(r MarketingAPIGetMark
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -547,7 +587,7 @@ type MarketingAPIGetMarketingAudiencesByIdRequest struct {
 	id         string
 }
 
-func (r MarketingAPIGetMarketingAudiencesByIdRequest) Execute() (*Audience, *http.Response, error) {
+func (r MarketingAPIGetMarketingAudiencesByIdRequest) Execute() (*MarketingAudience, *http.Response, error) {
 	return r.ApiService.GetMarketingAudiencesByIdExecute(r)
 }
 
@@ -571,13 +611,13 @@ func (a *MarketingAPIService) GetMarketingAudiencesById(ctx context.Context, id 
 
 // Execute executes the request
 //
-//	@return Audience
-func (a *MarketingAPIService) GetMarketingAudiencesByIdExecute(r MarketingAPIGetMarketingAudiencesByIdRequest) (*Audience, *http.Response, error) {
+//	@return MarketingAudience
+func (a *MarketingAPIService) GetMarketingAudiencesByIdExecute(r MarketingAPIGetMarketingAudiencesByIdRequest) (*MarketingAudience, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Audience
+		localVarReturnValue *MarketingAudience
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingAudiencesById")
@@ -602,7 +642,7 @@ func (a *MarketingAPIService) GetMarketingAudiencesByIdExecute(r MarketingAPIGet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -631,6 +671,14 @@ func (a *MarketingAPIService) GetMarketingAudiencesByIdExecute(r MarketingAPIGet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -652,7 +700,7 @@ type MarketingAPIGetMarketingAudiencesByIdPreviewRequest struct {
 	id         string
 }
 
-func (r MarketingAPIGetMarketingAudiencesByIdPreviewRequest) Execute() (*AudiencePreview, *http.Response, error) {
+func (r MarketingAPIGetMarketingAudiencesByIdPreviewRequest) Execute() (*MarketingAudiencePreview, *http.Response, error) {
 	return r.ApiService.GetMarketingAudiencesByIdPreviewExecute(r)
 }
 
@@ -678,13 +726,13 @@ func (a *MarketingAPIService) GetMarketingAudiencesByIdPreview(ctx context.Conte
 
 // Execute executes the request
 //
-//	@return AudiencePreview
-func (a *MarketingAPIService) GetMarketingAudiencesByIdPreviewExecute(r MarketingAPIGetMarketingAudiencesByIdPreviewRequest) (*AudiencePreview, *http.Response, error) {
+//	@return MarketingAudiencePreview
+func (a *MarketingAPIService) GetMarketingAudiencesByIdPreviewExecute(r MarketingAPIGetMarketingAudiencesByIdPreviewRequest) (*MarketingAudiencePreview, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AudiencePreview
+		localVarReturnValue *MarketingAudiencePreview
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingAudiencesByIdPreview")
@@ -709,7 +757,7 @@ func (a *MarketingAPIService) GetMarketingAudiencesByIdPreviewExecute(r Marketin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -738,6 +786,14 @@ func (a *MarketingAPIService) GetMarketingAudiencesByIdPreviewExecute(r Marketin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -772,7 +828,7 @@ func (r MarketingAPIGetMarketingCalendarRequest) Limit(limit int64) MarketingAPI
 	return r
 }
 
-func (r MarketingAPIGetMarketingCalendarRequest) Execute() (*PostList, *http.Response, error) {
+func (r MarketingAPIGetMarketingCalendarRequest) Execute() (*MarketingPostList, *http.Response, error) {
 	return r.ApiService.GetMarketingCalendarExecute(r)
 }
 
@@ -794,13 +850,13 @@ func (a *MarketingAPIService) GetMarketingCalendar(ctx context.Context) Marketin
 
 // Execute executes the request
 //
-//	@return PostList
-func (a *MarketingAPIService) GetMarketingCalendarExecute(r MarketingAPIGetMarketingCalendarRequest) (*PostList, *http.Response, error) {
+//	@return MarketingPostList
+func (a *MarketingAPIService) GetMarketingCalendarExecute(r MarketingAPIGetMarketingCalendarRequest) (*MarketingPostList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PostList
+		localVarReturnValue *MarketingPostList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingCalendar")
@@ -830,7 +886,7 @@ func (a *MarketingAPIService) GetMarketingCalendarExecute(r MarketingAPIGetMarke
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -859,6 +915,14 @@ func (a *MarketingAPIService) GetMarketingCalendarExecute(r MarketingAPIGetMarke
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -880,7 +944,7 @@ type MarketingAPIGetMarketingCalendarByIdRequest struct {
 	id         string
 }
 
-func (r MarketingAPIGetMarketingCalendarByIdRequest) Execute() (*CalendarPost, *http.Response, error) {
+func (r MarketingAPIGetMarketingCalendarByIdRequest) Execute() (*MarketingCalendarPost, *http.Response, error) {
 	return r.ApiService.GetMarketingCalendarByIdExecute(r)
 }
 
@@ -905,13 +969,13 @@ func (a *MarketingAPIService) GetMarketingCalendarById(ctx context.Context, id s
 
 // Execute executes the request
 //
-//	@return CalendarPost
-func (a *MarketingAPIService) GetMarketingCalendarByIdExecute(r MarketingAPIGetMarketingCalendarByIdRequest) (*CalendarPost, *http.Response, error) {
+//	@return MarketingCalendarPost
+func (a *MarketingAPIService) GetMarketingCalendarByIdExecute(r MarketingAPIGetMarketingCalendarByIdRequest) (*MarketingCalendarPost, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CalendarPost
+		localVarReturnValue *MarketingCalendarPost
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingCalendarById")
@@ -936,7 +1000,7 @@ func (a *MarketingAPIService) GetMarketingCalendarByIdExecute(r MarketingAPIGetM
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -965,6 +1029,14 @@ func (a *MarketingAPIService) GetMarketingCalendarByIdExecute(r MarketingAPIGetM
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -999,7 +1071,7 @@ func (r MarketingAPIGetMarketingCampaignsRequest) Limit(limit int64) MarketingAP
 	return r
 }
 
-func (r MarketingAPIGetMarketingCampaignsRequest) Execute() (*CampaignList, *http.Response, error) {
+func (r MarketingAPIGetMarketingCampaignsRequest) Execute() (*MarketingCampaignList, *http.Response, error) {
 	return r.ApiService.GetMarketingCampaignsExecute(r)
 }
 
@@ -1021,13 +1093,13 @@ func (a *MarketingAPIService) GetMarketingCampaigns(ctx context.Context) Marketi
 
 // Execute executes the request
 //
-//	@return CampaignList
-func (a *MarketingAPIService) GetMarketingCampaignsExecute(r MarketingAPIGetMarketingCampaignsRequest) (*CampaignList, *http.Response, error) {
+//	@return MarketingCampaignList
+func (a *MarketingAPIService) GetMarketingCampaignsExecute(r MarketingAPIGetMarketingCampaignsRequest) (*MarketingCampaignList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CampaignList
+		localVarReturnValue *MarketingCampaignList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingCampaigns")
@@ -1057,7 +1129,7 @@ func (a *MarketingAPIService) GetMarketingCampaignsExecute(r MarketingAPIGetMark
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1086,6 +1158,14 @@ func (a *MarketingAPIService) GetMarketingCampaignsExecute(r MarketingAPIGetMark
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1107,7 +1187,7 @@ type MarketingAPIGetMarketingCampaignsByIdRequest struct {
 	id         string
 }
 
-func (r MarketingAPIGetMarketingCampaignsByIdRequest) Execute() (*Campaign, *http.Response, error) {
+func (r MarketingAPIGetMarketingCampaignsByIdRequest) Execute() (*MarketingCampaign, *http.Response, error) {
 	return r.ApiService.GetMarketingCampaignsByIdExecute(r)
 }
 
@@ -1131,13 +1211,13 @@ func (a *MarketingAPIService) GetMarketingCampaignsById(ctx context.Context, id 
 
 // Execute executes the request
 //
-//	@return Campaign
-func (a *MarketingAPIService) GetMarketingCampaignsByIdExecute(r MarketingAPIGetMarketingCampaignsByIdRequest) (*Campaign, *http.Response, error) {
+//	@return MarketingCampaign
+func (a *MarketingAPIService) GetMarketingCampaignsByIdExecute(r MarketingAPIGetMarketingCampaignsByIdRequest) (*MarketingCampaign, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Campaign
+		localVarReturnValue *MarketingCampaign
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingCampaignsById")
@@ -1162,7 +1242,7 @@ func (a *MarketingAPIService) GetMarketingCampaignsByIdExecute(r MarketingAPIGet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1191,6 +1271,14 @@ func (a *MarketingAPIService) GetMarketingCampaignsByIdExecute(r MarketingAPIGet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1211,7 +1299,7 @@ type MarketingAPIGetMarketingPromosRequest struct {
 	ApiService *MarketingAPIService
 }
 
-func (r MarketingAPIGetMarketingPromosRequest) Execute() (*PromoList, *http.Response, error) {
+func (r MarketingAPIGetMarketingPromosRequest) Execute() (*MarketingPromoList, *http.Response, error) {
 	return r.ApiService.GetMarketingPromosExecute(r)
 }
 
@@ -1234,13 +1322,13 @@ func (a *MarketingAPIService) GetMarketingPromos(ctx context.Context) MarketingA
 
 // Execute executes the request
 //
-//	@return PromoList
-func (a *MarketingAPIService) GetMarketingPromosExecute(r MarketingAPIGetMarketingPromosRequest) (*PromoList, *http.Response, error) {
+//	@return MarketingPromoList
+func (a *MarketingAPIService) GetMarketingPromosExecute(r MarketingAPIGetMarketingPromosRequest) (*MarketingPromoList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PromoList
+		localVarReturnValue *MarketingPromoList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingPromos")
@@ -1264,7 +1352,7 @@ func (a *MarketingAPIService) GetMarketingPromosExecute(r MarketingAPIGetMarketi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1293,6 +1381,14 @@ func (a *MarketingAPIService) GetMarketingPromosExecute(r MarketingAPIGetMarketi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1328,7 +1424,7 @@ func (r MarketingAPIGetMarketingPromosByCodeEligibilityRequest) Seats(seats int6
 	return r
 }
 
-func (r MarketingAPIGetMarketingPromosByCodeEligibilityRequest) Execute() (*Quote, *http.Response, error) {
+func (r MarketingAPIGetMarketingPromosByCodeEligibilityRequest) Execute() (*MarketingQuote, *http.Response, error) {
 	return r.ApiService.GetMarketingPromosByCodeEligibilityExecute(r)
 }
 
@@ -1354,13 +1450,13 @@ func (a *MarketingAPIService) GetMarketingPromosByCodeEligibility(ctx context.Co
 
 // Execute executes the request
 //
-//	@return Quote
-func (a *MarketingAPIService) GetMarketingPromosByCodeEligibilityExecute(r MarketingAPIGetMarketingPromosByCodeEligibilityRequest) (*Quote, *http.Response, error) {
+//	@return MarketingQuote
+func (a *MarketingAPIService) GetMarketingPromosByCodeEligibilityExecute(r MarketingAPIGetMarketingPromosByCodeEligibilityRequest) (*MarketingQuote, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Quote
+		localVarReturnValue *MarketingQuote
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingPromosByCodeEligibility")
@@ -1391,7 +1487,7 @@ func (a *MarketingAPIService) GetMarketingPromosByCodeEligibilityExecute(r Marke
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1420,6 +1516,14 @@ func (a *MarketingAPIService) GetMarketingPromosByCodeEligibilityExecute(r Marke
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1441,7 +1545,7 @@ type MarketingAPIGetMarketingPromosByCodeRedemptionRequest struct {
 	code       string
 }
 
-func (r MarketingAPIGetMarketingPromosByCodeRedemptionRequest) Execute() (*Redemption, *http.Response, error) {
+func (r MarketingAPIGetMarketingPromosByCodeRedemptionRequest) Execute() (*MarketingRedemption, *http.Response, error) {
 	return r.ApiService.GetMarketingPromosByCodeRedemptionExecute(r)
 }
 
@@ -1466,13 +1570,13 @@ func (a *MarketingAPIService) GetMarketingPromosByCodeRedemption(ctx context.Con
 
 // Execute executes the request
 //
-//	@return Redemption
-func (a *MarketingAPIService) GetMarketingPromosByCodeRedemptionExecute(r MarketingAPIGetMarketingPromosByCodeRedemptionRequest) (*Redemption, *http.Response, error) {
+//	@return MarketingRedemption
+func (a *MarketingAPIService) GetMarketingPromosByCodeRedemptionExecute(r MarketingAPIGetMarketingPromosByCodeRedemptionRequest) (*MarketingRedemption, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Redemption
+		localVarReturnValue *MarketingRedemption
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingPromosByCodeRedemption")
@@ -1497,7 +1601,7 @@ func (a *MarketingAPIService) GetMarketingPromosByCodeRedemptionExecute(r Market
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1526,6 +1630,14 @@ func (a *MarketingAPIService) GetMarketingPromosByCodeRedemptionExecute(r Market
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1553,7 +1665,7 @@ func (r MarketingAPIGetMarketingSequencesRequest) Limit(limit int64) MarketingAP
 	return r
 }
 
-func (r MarketingAPIGetMarketingSequencesRequest) Execute() (*SequenceList, *http.Response, error) {
+func (r MarketingAPIGetMarketingSequencesRequest) Execute() (*MarketingSequenceList, *http.Response, error) {
 	return r.ApiService.GetMarketingSequencesExecute(r)
 }
 
@@ -1574,13 +1686,13 @@ func (a *MarketingAPIService) GetMarketingSequences(ctx context.Context) Marketi
 
 // Execute executes the request
 //
-//	@return SequenceList
-func (a *MarketingAPIService) GetMarketingSequencesExecute(r MarketingAPIGetMarketingSequencesRequest) (*SequenceList, *http.Response, error) {
+//	@return MarketingSequenceList
+func (a *MarketingAPIService) GetMarketingSequencesExecute(r MarketingAPIGetMarketingSequencesRequest) (*MarketingSequenceList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SequenceList
+		localVarReturnValue *MarketingSequenceList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingSequences")
@@ -1607,7 +1719,7 @@ func (a *MarketingAPIService) GetMarketingSequencesExecute(r MarketingAPIGetMark
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1636,6 +1748,14 @@ func (a *MarketingAPIService) GetMarketingSequencesExecute(r MarketingAPIGetMark
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1657,7 +1777,7 @@ type MarketingAPIGetMarketingSequencesByIdRequest struct {
 	id         string
 }
 
-func (r MarketingAPIGetMarketingSequencesByIdRequest) Execute() (*SequenceView, *http.Response, error) {
+func (r MarketingAPIGetMarketingSequencesByIdRequest) Execute() (*MarketingSequenceView, *http.Response, error) {
 	return r.ApiService.GetMarketingSequencesByIdExecute(r)
 }
 
@@ -1681,13 +1801,13 @@ func (a *MarketingAPIService) GetMarketingSequencesById(ctx context.Context, id 
 
 // Execute executes the request
 //
-//	@return SequenceView
-func (a *MarketingAPIService) GetMarketingSequencesByIdExecute(r MarketingAPIGetMarketingSequencesByIdRequest) (*SequenceView, *http.Response, error) {
+//	@return MarketingSequenceView
+func (a *MarketingAPIService) GetMarketingSequencesByIdExecute(r MarketingAPIGetMarketingSequencesByIdRequest) (*MarketingSequenceView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SequenceView
+		localVarReturnValue *MarketingSequenceView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingSequencesById")
@@ -1712,7 +1832,7 @@ func (a *MarketingAPIService) GetMarketingSequencesByIdExecute(r MarketingAPIGet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1741,6 +1861,14 @@ func (a *MarketingAPIService) GetMarketingSequencesByIdExecute(r MarketingAPIGet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1769,7 +1897,7 @@ func (r MarketingAPIGetMarketingSequencesByIdEnrollmentsRequest) Limit(limit int
 	return r
 }
 
-func (r MarketingAPIGetMarketingSequencesByIdEnrollmentsRequest) Execute() (*EnrollmentList, *http.Response, error) {
+func (r MarketingAPIGetMarketingSequencesByIdEnrollmentsRequest) Execute() (*MarketingEnrollmentList, *http.Response, error) {
 	return r.ApiService.GetMarketingSequencesByIdEnrollmentsExecute(r)
 }
 
@@ -1793,13 +1921,13 @@ func (a *MarketingAPIService) GetMarketingSequencesByIdEnrollments(ctx context.C
 
 // Execute executes the request
 //
-//	@return EnrollmentList
-func (a *MarketingAPIService) GetMarketingSequencesByIdEnrollmentsExecute(r MarketingAPIGetMarketingSequencesByIdEnrollmentsRequest) (*EnrollmentList, *http.Response, error) {
+//	@return MarketingEnrollmentList
+func (a *MarketingAPIService) GetMarketingSequencesByIdEnrollmentsExecute(r MarketingAPIGetMarketingSequencesByIdEnrollmentsRequest) (*MarketingEnrollmentList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EnrollmentList
+		localVarReturnValue *MarketingEnrollmentList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingSequencesByIdEnrollments")
@@ -1827,7 +1955,7 @@ func (a *MarketingAPIService) GetMarketingSequencesByIdEnrollmentsExecute(r Mark
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1856,6 +1984,14 @@ func (a *MarketingAPIService) GetMarketingSequencesByIdEnrollmentsExecute(r Mark
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1877,7 +2013,7 @@ type MarketingAPIGetMarketingSequencesByIdStepsRequest struct {
 	id         string
 }
 
-func (r MarketingAPIGetMarketingSequencesByIdStepsRequest) Execute() (*StepList, *http.Response, error) {
+func (r MarketingAPIGetMarketingSequencesByIdStepsRequest) Execute() (*MarketingStepList, *http.Response, error) {
 	return r.ApiService.GetMarketingSequencesByIdStepsExecute(r)
 }
 
@@ -1900,13 +2036,13 @@ func (a *MarketingAPIService) GetMarketingSequencesByIdSteps(ctx context.Context
 
 // Execute executes the request
 //
-//	@return StepList
-func (a *MarketingAPIService) GetMarketingSequencesByIdStepsExecute(r MarketingAPIGetMarketingSequencesByIdStepsRequest) (*StepList, *http.Response, error) {
+//	@return MarketingStepList
+func (a *MarketingAPIService) GetMarketingSequencesByIdStepsExecute(r MarketingAPIGetMarketingSequencesByIdStepsRequest) (*MarketingStepList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *StepList
+		localVarReturnValue *MarketingStepList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingSequencesByIdSteps")
@@ -1931,7 +2067,7 @@ func (a *MarketingAPIService) GetMarketingSequencesByIdStepsExecute(r MarketingA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1960,6 +2096,14 @@ func (a *MarketingAPIService) GetMarketingSequencesByIdStepsExecute(r MarketingA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1980,7 +2124,7 @@ type MarketingAPIGetMarketingSummaryRequest struct {
 	ApiService *MarketingAPIService
 }
 
-func (r MarketingAPIGetMarketingSummaryRequest) Execute() (*Summary, *http.Response, error) {
+func (r MarketingAPIGetMarketingSummaryRequest) Execute() (*MarketingSummary, *http.Response, error) {
 	return r.ApiService.GetMarketingSummaryExecute(r)
 }
 
@@ -2002,13 +2146,13 @@ func (a *MarketingAPIService) GetMarketingSummary(ctx context.Context) Marketing
 
 // Execute executes the request
 //
-//	@return Summary
-func (a *MarketingAPIService) GetMarketingSummaryExecute(r MarketingAPIGetMarketingSummaryRequest) (*Summary, *http.Response, error) {
+//	@return MarketingSummary
+func (a *MarketingAPIService) GetMarketingSummaryExecute(r MarketingAPIGetMarketingSummaryRequest) (*MarketingSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Summary
+		localVarReturnValue *MarketingSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingSummary")
@@ -2032,7 +2176,7 @@ func (a *MarketingAPIService) GetMarketingSummaryExecute(r MarketingAPIGetMarket
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2061,6 +2205,14 @@ func (a *MarketingAPIService) GetMarketingSummaryExecute(r MarketingAPIGetMarket
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2088,7 +2240,7 @@ func (r MarketingAPIGetMarketingSuppressionsRequest) Limit(limit int64) Marketin
 	return r
 }
 
-func (r MarketingAPIGetMarketingSuppressionsRequest) Execute() (*SuppressionList, *http.Response, error) {
+func (r MarketingAPIGetMarketingSuppressionsRequest) Execute() (*MarketingSuppressionList, *http.Response, error) {
 	return r.ApiService.GetMarketingSuppressionsExecute(r)
 }
 
@@ -2110,13 +2262,13 @@ func (a *MarketingAPIService) GetMarketingSuppressions(ctx context.Context) Mark
 
 // Execute executes the request
 //
-//	@return SuppressionList
-func (a *MarketingAPIService) GetMarketingSuppressionsExecute(r MarketingAPIGetMarketingSuppressionsRequest) (*SuppressionList, *http.Response, error) {
+//	@return MarketingSuppressionList
+func (a *MarketingAPIService) GetMarketingSuppressionsExecute(r MarketingAPIGetMarketingSuppressionsRequest) (*MarketingSuppressionList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SuppressionList
+		localVarReturnValue *MarketingSuppressionList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingSuppressions")
@@ -2143,7 +2295,7 @@ func (a *MarketingAPIService) GetMarketingSuppressionsExecute(r MarketingAPIGetM
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2172,6 +2324,14 @@ func (a *MarketingAPIService) GetMarketingSuppressionsExecute(r MarketingAPIGetM
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2220,7 +2380,7 @@ func (r MarketingAPIGetMarketingUnsubscribeRequest) Token(token string) Marketin
 	return r
 }
 
-func (r MarketingAPIGetMarketingUnsubscribeRequest) Execute() (*Unsubscribed, *http.Response, error) {
+func (r MarketingAPIGetMarketingUnsubscribeRequest) Execute() (*MarketingUnsubscribed, *http.Response, error) {
 	return r.ApiService.GetMarketingUnsubscribeExecute(r)
 }
 
@@ -2245,13 +2405,13 @@ func (a *MarketingAPIService) GetMarketingUnsubscribe(ctx context.Context) Marke
 
 // Execute executes the request
 //
-//	@return Unsubscribed
-func (a *MarketingAPIService) GetMarketingUnsubscribeExecute(r MarketingAPIGetMarketingUnsubscribeRequest) (*Unsubscribed, *http.Response, error) {
+//	@return MarketingUnsubscribed
+func (a *MarketingAPIService) GetMarketingUnsubscribeExecute(r MarketingAPIGetMarketingUnsubscribeRequest) (*MarketingUnsubscribed, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Unsubscribed
+		localVarReturnValue *MarketingUnsubscribed
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.GetMarketingUnsubscribe")
@@ -2287,7 +2447,7 @@ func (a *MarketingAPIService) GetMarketingUnsubscribeExecute(r MarketingAPIGetMa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2316,6 +2476,14 @@ func (a *MarketingAPIService) GetMarketingUnsubscribeExecute(r MarketingAPIGetMa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2332,17 +2500,17 @@ func (a *MarketingAPIService) GetMarketingUnsubscribeExecute(r MarketingAPIGetMa
 }
 
 type MarketingAPIPostMarketingAudiencesRequest struct {
-	ctx        context.Context
-	ApiService *MarketingAPIService
-	audience   *Audience
+	ctx               context.Context
+	ApiService        *MarketingAPIService
+	marketingAudience *MarketingAudience
 }
 
-func (r MarketingAPIPostMarketingAudiencesRequest) Audience(audience Audience) MarketingAPIPostMarketingAudiencesRequest {
-	r.audience = &audience
+func (r MarketingAPIPostMarketingAudiencesRequest) MarketingAudience(marketingAudience MarketingAudience) MarketingAPIPostMarketingAudiencesRequest {
+	r.marketingAudience = &marketingAudience
 	return r
 }
 
-func (r MarketingAPIPostMarketingAudiencesRequest) Execute() (*Audience, *http.Response, error) {
+func (r MarketingAPIPostMarketingAudiencesRequest) Execute() (*MarketingAudience, *http.Response, error) {
 	return r.ApiService.PostMarketingAudiencesExecute(r)
 }
 
@@ -2366,13 +2534,13 @@ func (a *MarketingAPIService) PostMarketingAudiences(ctx context.Context) Market
 
 // Execute executes the request
 //
-//	@return Audience
-func (a *MarketingAPIService) PostMarketingAudiencesExecute(r MarketingAPIPostMarketingAudiencesRequest) (*Audience, *http.Response, error) {
+//	@return MarketingAudience
+func (a *MarketingAPIService) PostMarketingAudiencesExecute(r MarketingAPIPostMarketingAudiencesRequest) (*MarketingAudience, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Audience
+		localVarReturnValue *MarketingAudience
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingAudiences")
@@ -2385,8 +2553,8 @@ func (a *MarketingAPIService) PostMarketingAudiencesExecute(r MarketingAPIPostMa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.audience == nil {
-		return localVarReturnValue, nil, reportError("audience is required and must be specified")
+	if r.marketingAudience == nil {
+		return localVarReturnValue, nil, reportError("marketingAudience is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2399,7 +2567,7 @@ func (a *MarketingAPIService) PostMarketingAudiencesExecute(r MarketingAPIPostMa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2407,7 +2575,7 @@ func (a *MarketingAPIService) PostMarketingAudiencesExecute(r MarketingAPIPostMa
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.audience
+	localVarPostBody = r.marketingAudience
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2430,6 +2598,14 @@ func (a *MarketingAPIService) PostMarketingAudiencesExecute(r MarketingAPIPostMa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2446,17 +2622,17 @@ func (a *MarketingAPIService) PostMarketingAudiencesExecute(r MarketingAPIPostMa
 }
 
 type MarketingAPIPostMarketingCalendarRequest struct {
-	ctx          context.Context
-	ApiService   *MarketingAPIService
-	calendarPost *CalendarPost
+	ctx                   context.Context
+	ApiService            *MarketingAPIService
+	marketingCalendarPost *MarketingCalendarPost
 }
 
-func (r MarketingAPIPostMarketingCalendarRequest) CalendarPost(calendarPost CalendarPost) MarketingAPIPostMarketingCalendarRequest {
-	r.calendarPost = &calendarPost
+func (r MarketingAPIPostMarketingCalendarRequest) MarketingCalendarPost(marketingCalendarPost MarketingCalendarPost) MarketingAPIPostMarketingCalendarRequest {
+	r.marketingCalendarPost = &marketingCalendarPost
 	return r
 }
 
-func (r MarketingAPIPostMarketingCalendarRequest) Execute() (*CalendarPost, *http.Response, error) {
+func (r MarketingAPIPostMarketingCalendarRequest) Execute() (*MarketingCalendarPost, *http.Response, error) {
 	return r.ApiService.PostMarketingCalendarExecute(r)
 }
 
@@ -2480,13 +2656,13 @@ func (a *MarketingAPIService) PostMarketingCalendar(ctx context.Context) Marketi
 
 // Execute executes the request
 //
-//	@return CalendarPost
-func (a *MarketingAPIService) PostMarketingCalendarExecute(r MarketingAPIPostMarketingCalendarRequest) (*CalendarPost, *http.Response, error) {
+//	@return MarketingCalendarPost
+func (a *MarketingAPIService) PostMarketingCalendarExecute(r MarketingAPIPostMarketingCalendarRequest) (*MarketingCalendarPost, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CalendarPost
+		localVarReturnValue *MarketingCalendarPost
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingCalendar")
@@ -2499,8 +2675,8 @@ func (a *MarketingAPIService) PostMarketingCalendarExecute(r MarketingAPIPostMar
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.calendarPost == nil {
-		return localVarReturnValue, nil, reportError("calendarPost is required and must be specified")
+	if r.marketingCalendarPost == nil {
+		return localVarReturnValue, nil, reportError("marketingCalendarPost is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2513,7 +2689,7 @@ func (a *MarketingAPIService) PostMarketingCalendarExecute(r MarketingAPIPostMar
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2521,7 +2697,7 @@ func (a *MarketingAPIService) PostMarketingCalendarExecute(r MarketingAPIPostMar
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.calendarPost
+	localVarPostBody = r.marketingCalendarPost
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2544,113 +2720,14 @@ func (a *MarketingAPIService) PostMarketingCalendarExecute(r MarketingAPIPostMar
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type MarketingAPIPostMarketingCalendarByIdPublishRequest struct {
-	ctx        context.Context
-	ApiService *MarketingAPIService
-	id         string
-}
-
-func (r MarketingAPIPostMarketingCalendarByIdPublishRequest) Execute() (*CalendarPost, *http.Response, error) {
-	return r.ApiService.PostMarketingCalendarByIdPublishExecute(r)
-}
-
-/*
-PostMarketingCalendarByIdPublish Publishes a post NOW, synchronously, whatever its schedule.
-
-Publishes a post NOW, synchronously, whatever its
-schedule. No social connector is wired today, so every channel answers an
-honest 501 naming the client a real one would plug into, and the post is
-recorded failed with that exact reason — never a faked "published".
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the post id from the path, as returned by create.
-	@return MarketingAPIPostMarketingCalendarByIdPublishRequest
-*/
-func (a *MarketingAPIService) PostMarketingCalendarByIdPublish(ctx context.Context, id string) MarketingAPIPostMarketingCalendarByIdPublishRequest {
-	return MarketingAPIPostMarketingCalendarByIdPublishRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return CalendarPost
-func (a *MarketingAPIService) PostMarketingCalendarByIdPublishExecute(r MarketingAPIPostMarketingCalendarByIdPublishRequest) (*CalendarPost, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *CalendarPost
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingCalendarByIdPublish")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/marketing/calendar/{id}/publish"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2667,17 +2744,17 @@ func (a *MarketingAPIService) PostMarketingCalendarByIdPublishExecute(r Marketin
 }
 
 type MarketingAPIPostMarketingCampaignsRequest struct {
-	ctx        context.Context
-	ApiService *MarketingAPIService
-	campaign   *Campaign
+	ctx               context.Context
+	ApiService        *MarketingAPIService
+	marketingCampaign *MarketingCampaign
 }
 
-func (r MarketingAPIPostMarketingCampaignsRequest) Campaign(campaign Campaign) MarketingAPIPostMarketingCampaignsRequest {
-	r.campaign = &campaign
+func (r MarketingAPIPostMarketingCampaignsRequest) MarketingCampaign(marketingCampaign MarketingCampaign) MarketingAPIPostMarketingCampaignsRequest {
+	r.marketingCampaign = &marketingCampaign
 	return r
 }
 
-func (r MarketingAPIPostMarketingCampaignsRequest) Execute() (*Campaign, *http.Response, error) {
+func (r MarketingAPIPostMarketingCampaignsRequest) Execute() (*MarketingCampaign, *http.Response, error) {
 	return r.ApiService.PostMarketingCampaignsExecute(r)
 }
 
@@ -2702,13 +2779,13 @@ func (a *MarketingAPIService) PostMarketingCampaigns(ctx context.Context) Market
 
 // Execute executes the request
 //
-//	@return Campaign
-func (a *MarketingAPIService) PostMarketingCampaignsExecute(r MarketingAPIPostMarketingCampaignsRequest) (*Campaign, *http.Response, error) {
+//	@return MarketingCampaign
+func (a *MarketingAPIService) PostMarketingCampaignsExecute(r MarketingAPIPostMarketingCampaignsRequest) (*MarketingCampaign, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Campaign
+		localVarReturnValue *MarketingCampaign
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingCampaigns")
@@ -2721,8 +2798,8 @@ func (a *MarketingAPIService) PostMarketingCampaignsExecute(r MarketingAPIPostMa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.campaign == nil {
-		return localVarReturnValue, nil, reportError("campaign is required and must be specified")
+	if r.marketingCampaign == nil {
+		return localVarReturnValue, nil, reportError("marketingCampaign is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2735,7 +2812,7 @@ func (a *MarketingAPIService) PostMarketingCampaignsExecute(r MarketingAPIPostMa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2743,7 +2820,7 @@ func (a *MarketingAPIService) PostMarketingCampaignsExecute(r MarketingAPIPostMa
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.campaign
+	localVarPostBody = r.marketingCampaign
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2766,6 +2843,14 @@ func (a *MarketingAPIService) PostMarketingCampaignsExecute(r MarketingAPIPostMa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2782,18 +2867,18 @@ func (a *MarketingAPIService) PostMarketingCampaignsExecute(r MarketingAPIPostMa
 }
 
 type MarketingAPIPostMarketingCampaignsByIdScheduleRequest struct {
-	ctx           context.Context
-	ApiService    *MarketingAPIService
-	id            string
-	scheduleInput *ScheduleInput
+	ctx                    context.Context
+	ApiService             *MarketingAPIService
+	id                     string
+	marketingScheduleInput *MarketingScheduleInput
 }
 
-func (r MarketingAPIPostMarketingCampaignsByIdScheduleRequest) ScheduleInput(scheduleInput ScheduleInput) MarketingAPIPostMarketingCampaignsByIdScheduleRequest {
-	r.scheduleInput = &scheduleInput
+func (r MarketingAPIPostMarketingCampaignsByIdScheduleRequest) MarketingScheduleInput(marketingScheduleInput MarketingScheduleInput) MarketingAPIPostMarketingCampaignsByIdScheduleRequest {
+	r.marketingScheduleInput = &marketingScheduleInput
 	return r
 }
 
-func (r MarketingAPIPostMarketingCampaignsByIdScheduleRequest) Execute() (*Campaign, *http.Response, error) {
+func (r MarketingAPIPostMarketingCampaignsByIdScheduleRequest) Execute() (*MarketingCampaign, *http.Response, error) {
 	return r.ApiService.PostMarketingCampaignsByIdScheduleExecute(r)
 }
 
@@ -2817,13 +2902,13 @@ func (a *MarketingAPIService) PostMarketingCampaignsByIdSchedule(ctx context.Con
 
 // Execute executes the request
 //
-//	@return Campaign
-func (a *MarketingAPIService) PostMarketingCampaignsByIdScheduleExecute(r MarketingAPIPostMarketingCampaignsByIdScheduleRequest) (*Campaign, *http.Response, error) {
+//	@return MarketingCampaign
+func (a *MarketingAPIService) PostMarketingCampaignsByIdScheduleExecute(r MarketingAPIPostMarketingCampaignsByIdScheduleRequest) (*MarketingCampaign, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Campaign
+		localVarReturnValue *MarketingCampaign
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingCampaignsByIdSchedule")
@@ -2837,8 +2922,8 @@ func (a *MarketingAPIService) PostMarketingCampaignsByIdScheduleExecute(r Market
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.scheduleInput == nil {
-		return localVarReturnValue, nil, reportError("scheduleInput is required and must be specified")
+	if r.marketingScheduleInput == nil {
+		return localVarReturnValue, nil, reportError("marketingScheduleInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2851,7 +2936,7 @@ func (a *MarketingAPIService) PostMarketingCampaignsByIdScheduleExecute(r Market
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2859,7 +2944,7 @@ func (a *MarketingAPIService) PostMarketingCampaignsByIdScheduleExecute(r Market
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.scheduleInput
+	localVarPostBody = r.marketingScheduleInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2882,6 +2967,138 @@ func (a *MarketingAPIService) PostMarketingCampaignsByIdScheduleExecute(r Market
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketingAPIPostMarketingLeadsRequest struct {
+	ctx             context.Context
+	ApiService      *MarketingAPIService
+	marketingLeadIn *MarketingLeadIn
+}
+
+func (r MarketingAPIPostMarketingLeadsRequest) MarketingLeadIn(marketingLeadIn MarketingLeadIn) MarketingAPIPostMarketingLeadsRequest {
+	r.marketingLeadIn = &marketingLeadIn
+	return r
+}
+
+func (r MarketingAPIPostMarketingLeadsRequest) Execute() (*MarketingLead, *http.Response, error) {
+	return r.ApiService.PostMarketingLeadsExecute(r)
+}
+
+/*
+PostMarketingLeads Files a sales inquiry as a new lead in the deployment's own CRM and states it on the event plane.
+
+Files a sales inquiry as a new lead in the deployment's own CRM and states
+it on the event plane. No account is needed and none is read: every lead lands
+in the brand's org. Answers 201 with an opaque reference.
+
+A brand org without the CRM installed answers 503, a body over 16 KiB answers
+413, and a missing or malformed email answers 400 — in that order.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketingAPIPostMarketingLeadsRequest
+*/
+func (a *MarketingAPIService) PostMarketingLeads(ctx context.Context) MarketingAPIPostMarketingLeadsRequest {
+	return MarketingAPIPostMarketingLeadsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketingLead
+func (a *MarketingAPIService) PostMarketingLeadsExecute(r MarketingAPIPostMarketingLeadsRequest) (*MarketingLead, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketingLead
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingLeads")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketing/leads"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketingLeadIn == nil {
+		return localVarReturnValue, nil, reportError("marketingLeadIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketingLeadIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2898,18 +3115,18 @@ func (a *MarketingAPIService) PostMarketingCampaignsByIdScheduleExecute(r Market
 }
 
 type MarketingAPIPostMarketingPromosByCodeRedeemRequest struct {
-	ctx         context.Context
-	ApiService  *MarketingAPIService
-	code        string
-	redeemInput *RedeemInput
+	ctx                  context.Context
+	ApiService           *MarketingAPIService
+	code                 string
+	marketingRedeemInput *MarketingRedeemInput
 }
 
-func (r MarketingAPIPostMarketingPromosByCodeRedeemRequest) RedeemInput(redeemInput RedeemInput) MarketingAPIPostMarketingPromosByCodeRedeemRequest {
-	r.redeemInput = &redeemInput
+func (r MarketingAPIPostMarketingPromosByCodeRedeemRequest) MarketingRedeemInput(marketingRedeemInput MarketingRedeemInput) MarketingAPIPostMarketingPromosByCodeRedeemRequest {
+	r.marketingRedeemInput = &marketingRedeemInput
 	return r
 }
 
-func (r MarketingAPIPostMarketingPromosByCodeRedeemRequest) Execute() (*RedeemResult, *http.Response, error) {
+func (r MarketingAPIPostMarketingPromosByCodeRedeemRequest) Execute() (*MarketingRedeemResult, *http.Response, error) {
 	return r.ApiService.PostMarketingPromosByCodeRedeemExecute(r)
 }
 
@@ -2947,13 +3164,13 @@ func (a *MarketingAPIService) PostMarketingPromosByCodeRedeem(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return RedeemResult
-func (a *MarketingAPIService) PostMarketingPromosByCodeRedeemExecute(r MarketingAPIPostMarketingPromosByCodeRedeemRequest) (*RedeemResult, *http.Response, error) {
+//	@return MarketingRedeemResult
+func (a *MarketingAPIService) PostMarketingPromosByCodeRedeemExecute(r MarketingAPIPostMarketingPromosByCodeRedeemRequest) (*MarketingRedeemResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RedeemResult
+		localVarReturnValue *MarketingRedeemResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingPromosByCodeRedeem")
@@ -2967,8 +3184,8 @@ func (a *MarketingAPIService) PostMarketingPromosByCodeRedeemExecute(r Marketing
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.redeemInput == nil {
-		return localVarReturnValue, nil, reportError("redeemInput is required and must be specified")
+	if r.marketingRedeemInput == nil {
+		return localVarReturnValue, nil, reportError("marketingRedeemInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2981,7 +3198,7 @@ func (a *MarketingAPIService) PostMarketingPromosByCodeRedeemExecute(r Marketing
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2989,7 +3206,7 @@ func (a *MarketingAPIService) PostMarketingPromosByCodeRedeemExecute(r Marketing
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.redeemInput
+	localVarPostBody = r.marketingRedeemInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3012,6 +3229,14 @@ func (a *MarketingAPIService) PostMarketingPromosByCodeRedeemExecute(r Marketing
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3028,17 +3253,17 @@ func (a *MarketingAPIService) PostMarketingPromosByCodeRedeemExecute(r Marketing
 }
 
 type MarketingAPIPostMarketingSequencesRequest struct {
-	ctx        context.Context
-	ApiService *MarketingAPIService
-	sequence   *Sequence
+	ctx               context.Context
+	ApiService        *MarketingAPIService
+	marketingSequence *MarketingSequence
 }
 
-func (r MarketingAPIPostMarketingSequencesRequest) Sequence(sequence Sequence) MarketingAPIPostMarketingSequencesRequest {
-	r.sequence = &sequence
+func (r MarketingAPIPostMarketingSequencesRequest) MarketingSequence(marketingSequence MarketingSequence) MarketingAPIPostMarketingSequencesRequest {
+	r.marketingSequence = &marketingSequence
 	return r
 }
 
-func (r MarketingAPIPostMarketingSequencesRequest) Execute() (*Sequence, *http.Response, error) {
+func (r MarketingAPIPostMarketingSequencesRequest) Execute() (*MarketingSequence, *http.Response, error) {
 	return r.ApiService.PostMarketingSequencesExecute(r)
 }
 
@@ -3062,13 +3287,13 @@ func (a *MarketingAPIService) PostMarketingSequences(ctx context.Context) Market
 
 // Execute executes the request
 //
-//	@return Sequence
-func (a *MarketingAPIService) PostMarketingSequencesExecute(r MarketingAPIPostMarketingSequencesRequest) (*Sequence, *http.Response, error) {
+//	@return MarketingSequence
+func (a *MarketingAPIService) PostMarketingSequencesExecute(r MarketingAPIPostMarketingSequencesRequest) (*MarketingSequence, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Sequence
+		localVarReturnValue *MarketingSequence
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingSequences")
@@ -3081,8 +3306,8 @@ func (a *MarketingAPIService) PostMarketingSequencesExecute(r MarketingAPIPostMa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.sequence == nil {
-		return localVarReturnValue, nil, reportError("sequence is required and must be specified")
+	if r.marketingSequence == nil {
+		return localVarReturnValue, nil, reportError("marketingSequence is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3095,7 +3320,7 @@ func (a *MarketingAPIService) PostMarketingSequencesExecute(r MarketingAPIPostMa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3103,7 +3328,7 @@ func (a *MarketingAPIService) PostMarketingSequencesExecute(r MarketingAPIPostMa
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.sequence
+	localVarPostBody = r.marketingSequence
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3126,6 +3351,14 @@ func (a *MarketingAPIService) PostMarketingSequencesExecute(r MarketingAPIPostMa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3142,18 +3375,18 @@ func (a *MarketingAPIService) PostMarketingSequencesExecute(r MarketingAPIPostMa
 }
 
 type MarketingAPIPostMarketingSequencesByIdEnrollRequest struct {
-	ctx         context.Context
-	ApiService  *MarketingAPIService
-	id          string
-	enrollInput *EnrollInput
+	ctx                  context.Context
+	ApiService           *MarketingAPIService
+	id                   string
+	marketingEnrollInput *MarketingEnrollInput
 }
 
-func (r MarketingAPIPostMarketingSequencesByIdEnrollRequest) EnrollInput(enrollInput EnrollInput) MarketingAPIPostMarketingSequencesByIdEnrollRequest {
-	r.enrollInput = &enrollInput
+func (r MarketingAPIPostMarketingSequencesByIdEnrollRequest) MarketingEnrollInput(marketingEnrollInput MarketingEnrollInput) MarketingAPIPostMarketingSequencesByIdEnrollRequest {
+	r.marketingEnrollInput = &marketingEnrollInput
 	return r
 }
 
-func (r MarketingAPIPostMarketingSequencesByIdEnrollRequest) Execute() (*EnrollResult, *http.Response, error) {
+func (r MarketingAPIPostMarketingSequencesByIdEnrollRequest) Execute() (*MarketingEnrollResult, *http.Response, error) {
 	return r.ApiService.PostMarketingSequencesByIdEnrollExecute(r)
 }
 
@@ -3185,13 +3418,13 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdEnroll(ctx context.Conte
 
 // Execute executes the request
 //
-//	@return EnrollResult
-func (a *MarketingAPIService) PostMarketingSequencesByIdEnrollExecute(r MarketingAPIPostMarketingSequencesByIdEnrollRequest) (*EnrollResult, *http.Response, error) {
+//	@return MarketingEnrollResult
+func (a *MarketingAPIService) PostMarketingSequencesByIdEnrollExecute(r MarketingAPIPostMarketingSequencesByIdEnrollRequest) (*MarketingEnrollResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EnrollResult
+		localVarReturnValue *MarketingEnrollResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingSequencesByIdEnroll")
@@ -3205,8 +3438,8 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdEnrollExecute(r Marketin
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.enrollInput == nil {
-		return localVarReturnValue, nil, reportError("enrollInput is required and must be specified")
+	if r.marketingEnrollInput == nil {
+		return localVarReturnValue, nil, reportError("marketingEnrollInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3219,7 +3452,7 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdEnrollExecute(r Marketin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3227,7 +3460,7 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdEnrollExecute(r Marketin
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.enrollInput
+	localVarPostBody = r.marketingEnrollInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3250,6 +3483,14 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdEnrollExecute(r Marketin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3329,7 +3570,7 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdEnrollmentsByEidCancelEx
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3358,6 +3599,14 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdEnrollmentsByEidCancelEx
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -3365,18 +3614,18 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdEnrollmentsByEidCancelEx
 }
 
 type MarketingAPIPostMarketingSequencesByIdStatusRequest struct {
-	ctx            context.Context
-	ApiService     *MarketingAPIService
-	id             string
-	sequenceStatus *SequenceStatus
+	ctx                     context.Context
+	ApiService              *MarketingAPIService
+	id                      string
+	marketingSequenceStatus *MarketingSequenceStatus
 }
 
-func (r MarketingAPIPostMarketingSequencesByIdStatusRequest) SequenceStatus(sequenceStatus SequenceStatus) MarketingAPIPostMarketingSequencesByIdStatusRequest {
-	r.sequenceStatus = &sequenceStatus
+func (r MarketingAPIPostMarketingSequencesByIdStatusRequest) MarketingSequenceStatus(marketingSequenceStatus MarketingSequenceStatus) MarketingAPIPostMarketingSequencesByIdStatusRequest {
+	r.marketingSequenceStatus = &marketingSequenceStatus
 	return r
 }
 
-func (r MarketingAPIPostMarketingSequencesByIdStatusRequest) Execute() (*SequenceStatus, *http.Response, error) {
+func (r MarketingAPIPostMarketingSequencesByIdStatusRequest) Execute() (*MarketingSequenceStatus, *http.Response, error) {
 	return r.ApiService.PostMarketingSequencesByIdStatusExecute(r)
 }
 
@@ -3401,13 +3650,13 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdStatus(ctx context.Conte
 
 // Execute executes the request
 //
-//	@return SequenceStatus
-func (a *MarketingAPIService) PostMarketingSequencesByIdStatusExecute(r MarketingAPIPostMarketingSequencesByIdStatusRequest) (*SequenceStatus, *http.Response, error) {
+//	@return MarketingSequenceStatus
+func (a *MarketingAPIService) PostMarketingSequencesByIdStatusExecute(r MarketingAPIPostMarketingSequencesByIdStatusRequest) (*MarketingSequenceStatus, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SequenceStatus
+		localVarReturnValue *MarketingSequenceStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingSequencesByIdStatus")
@@ -3421,8 +3670,8 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdStatusExecute(r Marketin
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.sequenceStatus == nil {
-		return localVarReturnValue, nil, reportError("sequenceStatus is required and must be specified")
+	if r.marketingSequenceStatus == nil {
+		return localVarReturnValue, nil, reportError("marketingSequenceStatus is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3435,7 +3684,7 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdStatusExecute(r Marketin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3443,7 +3692,7 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdStatusExecute(r Marketin
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.sequenceStatus
+	localVarPostBody = r.marketingSequenceStatus
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3466,6 +3715,14 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdStatusExecute(r Marketin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3482,18 +3739,18 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdStatusExecute(r Marketin
 }
 
 type MarketingAPIPostMarketingSequencesByIdStepsRequest struct {
-	ctx        context.Context
-	ApiService *MarketingAPIService
-	id         string
-	stepInput  *StepInput
+	ctx                context.Context
+	ApiService         *MarketingAPIService
+	id                 string
+	marketingStepInput *MarketingStepInput
 }
 
-func (r MarketingAPIPostMarketingSequencesByIdStepsRequest) StepInput(stepInput StepInput) MarketingAPIPostMarketingSequencesByIdStepsRequest {
-	r.stepInput = &stepInput
+func (r MarketingAPIPostMarketingSequencesByIdStepsRequest) MarketingStepInput(marketingStepInput MarketingStepInput) MarketingAPIPostMarketingSequencesByIdStepsRequest {
+	r.marketingStepInput = &marketingStepInput
 	return r
 }
 
-func (r MarketingAPIPostMarketingSequencesByIdStepsRequest) Execute() (*Step, *http.Response, error) {
+func (r MarketingAPIPostMarketingSequencesByIdStepsRequest) Execute() (*MarketingStep, *http.Response, error) {
 	return r.ApiService.PostMarketingSequencesByIdStepsExecute(r)
 }
 
@@ -3519,13 +3776,13 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdSteps(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return Step
-func (a *MarketingAPIService) PostMarketingSequencesByIdStepsExecute(r MarketingAPIPostMarketingSequencesByIdStepsRequest) (*Step, *http.Response, error) {
+//	@return MarketingStep
+func (a *MarketingAPIService) PostMarketingSequencesByIdStepsExecute(r MarketingAPIPostMarketingSequencesByIdStepsRequest) (*MarketingStep, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Step
+		localVarReturnValue *MarketingStep
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingSequencesByIdSteps")
@@ -3539,8 +3796,8 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdStepsExecute(r Marketing
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.stepInput == nil {
-		return localVarReturnValue, nil, reportError("stepInput is required and must be specified")
+	if r.marketingStepInput == nil {
+		return localVarReturnValue, nil, reportError("marketingStepInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3553,7 +3810,7 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdStepsExecute(r Marketing
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3561,7 +3818,7 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdStepsExecute(r Marketing
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.stepInput
+	localVarPostBody = r.marketingStepInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3584,6 +3841,14 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdStepsExecute(r Marketing
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3600,17 +3865,17 @@ func (a *MarketingAPIService) PostMarketingSequencesByIdStepsExecute(r Marketing
 }
 
 type MarketingAPIPostMarketingSuppressionsRequest struct {
-	ctx         context.Context
-	ApiService  *MarketingAPIService
-	suppression *Suppression
+	ctx                  context.Context
+	ApiService           *MarketingAPIService
+	marketingSuppression *MarketingSuppression
 }
 
-func (r MarketingAPIPostMarketingSuppressionsRequest) Suppression(suppression Suppression) MarketingAPIPostMarketingSuppressionsRequest {
-	r.suppression = &suppression
+func (r MarketingAPIPostMarketingSuppressionsRequest) MarketingSuppression(marketingSuppression MarketingSuppression) MarketingAPIPostMarketingSuppressionsRequest {
+	r.marketingSuppression = &marketingSuppression
 	return r
 }
 
-func (r MarketingAPIPostMarketingSuppressionsRequest) Execute() (*Suppression, *http.Response, error) {
+func (r MarketingAPIPostMarketingSuppressionsRequest) Execute() (*MarketingSuppression, *http.Response, error) {
 	return r.ApiService.PostMarketingSuppressionsExecute(r)
 }
 
@@ -3634,13 +3899,13 @@ func (a *MarketingAPIService) PostMarketingSuppressions(ctx context.Context) Mar
 
 // Execute executes the request
 //
-//	@return Suppression
-func (a *MarketingAPIService) PostMarketingSuppressionsExecute(r MarketingAPIPostMarketingSuppressionsRequest) (*Suppression, *http.Response, error) {
+//	@return MarketingSuppression
+func (a *MarketingAPIService) PostMarketingSuppressionsExecute(r MarketingAPIPostMarketingSuppressionsRequest) (*MarketingSuppression, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Suppression
+		localVarReturnValue *MarketingSuppression
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PostMarketingSuppressions")
@@ -3653,8 +3918,8 @@ func (a *MarketingAPIService) PostMarketingSuppressionsExecute(r MarketingAPIPos
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.suppression == nil {
-		return localVarReturnValue, nil, reportError("suppression is required and must be specified")
+	if r.marketingSuppression == nil {
+		return localVarReturnValue, nil, reportError("marketingSuppression is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3667,7 +3932,7 @@ func (a *MarketingAPIService) PostMarketingSuppressionsExecute(r MarketingAPIPos
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3675,7 +3940,7 @@ func (a *MarketingAPIService) PostMarketingSuppressionsExecute(r MarketingAPIPos
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.suppression
+	localVarPostBody = r.marketingSuppression
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3698,6 +3963,14 @@ func (a *MarketingAPIService) PostMarketingSuppressionsExecute(r MarketingAPIPos
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3714,18 +3987,18 @@ func (a *MarketingAPIService) PostMarketingSuppressionsExecute(r MarketingAPIPos
 }
 
 type MarketingAPIPutMarketingCalendarByIdRequest struct {
-	ctx          context.Context
-	ApiService   *MarketingAPIService
-	id           string
-	calendarPost *CalendarPost
+	ctx                   context.Context
+	ApiService            *MarketingAPIService
+	id                    string
+	marketingCalendarPost *MarketingCalendarPost
 }
 
-func (r MarketingAPIPutMarketingCalendarByIdRequest) CalendarPost(calendarPost CalendarPost) MarketingAPIPutMarketingCalendarByIdRequest {
-	r.calendarPost = &calendarPost
+func (r MarketingAPIPutMarketingCalendarByIdRequest) MarketingCalendarPost(marketingCalendarPost MarketingCalendarPost) MarketingAPIPutMarketingCalendarByIdRequest {
+	r.marketingCalendarPost = &marketingCalendarPost
 	return r
 }
 
-func (r MarketingAPIPutMarketingCalendarByIdRequest) Execute() (*CalendarPost, *http.Response, error) {
+func (r MarketingAPIPutMarketingCalendarByIdRequest) Execute() (*MarketingCalendarPost, *http.Response, error) {
 	return r.ApiService.PutMarketingCalendarByIdExecute(r)
 }
 
@@ -3751,13 +4024,13 @@ func (a *MarketingAPIService) PutMarketingCalendarById(ctx context.Context, id s
 
 // Execute executes the request
 //
-//	@return CalendarPost
-func (a *MarketingAPIService) PutMarketingCalendarByIdExecute(r MarketingAPIPutMarketingCalendarByIdRequest) (*CalendarPost, *http.Response, error) {
+//	@return MarketingCalendarPost
+func (a *MarketingAPIService) PutMarketingCalendarByIdExecute(r MarketingAPIPutMarketingCalendarByIdRequest) (*MarketingCalendarPost, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CalendarPost
+		localVarReturnValue *MarketingCalendarPost
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PutMarketingCalendarById")
@@ -3771,8 +4044,8 @@ func (a *MarketingAPIService) PutMarketingCalendarByIdExecute(r MarketingAPIPutM
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.calendarPost == nil {
-		return localVarReturnValue, nil, reportError("calendarPost is required and must be specified")
+	if r.marketingCalendarPost == nil {
+		return localVarReturnValue, nil, reportError("marketingCalendarPost is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3785,7 +4058,7 @@ func (a *MarketingAPIService) PutMarketingCalendarByIdExecute(r MarketingAPIPutM
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3793,7 +4066,7 @@ func (a *MarketingAPIService) PutMarketingCalendarByIdExecute(r MarketingAPIPutM
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.calendarPost
+	localVarPostBody = r.marketingCalendarPost
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3816,6 +4089,14 @@ func (a *MarketingAPIService) PutMarketingCalendarByIdExecute(r MarketingAPIPutM
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3832,18 +4113,18 @@ func (a *MarketingAPIService) PutMarketingCalendarByIdExecute(r MarketingAPIPutM
 }
 
 type MarketingAPIPutMarketingCampaignsByIdRequest struct {
-	ctx        context.Context
-	ApiService *MarketingAPIService
-	id         string
-	campaign   *Campaign
+	ctx               context.Context
+	ApiService        *MarketingAPIService
+	id                string
+	marketingCampaign *MarketingCampaign
 }
 
-func (r MarketingAPIPutMarketingCampaignsByIdRequest) Campaign(campaign Campaign) MarketingAPIPutMarketingCampaignsByIdRequest {
-	r.campaign = &campaign
+func (r MarketingAPIPutMarketingCampaignsByIdRequest) MarketingCampaign(marketingCampaign MarketingCampaign) MarketingAPIPutMarketingCampaignsByIdRequest {
+	r.marketingCampaign = &marketingCampaign
 	return r
 }
 
-func (r MarketingAPIPutMarketingCampaignsByIdRequest) Execute() (*Campaign, *http.Response, error) {
+func (r MarketingAPIPutMarketingCampaignsByIdRequest) Execute() (*MarketingCampaign, *http.Response, error) {
 	return r.ApiService.PutMarketingCampaignsByIdExecute(r)
 }
 
@@ -3869,13 +4150,13 @@ func (a *MarketingAPIService) PutMarketingCampaignsById(ctx context.Context, id 
 
 // Execute executes the request
 //
-//	@return Campaign
-func (a *MarketingAPIService) PutMarketingCampaignsByIdExecute(r MarketingAPIPutMarketingCampaignsByIdRequest) (*Campaign, *http.Response, error) {
+//	@return MarketingCampaign
+func (a *MarketingAPIService) PutMarketingCampaignsByIdExecute(r MarketingAPIPutMarketingCampaignsByIdRequest) (*MarketingCampaign, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Campaign
+		localVarReturnValue *MarketingCampaign
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingAPIService.PutMarketingCampaignsById")
@@ -3889,8 +4170,8 @@ func (a *MarketingAPIService) PutMarketingCampaignsByIdExecute(r MarketingAPIPut
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.campaign == nil {
-		return localVarReturnValue, nil, reportError("campaign is required and must be specified")
+	if r.marketingCampaign == nil {
+		return localVarReturnValue, nil, reportError("marketingCampaign is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3903,7 +4184,7 @@ func (a *MarketingAPIService) PutMarketingCampaignsByIdExecute(r MarketingAPIPut
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3911,7 +4192,7 @@ func (a *MarketingAPIService) PutMarketingCampaignsByIdExecute(r MarketingAPIPut
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.campaign
+	localVarPostBody = r.marketingCampaign
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3934,6 +4215,14 @@ func (a *MarketingAPIService) PutMarketingCampaignsByIdExecute(r MarketingAPIPut
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

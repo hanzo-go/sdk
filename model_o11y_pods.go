@@ -24,7 +24,10 @@ type O11yPods struct {
 	Total                  *int64             `json:"total,omitempty"`
 	Type                   interface{}        `json:"type,omitempty"`
 	Warning                *O11yQueryWarnData `json:"warning,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
+
+type _O11yPods O11yPods
 
 // NewO11yPods instantiates a new O11yPods object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o O11yPods) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Warning) {
 		toSerialize["warning"] = o.Warning
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPods) UnmarshalJSON(data []byte) (err error) {
+	varO11yPods := _O11yPods{}
+
+	err = json.Unmarshal(data, &varO11yPods)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPods(varO11yPods)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "endTimeBeforeRetention")
+		delete(additionalProperties, "records")
+		delete(additionalProperties, "total")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "warning")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPods struct {

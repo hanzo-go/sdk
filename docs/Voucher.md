@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** | Description is the human line for the event, e.g. the vendor a bill came from. | [optional] 
-**Legs** | Pointer to [**[]Leg**](Leg.md) | Legs are the sides of the posting. They must balance: Σdebit &#x3D;&#x3D; Σcredit, give or take the 2¢ round-off allowance. | [optional] 
-**PostingAt** | Pointer to **string** | PostingAt is the RFC3339 instant the event posts at — the time every statement window filters on. | [optional] 
-**SourceId** | Pointer to **string** | SourceID is the source event&#39;s own id within that namespace. Together with SourceKind it is the key that makes a repeat posting a no-op. | [optional] 
-**SourceKind** | Pointer to **string** | SourceKind is the idempotency namespace naming what booked this, e.g. \&quot;scan\&quot;. | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**Legs** | Pointer to [**[]Leg**](Leg.md) |  | [optional] 
+**PostingAt** | Pointer to **string** |  | [optional] 
+**SourceId** | Pointer to **string** |  | [optional] 
+**SourceKind** | Pointer to **string** |  | [optional] 
 
 ## Methods
 

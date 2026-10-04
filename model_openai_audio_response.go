@@ -19,13 +19,16 @@ var _ MappedNullable = &OpenaiAudioResponse{}
 
 // OpenaiAudioResponse struct for OpenaiAudioResponse
 type OpenaiAudioResponse struct {
-	Duration *float32                           `json:"duration,omitempty"`
-	Language *string                            `json:"language,omitempty"`
-	Segments []OpenaiAudioResponseSegmentsInner `json:"segments,omitempty"`
-	Task     *string                            `json:"task,omitempty"`
-	Text     *string                            `json:"text,omitempty"`
-	Words    []OpenaiAudioResponseWordsInner    `json:"words,omitempty"`
+	Duration             *float32                           `json:"duration,omitempty"`
+	Language             *string                            `json:"language,omitempty"`
+	Segments             []OpenaiAudioResponseSegmentsInner `json:"segments,omitempty"`
+	Task                 *string                            `json:"task,omitempty"`
+	Text                 *string                            `json:"text,omitempty"`
+	Words                []OpenaiAudioResponseWordsInner    `json:"words,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiAudioResponse OpenaiAudioResponse
 
 // NewOpenaiAudioResponse instantiates a new OpenaiAudioResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o OpenaiAudioResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Words) {
 		toSerialize["words"] = o.Words
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiAudioResponse) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiAudioResponse := _OpenaiAudioResponse{}
+
+	err = json.Unmarshal(data, &varOpenaiAudioResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiAudioResponse(varOpenaiAudioResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "duration")
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "segments")
+		delete(additionalProperties, "task")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "words")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiAudioResponse struct {

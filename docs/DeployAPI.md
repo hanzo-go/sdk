@@ -9,27 +9,21 @@ Method | HTTP request | Description
 [**GetDeployApplicationsByNameResourceTree**](DeployAPI.md#GetDeployApplicationsByNameResourceTree) | **Get** /v1/deploy/applications/{name}/resource-tree | Returns one application&#39;s argocd ApplicationTree: the objects the operator reconciled from its App CR, reached by ownerRef — the Deployment and, under it, the ReplicaSet and Pods, plus the Service, Ingress, HorizontalPodAutoscaler, PodDisruptionBudget and ConfigMaps it owns — each node carrying its parent edges and its health.
 [**GetDeployApplicationsByNameRevisionsByRevisionMetadata**](DeployAPI.md#GetDeployApplicationsByNameRevisionsByRevisionMetadata) | **Get** /v1/deploy/applications/{name}/revisions/{revision}/metadata | Returns the argocd RevisionMetadata for one revision of one application — what the detail view shows beside a revision.
 [**GetDeployApplicationsByNameSyncwindows**](DeployAPI.md#GetDeployApplicationsByNameSyncwindows) | **Get** /v1/deploy/applications/{name}/syncwindows | Returns one application&#39;s argocd ApplicationSyncWindowState — the answer to \&quot;is anything blocking a sync of this application right now?\&quot;.
-[**GetDeployCallback**](DeployAPI.md#GetDeployCallback) | **Get** /v1/deploy/callback | Finish the sign-in round trip and mint the console session
 [**GetDeployClusters**](DeployAPI.md#GetDeployClusters) | **Get** /v1/deploy/clusters | Returns the argocd ClusterList of the destinations the caller&#39;s applications reconcile into: one entry per distinct destination server, carrying the count of applications reconciling into it.
-[**GetDeployGitops**](DeployAPI.md#GetDeployGitops) | **Get** /v1/deploy/gitops | Lists every Hanzo CD Application in the cluster: the git source each one polls, the commit it last APPLIED, how its last sync operation ended, and its recent deploy history — newest deploy first, ordered by namespace then name.
-[**GetDeployHealth**](DeployAPI.md#GetDeployHealth) | **Get** /v1/deploy/health | Health reports whether this deployment can observe the delivery plane.
+[**GetDeployHealth**](DeployAPI.md#GetDeployHealth) | **Get** /v1/deploy/health | Reports whether this deployment can observe the delivery plane.
 [**GetDeployLogin**](DeployAPI.md#GetDeployLogin) | **Get** /v1/deploy/login | Start the sign-in round trip for this console
 [**GetDeployProjects**](DeployAPI.md#GetDeployProjects) | **Get** /v1/deploy/projects | Returns the argocd AppProjectList this console groups and filters applications by.
 [**GetDeploySessionUserinfo**](DeployAPI.md#GetDeploySessionUserinfo) | **Get** /v1/deploy/session/userinfo | Answers \&quot;is this browser signed in, and if not where does it sign in?\&quot; — the dashboard SPA&#39;s bootstrap question, and the only route on this plane that answers for an anonymous caller.
-[**GetDeploySettings**](DeployAPI.md#GetDeploySettings) | **Get** /v1/deploy/settings | Returns the argocd AuthSettings object the dashboard SPA awaits before its first render.
 [**GetDeployStreamApplications**](DeployAPI.md#GetDeployStreamApplications) | **Get** /v1/deploy/stream/applications | Live application fleet updates as Server-Sent Events
 [**GetDeployStreamApplicationsByNameResourceTree**](DeployAPI.md#GetDeployStreamApplicationsByNameResourceTree) | **Get** /v1/deploy/stream/applications/{name}/resource-tree | Live resource tree for one application, as Server-Sent Events
-[**GetDeployVersion**](DeployAPI.md#GetDeployVersion) | **Get** /v1/deploy/version | Returns the argocd VersionMessage the dashboard SPA reads at bootstrap.
 [**PostDeployApplicationsByNameRollback**](DeployAPI.md#PostDeployApplicationsByNameRollback) | **Post** /v1/deploy/applications/{name}/rollback | Serves the console&#39;s rollback control, and today it requests a reconcile and nothing more.
-[**PostDeployApplicationsByNameSync**](DeployAPI.md#PostDeployApplicationsByNameSync) | **Post** /v1/deploy/applications/{name}/sync | Asks the operator to reconcile ONE application now.
 [**PostDeployLogout**](DeployAPI.md#PostDeployLogout) | **Post** /v1/deploy/logout | Ends the console session on this host.
-[**PostDeployReconcile**](DeployAPI.md#PostDeployReconcile) | **Post** /v1/deploy/reconcile | Renders the configured git source and applies it to the cluster, once.
 
 
 
 ## GetDeployApplications
 
-> ArgoAppList GetDeployApplications(ctx).Execute()
+> DeployArgoAppList GetDeployApplications(ctx).Execute()
 
 Returns the fleet as an argocd ApplicationList: one projected Application per operator App CR, carrying the image tag the CR DECLARES, the tag actually RUNNING in the cluster's Deployment, the reconciled health, and the sync verdict those two produce (declared == running ⇒ Synced, both known and different ⇒ OutOfSync, either unknown ⇒ Unknown).
 
@@ -56,7 +50,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployApplications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDeployApplications`: ArgoAppList
+	// response from `GetDeployApplications`: DeployArgoAppList
 	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployApplications`: %v\n", resp)
 }
 ```
@@ -72,7 +66,7 @@ Other parameters are passed through a pointer to a apiGetDeployApplicationsReque
 
 ### Return type
 
-[**ArgoAppList**](ArgoAppList.md)
+[**DeployArgoAppList**](DeployArgoAppList.md)
 
 ### Authorization
 
@@ -81,7 +75,7 @@ Other parameters are passed through a pointer to a apiGetDeployApplicationsReque
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -90,7 +84,7 @@ Other parameters are passed through a pointer to a apiGetDeployApplicationsReque
 
 ## GetDeployApplicationsByName
 
-> ArgoApp GetDeployApplicationsByName(ctx, name).Execute()
+> DeployArgoApp GetDeployApplicationsByName(ctx, name).Execute()
 
 Returns ONE projected argocd Application by name, with status.resources filled in from its reconciled resource tree — which is what makes it the detail view rather than a row of the list.
 
@@ -118,7 +112,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployApplicationsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDeployApplicationsByName`: ArgoApp
+	// response from `GetDeployApplicationsByName`: DeployArgoApp
 	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployApplicationsByName`: %v\n", resp)
 }
 ```
@@ -142,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ArgoApp**](ArgoApp.md)
+[**DeployArgoApp**](DeployArgoApp.md)
 
 ### Authorization
 
@@ -151,7 +145,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -160,7 +154,7 @@ Name | Type | Description  | Notes
 
 ## GetDeployApplicationsByNameResourceTree
 
-> ArgoTree GetDeployApplicationsByNameResourceTree(ctx, name).Execute()
+> DeployArgoTree GetDeployApplicationsByNameResourceTree(ctx, name).Execute()
 
 Returns one application's argocd ApplicationTree: the objects the operator reconciled from its App CR, reached by ownerRef — the Deployment and, under it, the ReplicaSet and Pods, plus the Service, Ingress, HorizontalPodAutoscaler, PodDisruptionBudget and ConfigMaps it owns — each node carrying its parent edges and its health.
 
@@ -188,7 +182,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployApplicationsByNameResourceTree``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDeployApplicationsByNameResourceTree`: ArgoTree
+	// response from `GetDeployApplicationsByNameResourceTree`: DeployArgoTree
 	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployApplicationsByNameResourceTree`: %v\n", resp)
 }
 ```
@@ -212,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ArgoTree**](ArgoTree.md)
+[**DeployArgoTree**](DeployArgoTree.md)
 
 ### Authorization
 
@@ -221,7 +215,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -230,7 +224,7 @@ Name | Type | Description  | Notes
 
 ## GetDeployApplicationsByNameRevisionsByRevisionMetadata
 
-> ArgoRevisionMetadata GetDeployApplicationsByNameRevisionsByRevisionMetadata(ctx, name, revision).Execute()
+> DeployArgoRevisionMetadata GetDeployApplicationsByNameRevisionsByRevisionMetadata(ctx, name, revision).Execute()
 
 Returns the argocd RevisionMetadata for one revision of one application — what the detail view shows beside a revision.
 
@@ -259,7 +253,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployApplicationsByNameRevisionsByRevisionMetadata``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDeployApplicationsByNameRevisionsByRevisionMetadata`: ArgoRevisionMetadata
+	// response from `GetDeployApplicationsByNameRevisionsByRevisionMetadata`: DeployArgoRevisionMetadata
 	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployApplicationsByNameRevisionsByRevisionMetadata`: %v\n", resp)
 }
 ```
@@ -285,7 +279,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ArgoRevisionMetadata**](ArgoRevisionMetadata.md)
+[**DeployArgoRevisionMetadata**](DeployArgoRevisionMetadata.md)
 
 ### Authorization
 
@@ -294,7 +288,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -303,7 +297,7 @@ Name | Type | Description  | Notes
 
 ## GetDeployApplicationsByNameSyncwindows
 
-> ArgoSyncWindows GetDeployApplicationsByNameSyncwindows(ctx, name).Execute()
+> DeployArgoSyncWindows GetDeployApplicationsByNameSyncwindows(ctx, name).Execute()
 
 Returns one application's argocd ApplicationSyncWindowState — the answer to \"is anything blocking a sync of this application right now?\".
 
@@ -331,7 +325,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployApplicationsByNameSyncwindows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDeployApplicationsByNameSyncwindows`: ArgoSyncWindows
+	// response from `GetDeployApplicationsByNameSyncwindows`: DeployArgoSyncWindows
 	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployApplicationsByNameSyncwindows`: %v\n", resp)
 }
 ```
@@ -355,7 +349,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ArgoSyncWindows**](ArgoSyncWindows.md)
+[**DeployArgoSyncWindows**](DeployArgoSyncWindows.md)
 
 ### Authorization
 
@@ -364,66 +358,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetDeployCallback
-
-> GetDeployCallback(ctx).Execute()
-
-Finish the sign-in round trip and mint the console session
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeployAPI.GetDeployCallback(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployCallback``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetDeployCallbackRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -432,7 +367,7 @@ Other parameters are passed through a pointer to a apiGetDeployCallbackRequest s
 
 ## GetDeployClusters
 
-> ArgoClusterList GetDeployClusters(ctx).Execute()
+> DeployArgoClusterList GetDeployClusters(ctx).Execute()
 
 Returns the argocd ClusterList of the destinations the caller's applications reconcile into: one entry per distinct destination server, carrying the count of applications reconciling into it.
 
@@ -459,7 +394,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployClusters``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDeployClusters`: ArgoClusterList
+	// response from `GetDeployClusters`: DeployArgoClusterList
 	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployClusters`: %v\n", resp)
 }
 ```
@@ -475,7 +410,7 @@ Other parameters are passed through a pointer to a apiGetDeployClustersRequest s
 
 ### Return type
 
-[**ArgoClusterList**](ArgoClusterList.md)
+[**DeployArgoClusterList**](DeployArgoClusterList.md)
 
 ### Authorization
 
@@ -484,68 +419,7 @@ Other parameters are passed through a pointer to a apiGetDeployClustersRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetDeployGitops
-
-> GitOpsPlane GetDeployGitops(ctx).Execute()
-
-Lists every Hanzo CD Application in the cluster: the git source each one polls, the commit it last APPLIED, how its last sync operation ended, and its recent deploy history — newest deploy first, ordered by namespace then name.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.GetDeployGitops(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployGitops``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetDeployGitops`: GitOpsPlane
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployGitops`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetDeployGitopsRequest struct via the builder pattern
-
-
-### Return type
-
-[**GitOpsPlane**](GitOpsPlane.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -554,9 +428,9 @@ Other parameters are passed through a pointer to a apiGetDeployGitopsRequest str
 
 ## GetDeployHealth
 
-> DeployHealth GetDeployHealth(ctx).Execute()
+> DeployDeployHealth GetDeployHealth(ctx).Execute()
 
-Health reports whether this deployment can observe the delivery plane.
+Reports whether this deployment can observe the delivery plane.
 
 
 
@@ -581,7 +455,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDeployHealth`: DeployHealth
+	// response from `GetDeployHealth`: DeployDeployHealth
 	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployHealth`: %v\n", resp)
 }
 ```
@@ -597,7 +471,7 @@ Other parameters are passed through a pointer to a apiGetDeployHealthRequest str
 
 ### Return type
 
-[**DeployHealth**](DeployHealth.md)
+[**DeployDeployHealth**](DeployDeployHealth.md)
 
 ### Authorization
 
@@ -606,7 +480,7 @@ Other parameters are passed through a pointer to a apiGetDeployHealthRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -674,7 +548,7 @@ Other parameters are passed through a pointer to a apiGetDeployLoginRequest stru
 
 ## GetDeployProjects
 
-> ArgoProjectList GetDeployProjects(ctx).Execute()
+> DeployArgoProjectList GetDeployProjects(ctx).Execute()
 
 Returns the argocd AppProjectList this console groups and filters applications by.
 
@@ -701,7 +575,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployProjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDeployProjects`: ArgoProjectList
+	// response from `GetDeployProjects`: DeployArgoProjectList
 	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployProjects`: %v\n", resp)
 }
 ```
@@ -717,7 +591,7 @@ Other parameters are passed through a pointer to a apiGetDeployProjectsRequest s
 
 ### Return type
 
-[**ArgoProjectList**](ArgoProjectList.md)
+[**DeployArgoProjectList**](DeployArgoProjectList.md)
 
 ### Authorization
 
@@ -726,7 +600,7 @@ Other parameters are passed through a pointer to a apiGetDeployProjectsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -735,7 +609,7 @@ Other parameters are passed through a pointer to a apiGetDeployProjectsRequest s
 
 ## GetDeploySessionUserinfo
 
-> SessionUser GetDeploySessionUserinfo(ctx).Execute()
+> DeploySessionUser GetDeploySessionUserinfo(ctx).Execute()
 
 Answers \"is this browser signed in, and if not where does it sign in?\" — the dashboard SPA's bootstrap question, and the only route on this plane that answers for an anonymous caller.
 
@@ -762,7 +636,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeploySessionUserinfo``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDeploySessionUserinfo`: SessionUser
+	// response from `GetDeploySessionUserinfo`: DeploySessionUser
 	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeploySessionUserinfo`: %v\n", resp)
 }
 ```
@@ -778,7 +652,7 @@ Other parameters are passed through a pointer to a apiGetDeploySessionUserinfoRe
 
 ### Return type
 
-[**SessionUser**](SessionUser.md)
+[**DeploySessionUser**](DeploySessionUser.md)
 
 ### Authorization
 
@@ -787,68 +661,7 @@ Other parameters are passed through a pointer to a apiGetDeploySessionUserinfoRe
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetDeploySettings
-
-> ConsoleSettings GetDeploySettings(ctx).Execute()
-
-Returns the argocd AuthSettings object the dashboard SPA awaits before its first render.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.GetDeploySettings(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeploySettings``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetDeploySettings`: ConsoleSettings
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeploySettings`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetDeploySettingsRequest struct via the builder pattern
-
-
-### Return type
-
-[**ConsoleSettings**](ConsoleSettings.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -982,70 +795,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetDeployVersion
-
-> VersionMessage GetDeployVersion(ctx).Execute()
-
-Returns the argocd VersionMessage the dashboard SPA reads at bootstrap.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.GetDeployVersion(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.GetDeployVersion``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetDeployVersion`: VersionMessage
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.GetDeployVersion`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetDeployVersionRequest struct via the builder pattern
-
-
-### Return type
-
-[**VersionMessage**](VersionMessage.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PostDeployApplicationsByNameRollback
 
-> ArgoApp PostDeployApplicationsByNameRollback(ctx, name).Execute()
+> DeployArgoApp PostDeployApplicationsByNameRollback(ctx, name).Execute()
 
 Serves the console's rollback control, and today it requests a reconcile and nothing more.
 
@@ -1073,7 +825,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.PostDeployApplicationsByNameRollback``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDeployApplicationsByNameRollback`: ArgoApp
+	// response from `PostDeployApplicationsByNameRollback`: DeployArgoApp
 	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.PostDeployApplicationsByNameRollback`: %v\n", resp)
 }
 ```
@@ -1097,7 +849,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ArgoApp**](ArgoApp.md)
+[**DeployArgoApp**](DeployArgoApp.md)
 
 ### Authorization
 
@@ -1106,77 +858,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostDeployApplicationsByNameSync
-
-> ArgoApp PostDeployApplicationsByNameSync(ctx, name).Execute()
-
-Asks the operator to reconcile ONE application now.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	name := "name_example" // string | Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR's metadata.name satisfies that, and anything else is a 400 rather than a lookup.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.PostDeployApplicationsByNameSync(context.Background(), name).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.PostDeployApplicationsByNameSync``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostDeployApplicationsByNameSync`: ArgoApp
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.PostDeployApplicationsByNameSync`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostDeployApplicationsByNameSyncRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**ArgoApp**](ArgoApp.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1185,7 +867,7 @@ Name | Type | Description  | Notes
 
 ## PostDeployLogout
 
-> SessionEnded PostDeployLogout(ctx).Execute()
+> DeploySessionEnded PostDeployLogout(ctx).Execute()
 
 Ends the console session on this host.
 
@@ -1212,7 +894,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.PostDeployLogout``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDeployLogout`: SessionEnded
+	// response from `PostDeployLogout`: DeploySessionEnded
 	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.PostDeployLogout`: %v\n", resp)
 }
 ```
@@ -1228,7 +910,7 @@ Other parameters are passed through a pointer to a apiPostDeployLogoutRequest st
 
 ### Return type
 
-[**SessionEnded**](SessionEnded.md)
+[**DeploySessionEnded**](DeploySessionEnded.md)
 
 ### Authorization
 
@@ -1237,68 +919,7 @@ Other parameters are passed through a pointer to a apiPostDeployLogoutRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostDeployReconcile
-
-> ReconcileReport PostDeployReconcile(ctx).Execute()
-
-Renders the configured git source and applies it to the cluster, once.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeployAPI.PostDeployReconcile(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeployAPI.PostDeployReconcile``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostDeployReconcile`: ReconcileReport
-	fmt.Fprintf(os.Stdout, "Response from `DeployAPI.PostDeployReconcile`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostDeployReconcileRequest struct via the builder pattern
-
-
-### Return type
-
-[**ReconcileReport**](ReconcileReport.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -22,8 +22,11 @@ type O11yAnnQueueList struct {
 	// Data is the page of queues.
 	Data []O11yAnnQueueView `json:"data,omitempty"`
 	// Meta is the paging that produced it.
-	Meta *O11yListMeta `json:"meta,omitempty"`
+	Meta                 *O11yListMeta `json:"meta,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAnnQueueList O11yAnnQueueList
 
 // NewO11yAnnQueueList instantiates a new O11yAnnQueueList object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yAnnQueueList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Meta) {
 		toSerialize["meta"] = o.Meta
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAnnQueueList) UnmarshalJSON(data []byte) (err error) {
+	varO11yAnnQueueList := _O11yAnnQueueList{}
+
+	err = json.Unmarshal(data, &varO11yAnnQueueList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAnnQueueList(varO11yAnnQueueList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "meta")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAnnQueueList struct {

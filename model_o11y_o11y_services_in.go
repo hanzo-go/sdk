@@ -24,8 +24,11 @@ type O11yO11yServicesIn struct {
 	// Start is the window's start, epoch nanoseconds as a string.
 	Start *string `json:"start,omitempty"`
 	// Tags narrow the spans counted, each a span-attribute predicate.
-	Tags []O11yO11yServiceTag `json:"tags,omitempty"`
+	Tags                 []O11yO11yServiceTag `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yServicesIn O11yO11yServicesIn
 
 // NewO11yO11yServicesIn instantiates a new O11yO11yServicesIn object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yServicesIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yServicesIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yServicesIn := _O11yO11yServicesIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yServicesIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yServicesIn(varO11yO11yServicesIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yServicesIn struct {

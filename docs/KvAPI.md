@@ -6,10 +6,10 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteKvByBucket**](KvAPI.md#DeleteKvByBucket) | **Delete** /v1/kv/{bucket} | Removes one bucket of the caller&#39;s org — every key and every revision with it — and answers 204 with no body.
 [**DeleteKvByBucketByKey**](KvAPI.md#DeleteKvByBucketByKey) | **Delete** /v1/kv/{bucket}/{key} | Delete removes one key — a delete marker in the key&#39;s history, so watchers see it and Get answers 404 — and answers 204 with no body.
-[**GetKvByBucketByKey**](KvAPI.md#GetKvByBucketByKey) | **Get** /v1/kv/{bucket}/{key} | Get returns one key&#39;s current value and revision.
-[**GetKvByBucketByKeyHistory**](KvAPI.md#GetKvByBucketByKeyHistory) | **Get** /v1/kv/{bucket}/{key}/history | History returns one key&#39;s retained revisions, oldest first — every put and every delete marker up to the bucket&#39;s History depth.
+[**GetKvByBucketByKey**](KvAPI.md#GetKvByBucketByKey) | **Get** /v1/kv/{bucket}/{key} | Returns one key&#39;s current value and revision.
+[**GetKvByBucketByKeyHistory**](KvAPI.md#GetKvByBucketByKeyHistory) | **Get** /v1/kv/{bucket}/{key}/history | Returns one key&#39;s retained revisions, oldest first — every put and every delete marker up to the bucket&#39;s History depth.
 [**PostKvByBucket**](KvAPI.md#PostKvByBucket) | **Post** /v1/kv/{bucket} | Creates a KV bucket and returns it.
-[**PutKvByBucketByKey**](KvAPI.md#PutKvByBucketByKey) | **Put** /v1/kv/{bucket}/{key} | Put sets one key to one value and returns the revision the write created.
+[**PutKvByBucketByKey**](KvAPI.md#PutKvByBucketByKey) | **Put** /v1/kv/{bucket}/{key} | Sets one key to one value and returns the revision the write created.
 
 
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -145,7 +145,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -154,9 +154,9 @@ Name | Type | Description  | Notes
 
 ## GetKvByBucketByKey
 
-> KvEntry GetKvByBucketByKey(ctx, bucket, key).Execute()
+> KvKvEntry GetKvByBucketByKey(ctx, bucket, key).Execute()
 
-Get returns one key's current value and revision.
+Returns one key's current value and revision.
 
 
 
@@ -183,7 +183,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.GetKvByBucketByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetKvByBucketByKey`: KvEntry
+	// response from `GetKvByBucketByKey`: KvKvEntry
 	fmt.Fprintf(os.Stdout, "Response from `KvAPI.GetKvByBucketByKey`: %v\n", resp)
 }
 ```
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**KvEntry**](KvEntry.md)
+[**KvKvEntry**](KvKvEntry.md)
 
 ### Authorization
 
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -227,9 +227,9 @@ Name | Type | Description  | Notes
 
 ## GetKvByBucketByKeyHistory
 
-> KvPage GetKvByBucketByKeyHistory(ctx, bucket, key).Execute()
+> KvKvPage GetKvByBucketByKeyHistory(ctx, bucket, key).Execute()
 
-History returns one key's retained revisions, oldest first — every put and every delete marker up to the bucket's History depth.
+Returns one key's retained revisions, oldest first — every put and every delete marker up to the bucket's History depth.
 
 
 
@@ -256,7 +256,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.GetKvByBucketByKeyHistory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetKvByBucketByKeyHistory`: KvPage
+	// response from `GetKvByBucketByKeyHistory`: KvKvPage
 	fmt.Fprintf(os.Stdout, "Response from `KvAPI.GetKvByBucketByKeyHistory`: %v\n", resp)
 }
 ```
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**KvPage**](KvPage.md)
+[**KvKvPage**](KvKvPage.md)
 
 ### Authorization
 
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -300,7 +300,7 @@ Name | Type | Description  | Notes
 
 ## PostKvByBucket
 
-> BucketRecord PostKvByBucket(ctx, bucket).BucketWrite(bucketWrite).Execute()
+> KvBucketRecord PostKvByBucket(ctx, bucket).KvBucketWrite(kvBucketWrite).Execute()
 
 Creates a KV bucket and returns it.
 
@@ -320,16 +320,16 @@ import (
 
 func main() {
 	bucket := "bucket_example" // string | Bucket is the bucket's name within the org, from the path: 1–64 of [A-Za-z0-9_], no dash.
-	bucketWrite := *openapiclient.NewBucketWrite() // BucketWrite | 
+	kvBucketWrite := *openapiclient.NewKvBucketWrite() // KvBucketWrite | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KvAPI.PostKvByBucket(context.Background(), bucket).BucketWrite(bucketWrite).Execute()
+	resp, r, err := apiClient.KvAPI.PostKvByBucket(context.Background(), bucket).KvBucketWrite(kvBucketWrite).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.PostKvByBucket``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostKvByBucket`: BucketRecord
+	// response from `PostKvByBucket`: KvBucketRecord
 	fmt.Fprintf(os.Stdout, "Response from `KvAPI.PostKvByBucket`: %v\n", resp)
 }
 ```
@@ -350,11 +350,11 @@ Other parameters are passed through a pointer to a apiPostKvByBucketRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **bucketWrite** | [**BucketWrite**](BucketWrite.md) |  | 
+ **kvBucketWrite** | [**KvBucketWrite**](KvBucketWrite.md) |  | 
 
 ### Return type
 
-[**BucketRecord**](BucketRecord.md)
+[**KvBucketRecord**](KvBucketRecord.md)
 
 ### Authorization
 
@@ -363,7 +363,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -372,9 +372,9 @@ Name | Type | Description  | Notes
 
 ## PutKvByBucketByKey
 
-> KvAck PutKvByBucketByKey(ctx, bucket, key).KvWrite(kvWrite).Execute()
+> KvKvAck PutKvByBucketByKey(ctx, bucket, key).KvKvWrite(kvKvWrite).Execute()
 
-Put sets one key to one value and returns the revision the write created.
+Sets one key to one value and returns the revision the write created.
 
 
 
@@ -393,16 +393,16 @@ import (
 func main() {
 	bucket := "bucket_example" // string | Bucket is the bucket, from the path.
 	key := "key_example" // string | Key is the key, from the path.
-	kvWrite := *openapiclient.NewKvWrite() // KvWrite | 
+	kvKvWrite := *openapiclient.NewKvKvWrite() // KvKvWrite | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.KvAPI.PutKvByBucketByKey(context.Background(), bucket, key).KvWrite(kvWrite).Execute()
+	resp, r, err := apiClient.KvAPI.PutKvByBucketByKey(context.Background(), bucket, key).KvKvWrite(kvKvWrite).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `KvAPI.PutKvByBucketByKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutKvByBucketByKey`: KvAck
+	// response from `PutKvByBucketByKey`: KvKvAck
 	fmt.Fprintf(os.Stdout, "Response from `KvAPI.PutKvByBucketByKey`: %v\n", resp)
 }
 ```
@@ -425,11 +425,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **kvWrite** | [**KvWrite**](KvWrite.md) |  | 
+ **kvKvWrite** | [**KvKvWrite**](KvKvWrite.md) |  | 
 
 ### Return type
 
-[**KvAck**](KvAck.md)
+[**KvKvAck**](KvKvAck.md)
 
 ### Authorization
 
@@ -438,7 +438,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

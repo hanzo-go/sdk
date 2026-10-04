@@ -36,8 +36,11 @@ type LicensingVerifyResponse struct {
 	// Revoked reports that the signature was good but the token has been revoked.
 	Revoked *bool `json:"revoked,omitempty"`
 	// Valid is the single answer: signature, schema, expiry, app and revocation all passed.
-	Valid *bool `json:"valid,omitempty"`
+	Valid                *bool `json:"valid,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicensingVerifyResponse LicensingVerifyResponse
 
 // NewLicensingVerifyResponse instantiates a new LicensingVerifyResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -381,7 +384,41 @@ func (o LicensingVerifyResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Valid) {
 		toSerialize["valid"] = o.Valid
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicensingVerifyResponse) UnmarshalJSON(data []byte) (err error) {
+	varLicensingVerifyResponse := _LicensingVerifyResponse{}
+
+	err = json.Unmarshal(data, &varLicensingVerifyResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicensingVerifyResponse(varLicensingVerifyResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "app_id")
+		delete(additionalProperties, "exp")
+		delete(additionalProperties, "features")
+		delete(additionalProperties, "fingerprint_bound")
+		delete(additionalProperties, "holder")
+		delete(additionalProperties, "nonce")
+		delete(additionalProperties, "reason")
+		delete(additionalProperties, "revoked")
+		delete(additionalProperties, "valid")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicensingVerifyResponse struct {

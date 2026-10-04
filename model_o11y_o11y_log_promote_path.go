@@ -24,8 +24,11 @@ type O11yO11yLogPromotePath struct {
 	// Path is the body path, e.g. body.user.id on the way in; listed without the body. prefix.
 	Path *string `json:"path,omitempty"`
 	// Promote lifts the path into its own column when true.
-	Promote *bool `json:"promote,omitempty"`
+	Promote              *bool `json:"promote,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogPromotePath O11yO11yLogPromotePath
 
 // NewO11yO11yLogPromotePath instantiates a new O11yO11yLogPromotePath object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yLogPromotePath) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Promote) {
 		toSerialize["promote"] = o.Promote
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogPromotePath) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogPromotePath := _O11yO11yLogPromotePath{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogPromotePath)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogPromotePath(varO11yO11yLogPromotePath)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "indexes")
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "promote")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogPromotePath struct {

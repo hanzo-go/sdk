@@ -48,21 +48,23 @@ func TestFlows(t *testing.T) {
 			c.AccountAPI.GetAccountKeys(ctx).Execute()
 		}},
 		{"chat", "POST", "/v1/chat/completions", func(c *Client) {
-			c.AiAPI.PostChatCompletions(ctx).Execute()
+			c.AiAPI.PostChatCompletions(ctx).OpenaiChatCompletionRequest(
+				OpenaiChatCompletionRequest{Model: PtrString("enso")},
+			).Execute()
 		}},
 		{"money", "GET", "/v1/billing/balance", func(c *Client) {
 			c.Budget.Balance(ctx)
 		}},
 		{"store", "POST", "/v1/provisioning/kv", func(c *Client) {
 			name := "n"
-			c.ProvisioningAPI.PostProvisioningKv(ctx).ProvisionRequest(
-				ProvisionRequest{Name: &name},
+			c.ProvisioningAPI.PostProvisioningKv(ctx).ProvisioningProvisionRequest(
+				ProvisioningProvisionRequest{Name: &name},
 			).Execute()
 		}},
 		{"agent", "POST", "/v1/agent", func(c *Client) {
 			name, model := "n", "zen-1"
-			c.AgentAPI.PostAgent(ctx).CreateAgentIn(
-				CreateAgentIn{Name: &name, Model: &model},
+			c.AgentAPI.PostAgent(ctx).AgentCreateAgentIn(
+				AgentCreateAgentIn{Name: &name, Model: &model},
 			).Execute()
 		}},
 		{"tools", "GET", "/v1/tool", func(c *Client) {

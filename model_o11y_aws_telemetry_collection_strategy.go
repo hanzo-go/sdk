@@ -22,8 +22,11 @@ type O11yAWSTelemetryCollectionStrategy struct {
 	Logs    *O11yAWSLogsCollectionStrategy    `json:"logs,omitempty"`
 	Metrics *O11yAWSMetricsCollectionStrategy `json:"metrics,omitempty"`
 	// Only available in S3 Sync Service Type in AWS
-	S3Buckets map[string][]string `json:"s3Buckets,omitempty"`
+	S3Buckets            map[string][]string `json:"s3Buckets,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAWSTelemetryCollectionStrategy O11yAWSTelemetryCollectionStrategy
 
 // NewO11yAWSTelemetryCollectionStrategy instantiates a new O11yAWSTelemetryCollectionStrategy object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o O11yAWSTelemetryCollectionStrategy) ToMap() (map[string]interface{}, err
 	if !IsNil(o.S3Buckets) {
 		toSerialize["s3Buckets"] = o.S3Buckets
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAWSTelemetryCollectionStrategy) UnmarshalJSON(data []byte) (err error) {
+	varO11yAWSTelemetryCollectionStrategy := _O11yAWSTelemetryCollectionStrategy{}
+
+	err = json.Unmarshal(data, &varO11yAWSTelemetryCollectionStrategy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAWSTelemetryCollectionStrategy(varO11yAWSTelemetryCollectionStrategy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "logs")
+		delete(additionalProperties, "metrics")
+		delete(additionalProperties, "s3Buckets")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAWSTelemetryCollectionStrategy struct {

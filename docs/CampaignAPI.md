@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCampaignByIdChannelsByKind
 
-> CampaignRecord DeleteCampaignByIdChannelsByKind(ctx, id, kind).Execute()
+> CampaignCampaignRecord DeleteCampaignByIdChannelsByKind(ctx, id, kind).Execute()
 
 Drops one channel from a campaign and returns the updated campaign.
 
@@ -117,7 +117,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CampaignAPI.DeleteCampaignByIdChannelsByKind``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteCampaignByIdChannelsByKind`: CampaignRecord
+	// response from `DeleteCampaignByIdChannelsByKind`: CampaignCampaignRecord
 	fmt.Fprintf(os.Stdout, "Response from `CampaignAPI.DeleteCampaignByIdChannelsByKind`: %v\n", resp)
 }
 ```
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CampaignRecord**](CampaignRecord.md)
+[**CampaignCampaignRecord**](CampaignCampaignRecord.md)
 
 ### Authorization
 
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 
 ## GetCampaign
 
-> CampaignPage GetCampaign(ctx).Status(status).Limit(limit).Execute()
+> CampaignCampaignPage GetCampaign(ctx).Status(status).Limit(limit).Execute()
 
 Returns the org's campaigns, newest first, optionally narrowed to one status.
 
@@ -190,7 +190,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CampaignAPI.GetCampaign``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCampaign`: CampaignPage
+	// response from `GetCampaign`: CampaignCampaignPage
 	fmt.Fprintf(os.Stdout, "Response from `CampaignAPI.GetCampaign`: %v\n", resp)
 }
 ```
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CampaignPage**](CampaignPage.md)
+[**CampaignCampaignPage**](CampaignCampaignPage.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 ## GetCampaignById
 
-> CampaignRecord GetCampaignById(ctx, id).Execute()
+> CampaignCampaignRecord GetCampaignById(ctx, id).Execute()
 
 Returns one campaign of the caller's org — its name, audience, creatives, channels with their per-channel launch state, schedule, budget and status.
 
@@ -257,7 +257,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CampaignAPI.GetCampaignById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCampaignById`: CampaignRecord
+	// response from `GetCampaignById`: CampaignCampaignRecord
 	fmt.Fprintf(os.Stdout, "Response from `CampaignAPI.GetCampaignById`: %v\n", resp)
 }
 ```
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CampaignRecord**](CampaignRecord.md)
+[**CampaignCampaignRecord**](CampaignCampaignRecord.md)
 
 ### Authorization
 
@@ -290,7 +290,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -299,7 +299,7 @@ Name | Type | Description  | Notes
 
 ## GetCampaignByIdMetrics
 
-> CampaignResults GetCampaignByIdMetrics(ctx, id).Range_(range_).Start(start).End(end).Execute()
+> CampaignCampaignResults GetCampaignByIdMetrics(ctx, id).Range_(range_).Start(start).End(end).Execute()
 
 Returns a campaign's results over a window: the analytics funnel (impressions, clicks, conversions, revenue, visitors), the spend each channel's connector reports, and the derived growth KPIs — CTR, CVR, CAC and ROAS.
 
@@ -330,7 +330,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CampaignAPI.GetCampaignByIdMetrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCampaignByIdMetrics`: CampaignResults
+	// response from `GetCampaignByIdMetrics`: CampaignCampaignResults
 	fmt.Fprintf(os.Stdout, "Response from `CampaignAPI.GetCampaignByIdMetrics`: %v\n", resp)
 }
 ```
@@ -357,7 +357,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CampaignResults**](CampaignResults.md)
+[**CampaignCampaignResults**](CampaignCampaignResults.md)
 
 ### Authorization
 
@@ -366,7 +366,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -375,7 +375,7 @@ Name | Type | Description  | Notes
 
 ## GetCampaignSummary
 
-> CampaignSummary GetCampaignSummary(ctx).Execute()
+> CampaignCampaignSummary GetCampaignSummary(ctx).Execute()
 
 Returns the org's go-to-market roll-up: how many campaigns exist, how many are live, their total budget in cents, and which channel executors this deployment can actually reach.
 
@@ -402,7 +402,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CampaignAPI.GetCampaignSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCampaignSummary`: CampaignSummary
+	// response from `GetCampaignSummary`: CampaignCampaignSummary
 	fmt.Fprintf(os.Stdout, "Response from `CampaignAPI.GetCampaignSummary`: %v\n", resp)
 }
 ```
@@ -418,7 +418,7 @@ Other parameters are passed through a pointer to a apiGetCampaignSummaryRequest 
 
 ### Return type
 
-[**CampaignSummary**](CampaignSummary.md)
+[**CampaignCampaignSummary**](CampaignCampaignSummary.md)
 
 ### Authorization
 
@@ -427,7 +427,7 @@ Other parameters are passed through a pointer to a apiGetCampaignSummaryRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -436,7 +436,7 @@ Other parameters are passed through a pointer to a apiGetCampaignSummaryRequest 
 
 ## PostCampaign
 
-> CampaignRecord PostCampaign(ctx).CampaignWrite(campaignWrite).Execute()
+> CampaignCampaignRecord PostCampaign(ctx).CampaignCampaignWrite(campaignCampaignWrite).Execute()
 
 Creates a campaign as a DRAFT and returns it.
 
@@ -455,16 +455,16 @@ import (
 )
 
 func main() {
-	campaignWrite := *openapiclient.NewCampaignWrite() // CampaignWrite | 
+	campaignCampaignWrite := *openapiclient.NewCampaignCampaignWrite() // CampaignCampaignWrite | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CampaignAPI.PostCampaign(context.Background()).CampaignWrite(campaignWrite).Execute()
+	resp, r, err := apiClient.CampaignAPI.PostCampaign(context.Background()).CampaignCampaignWrite(campaignCampaignWrite).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CampaignAPI.PostCampaign``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCampaign`: CampaignRecord
+	// response from `PostCampaign`: CampaignCampaignRecord
 	fmt.Fprintf(os.Stdout, "Response from `CampaignAPI.PostCampaign`: %v\n", resp)
 }
 ```
@@ -480,11 +480,11 @@ Other parameters are passed through a pointer to a apiPostCampaignRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **campaignWrite** | [**CampaignWrite**](CampaignWrite.md) |  | 
+ **campaignCampaignWrite** | [**CampaignCampaignWrite**](CampaignCampaignWrite.md) |  | 
 
 ### Return type
 
-[**CampaignRecord**](CampaignRecord.md)
+[**CampaignCampaignRecord**](CampaignCampaignRecord.md)
 
 ### Authorization
 
@@ -493,7 +493,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -502,7 +502,7 @@ Name | Type | Description  | Notes
 
 ## PostCampaignByIdChannels
 
-> CampaignRecord PostCampaignByIdChannels(ctx, id).ChannelAdd(channelAdd).Execute()
+> CampaignCampaignRecord PostCampaignByIdChannels(ctx, id).CampaignChannelAdd(campaignChannelAdd).Execute()
 
 Adds a channel to a campaign, or REPLACES the one it already has of that kind, and returns the updated campaign.
 
@@ -522,16 +522,16 @@ import (
 
 func main() {
 	id := "cmp_1f…" // string | ID is the campaign to add the channel to, from the path.
-	channelAdd := *openapiclient.NewChannelAdd() // ChannelAdd | 
+	campaignChannelAdd := *openapiclient.NewCampaignChannelAdd() // CampaignChannelAdd | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CampaignAPI.PostCampaignByIdChannels(context.Background(), id).ChannelAdd(channelAdd).Execute()
+	resp, r, err := apiClient.CampaignAPI.PostCampaignByIdChannels(context.Background(), id).CampaignChannelAdd(campaignChannelAdd).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CampaignAPI.PostCampaignByIdChannels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCampaignByIdChannels`: CampaignRecord
+	// response from `PostCampaignByIdChannels`: CampaignCampaignRecord
 	fmt.Fprintf(os.Stdout, "Response from `CampaignAPI.PostCampaignByIdChannels`: %v\n", resp)
 }
 ```
@@ -552,11 +552,11 @@ Other parameters are passed through a pointer to a apiPostCampaignByIdChannelsRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **channelAdd** | [**ChannelAdd**](ChannelAdd.md) |  | 
+ **campaignChannelAdd** | [**CampaignChannelAdd**](CampaignChannelAdd.md) |  | 
 
 ### Return type
 
-[**CampaignRecord**](CampaignRecord.md)
+[**CampaignCampaignRecord**](CampaignCampaignRecord.md)
 
 ### Authorization
 
@@ -565,7 +565,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -710,7 +710,7 @@ Name | Type | Description  | Notes
 
 ## PutCampaignById
 
-> CampaignRecord PutCampaignById(ctx, id).CampaignUpdate(campaignUpdate).Execute()
+> CampaignCampaignRecord PutCampaignById(ctx, id).CampaignCampaignUpdate(campaignCampaignUpdate).Execute()
 
 Rewrites a campaign's core fields — name, audience, creatives, schedule and budget — and returns the updated campaign.
 
@@ -730,16 +730,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the campaign to update, from the path.
-	campaignUpdate := *openapiclient.NewCampaignUpdate() // CampaignUpdate | 
+	campaignCampaignUpdate := *openapiclient.NewCampaignCampaignUpdate() // CampaignCampaignUpdate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CampaignAPI.PutCampaignById(context.Background(), id).CampaignUpdate(campaignUpdate).Execute()
+	resp, r, err := apiClient.CampaignAPI.PutCampaignById(context.Background(), id).CampaignCampaignUpdate(campaignCampaignUpdate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CampaignAPI.PutCampaignById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutCampaignById`: CampaignRecord
+	// response from `PutCampaignById`: CampaignCampaignRecord
 	fmt.Fprintf(os.Stdout, "Response from `CampaignAPI.PutCampaignById`: %v\n", resp)
 }
 ```
@@ -760,11 +760,11 @@ Other parameters are passed through a pointer to a apiPutCampaignByIdRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **campaignUpdate** | [**CampaignUpdate**](CampaignUpdate.md) |  | 
+ **campaignCampaignUpdate** | [**CampaignCampaignUpdate**](CampaignCampaignUpdate.md) |  | 
 
 ### Return type
 
-[**CampaignRecord**](CampaignRecord.md)
+[**CampaignCampaignRecord**](CampaignCampaignRecord.md)
 
 ### Authorization
 
@@ -773,7 +773,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

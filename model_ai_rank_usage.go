@@ -19,8 +19,11 @@ var _ MappedNullable = &AiRankUsage{}
 
 // AiRankUsage struct for AiRankUsage
 type AiRankUsage struct {
-	TotalTokens *int32 `json:"total_tokens,omitempty"`
+	TotalTokens          *int32 `json:"total_tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiRankUsage AiRankUsage
 
 // NewAiRankUsage instantiates a new AiRankUsage object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o AiRankUsage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalTokens) {
 		toSerialize["total_tokens"] = o.TotalTokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiRankUsage) UnmarshalJSON(data []byte) (err error) {
+	varAiRankUsage := _AiRankUsage{}
+
+	err = json.Unmarshal(data, &varAiRankUsage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiRankUsage(varAiRankUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "total_tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiRankUsage struct {

@@ -29,8 +29,11 @@ type O11yO11yDashboardPostable struct {
 	SchemaVersion *string     `json:"schemaVersion,omitempty"`
 	Spec          interface{} `json:"spec,omitempty"`
 	// Tags are the dashboard's tags; at most ten, and none may use a reserved DSL key.
-	Tags []O11yO11yDashboardPostableTag `json:"tags,omitempty"`
+	Tags                 []O11yO11yDashboardPostableTag `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardPostable O11yO11yDashboardPostable
 
 // NewO11yO11yDashboardPostable instantiates a new O11yO11yDashboardPostable object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o O11yO11yDashboardPostable) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardPostable) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardPostable := _O11yO11yDashboardPostable{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardPostable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardPostable(varO11yO11yDashboardPostable)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "generateName")
+		delete(additionalProperties, "image")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "schemaVersion")
+		delete(additionalProperties, "spec")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardPostable struct {

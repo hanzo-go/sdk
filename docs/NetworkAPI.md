@@ -4,13 +4,14 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteNetworkIdentitiesById**](NetworkAPI.md#DeleteNetworkIdentitiesById) | **Delete** /v1/network/identities/{id} | Removes one of the org&#39;s fabric identities.
+[**DeleteNetworkIdentitiesById**](NetworkAPI.md#DeleteNetworkIdentitiesById) | **Delete** /v1/network/identities/{id} | Takes one of the org&#39;s fabric identities out of the org.
+[**DeleteNetworkServicesById**](NetworkAPI.md#DeleteNetworkServicesById) | **Delete** /v1/network/services/{id} | Takes a name off the org&#39;s overlay: the two policies, the service and its two configs that publishing made, in that order, and the \&quot;&lt;name&gt;-host\&quot; role from each of the org&#39;s identities — that role exists only for the bind policy to select, and a role naming no service is one the identities endpoint refuses to write.
 [**GetNetwork**](NetworkAPI.md#GetNetwork) | **Get** /v1/network | Returns the caller&#39;s org overlay network on the Zero Trust fabric.
 [**GetNetworkById**](NetworkAPI.md#GetNetworkById) | **Get** /v1/network/{id} | Returns one overlay network by id, scoped to the caller&#39;s org.
 [**GetNetworkIdentities**](NetworkAPI.md#GetNetworkIdentities) | **Get** /v1/network/identities | Returns the fabric identities the caller&#39;s org owns.
 [**GetNetworkRouters**](NetworkAPI.md#GetNetworkRouters) | **Get** /v1/network/routers | Returns the Zero Trust routers the caller&#39;s org owns.
 [**GetNetworkServices**](NetworkAPI.md#GetNetworkServices) | **Get** /v1/network/services | Returns the Zero Trust edge services the caller&#39;s org owns.
-[**PostNetworkIdentities**](NetworkAPI.md#PostNetworkIdentities) | **Post** /v1/network/identities | Mints a fabric identity for a device the caller&#39;s org brings.
+[**PostNetworkIdentities**](NetworkAPI.md#PostNetworkIdentities) | **Post** /v1/network/identities | Puts the caller on the org&#39;s overlay as its own IAM subject.
 [**PostNetworkServices**](NetworkAPI.md#PostNetworkServices) | **Post** /v1/network/services | Puts a name on the org&#39;s overlay: a fabric service forwarding to host:port on whichever of the org&#39;s devices carries the \&quot;&lt;name&gt;-host\&quot; role, dialable at \&quot;&lt;name&gt;.&lt;org&gt;.zt\&quot; by any of the org&#39;s identities — and by the cloud&#39;s own, which is what lets a BYO cluster&#39;s apiserver be attached to the fleet with a \&quot;.zt\&quot; kubeconfig.
 
 
@@ -19,7 +20,7 @@ Method | HTTP request | Description
 
 > DeleteNetworkIdentitiesById(ctx, id).Execute()
 
-Removes one of the org's fabric identities.
+Takes one of the org's fabric identities out of the org.
 
 
 
@@ -76,7 +77,75 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteNetworkServicesById
+
+> DeleteNetworkServicesById(ctx, id).Execute()
+
+Takes a name off the org's overlay: the two policies, the service and its two configs that publishing made, in that order, and the \"<name>-host\" role from each of the org's identities — that role exists only for the bind policy to select, and a role naming no service is one the identities endpoint refuses to write.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the service id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NetworkAPI.DeleteNetworkServicesById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NetworkAPI.DeleteNetworkServicesById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the service id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteNetworkServicesByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -85,7 +154,7 @@ Name | Type | Description  | Notes
 
 ## GetNetwork
 
-> NetworkList GetNetwork(ctx).Execute()
+> NetworkNetworkList GetNetwork(ctx).Execute()
 
 Returns the caller's org overlay network on the Zero Trust fabric.
 
@@ -112,7 +181,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkAPI.GetNetwork``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetNetwork`: NetworkList
+	// response from `GetNetwork`: NetworkNetworkList
 	fmt.Fprintf(os.Stdout, "Response from `NetworkAPI.GetNetwork`: %v\n", resp)
 }
 ```
@@ -128,7 +197,7 @@ Other parameters are passed through a pointer to a apiGetNetworkRequest struct v
 
 ### Return type
 
-[**NetworkList**](NetworkList.md)
+[**NetworkNetworkList**](NetworkNetworkList.md)
 
 ### Authorization
 
@@ -137,7 +206,7 @@ Other parameters are passed through a pointer to a apiGetNetworkRequest struct v
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -146,7 +215,7 @@ Other parameters are passed through a pointer to a apiGetNetworkRequest struct v
 
 ## GetNetworkById
 
-> NetworkView GetNetworkById(ctx, id).Execute()
+> NetworkNetworkView GetNetworkById(ctx, id).Execute()
 
 Returns one overlay network by id, scoped to the caller's org.
 
@@ -174,7 +243,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkAPI.GetNetworkById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetNetworkById`: NetworkView
+	// response from `GetNetworkById`: NetworkNetworkView
 	fmt.Fprintf(os.Stdout, "Response from `NetworkAPI.GetNetworkById`: %v\n", resp)
 }
 ```
@@ -198,7 +267,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NetworkView**](NetworkView.md)
+[**NetworkNetworkView**](NetworkNetworkView.md)
 
 ### Authorization
 
@@ -207,7 +276,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -216,7 +285,7 @@ Name | Type | Description  | Notes
 
 ## GetNetworkIdentities
 
-> IdentityList GetNetworkIdentities(ctx).Execute()
+> NetworkIdentityList GetNetworkIdentities(ctx).Execute()
 
 Returns the fabric identities the caller's org owns.
 
@@ -243,7 +312,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkAPI.GetNetworkIdentities``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetNetworkIdentities`: IdentityList
+	// response from `GetNetworkIdentities`: NetworkIdentityList
 	fmt.Fprintf(os.Stdout, "Response from `NetworkAPI.GetNetworkIdentities`: %v\n", resp)
 }
 ```
@@ -259,7 +328,7 @@ Other parameters are passed through a pointer to a apiGetNetworkIdentitiesReques
 
 ### Return type
 
-[**IdentityList**](IdentityList.md)
+[**NetworkIdentityList**](NetworkIdentityList.md)
 
 ### Authorization
 
@@ -268,7 +337,7 @@ Other parameters are passed through a pointer to a apiGetNetworkIdentitiesReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -277,7 +346,7 @@ Other parameters are passed through a pointer to a apiGetNetworkIdentitiesReques
 
 ## GetNetworkRouters
 
-> RouterList GetNetworkRouters(ctx).Execute()
+> NetworkRouterList GetNetworkRouters(ctx).Execute()
 
 Returns the Zero Trust routers the caller's org owns.
 
@@ -304,7 +373,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkAPI.GetNetworkRouters``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetNetworkRouters`: RouterList
+	// response from `GetNetworkRouters`: NetworkRouterList
 	fmt.Fprintf(os.Stdout, "Response from `NetworkAPI.GetNetworkRouters`: %v\n", resp)
 }
 ```
@@ -320,7 +389,7 @@ Other parameters are passed through a pointer to a apiGetNetworkRoutersRequest s
 
 ### Return type
 
-[**RouterList**](RouterList.md)
+[**NetworkRouterList**](NetworkRouterList.md)
 
 ### Authorization
 
@@ -329,7 +398,7 @@ Other parameters are passed through a pointer to a apiGetNetworkRoutersRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -338,7 +407,7 @@ Other parameters are passed through a pointer to a apiGetNetworkRoutersRequest s
 
 ## GetNetworkServices
 
-> MeshServiceList GetNetworkServices(ctx).Execute()
+> NetworkMeshServiceList GetNetworkServices(ctx).Execute()
 
 Returns the Zero Trust edge services the caller's org owns.
 
@@ -365,7 +434,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkAPI.GetNetworkServices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetNetworkServices`: MeshServiceList
+	// response from `GetNetworkServices`: NetworkMeshServiceList
 	fmt.Fprintf(os.Stdout, "Response from `NetworkAPI.GetNetworkServices`: %v\n", resp)
 }
 ```
@@ -381,7 +450,7 @@ Other parameters are passed through a pointer to a apiGetNetworkServicesRequest 
 
 ### Return type
 
-[**MeshServiceList**](MeshServiceList.md)
+[**NetworkMeshServiceList**](NetworkMeshServiceList.md)
 
 ### Authorization
 
@@ -390,7 +459,7 @@ Other parameters are passed through a pointer to a apiGetNetworkServicesRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -399,9 +468,9 @@ Other parameters are passed through a pointer to a apiGetNetworkServicesRequest 
 
 ## PostNetworkIdentities
 
-> IdentityView PostNetworkIdentities(ctx).IdentityIn(identityIn).Execute()
+> NetworkIdentityView PostNetworkIdentities(ctx).NetworkIdentityIn(networkIdentityIn).Execute()
 
-Mints a fabric identity for a device the caller's org brings.
+Puts the caller on the org's overlay as its own IAM subject.
 
 
 
@@ -418,16 +487,16 @@ import (
 )
 
 func main() {
-	identityIn := *openapiclient.NewIdentityIn() // IdentityIn | 
+	networkIdentityIn := *openapiclient.NewNetworkIdentityIn() // NetworkIdentityIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NetworkAPI.PostNetworkIdentities(context.Background()).IdentityIn(identityIn).Execute()
+	resp, r, err := apiClient.NetworkAPI.PostNetworkIdentities(context.Background()).NetworkIdentityIn(networkIdentityIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkAPI.PostNetworkIdentities``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostNetworkIdentities`: IdentityView
+	// response from `PostNetworkIdentities`: NetworkIdentityView
 	fmt.Fprintf(os.Stdout, "Response from `NetworkAPI.PostNetworkIdentities`: %v\n", resp)
 }
 ```
@@ -443,11 +512,11 @@ Other parameters are passed through a pointer to a apiPostNetworkIdentitiesReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **identityIn** | [**IdentityIn**](IdentityIn.md) |  | 
+ **networkIdentityIn** | [**NetworkIdentityIn**](NetworkIdentityIn.md) |  | 
 
 ### Return type
 
-[**IdentityView**](IdentityView.md)
+[**NetworkIdentityView**](NetworkIdentityView.md)
 
 ### Authorization
 
@@ -456,7 +525,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -465,7 +534,7 @@ Name | Type | Description  | Notes
 
 ## PostNetworkServices
 
-> PublishedView PostNetworkServices(ctx).ServiceIn(serviceIn).Execute()
+> NetworkPublishedView PostNetworkServices(ctx).NetworkServiceIn(networkServiceIn).Execute()
 
 Puts a name on the org's overlay: a fabric service forwarding to host:port on whichever of the org's devices carries the \"<name>-host\" role, dialable at \"<name>.<org>.zt\" by any of the org's identities — and by the cloud's own, which is what lets a BYO cluster's apiserver be attached to the fleet with a \".zt\" kubeconfig.
 
@@ -484,16 +553,16 @@ import (
 )
 
 func main() {
-	serviceIn := *openapiclient.NewServiceIn() // ServiceIn | 
+	networkServiceIn := *openapiclient.NewNetworkServiceIn() // NetworkServiceIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NetworkAPI.PostNetworkServices(context.Background()).ServiceIn(serviceIn).Execute()
+	resp, r, err := apiClient.NetworkAPI.PostNetworkServices(context.Background()).NetworkServiceIn(networkServiceIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkAPI.PostNetworkServices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostNetworkServices`: PublishedView
+	// response from `PostNetworkServices`: NetworkPublishedView
 	fmt.Fprintf(os.Stdout, "Response from `NetworkAPI.PostNetworkServices`: %v\n", resp)
 }
 ```
@@ -509,11 +578,11 @@ Other parameters are passed through a pointer to a apiPostNetworkServicesRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **serviceIn** | [**ServiceIn**](ServiceIn.md) |  | 
+ **networkServiceIn** | [**NetworkServiceIn**](NetworkServiceIn.md) |  | 
 
 ### Return type
 
-[**PublishedView**](PublishedView.md)
+[**NetworkPublishedView**](NetworkPublishedView.md)
 
 ### Authorization
 
@@ -522,7 +591,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

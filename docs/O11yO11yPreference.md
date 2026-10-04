@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AllowedScopes** | Pointer to **[]string** | AllowedScopes are the scopes the preference may be set at — org, user. | [optional] 
 **AllowedValues** | Pointer to **[]string** | AllowedValues restricts a string preference to these values. | [optional] 
-**DefaultValue** | Pointer to **map[string]interface{}** | DefaultValue is the value before anyone set one. | [optional] 
+**DefaultValue** | Pointer to **interface{}** |  | [optional] 
 **Description** | Pointer to **string** | Description says what the preference does. | [optional] 
 **Name** | Pointer to **string** | Name is the preference name. | [optional] 
-**Value** | Pointer to **map[string]interface{}** | Value is the current value. | [optional] 
+**Value** | Pointer to **interface{}** |  | [optional] 
 **ValueType** | Pointer to **string** | ValueType is the JSON type a value must have — string, integer, float or boolean. | [optional] 
 
 ## Methods
@@ -83,20 +83,20 @@ HasAllowedValues returns a boolean if a field has been set.
 
 ### GetDefaultValue
 
-`func (o *O11yO11yPreference) GetDefaultValue() map[string]interface{}`
+`func (o *O11yO11yPreference) GetDefaultValue() interface{}`
 
 GetDefaultValue returns the DefaultValue field if non-nil, zero value otherwise.
 
 ### GetDefaultValueOk
 
-`func (o *O11yO11yPreference) GetDefaultValueOk() (*map[string]interface{}, bool)`
+`func (o *O11yO11yPreference) GetDefaultValueOk() (*interface{}, bool)`
 
 GetDefaultValueOk returns a tuple with the DefaultValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaultValue
 
-`func (o *O11yO11yPreference) SetDefaultValue(v map[string]interface{})`
+`func (o *O11yO11yPreference) SetDefaultValue(v interface{})`
 
 SetDefaultValue sets DefaultValue field to given value.
 
@@ -106,6 +106,16 @@ SetDefaultValue sets DefaultValue field to given value.
 
 HasDefaultValue returns a boolean if a field has been set.
 
+### SetDefaultValueNil
+
+`func (o *O11yO11yPreference) SetDefaultValueNil(b bool)`
+
+ SetDefaultValueNil sets the value for DefaultValue to be an explicit nil
+
+### UnsetDefaultValue
+`func (o *O11yO11yPreference) UnsetDefaultValue()`
+
+UnsetDefaultValue ensures that no value is present for DefaultValue, not even an explicit nil
 ### GetDescription
 
 `func (o *O11yO11yPreference) GetDescription() string`
@@ -158,20 +168,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *O11yO11yPreference) GetValue() map[string]interface{}`
+`func (o *O11yO11yPreference) GetValue() interface{}`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *O11yO11yPreference) GetValueOk() (*map[string]interface{}, bool)`
+`func (o *O11yO11yPreference) GetValueOk() (*interface{}, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *O11yO11yPreference) SetValue(v map[string]interface{})`
+`func (o *O11yO11yPreference) SetValue(v interface{})`
 
 SetValue sets Value field to given value.
 
@@ -181,6 +191,16 @@ SetValue sets Value field to given value.
 
 HasValue returns a boolean if a field has been set.
 
+### SetValueNil
+
+`func (o *O11yO11yPreference) SetValueNil(b bool)`
+
+ SetValueNil sets the value for Value to be an explicit nil
+
+### UnsetValue
+`func (o *O11yO11yPreference) UnsetValue()`
+
+UnsetValue ensures that no value is present for Value, not even an explicit nil
 ### GetValueType
 
 `func (o *O11yO11yPreference) GetValueType() string`

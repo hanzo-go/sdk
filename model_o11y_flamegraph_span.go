@@ -19,17 +19,20 @@ var _ MappedNullable = &O11yFlamegraphSpan{}
 
 // O11yFlamegraphSpan struct for O11yFlamegraphSpan
 type O11yFlamegraphSpan struct {
-	Attributes   map[string]map[string]interface{} `json:"attributes,omitempty"`
-	DurationNano *int32                            `json:"durationNano,omitempty"`
-	Event        []O11yEvent                       `json:"event,omitempty"`
-	HasError     *bool                             `json:"hasError,omitempty"`
-	Level        *int64                            `json:"level,omitempty"`
-	Name         *string                           `json:"name,omitempty"`
-	ParentSpanId *string                           `json:"parentSpanId,omitempty"`
-	Resource     map[string]string                 `json:"resource,omitempty"`
-	SpanId       *string                           `json:"spanId,omitempty"`
-	Timestamp    *int32                            `json:"timestamp,omitempty"`
+	Attributes           map[string]interface{} `json:"attributes,omitempty"`
+	DurationNano         *int32                 `json:"durationNano,omitempty"`
+	Event                []O11yEvent            `json:"event,omitempty"`
+	HasError             *bool                  `json:"hasError,omitempty"`
+	Level                *int64                 `json:"level,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	ParentSpanId         *string                `json:"parentSpanId,omitempty"`
+	Resource             map[string]string      `json:"resource,omitempty"`
+	SpanId               *string                `json:"spanId,omitempty"`
+	Timestamp            *int32                 `json:"timestamp,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yFlamegraphSpan O11yFlamegraphSpan
 
 // NewO11yFlamegraphSpan instantiates a new O11yFlamegraphSpan object
 // This constructor will assign default values to properties that have it defined,
@@ -49,9 +52,9 @@ func NewO11yFlamegraphSpanWithDefaults() *O11yFlamegraphSpan {
 }
 
 // GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *O11yFlamegraphSpan) GetAttributes() map[string]map[string]interface{} {
+func (o *O11yFlamegraphSpan) GetAttributes() map[string]interface{} {
 	if o == nil || IsNil(o.Attributes) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Attributes
@@ -59,9 +62,9 @@ func (o *O11yFlamegraphSpan) GetAttributes() map[string]map[string]interface{} {
 
 // GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yFlamegraphSpan) GetAttributesOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yFlamegraphSpan) GetAttributesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Attributes) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Attributes, true
 }
@@ -75,8 +78,8 @@ func (o *O11yFlamegraphSpan) HasAttributes() bool {
 	return false
 }
 
-// SetAttributes gets a reference to the given map[string]map[string]interface{} and assigns it to the Attributes field.
-func (o *O11yFlamegraphSpan) SetAttributes(v map[string]map[string]interface{}) {
+// SetAttributes gets a reference to the given map[string]interface{} and assigns it to the Attributes field.
+func (o *O11yFlamegraphSpan) SetAttributes(v map[string]interface{}) {
 	o.Attributes = v
 }
 
@@ -408,7 +411,42 @@ func (o O11yFlamegraphSpan) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Timestamp) {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yFlamegraphSpan) UnmarshalJSON(data []byte) (err error) {
+	varO11yFlamegraphSpan := _O11yFlamegraphSpan{}
+
+	err = json.Unmarshal(data, &varO11yFlamegraphSpan)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yFlamegraphSpan(varO11yFlamegraphSpan)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "durationNano")
+		delete(additionalProperties, "event")
+		delete(additionalProperties, "hasError")
+		delete(additionalProperties, "level")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "parentSpanId")
+		delete(additionalProperties, "resource")
+		delete(additionalProperties, "spanId")
+		delete(additionalProperties, "timestamp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yFlamegraphSpan struct {

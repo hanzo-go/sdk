@@ -19,8 +19,11 @@ var _ MappedNullable = &IamListWebauthnCredentialsOut{}
 
 // IamListWebauthnCredentialsOut struct for IamListWebauthnCredentialsOut
 type IamListWebauthnCredentialsOut struct {
-	WebauthnCredentials []IamWebauthnCredential `json:"webauthnCredentials,omitempty"`
+	WebauthnCredentials  []IamWebauthnCredential `json:"webauthnCredentials,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamListWebauthnCredentialsOut IamListWebauthnCredentialsOut
 
 // NewIamListWebauthnCredentialsOut instantiates a new IamListWebauthnCredentialsOut object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o IamListWebauthnCredentialsOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WebauthnCredentials) {
 		toSerialize["webauthnCredentials"] = o.WebauthnCredentials
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamListWebauthnCredentialsOut) UnmarshalJSON(data []byte) (err error) {
+	varIamListWebauthnCredentialsOut := _IamListWebauthnCredentialsOut{}
+
+	err = json.Unmarshal(data, &varIamListWebauthnCredentialsOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamListWebauthnCredentialsOut(varIamListWebauthnCredentialsOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "webauthnCredentials")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamListWebauthnCredentialsOut struct {

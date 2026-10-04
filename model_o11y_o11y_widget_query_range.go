@@ -22,9 +22,12 @@ type O11yO11yWidgetQueryRange struct {
 	Data interface{} `json:"data,omitempty"`
 	Meta interface{} `json:"meta,omitempty"`
 	// Type is the request type the result answers, e.g. time_series, scalar.
-	Type    *string     `json:"type,omitempty"`
-	Warning interface{} `json:"warning,omitempty"`
+	Type                 *string     `json:"type,omitempty"`
+	Warning              interface{} `json:"warning,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yWidgetQueryRange O11yO11yWidgetQueryRange
 
 // NewO11yO11yWidgetQueryRange instantiates a new O11yO11yWidgetQueryRange object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yWidgetQueryRange) ToMap() (map[string]interface{}, error) {
 	if o.Warning != nil {
 		toSerialize["warning"] = o.Warning
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yWidgetQueryRange) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yWidgetQueryRange := _O11yO11yWidgetQueryRange{}
+
+	err = json.Unmarshal(data, &varO11yO11yWidgetQueryRange)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yWidgetQueryRange(varO11yO11yWidgetQueryRange)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "warning")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yWidgetQueryRange struct {

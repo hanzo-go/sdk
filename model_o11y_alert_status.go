@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yAlertStatus{}
 
 // O11yAlertStatus struct for O11yAlertStatus
 type O11yAlertStatus struct {
-	InhibitedBy []string `json:"inhibitedBy,omitempty"`
-	SilencedBy  []string `json:"silencedBy,omitempty"`
-	State       *string  `json:"state,omitempty"`
+	InhibitedBy          []string `json:"inhibitedBy,omitempty"`
+	SilencedBy           []string `json:"silencedBy,omitempty"`
+	State                *string  `json:"state,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAlertStatus O11yAlertStatus
 
 // NewO11yAlertStatus instantiates a new O11yAlertStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yAlertStatus) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAlertStatus) UnmarshalJSON(data []byte) (err error) {
+	varO11yAlertStatus := _O11yAlertStatus{}
+
+	err = json.Unmarshal(data, &varO11yAlertStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAlertStatus(varO11yAlertStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "inhibitedBy")
+		delete(additionalProperties, "silencedBy")
+		delete(additionalProperties, "state")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAlertStatus struct {

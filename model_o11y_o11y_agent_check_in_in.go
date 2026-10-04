@@ -19,12 +19,15 @@ var _ MappedNullable = &O11yO11yAgentCheckInIn{}
 
 // O11yO11yAgentCheckInIn struct for O11yO11yAgentCheckInIn
 type O11yO11yAgentCheckInIn struct {
-	AccountId          *string                           `json:"account_id,omitempty"`
-	CloudIntegrationId interface{}                       `json:"cloudIntegrationId,omitempty"`
-	CloudAccountId     *string                           `json:"cloud_account_id,omitempty"`
-	Data               map[string]map[string]interface{} `json:"data,omitempty"`
-	ProviderAccountId  *string                           `json:"providerAccountId,omitempty"`
+	AccountId            *string                `json:"account_id,omitempty"`
+	CloudIntegrationId   interface{}            `json:"cloudIntegrationId,omitempty"`
+	CloudAccountId       *string                `json:"cloud_account_id,omitempty"`
+	Data                 map[string]interface{} `json:"data,omitempty"`
+	ProviderAccountId    *string                `json:"providerAccountId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yAgentCheckInIn O11yO11yAgentCheckInIn
 
 // NewO11yO11yAgentCheckInIn instantiates a new O11yO11yAgentCheckInIn object
 // This constructor will assign default values to properties that have it defined,
@@ -141,9 +144,9 @@ func (o *O11yO11yAgentCheckInIn) SetCloudAccountId(v string) {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *O11yO11yAgentCheckInIn) GetData() map[string]map[string]interface{} {
+func (o *O11yO11yAgentCheckInIn) GetData() map[string]interface{} {
 	if o == nil || IsNil(o.Data) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Data
@@ -151,9 +154,9 @@ func (o *O11yO11yAgentCheckInIn) GetData() map[string]map[string]interface{} {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yAgentCheckInIn) GetDataOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yO11yAgentCheckInIn) GetDataOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Data) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Data, true
 }
@@ -167,8 +170,8 @@ func (o *O11yO11yAgentCheckInIn) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given map[string]map[string]interface{} and assigns it to the Data field.
-func (o *O11yO11yAgentCheckInIn) SetData(v map[string]map[string]interface{}) {
+// SetData gets a reference to the given map[string]interface{} and assigns it to the Data field.
+func (o *O11yO11yAgentCheckInIn) SetData(v map[string]interface{}) {
 	o.Data = v
 }
 
@@ -229,7 +232,37 @@ func (o O11yO11yAgentCheckInIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ProviderAccountId) {
 		toSerialize["providerAccountId"] = o.ProviderAccountId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yAgentCheckInIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yAgentCheckInIn := _O11yO11yAgentCheckInIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yAgentCheckInIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yAgentCheckInIn(varO11yO11yAgentCheckInIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_id")
+		delete(additionalProperties, "cloudIntegrationId")
+		delete(additionalProperties, "cloud_account_id")
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "providerAccountId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yAgentCheckInIn struct {

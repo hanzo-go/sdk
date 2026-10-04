@@ -22,8 +22,11 @@ type O11yO11ySentryProjects struct {
 	// Items are the projects.
 	Items []O11yO11ySentryProject `json:"items,omitempty"`
 	// Total is how many the org has.
-	Total *int64 `json:"total,omitempty"`
+	Total                *int64 `json:"total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11ySentryProjects O11yO11ySentryProjects
 
 // NewO11yO11ySentryProjects instantiates a new O11yO11ySentryProjects object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11ySentryProjects) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11ySentryProjects) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11ySentryProjects := _O11yO11ySentryProjects{}
+
+	err = json.Unmarshal(data, &varO11yO11ySentryProjects)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11ySentryProjects(varO11yO11ySentryProjects)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11ySentryProjects struct {

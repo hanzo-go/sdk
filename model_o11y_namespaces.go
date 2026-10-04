@@ -24,7 +24,10 @@ type O11yNamespaces struct {
 	Total                  *int64                `json:"total,omitempty"`
 	Type                   interface{}           `json:"type,omitempty"`
 	Warning                *O11yQueryWarnData    `json:"warning,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
+
+type _O11yNamespaces O11yNamespaces
 
 // NewO11yNamespaces instantiates a new O11yNamespaces object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o O11yNamespaces) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Warning) {
 		toSerialize["warning"] = o.Warning
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yNamespaces) UnmarshalJSON(data []byte) (err error) {
+	varO11yNamespaces := _O11yNamespaces{}
+
+	err = json.Unmarshal(data, &varO11yNamespaces)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yNamespaces(varO11yNamespaces)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "endTimeBeforeRetention")
+		delete(additionalProperties, "records")
+		delete(additionalProperties, "total")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "warning")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yNamespaces struct {

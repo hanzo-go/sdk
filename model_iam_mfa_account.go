@@ -19,10 +19,13 @@ var _ MappedNullable = &IamMfaAccount{}
 
 // IamMfaAccount struct for IamMfaAccount
 type IamMfaAccount struct {
-	AccountName *string `json:"accountName,omitempty"`
-	Issuer      *string `json:"issuer,omitempty"`
-	Origin      *string `json:"origin,omitempty"`
+	AccountName          *string `json:"accountName,omitempty"`
+	Issuer               *string `json:"issuer,omitempty"`
+	Origin               *string `json:"origin,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamMfaAccount IamMfaAccount
 
 // NewIamMfaAccount instantiates a new IamMfaAccount object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o IamMfaAccount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Origin) {
 		toSerialize["origin"] = o.Origin
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamMfaAccount) UnmarshalJSON(data []byte) (err error) {
+	varIamMfaAccount := _IamMfaAccount{}
+
+	err = json.Unmarshal(data, &varIamMfaAccount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamMfaAccount(varIamMfaAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accountName")
+		delete(additionalProperties, "issuer")
+		delete(additionalProperties, "origin")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamMfaAccount struct {

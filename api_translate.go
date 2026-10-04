@@ -47,14 +47,14 @@ func (r TranslateAPIGetTranslateMemoryRequest) Limit(limit int64) TranslateAPIGe
 	return r
 }
 
-func (r TranslateAPIGetTranslateMemoryRequest) Execute() (*MemoryPage, *http.Response, error) {
+func (r TranslateAPIGetTranslateMemoryRequest) Execute() (*TranslateMemoryPage, *http.Response, error) {
 	return r.ApiService.GetTranslateMemoryExecute(r)
 }
 
 /*
-GetTranslateMemory List returns the org's own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
+GetTranslateMemory Returns the org's own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
 
-List returns the org's own translation-memory entries, newest first, optionally
+Returns the org's own translation-memory entries, newest first, optionally
 narrowed to one target language and/or one position on the review ladder. It is
 the review lane's read: what a human reviewer works through.
 
@@ -73,13 +73,13 @@ func (a *TranslateAPIService) GetTranslateMemory(ctx context.Context) TranslateA
 
 // Execute executes the request
 //
-//	@return MemoryPage
-func (a *TranslateAPIService) GetTranslateMemoryExecute(r TranslateAPIGetTranslateMemoryRequest) (*MemoryPage, *http.Response, error) {
+//	@return TranslateMemoryPage
+func (a *TranslateAPIService) GetTranslateMemoryExecute(r TranslateAPIGetTranslateMemoryRequest) (*TranslateMemoryPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MemoryPage
+		localVarReturnValue *TranslateMemoryPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TranslateAPIService.GetTranslateMemory")
@@ -112,7 +112,7 @@ func (a *TranslateAPIService) GetTranslateMemoryExecute(r TranslateAPIGetTransla
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -141,6 +141,14 @@ func (a *TranslateAPIService) GetTranslateMemoryExecute(r TranslateAPIGetTransla
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -255,24 +263,24 @@ func (a *TranslateAPIService) PostTranslateExecute(r TranslateAPIPostTranslateRe
 }
 
 type TranslateAPIPutTranslateMemoryRequest struct {
-	ctx           context.Context
-	ApiService    *TranslateAPIService
-	reviewRequest *ReviewRequest
+	ctx                    context.Context
+	ApiService             *TranslateAPIService
+	translateReviewRequest *TranslateReviewRequest
 }
 
-func (r TranslateAPIPutTranslateMemoryRequest) ReviewRequest(reviewRequest ReviewRequest) TranslateAPIPutTranslateMemoryRequest {
-	r.reviewRequest = &reviewRequest
+func (r TranslateAPIPutTranslateMemoryRequest) TranslateReviewRequest(translateReviewRequest TranslateReviewRequest) TranslateAPIPutTranslateMemoryRequest {
+	r.translateReviewRequest = &translateReviewRequest
 	return r
 }
 
-func (r TranslateAPIPutTranslateMemoryRequest) Execute() (*MemoryEntry, *http.Response, error) {
+func (r TranslateAPIPutTranslateMemoryRequest) Execute() (*TranslateMemoryEntry, *http.Response, error) {
 	return r.ApiService.PutTranslateMemoryExecute(r)
 }
 
 /*
-PutTranslateMemory Review records a human decision on one translation-memory entry, and returns the entry as stored.
+PutTranslateMemory Records a human decision on one translation-memory entry, and returns the entry as stored.
 
-Review records a human decision on one translation-memory entry, and returns the
+Records a human decision on one translation-memory entry, and returns the
 entry as stored. A human write always wins over the stored value, and once it lands
 at approved or published no machine write can move it again — which is what makes a
 locale rebuild safe to run against reviewed work.
@@ -292,13 +300,13 @@ func (a *TranslateAPIService) PutTranslateMemory(ctx context.Context) TranslateA
 
 // Execute executes the request
 //
-//	@return MemoryEntry
-func (a *TranslateAPIService) PutTranslateMemoryExecute(r TranslateAPIPutTranslateMemoryRequest) (*MemoryEntry, *http.Response, error) {
+//	@return TranslateMemoryEntry
+func (a *TranslateAPIService) PutTranslateMemoryExecute(r TranslateAPIPutTranslateMemoryRequest) (*TranslateMemoryEntry, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MemoryEntry
+		localVarReturnValue *TranslateMemoryEntry
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TranslateAPIService.PutTranslateMemory")
@@ -311,8 +319,8 @@ func (a *TranslateAPIService) PutTranslateMemoryExecute(r TranslateAPIPutTransla
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.reviewRequest == nil {
-		return localVarReturnValue, nil, reportError("reviewRequest is required and must be specified")
+	if r.translateReviewRequest == nil {
+		return localVarReturnValue, nil, reportError("translateReviewRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -325,7 +333,7 @@ func (a *TranslateAPIService) PutTranslateMemoryExecute(r TranslateAPIPutTransla
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -333,7 +341,7 @@ func (a *TranslateAPIService) PutTranslateMemoryExecute(r TranslateAPIPutTransla
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.reviewRequest
+	localVarPostBody = r.translateReviewRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -356,6 +364,14 @@ func (a *TranslateAPIService) PutTranslateMemoryExecute(r TranslateAPIPutTransla
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -19,11 +19,14 @@ var _ MappedNullable = &Frame{}
 
 // Frame struct for Frame
 type Frame struct {
-	Column   *int32  `json:"column,omitempty"`
-	File     *string `json:"file,omitempty"`
-	Function *string `json:"function,omitempty"`
-	Line     *int32  `json:"line,omitempty"`
+	Column               *int32  `json:"column,omitempty"`
+	File                 *string `json:"file,omitempty"`
+	Function             *string `json:"function,omitempty"`
+	Line                 *int32  `json:"line,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Frame Frame
 
 // NewFrame instantiates a new Frame object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o Frame) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Line) {
 		toSerialize["line"] = o.Line
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Frame) UnmarshalJSON(data []byte) (err error) {
+	varFrame := _Frame{}
+
+	err = json.Unmarshal(data, &varFrame)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Frame(varFrame)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "column")
+		delete(additionalProperties, "file")
+		delete(additionalProperties, "function")
+		delete(additionalProperties, "line")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFrame struct {

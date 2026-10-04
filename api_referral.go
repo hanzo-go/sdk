@@ -26,7 +26,7 @@ type ReferralAPIGetReferralRequest struct {
 	ApiService *ReferralAPIService
 }
 
-func (r ReferralAPIGetReferralRequest) Execute() (*MyReferrals, *http.Response, error) {
+func (r ReferralAPIGetReferralRequest) Execute() (*ReferralMyReferrals, *http.Response, error) {
 	return r.ApiService.GetReferralExecute(r)
 }
 
@@ -58,13 +58,13 @@ func (a *ReferralAPIService) GetReferral(ctx context.Context) ReferralAPIGetRefe
 
 // Execute executes the request
 //
-//	@return MyReferrals
-func (a *ReferralAPIService) GetReferralExecute(r ReferralAPIGetReferralRequest) (*MyReferrals, *http.Response, error) {
+//	@return ReferralMyReferrals
+func (a *ReferralAPIService) GetReferralExecute(r ReferralAPIGetReferralRequest) (*ReferralMyReferrals, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MyReferrals
+		localVarReturnValue *ReferralMyReferrals
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReferralAPIService.GetReferral")
@@ -88,7 +88,7 @@ func (a *ReferralAPIService) GetReferralExecute(r ReferralAPIGetReferralRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -117,6 +117,14 @@ func (a *ReferralAPIService) GetReferralExecute(r ReferralAPIGetReferralRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -133,17 +141,17 @@ func (a *ReferralAPIService) GetReferralExecute(r ReferralAPIGetReferralRequest)
 }
 
 type ReferralAPIPostReferralClaimRequest struct {
-	ctx          context.Context
-	ApiService   *ReferralAPIService
-	claimRequest *ClaimRequest
+	ctx                  context.Context
+	ApiService           *ReferralAPIService
+	referralClaimRequest *ReferralClaimRequest
 }
 
-func (r ReferralAPIPostReferralClaimRequest) ClaimRequest(claimRequest ClaimRequest) ReferralAPIPostReferralClaimRequest {
-	r.claimRequest = &claimRequest
+func (r ReferralAPIPostReferralClaimRequest) ReferralClaimRequest(referralClaimRequest ReferralClaimRequest) ReferralAPIPostReferralClaimRequest {
+	r.referralClaimRequest = &referralClaimRequest
 	return r
 }
 
-func (r ReferralAPIPostReferralClaimRequest) Execute() (*ClaimView, *http.Response, error) {
+func (r ReferralAPIPostReferralClaimRequest) Execute() (*ReferralClaimView, *http.Response, error) {
 	return r.ApiService.PostReferralClaimExecute(r)
 }
 
@@ -177,13 +185,13 @@ func (a *ReferralAPIService) PostReferralClaim(ctx context.Context) ReferralAPIP
 
 // Execute executes the request
 //
-//	@return ClaimView
-func (a *ReferralAPIService) PostReferralClaimExecute(r ReferralAPIPostReferralClaimRequest) (*ClaimView, *http.Response, error) {
+//	@return ReferralClaimView
+func (a *ReferralAPIService) PostReferralClaimExecute(r ReferralAPIPostReferralClaimRequest) (*ReferralClaimView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClaimView
+		localVarReturnValue *ReferralClaimView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReferralAPIService.PostReferralClaim")
@@ -196,8 +204,8 @@ func (a *ReferralAPIService) PostReferralClaimExecute(r ReferralAPIPostReferralC
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.claimRequest == nil {
-		return localVarReturnValue, nil, reportError("claimRequest is required and must be specified")
+	if r.referralClaimRequest == nil {
+		return localVarReturnValue, nil, reportError("referralClaimRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -210,7 +218,7 @@ func (a *ReferralAPIService) PostReferralClaimExecute(r ReferralAPIPostReferralC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -218,7 +226,7 @@ func (a *ReferralAPIService) PostReferralClaimExecute(r ReferralAPIPostReferralC
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.claimRequest
+	localVarPostBody = r.referralClaimRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -241,6 +249,14 @@ func (a *ReferralAPIService) PostReferralClaimExecute(r ReferralAPIPostReferralC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

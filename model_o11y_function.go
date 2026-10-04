@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yFunction{}
 
 // O11yFunction struct for O11yFunction
 type O11yFunction struct {
-	Args      []map[string]interface{}          `json:"args,omitempty"`
-	Name      *string                           `json:"name,omitempty"`
-	NamedArgs map[string]map[string]interface{} `json:"namedArgs,omitempty"`
+	Args                 []interface{}          `json:"args,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	NamedArgs            map[string]interface{} `json:"namedArgs,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yFunction O11yFunction
 
 // NewO11yFunction instantiates a new O11yFunction object
 // This constructor will assign default values to properties that have it defined,
@@ -42,9 +45,9 @@ func NewO11yFunctionWithDefaults() *O11yFunction {
 }
 
 // GetArgs returns the Args field value if set, zero value otherwise.
-func (o *O11yFunction) GetArgs() []map[string]interface{} {
+func (o *O11yFunction) GetArgs() []interface{} {
 	if o == nil || IsNil(o.Args) {
-		var ret []map[string]interface{}
+		var ret []interface{}
 		return ret
 	}
 	return o.Args
@@ -52,7 +55,7 @@ func (o *O11yFunction) GetArgs() []map[string]interface{} {
 
 // GetArgsOk returns a tuple with the Args field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yFunction) GetArgsOk() ([]map[string]interface{}, bool) {
+func (o *O11yFunction) GetArgsOk() ([]interface{}, bool) {
 	if o == nil || IsNil(o.Args) {
 		return nil, false
 	}
@@ -68,8 +71,8 @@ func (o *O11yFunction) HasArgs() bool {
 	return false
 }
 
-// SetArgs gets a reference to the given []map[string]interface{} and assigns it to the Args field.
-func (o *O11yFunction) SetArgs(v []map[string]interface{}) {
+// SetArgs gets a reference to the given []interface{} and assigns it to the Args field.
+func (o *O11yFunction) SetArgs(v []interface{}) {
 	o.Args = v
 }
 
@@ -106,9 +109,9 @@ func (o *O11yFunction) SetName(v string) {
 }
 
 // GetNamedArgs returns the NamedArgs field value if set, zero value otherwise.
-func (o *O11yFunction) GetNamedArgs() map[string]map[string]interface{} {
+func (o *O11yFunction) GetNamedArgs() map[string]interface{} {
 	if o == nil || IsNil(o.NamedArgs) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.NamedArgs
@@ -116,9 +119,9 @@ func (o *O11yFunction) GetNamedArgs() map[string]map[string]interface{} {
 
 // GetNamedArgsOk returns a tuple with the NamedArgs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yFunction) GetNamedArgsOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yFunction) GetNamedArgsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.NamedArgs) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.NamedArgs, true
 }
@@ -132,8 +135,8 @@ func (o *O11yFunction) HasNamedArgs() bool {
 	return false
 }
 
-// SetNamedArgs gets a reference to the given map[string]map[string]interface{} and assigns it to the NamedArgs field.
-func (o *O11yFunction) SetNamedArgs(v map[string]map[string]interface{}) {
+// SetNamedArgs gets a reference to the given map[string]interface{} and assigns it to the NamedArgs field.
+func (o *O11yFunction) SetNamedArgs(v map[string]interface{}) {
 	o.NamedArgs = v
 }
 
@@ -156,7 +159,35 @@ func (o O11yFunction) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.NamedArgs) {
 		toSerialize["namedArgs"] = o.NamedArgs
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yFunction) UnmarshalJSON(data []byte) (err error) {
+	varO11yFunction := _O11yFunction{}
+
+	err = json.Unmarshal(data, &varO11yFunction)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yFunction(varO11yFunction)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "args")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "namedArgs")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yFunction struct {

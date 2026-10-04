@@ -5,30 +5,26 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteGuideCurriculum**](GuideAPI.md#DeleteGuideCurriculum) | **Delete** /v1/guide/curriculum | Clears the caller org&#39;s curriculum override and returns the journey it falls back to — the brand blueprint, else the embedded fixture.
-[**GetGuide**](GuideAPI.md#GetGuide) | **Get** /v1/guide | Overview returns the caller org&#39;s launch journey: the active curriculum&#39;s version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org&#39;s analytics funnel folded in.
+[**GetGuide**](GuideAPI.md#GetGuide) | **Get** /v1/guide | Returns the caller org&#39;s launch journey: the active curriculum&#39;s version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org&#39;s analytics funnel folded in.
 [**GetGuideActions**](GuideAPI.md#GetGuideActions) | **Get** /v1/guide/actions | Returns the caller org&#39;s Business AI action ledger, most recent first: every \&quot;do it for me\&quot; tool call, the arguments it ran with, its result and whether it succeeded.
-[**GetGuideAnalytics**](GuideAPI.md#GetGuideAnalytics) | **Get** /v1/guide/analytics | Analytics returns the caller org&#39;s funnel from the analytics lens plus the GTM recommendations derived from it.
-[**GetGuideBlueprint**](GuideAPI.md#GetGuideBlueprint) | **Get** /v1/guide/blueprint | Returns the FULL authored brand blueprint — every principle, section, step, strategy and template WITH its enabled flag made explicit, including the disabled items the org-facing reads never see — plus the active version number, the brand key it is stored under and the item counts.
-[**GetGuideBlueprintVersions**](GuideAPI.md#GetGuideBlueprintVersions) | **Get** /v1/guide/blueprint/versions | Returns the brand blueprint&#39;s version history — every stored version&#39;s number and edit time, newest first — which is the point-in-time-recovery and audit trail behind the authoring plane.
+[**GetGuideAnalytics**](GuideAPI.md#GetGuideAnalytics) | **Get** /v1/guide/analytics | Returns the caller org&#39;s funnel from the analytics lens plus the GTM recommendations derived from it.
 [**GetGuideCurriculum**](GuideAPI.md#GetGuideCurriculum) | **Get** /v1/guide/curriculum | Returns the journey the caller&#39;s org is actually running, and whether it comes from the org&#39;s OWN override (custom) or from the platform default — the brand blueprint, else the embedded fixture.
-[**GetGuideProfile**](GuideAPI.md#GetGuideProfile) | **Get** /v1/guide/profile | Profile returns the caller org&#39;s OBSERVED growth profile — the signal set, the classified growth stage, and the org&#39;s own key metrics.
-[**GetGuideStrategies**](GuideAPI.md#GetGuideStrategies) | **Get** /v1/guide/strategies | Strategies returns the ENABLED tactics corpus for the caller&#39;s org: the tactics library narrowed by the explicit category/workload filters AND by the org&#39;s OBSERVED growth stage and capability signals (a tactic&#39;s tags are preconditions, so it surfaces only once the org can act on it).
-[**GetGuideSuggest**](GuideAPI.md#GetGuideSuggest) | **Get** /v1/guide/suggest | Suggest returns the caller org&#39;s next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org&#39;s funnel and the GTM recommendations derived from it.
-[**PatchGuideBlueprintByCollectionById**](GuideAPI.md#PatchGuideBlueprintByCollectionById) | **Patch** /v1/guide/blueprint/{collection}/{id} | Edit — or retire — one item of the brand blueprint
-[**PostGuideChat**](GuideAPI.md#PostGuideChat) | **Post** /v1/guide/chat | Chat answers a founder&#39;s question about their launch journey as the Business AI coach: it grounds the reply in the org&#39;s REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
+[**GetGuideProfile**](GuideAPI.md#GetGuideProfile) | **Get** /v1/guide/profile | Returns the caller org&#39;s OBSERVED growth profile — the signal set, the classified growth stage, and the org&#39;s own key metrics.
+[**GetGuideStrategies**](GuideAPI.md#GetGuideStrategies) | **Get** /v1/guide/strategies | Returns the ENABLED tactics corpus for the caller&#39;s org: the tactics library narrowed by the explicit category/workload filters AND by the org&#39;s OBSERVED growth stage and capability signals (a tactic&#39;s tags are preconditions, so it surfaces only once the org can act on it).
+[**GetGuideSuggest**](GuideAPI.md#GetGuideSuggest) | **Get** /v1/guide/suggest | Returns the caller org&#39;s next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org&#39;s funnel and the GTM recommendations derived from it.
+[**PostGuideChat**](GuideAPI.md#PostGuideChat) | **Post** /v1/guide/chat | Answers a founder&#39;s question about their launch journey as the Business AI coach: it grounds the reply in the org&#39;s REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
 [**PostGuideStepsByIdDo**](GuideAPI.md#PostGuideStepsByIdDo) | **Post** /v1/guide/steps/{id}/do | Have the Business AI actually do the step for you
 [**PostGuideStepsByIdDone**](GuideAPI.md#PostGuideStepsByIdDone) | **Post** /v1/guide/steps/{id}/done | Marks one step of the caller org&#39;s journey complete and returns the refreshed journey.
 [**PostGuideStepsByIdReset**](GuideAPI.md#PostGuideStepsByIdReset) | **Post** /v1/guide/steps/{id}/reset | Returns one step of the caller org&#39;s journey to todo — clearing a manual mark or a skip — and returns the refreshed journey.
 [**PostGuideStepsByIdSkip**](GuideAPI.md#PostGuideStepsByIdSkip) | **Post** /v1/guide/steps/{id}/skip | Marks one step of the caller org&#39;s journey skipped and returns the refreshed journey.
 [**PostGuideStepsByIdStart**](GuideAPI.md#PostGuideStepsByIdStart) | **Post** /v1/guide/steps/{id}/start | Marks one step of the caller org&#39;s journey in progress and returns the refreshed journey.
-[**PutGuideBlueprint**](GuideAPI.md#PutGuideBlueprint) | **Put** /v1/guide/blueprint | Publish a new version of the brand blueprint
 [**PutGuideCurriculum**](GuideAPI.md#PutGuideCurriculum) | **Put** /v1/guide/curriculum | Replace your org&#39;s journey with a curriculum you author
 
 
 
 ## DeleteGuideCurriculum
 
-> CurriculumView DeleteGuideCurriculum(ctx).Execute()
+> GuideCurriculumView DeleteGuideCurriculum(ctx).Execute()
 
 Clears the caller org's curriculum override and returns the journey it falls back to — the brand blueprint, else the embedded fixture.
 
@@ -55,7 +51,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.DeleteGuideCurriculum``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteGuideCurriculum`: CurriculumView
+	// response from `DeleteGuideCurriculum`: GuideCurriculumView
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.DeleteGuideCurriculum`: %v\n", resp)
 }
 ```
@@ -71,7 +67,7 @@ Other parameters are passed through a pointer to a apiDeleteGuideCurriculumReque
 
 ### Return type
 
-[**CurriculumView**](CurriculumView.md)
+[**GuideCurriculumView**](GuideCurriculumView.md)
 
 ### Authorization
 
@@ -80,7 +76,7 @@ Other parameters are passed through a pointer to a apiDeleteGuideCurriculumReque
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -89,9 +85,9 @@ Other parameters are passed through a pointer to a apiDeleteGuideCurriculumReque
 
 ## GetGuide
 
-> OverviewView GetGuide(ctx).Execute()
+> GuideOverviewView GetGuide(ctx).Execute()
 
-Overview returns the caller org's launch journey: the active curriculum's version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org's analytics funnel folded in.
+Returns the caller org's launch journey: the active curriculum's version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org's analytics funnel folded in.
 
 
 
@@ -116,7 +112,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.GetGuide``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGuide`: OverviewView
+	// response from `GetGuide`: GuideOverviewView
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.GetGuide`: %v\n", resp)
 }
 ```
@@ -132,7 +128,7 @@ Other parameters are passed through a pointer to a apiGetGuideRequest struct via
 
 ### Return type
 
-[**OverviewView**](OverviewView.md)
+[**GuideOverviewView**](GuideOverviewView.md)
 
 ### Authorization
 
@@ -141,7 +137,7 @@ Other parameters are passed through a pointer to a apiGetGuideRequest struct via
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -150,7 +146,7 @@ Other parameters are passed through a pointer to a apiGetGuideRequest struct via
 
 ## GetGuideActions
 
-> ActionsView GetGuideActions(ctx).Execute()
+> GuideActionsView GetGuideActions(ctx).Execute()
 
 Returns the caller org's Business AI action ledger, most recent first: every \"do it for me\" tool call, the arguments it ran with, its result and whether it succeeded.
 
@@ -177,7 +173,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.GetGuideActions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGuideActions`: ActionsView
+	// response from `GetGuideActions`: GuideActionsView
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.GetGuideActions`: %v\n", resp)
 }
 ```
@@ -193,7 +189,7 @@ Other parameters are passed through a pointer to a apiGetGuideActionsRequest str
 
 ### Return type
 
-[**ActionsView**](ActionsView.md)
+[**GuideActionsView**](GuideActionsView.md)
 
 ### Authorization
 
@@ -202,7 +198,7 @@ Other parameters are passed through a pointer to a apiGetGuideActionsRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -211,9 +207,9 @@ Other parameters are passed through a pointer to a apiGetGuideActionsRequest str
 
 ## GetGuideAnalytics
 
-> AnalyticsView GetGuideAnalytics(ctx).Execute()
+> GuideAnalyticsView GetGuideAnalytics(ctx).Execute()
 
-Analytics returns the caller org's funnel from the analytics lens plus the GTM recommendations derived from it.
+Returns the caller org's funnel from the analytics lens plus the GTM recommendations derived from it.
 
 
 
@@ -238,7 +234,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.GetGuideAnalytics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGuideAnalytics`: AnalyticsView
+	// response from `GetGuideAnalytics`: GuideAnalyticsView
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.GetGuideAnalytics`: %v\n", resp)
 }
 ```
@@ -254,7 +250,7 @@ Other parameters are passed through a pointer to a apiGetGuideAnalyticsRequest s
 
 ### Return type
 
-[**AnalyticsView**](AnalyticsView.md)
+[**GuideAnalyticsView**](GuideAnalyticsView.md)
 
 ### Authorization
 
@@ -263,129 +259,7 @@ Other parameters are passed through a pointer to a apiGetGuideAnalyticsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetGuideBlueprint
-
-> BlueprintView GetGuideBlueprint(ctx).Execute()
-
-Returns the FULL authored brand blueprint — every principle, section, step, strategy and template WITH its enabled flag made explicit, including the disabled items the org-facing reads never see — plus the active version number, the brand key it is stored under and the item counts.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GuideAPI.GetGuideBlueprint(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.GetGuideBlueprint``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetGuideBlueprint`: BlueprintView
-	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.GetGuideBlueprint`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetGuideBlueprintRequest struct via the builder pattern
-
-
-### Return type
-
-[**BlueprintView**](BlueprintView.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetGuideBlueprintVersions
-
-> BlueprintVersionsView GetGuideBlueprintVersions(ctx).Execute()
-
-Returns the brand blueprint's version history — every stored version's number and edit time, newest first — which is the point-in-time-recovery and audit trail behind the authoring plane.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GuideAPI.GetGuideBlueprintVersions(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.GetGuideBlueprintVersions``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetGuideBlueprintVersions`: BlueprintVersionsView
-	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.GetGuideBlueprintVersions`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetGuideBlueprintVersionsRequest struct via the builder pattern
-
-
-### Return type
-
-[**BlueprintVersionsView**](BlueprintVersionsView.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -394,7 +268,7 @@ Other parameters are passed through a pointer to a apiGetGuideBlueprintVersionsR
 
 ## GetGuideCurriculum
 
-> CurriculumView GetGuideCurriculum(ctx).Execute()
+> GuideCurriculumView GetGuideCurriculum(ctx).Execute()
 
 Returns the journey the caller's org is actually running, and whether it comes from the org's OWN override (custom) or from the platform default — the brand blueprint, else the embedded fixture.
 
@@ -421,7 +295,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.GetGuideCurriculum``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGuideCurriculum`: CurriculumView
+	// response from `GetGuideCurriculum`: GuideCurriculumView
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.GetGuideCurriculum`: %v\n", resp)
 }
 ```
@@ -437,7 +311,7 @@ Other parameters are passed through a pointer to a apiGetGuideCurriculumRequest 
 
 ### Return type
 
-[**CurriculumView**](CurriculumView.md)
+[**GuideCurriculumView**](GuideCurriculumView.md)
 
 ### Authorization
 
@@ -446,7 +320,7 @@ Other parameters are passed through a pointer to a apiGetGuideCurriculumRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -455,9 +329,9 @@ Other parameters are passed through a pointer to a apiGetGuideCurriculumRequest 
 
 ## GetGuideProfile
 
-> ProfileResponse GetGuideProfile(ctx).Execute()
+> GuideProfileResponse GetGuideProfile(ctx).Execute()
 
-Profile returns the caller org's OBSERVED growth profile — the signal set, the classified growth stage, and the org's own key metrics.
+Returns the caller org's OBSERVED growth profile — the signal set, the classified growth stage, and the org's own key metrics.
 
 
 
@@ -482,7 +356,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.GetGuideProfile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGuideProfile`: ProfileResponse
+	// response from `GetGuideProfile`: GuideProfileResponse
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.GetGuideProfile`: %v\n", resp)
 }
 ```
@@ -498,7 +372,7 @@ Other parameters are passed through a pointer to a apiGetGuideProfileRequest str
 
 ### Return type
 
-[**ProfileResponse**](ProfileResponse.md)
+[**GuideProfileResponse**](GuideProfileResponse.md)
 
 ### Authorization
 
@@ -507,7 +381,7 @@ Other parameters are passed through a pointer to a apiGetGuideProfileRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -516,9 +390,9 @@ Other parameters are passed through a pointer to a apiGetGuideProfileRequest str
 
 ## GetGuideStrategies
 
-> CorpusView GetGuideStrategies(ctx).Category(category).Stage(stage).Workload(workload).Execute()
+> GuideCorpusView GetGuideStrategies(ctx).Category(category).Stage(stage).Workload(workload).Execute()
 
-Strategies returns the ENABLED tactics corpus for the caller's org: the tactics library narrowed by the explicit category/workload filters AND by the org's OBSERVED growth stage and capability signals (a tactic's tags are preconditions, so it surfaces only once the org can act on it).
+Returns the ENABLED tactics corpus for the caller's org: the tactics library narrowed by the explicit category/workload filters AND by the org's OBSERVED growth stage and capability signals (a tactic's tags are preconditions, so it surfaces only once the org can act on it).
 
 
 
@@ -546,7 +420,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.GetGuideStrategies``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGuideStrategies`: CorpusView
+	// response from `GetGuideStrategies`: GuideCorpusView
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.GetGuideStrategies`: %v\n", resp)
 }
 ```
@@ -568,7 +442,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CorpusView**](CorpusView.md)
+[**GuideCorpusView**](GuideCorpusView.md)
 
 ### Authorization
 
@@ -577,7 +451,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -586,9 +460,9 @@ Name | Type | Description  | Notes
 
 ## GetGuideSuggest
 
-> SuggestResponse GetGuideSuggest(ctx).Execute()
+> GuideSuggestResponse GetGuideSuggest(ctx).Execute()
 
-Suggest returns the caller org's next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org's funnel and the GTM recommendations derived from it.
+Returns the caller org's next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org's funnel and the GTM recommendations derived from it.
 
 
 
@@ -613,7 +487,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.GetGuideSuggest``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGuideSuggest`: SuggestResponse
+	// response from `GetGuideSuggest`: GuideSuggestResponse
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.GetGuideSuggest`: %v\n", resp)
 }
 ```
@@ -629,7 +503,7 @@ Other parameters are passed through a pointer to a apiGetGuideSuggestRequest str
 
 ### Return type
 
-[**SuggestResponse**](SuggestResponse.md)
+[**GuideSuggestResponse**](GuideSuggestResponse.md)
 
 ### Authorization
 
@@ -638,78 +512,7 @@ Other parameters are passed through a pointer to a apiGetGuideSuggestRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PatchGuideBlueprintByCollectionById
-
-> PatchGuideBlueprintByCollectionById(ctx, collection, id).Execute()
-
-Edit — or retire — one item of the brand blueprint
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	collection := "collection_example" // string | 
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GuideAPI.PatchGuideBlueprintByCollectionById(context.Background(), collection, id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.PatchGuideBlueprintByCollectionById``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collection** | **string** |  | 
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPatchGuideBlueprintByCollectionByIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -718,9 +521,9 @@ Name | Type | Description  | Notes
 
 ## PostGuideChat
 
-> ChatResponse PostGuideChat(ctx).ChatRequest(chatRequest).Execute()
+> GuideChatResponse PostGuideChat(ctx).GuideChatRequest(guideChatRequest).Execute()
 
-Chat answers a founder's question about their launch journey as the Business AI coach: it grounds the reply in the org's REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
+Answers a founder's question about their launch journey as the Business AI coach: it grounds the reply in the org's REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
 
 
 
@@ -737,16 +540,16 @@ import (
 )
 
 func main() {
-	chatRequest := *openapiclient.NewChatRequest() // ChatRequest | 
+	guideChatRequest := *openapiclient.NewGuideChatRequest() // GuideChatRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GuideAPI.PostGuideChat(context.Background()).ChatRequest(chatRequest).Execute()
+	resp, r, err := apiClient.GuideAPI.PostGuideChat(context.Background()).GuideChatRequest(guideChatRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.PostGuideChat``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGuideChat`: ChatResponse
+	// response from `PostGuideChat`: GuideChatResponse
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.PostGuideChat`: %v\n", resp)
 }
 ```
@@ -762,11 +565,11 @@ Other parameters are passed through a pointer to a apiPostGuideChatRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chatRequest** | [**ChatRequest**](ChatRequest.md) |  | 
+ **guideChatRequest** | [**GuideChatRequest**](GuideChatRequest.md) |  | 
 
 ### Return type
 
-[**ChatResponse**](ChatResponse.md)
+[**GuideChatResponse**](GuideChatResponse.md)
 
 ### Authorization
 
@@ -775,7 +578,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -852,7 +655,7 @@ Name | Type | Description  | Notes
 
 ## PostGuideStepsByIdDone
 
-> OverviewView PostGuideStepsByIdDone(ctx, id).Execute()
+> GuideOverviewView PostGuideStepsByIdDone(ctx, id).Execute()
 
 Marks one step of the caller org's journey complete and returns the refreshed journey.
 
@@ -880,7 +683,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.PostGuideStepsByIdDone``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGuideStepsByIdDone`: OverviewView
+	// response from `PostGuideStepsByIdDone`: GuideOverviewView
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.PostGuideStepsByIdDone`: %v\n", resp)
 }
 ```
@@ -904,7 +707,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OverviewView**](OverviewView.md)
+[**GuideOverviewView**](GuideOverviewView.md)
 
 ### Authorization
 
@@ -913,7 +716,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -922,7 +725,7 @@ Name | Type | Description  | Notes
 
 ## PostGuideStepsByIdReset
 
-> OverviewView PostGuideStepsByIdReset(ctx, id).Execute()
+> GuideOverviewView PostGuideStepsByIdReset(ctx, id).Execute()
 
 Returns one step of the caller org's journey to todo — clearing a manual mark or a skip — and returns the refreshed journey.
 
@@ -950,7 +753,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.PostGuideStepsByIdReset``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGuideStepsByIdReset`: OverviewView
+	// response from `PostGuideStepsByIdReset`: GuideOverviewView
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.PostGuideStepsByIdReset`: %v\n", resp)
 }
 ```
@@ -974,7 +777,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OverviewView**](OverviewView.md)
+[**GuideOverviewView**](GuideOverviewView.md)
 
 ### Authorization
 
@@ -983,7 +786,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -992,7 +795,7 @@ Name | Type | Description  | Notes
 
 ## PostGuideStepsByIdSkip
 
-> OverviewView PostGuideStepsByIdSkip(ctx, id).Execute()
+> GuideOverviewView PostGuideStepsByIdSkip(ctx, id).Execute()
 
 Marks one step of the caller org's journey skipped and returns the refreshed journey.
 
@@ -1020,7 +823,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.PostGuideStepsByIdSkip``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGuideStepsByIdSkip`: OverviewView
+	// response from `PostGuideStepsByIdSkip`: GuideOverviewView
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.PostGuideStepsByIdSkip`: %v\n", resp)
 }
 ```
@@ -1044,7 +847,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OverviewView**](OverviewView.md)
+[**GuideOverviewView**](GuideOverviewView.md)
 
 ### Authorization
 
@@ -1053,7 +856,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1062,7 +865,7 @@ Name | Type | Description  | Notes
 
 ## PostGuideStepsByIdStart
 
-> OverviewView PostGuideStepsByIdStart(ctx, id).Execute()
+> GuideOverviewView PostGuideStepsByIdStart(ctx, id).Execute()
 
 Marks one step of the caller org's journey in progress and returns the refreshed journey.
 
@@ -1090,7 +893,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.PostGuideStepsByIdStart``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGuideStepsByIdStart`: OverviewView
+	// response from `PostGuideStepsByIdStart`: GuideOverviewView
 	fmt.Fprintf(os.Stdout, "Response from `GuideAPI.PostGuideStepsByIdStart`: %v\n", resp)
 }
 ```
@@ -1114,7 +917,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OverviewView**](OverviewView.md)
+[**GuideOverviewView**](GuideOverviewView.md)
 
 ### Authorization
 
@@ -1123,66 +926,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PutGuideBlueprint
-
-> PutGuideBlueprint(ctx).Execute()
-
-Publish a new version of the brand blueprint
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GuideAPI.PutGuideBlueprint(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GuideAPI.PutGuideBlueprint``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPutGuideBlueprintRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

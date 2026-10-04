@@ -22,9 +22,12 @@ type O11yO11yLogAggregateBucket struct {
 	// GroupBy carries the group's key values when the aggregate grouped.
 	GroupBy map[string]interface{} `json:"groupBy,omitempty"`
 	// Timestamp is the start of the bucket.
-	Timestamp *int64      `json:"timestamp,omitempty"`
-	Value     interface{} `json:"value,omitempty"`
+	Timestamp            *int64      `json:"timestamp,omitempty"`
+	Value                interface{} `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogAggregateBucket O11yO11yLogAggregateBucket
 
 // NewO11yO11yLogAggregateBucket instantiates a new O11yO11yLogAggregateBucket object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yLogAggregateBucket) ToMap() (map[string]interface{}, error) {
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogAggregateBucket) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogAggregateBucket := _O11yO11yLogAggregateBucket{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogAggregateBucket)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogAggregateBucket(varO11yO11yLogAggregateBucket)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogAggregateBucket struct {

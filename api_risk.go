@@ -119,17 +119,17 @@ func (a *RiskAPIService) GetRiskHealthExecute(r RiskAPIGetRiskHealthRequest) (*h
 }
 
 type RiskAPIRiskAdoptModelRequest struct {
-	ctx         context.Context
-	ApiService  *RiskAPIService
-	riskAdoptIn *RiskAdoptIn
+	ctx             context.Context
+	ApiService      *RiskAPIService
+	riskRiskAdoptIn *RiskRiskAdoptIn
 }
 
-func (r RiskAPIRiskAdoptModelRequest) RiskAdoptIn(riskAdoptIn RiskAdoptIn) RiskAPIRiskAdoptModelRequest {
-	r.riskAdoptIn = &riskAdoptIn
+func (r RiskAPIRiskAdoptModelRequest) RiskRiskAdoptIn(riskRiskAdoptIn RiskRiskAdoptIn) RiskAPIRiskAdoptModelRequest {
+	r.riskRiskAdoptIn = &riskRiskAdoptIn
 	return r
 }
 
-func (r RiskAPIRiskAdoptModelRequest) Execute() (*RiskModelState, *http.Response, error) {
+func (r RiskAPIRiskAdoptModelRequest) Execute() (*RiskRiskModelState, *http.Response, error) {
 	return r.ApiService.RiskAdoptModelExecute(r)
 }
 
@@ -177,13 +177,13 @@ func (a *RiskAPIService) RiskAdoptModel(ctx context.Context) RiskAPIRiskAdoptMod
 
 // Execute executes the request
 //
-//	@return RiskModelState
-func (a *RiskAPIService) RiskAdoptModelExecute(r RiskAPIRiskAdoptModelRequest) (*RiskModelState, *http.Response, error) {
+//	@return RiskRiskModelState
+func (a *RiskAPIService) RiskAdoptModelExecute(r RiskAPIRiskAdoptModelRequest) (*RiskRiskModelState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskModelState
+		localVarReturnValue *RiskRiskModelState
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskAPIService.RiskAdoptModel")
@@ -196,8 +196,8 @@ func (a *RiskAPIService) RiskAdoptModelExecute(r RiskAPIRiskAdoptModelRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.riskAdoptIn == nil {
-		return localVarReturnValue, nil, reportError("riskAdoptIn is required and must be specified")
+	if r.riskRiskAdoptIn == nil {
+		return localVarReturnValue, nil, reportError("riskRiskAdoptIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -210,7 +210,7 @@ func (a *RiskAPIService) RiskAdoptModelExecute(r RiskAPIRiskAdoptModelRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -218,7 +218,7 @@ func (a *RiskAPIService) RiskAdoptModelExecute(r RiskAPIRiskAdoptModelRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.riskAdoptIn
+	localVarPostBody = r.riskRiskAdoptIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -241,6 +241,14 @@ func (a *RiskAPIService) RiskAdoptModelExecute(r RiskAPIRiskAdoptModelRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -268,7 +276,7 @@ func (r RiskAPIRiskFeaturesRequest) Days(days int64) RiskAPIRiskFeaturesRequest 
 	return r
 }
 
-func (r RiskAPIRiskFeaturesRequest) Execute() (*RiskCatalog, *http.Response, error) {
+func (r RiskAPIRiskFeaturesRequest) Execute() (*RiskRiskCatalog, *http.Response, error) {
 	return r.ApiService.RiskFeaturesExecute(r)
 }
 
@@ -299,13 +307,13 @@ func (a *RiskAPIService) RiskFeatures(ctx context.Context) RiskAPIRiskFeaturesRe
 
 // Execute executes the request
 //
-//	@return RiskCatalog
-func (a *RiskAPIService) RiskFeaturesExecute(r RiskAPIRiskFeaturesRequest) (*RiskCatalog, *http.Response, error) {
+//	@return RiskRiskCatalog
+func (a *RiskAPIService) RiskFeaturesExecute(r RiskAPIRiskFeaturesRequest) (*RiskRiskCatalog, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskCatalog
+		localVarReturnValue *RiskRiskCatalog
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskAPIService.RiskFeatures")
@@ -332,7 +340,7 @@ func (a *RiskAPIService) RiskFeaturesExecute(r RiskAPIRiskFeaturesRequest) (*Ris
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -361,6 +369,14 @@ func (a *RiskAPIService) RiskFeaturesExecute(r RiskAPIRiskFeaturesRequest) (*Ris
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -377,24 +393,24 @@ func (a *RiskAPIService) RiskFeaturesExecute(r RiskAPIRiskFeaturesRequest) (*Ris
 }
 
 type RiskAPIRiskLearnRequest struct {
-	ctx         context.Context
-	ApiService  *RiskAPIService
-	riskLearnIn *RiskLearnIn
+	ctx             context.Context
+	ApiService      *RiskAPIService
+	riskRiskLearnIn *RiskRiskLearnIn
 }
 
-func (r RiskAPIRiskLearnRequest) RiskLearnIn(riskLearnIn RiskLearnIn) RiskAPIRiskLearnRequest {
-	r.riskLearnIn = &riskLearnIn
+func (r RiskAPIRiskLearnRequest) RiskRiskLearnIn(riskRiskLearnIn RiskRiskLearnIn) RiskAPIRiskLearnRequest {
+	r.riskRiskLearnIn = &riskRiskLearnIn
 	return r
 }
 
-func (r RiskAPIRiskLearnRequest) Execute() (*RiskLearnOut, *http.Response, error) {
+func (r RiskAPIRiskLearnRequest) Execute() (*RiskRiskLearnOut, *http.Response, error) {
 	return r.ApiService.RiskLearnExecute(r)
 }
 
 /*
 RiskLearn Teach your organisation's own model from its own events
 
-Learn records a batch of events into the caller organisation's own aggregates
+Records a batch of events into the caller organisation's own aggregates
 and lets its model learn from them. It answers how many it learned from.
 
 IT DOES NOT SCORE, AND THAT IS THE POINT. An observation is a value you record;
@@ -433,13 +449,13 @@ func (a *RiskAPIService) RiskLearn(ctx context.Context) RiskAPIRiskLearnRequest 
 
 // Execute executes the request
 //
-//	@return RiskLearnOut
-func (a *RiskAPIService) RiskLearnExecute(r RiskAPIRiskLearnRequest) (*RiskLearnOut, *http.Response, error) {
+//	@return RiskRiskLearnOut
+func (a *RiskAPIService) RiskLearnExecute(r RiskAPIRiskLearnRequest) (*RiskRiskLearnOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskLearnOut
+		localVarReturnValue *RiskRiskLearnOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskAPIService.RiskLearn")
@@ -452,8 +468,8 @@ func (a *RiskAPIService) RiskLearnExecute(r RiskAPIRiskLearnRequest) (*RiskLearn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.riskLearnIn == nil {
-		return localVarReturnValue, nil, reportError("riskLearnIn is required and must be specified")
+	if r.riskRiskLearnIn == nil {
+		return localVarReturnValue, nil, reportError("riskRiskLearnIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -466,7 +482,7 @@ func (a *RiskAPIService) RiskLearnExecute(r RiskAPIRiskLearnRequest) (*RiskLearn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -474,7 +490,7 @@ func (a *RiskAPIService) RiskLearnExecute(r RiskAPIRiskLearnRequest) (*RiskLearn
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.riskLearnIn
+	localVarPostBody = r.riskRiskLearnIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -497,6 +513,14 @@ func (a *RiskAPIService) RiskLearnExecute(r RiskAPIRiskLearnRequest) (*RiskLearn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -517,14 +541,14 @@ type RiskAPIRiskPolicyRequest struct {
 	ApiService *RiskAPIService
 }
 
-func (r RiskAPIRiskPolicyRequest) Execute() (*RiskPolicyOut, *http.Response, error) {
+func (r RiskAPIRiskPolicyRequest) Execute() (*RiskRiskPolicyOut, *http.Response, error) {
 	return r.ApiService.RiskPolicyExecute(r)
 }
 
 /*
 RiskPolicy Your organisation's decision-regime history, and which version is in force
 
-Policy reports the caller organisation's own decision-regime history: every
+Reports the caller organisation's own decision-regime history: every
 distinct regime it has adopted, which version is in force, and what retention
 has taken.
 
@@ -551,13 +575,13 @@ func (a *RiskAPIService) RiskPolicy(ctx context.Context) RiskAPIRiskPolicyReques
 
 // Execute executes the request
 //
-//	@return RiskPolicyOut
-func (a *RiskAPIService) RiskPolicyExecute(r RiskAPIRiskPolicyRequest) (*RiskPolicyOut, *http.Response, error) {
+//	@return RiskRiskPolicyOut
+func (a *RiskAPIService) RiskPolicyExecute(r RiskAPIRiskPolicyRequest) (*RiskRiskPolicyOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskPolicyOut
+		localVarReturnValue *RiskRiskPolicyOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskAPIService.RiskPolicy")
@@ -581,7 +605,7 @@ func (a *RiskAPIService) RiskPolicyExecute(r RiskAPIRiskPolicyRequest) (*RiskPol
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -610,6 +634,14 @@ func (a *RiskAPIService) RiskPolicyExecute(r RiskAPIRiskPolicyRequest) (*RiskPol
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -630,7 +662,7 @@ type RiskAPIRiskPublishModelRequest struct {
 	ApiService *RiskAPIService
 }
 
-func (r RiskAPIRiskPublishModelRequest) Execute() (*RiskPublishOut, *http.Response, error) {
+func (r RiskAPIRiskPublishModelRequest) Execute() (*RiskRiskPublishOut, *http.Response, error) {
 	return r.ApiService.RiskPublishModelExecute(r)
 }
 
@@ -673,13 +705,13 @@ func (a *RiskAPIService) RiskPublishModel(ctx context.Context) RiskAPIRiskPublis
 
 // Execute executes the request
 //
-//	@return RiskPublishOut
-func (a *RiskAPIService) RiskPublishModelExecute(r RiskAPIRiskPublishModelRequest) (*RiskPublishOut, *http.Response, error) {
+//	@return RiskRiskPublishOut
+func (a *RiskAPIService) RiskPublishModelExecute(r RiskAPIRiskPublishModelRequest) (*RiskRiskPublishOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskPublishOut
+		localVarReturnValue *RiskRiskPublishOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskAPIService.RiskPublishModel")
@@ -703,7 +735,7 @@ func (a *RiskAPIService) RiskPublishModelExecute(r RiskAPIRiskPublishModelReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -732,6 +764,14 @@ func (a *RiskAPIService) RiskPublishModelExecute(r RiskAPIRiskPublishModelReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -748,24 +788,24 @@ func (a *RiskAPIService) RiskPublishModelExecute(r RiskAPIRiskPublishModelReques
 }
 
 type RiskAPIRiskScoreRequest struct {
-	ctx         context.Context
-	ApiService  *RiskAPIService
-	riskScoreIn *RiskScoreIn
+	ctx             context.Context
+	ApiService      *RiskAPIService
+	riskRiskScoreIn *RiskRiskScoreIn
 }
 
-func (r RiskAPIRiskScoreRequest) RiskScoreIn(riskScoreIn RiskScoreIn) RiskAPIRiskScoreRequest {
-	r.riskScoreIn = &riskScoreIn
+func (r RiskAPIRiskScoreRequest) RiskRiskScoreIn(riskRiskScoreIn RiskRiskScoreIn) RiskAPIRiskScoreRequest {
+	r.riskRiskScoreIn = &riskRiskScoreIn
 	return r
 }
 
-func (r RiskAPIRiskScoreRequest) Execute() (*RiskScoreOut, *http.Response, error) {
+func (r RiskAPIRiskScoreRequest) Execute() (*RiskRiskScoreOut, *http.Response, error) {
 	return r.ApiService.RiskScoreExecute(r)
 }
 
 /*
 RiskScore Score one event against your organisation's own model
 
-Score judges one event against the caller organisation's OWN model and learns
+Judges one event against the caller organisation's OWN model and learns
 nothing from it. It is how a candidate is tried against real behaviour before
 anything depends on the answer, and it is the model's analogue of testing a
 rule.
@@ -787,13 +827,13 @@ func (a *RiskAPIService) RiskScore(ctx context.Context) RiskAPIRiskScoreRequest 
 
 // Execute executes the request
 //
-//	@return RiskScoreOut
-func (a *RiskAPIService) RiskScoreExecute(r RiskAPIRiskScoreRequest) (*RiskScoreOut, *http.Response, error) {
+//	@return RiskRiskScoreOut
+func (a *RiskAPIService) RiskScoreExecute(r RiskAPIRiskScoreRequest) (*RiskRiskScoreOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskScoreOut
+		localVarReturnValue *RiskRiskScoreOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskAPIService.RiskScore")
@@ -806,8 +846,8 @@ func (a *RiskAPIService) RiskScoreExecute(r RiskAPIRiskScoreRequest) (*RiskScore
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.riskScoreIn == nil {
-		return localVarReturnValue, nil, reportError("riskScoreIn is required and must be specified")
+	if r.riskRiskScoreIn == nil {
+		return localVarReturnValue, nil, reportError("riskRiskScoreIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -820,7 +860,7 @@ func (a *RiskAPIService) RiskScoreExecute(r RiskAPIRiskScoreRequest) (*RiskScore
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -828,7 +868,7 @@ func (a *RiskAPIService) RiskScoreExecute(r RiskAPIRiskScoreRequest) (*RiskScore
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.riskScoreIn
+	localVarPostBody = r.riskRiskScoreIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -851,6 +891,14 @@ func (a *RiskAPIService) RiskScoreExecute(r RiskAPIRiskScoreRequest) (*RiskScore
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -867,24 +915,24 @@ func (a *RiskAPIService) RiskScoreExecute(r RiskAPIRiskScoreRequest) (*RiskScore
 }
 
 type RiskAPIRiskSearchRequest struct {
-	ctx          context.Context
-	ApiService   *RiskAPIService
-	riskSearchIn *RiskSearchIn
+	ctx              context.Context
+	ApiService       *RiskAPIService
+	riskRiskSearchIn *RiskRiskSearchIn
 }
 
-func (r RiskAPIRiskSearchRequest) RiskSearchIn(riskSearchIn RiskSearchIn) RiskAPIRiskSearchRequest {
-	r.riskSearchIn = &riskSearchIn
+func (r RiskAPIRiskSearchRequest) RiskRiskSearchIn(riskRiskSearchIn RiskRiskSearchIn) RiskAPIRiskSearchRequest {
+	r.riskRiskSearchIn = &riskRiskSearchIn
 	return r
 }
 
-func (r RiskAPIRiskSearchRequest) Execute() (*RiskSearchRun, *http.Response, error) {
+func (r RiskAPIRiskSearchRequest) Execute() (*RiskRiskSearchRun, *http.Response, error) {
 	return r.ApiService.RiskSearchExecute(r)
 }
 
 /*
 RiskSearch Search exhaustively for the model shape that fits your own history
 
-Search runs an exhaustive search for the model shape that best fits the caller
+Runs an exhaustive search for the model shape that best fits the caller
 organisation's own history, and answers 202 with the run to read back.
 
 Every candidate is replayed over that organisation's OWN feature surface in its
@@ -910,13 +958,13 @@ func (a *RiskAPIService) RiskSearch(ctx context.Context) RiskAPIRiskSearchReques
 
 // Execute executes the request
 //
-//	@return RiskSearchRun
-func (a *RiskAPIService) RiskSearchExecute(r RiskAPIRiskSearchRequest) (*RiskSearchRun, *http.Response, error) {
+//	@return RiskRiskSearchRun
+func (a *RiskAPIService) RiskSearchExecute(r RiskAPIRiskSearchRequest) (*RiskRiskSearchRun, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskSearchRun
+		localVarReturnValue *RiskRiskSearchRun
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskAPIService.RiskSearch")
@@ -929,8 +977,8 @@ func (a *RiskAPIService) RiskSearchExecute(r RiskAPIRiskSearchRequest) (*RiskSea
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.riskSearchIn == nil {
-		return localVarReturnValue, nil, reportError("riskSearchIn is required and must be specified")
+	if r.riskRiskSearchIn == nil {
+		return localVarReturnValue, nil, reportError("riskRiskSearchIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -943,7 +991,7 @@ func (a *RiskAPIService) RiskSearchExecute(r RiskAPIRiskSearchRequest) (*RiskSea
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -951,7 +999,7 @@ func (a *RiskAPIService) RiskSearchExecute(r RiskAPIRiskSearchRequest) (*RiskSea
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.riskSearchIn
+	localVarPostBody = r.riskRiskSearchIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -974,6 +1022,14 @@ func (a *RiskAPIService) RiskSearchExecute(r RiskAPIRiskSearchRequest) (*RiskSea
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -995,7 +1051,7 @@ type RiskAPIRiskSearchResultRequest struct {
 	id         string
 }
 
-func (r RiskAPIRiskSearchResultRequest) Execute() (*RiskSearchReport, *http.Response, error) {
+func (r RiskAPIRiskSearchResultRequest) Execute() (*RiskRiskSearchReport, *http.Response, error) {
 	return r.ApiService.RiskSearchResultExecute(r)
 }
 
@@ -1022,13 +1078,13 @@ func (a *RiskAPIService) RiskSearchResult(ctx context.Context, id string) RiskAP
 
 // Execute executes the request
 //
-//	@return RiskSearchReport
-func (a *RiskAPIService) RiskSearchResultExecute(r RiskAPIRiskSearchResultRequest) (*RiskSearchReport, *http.Response, error) {
+//	@return RiskRiskSearchReport
+func (a *RiskAPIService) RiskSearchResultExecute(r RiskAPIRiskSearchResultRequest) (*RiskRiskSearchReport, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskSearchReport
+		localVarReturnValue *RiskRiskSearchReport
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskAPIService.RiskSearchResult")
@@ -1053,7 +1109,7 @@ func (a *RiskAPIService) RiskSearchResultExecute(r RiskAPIRiskSearchResultReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1082,6 +1138,14 @@ func (a *RiskAPIService) RiskSearchResultExecute(r RiskAPIRiskSearchResultReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1098,17 +1162,17 @@ func (a *RiskAPIService) RiskSearchResultExecute(r RiskAPIRiskSearchResultReques
 }
 
 type RiskAPIRiskSetPolicyRequest struct {
-	ctx            context.Context
-	ApiService     *RiskAPIService
-	riskAppetiteIn *RiskAppetiteIn
+	ctx                context.Context
+	ApiService         *RiskAPIService
+	riskRiskAppetiteIn *RiskRiskAppetiteIn
 }
 
-func (r RiskAPIRiskSetPolicyRequest) RiskAppetiteIn(riskAppetiteIn RiskAppetiteIn) RiskAPIRiskSetPolicyRequest {
-	r.riskAppetiteIn = &riskAppetiteIn
+func (r RiskAPIRiskSetPolicyRequest) RiskRiskAppetiteIn(riskRiskAppetiteIn RiskRiskAppetiteIn) RiskAPIRiskSetPolicyRequest {
+	r.riskRiskAppetiteIn = &riskRiskAppetiteIn
 	return r
 }
 
-func (r RiskAPIRiskSetPolicyRequest) Execute() (*RiskPolicyOut, *http.Response, error) {
+func (r RiskAPIRiskSetPolicyRequest) Execute() (*RiskRiskPolicyOut, *http.Response, error) {
 	return r.ApiService.RiskSetPolicyExecute(r)
 }
 
@@ -1158,13 +1222,13 @@ func (a *RiskAPIService) RiskSetPolicy(ctx context.Context) RiskAPIRiskSetPolicy
 
 // Execute executes the request
 //
-//	@return RiskPolicyOut
-func (a *RiskAPIService) RiskSetPolicyExecute(r RiskAPIRiskSetPolicyRequest) (*RiskPolicyOut, *http.Response, error) {
+//	@return RiskRiskPolicyOut
+func (a *RiskAPIService) RiskSetPolicyExecute(r RiskAPIRiskSetPolicyRequest) (*RiskRiskPolicyOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskPolicyOut
+		localVarReturnValue *RiskRiskPolicyOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskAPIService.RiskSetPolicy")
@@ -1177,8 +1241,8 @@ func (a *RiskAPIService) RiskSetPolicyExecute(r RiskAPIRiskSetPolicyRequest) (*R
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.riskAppetiteIn == nil {
-		return localVarReturnValue, nil, reportError("riskAppetiteIn is required and must be specified")
+	if r.riskRiskAppetiteIn == nil {
+		return localVarReturnValue, nil, reportError("riskRiskAppetiteIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1191,7 +1255,7 @@ func (a *RiskAPIService) RiskSetPolicyExecute(r RiskAPIRiskSetPolicyRequest) (*R
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1199,7 +1263,7 @@ func (a *RiskAPIService) RiskSetPolicyExecute(r RiskAPIRiskSetPolicyRequest) (*R
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.riskAppetiteIn
+	localVarPostBody = r.riskRiskAppetiteIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1222,6 +1286,14 @@ func (a *RiskAPIService) RiskSetPolicyExecute(r RiskAPIRiskSetPolicyRequest) (*R
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1242,14 +1314,14 @@ type RiskAPIRiskStateRequest struct {
 	ApiService *RiskAPIService
 }
 
-func (r RiskAPIRiskStateRequest) Execute() (*RiskModelState, *http.Response, error) {
+func (r RiskAPIRiskStateRequest) Execute() (*RiskRiskModelState, *http.Response, error) {
 	return r.ApiService.RiskStateExecute(r)
 }
 
 /*
 RiskState Report your organisation's model: what it learned, and what it realised
 
-State reports the caller organisation's own model: what it has learned, whether
+Reports the caller organisation's own model: what it has learned, whether
 it is live or still in shadow, the threshold in force, the appetite it stated
 beside the share it actually realised, every refusal by reason, every feature
 that read blind, and how much of the organisation's own event surface has been
@@ -1271,13 +1343,13 @@ func (a *RiskAPIService) RiskState(ctx context.Context) RiskAPIRiskStateRequest 
 
 // Execute executes the request
 //
-//	@return RiskModelState
-func (a *RiskAPIService) RiskStateExecute(r RiskAPIRiskStateRequest) (*RiskModelState, *http.Response, error) {
+//	@return RiskRiskModelState
+func (a *RiskAPIService) RiskStateExecute(r RiskAPIRiskStateRequest) (*RiskRiskModelState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskModelState
+		localVarReturnValue *RiskRiskModelState
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskAPIService.RiskState")
@@ -1301,7 +1373,7 @@ func (a *RiskAPIService) RiskStateExecute(r RiskAPIRiskStateRequest) (*RiskModel
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1330,6 +1402,14 @@ func (a *RiskAPIService) RiskStateExecute(r RiskAPIRiskStateRequest) (*RiskModel
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -28,7 +28,7 @@ type IndexAPIDeleteIndexIndexesByUidRequest struct {
 	uid        string
 }
 
-func (r IndexAPIDeleteIndexIndexesByUidRequest) Execute() (*IndexEnqueued, *http.Response, error) {
+func (r IndexAPIDeleteIndexIndexesByUidRequest) Execute() (*IndexIndexEnqueued, *http.Response, error) {
 	return r.ApiService.DeleteIndexIndexesByUidExecute(r)
 }
 
@@ -59,13 +59,13 @@ func (a *IndexAPIService) DeleteIndexIndexesByUid(ctx context.Context, uid strin
 
 // Execute executes the request
 //
-//	@return IndexEnqueued
-func (a *IndexAPIService) DeleteIndexIndexesByUidExecute(r IndexAPIDeleteIndexIndexesByUidRequest) (*IndexEnqueued, *http.Response, error) {
+//	@return IndexIndexEnqueued
+func (a *IndexAPIService) DeleteIndexIndexesByUidExecute(r IndexAPIDeleteIndexIndexesByUidRequest) (*IndexIndexEnqueued, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexEnqueued
+		localVarReturnValue *IndexIndexEnqueued
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.DeleteIndexIndexesByUid")
@@ -90,7 +90,7 @@ func (a *IndexAPIService) DeleteIndexIndexesByUidExecute(r IndexAPIDeleteIndexIn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -119,6 +119,14 @@ func (a *IndexAPIService) DeleteIndexIndexesByUidExecute(r IndexAPIDeleteIndexIn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -141,7 +149,7 @@ type IndexAPIDeleteIndexIndexesByUidDocumentsByIdRequest struct {
 	id         string
 }
 
-func (r IndexAPIDeleteIndexIndexesByUidDocumentsByIdRequest) Execute() (*IndexEnqueued, *http.Response, error) {
+func (r IndexAPIDeleteIndexIndexesByUidDocumentsByIdRequest) Execute() (*IndexIndexEnqueued, *http.Response, error) {
 	return r.ApiService.DeleteIndexIndexesByUidDocumentsByIdExecute(r)
 }
 
@@ -173,13 +181,13 @@ func (a *IndexAPIService) DeleteIndexIndexesByUidDocumentsById(ctx context.Conte
 
 // Execute executes the request
 //
-//	@return IndexEnqueued
-func (a *IndexAPIService) DeleteIndexIndexesByUidDocumentsByIdExecute(r IndexAPIDeleteIndexIndexesByUidDocumentsByIdRequest) (*IndexEnqueued, *http.Response, error) {
+//	@return IndexIndexEnqueued
+func (a *IndexAPIService) DeleteIndexIndexesByUidDocumentsByIdExecute(r IndexAPIDeleteIndexIndexesByUidDocumentsByIdRequest) (*IndexIndexEnqueued, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexEnqueued
+		localVarReturnValue *IndexIndexEnqueued
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.DeleteIndexIndexesByUidDocumentsById")
@@ -205,7 +213,7 @@ func (a *IndexAPIService) DeleteIndexIndexesByUidDocumentsByIdExecute(r IndexAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -234,6 +242,14 @@ func (a *IndexAPIService) DeleteIndexIndexesByUidDocumentsByIdExecute(r IndexAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -254,7 +270,7 @@ type IndexAPIGetIndexHealthRequest struct {
 	ApiService *IndexAPIService
 }
 
-func (r IndexAPIGetIndexHealthRequest) Execute() (*IndexHealth, *http.Response, error) {
+func (r IndexAPIGetIndexHealthRequest) Execute() (*IndexIndexHealth, *http.Response, error) {
 	return r.ApiService.GetIndexHealthExecute(r)
 }
 
@@ -282,13 +298,13 @@ func (a *IndexAPIService) GetIndexHealth(ctx context.Context) IndexAPIGetIndexHe
 
 // Execute executes the request
 //
-//	@return IndexHealth
-func (a *IndexAPIService) GetIndexHealthExecute(r IndexAPIGetIndexHealthRequest) (*IndexHealth, *http.Response, error) {
+//	@return IndexIndexHealth
+func (a *IndexAPIService) GetIndexHealthExecute(r IndexAPIGetIndexHealthRequest) (*IndexIndexHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexHealth
+		localVarReturnValue *IndexIndexHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexHealth")
@@ -312,7 +328,7 @@ func (a *IndexAPIService) GetIndexHealthExecute(r IndexAPIGetIndexHealthRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -342,7 +358,7 @@ func (a *IndexAPIService) GetIndexHealthExecute(r IndexAPIGetIndexHealthRequest)
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
-			var v IndexHealth
+			var v IndexIndexHealth
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -350,7 +366,16 @@ func (a *IndexAPIService) GetIndexHealthExecute(r IndexAPIGetIndexHealthRequest)
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -371,7 +396,7 @@ type IndexAPIGetIndexIndexesRequest struct {
 	ApiService *IndexAPIService
 }
 
-func (r IndexAPIGetIndexIndexesRequest) Execute() (*IndexList, *http.Response, error) {
+func (r IndexAPIGetIndexIndexesRequest) Execute() (*IndexIndexList, *http.Response, error) {
 	return r.ApiService.GetIndexIndexesExecute(r)
 }
 
@@ -403,13 +428,13 @@ func (a *IndexAPIService) GetIndexIndexes(ctx context.Context) IndexAPIGetIndexI
 
 // Execute executes the request
 //
-//	@return IndexList
-func (a *IndexAPIService) GetIndexIndexesExecute(r IndexAPIGetIndexIndexesRequest) (*IndexList, *http.Response, error) {
+//	@return IndexIndexList
+func (a *IndexAPIService) GetIndexIndexesExecute(r IndexAPIGetIndexIndexesRequest) (*IndexIndexList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexList
+		localVarReturnValue *IndexIndexList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexIndexes")
@@ -433,7 +458,7 @@ func (a *IndexAPIService) GetIndexIndexesExecute(r IndexAPIGetIndexIndexesReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -462,6 +487,14 @@ func (a *IndexAPIService) GetIndexIndexesExecute(r IndexAPIGetIndexIndexesReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -483,7 +516,7 @@ type IndexAPIGetIndexIndexesByUidRequest struct {
 	uid        string
 }
 
-func (r IndexAPIGetIndexIndexesByUidRequest) Execute() (*IndexView, *http.Response, error) {
+func (r IndexAPIGetIndexIndexesByUidRequest) Execute() (*IndexIndexView, *http.Response, error) {
 	return r.ApiService.GetIndexIndexesByUidExecute(r)
 }
 
@@ -515,13 +548,13 @@ func (a *IndexAPIService) GetIndexIndexesByUid(ctx context.Context, uid string) 
 
 // Execute executes the request
 //
-//	@return IndexView
-func (a *IndexAPIService) GetIndexIndexesByUidExecute(r IndexAPIGetIndexIndexesByUidRequest) (*IndexView, *http.Response, error) {
+//	@return IndexIndexView
+func (a *IndexAPIService) GetIndexIndexesByUidExecute(r IndexAPIGetIndexIndexesByUidRequest) (*IndexIndexView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexView
+		localVarReturnValue *IndexIndexView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexIndexesByUid")
@@ -546,7 +579,7 @@ func (a *IndexAPIService) GetIndexIndexesByUidExecute(r IndexAPIGetIndexIndexesB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -575,6 +608,14 @@ func (a *IndexAPIService) GetIndexIndexesByUidExecute(r IndexAPIGetIndexIndexesB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -608,7 +649,7 @@ func (r IndexAPIGetIndexIndexesByUidDocumentsRequest) Offset(offset string) Inde
 	return r
 }
 
-func (r IndexAPIGetIndexIndexesByUidDocumentsRequest) Execute() (*IndexDocuments, *http.Response, error) {
+func (r IndexAPIGetIndexIndexesByUidDocumentsRequest) Execute() (*IndexIndexDocuments, *http.Response, error) {
 	return r.ApiService.GetIndexIndexesByUidDocumentsExecute(r)
 }
 
@@ -639,13 +680,13 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocuments(ctx context.Context, uid
 
 // Execute executes the request
 //
-//	@return IndexDocuments
-func (a *IndexAPIService) GetIndexIndexesByUidDocumentsExecute(r IndexAPIGetIndexIndexesByUidDocumentsRequest) (*IndexDocuments, *http.Response, error) {
+//	@return IndexIndexDocuments
+func (a *IndexAPIService) GetIndexIndexesByUidDocumentsExecute(r IndexAPIGetIndexIndexesByUidDocumentsRequest) (*IndexIndexDocuments, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexDocuments
+		localVarReturnValue *IndexIndexDocuments
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexIndexesByUidDocuments")
@@ -676,7 +717,7 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocumentsExecute(r IndexAPIGetInde
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -705,6 +746,14 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocumentsExecute(r IndexAPIGetInde
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -791,7 +840,7 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocumentsByIdExecute(r IndexAPIGet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -820,6 +869,14 @@ func (a *IndexAPIService) GetIndexIndexesByUidDocumentsByIdExecute(r IndexAPIGet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -841,7 +898,7 @@ type IndexAPIGetIndexIndexesByUidSettingsRequest struct {
 	uid        string
 }
 
-func (r IndexAPIGetIndexIndexesByUidSettingsRequest) Execute() (*IndexSettings, *http.Response, error) {
+func (r IndexAPIGetIndexIndexesByUidSettingsRequest) Execute() (*IndexIndexSettings, *http.Response, error) {
 	return r.ApiService.GetIndexIndexesByUidSettingsExecute(r)
 }
 
@@ -868,13 +925,13 @@ func (a *IndexAPIService) GetIndexIndexesByUidSettings(ctx context.Context, uid 
 
 // Execute executes the request
 //
-//	@return IndexSettings
-func (a *IndexAPIService) GetIndexIndexesByUidSettingsExecute(r IndexAPIGetIndexIndexesByUidSettingsRequest) (*IndexSettings, *http.Response, error) {
+//	@return IndexIndexSettings
+func (a *IndexAPIService) GetIndexIndexesByUidSettingsExecute(r IndexAPIGetIndexIndexesByUidSettingsRequest) (*IndexIndexSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexSettings
+		localVarReturnValue *IndexIndexSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexIndexesByUidSettings")
@@ -899,7 +956,7 @@ func (a *IndexAPIService) GetIndexIndexesByUidSettingsExecute(r IndexAPIGetIndex
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -928,6 +985,14 @@ func (a *IndexAPIService) GetIndexIndexesByUidSettingsExecute(r IndexAPIGetIndex
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -948,7 +1013,7 @@ type IndexAPIGetIndexStatsRequest struct {
 	ApiService *IndexAPIService
 }
 
-func (r IndexAPIGetIndexStatsRequest) Execute() (*IndexStats, *http.Response, error) {
+func (r IndexAPIGetIndexStatsRequest) Execute() (*IndexIndexStats, *http.Response, error) {
 	return r.ApiService.GetIndexStatsExecute(r)
 }
 
@@ -978,13 +1043,13 @@ func (a *IndexAPIService) GetIndexStats(ctx context.Context) IndexAPIGetIndexSta
 
 // Execute executes the request
 //
-//	@return IndexStats
-func (a *IndexAPIService) GetIndexStatsExecute(r IndexAPIGetIndexStatsRequest) (*IndexStats, *http.Response, error) {
+//	@return IndexIndexStats
+func (a *IndexAPIService) GetIndexStatsExecute(r IndexAPIGetIndexStatsRequest) (*IndexIndexStats, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexStats
+		localVarReturnValue *IndexIndexStats
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexStats")
@@ -1008,7 +1073,7 @@ func (a *IndexAPIService) GetIndexStatsExecute(r IndexAPIGetIndexStatsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1037,6 +1102,14 @@ func (a *IndexAPIService) GetIndexStatsExecute(r IndexAPIGetIndexStatsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1058,7 +1131,7 @@ type IndexAPIGetIndexTasksByUidRequest struct {
 	uid        int64
 }
 
-func (r IndexAPIGetIndexTasksByUidRequest) Execute() (*IndexTask, *http.Response, error) {
+func (r IndexAPIGetIndexTasksByUidRequest) Execute() (*IndexIndexTask, *http.Response, error) {
 	return r.ApiService.GetIndexTasksByUidExecute(r)
 }
 
@@ -1089,13 +1162,13 @@ func (a *IndexAPIService) GetIndexTasksByUid(ctx context.Context, uid int64) Ind
 
 // Execute executes the request
 //
-//	@return IndexTask
-func (a *IndexAPIService) GetIndexTasksByUidExecute(r IndexAPIGetIndexTasksByUidRequest) (*IndexTask, *http.Response, error) {
+//	@return IndexIndexTask
+func (a *IndexAPIService) GetIndexTasksByUidExecute(r IndexAPIGetIndexTasksByUidRequest) (*IndexIndexTask, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexTask
+		localVarReturnValue *IndexIndexTask
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexTasksByUid")
@@ -1120,7 +1193,7 @@ func (a *IndexAPIService) GetIndexTasksByUidExecute(r IndexAPIGetIndexTasksByUid
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1149,6 +1222,14 @@ func (a *IndexAPIService) GetIndexTasksByUidExecute(r IndexAPIGetIndexTasksByUid
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1169,7 +1250,7 @@ type IndexAPIGetIndexVersionRequest struct {
 	ApiService *IndexAPIService
 }
 
-func (r IndexAPIGetIndexVersionRequest) Execute() (*IndexVersion, *http.Response, error) {
+func (r IndexAPIGetIndexVersionRequest) Execute() (*IndexIndexVersion, *http.Response, error) {
 	return r.ApiService.GetIndexVersionExecute(r)
 }
 
@@ -1195,13 +1276,13 @@ func (a *IndexAPIService) GetIndexVersion(ctx context.Context) IndexAPIGetIndexV
 
 // Execute executes the request
 //
-//	@return IndexVersion
-func (a *IndexAPIService) GetIndexVersionExecute(r IndexAPIGetIndexVersionRequest) (*IndexVersion, *http.Response, error) {
+//	@return IndexIndexVersion
+func (a *IndexAPIService) GetIndexVersionExecute(r IndexAPIGetIndexVersionRequest) (*IndexIndexVersion, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexVersion
+		localVarReturnValue *IndexIndexVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.GetIndexVersion")
@@ -1225,7 +1306,7 @@ func (a *IndexAPIService) GetIndexVersionExecute(r IndexAPIGetIndexVersionReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1254,6 +1335,14 @@ func (a *IndexAPIService) GetIndexVersionExecute(r IndexAPIGetIndexVersionReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1270,18 +1359,18 @@ func (a *IndexAPIService) GetIndexVersionExecute(r IndexAPIGetIndexVersionReques
 }
 
 type IndexAPIPatchIndexIndexesByUidSettingsRequest struct {
-	ctx         context.Context
-	ApiService  *IndexAPIService
-	uid         string
-	indexFilter *IndexFilter
+	ctx              context.Context
+	ApiService       *IndexAPIService
+	uid              string
+	indexIndexFilter *IndexIndexFilter
 }
 
-func (r IndexAPIPatchIndexIndexesByUidSettingsRequest) IndexFilter(indexFilter IndexFilter) IndexAPIPatchIndexIndexesByUidSettingsRequest {
-	r.indexFilter = &indexFilter
+func (r IndexAPIPatchIndexIndexesByUidSettingsRequest) IndexIndexFilter(indexIndexFilter IndexIndexFilter) IndexAPIPatchIndexIndexesByUidSettingsRequest {
+	r.indexIndexFilter = &indexIndexFilter
 	return r
 }
 
-func (r IndexAPIPatchIndexIndexesByUidSettingsRequest) Execute() (*IndexEnqueued, *http.Response, error) {
+func (r IndexAPIPatchIndexIndexesByUidSettingsRequest) Execute() (*IndexIndexEnqueued, *http.Response, error) {
 	return r.ApiService.PatchIndexIndexesByUidSettingsExecute(r)
 }
 
@@ -1315,13 +1404,13 @@ func (a *IndexAPIService) PatchIndexIndexesByUidSettings(ctx context.Context, ui
 
 // Execute executes the request
 //
-//	@return IndexEnqueued
-func (a *IndexAPIService) PatchIndexIndexesByUidSettingsExecute(r IndexAPIPatchIndexIndexesByUidSettingsRequest) (*IndexEnqueued, *http.Response, error) {
+//	@return IndexIndexEnqueued
+func (a *IndexAPIService) PatchIndexIndexesByUidSettingsExecute(r IndexAPIPatchIndexIndexesByUidSettingsRequest) (*IndexIndexEnqueued, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexEnqueued
+		localVarReturnValue *IndexIndexEnqueued
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.PatchIndexIndexesByUidSettings")
@@ -1335,8 +1424,8 @@ func (a *IndexAPIService) PatchIndexIndexesByUidSettingsExecute(r IndexAPIPatchI
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.indexFilter == nil {
-		return localVarReturnValue, nil, reportError("indexFilter is required and must be specified")
+	if r.indexIndexFilter == nil {
+		return localVarReturnValue, nil, reportError("indexIndexFilter is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1349,7 +1438,7 @@ func (a *IndexAPIService) PatchIndexIndexesByUidSettingsExecute(r IndexAPIPatchI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1357,7 +1446,7 @@ func (a *IndexAPIService) PatchIndexIndexesByUidSettingsExecute(r IndexAPIPatchI
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.indexFilter
+	localVarPostBody = r.indexIndexFilter
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1380,6 +1469,14 @@ func (a *IndexAPIService) PatchIndexIndexesByUidSettingsExecute(r IndexAPIPatchI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1396,17 +1493,17 @@ func (a *IndexAPIService) PatchIndexIndexesByUidSettingsExecute(r IndexAPIPatchI
 }
 
 type IndexAPIPostIndexIndexesRequest struct {
-	ctx        context.Context
-	ApiService *IndexAPIService
-	indexNew   *IndexNew
+	ctx           context.Context
+	ApiService    *IndexAPIService
+	indexIndexNew *IndexIndexNew
 }
 
-func (r IndexAPIPostIndexIndexesRequest) IndexNew(indexNew IndexNew) IndexAPIPostIndexIndexesRequest {
-	r.indexNew = &indexNew
+func (r IndexAPIPostIndexIndexesRequest) IndexIndexNew(indexIndexNew IndexIndexNew) IndexAPIPostIndexIndexesRequest {
+	r.indexIndexNew = &indexIndexNew
 	return r
 }
 
-func (r IndexAPIPostIndexIndexesRequest) Execute() (*IndexEnqueued, *http.Response, error) {
+func (r IndexAPIPostIndexIndexesRequest) Execute() (*IndexIndexEnqueued, *http.Response, error) {
 	return r.ApiService.PostIndexIndexesExecute(r)
 }
 
@@ -1440,13 +1537,13 @@ func (a *IndexAPIService) PostIndexIndexes(ctx context.Context) IndexAPIPostInde
 
 // Execute executes the request
 //
-//	@return IndexEnqueued
-func (a *IndexAPIService) PostIndexIndexesExecute(r IndexAPIPostIndexIndexesRequest) (*IndexEnqueued, *http.Response, error) {
+//	@return IndexIndexEnqueued
+func (a *IndexAPIService) PostIndexIndexesExecute(r IndexAPIPostIndexIndexesRequest) (*IndexIndexEnqueued, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexEnqueued
+		localVarReturnValue *IndexIndexEnqueued
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.PostIndexIndexes")
@@ -1459,8 +1556,8 @@ func (a *IndexAPIService) PostIndexIndexesExecute(r IndexAPIPostIndexIndexesRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.indexNew == nil {
-		return localVarReturnValue, nil, reportError("indexNew is required and must be specified")
+	if r.indexIndexNew == nil {
+		return localVarReturnValue, nil, reportError("indexIndexNew is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1473,7 +1570,7 @@ func (a *IndexAPIService) PostIndexIndexesExecute(r IndexAPIPostIndexIndexesRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1481,7 +1578,7 @@ func (a *IndexAPIService) PostIndexIndexesExecute(r IndexAPIPostIndexIndexesRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.indexNew
+	localVarPostBody = r.indexIndexNew
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1504,6 +1601,14 @@ func (a *IndexAPIService) PostIndexIndexesExecute(r IndexAPIPostIndexIndexesRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1754,18 +1859,18 @@ func (a *IndexAPIService) PostIndexIndexesByUidDocumentsDeleteBatchExecute(r Ind
 }
 
 type IndexAPIPostIndexIndexesByUidSearchRequest struct {
-	ctx        context.Context
-	ApiService *IndexAPIService
-	uid        string
-	indexQuery *IndexQuery
+	ctx             context.Context
+	ApiService      *IndexAPIService
+	uid             string
+	indexIndexQuery *IndexIndexQuery
 }
 
-func (r IndexAPIPostIndexIndexesByUidSearchRequest) IndexQuery(indexQuery IndexQuery) IndexAPIPostIndexIndexesByUidSearchRequest {
-	r.indexQuery = &indexQuery
+func (r IndexAPIPostIndexIndexesByUidSearchRequest) IndexIndexQuery(indexIndexQuery IndexIndexQuery) IndexAPIPostIndexIndexesByUidSearchRequest {
+	r.indexIndexQuery = &indexIndexQuery
 	return r
 }
 
-func (r IndexAPIPostIndexIndexesByUidSearchRequest) Execute() (*IndexHits, *http.Response, error) {
+func (r IndexAPIPostIndexIndexesByUidSearchRequest) Execute() (*IndexIndexHits, *http.Response, error) {
 	return r.ApiService.PostIndexIndexesByUidSearchExecute(r)
 }
 
@@ -1798,13 +1903,13 @@ func (a *IndexAPIService) PostIndexIndexesByUidSearch(ctx context.Context, uid s
 
 // Execute executes the request
 //
-//	@return IndexHits
-func (a *IndexAPIService) PostIndexIndexesByUidSearchExecute(r IndexAPIPostIndexIndexesByUidSearchRequest) (*IndexHits, *http.Response, error) {
+//	@return IndexIndexHits
+func (a *IndexAPIService) PostIndexIndexesByUidSearchExecute(r IndexAPIPostIndexIndexesByUidSearchRequest) (*IndexIndexHits, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexHits
+		localVarReturnValue *IndexIndexHits
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IndexAPIService.PostIndexIndexesByUidSearch")
@@ -1818,8 +1923,8 @@ func (a *IndexAPIService) PostIndexIndexesByUidSearchExecute(r IndexAPIPostIndex
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.indexQuery == nil {
-		return localVarReturnValue, nil, reportError("indexQuery is required and must be specified")
+	if r.indexIndexQuery == nil {
+		return localVarReturnValue, nil, reportError("indexIndexQuery is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1832,7 +1937,7 @@ func (a *IndexAPIService) PostIndexIndexesByUidSearchExecute(r IndexAPIPostIndex
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1840,7 +1945,7 @@ func (a *IndexAPIService) PostIndexIndexesByUidSearchExecute(r IndexAPIPostIndex
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.indexQuery
+	localVarPostBody = r.indexIndexQuery
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1863,6 +1968,14 @@ func (a *IndexAPIService) PostIndexIndexesByUidSearchExecute(r IndexAPIPostIndex
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

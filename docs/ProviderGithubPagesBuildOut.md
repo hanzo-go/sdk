@@ -1,0 +1,108 @@
+# ProviderGithubPagesBuildOut
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Repo** | Pointer to **string** | Repo is the repository the build was queued for. | [optional] 
+**Status** | Pointer to **string** | Status is GitHub&#39;s build state at the moment it was queued (\&quot;queued\&quot;). | [optional] 
+**Url** | Pointer to **string** | URL is GitHub&#39;s API URL for the build, for polling it there. | [optional] 
+
+## Methods
+
+### NewProviderGithubPagesBuildOut
+
+`func NewProviderGithubPagesBuildOut() *ProviderGithubPagesBuildOut`
+
+NewProviderGithubPagesBuildOut instantiates a new ProviderGithubPagesBuildOut object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewProviderGithubPagesBuildOutWithDefaults
+
+`func NewProviderGithubPagesBuildOutWithDefaults() *ProviderGithubPagesBuildOut`
+
+NewProviderGithubPagesBuildOutWithDefaults instantiates a new ProviderGithubPagesBuildOut object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetRepo
+
+`func (o *ProviderGithubPagesBuildOut) GetRepo() string`
+
+GetRepo returns the Repo field if non-nil, zero value otherwise.
+
+### GetRepoOk
+
+`func (o *ProviderGithubPagesBuildOut) GetRepoOk() (*string, bool)`
+
+GetRepoOk returns a tuple with the Repo field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRepo
+
+`func (o *ProviderGithubPagesBuildOut) SetRepo(v string)`
+
+SetRepo sets Repo field to given value.
+
+### HasRepo
+
+`func (o *ProviderGithubPagesBuildOut) HasRepo() bool`
+
+HasRepo returns a boolean if a field has been set.
+
+### GetStatus
+
+`func (o *ProviderGithubPagesBuildOut) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *ProviderGithubPagesBuildOut) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *ProviderGithubPagesBuildOut) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *ProviderGithubPagesBuildOut) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
+### GetUrl
+
+`func (o *ProviderGithubPagesBuildOut) GetUrl() string`
+
+GetUrl returns the Url field if non-nil, zero value otherwise.
+
+### GetUrlOk
+
+`func (o *ProviderGithubPagesBuildOut) GetUrlOk() (*string, bool)`
+
+GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUrl
+
+`func (o *ProviderGithubPagesBuildOut) SetUrl(v string)`
+
+SetUrl sets Url field to given value.
+
+### HasUrl
+
+`func (o *ProviderGithubPagesBuildOut) HasUrl() bool`
+
+HasUrl returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

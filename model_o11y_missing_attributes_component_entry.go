@@ -19,11 +19,14 @@ var _ MappedNullable = &O11yMissingAttributesComponentEntry{}
 
 // O11yMissingAttributesComponentEntry struct for O11yMissingAttributesComponentEntry
 type O11yMissingAttributesComponentEntry struct {
-	AssociatedComponent *O11yAssociatedComponent `json:"associatedComponent,omitempty"`
-	Attributes          []string                 `json:"attributes,omitempty"`
-	DocumentationLink   *string                  `json:"documentationLink,omitempty"`
-	Message             *string                  `json:"message,omitempty"`
+	AssociatedComponent  *O11yAssociatedComponent `json:"associatedComponent,omitempty"`
+	Attributes           []string                 `json:"attributes,omitempty"`
+	DocumentationLink    *string                  `json:"documentationLink,omitempty"`
+	Message              *string                  `json:"message,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yMissingAttributesComponentEntry O11yMissingAttributesComponentEntry
 
 // NewO11yMissingAttributesComponentEntry instantiates a new O11yMissingAttributesComponentEntry object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11yMissingAttributesComponentEntry) ToMap() (map[string]interface{}, er
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yMissingAttributesComponentEntry) UnmarshalJSON(data []byte) (err error) {
+	varO11yMissingAttributesComponentEntry := _O11yMissingAttributesComponentEntry{}
+
+	err = json.Unmarshal(data, &varO11yMissingAttributesComponentEntry)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yMissingAttributesComponentEntry(varO11yMissingAttributesComponentEntry)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "associatedComponent")
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "documentationLink")
+		delete(additionalProperties, "message")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yMissingAttributesComponentEntry struct {

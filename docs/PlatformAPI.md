@@ -4,21 +4,22 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**DeletePlatformProjectsByProject**](PlatformAPI.md#DeletePlatformProjectsByProject) | **Delete** /v1/platform/projects/{project} | Folds a project into another.
 [**DeletePlatformProjectsByProjectAppsByApp**](PlatformAPI.md#DeletePlatformProjectsByProjectAppsByApp) | **Delete** /v1/platform/projects/{project}/apps/{app} | Deletes an application and tears down what it runs.
 [**DeletePlatformProjectsByProjectAppsByAppDomainsByHost**](PlatformAPI.md#DeletePlatformProjectsByProjectAppsByAppDomainsByHost) | **Delete** /v1/platform/projects/{project}/apps/{app}/domains/{host} | Detaches a hostname and releases the claim.
+[**GetBuildById**](PlatformAPI.md#GetBuildById) | **Get** /v1/build/{id} | Answers one build: its status, and for a failed build the reason.
 [**GetPlatformApps**](PlatformAPI.md#GetPlatformApps) | **Get** /v1/platform/apps | Answers what this organisation has declared, joined with what the delivery plane has done about it.
 [**GetPlatformAppsByApp**](PlatformAPI.md#GetPlatformAppsByApp) | **Get** /v1/platform/apps/{app} | Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
 [**GetPlatformAppsByAppCd**](PlatformAPI.md#GetPlatformAppsByAppCd) | **Get** /v1/platform/apps/{app}/cd | Answers ONE app&#39;s reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
 [**GetPlatformBuilds**](PlatformAPI.md#GetPlatformBuilds) | **Get** /v1/platform/builds | Returns real build records for your org.
 [**GetPlatformCd**](PlatformAPI.md#GetPlatformCd) | **Get** /v1/platform/cd | Answers every Application the delivery plane holds.
-[**GetPlatformCi**](PlatformAPI.md#GetPlatformCi) | **Get** /v1/platform/ci | Continuous integration (not wired)
 [**GetPlatformEnvironments**](PlatformAPI.md#GetPlatformEnvironments) | **Get** /v1/platform/environments | Returns your deploy targets, and what is running on each.
 [**GetPlatformFleet**](PlatformAPI.md#GetPlatformFleet) | **Get** /v1/platform/fleet | Returns the platform&#39;s own service tier, and where it has drifted.
 [**GetPlatformFleetByApp**](PlatformAPI.md#GetPlatformFleetByApp) | **Get** /v1/platform/fleet/{app} | Returns one platform service, resolved to production by default.
 [**GetPlatformHealth**](PlatformAPI.md#GetPlatformHealth) | **Get** /v1/platform/health | Reports whether this control plane can actually deploy anything.
 [**GetPlatformPipelines**](PlatformAPI.md#GetPlatformPipelines) | **Get** /v1/platform/pipelines | Returns one build-and-deploy pipeline per app, with its latest run.
-[**GetPlatformProjects**](PlatformAPI.md#GetPlatformProjects) | **Get** /v1/platform/projects | Returns your org&#39;s projects, each with how many apps live under it.
-[**GetPlatformProjectsByProject**](PlatformAPI.md#GetPlatformProjectsByProject) | **Get** /v1/platform/projects/{project} | Returns one project and its app count.
+[**GetPlatformProjects**](PlatformAPI.md#GetPlatformProjects) | **Get** /v1/platform/projects | Answers every project the caller may see, with how its apps stand.
+[**GetPlatformProjectsByProject**](PlatformAPI.md#GetPlatformProjectsByProject) | **Get** /v1/platform/projects/{project} | Answers one project and every app in it.
 [**GetPlatformProjectsByProjectApps**](PlatformAPI.md#GetPlatformProjectsByProjectApps) | **Get** /v1/platform/projects/{project}/apps | Returns the applications in one project, with what the cluster says about them.
 [**GetPlatformProjectsByProjectAppsByApp**](PlatformAPI.md#GetPlatformProjectsByProjectAppsByApp) | **Get** /v1/platform/projects/{project}/apps/{app} | Returns one application, with its live phase, health and secret sync.
 [**GetPlatformProjectsByProjectAppsByAppDeployments**](PlatformAPI.md#GetPlatformProjectsByProjectAppsByAppDeployments) | **Get** /v1/platform/projects/{project}/apps/{app}/deployments | Returns an app&#39;s deployment history.
@@ -26,8 +27,9 @@ Method | HTTP request | Description
 [**GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs**](PlatformAPI.md#GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs) | **Get** /v1/platform/projects/{project}/apps/{app}/deployments/{id}/logs | Returns real logs for a deployment — the build&#39;s, then the app&#39;s.
 [**GetPlatformProjectsByProjectAppsByAppDomains**](PlatformAPI.md#GetPlatformProjectsByProjectAppsByAppDomains) | **Get** /v1/platform/projects/{project}/apps/{app}/domains | Returns every hostname this app answers on.
 [**GetPlatformReleases**](PlatformAPI.md#GetPlatformReleases) | **Get** /v1/platform/releases | Returns the versions that actually reached the cluster.
+[**PostBuild**](PlatformAPI.md#PostBuild) | **Post** /v1/build | Triggers a native build — an image, or the binaries a repo declares.
 [**PostPlatformApps**](PlatformAPI.md#PostPlatformApps) | **Post** /v1/platform/apps | Deploy an app through cd.hanzo.ai
-[**PostPlatformFleetByAppDeploy**](PlatformAPI.md#PostPlatformFleetByAppDeploy) | **Post** /v1/platform/fleet/{app}/deploy | Rolls a platform service&#39;s pods, in a named environment.
+[**PostPlatformProjects**](PlatformAPI.md#PostPlatformProjects) | **Post** /v1/platform/projects | Creates a project from the apps it starts with.
 [**PostPlatformProjectsByProjectApps**](PlatformAPI.md#PostPlatformProjectsByProjectApps) | **Post** /v1/platform/projects/{project}/apps | Creates an application from a git repo or a container image.
 [**PostPlatformProjectsByProjectAppsByAppDeploy**](PlatformAPI.md#PostPlatformProjectsByProjectAppsByAppDeploy) | **Post** /v1/platform/projects/{project}/apps/{app}/deploy | Deploys the app — building it first if it comes from git.
 [**PostPlatformProjectsByProjectAppsByAppDomains**](PlatformAPI.md#PostPlatformProjectsByProjectAppsByAppDomains) | **Post** /v1/platform/projects/{project}/apps/{app}/domains | Attaches a hostname — instantly if you already own it, otherwise with a DNS challenge.
@@ -38,9 +40,86 @@ Method | HTTP request | Description
 [**PostPlatformProjectsByProjectAppsByAppStart**](PlatformAPI.md#PostPlatformProjectsByProjectAppsByAppStart) | **Post** /v1/platform/projects/{project}/apps/{app}/start | Starts a stopped app back up.
 [**PostPlatformProjectsByProjectAppsByAppStop**](PlatformAPI.md#PostPlatformProjectsByProjectAppsByAppStop) | **Post** /v1/platform/projects/{project}/apps/{app}/stop | Stops an app without deleting it.
 [**PostPlatformRun**](PlatformAPI.md#PostPlatformRun) | **Post** /v1/platform/run | Runs a container image and gives back a URL.
-[**PostPlatformRunner**](PlatformAPI.md#PostPlatformRunner) | **Post** /v1/platform/runner | Triggers a native build — an image, or the binaries a repo declares.
+[**PutPlatformAppsByAppProject**](PlatformAPI.md#PutPlatformAppsByAppProject) | **Put** /v1/platform/apps/{app}/project | Moves an app to a project.
+[**PutPlatformProjectsByProject**](PlatformAPI.md#PutPlatformProjectsByProject) | **Put** /v1/platform/projects/{project} | Renames a project.
 [**PutPlatformProjectsByProjectAppsByAppEnv**](PlatformAPI.md#PutPlatformProjectsByProjectAppsByAppEnv) | **Put** /v1/platform/projects/{project}/apps/{app}/env | Replaces an app&#39;s environment variables.
 
+
+
+## DeletePlatformProjectsByProject
+
+> PlatformProjectWrite DeletePlatformProjectsByProject(ctx, project).Into(into).Org(org).Mode(mode).Execute()
+
+Folds a project into another.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	project := "project_example" // string | Project is the project to delete, from the path.
+	into := "into_example" // string | Into is the existing project its apps move into. Required: an app always belongs to exactly one project. (optional)
+	org := "org_example" // string | Org names the projects' owner, defaulting to the caller's own scope. (optional)
+	mode := "mode_example" // string | Mode is `branch` (the default) or `commit`. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlatformAPI.DeletePlatformProjectsByProject(context.Background(), project).Into(into).Org(org).Mode(mode).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.DeletePlatformProjectsByProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeletePlatformProjectsByProject`: PlatformProjectWrite
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.DeletePlatformProjectsByProject`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**project** | **string** | Project is the project to delete, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeletePlatformProjectsByProjectRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **into** | **string** | Into is the existing project its apps move into. Required: an app always belongs to exactly one project. | 
+ **org** | **string** | Org names the projects&#39; owner, defaulting to the caller&#39;s own scope. | 
+ **mode** | **string** | Mode is &#x60;branch&#x60; (the default) or &#x60;commit&#x60;. | 
+
+### Return type
+
+[**PlatformProjectWrite**](PlatformProjectWrite.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeletePlatformProjectsByProjectAppsByApp
@@ -107,7 +186,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -181,7 +260,77 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBuildById
+
+> PlatformRunnerBuildResp GetBuildById(ctx, id).Execute()
+
+Answers one build: its status, and for a failed build the reason.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the build's id, from the path.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlatformAPI.GetBuildById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetBuildById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBuildById`: PlatformRunnerBuildResp
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetBuildById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the build&#39;s id, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBuildByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**PlatformRunnerBuildResp**](PlatformRunnerBuildResp.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -190,7 +339,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformApps
 
-> DeclaredResp GetPlatformApps(ctx).Org(org).Execute()
+> PlatformDeclaredResp GetPlatformApps(ctx).Org(org).Execute()
 
 Answers what this organisation has declared, joined with what the delivery plane has done about it.
 
@@ -218,7 +367,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformApps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformApps`: DeclaredResp
+	// response from `GetPlatformApps`: PlatformDeclaredResp
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformApps`: %v\n", resp)
 }
 ```
@@ -238,7 +387,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeclaredResp**](DeclaredResp.md)
+[**PlatformDeclaredResp**](PlatformDeclaredResp.md)
 
 ### Authorization
 
@@ -247,7 +396,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -256,7 +405,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformAppsByApp
 
-> Declaration GetPlatformAppsByApp(ctx, app).Org(org).Execute()
+> PlatformDeclaration GetPlatformAppsByApp(ctx, app).Org(org).Execute()
 
 Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
 
@@ -285,7 +434,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformAppsByApp``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformAppsByApp`: Declaration
+	// response from `GetPlatformAppsByApp`: PlatformDeclaration
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformAppsByApp`: %v\n", resp)
 }
 ```
@@ -310,7 +459,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Declaration**](Declaration.md)
+[**PlatformDeclaration**](PlatformDeclaration.md)
 
 ### Authorization
 
@@ -319,7 +468,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -328,7 +477,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformAppsByAppCd
 
-> CDApp GetPlatformAppsByAppCd(ctx, app).Org(org).Execute()
+> PlatformCDApp GetPlatformAppsByAppCd(ctx, app).Org(org).Execute()
 
 Answers ONE app's reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
 
@@ -357,7 +506,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformAppsByAppCd``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformAppsByAppCd`: CDApp
+	// response from `GetPlatformAppsByAppCd`: PlatformCDApp
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformAppsByAppCd`: %v\n", resp)
 }
 ```
@@ -382,7 +531,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CDApp**](CDApp.md)
+[**PlatformCDApp**](PlatformCDApp.md)
 
 ### Authorization
 
@@ -391,7 +540,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -400,7 +549,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformBuilds
 
-> BuildBoard GetPlatformBuilds(ctx).Execute()
+> PlatformBuildBoard GetPlatformBuilds(ctx).Execute()
 
 Returns real build records for your org.
 
@@ -427,7 +576,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformBuilds``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformBuilds`: BuildBoard
+	// response from `GetPlatformBuilds`: PlatformBuildBoard
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformBuilds`: %v\n", resp)
 }
 ```
@@ -443,7 +592,7 @@ Other parameters are passed through a pointer to a apiGetPlatformBuildsRequest s
 
 ### Return type
 
-[**BuildBoard**](BuildBoard.md)
+[**PlatformBuildBoard**](PlatformBuildBoard.md)
 
 ### Authorization
 
@@ -452,7 +601,7 @@ Other parameters are passed through a pointer to a apiGetPlatformBuildsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -461,7 +610,7 @@ Other parameters are passed through a pointer to a apiGetPlatformBuildsRequest s
 
 ## GetPlatformCd
 
-> CdResp GetPlatformCd(ctx).Execute()
+> PlatformCdResp GetPlatformCd(ctx).Execute()
 
 Answers every Application the delivery plane holds.
 
@@ -488,7 +637,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformCd``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformCd`: CdResp
+	// response from `GetPlatformCd`: PlatformCdResp
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformCd`: %v\n", resp)
 }
 ```
@@ -504,7 +653,7 @@ Other parameters are passed through a pointer to a apiGetPlatformCdRequest struc
 
 ### Return type
 
-[**CdResp**](CdResp.md)
+[**PlatformCdResp**](PlatformCdResp.md)
 
 ### Authorization
 
@@ -513,66 +662,7 @@ Other parameters are passed through a pointer to a apiGetPlatformCdRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetPlatformCi
-
-> GetPlatformCi(ctx).Execute()
-
-Continuous integration (not wired)
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.GetPlatformCi(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformCi``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetPlatformCiRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -581,7 +671,7 @@ Other parameters are passed through a pointer to a apiGetPlatformCiRequest struc
 
 ## GetPlatformEnvironments
 
-> EnvironmentBoard GetPlatformEnvironments(ctx).Execute()
+> PlatformEnvironmentBoard GetPlatformEnvironments(ctx).Execute()
 
 Returns your deploy targets, and what is running on each.
 
@@ -608,7 +698,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformEnvironments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformEnvironments`: EnvironmentBoard
+	// response from `GetPlatformEnvironments`: PlatformEnvironmentBoard
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformEnvironments`: %v\n", resp)
 }
 ```
@@ -624,7 +714,7 @@ Other parameters are passed through a pointer to a apiGetPlatformEnvironmentsReq
 
 ### Return type
 
-[**EnvironmentBoard**](EnvironmentBoard.md)
+[**PlatformEnvironmentBoard**](PlatformEnvironmentBoard.md)
 
 ### Authorization
 
@@ -633,7 +723,7 @@ Other parameters are passed through a pointer to a apiGetPlatformEnvironmentsReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -642,7 +732,7 @@ Other parameters are passed through a pointer to a apiGetPlatformEnvironmentsReq
 
 ## GetPlatformFleet
 
-> DriftBoard GetPlatformFleet(ctx).Env(env).Health(health).Org(org).Drift(drift).Execute()
+> PlatformDriftBoard GetPlatformFleet(ctx).Env(env).Health(health).Org(org).Drift(drift).Execute()
 
 Returns the platform's own service tier, and where it has drifted.
 
@@ -673,7 +763,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformFleet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformFleet`: DriftBoard
+	// response from `GetPlatformFleet`: PlatformDriftBoard
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformFleet`: %v\n", resp)
 }
 ```
@@ -696,7 +786,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DriftBoard**](DriftBoard.md)
+[**PlatformDriftBoard**](PlatformDriftBoard.md)
 
 ### Authorization
 
@@ -705,7 +795,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -714,7 +804,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformFleetByApp
 
-> AppView GetPlatformFleetByApp(ctx, app).Env(env).Execute()
+> PlatformAppView GetPlatformFleetByApp(ctx, app).Env(env).Execute()
 
 Returns one platform service, resolved to production by default.
 
@@ -743,7 +833,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformFleetByApp``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformFleetByApp`: AppView
+	// response from `GetPlatformFleetByApp`: PlatformAppView
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformFleetByApp`: %v\n", resp)
 }
 ```
@@ -768,7 +858,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AppView**](AppView.md)
+[**PlatformAppView**](PlatformAppView.md)
 
 ### Authorization
 
@@ -777,7 +867,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -786,7 +876,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformHealth
 
-> Readiness GetPlatformHealth(ctx).Execute()
+> PlatformReadiness GetPlatformHealth(ctx).Execute()
 
 Reports whether this control plane can actually deploy anything.
 
@@ -813,7 +903,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformHealth`: Readiness
+	// response from `GetPlatformHealth`: PlatformReadiness
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformHealth`: %v\n", resp)
 }
 ```
@@ -829,7 +919,7 @@ Other parameters are passed through a pointer to a apiGetPlatformHealthRequest s
 
 ### Return type
 
-[**Readiness**](Readiness.md)
+[**PlatformReadiness**](PlatformReadiness.md)
 
 ### Authorization
 
@@ -838,7 +928,7 @@ Other parameters are passed through a pointer to a apiGetPlatformHealthRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -847,7 +937,7 @@ Other parameters are passed through a pointer to a apiGetPlatformHealthRequest s
 
 ## GetPlatformPipelines
 
-> PipelineBoard GetPlatformPipelines(ctx).Execute()
+> PlatformPipelineBoard GetPlatformPipelines(ctx).Execute()
 
 Returns one build-and-deploy pipeline per app, with its latest run.
 
@@ -874,7 +964,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformPipelines``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformPipelines`: PipelineBoard
+	// response from `GetPlatformPipelines`: PlatformPipelineBoard
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformPipelines`: %v\n", resp)
 }
 ```
@@ -890,7 +980,7 @@ Other parameters are passed through a pointer to a apiGetPlatformPipelinesReques
 
 ### Return type
 
-[**PipelineBoard**](PipelineBoard.md)
+[**PlatformPipelineBoard**](PlatformPipelineBoard.md)
 
 ### Authorization
 
@@ -899,7 +989,7 @@ Other parameters are passed through a pointer to a apiGetPlatformPipelinesReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -908,9 +998,9 @@ Other parameters are passed through a pointer to a apiGetPlatformPipelinesReques
 
 ## GetPlatformProjects
 
-> []ProjectView GetPlatformProjects(ctx).Execute()
+> PlatformProjectBoard GetPlatformProjects(ctx).Org(org).Execute()
 
-Returns your org's projects, each with how many apps live under it.
+Answers every project the caller may see, with how its apps stand.
 
 
 
@@ -927,31 +1017,36 @@ import (
 )
 
 func main() {
+	org := "org_example" // string | Org names whose projects to read. Omitted, a SuperAdmin reads every owner's and anyone else reads their own; naming another org is an act-as only a SuperAdmin has, and naming a platform directory reads the platform's own. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.GetPlatformProjects(context.Background()).Execute()
+	resp, r, err := apiClient.PlatformAPI.GetPlatformProjects(context.Background()).Org(org).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformProjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformProjects`: []ProjectView
+	// response from `GetPlatformProjects`: PlatformProjectBoard
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformProjects`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetPlatformProjectsRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **org** | **string** | Org names whose projects to read. Omitted, a SuperAdmin reads every owner&#39;s and anyone else reads their own; naming another org is an act-as only a SuperAdmin has, and naming a platform directory reads the platform&#39;s own. | 
+
 ### Return type
 
-[**[]ProjectView**](ProjectView.md)
+[**PlatformProjectBoard**](PlatformProjectBoard.md)
 
 ### Authorization
 
@@ -960,7 +1055,7 @@ Other parameters are passed through a pointer to a apiGetPlatformProjectsRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -969,9 +1064,9 @@ Other parameters are passed through a pointer to a apiGetPlatformProjectsRequest
 
 ## GetPlatformProjectsByProject
 
-> ProjectView GetPlatformProjectsByProject(ctx, project).Execute()
+> PlatformProjectView GetPlatformProjectsByProject(ctx, project).Org(org).Execute()
 
-Returns one project and its app count.
+Answers one project and every app in it.
 
 
 
@@ -989,15 +1084,16 @@ import (
 
 func main() {
 	project := "project_example" // string | Project is the project's name, from the path.
+	org := "org_example" // string | Org names the project's owner, defaulting to the caller's own scope — which for a SuperAdmin whose home is a brand org is the platform's. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.GetPlatformProjectsByProject(context.Background(), project).Execute()
+	resp, r, err := apiClient.PlatformAPI.GetPlatformProjectsByProject(context.Background(), project).Org(org).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformProjectsByProject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformProjectsByProject`: ProjectView
+	// response from `GetPlatformProjectsByProject`: PlatformProjectView
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformProjectsByProject`: %v\n", resp)
 }
 ```
@@ -1018,10 +1114,11 @@ Other parameters are passed through a pointer to a apiGetPlatformProjectsByProje
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **org** | **string** | Org names the project&#39;s owner, defaulting to the caller&#39;s own scope — which for a SuperAdmin whose home is a brand org is the platform&#39;s. | 
 
 ### Return type
 
-[**ProjectView**](ProjectView.md)
+[**PlatformProjectView**](PlatformProjectView.md)
 
 ### Authorization
 
@@ -1030,7 +1127,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1039,7 +1136,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformProjectsByProjectApps
 
-> []AppView GetPlatformProjectsByProjectApps(ctx, project).Execute()
+> []PlatformAppOut GetPlatformProjectsByProjectApps(ctx, project).Execute()
 
 Returns the applications in one project, with what the cluster says about them.
 
@@ -1067,7 +1164,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformProjectsByProjectApps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformProjectsByProjectApps`: []AppView
+	// response from `GetPlatformProjectsByProjectApps`: []PlatformAppOut
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformProjectsByProjectApps`: %v\n", resp)
 }
 ```
@@ -1091,7 +1188,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]AppView**](AppView.md)
+[**[]PlatformAppOut**](PlatformAppOut.md)
 
 ### Authorization
 
@@ -1100,7 +1197,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1109,7 +1206,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformProjectsByProjectAppsByApp
 
-> AppView GetPlatformProjectsByProjectAppsByApp(ctx, project, app).Execute()
+> PlatformAppOut GetPlatformProjectsByProjectAppsByApp(ctx, project, app).Execute()
 
 Returns one application, with its live phase, health and secret sync.
 
@@ -1138,7 +1235,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformProjectsByProjectAppsByApp``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformProjectsByProjectAppsByApp`: AppView
+	// response from `GetPlatformProjectsByProjectAppsByApp`: PlatformAppOut
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformProjectsByProjectAppsByApp`: %v\n", resp)
 }
 ```
@@ -1164,7 +1261,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AppView**](AppView.md)
+[**PlatformAppOut**](PlatformAppOut.md)
 
 ### Authorization
 
@@ -1173,7 +1270,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1182,7 +1279,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformProjectsByProjectAppsByAppDeployments
 
-> []DeploymentView GetPlatformProjectsByProjectAppsByAppDeployments(ctx, project, app).Execute()
+> []PlatformDeploymentView GetPlatformProjectsByProjectAppsByAppDeployments(ctx, project, app).Execute()
 
 Returns an app's deployment history.
 
@@ -1211,7 +1308,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformProjectsByProjectAppsByAppDeployments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformProjectsByProjectAppsByAppDeployments`: []DeploymentView
+	// response from `GetPlatformProjectsByProjectAppsByAppDeployments`: []PlatformDeploymentView
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformProjectsByProjectAppsByAppDeployments`: %v\n", resp)
 }
 ```
@@ -1237,7 +1334,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]DeploymentView**](DeploymentView.md)
+[**[]PlatformDeploymentView**](PlatformDeploymentView.md)
 
 ### Authorization
 
@@ -1246,7 +1343,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1255,7 +1352,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformProjectsByProjectAppsByAppDeploymentsById
 
-> DeploymentView GetPlatformProjectsByProjectAppsByAppDeploymentsById(ctx, project, app, id).Execute()
+> PlatformDeploymentView GetPlatformProjectsByProjectAppsByAppDeploymentsById(ctx, project, app, id).Execute()
 
 Returns one deployment of one app.
 
@@ -1285,7 +1382,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformProjectsByProjectAppsByAppDeploymentsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformProjectsByProjectAppsByAppDeploymentsById`: DeploymentView
+	// response from `GetPlatformProjectsByProjectAppsByAppDeploymentsById`: PlatformDeploymentView
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformProjectsByProjectAppsByAppDeploymentsById`: %v\n", resp)
 }
 ```
@@ -1313,7 +1410,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeploymentView**](DeploymentView.md)
+[**PlatformDeploymentView**](PlatformDeploymentView.md)
 
 ### Authorization
 
@@ -1322,7 +1419,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1331,7 +1428,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs
 
-> DeployLogs GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs(ctx, project, app, id).Execute()
+> PlatformDeployLogs GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs(ctx, project, app, id).Execute()
 
 Returns real logs for a deployment — the build's, then the app's.
 
@@ -1361,7 +1458,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs`: DeployLogs
+	// response from `GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs`: PlatformDeployLogs
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs`: %v\n", resp)
 }
 ```
@@ -1389,7 +1486,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeployLogs**](DeployLogs.md)
+[**PlatformDeployLogs**](PlatformDeployLogs.md)
 
 ### Authorization
 
@@ -1398,7 +1495,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1407,7 +1504,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformProjectsByProjectAppsByAppDomains
 
-> []DomainView GetPlatformProjectsByProjectAppsByAppDomains(ctx, project, app).Execute()
+> []PlatformDomainView GetPlatformProjectsByProjectAppsByAppDomains(ctx, project, app).Execute()
 
 Returns every hostname this app answers on.
 
@@ -1436,7 +1533,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformProjectsByProjectAppsByAppDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformProjectsByProjectAppsByAppDomains`: []DomainView
+	// response from `GetPlatformProjectsByProjectAppsByAppDomains`: []PlatformDomainView
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformProjectsByProjectAppsByAppDomains`: %v\n", resp)
 }
 ```
@@ -1462,7 +1559,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]DomainView**](DomainView.md)
+[**[]PlatformDomainView**](PlatformDomainView.md)
 
 ### Authorization
 
@@ -1471,7 +1568,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1480,7 +1577,7 @@ Name | Type | Description  | Notes
 
 ## GetPlatformReleases
 
-> ReleaseBoard GetPlatformReleases(ctx).Execute()
+> PlatformReleaseBoard GetPlatformReleases(ctx).Execute()
 
 Returns the versions that actually reached the cluster.
 
@@ -1507,7 +1604,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.GetPlatformReleases``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlatformReleases`: ReleaseBoard
+	// response from `GetPlatformReleases`: PlatformReleaseBoard
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.GetPlatformReleases`: %v\n", resp)
 }
 ```
@@ -1523,7 +1620,7 @@ Other parameters are passed through a pointer to a apiGetPlatformReleasesRequest
 
 ### Return type
 
-[**ReleaseBoard**](ReleaseBoard.md)
+[**PlatformReleaseBoard**](PlatformReleaseBoard.md)
 
 ### Authorization
 
@@ -1532,7 +1629,73 @@ Other parameters are passed through a pointer to a apiGetPlatformReleasesRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostBuild
+
+> PlatformRunnerBuildResp PostBuild(ctx).PlatformRunnerBuildReq(platformRunnerBuildReq).Execute()
+
+Triggers a native build — an image, or the binaries a repo declares.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	platformRunnerBuildReq := *openapiclient.NewPlatformRunnerBuildReq() // PlatformRunnerBuildReq | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlatformAPI.PostBuild(context.Background()).PlatformRunnerBuildReq(platformRunnerBuildReq).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostBuild``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostBuild`: PlatformRunnerBuildResp
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostBuild`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostBuildRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **platformRunnerBuildReq** | [**PlatformRunnerBuildReq**](PlatformRunnerBuildReq.md) |  | 
+
+### Return type
+
+[**PlatformRunnerBuildResp**](PlatformRunnerBuildResp.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1541,7 +1704,7 @@ Other parameters are passed through a pointer to a apiGetPlatformReleasesRequest
 
 ## PostPlatformApps
 
-> PostPlatformApps(ctx).Execute()
+> DeclareResp PostPlatformApps(ctx).DeclareReq(declareReq).Execute()
 
 Deploy an app through cd.hanzo.ai
 
@@ -1560,29 +1723,36 @@ import (
 )
 
 func main() {
+	declareReq := *openapiclient.NewDeclareReq() // DeclareReq |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PlatformAPI.PostPlatformApps(context.Background()).Execute()
+	resp, r, err := apiClient.PlatformAPI.PostPlatformApps(context.Background()).DeclareReq(declareReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformApps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostPlatformApps`: DeclareResp
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformApps`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostPlatformAppsRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **declareReq** | [**DeclareReq**](DeclareReq.md) |  | 
+
 ### Return type
 
- (empty response body)
+[**DeclareResp**](DeclareResp.md)
 
 ### Authorization
 
@@ -1590,19 +1760,19 @@ Other parameters are passed through a pointer to a apiPostPlatformAppsRequest st
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## PostPlatformFleetByAppDeploy
+## PostPlatformProjects
 
-> Restarted PostPlatformFleetByAppDeploy(ctx, app).RestartRef(restartRef).Execute()
+> PlatformProjectWrite PostPlatformProjects(ctx).PlatformProjectCreate(platformProjectCreate).Execute()
 
-Rolls a platform service's pods, in a named environment.
+Creates a project from the apps it starts with.
 
 
 
@@ -1619,42 +1789,36 @@ import (
 )
 
 func main() {
-	app := "app_example" // string | App is the service's CR name, from the path. It must be a DNS-1123 label.
-	restartRef := *openapiclient.NewRestartRef() // RestartRef | 
+	platformProjectCreate := *openapiclient.NewPlatformProjectCreate() // PlatformProjectCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PostPlatformFleetByAppDeploy(context.Background(), app).RestartRef(restartRef).Execute()
+	resp, r, err := apiClient.PlatformAPI.PostPlatformProjects(context.Background()).PlatformProjectCreate(platformProjectCreate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformFleetByAppDeploy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformProjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPlatformFleetByAppDeploy`: Restarted
-	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformFleetByAppDeploy`: %v\n", resp)
+	// response from `PostPlatformProjects`: PlatformProjectWrite
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformProjects`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**app** | **string** | App is the service&#39;s CR name, from the path. It must be a DNS-1123 label. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostPlatformFleetByAppDeployRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostPlatformProjectsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **restartRef** | [**RestartRef**](RestartRef.md) |  | 
+ **platformProjectCreate** | [**PlatformProjectCreate**](PlatformProjectCreate.md) |  | 
 
 ### Return type
 
-[**Restarted**](Restarted.md)
+[**PlatformProjectWrite**](PlatformProjectWrite.md)
 
 ### Authorization
 
@@ -1663,7 +1827,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1672,7 +1836,7 @@ Name | Type | Description  | Notes
 
 ## PostPlatformProjectsByProjectApps
 
-> AppView PostPlatformProjectsByProjectApps(ctx, project).CreateAppReq(createAppReq).Execute()
+> PlatformAppOut PostPlatformProjectsByProjectApps(ctx, project).PlatformCreateAppReq(platformCreateAppReq).Execute()
 
 Creates an application from a git repo or a container image.
 
@@ -1692,16 +1856,16 @@ import (
 
 func main() {
 	project := "project_example" // string | Project is the project to create the application under, from the path.
-	createAppReq := *openapiclient.NewCreateAppReq() // CreateAppReq | 
+	platformCreateAppReq := *openapiclient.NewPlatformCreateAppReq() // PlatformCreateAppReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PostPlatformProjectsByProjectApps(context.Background(), project).CreateAppReq(createAppReq).Execute()
+	resp, r, err := apiClient.PlatformAPI.PostPlatformProjectsByProjectApps(context.Background(), project).PlatformCreateAppReq(platformCreateAppReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformProjectsByProjectApps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPlatformProjectsByProjectApps`: AppView
+	// response from `PostPlatformProjectsByProjectApps`: PlatformAppOut
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformProjectsByProjectApps`: %v\n", resp)
 }
 ```
@@ -1722,11 +1886,11 @@ Other parameters are passed through a pointer to a apiPostPlatformProjectsByProj
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **createAppReq** | [**CreateAppReq**](CreateAppReq.md) |  | 
+ **platformCreateAppReq** | [**PlatformCreateAppReq**](PlatformCreateAppReq.md) |  | 
 
 ### Return type
 
-[**AppView**](AppView.md)
+[**PlatformAppOut**](PlatformAppOut.md)
 
 ### Authorization
 
@@ -1735,7 +1899,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1744,7 +1908,7 @@ Name | Type | Description  | Notes
 
 ## PostPlatformProjectsByProjectAppsByAppDeploy
 
-> DeploymentView PostPlatformProjectsByProjectAppsByAppDeploy(ctx, project, app).DeployReq(deployReq).Execute()
+> PlatformDeploymentView PostPlatformProjectsByProjectAppsByAppDeploy(ctx, project, app).PlatformDeployReq(platformDeployReq).Execute()
 
 Deploys the app — building it first if it comes from git.
 
@@ -1765,16 +1929,16 @@ import (
 func main() {
 	project := "project_example" // string | Project is the project the application lives under, from the path.
 	app := "app_example" // string | App is the application's slug, from the path.
-	deployReq := *openapiclient.NewDeployReq() // DeployReq | 
+	platformDeployReq := *openapiclient.NewPlatformDeployReq() // PlatformDeployReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PostPlatformProjectsByProjectAppsByAppDeploy(context.Background(), project, app).DeployReq(deployReq).Execute()
+	resp, r, err := apiClient.PlatformAPI.PostPlatformProjectsByProjectAppsByAppDeploy(context.Background(), project, app).PlatformDeployReq(platformDeployReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformProjectsByProjectAppsByAppDeploy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPlatformProjectsByProjectAppsByAppDeploy`: DeploymentView
+	// response from `PostPlatformProjectsByProjectAppsByAppDeploy`: PlatformDeploymentView
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformProjectsByProjectAppsByAppDeploy`: %v\n", resp)
 }
 ```
@@ -1797,11 +1961,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **deployReq** | [**DeployReq**](DeployReq.md) |  | 
+ **platformDeployReq** | [**PlatformDeployReq**](PlatformDeployReq.md) |  | 
 
 ### Return type
 
-[**DeploymentView**](DeploymentView.md)
+[**PlatformDeploymentView**](PlatformDeploymentView.md)
 
 ### Authorization
 
@@ -1810,7 +1974,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1819,7 +1983,7 @@ Name | Type | Description  | Notes
 
 ## PostPlatformProjectsByProjectAppsByAppDomains
 
-> DomainView PostPlatformProjectsByProjectAppsByAppDomains(ctx, project, app).AddDomainReq(addDomainReq).Execute()
+> PlatformDomainView PostPlatformProjectsByProjectAppsByAppDomains(ctx, project, app).PlatformAddDomainReq(platformAddDomainReq).Execute()
 
 Attaches a hostname — instantly if you already own it, otherwise with a DNS challenge.
 
@@ -1840,16 +2004,16 @@ import (
 func main() {
 	project := "project_example" // string | Project is the project the application lives under, from the path.
 	app := "app_example" // string | App is the application's slug, from the path.
-	addDomainReq := *openapiclient.NewAddDomainReq() // AddDomainReq | 
+	platformAddDomainReq := *openapiclient.NewPlatformAddDomainReq() // PlatformAddDomainReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PostPlatformProjectsByProjectAppsByAppDomains(context.Background(), project, app).AddDomainReq(addDomainReq).Execute()
+	resp, r, err := apiClient.PlatformAPI.PostPlatformProjectsByProjectAppsByAppDomains(context.Background(), project, app).PlatformAddDomainReq(platformAddDomainReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformProjectsByProjectAppsByAppDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPlatformProjectsByProjectAppsByAppDomains`: DomainView
+	// response from `PostPlatformProjectsByProjectAppsByAppDomains`: PlatformDomainView
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformProjectsByProjectAppsByAppDomains`: %v\n", resp)
 }
 ```
@@ -1872,11 +2036,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **addDomainReq** | [**AddDomainReq**](AddDomainReq.md) |  | 
+ **platformAddDomainReq** | [**PlatformAddDomainReq**](PlatformAddDomainReq.md) |  | 
 
 ### Return type
 
-[**DomainView**](DomainView.md)
+[**PlatformDomainView**](PlatformDomainView.md)
 
 ### Authorization
 
@@ -1885,7 +2049,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1894,7 +2058,7 @@ Name | Type | Description  | Notes
 
 ## PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify
 
-> DomainView PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify(ctx, project, app, host).Execute()
+> PlatformDomainView PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify(ctx, project, app, host).Execute()
 
 Checks a custom domain's DNS and turns it on if it passes.
 
@@ -1924,7 +2088,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify`: DomainView
+	// response from `PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify`: PlatformDomainView
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify`: %v\n", resp)
 }
 ```
@@ -1952,7 +2116,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DomainView**](DomainView.md)
+[**PlatformDomainView**](PlatformDomainView.md)
 
 ### Authorization
 
@@ -1961,7 +2125,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1970,7 +2134,7 @@ Name | Type | Description  | Notes
 
 ## PostPlatformProjectsByProjectAppsByAppPreview
 
-> PreviewView PostPlatformProjectsByProjectAppsByAppPreview(ctx, project, app).PreviewReq(previewReq).Execute()
+> PlatformPreviewView PostPlatformProjectsByProjectAppsByAppPreview(ctx, project, app).PlatformPreviewReq(platformPreviewReq).Execute()
 
 Puts a branch on its own URL.
 
@@ -1991,16 +2155,16 @@ import (
 func main() {
 	project := "project_example" // string | Project is the project the parent application lives under, from the path.
 	app := "app_example" // string | App is the parent application's slug, from the path.
-	previewReq := *openapiclient.NewPreviewReq() // PreviewReq | 
+	platformPreviewReq := *openapiclient.NewPlatformPreviewReq() // PlatformPreviewReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PostPlatformProjectsByProjectAppsByAppPreview(context.Background(), project, app).PreviewReq(previewReq).Execute()
+	resp, r, err := apiClient.PlatformAPI.PostPlatformProjectsByProjectAppsByAppPreview(context.Background(), project, app).PlatformPreviewReq(platformPreviewReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformProjectsByProjectAppsByAppPreview``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPlatformProjectsByProjectAppsByAppPreview`: PreviewView
+	// response from `PostPlatformProjectsByProjectAppsByAppPreview`: PlatformPreviewView
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformProjectsByProjectAppsByAppPreview`: %v\n", resp)
 }
 ```
@@ -2023,11 +2187,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **previewReq** | [**PreviewReq**](PreviewReq.md) |  | 
+ **platformPreviewReq** | [**PlatformPreviewReq**](PlatformPreviewReq.md) |  | 
 
 ### Return type
 
-[**PreviewView**](PreviewView.md)
+[**PlatformPreviewView**](PlatformPreviewView.md)
 
 ### Authorization
 
@@ -2036,7 +2200,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2045,7 +2209,7 @@ Name | Type | Description  | Notes
 
 ## PostPlatformProjectsByProjectAppsByAppPromote
 
-> DeploymentView PostPlatformProjectsByProjectAppsByAppPromote(ctx, project, app).PromoteReq(promoteReq).Execute()
+> PlatformDeploymentView PostPlatformProjectsByProjectAppsByAppPromote(ctx, project, app).PlatformPromoteReq(platformPromoteReq).Execute()
 
 Promotes an already-built release to the app.
 
@@ -2066,16 +2230,16 @@ import (
 func main() {
 	project := "project_example" // string | Project is the project the application lives under, from the path.
 	app := "app_example" // string | App is the application's slug, from the path.
-	promoteReq := *openapiclient.NewPromoteReq() // PromoteReq | 
+	platformPromoteReq := *openapiclient.NewPlatformPromoteReq() // PlatformPromoteReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PostPlatformProjectsByProjectAppsByAppPromote(context.Background(), project, app).PromoteReq(promoteReq).Execute()
+	resp, r, err := apiClient.PlatformAPI.PostPlatformProjectsByProjectAppsByAppPromote(context.Background(), project, app).PlatformPromoteReq(platformPromoteReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformProjectsByProjectAppsByAppPromote``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPlatformProjectsByProjectAppsByAppPromote`: DeploymentView
+	// response from `PostPlatformProjectsByProjectAppsByAppPromote`: PlatformDeploymentView
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformProjectsByProjectAppsByAppPromote`: %v\n", resp)
 }
 ```
@@ -2098,11 +2262,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **promoteReq** | [**PromoteReq**](PromoteReq.md) |  | 
+ **platformPromoteReq** | [**PlatformPromoteReq**](PlatformPromoteReq.md) |  | 
 
 ### Return type
 
-[**DeploymentView**](DeploymentView.md)
+[**PlatformDeploymentView**](PlatformDeploymentView.md)
 
 ### Authorization
 
@@ -2111,7 +2275,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2120,7 +2284,7 @@ Name | Type | Description  | Notes
 
 ## PostPlatformProjectsByProjectAppsByAppRollback
 
-> DeploymentView PostPlatformProjectsByProjectAppsByAppRollback(ctx, project, app).RollbackReq(rollbackReq).Execute()
+> PlatformDeploymentView PostPlatformProjectsByProjectAppsByAppRollback(ctx, project, app).PlatformRollbackReq(platformRollbackReq).Execute()
 
 Goes back to the previous release.
 
@@ -2141,16 +2305,16 @@ import (
 func main() {
 	project := "project_example" // string | Project is the project the application lives under, from the path.
 	app := "app_example" // string | App is the application's slug, from the path.
-	rollbackReq := *openapiclient.NewRollbackReq() // RollbackReq | 
+	platformRollbackReq := *openapiclient.NewPlatformRollbackReq() // PlatformRollbackReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PostPlatformProjectsByProjectAppsByAppRollback(context.Background(), project, app).RollbackReq(rollbackReq).Execute()
+	resp, r, err := apiClient.PlatformAPI.PostPlatformProjectsByProjectAppsByAppRollback(context.Background(), project, app).PlatformRollbackReq(platformRollbackReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformProjectsByProjectAppsByAppRollback``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPlatformProjectsByProjectAppsByAppRollback`: DeploymentView
+	// response from `PostPlatformProjectsByProjectAppsByAppRollback`: PlatformDeploymentView
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformProjectsByProjectAppsByAppRollback`: %v\n", resp)
 }
 ```
@@ -2173,11 +2337,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **rollbackReq** | [**RollbackReq**](RollbackReq.md) |  | 
+ **platformRollbackReq** | [**PlatformRollbackReq**](PlatformRollbackReq.md) |  | 
 
 ### Return type
 
-[**DeploymentView**](DeploymentView.md)
+[**PlatformDeploymentView**](PlatformDeploymentView.md)
 
 ### Authorization
 
@@ -2186,7 +2350,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2195,7 +2359,7 @@ Name | Type | Description  | Notes
 
 ## PostPlatformProjectsByProjectAppsByAppStart
 
-> AppView PostPlatformProjectsByProjectAppsByAppStart(ctx, project, app).Execute()
+> PlatformAppOut PostPlatformProjectsByProjectAppsByAppStart(ctx, project, app).Execute()
 
 Starts a stopped app back up.
 
@@ -2224,7 +2388,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformProjectsByProjectAppsByAppStart``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPlatformProjectsByProjectAppsByAppStart`: AppView
+	// response from `PostPlatformProjectsByProjectAppsByAppStart`: PlatformAppOut
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformProjectsByProjectAppsByAppStart`: %v\n", resp)
 }
 ```
@@ -2250,7 +2414,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AppView**](AppView.md)
+[**PlatformAppOut**](PlatformAppOut.md)
 
 ### Authorization
 
@@ -2259,7 +2423,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2268,7 +2432,7 @@ Name | Type | Description  | Notes
 
 ## PostPlatformProjectsByProjectAppsByAppStop
 
-> AppView PostPlatformProjectsByProjectAppsByAppStop(ctx, project, app).Execute()
+> PlatformAppOut PostPlatformProjectsByProjectAppsByAppStop(ctx, project, app).Execute()
 
 Stops an app without deleting it.
 
@@ -2297,7 +2461,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformProjectsByProjectAppsByAppStop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPlatformProjectsByProjectAppsByAppStop`: AppView
+	// response from `PostPlatformProjectsByProjectAppsByAppStop`: PlatformAppOut
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformProjectsByProjectAppsByAppStop`: %v\n", resp)
 }
 ```
@@ -2323,7 +2487,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AppView**](AppView.md)
+[**PlatformAppOut**](PlatformAppOut.md)
 
 ### Authorization
 
@@ -2332,7 +2496,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2341,7 +2505,7 @@ Name | Type | Description  | Notes
 
 ## PostPlatformRun
 
-> RunView PostPlatformRun(ctx).RunReq(runReq).Execute()
+> PlatformRunView PostPlatformRun(ctx).PlatformRunReq(platformRunReq).Execute()
 
 Runs a container image and gives back a URL.
 
@@ -2360,16 +2524,16 @@ import (
 )
 
 func main() {
-	runReq := *openapiclient.NewRunReq() // RunReq | 
+	platformRunReq := *openapiclient.NewPlatformRunReq() // PlatformRunReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PostPlatformRun(context.Background()).RunReq(runReq).Execute()
+	resp, r, err := apiClient.PlatformAPI.PostPlatformRun(context.Background()).PlatformRunReq(platformRunReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformRun``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPlatformRun`: RunView
+	// response from `PostPlatformRun`: PlatformRunView
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformRun`: %v\n", resp)
 }
 ```
@@ -2385,11 +2549,11 @@ Other parameters are passed through a pointer to a apiPostPlatformRunRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **runReq** | [**RunReq**](RunReq.md) |  | 
+ **platformRunReq** | [**PlatformRunReq**](PlatformRunReq.md) |  | 
 
 ### Return type
 
-[**RunView**](RunView.md)
+[**PlatformRunView**](PlatformRunView.md)
 
 ### Authorization
 
@@ -2398,18 +2562,18 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## PostPlatformRunner
+## PutPlatformAppsByAppProject
 
-> RunnerBuildResp PostPlatformRunner(ctx).RunnerBuildReq(runnerBuildReq).Execute()
+> PlatformProjectWrite PutPlatformAppsByAppProject(ctx, app).PlatformAppMove(platformAppMove).Execute()
 
-Triggers a native build — an image, or the binaries a repo declares.
+Moves an app to a project.
 
 
 
@@ -2426,36 +2590,42 @@ import (
 )
 
 func main() {
-	runnerBuildReq := *openapiclient.NewRunnerBuildReq() // RunnerBuildReq | 
+	app := "app_example" // string | App is the declaration's name, from the path.
+	platformAppMove := *openapiclient.NewPlatformAppMove() // PlatformAppMove | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PostPlatformRunner(context.Background()).RunnerBuildReq(runnerBuildReq).Execute()
+	resp, r, err := apiClient.PlatformAPI.PutPlatformAppsByAppProject(context.Background(), app).PlatformAppMove(platformAppMove).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PostPlatformRunner``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PutPlatformAppsByAppProject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPlatformRunner`: RunnerBuildResp
-	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PostPlatformRunner`: %v\n", resp)
+	// response from `PutPlatformAppsByAppProject`: PlatformProjectWrite
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PutPlatformAppsByAppProject`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**app** | **string** | App is the declaration&#39;s name, from the path. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostPlatformRunnerRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutPlatformAppsByAppProjectRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **runnerBuildReq** | [**RunnerBuildReq**](RunnerBuildReq.md) |  | 
+
+ **platformAppMove** | [**PlatformAppMove**](PlatformAppMove.md) |  | 
 
 ### Return type
 
-[**RunnerBuildResp**](RunnerBuildResp.md)
+[**PlatformProjectWrite**](PlatformProjectWrite.md)
 
 ### Authorization
 
@@ -2464,7 +2634,79 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutPlatformProjectsByProject
+
+> PlatformProjectWrite PutPlatformProjectsByProject(ctx, project).PlatformProjectRename(platformProjectRename).Execute()
+
+Renames a project.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	project := "project_example" // string | Project is the project to rename, from the path.
+	platformProjectRename := *openapiclient.NewPlatformProjectRename() // PlatformProjectRename | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PlatformAPI.PutPlatformProjectsByProject(context.Background(), project).PlatformProjectRename(platformProjectRename).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PutPlatformProjectsByProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutPlatformProjectsByProject`: PlatformProjectWrite
+	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PutPlatformProjectsByProject`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**project** | **string** | Project is the project to rename, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutPlatformProjectsByProjectRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **platformProjectRename** | [**PlatformProjectRename**](PlatformProjectRename.md) |  | 
+
+### Return type
+
+[**PlatformProjectWrite**](PlatformProjectWrite.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2473,7 +2715,7 @@ Name | Type | Description  | Notes
 
 ## PutPlatformProjectsByProjectAppsByAppEnv
 
-> AppView PutPlatformProjectsByProjectAppsByAppEnv(ctx, project, app).SetEnvReq(setEnvReq).Execute()
+> PlatformAppOut PutPlatformProjectsByProjectAppsByAppEnv(ctx, project, app).PlatformSetEnvReq(platformSetEnvReq).Execute()
 
 Replaces an app's environment variables.
 
@@ -2494,16 +2736,16 @@ import (
 func main() {
 	project := "project_example" // string | Project is the project the application lives under, from the path.
 	app := "app_example" // string | App is the application's slug, from the path.
-	setEnvReq := *openapiclient.NewSetEnvReq() // SetEnvReq | 
+	platformSetEnvReq := *openapiclient.NewPlatformSetEnvReq() // PlatformSetEnvReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PlatformAPI.PutPlatformProjectsByProjectAppsByAppEnv(context.Background(), project, app).SetEnvReq(setEnvReq).Execute()
+	resp, r, err := apiClient.PlatformAPI.PutPlatformProjectsByProjectAppsByAppEnv(context.Background(), project, app).PlatformSetEnvReq(platformSetEnvReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlatformAPI.PutPlatformProjectsByProjectAppsByAppEnv``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutPlatformProjectsByProjectAppsByAppEnv`: AppView
+	// response from `PutPlatformProjectsByProjectAppsByAppEnv`: PlatformAppOut
 	fmt.Fprintf(os.Stdout, "Response from `PlatformAPI.PutPlatformProjectsByProjectAppsByAppEnv`: %v\n", resp)
 }
 ```
@@ -2526,11 +2768,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **setEnvReq** | [**SetEnvReq**](SetEnvReq.md) |  | 
+ **platformSetEnvReq** | [**PlatformSetEnvReq**](PlatformSetEnvReq.md) |  | 
 
 ### Return type
 
-[**AppView**](AppView.md)
+[**PlatformAppOut**](PlatformAppOut.md)
 
 ### Authorization
 
@@ -2539,7 +2781,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

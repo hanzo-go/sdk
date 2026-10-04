@@ -1,0 +1,82 @@
+# ProjectProjectsFile
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Content** | Pointer to **string** | Content is the file&#39;s whole text, inline. There is no upload step and no reference to fetch: a site is sent as its bytes, and each file and the site as a whole are size-bounded. | [optional] 
+**Path** | Pointer to **string** | Path is where the file lands in the site, RELATIVE to its root — so \&quot;index.html\&quot; is the page served at /. Leading slashes and any attempt to escape the root are refused. | [optional] 
+
+## Methods
+
+### NewProjectProjectsFile
+
+`func NewProjectProjectsFile() *ProjectProjectsFile`
+
+NewProjectProjectsFile instantiates a new ProjectProjectsFile object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewProjectProjectsFileWithDefaults
+
+`func NewProjectProjectsFileWithDefaults() *ProjectProjectsFile`
+
+NewProjectProjectsFileWithDefaults instantiates a new ProjectProjectsFile object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetContent
+
+`func (o *ProjectProjectsFile) GetContent() string`
+
+GetContent returns the Content field if non-nil, zero value otherwise.
+
+### GetContentOk
+
+`func (o *ProjectProjectsFile) GetContentOk() (*string, bool)`
+
+GetContentOk returns a tuple with the Content field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContent
+
+`func (o *ProjectProjectsFile) SetContent(v string)`
+
+SetContent sets Content field to given value.
+
+### HasContent
+
+`func (o *ProjectProjectsFile) HasContent() bool`
+
+HasContent returns a boolean if a field has been set.
+
+### GetPath
+
+`func (o *ProjectProjectsFile) GetPath() string`
+
+GetPath returns the Path field if non-nil, zero value otherwise.
+
+### GetPathOk
+
+`func (o *ProjectProjectsFile) GetPathOk() (*string, bool)`
+
+GetPathOk returns a tuple with the Path field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPath
+
+`func (o *ProjectProjectsFile) SetPath(v string)`
+
+SetPath sets Path field to given value.
+
+### HasPath
+
+`func (o *ProjectProjectsFile) HasPath() bool`
+
+HasPath returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

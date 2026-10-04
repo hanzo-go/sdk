@@ -19,10 +19,13 @@ var _ MappedNullable = &OpenaiImageResponseDataInner{}
 
 // OpenaiImageResponseDataInner struct for OpenaiImageResponseDataInner
 type OpenaiImageResponseDataInner struct {
-	B64Json       *string `json:"b64_json,omitempty"`
-	RevisedPrompt *string `json:"revised_prompt,omitempty"`
-	Url           *string `json:"url,omitempty"`
+	B64Json              *string `json:"b64_json,omitempty"`
+	RevisedPrompt        *string `json:"revised_prompt,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiImageResponseDataInner OpenaiImageResponseDataInner
 
 // NewOpenaiImageResponseDataInner instantiates a new OpenaiImageResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o OpenaiImageResponseDataInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiImageResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiImageResponseDataInner := _OpenaiImageResponseDataInner{}
+
+	err = json.Unmarshal(data, &varOpenaiImageResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiImageResponseDataInner(varOpenaiImageResponseDataInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "b64_json")
+		delete(additionalProperties, "revised_prompt")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiImageResponseDataInner struct {

@@ -26,8 +26,11 @@ type O11yO11yDashboardViewData struct {
 	// Sort is the captured sort field.
 	Sort *string `json:"sort,omitempty"`
 	// Version is the saved-view schema version; must be v1.
-	Version *string `json:"version,omitempty"`
+	Version              *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardViewData O11yO11yDashboardViewData
 
 // NewO11yO11yDashboardViewData instantiates a new O11yO11yDashboardViewData object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yDashboardViewData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardViewData) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardViewData := _O11yO11yDashboardViewData{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardViewData)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardViewData(varO11yO11yDashboardViewData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "order")
+		delete(additionalProperties, "query")
+		delete(additionalProperties, "sort")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardViewData struct {

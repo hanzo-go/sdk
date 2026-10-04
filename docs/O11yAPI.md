@@ -9,33 +9,26 @@ Method | HTTP request | Description
 [**AuthzCheck**](O11yAPI.md#AuthzCheck) | **Post** /v1/o11y/authz/check | Evaluates a batch of transactions — relation plus object — for the authenticated caller and answers each with its authorization verdict, in the order they were asked.
 [**CloneDashboardV2**](O11yAPI.md#CloneDashboardV2) | **Post** /v1/o11y/dashboards/{id}/clone | Clones an existing v2-shape dashboard.
 [**CreateAccount**](O11yAPI.md#CreateAccount) | **Post** /v1/o11y/cloud_integrations/{cloud_provider}/accounts | Connects a new cloud-integration account for the given provider from its posted config and credentials, answering with the account and the artifact the agent deploys to complete the connection.
-[**CreateAuthDomain**](O11yAPI.md#CreateAuthDomain) | **Post** /v1/o11y/domains | Claims an email domain for the org and configures how its users sign in; the answer is the new domain&#39;s id.
-[**CreateBulkInvite**](O11yAPI.md#CreateBulkInvite) | **Post** /v1/o11y/invite/bulk | Invites several people to the caller&#39;s org in one call, refusing the whole batch when any email repeats.
 [**CreateChannel**](O11yAPI.md#CreateChannel) | **Post** /v1/o11y/channels | Creates a notification channel, answering with the stored channel.
 [**CreateDashboardV2**](O11yAPI.md#CreateDashboardV2) | **Post** /v1/o11y/dashboards | Creates a dashboard in the v2 format that follows the Perses spec and answers with the stored dashboard.
 [**CreateDashboardView**](O11yAPI.md#CreateDashboardView) | **Post** /v1/o11y/dashboard_views | Persists the calling user&#39;s dashboard-listing state (query, sort, order) as a named, reusable view shared across the org.
 [**CreateDowntimeSchedule**](O11yAPI.md#CreateDowntimeSchedule) | **Post** /v1/o11y/downtime_schedules | Creates a planned maintenance window, answering with the stored schedule.
 [**CreateIngestionKey**](O11yAPI.md#CreateIngestionKey) | **Post** /v1/o11y/gateway/ingestion_keys | Mints an ingestion key for the workspace, answering with the created key.
 [**CreateIngestionKeyLimit**](O11yAPI.md#CreateIngestionKeyLimit) | **Post** /v1/o11y/gateway/ingestion_keys/{keyId}/limits | Sets a signal limit on an ingestion key, by key id, answering with the created limit.
-[**CreateInvite**](O11yAPI.md#CreateInvite) | **Post** /v1/o11y/invite | Invites one person to the caller&#39;s org by email, with the role they will hold when they accept.
 [**CreateLLMAnnotation**](O11yAPI.md#CreateLLMAnnotation) | **Post** /v1/o11y/llm/annotation | Adds a human annotation to a trace or observation, optionally in a review queue.
 [**CreateLLMScore**](O11yAPI.md#CreateLLMScore) | **Post** /v1/o11y/llm/scores | Attaches an eval score or human-feedback signal to a trace or a single observation.
 [**CreateMetricReductionRule**](O11yAPI.md#CreateMetricReductionRule) | **Post** /v1/o11y/metric_reduction_rules | Creates a volume-control rule for a metric and returns it with its id; a metric that already has a rule is refused.
 [**CreateOrUpdateLLMPricingRules**](O11yAPI.md#CreateOrUpdateLLMPricingRules) | **Put** /v1/o11y/llm_pricing_rules | Writes the pricing-rule batch — the single write endpoint used by both the user and the Zeus sync job.
 [**CreatePublicDashboard**](O11yAPI.md#CreatePublicDashboard) | **Post** /v1/o11y/dashboards/{id}/public | Creates the public-sharing config for a dashboard and enables public sharing, answering with the new share&#39;s id.
-[**CreateResetPasswordToken**](O11yAPI.md#CreateResetPasswordToken) | **Put** /v1/o11y/users/{id}/reset_password_tokens | Creates or regenerates a user&#39;s reset-password token: a live token is returned as it is, an expired one is replaced.
 [**CreateRole**](O11yAPI.md#CreateRole) | **Post** /v1/o11y/roles | Creates a custom role in the caller&#39;s org from a name, an optional description and the transaction groups it grants, answering the new role&#39;s id.
 [**CreateRoutePolicy**](O11yAPI.md#CreateRoutePolicy) | **Post** /v1/o11y/route_policies | Creates a route policy, answering with the stored policy.
 [**CreateRule**](O11yAPI.md#CreateRule) | **Post** /v1/o11y/rules | Creates a new alert rule and answers with the stored rule.
 [**CreateServiceAccount**](O11yAPI.md#CreateServiceAccount) | **Post** /v1/o11y/service_accounts | Creates a service account in the caller&#39;s org, answering its id.
 [**CreateServiceAccountKey**](O11yAPI.md#CreateServiceAccountKey) | **Post** /v1/o11y/service_accounts/{id}/keys | Mints an API key for a service account and answers the key&#39;s id and its secret — the one time the secret is ever shown.
 [**CreateServiceAccountRole**](O11yAPI.md#CreateServiceAccountRole) | **Post** /v1/o11y/service_accounts/{id}/roles | Assigns a role, named by its id, to a service account.
-[**CreateSessionByEmailPassword**](O11yAPI.md#CreateSessionByEmailPassword) | **Post** /v1/o11y/sessions/email_password | Signs a user in with email and password and answers with the session&#39;s token pair.
 [**CreateSpanMapper**](O11yAPI.md#CreateSpanMapper) | **Post** /v1/o11y/span_mapper_groups/{groupId}/span_mappers | Adds a mapper to a group: which field context it reads, the move or copy it performs, and whether it is on.
 [**CreateSpanMapperGroup**](O11yAPI.md#CreateSpanMapperGroup) | **Post** /v1/o11y/span_mapper_groups | Creates a mapping group: the name it is known by, the span and resource attributes whose presence selects a span into it, and whether it is on.
 [**CreateTraceFunnel**](O11yAPI.md#CreateTraceFunnel) | **Post** /v1/o11y/trace-funnels/new | Creates an empty funnel with a name, answering the funnel it created.
-[**CreateUser**](O11yAPI.md#CreateUser) | **Post** /v1/o11y/users | Creates a member of the caller&#39;s org in the pending-invite state and mails them their invitation; the answer is the new user&#39;s id.
-[**DeleteAuthDomain**](O11yAPI.md#DeleteAuthDomain) | **Delete** /v1/o11y/domains/{id} | Releases an email domain and discards its SSO configuration, by id.
 [**DeleteChannelByID**](O11yAPI.md#DeleteChannelByID) | **Delete** /v1/o11y/channels/{id} | Removes a notification channel, by id.
 [**DeleteDashboardV2**](O11yAPI.md#DeleteDashboardV2) | **Delete** /v1/o11y/dashboards/{id} | Deletes a v2-shape dashboard along with its tag relations.
 [**DeleteDashboardView**](O11yAPI.md#DeleteDashboardView) | **Delete** /v1/o11y/dashboard_views/{id} | Removes a saved view.
@@ -47,26 +40,21 @@ Method | HTTP request | Description
 [**DeleteMetricReductionRuleByID**](O11yAPI.md#DeleteMetricReductionRuleByID) | **Delete** /v1/o11y/metric_reduction_rules/{id} | Deletes a volume-control rule by its id.
 [**DeleteO11yExplorerViewsByViewid**](O11yAPI.md#DeleteO11yExplorerViewsByViewid) | **Delete** /v1/o11y/explorer/views/{viewId} | Deletes one saved explorer view by id.
 [**DeleteO11yReviewsById**](O11yAPI.md#DeleteO11yReviewsById) | **Delete** /v1/o11y/reviews/{id} | Removes one review queue and every item in it.
-[**DeleteO11ySentinelProjectsById**](O11yAPI.md#DeleteO11ySentinelProjectsById) | **Delete** /v1/o11y/sentinel/projects/{id} | Deletes one Sentry project of the caller&#39;s org.
+[**DeleteO11ySentinelProjectsById**](O11yAPI.md#DeleteO11ySentinelProjectsById) | **Delete** /v1/o11y/sentinel/projects/{id} | Deletes one Sentry project of the caller&#39;s org; retained events are not touched.
 [**DeletePublicDashboard**](O11yAPI.md#DeletePublicDashboard) | **Delete** /v1/o11y/dashboards/{id}/public | Deletes the public-sharing config and disables public sharing of a dashboard.
 [**DeleteRole**](O11yAPI.md#DeleteRole) | **Delete** /v1/o11y/roles/{id} | Deletes a custom role.
 [**DeleteRoutePolicyByID**](O11yAPI.md#DeleteRoutePolicyByID) | **Delete** /v1/o11y/route_policies/{id} | Removes a route policy, by id.
 [**DeleteRuleByID**](O11yAPI.md#DeleteRuleByID) | **Delete** /v1/o11y/rules/{id} | Removes an alert rule, by id.
 [**DeleteServiceAccount**](O11yAPI.md#DeleteServiceAccount) | **Delete** /v1/o11y/service_accounts/{id} | Deletes a service account and revokes every key it holds.
 [**DeleteServiceAccountRole**](O11yAPI.md#DeleteServiceAccountRole) | **Delete** /v1/o11y/service_accounts/{id}/roles/{rid} | Removes a role from a service account.
-[**DeleteSession**](O11yAPI.md#DeleteSession) | **Delete** /v1/o11y/sessions | Signs the calling session out, invalidating its tokens.
 [**DeleteSpanMapper**](O11yAPI.md#DeleteSpanMapper) | **Delete** /v1/o11y/span_mapper_groups/{groupId}/span_mappers/{mapperId} | Deletes one mapper from a group.
 [**DeleteSpanMapperGroup**](O11yAPI.md#DeleteSpanMapperGroup) | **Delete** /v1/o11y/span_mapper_groups/{groupId} | Deletes a mapping group and every mapper under it.
 [**DeleteTraceFunnel**](O11yAPI.md#DeleteTraceFunnel) | **Delete** /v1/o11y/trace-funnels/{funnel_id} | Deletes a funnel.
-[**DeleteUser**](O11yAPI.md#DeleteUser) | **Delete** /v1/o11y/users/{id} | Removes one org member, by user id.
-[**DeleteUserDeprecated**](O11yAPI.md#DeleteUserDeprecated) | **Delete** /v1/o11y/user/{id} | Removes one org member, by user id.
 [**DisconnectAccount**](O11yAPI.md#DisconnectAccount) | **Delete** /v1/o11y/cloud_integrations/{cloud_provider}/accounts/{id} | Tears down a connected account for the given provider, by id.
-[**ForgotPassword**](O11yAPI.md#ForgotPassword) | **Post** /v1/o11y/factor_password/forgot | Starts the forgotten-password flow: the named user is mailed a reset link.
 [**GetAccount**](O11yAPI.md#GetAccount) | **Get** /v1/o11y/cloud_integrations/{cloud_provider}/accounts/{id} | Returns one connected account for the given provider, by id.
 [**GetAccountService**](O11yAPI.md#GetAccountService) | **Get** /v1/o11y/cloud_integrations/{cloud_provider}/accounts/{id}/services/{service_id} | Returns one service and its configuration for a connected account of the given provider, by account id and service id.
 [**GetAlerts**](O11yAPI.md#GetAlerts) | **Get** /v1/o11y/alerts | Returns the org&#39;s current alerts.
 [**GetAllRoutePolicies**](O11yAPI.md#GetAllRoutePolicies) | **Get** /v1/o11y/route_policies | Lists the org&#39;s route policies.
-[**GetAuthDomain**](O11yAPI.md#GetAuthDomain) | **Get** /v1/o11y/domains/{id} | Returns one auth domain with its SSO configuration, by id.
 [**GetChannelByID**](O11yAPI.md#GetChannelByID) | **Get** /v1/o11y/channels/{id} | Returns one notification channel, by id.
 [**GetConnectionCredentials**](O11yAPI.md#GetConnectionCredentials) | **Get** /v1/o11y/cloud_integrations/{cloud_provider}/credentials | Returns the credentials the connecting agent needs to establish the cloud integration, for the given cloud provider.
 [**GetDashboardV2**](O11yAPI.md#GetDashboardV2) | **Get** /v1/o11y/dashboards/{id} | Returns a v2-shape dashboard.
@@ -97,16 +85,13 @@ Method | HTTP request | Description
 [**GetMyOrganization**](O11yAPI.md#GetMyOrganization) | **Get** /v1/o11y/orgs/me | Returns the caller&#39;s own organization.
 [**GetMyServiceAccount**](O11yAPI.md#GetMyServiceAccount) | **Get** /v1/o11y/service_accounts/me | Returns the calling service account itself, with the roles it holds — the self-inspection read for a key-authenticated caller.
 [**GetMyUser**](O11yAPI.md#GetMyUser) | **Get** /v1/o11y/users/me | Returns the calling user together with every role they hold.
-[**GetMyUserDeprecated**](O11yAPI.md#GetMyUserDeprecated) | **Get** /v1/o11y/user/me | Returns the calling user with their single legacy role.
+[**GetO11yAlertsHeartbeat**](O11yAPI.md#GetO11yAlertsHeartbeat) | **Get** /v1/o11y/alerts/heartbeat | Reports whether the alert path&#39;s heartbeat is still arriving: the dead-man&#39;s switch for paging.
 [**GetO11yAlertsLast**](O11yAPI.md#GetO11yAlertsLast) | **Get** /v1/o11y/alerts/last | Replay the alert records this process took
 [**GetO11yAutocompleteAggregateAttributes**](O11yAPI.md#GetO11yAutocompleteAggregateAttributes) | **Get** /v1/o11y/autocomplete/aggregate_attributes | Lists the attributes usable as an aggregate target for the given telemetry and operator — what a filter builder offers after the aggregation is chosen.
 [**GetO11yAutocompleteAttributeKeys**](O11yAPI.md#GetO11yAutocompleteAttributeKeys) | **Get** /v1/o11y/autocomplete/attribute_keys | Lists the attribute keys available for filtering the given telemetry, each with its data type and whether it is a materialized column.
 [**GetO11yAutocompleteAttributeValues**](O11yAPI.md#GetO11yAutocompleteAttributeValues) | **Get** /v1/o11y/autocomplete/attribute_values | Lists the values one attribute key has taken — string, number and bool values in their own lists — for completing a filter.
-[**GetO11yAvailability**](O11yAPI.md#GetO11yAvailability) | **Get** /v1/o11y/availability | Reports how much of the Hanzo fleet is up — the current per-service inventory plus an up-versus-reporting trend across the window.
 [**GetO11yClustersAttributeKeys**](O11yAPI.md#GetO11yClustersAttributeKeys) | **Get** /v1/o11y/clusters/attribute_keys | Lists the metric attribute keys Kubernetes clusters report, for building cluster filters.
 [**GetO11yClustersAttributeValues**](O11yAPI.md#GetO11yClustersAttributeValues) | **Get** /v1/o11y/clusters/attribute_values | Lists the values one cluster attribute key has taken, for building cluster filters.
-[**GetO11yCompleteGoogle**](O11yAPI.md#GetO11yCompleteGoogle) | **Get** /v1/o11y/complete/google | Complete a Google sign-in
-[**GetO11yCompleteOidc**](O11yAPI.md#GetO11yCompleteOidc) | **Get** /v1/o11y/complete/oidc | Complete a generic OIDC sign-in
 [**GetO11yDaemonsetsAttributeKeys**](O11yAPI.md#GetO11yDaemonsetsAttributeKeys) | **Get** /v1/o11y/daemonsets/attribute_keys | Lists the metric attribute keys Kubernetes daemonsets report, for building daemonset filters.
 [**GetO11yDaemonsetsAttributeValues**](O11yAPI.md#GetO11yDaemonsetsAttributeValues) | **Get** /v1/o11y/daemonsets/attribute_values | Lists the values one daemonset attribute key has taken, for building daemonset filters.
 [**GetO11yDeploymentsAttributeKeys**](O11yAPI.md#GetO11yDeploymentsAttributeKeys) | **Get** /v1/o11y/deployments/attribute_keys | Lists the metric attribute keys Kubernetes deployments report, for building deployment filters.
@@ -166,8 +151,8 @@ Method | HTTP request | Description
 [**GetO11ySentinelIssuesById**](O11yAPI.md#GetO11ySentinelIssuesById) | **Get** /v1/o11y/sentinel/issues/{id} | Returns one grouped issue of the caller&#39;s org with its latest occurrence sample.
 [**GetO11ySentinelIssuesByIdEvents**](O11yAPI.md#GetO11ySentinelIssuesByIdEvents) | **Get** /v1/o11y/sentinel/issues/{id}/events | Lists one issue&#39;s captured occurrences, scoped to a project — a project is an isolation unit, so the caller declares which project&#39;s occurrences to read.
 [**GetO11ySentinelLogs**](O11yAPI.md#GetO11ySentinelLogs) | **Get** /v1/o11y/sentinel/logs | Lists a project&#39;s captured error events, newest first, optionally narrowed to those whose message or exception text contains a search string.
-[**GetO11ySentinelProjects**](O11yAPI.md#GetO11ySentinelProjects) | **Get** /v1/o11y/sentinel/projects | Lists the caller&#39;s org&#39;s Sentry projects, each with its freshly-derived DSN.
-[**GetO11ySentinelProjectsById**](O11yAPI.md#GetO11ySentinelProjectsById) | **Get** /v1/o11y/sentinel/projects/{id} | Returns one Sentry project of the caller&#39;s org, DSN included.
+[**GetO11ySentinelProjects**](O11yAPI.md#GetO11ySentinelProjects) | **Get** /v1/o11y/sentinel/projects | Lists the caller&#39;s org&#39;s Sentry projects — one per product that has reported an error, plus any created by hand.
+[**GetO11ySentinelProjectsById**](O11yAPI.md#GetO11ySentinelProjectsById) | **Get** /v1/o11y/sentinel/projects/{id} | Returns one Sentry project of the caller&#39;s org.
 [**GetO11ySentinelStats**](O11yAPI.md#GetO11ySentinelStats) | **Get** /v1/o11y/sentinel/stats | Returns a project&#39;s event-rate timeseries: one bucket per interval over the requested period, counting the events in it.
 [**GetO11ySentinelTraces**](O11yAPI.md#GetO11ySentinelTraces) | **Get** /v1/o11y/sentinel/traces | Lists the traces a project&#39;s captured errors reference, each with how many errors landed on it, when they started and stopped, and the latest message seen — the entry point for \&quot;which requests are failing\&quot;.
 [**GetO11ySentinelTracesById**](O11yAPI.md#GetO11ySentinelTracesById) | **Get** /v1/o11y/sentinel/traces/{id} | Returns one trace&#39;s captured errors for a project — every error event that carried the trace id, in the order the events plane holds them.
@@ -189,10 +174,7 @@ Method | HTTP request | Description
 [**GetPublicDashboardData**](O11yAPI.md#GetPublicDashboardData) | **Get** /v1/o11y/public/dashboards/{id} | Returns the sanitized dashboard data for public access — the read a shared dashboard&#39;s public page makes.
 [**GetPublicDashboardWidgetQueryRange**](O11yAPI.md#GetPublicDashboardWidgetQueryRange) | **Get** /v1/o11y/public/dashboards/{id}/widgets/{idx}/query_range | Returns the query-range result for one widget of a public dashboard.
 [**GetQuickFilters**](O11yAPI.md#GetQuickFilters) | **Get** /v1/o11y/orgs/me/filters | Returns the org&#39;s quick filters for every signal — the attribute shortlists its explorers offer as one-click filters.
-[**GetResetPasswordToken**](O11yAPI.md#GetResetPasswordToken) | **Get** /v1/o11y/users/{id}/reset_password_tokens | Returns the reset-password token a user already has; absent one, the answer is a not-found rather than a fresh token.
-[**GetResetPasswordTokenDeprecated**](O11yAPI.md#GetResetPasswordTokenDeprecated) | **Get** /v1/o11y/getResetPasswordToken/{id} | Returns a user&#39;s password-reset token, creating one if none is live.
 [**GetRole**](O11yAPI.md#GetRole) | **Get** /v1/o11y/roles/{id} | Returns one role with the transaction groups it grants.
-[**GetRolesByUserID**](O11yAPI.md#GetRolesByUserID) | **Get** /v1/o11y/users/{id}/roles | Returns every role one org member holds, by user id.
 [**GetRoutePolicyByID**](O11yAPI.md#GetRoutePolicyByID) | **Get** /v1/o11y/route_policies/{id} | Returns one route policy, by id.
 [**GetRuleByID**](O11yAPI.md#GetRuleByID) | **Get** /v1/o11y/rules/{id} | Returns one alert rule with its evaluation state, by id.
 [**GetRuleHistoryFilterKeys**](O11yAPI.md#GetRuleHistoryFilterKeys) | **Get** /v1/o11y/rules/{id}/history/filter_keys | Returns the distinct label keys present in a rule&#39;s history entries over the selected range, for building history filters.
@@ -207,7 +189,6 @@ Method | HTTP request | Description
 [**GetService**](O11yAPI.md#GetService) | **Get** /v1/o11y/cloud_integrations/{cloud_provider}/services/{service_id} | Returns one service the given provider can collect from, by service id, optionally scoped to one cloud integration.
 [**GetServiceAccount**](O11yAPI.md#GetServiceAccount) | **Get** /v1/o11y/service_accounts/{id} | Returns one service account with the roles it holds.
 [**GetServiceAccountRoles**](O11yAPI.md#GetServiceAccountRoles) | **Get** /v1/o11y/service_accounts/{id}/roles | Lists the roles a service account holds.
-[**GetSessionContext**](O11yAPI.md#GetSessionContext) | **Get** /v1/o11y/sessions/context | Tells a sign-in page what an email address can do: which orgs the address belongs to and, per org, which password and SSO routes are open to it.
 [**GetSignalFilters**](O11yAPI.md#GetSignalFilters) | **Get** /v1/o11y/orgs/me/filters/{signal} | Returns the org&#39;s quick filters for one signal — traces, logs, metrics, exceptions or api_monitoring.
 [**GetTraceAggregations**](O11yAPI.md#GetTraceAggregations) | **Post** /v1/o11y/traces/{traceId}/aggregations | Computes span aggregations over one trace — span count, duration or share of execution time — grouped by the resource field each aggregation names.
 [**GetTraceFields**](O11yAPI.md#GetTraceFields) | **Get** /v1/o11y/traces/fields | Returns the trace field catalog: the span fields already selected as indexed columns, and the interesting ones seen in the data that could be.
@@ -217,16 +198,12 @@ Method | HTTP request | Description
 [**GetTraceFunnelSlowTraces**](O11yAPI.md#GetTraceFunnelSlowTraces) | **Post** /v1/o11y/trace-funnels/{funnel_id}/analytics/slow-traces | Returns the slowest traces through a step transition of a saved funnel — the entry point for \&quot;why is this step slow\&quot;.
 [**GetTraceFunnelStepMetrics**](O11yAPI.md#GetTraceFunnelStepMetrics) | **Post** /v1/o11y/trace-funnels/{funnel_id}/analytics/steps | Returns a saved funnel&#39;s per-step metrics over a window — the counts and latencies at each step, in step order.
 [**GetTraceFunnelStepOverview**](O11yAPI.md#GetTraceFunnelStepOverview) | **Post** /v1/o11y/trace-funnels/{funnel_id}/analytics/steps/overview | Returns the conversion between two named steps of a saved funnel — the step-to-step drill-down behind the overview.
-[**GetUser**](O11yAPI.md#GetUser) | **Get** /v1/o11y/users/{id} | Returns one org member together with every role they hold, by user id.
-[**GetUserDeprecated**](O11yAPI.md#GetUserDeprecated) | **Get** /v1/o11y/user/{id} | Returns one org member with their single legacy role, by user id.
 [**GetUserPreference**](O11yAPI.md#GetUserPreference) | **Get** /v1/o11y/user/preferences/{name} | Returns one preference of the calling user, by name.
-[**GetUsersByRoleID**](O11yAPI.md#GetUsersByRoleID) | **Get** /v1/o11y/roles/{id}/users | Returns every org member holding a role, by role id.
 [**GetWaterfallV4**](O11yAPI.md#GetWaterfallV4) | **Post** /v1/o11y/traces/{traceId}/waterfall | Returns a trace&#39;s waterfall: every span when the trace is small enough, a capped window around the selected span when it is not, with the uncollapsed subtrees the caller asked to keep open.
 [**InspectMetrics**](O11yAPI.md#InspectMetrics) | **Post** /v1/o11y/metrics/inspect | Returns one metric&#39;s raw time series over a window of at most thirty minutes — each series with its labels and timestamp/value pairs.
 [**InstallIntegration**](O11yAPI.md#InstallIntegration) | **Post** /v1/o11y/integrations/install | Installs an integration into the caller&#39;s org from its id and configuration, answering with the installed catalog item.
 [**ListAccountServicesMetadata**](O11yAPI.md#ListAccountServicesMetadata) | **Get** /v1/o11y/cloud_integrations/{cloud_provider}/accounts/{id}/services | Lists the services metadata for one connected account of the given provider, by account id.
 [**ListAccounts**](O11yAPI.md#ListAccounts) | **Get** /v1/o11y/cloud_integrations/{cloud_provider}/accounts | Lists the cloud-integration accounts connected for the given provider.
-[**ListAuthDomains**](O11yAPI.md#ListAuthDomains) | **Get** /v1/o11y/domains | Lists the org&#39;s auth domains — the email domains whose SSO configuration this org owns.
 [**ListChannels**](O11yAPI.md#ListChannels) | **Get** /v1/o11y/channels | Lists the org&#39;s notification channels.
 [**ListDashboardViews**](O11yAPI.md#ListDashboardViews) | **Get** /v1/o11y/dashboard_views | Returns every saved view in the calling user&#39;s org.
 [**ListDashboardsForUserV2**](O11yAPI.md#ListDashboardsForUserV2) | **Get** /v1/o11y/users/me/dashboards | Is dashboardListV2 personalized for the calling user: each dashboard carries the caller&#39;s pinned state, and pinned dashboards float to the top of the requested ordering.
@@ -252,8 +229,6 @@ Method | HTTP request | Description
 [**ListSpanMappers**](O11yAPI.md#ListSpanMappers) | **Get** /v1/o11y/span_mapper_groups/{groupId}/span_mappers | Lists the mappers belonging to one group, in the order they are applied.
 [**ListTraceFunnels**](O11yAPI.md#ListTraceFunnels) | **Get** /v1/o11y/trace-funnels/list | Lists the caller&#39;s org&#39;s funnels, each with its steps and who last touched it.
 [**ListUserPreferences**](O11yAPI.md#ListUserPreferences) | **Get** /v1/o11y/user/preferences | Lists every preference of the calling user, each with its current and default value.
-[**ListUsers**](O11yAPI.md#ListUsers) | **Get** /v1/o11y/users | Lists the caller&#39;s org members.
-[**ListUsersDeprecated**](O11yAPI.md#ListUsersDeprecated) | **Get** /v1/o11y/user | Lists the org&#39;s members with their single legacy role.
 [**LockDashboardV2**](O11yAPI.md#LockDashboardV2) | **Put** /v1/o11y/dashboards/{id}/lock | Locks a v2-shape dashboard.
 [**PatchDashboardV2**](O11yAPI.md#PatchDashboardV2) | **Patch** /v1/o11y/dashboards/{id} | Applies an RFC 6902 JSON Patch to a v2-shape dashboard.
 [**PatchO11yReviewsById**](O11yAPI.md#PatchO11yReviewsById) | **Patch** /v1/o11y/reviews/{id} | Changes a review queue&#39;s name, description or score-config set.
@@ -261,11 +236,8 @@ Method | HTTP request | Description
 [**PatchRuleByID**](O11yAPI.md#PatchRuleByID) | **Patch** /v1/o11y/rules/{id} | Applies a partial update to an alert rule, by id, answering with the stored rule — the common toggle for enabling or muting a rule.
 [**PinDashboardV2**](O11yAPI.md#PinDashboardV2) | **Put** /v1/o11y/users/me/dashboards/{id}/pins | Pins a dashboard for the calling user.
 [**PostO11yAlertsByReceiver**](O11yAPI.md#PostO11yAlertsByReceiver) | **Post** /v1/o11y/alerts/{receiver} | Take an Alertmanager notification and page a human
-[**PostO11yApiByProjectIdEnvelope**](O11yAPI.md#PostO11yApiByProjectIdEnvelope) | **Post** /v1/o11y/api/{project_id}/envelope/ | Receive a Sentry envelope on the SDK&#39;s own DSN path
-[**PostO11yApiByProjectIdStore**](O11yAPI.md#PostO11yApiByProjectIdStore) | **Post** /v1/o11y/api/{project_id}/store/ | Receive a single Sentry event on the SDK&#39;s own DSN path
 [**PostO11yAutoCompleteAttributeValues**](O11yAPI.md#PostO11yAutoCompleteAttributeValues) | **Post** /v1/o11y/auto_complete/attribute_values | Reads the attribute-value request from the body rather than off the query string — the spelling the newer builder uses to send its filters alongside the request.
 [**PostO11yClustersList**](O11yAPI.md#PostO11yClustersList) | **Post** /v1/o11y/clusters/list | Lists Kubernetes clusters over a time range, each with its CPU and memory usage against allocatable capacity and its attributes; filterable, groupable and paginated.
-[**PostO11yCompleteSaml**](O11yAPI.md#PostO11yCompleteSaml) | **Post** /v1/o11y/complete/saml | Complete a SAML sign-in
 [**PostO11yCounterrors**](O11yAPI.md#PostO11yCounterrors) | **Post** /v1/o11y/countErrors | Counts the grouped exceptions in the query window for the caller&#39;s org.
 [**PostO11yDaemonsetsList**](O11yAPI.md#PostO11yDaemonsetsList) | **Post** /v1/o11y/daemonsets/list | Lists Kubernetes daemonsets over a time range, each with the CPU and memory its pods used against request and limit, desired and available node counts, restarts and attributes; filterable, groupable and paginated.
 [**PostO11yDependencyGraph**](O11yAPI.md#PostO11yDependencyGraph) | **Post** /v1/o11y/dependency_graph | Returns the service dependency graph over the requested window: every parent→child edge observed, with call and error rates and latency percentiles per edge.
@@ -314,12 +286,10 @@ Method | HTTP request | Description
 [**PostO11yQueryRange**](O11yAPI.md#PostO11yQueryRange) | **Post** /v1/o11y/query_range | Executes a composite query over a time range: builder queries over traces, logs and metrics, formulas, trace operators, PromQL and Datastore SQL, answering time series, scalars or raw records as the request type asks.
 [**PostO11yQueryRangeFormat**](O11yAPI.md#PostO11yQueryRangeFormat) | **Post** /v1/o11y/query_range/format | Parses a builder query and echoes it back normalized to the v3 shape — the endpoint the UI uses to canonicalize a query without running it.
 [**PostO11yQueryRangePreview**](O11yAPI.md#PostO11yQueryRangePreview) | **Post** /v1/o11y/query_range/preview | Validates a composite query and renders the Datastore statements it would run WITHOUT executing it — a dry run for agentic and tooling use.
-[**PostO11yRegister**](O11yAPI.md#PostO11yRegister) | **Post** /v1/o11y/register | Creates the FIRST organization and its admin user.
 [**PostO11yReviews**](O11yAPI.md#PostO11yReviews) | **Post** /v1/o11y/reviews | Creates a human-review queue in the caller&#39;s org and project.
 [**PostO11yReviewsByIdItems**](O11yAPI.md#PostO11yReviewsByIdItems) | **Post** /v1/o11y/reviews/{id}/items | Enqueues traces, observations or sessions on a review queue.
 [**PostO11ySentinelDiscover**](O11yAPI.md#PostO11ySentinelDiscover) | **Post** /v1/o11y/sentinel/discover | Aggregates a project&#39;s captured errors into a table — the caller names the filters, the groupings and the aggregations, and gets back the columns and rows they asked for.
-[**PostO11ySentinelProjects**](O11yAPI.md#PostO11ySentinelProjects) | **Post** /v1/o11y/sentinel/projects | Creates a Sentry project under the caller&#39;s org and returns it, DSN included.
-[**PostO11ySentinelProjectsByIdKeysRotate**](O11yAPI.md#PostO11ySentinelProjectsByIdKeysRotate) | **Post** /v1/o11y/sentinel/projects/{id}/keys/rotate | Rotates a project&#39;s DSN key — bumping its rotation watermark so keys below it stop verifying — and returns the project with its new DSN.
+[**PostO11ySentinelProjects**](O11yAPI.md#PostO11ySentinelProjects) | **Post** /v1/o11y/sentinel/projects | Creates a Sentry project under the caller&#39;s org and returns it.
 [**PostO11yServiceEntryPointOperations**](O11yAPI.md#PostO11yServiceEntryPointOperations) | **Post** /v1/o11y/service/entry_point_operations | Returns one service&#39;s entry-point operations with the same latency and error profile topOperations reports.
 [**PostO11yServiceTopLevelOperations**](O11yAPI.md#PostO11yServiceTopLevelOperations) | **Post** /v1/o11y/service/top_level_operations | Maps each service to its entry-point span names — for the one service named in the request, or for every service when none is.
 [**PostO11yServiceTopOperations**](O11yAPI.md#PostO11yServiceTopOperations) | **Post** /v1/o11y/service/top_operations | Returns one service&#39;s heaviest operations in the window, each with p50/p95/p99 latency, how often it ran and how often it errored.
@@ -337,13 +307,9 @@ Method | HTTP request | Description
 [**PutO11yExplorerViewsByViewid**](O11yAPI.md#PutO11yExplorerViewsByViewid) | **Put** /v1/o11y/explorer/views/{viewId} | Replaces one saved explorer view by id with the given view and echoes it back.
 [**PutO11ySentinelIssuesById**](O11yAPI.md#PutO11ySentinelIssuesById) | **Put** /v1/o11y/sentinel/issues/{id} | Changes an issue&#39;s lifecycle — resolve, ignore, reopen or assign — and returns the updated issue.
 [**PutProfile**](O11yAPI.md#PutProfile) | **Put** /v1/o11y/zeus/profiles | Records the deployment&#39;s profile in Zeus — how the team uses observability today and what they plan — overwriting any prior one.
-[**RemoveUserRoleByUserIDAndRoleID**](O11yAPI.md#RemoveUserRoleByUserIDAndRoleID) | **Delete** /v1/o11y/users/{id}/roles/{roleId} | Takes a role away from one org member, by user id and role id — someone else, never the caller.
-[**ResetPassword**](O11yAPI.md#ResetPassword) | **Post** /v1/o11y/resetPassword | Sets a new password for whoever the reset token was minted for, consuming the token.
 [**RevokeServiceAccountKey**](O11yAPI.md#RevokeServiceAccountKey) | **Delete** /v1/o11y/service_accounts/{id}/keys/{fid} | Revokes an API key.
-[**RotateSession**](O11yAPI.md#RotateSession) | **Post** /v1/o11y/sessions/rotate | Exchanges a refresh token for a fresh token pair, retiring the old pair.
 [**SearchIngestionKeys**](O11yAPI.md#SearchIngestionKeys) | **Get** /v1/o11y/gateway/ingestion_keys/search | Lists the workspace&#39;s ingestion keys whose name matches the search, paginated.
 [**SearchTraces**](O11yAPI.md#SearchTraces) | **Get** /v1/o11y/traces/{traceId} | Returns one trace&#39;s spans as a column/row table, optionally centred on a span and walked a fixed number of levels up and down from it — the read the trace explorer opens a trace with.
-[**SetRoleByUserID**](O11yAPI.md#SetRoleByUserID) | **Post** /v1/o11y/users/{id}/roles | Assigns a role, by role name, to one org member — someone else, never the caller.
 [**TestChannel**](O11yAPI.md#TestChannel) | **Post** /v1/o11y/channels/test | Sends a test notification to the posted receiver.
 [**TestChannelDeprecated**](O11yAPI.md#TestChannelDeprecated) | **Post** /v1/o11y/testChannel | Sends a test notification to the posted receiver.
 [**TestRule**](O11yAPI.md#TestRule) | **Post** /v1/o11y/rules/test | Fires a test notification for a rule definition without saving it, answering with how many series would alert.
@@ -352,7 +318,6 @@ Method | HTTP request | Description
 [**UnlockDashboardV2**](O11yAPI.md#UnlockDashboardV2) | **Delete** /v1/o11y/dashboards/{id}/lock | Unlocks a v2-shape dashboard.
 [**UnpinDashboardV2**](O11yAPI.md#UnpinDashboardV2) | **Delete** /v1/o11y/users/me/dashboards/{id}/pins | Removes the caller&#39;s pin for a dashboard.
 [**UpdateAccount**](O11yAPI.md#UpdateAccount) | **Put** /v1/o11y/cloud_integrations/{cloud_provider}/accounts/{id} | Changes a connected account&#39;s configuration for the given provider, by id.
-[**UpdateAuthDomain**](O11yAPI.md#UpdateAuthDomain) | **Put** /v1/o11y/domains/{id} | Replaces one auth domain&#39;s SSO configuration, by id.
 [**UpdateChannelByID**](O11yAPI.md#UpdateChannelByID) | **Put** /v1/o11y/channels/{id} | Replaces a notification channel&#39;s receiver, by id.
 [**UpdateDashboardV2**](O11yAPI.md#UpdateDashboardV2) | **Put** /v1/o11y/dashboards/{id} | Updates a v2-shape dashboard&#39;s metadata, spec and tag set.
 [**UpdateDashboardView**](O11yAPI.md#UpdateDashboardView) | **Put** /v1/o11y/dashboard_views/{id} | Replaces a saved view&#39;s name and data.
@@ -362,9 +327,7 @@ Method | HTTP request | Description
 [**UpdateMetricMetadata**](O11yAPI.md#UpdateMetricMetadata) | **Post** /v1/o11y/metrics/metadata | Updates one metric&#39;s metadata — description, type, unit, temporality, monotonicity — and answers with the bare success envelope.
 [**UpdateMetricReductionRuleByID**](O11yAPI.md#UpdateMetricReductionRuleByID) | **Put** /v1/o11y/metric_reduction_rules/{id} | Updates the match type and labels of a volume-control rule by its id; the metric name is immutable.
 [**UpdateMyOrganization**](O11yAPI.md#UpdateMyOrganization) | **Put** /v1/o11y/orgs/me | Rewrites the caller&#39;s own organization record — display name, name, alias — always addressed as \&quot;me\&quot;, never by id.
-[**UpdateMyPassword**](O11yAPI.md#UpdateMyPassword) | **Put** /v1/o11y/users/me/factor_password | Replaces the calling user&#39;s password, refusing when the old one does not match.
 [**UpdateMyServiceAccount**](O11yAPI.md#UpdateMyServiceAccount) | **Put** /v1/o11y/service_accounts/me | Renames the calling service account.
-[**UpdateMyUserV2**](O11yAPI.md#UpdateMyUserV2) | **Put** /v1/o11y/users/me | Renames the calling user.
 [**UpdateOrgPreference**](O11yAPI.md#UpdateOrgPreference) | **Put** /v1/o11y/org/preferences/{name} | Sets one org-scoped preference, by name.
 [**UpdatePublicDashboard**](O11yAPI.md#UpdatePublicDashboard) | **Put** /v1/o11y/dashboards/{id}/public | Updates the public-sharing config for a dashboard.
 [**UpdateQuickFilters**](O11yAPI.md#UpdateQuickFilters) | **Put** /v1/o11y/orgs/me/filters | Replaces the org&#39;s quick filters for one signal with the attribute list given.
@@ -379,12 +342,9 @@ Method | HTTP request | Description
 [**UpdateTraceField**](O11yAPI.md#UpdateTraceField) | **Post** /v1/o11y/traces/fields | Changes how one span field is stored — selects or deselects it as a materialized column and tunes its index — and echoes the setting back.
 [**UpdateTraceFunnel**](O11yAPI.md#UpdateTraceFunnel) | **Put** /v1/o11y/trace-funnels/{funnel_id} | Renames a funnel or rewrites its description, answering the funnel as it now stands.
 [**UpdateTraceFunnelSteps**](O11yAPI.md#UpdateTraceFunnelSteps) | **Put** /v1/o11y/trace-funnels/steps/update | Replaces a funnel&#39;s steps — the funnel is named in the body rather than the path — and answers the funnel as it now stands.
-[**UpdateUser**](O11yAPI.md#UpdateUser) | **Put** /v1/o11y/users/{id} | Renames one org member, by user id — someone else, never the caller, who renames themselves through updateMyUser.
-[**UpdateUserDeprecated**](O11yAPI.md#UpdateUserDeprecated) | **Put** /v1/o11y/user/{id} | Renames one org member and may move their legacy role, answering with the updated record.
 [**UpdateUserPreference**](O11yAPI.md#UpdateUserPreference) | **Put** /v1/o11y/user/preferences/{name} | Sets one preference of the calling user, by name.
 [**ValidateDraftFunnelTraces**](O11yAPI.md#ValidateDraftFunnelTraces) | **Post** /v1/o11y/trace-funnels/analytics/validate | Lists the traces that match a funnel described inline — the builder&#39;s \&quot;try this\&quot; before anything is saved.
 [**ValidateTraceFunnelTraces**](O11yAPI.md#ValidateTraceFunnelTraces) | **Post** /v1/o11y/trace-funnels/{funnel_id}/analytics/validate | Lists the traces that match a saved funnel over a window — the read that answers \&quot;is this funnel finding anything at all\&quot;.
-[**VerifyResetPasswordToken**](O11yAPI.md#VerifyResetPasswordToken) | **Post** /v1/o11y/reset_password_tokens/verify | Checks that a reset-password token exists and has not expired, without consuming it.
 
 
 
@@ -453,7 +413,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -525,7 +485,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -591,7 +551,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -661,7 +621,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -733,139 +693,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateAuthDomain
-
-> O11yO11yCreatedOut CreateAuthDomain(ctx).O11yO11yPostableAuthDomain(o11yO11yPostableAuthDomain).Execute()
-
-Claims an email domain for the org and configures how its users sign in; the answer is the new domain's id.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	o11yO11yPostableAuthDomain := *openapiclient.NewO11yO11yPostableAuthDomain() // O11yO11yPostableAuthDomain | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.CreateAuthDomain(context.Background()).O11yO11yPostableAuthDomain(o11yO11yPostableAuthDomain).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.CreateAuthDomain``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateAuthDomain`: O11yO11yCreatedOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.CreateAuthDomain`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateAuthDomainRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **o11yO11yPostableAuthDomain** | [**O11yO11yPostableAuthDomain**](O11yO11yPostableAuthDomain.md) |  | 
-
-### Return type
-
-[**O11yO11yCreatedOut**](O11yO11yCreatedOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateBulkInvite
-
-> O11yO11yAck CreateBulkInvite(ctx).O11yO11yBulkInviteIn(o11yO11yBulkInviteIn).Execute()
-
-Invites several people to the caller's org in one call, refusing the whole batch when any email repeats.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	o11yO11yBulkInviteIn := *openapiclient.NewO11yO11yBulkInviteIn() // O11yO11yBulkInviteIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.CreateBulkInvite(context.Background()).O11yO11yBulkInviteIn(o11yO11yBulkInviteIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.CreateBulkInvite``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateBulkInvite`: O11yO11yAck
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.CreateBulkInvite`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateBulkInviteRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **o11yO11yBulkInviteIn** | [**O11yO11yBulkInviteIn**](O11yO11yBulkInviteIn.md) |  | 
-
-### Return type
-
-[**O11yO11yAck**](O11yO11yAck.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -931,7 +759,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -997,7 +825,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1063,7 +891,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1129,7 +957,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1195,7 +1023,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1267,73 +1095,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateInvite
-
-> O11yO11yInviteOut CreateInvite(ctx).O11yO11yInviteIn(o11yO11yInviteIn).Execute()
-
-Invites one person to the caller's org by email, with the role they will hold when they accept.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	o11yO11yInviteIn := *openapiclient.NewO11yO11yInviteIn() // O11yO11yInviteIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.CreateInvite(context.Background()).O11yO11yInviteIn(o11yO11yInviteIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.CreateInvite``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateInvite`: O11yO11yInviteOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.CreateInvite`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateInviteRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **o11yO11yInviteIn** | [**O11yO11yInviteIn**](O11yO11yInviteIn.md) |  | 
-
-### Return type
-
-[**O11yO11yInviteOut**](O11yO11yInviteOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1399,7 +1161,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1465,7 +1227,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1531,7 +1293,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1540,7 +1302,7 @@ Name | Type | Description  | Notes
 
 ## CreateOrUpdateLLMPricingRules
 
-> CreateOrUpdateLLMPricingRules(ctx).O11yO11yLLMUpdatablePricingRules(o11yO11yLLMUpdatablePricingRules).Execute()
+> Approval CreateOrUpdateLLMPricingRules(ctx).O11yO11yLLMUpdatablePricingRules(o11yO11yLLMUpdatablePricingRules).Execute()
 
 Writes the pricing-rule batch — the single write endpoint used by both the user and the Zeus sync job.
 
@@ -1563,11 +1325,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.CreateOrUpdateLLMPricingRules(context.Background()).O11yO11yLLMUpdatablePricingRules(o11yO11yLLMUpdatablePricingRules).Execute()
+	resp, r, err := apiClient.O11yAPI.CreateOrUpdateLLMPricingRules(context.Background()).O11yO11yLLMUpdatablePricingRules(o11yO11yLLMUpdatablePricingRules).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.CreateOrUpdateLLMPricingRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `CreateOrUpdateLLMPricingRules`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.CreateOrUpdateLLMPricingRules`: %v\n", resp)
 }
 ```
 
@@ -1586,7 +1350,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -1595,7 +1359,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1667,77 +1431,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateResetPasswordToken
-
-> O11yO11yResetTokenOut CreateResetPasswordToken(ctx, id).Execute()
-
-Creates or regenerates a user's reset-password token: a live token is returned as it is, an expired one is replaced.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.CreateResetPasswordToken(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.CreateResetPasswordToken``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateResetPasswordToken`: O11yO11yResetTokenOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.CreateResetPasswordToken`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateResetPasswordTokenRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**O11yO11yResetTokenOut**](O11yO11yResetTokenOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1803,7 +1497,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1869,7 +1563,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1935,7 +1629,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2001,7 +1695,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2073,7 +1767,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2082,7 +1776,7 @@ Name | Type | Description  | Notes
 
 ## CreateServiceAccountRole
 
-> CreateServiceAccountRole(ctx, id).O11yO11yServiceAccountRoleGrantIn(o11yO11yServiceAccountRoleGrantIn).Execute()
+> Approval CreateServiceAccountRole(ctx, id).O11yO11yServiceAccountRoleGrantIn(o11yO11yServiceAccountRoleGrantIn).Execute()
 
 Assigns a role, named by its id, to a service account.
 
@@ -2106,11 +1800,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.CreateServiceAccountRole(context.Background(), id).O11yO11yServiceAccountRoleGrantIn(o11yO11yServiceAccountRoleGrantIn).Execute()
+	resp, r, err := apiClient.O11yAPI.CreateServiceAccountRole(context.Background(), id).O11yO11yServiceAccountRoleGrantIn(o11yO11yServiceAccountRoleGrantIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.CreateServiceAccountRole``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `CreateServiceAccountRole`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.CreateServiceAccountRole`: %v\n", resp)
 }
 ```
 
@@ -2134,7 +1830,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -2143,73 +1839,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateSessionByEmailPassword
-
-> O11yO11yTokenOut CreateSessionByEmailPassword(ctx).O11yO11yEmailPasswordSessionIn(o11yO11yEmailPasswordSessionIn).Execute()
-
-Signs a user in with email and password and answers with the session's token pair.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	o11yO11yEmailPasswordSessionIn := *openapiclient.NewO11yO11yEmailPasswordSessionIn() // O11yO11yEmailPasswordSessionIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.CreateSessionByEmailPassword(context.Background()).O11yO11yEmailPasswordSessionIn(o11yO11yEmailPasswordSessionIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.CreateSessionByEmailPassword``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateSessionByEmailPassword`: O11yO11yTokenOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.CreateSessionByEmailPassword`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateSessionByEmailPasswordRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **o11yO11yEmailPasswordSessionIn** | [**O11yO11yEmailPasswordSessionIn**](O11yO11yEmailPasswordSessionIn.md) |  | 
-
-### Return type
-
-[**O11yO11yTokenOut**](O11yO11yTokenOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2281,7 +1911,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2347,7 +1977,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2413,141 +2043,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateUser
-
-> O11yO11yCreatedOut CreateUser(ctx).O11yO11yPostableUser(o11yO11yPostableUser).Execute()
-
-Creates a member of the caller's org in the pending-invite state and mails them their invitation; the answer is the new user's id.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	o11yO11yPostableUser := *openapiclient.NewO11yO11yPostableUser() // O11yO11yPostableUser | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.CreateUser(context.Background()).O11yO11yPostableUser(o11yO11yPostableUser).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.CreateUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateUser`: O11yO11yCreatedOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.CreateUser`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **o11yO11yPostableUser** | [**O11yO11yPostableUser**](O11yO11yPostableUser.md) |  | 
-
-### Return type
-
-[**O11yO11yCreatedOut**](O11yO11yCreatedOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteAuthDomain
-
-> DeleteAuthDomain(ctx, id).Execute()
-
-Releases an email domain and discards its SSO configuration, by id.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteAuthDomain(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteAuthDomain``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteAuthDomainRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2556,7 +2052,7 @@ Name | Type | Description  | Notes
 
 ## DeleteChannelByID
 
-> DeleteChannelByID(ctx, id).Execute()
+> Approval DeleteChannelByID(ctx, id).Execute()
 
 Removes a notification channel, by id.
 
@@ -2579,11 +2075,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteChannelByID(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteChannelByID(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteChannelByID``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteChannelByID`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteChannelByID`: %v\n", resp)
 }
 ```
 
@@ -2606,7 +2104,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -2615,7 +2113,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2624,7 +2122,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDashboardV2
 
-> DeleteDashboardV2(ctx, id).Execute()
+> Approval DeleteDashboardV2(ctx, id).Execute()
 
 Deletes a v2-shape dashboard along with its tag relations.
 
@@ -2647,11 +2145,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteDashboardV2(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteDashboardV2(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteDashboardV2``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteDashboardV2`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteDashboardV2`: %v\n", resp)
 }
 ```
 
@@ -2674,7 +2174,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -2683,7 +2183,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2692,7 +2192,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDashboardView
 
-> DeleteDashboardView(ctx, id).Execute()
+> Approval DeleteDashboardView(ctx, id).Execute()
 
 Removes a saved view.
 
@@ -2715,11 +2215,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteDashboardView(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteDashboardView(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteDashboardView``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteDashboardView`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteDashboardView`: %v\n", resp)
 }
 ```
 
@@ -2742,7 +2244,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -2751,7 +2253,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2760,7 +2262,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDowntimeScheduleByID
 
-> DeleteDowntimeScheduleByID(ctx, id).Execute()
+> Approval DeleteDowntimeScheduleByID(ctx, id).Execute()
 
 Removes a planned maintenance window, by id.
 
@@ -2783,11 +2285,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteDowntimeScheduleByID(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteDowntimeScheduleByID(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteDowntimeScheduleByID``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteDowntimeScheduleByID`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteDowntimeScheduleByID`: %v\n", resp)
 }
 ```
 
@@ -2810,7 +2314,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -2819,7 +2323,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2828,7 +2332,7 @@ Name | Type | Description  | Notes
 
 ## DeleteIngestionKey
 
-> DeleteIngestionKey(ctx, keyId).Execute()
+> Approval DeleteIngestionKey(ctx, keyId).Execute()
 
 Removes an ingestion key, by id.
 
@@ -2851,11 +2355,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteIngestionKey(context.Background(), keyId).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteIngestionKey(context.Background(), keyId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteIngestionKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteIngestionKey`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteIngestionKey`: %v\n", resp)
 }
 ```
 
@@ -2878,7 +2384,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -2887,7 +2393,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2896,7 +2402,7 @@ Name | Type | Description  | Notes
 
 ## DeleteIngestionKeyLimit
 
-> DeleteIngestionKeyLimit(ctx, limitId).Execute()
+> Approval DeleteIngestionKeyLimit(ctx, limitId).Execute()
 
 Removes an ingestion key limit, by limit id.
 
@@ -2919,11 +2425,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteIngestionKeyLimit(context.Background(), limitId).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteIngestionKeyLimit(context.Background(), limitId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteIngestionKeyLimit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteIngestionKeyLimit`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteIngestionKeyLimit`: %v\n", resp)
 }
 ```
 
@@ -2946,7 +2454,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -2955,7 +2463,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2964,7 +2472,7 @@ Name | Type | Description  | Notes
 
 ## DeleteLLMPricingRule
 
-> DeleteLLMPricingRule(ctx, id).Execute()
+> Approval DeleteLLMPricingRule(ctx, id).Execute()
 
 Hard-deletes a pricing rule by id.
 
@@ -2987,11 +2495,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteLLMPricingRule(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteLLMPricingRule(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteLLMPricingRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteLLMPricingRule`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteLLMPricingRule`: %v\n", resp)
 }
 ```
 
@@ -3014,7 +2524,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -3023,7 +2533,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3032,7 +2542,7 @@ Name | Type | Description  | Notes
 
 ## DeleteLLMScore
 
-> DeleteLLMScore(ctx, id).Execute()
+> Approval DeleteLLMScore(ctx, id).Execute()
 
 Hard-deletes a score by id.
 
@@ -3055,11 +2565,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteLLMScore(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteLLMScore(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteLLMScore``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteLLMScore`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteLLMScore`: %v\n", resp)
 }
 ```
 
@@ -3082,7 +2594,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -3091,7 +2603,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3100,7 +2612,7 @@ Name | Type | Description  | Notes
 
 ## DeleteMetricReductionRuleByID
 
-> DeleteMetricReductionRuleByID(ctx, id).Execute()
+> Approval DeleteMetricReductionRuleByID(ctx, id).Execute()
 
 Deletes a volume-control rule by its id.
 
@@ -3123,11 +2635,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteMetricReductionRuleByID(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteMetricReductionRuleByID(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteMetricReductionRuleByID``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteMetricReductionRuleByID`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteMetricReductionRuleByID`: %v\n", resp)
 }
 ```
 
@@ -3150,7 +2664,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -3159,7 +2673,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3229,7 +2743,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3299,7 +2813,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3308,9 +2822,9 @@ Name | Type | Description  | Notes
 
 ## DeleteO11ySentinelProjectsById
 
-> DeleteO11ySentinelProjectsById(ctx, id).Execute()
+> Approval DeleteO11ySentinelProjectsById(ctx, id).Execute()
 
-Deletes one Sentry project of the caller's org.
+Deletes one Sentry project of the caller's org; retained events are not touched.
 
 
 
@@ -3331,11 +2845,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteO11ySentinelProjectsById(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteO11ySentinelProjectsById(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteO11ySentinelProjectsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteO11ySentinelProjectsById`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteO11ySentinelProjectsById`: %v\n", resp)
 }
 ```
 
@@ -3358,7 +2874,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -3367,7 +2883,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3376,7 +2892,7 @@ Name | Type | Description  | Notes
 
 ## DeletePublicDashboard
 
-> DeletePublicDashboard(ctx, id).Execute()
+> Approval DeletePublicDashboard(ctx, id).Execute()
 
 Deletes the public-sharing config and disables public sharing of a dashboard.
 
@@ -3399,11 +2915,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeletePublicDashboard(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeletePublicDashboard(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeletePublicDashboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeletePublicDashboard`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeletePublicDashboard`: %v\n", resp)
 }
 ```
 
@@ -3426,7 +2944,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -3435,7 +2953,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3444,7 +2962,7 @@ Name | Type | Description  | Notes
 
 ## DeleteRole
 
-> DeleteRole(ctx, id).Execute()
+> Approval DeleteRole(ctx, id).Execute()
 
 Deletes a custom role.
 
@@ -3467,11 +2985,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteRole(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteRole(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteRole``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteRole`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteRole`: %v\n", resp)
 }
 ```
 
@@ -3494,7 +3014,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -3503,7 +3023,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3512,7 +3032,7 @@ Name | Type | Description  | Notes
 
 ## DeleteRoutePolicyByID
 
-> DeleteRoutePolicyByID(ctx, id).Execute()
+> Approval DeleteRoutePolicyByID(ctx, id).Execute()
 
 Removes a route policy, by id.
 
@@ -3535,11 +3055,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteRoutePolicyByID(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteRoutePolicyByID(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteRoutePolicyByID``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteRoutePolicyByID`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteRoutePolicyByID`: %v\n", resp)
 }
 ```
 
@@ -3562,7 +3084,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -3571,7 +3093,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3580,7 +3102,7 @@ Name | Type | Description  | Notes
 
 ## DeleteRuleByID
 
-> DeleteRuleByID(ctx, id).Execute()
+> Approval DeleteRuleByID(ctx, id).Execute()
 
 Removes an alert rule, by id.
 
@@ -3603,11 +3125,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteRuleByID(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteRuleByID(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteRuleByID``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteRuleByID`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteRuleByID`: %v\n", resp)
 }
 ```
 
@@ -3630,7 +3154,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -3639,7 +3163,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3648,7 +3172,7 @@ Name | Type | Description  | Notes
 
 ## DeleteServiceAccount
 
-> DeleteServiceAccount(ctx, id).Execute()
+> Approval DeleteServiceAccount(ctx, id).Execute()
 
 Deletes a service account and revokes every key it holds.
 
@@ -3671,11 +3195,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteServiceAccount(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteServiceAccount(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteServiceAccount``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteServiceAccount`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteServiceAccount`: %v\n", resp)
 }
 ```
 
@@ -3698,7 +3224,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -3707,7 +3233,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3716,7 +3242,7 @@ Name | Type | Description  | Notes
 
 ## DeleteServiceAccountRole
 
-> DeleteServiceAccountRole(ctx, id, rid).Execute()
+> Approval DeleteServiceAccountRole(ctx, id, rid).Execute()
 
 Removes a role from a service account.
 
@@ -3740,11 +3266,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteServiceAccountRole(context.Background(), id, rid).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteServiceAccountRole(context.Background(), id, rid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteServiceAccountRole``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteServiceAccountRole`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteServiceAccountRole`: %v\n", resp)
 }
 ```
 
@@ -3769,7 +3297,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -3778,66 +3306,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteSession
-
-> DeleteSession(ctx).Execute()
-
-Signs the calling session out, invalidating its tokens.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteSession(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteSession``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteSessionRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3846,7 +3315,7 @@ Other parameters are passed through a pointer to a apiDeleteSessionRequest struc
 
 ## DeleteSpanMapper
 
-> DeleteSpanMapper(ctx, groupId, mapperId).Execute()
+> Approval DeleteSpanMapper(ctx, groupId, mapperId).Execute()
 
 Deletes one mapper from a group.
 
@@ -3870,11 +3339,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteSpanMapper(context.Background(), groupId, mapperId).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteSpanMapper(context.Background(), groupId, mapperId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteSpanMapper``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteSpanMapper`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteSpanMapper`: %v\n", resp)
 }
 ```
 
@@ -3899,7 +3370,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -3908,7 +3379,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3917,7 +3388,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSpanMapperGroup
 
-> DeleteSpanMapperGroup(ctx, groupId).Execute()
+> Approval DeleteSpanMapperGroup(ctx, groupId).Execute()
 
 Deletes a mapping group and every mapper under it.
 
@@ -3940,11 +3411,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteSpanMapperGroup(context.Background(), groupId).Execute()
+	resp, r, err := apiClient.O11yAPI.DeleteSpanMapperGroup(context.Background(), groupId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteSpanMapperGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteSpanMapperGroup`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DeleteSpanMapperGroup`: %v\n", resp)
 }
 ```
 
@@ -3967,7 +3440,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -3976,7 +3449,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4046,143 +3519,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteUser
-
-> DeleteUser(ctx, id).Execute()
-
-Removes one org member, by user id.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteUser(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteUserDeprecated
-
-> DeleteUserDeprecated(ctx, id).Execute()
-
-Removes one org member, by user id.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DeleteUserDeprecated(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DeleteUserDeprecated``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteUserDeprecatedRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4191,7 +3528,7 @@ Name | Type | Description  | Notes
 
 ## DisconnectAccount
 
-> DisconnectAccount(ctx, cloudProvider, id).Execute()
+> Approval DisconnectAccount(ctx, cloudProvider, id).Execute()
 
 Tears down a connected account for the given provider, by id.
 
@@ -4215,11 +3552,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.DisconnectAccount(context.Background(), cloudProvider, id).Execute()
+	resp, r, err := apiClient.O11yAPI.DisconnectAccount(context.Background(), cloudProvider, id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.DisconnectAccount``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DisconnectAccount`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.DisconnectAccount`: %v\n", resp)
 }
 ```
 
@@ -4244,7 +3583,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -4253,71 +3592,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ForgotPassword
-
-> ForgotPassword(ctx).O11yO11yForgotPasswordIn(o11yO11yForgotPasswordIn).Execute()
-
-Starts the forgotten-password flow: the named user is mailed a reset link.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	o11yO11yForgotPasswordIn := *openapiclient.NewO11yO11yForgotPasswordIn() // O11yO11yForgotPasswordIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.ForgotPassword(context.Background()).O11yO11yForgotPasswordIn(o11yO11yForgotPasswordIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.ForgotPassword``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiForgotPasswordRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **o11yO11yForgotPasswordIn** | [**O11yO11yForgotPasswordIn**](O11yO11yForgotPasswordIn.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4390,7 +3665,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4466,7 +3741,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4527,7 +3802,7 @@ Other parameters are passed through a pointer to a apiGetAlertsRequest struct vi
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4588,77 +3863,7 @@ Other parameters are passed through a pointer to a apiGetAllRoutePoliciesRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetAuthDomain
-
-> O11yO11yAuthDomainOut GetAuthDomain(ctx, id).Execute()
-
-Returns one auth domain with its SSO configuration, by id.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.GetAuthDomain(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetAuthDomain``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetAuthDomain`: O11yO11yAuthDomainOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetAuthDomain`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetAuthDomainRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**O11yO11yAuthDomainOut**](O11yO11yAuthDomainOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4728,7 +3933,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4798,7 +4003,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4868,7 +4073,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4938,7 +4143,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5004,7 +4209,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5070,7 +4275,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5136,7 +4341,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5202,7 +4407,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5268,7 +4473,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5340,7 +4545,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5401,7 +4606,7 @@ Other parameters are passed through a pointer to a apiGetHostsRequest struct via
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5469,7 +4674,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5539,7 +4744,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5611,7 +4816,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5681,7 +4886,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5751,7 +4956,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5817,7 +5022,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5887,7 +5092,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5953,7 +5158,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6019,7 +5224,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6085,7 +5290,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6155,7 +5360,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6216,7 +5421,7 @@ Other parameters are passed through a pointer to a apiGetMetricReductionRuleStat
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6277,7 +5482,7 @@ Other parameters are passed through a pointer to a apiGetMetricReductionRuleTime
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6338,7 +5543,7 @@ Other parameters are passed through a pointer to a apiGetMetricsOnboardingStatus
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6404,7 +5609,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6470,7 +5675,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6531,7 +5736,7 @@ Other parameters are passed through a pointer to a apiGetMyOrganizationRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6592,7 +5797,7 @@ Other parameters are passed through a pointer to a apiGetMyServiceAccountRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6601,7 +5806,7 @@ Other parameters are passed through a pointer to a apiGetMyServiceAccountRequest
 
 ## GetMyUser
 
-> O11yO11yUserWithRolesOut GetMyUser(ctx).Execute()
+> O11yO11yUserOut GetMyUser(ctx).Execute()
 
 Returns the calling user together with every role they hold.
 
@@ -6628,7 +5833,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetMyUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMyUser`: O11yO11yUserWithRolesOut
+	// response from `GetMyUser`: O11yO11yUserOut
 	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetMyUser`: %v\n", resp)
 }
 ```
@@ -6644,7 +5849,7 @@ Other parameters are passed through a pointer to a apiGetMyUserRequest struct vi
 
 ### Return type
 
-[**O11yO11yUserWithRolesOut**](O11yO11yUserWithRolesOut.md)
+[**O11yO11yUserOut**](O11yO11yUserOut.md)
 
 ### Authorization
 
@@ -6653,18 +5858,18 @@ Other parameters are passed through a pointer to a apiGetMyUserRequest struct vi
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## GetMyUserDeprecated
+## GetO11yAlertsHeartbeat
 
-> O11yO11yDeprecatedUserOut GetMyUserDeprecated(ctx).Execute()
+> O11yHeartbeat GetO11yAlertsHeartbeat(ctx).Execute()
 
-Returns the calling user with their single legacy role.
+Reports whether the alert path's heartbeat is still arriving: the dead-man's switch for paging.
 
 
 
@@ -6684,13 +5889,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.GetMyUserDeprecated(context.Background()).Execute()
+	resp, r, err := apiClient.O11yAPI.GetO11yAlertsHeartbeat(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetMyUserDeprecated``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11yAlertsHeartbeat``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMyUserDeprecated`: O11yO11yDeprecatedUserOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetMyUserDeprecated`: %v\n", resp)
+	// response from `GetO11yAlertsHeartbeat`: O11yHeartbeat
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11yAlertsHeartbeat`: %v\n", resp)
 }
 ```
 
@@ -6700,12 +5905,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetMyUserDeprecatedRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetO11yAlertsHeartbeatRequest struct via the builder pattern
 
 
 ### Return type
 
-[**O11yO11yDeprecatedUserOut**](O11yO11yDeprecatedUserOut.md)
+[**O11yHeartbeat**](O11yHeartbeat.md)
 
 ### Authorization
 
@@ -6714,7 +5919,7 @@ Other parameters are passed through a pointer to a apiGetMyUserDeprecatedRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6845,7 +6050,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6921,7 +6126,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7001,75 +6206,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetO11yAvailability
-
-> O11yAvailabilityResponse GetO11yAvailability(ctx).Range_(range_).StepSec(stepSec).Execute()
-
-Reports how much of the Hanzo fleet is up — the current per-service inventory plus an up-versus-reporting trend across the window.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	range_ := int64(3600) // int64 | Range is the trend window in seconds. Default 3600, capped at 604800 (7d). (optional)
-	stepSec := int64(789) // int64 | StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.GetO11yAvailability(context.Background()).Range_(range_).StepSec(stepSec).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11yAvailability``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetO11yAvailability`: O11yAvailabilityResponse
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetO11yAvailability`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetO11yAvailabilityRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **range_** | **int64** | Range is the trend window in seconds. Default 3600, capped at 604800 (7d). | 
- **stepSec** | **int64** | StepSec is the bucket width in seconds, clamped to [30, 3600]. Absent picks ~60 buckets across the range. | 
-
-### Return type
-
-[**O11yAvailabilityResponse**](O11yAvailabilityResponse.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7145,7 +6282,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7225,125 +6362,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetO11yCompleteGoogle
-
-> GetO11yCompleteGoogle(ctx).Execute()
-
-Complete a Google sign-in
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.GetO11yCompleteGoogle(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11yCompleteGoogle``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetO11yCompleteGoogleRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetO11yCompleteOidc
-
-> GetO11yCompleteOidc(ctx).Execute()
-
-Complete a generic OIDC sign-in
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.GetO11yCompleteOidc(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetO11yCompleteOidc``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetO11yCompleteOidcRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7419,7 +6438,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7499,7 +6518,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7575,7 +6594,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7655,7 +6674,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7716,7 +6735,7 @@ Other parameters are passed through a pointer to a apiGetO11yDisksRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7786,7 +6805,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7856,7 +6875,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7936,7 +6955,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8006,7 +7025,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8076,7 +7095,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8146,7 +7165,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8207,7 +7226,7 @@ Other parameters are passed through a pointer to a apiGetO11yFeaturesRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8291,7 +7310,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8379,7 +7398,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8453,7 +7472,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8514,7 +7533,7 @@ Other parameters are passed through a pointer to a apiGetO11yGlobalConfigRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8580,7 +7599,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8715,7 +7734,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8795,7 +7814,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8861,7 +7880,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8922,7 +7941,7 @@ Other parameters are passed through a pointer to a apiGetO11yInfraOnboardingK8sS
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8998,7 +8017,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9078,7 +8097,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9139,7 +8158,7 @@ Other parameters are passed through a pointer to a apiGetO11yLicensesRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9200,7 +8219,7 @@ Other parameters are passed through a pointer to a apiGetO11yLicensesActiveReque
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9388,7 +8407,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9449,7 +8468,7 @@ Other parameters are passed through a pointer to a apiGetO11yLogsAggregateReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9510,7 +8529,7 @@ Other parameters are passed through a pointer to a apiGetO11yLogsFieldsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9639,7 +8658,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9700,7 +8719,7 @@ Other parameters are passed through a pointer to a apiGetO11yLogsPromotePathsReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9768,7 +8787,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9844,7 +8863,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9924,7 +8943,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9994,7 +9013,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10070,7 +9089,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10150,7 +9169,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10226,7 +9245,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10306,7 +9325,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10382,7 +9401,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10462,7 +9481,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10532,7 +9551,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10608,7 +9627,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10688,7 +9707,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10760,7 +9779,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10895,7 +9914,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11022,7 +10041,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11092,7 +10111,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11168,7 +10187,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11240,7 +10259,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11324,7 +10343,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11394,7 +10413,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11468,7 +10487,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11540,7 +10559,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11551,7 +10570,7 @@ Name | Type | Description  | Notes
 
 > O11yO11ySentryProjectsOut GetO11ySentinelProjects(ctx).Execute()
 
-Lists the caller's org's Sentry projects, each with its freshly-derived DSN.
+Lists the caller's org's Sentry projects — one per product that has reported an error, plus any created by hand.
 
 
 
@@ -11601,7 +10620,7 @@ Other parameters are passed through a pointer to a apiGetO11ySentinelProjectsReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11612,7 +10631,7 @@ Other parameters are passed through a pointer to a apiGetO11ySentinelProjectsReq
 
 > O11yO11ySentryProjectOut GetO11ySentinelProjectsById(ctx, id).Execute()
 
-Returns one Sentry project of the caller's org, DSN included.
+Returns one Sentry project of the caller's org.
 
 
 
@@ -11671,7 +10690,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11741,7 +10760,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11811,7 +10830,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11883,7 +10902,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -11944,7 +10963,7 @@ Other parameters are passed through a pointer to a apiGetO11yServicesListRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12069,7 +11088,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12130,7 +11149,7 @@ Other parameters are passed through a pointer to a apiGetO11ySettingsTtlRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12206,7 +11225,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12286,7 +11305,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12347,7 +11366,7 @@ Other parameters are passed through a pointer to a apiGetO11yStatsRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12413,7 +11432,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12474,7 +11493,7 @@ Other parameters are passed through a pointer to a apiGetO11ySummaryRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12544,7 +11563,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12616,7 +11635,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12677,7 +11696,7 @@ Other parameters are passed through a pointer to a apiGetO11yVersionRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12747,7 +11766,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12819,7 +11838,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12889,7 +11908,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12959,7 +11978,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -13036,7 +12055,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -13097,147 +12116,7 @@ Other parameters are passed through a pointer to a apiGetQuickFiltersRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetResetPasswordToken
-
-> O11yO11yResetTokenOut GetResetPasswordToken(ctx, id).Execute()
-
-Returns the reset-password token a user already has; absent one, the answer is a not-found rather than a fresh token.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.GetResetPasswordToken(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetResetPasswordToken``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetResetPasswordToken`: O11yO11yResetTokenOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetResetPasswordToken`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetResetPasswordTokenRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**O11yO11yResetTokenOut**](O11yO11yResetTokenOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetResetPasswordTokenDeprecated
-
-> O11yO11yResetTokenOut GetResetPasswordTokenDeprecated(ctx, id).Execute()
-
-Returns a user's password-reset token, creating one if none is live.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.GetResetPasswordTokenDeprecated(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetResetPasswordTokenDeprecated``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetResetPasswordTokenDeprecated`: O11yO11yResetTokenOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetResetPasswordTokenDeprecated`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetResetPasswordTokenDeprecatedRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**O11yO11yResetTokenOut**](O11yO11yResetTokenOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -13307,77 +12186,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetRolesByUserID
-
-> O11yO11yRolesOut GetRolesByUserID(ctx, id).Execute()
-
-Returns every role one org member holds, by user id.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.GetRolesByUserID(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetRolesByUserID``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetRolesByUserID`: O11yO11yRolesOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetRolesByUserID`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetRolesByUserIDRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**O11yO11yRolesOut**](O11yO11yRolesOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -13447,7 +12256,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -13517,7 +12326,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -13595,7 +12404,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -13677,7 +12486,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -13751,7 +12560,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -13825,7 +12634,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -13909,7 +12718,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -13983,7 +12792,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14055,7 +12864,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14127,7 +12936,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14199,7 +13008,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14274,7 +13083,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14344,7 +13153,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14414,75 +13223,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetSessionContext
-
-> O11yO11ySessionContextOut GetSessionContext(ctx).Email(email).Ref(ref).Execute()
-
-Tells a sign-in page what an email address can do: which orgs the address belongs to and, per org, which password and SSO routes are open to it.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	email := "email_example" // string | Email is the address about to sign in. Required. (optional)
-	ref := "ref_example" // string | Ref is the page the sign-in started from, carried into SSO redirects. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.GetSessionContext(context.Background()).Email(email).Ref(ref).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetSessionContext``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetSessionContext`: O11yO11ySessionContextOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetSessionContext`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetSessionContextRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **email** | **string** | Email is the address about to sign in. Required. | 
- **ref** | **string** | Ref is the page the sign-in started from, carried into SSO redirects. | 
-
-### Return type
-
-[**O11yO11ySessionContextOut**](O11yO11ySessionContextOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14552,7 +13293,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14624,7 +13365,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14685,7 +13426,7 @@ Other parameters are passed through a pointer to a apiGetTraceFieldsRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14755,7 +13496,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14827,7 +13568,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14899,7 +13640,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -14971,7 +13712,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -15043,7 +13784,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -15115,147 +13856,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetUser
-
-> O11yO11yUserWithRolesOut GetUser(ctx, id).Execute()
-
-Returns one org member together with every role they hold, by user id.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.GetUser(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetUser`: O11yO11yUserWithRolesOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetUser`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**O11yO11yUserWithRolesOut**](O11yO11yUserWithRolesOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetUserDeprecated
-
-> O11yO11yDeprecatedUserOut GetUserDeprecated(ctx, id).Execute()
-
-Returns one org member with their single legacy role, by user id.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.GetUserDeprecated(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetUserDeprecated``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetUserDeprecated`: O11yO11yDeprecatedUserOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetUserDeprecated`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetUserDeprecatedRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**O11yO11yDeprecatedUserOut**](O11yO11yDeprecatedUserOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -15325,77 +13926,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetUsersByRoleID
-
-> O11yO11yUsersOut GetUsersByRoleID(ctx, id).Execute()
-
-Returns every org member holding a role, by role id.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.GetUsersByRoleID(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.GetUsersByRoleID``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetUsersByRoleID`: O11yO11yUsersOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.GetUsersByRoleID`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetUsersByRoleIDRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**O11yO11yUsersOut**](O11yO11yUsersOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -15467,7 +13998,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -15533,7 +14064,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -15599,7 +14130,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -15672,7 +14203,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -15742,68 +14273,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListAuthDomains
-
-> O11yO11yAuthDomainsOut ListAuthDomains(ctx).Execute()
-
-Lists the org's auth domains — the email domains whose SSO configuration this org owns.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.ListAuthDomains(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.ListAuthDomains``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListAuthDomains`: O11yO11yAuthDomainsOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.ListAuthDomains`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListAuthDomainsRequest struct via the builder pattern
-
-
-### Return type
-
-[**O11yO11yAuthDomainsOut**](O11yO11yAuthDomainsOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -15864,7 +14334,7 @@ Other parameters are passed through a pointer to a apiListChannelsRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -15925,7 +14395,7 @@ Other parameters are passed through a pointer to a apiListDashboardViewsRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -15999,7 +14469,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16073,7 +14543,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16141,7 +14611,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16207,7 +14677,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16281,7 +14751,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16363,7 +14833,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16435,7 +14905,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16511,7 +14981,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16593,7 +15063,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16675,7 +15145,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16757,7 +15227,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16833,7 +15303,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16907,7 +15377,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -16968,7 +15438,7 @@ Other parameters are passed through a pointer to a apiListOrgPreferencesRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17029,7 +15499,7 @@ Other parameters are passed through a pointer to a apiListRolesRequest struct vi
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17090,7 +15560,7 @@ Other parameters are passed through a pointer to a apiListRulesRequest struct vi
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17160,7 +15630,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17221,7 +15691,7 @@ Other parameters are passed through a pointer to a apiListServiceAccountsRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17293,7 +15763,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17359,7 +15829,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17429,7 +15899,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17490,7 +15960,7 @@ Other parameters are passed through a pointer to a apiListTraceFunnelsRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17551,129 +16021,7 @@ Other parameters are passed through a pointer to a apiListUserPreferencesRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListUsers
-
-> O11yO11yUsersOut ListUsers(ctx).Execute()
-
-Lists the caller's org members.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.ListUsers(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.ListUsers``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListUsers`: O11yO11yUsersOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.ListUsers`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListUsersRequest struct via the builder pattern
-
-
-### Return type
-
-[**O11yO11yUsersOut**](O11yO11yUsersOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListUsersDeprecated
-
-> O11yO11yDeprecatedUsersOut ListUsersDeprecated(ctx).Execute()
-
-Lists the org's members with their single legacy role.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.ListUsersDeprecated(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.ListUsersDeprecated``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListUsersDeprecated`: O11yO11yDeprecatedUsersOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.ListUsersDeprecated`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListUsersDeprecatedRequest struct via the builder pattern
-
-
-### Return type
-
-[**O11yO11yDeprecatedUsersOut**](O11yO11yDeprecatedUsersOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17682,7 +16030,7 @@ Other parameters are passed through a pointer to a apiListUsersDeprecatedRequest
 
 ## LockDashboardV2
 
-> LockDashboardV2(ctx, id).Execute()
+> Approval LockDashboardV2(ctx, id).Execute()
 
 Locks a v2-shape dashboard.
 
@@ -17705,11 +16053,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.LockDashboardV2(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.LockDashboardV2(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.LockDashboardV2``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `LockDashboardV2`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.LockDashboardV2`: %v\n", resp)
 }
 ```
 
@@ -17732,7 +16082,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -17741,7 +16091,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17813,7 +16163,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17885,7 +16235,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -17960,7 +16310,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -18032,7 +16382,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -18041,7 +16391,7 @@ Name | Type | Description  | Notes
 
 ## PinDashboardV2
 
-> PinDashboardV2(ctx, id).Execute()
+> Approval PinDashboardV2(ctx, id).Execute()
 
 Pins a dashboard for the calling user.
 
@@ -18064,11 +16414,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.PinDashboardV2(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.PinDashboardV2(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.PinDashboardV2``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PinDashboardV2`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.PinDashboardV2`: %v\n", resp)
 }
 ```
 
@@ -18091,7 +16443,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -18100,7 +16452,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -18151,142 +16503,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostO11yAlertsByReceiverRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostO11yApiByProjectIdEnvelope
-
-> PostO11yApiByProjectIdEnvelope(ctx, projectId).Execute()
-
-Receive a Sentry envelope on the SDK's own DSN path
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	projectId := "projectId_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.PostO11yApiByProjectIdEnvelope(context.Background(), projectId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.PostO11yApiByProjectIdEnvelope``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostO11yApiByProjectIdEnvelopeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostO11yApiByProjectIdStore
-
-> PostO11yApiByProjectIdStore(ctx, projectId).Execute()
-
-Receive a single Sentry event on the SDK's own DSN path
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	projectId := "projectId_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.PostO11yApiByProjectIdStore(context.Background(), projectId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.PostO11yApiByProjectIdStore``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostO11yApiByProjectIdStoreRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -18370,7 +16586,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -18436,66 +16652,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostO11yCompleteSaml
-
-> PostO11yCompleteSaml(ctx).Execute()
-
-Complete a SAML sign-in
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.PostO11yCompleteSaml(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.PostO11yCompleteSaml``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostO11yCompleteSamlRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -18561,7 +16718,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -18627,7 +16784,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -18693,7 +16850,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -18759,7 +16916,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -18831,7 +16988,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -18897,7 +17054,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -18963,7 +17120,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19088,7 +17245,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19154,7 +17311,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19220,7 +17377,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19286,7 +17443,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19352,7 +17509,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19418,7 +17575,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19484,7 +17641,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19550,7 +17707,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19616,7 +17773,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19682,7 +17839,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19748,7 +17905,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19814,7 +17971,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19880,7 +18037,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -19946,7 +18103,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20012,7 +18169,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20078,7 +18235,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20144,7 +18301,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20210,7 +18367,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20276,7 +18433,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20342,7 +18499,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20408,7 +18565,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20474,7 +18631,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20540,7 +18697,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20606,7 +18763,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20672,7 +18829,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20738,7 +18895,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20804,7 +18961,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20870,7 +19027,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -20936,7 +19093,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21002,7 +19159,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21068,7 +19225,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21134,7 +19291,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21200,7 +19357,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21266,7 +19423,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21332,7 +19489,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21398,7 +19555,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21464,7 +19621,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21530,7 +19687,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21596,7 +19753,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21662,73 +19819,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostO11yRegister
-
-> O11yO11yRegisterOut PostO11yRegister(ctx).O11yO11yRegisterIn(o11yO11yRegisterIn).Execute()
-
-Creates the FIRST organization and its admin user.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	o11yO11yRegisterIn := *openapiclient.NewO11yO11yRegisterIn("Email_example") // O11yO11yRegisterIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.PostO11yRegister(context.Background()).O11yO11yRegisterIn(o11yO11yRegisterIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.PostO11yRegister``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostO11yRegister`: O11yO11yRegisterOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.PostO11yRegister`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostO11yRegisterRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **o11yO11yRegisterIn** | [**O11yO11yRegisterIn**](O11yO11yRegisterIn.md) |  | 
-
-### Return type
-
-[**O11yO11yRegisterOut**](O11yO11yRegisterOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21794,7 +19885,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21866,7 +19957,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21932,7 +20023,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -21943,7 +20034,7 @@ Name | Type | Description  | Notes
 
 > O11yO11ySentryProjectOut PostO11ySentinelProjects(ctx).O11yO11ySentryPostableProject(o11yO11ySentryPostableProject).Execute()
 
-Creates a Sentry project under the caller's org and returns it, DSN included.
+Creates a Sentry project under the caller's org and returns it.
 
 
 
@@ -21998,77 +20089,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostO11ySentinelProjectsByIdKeysRotate
-
-> O11yO11ySentryProjectOut PostO11ySentinelProjectsByIdKeysRotate(ctx, id).Execute()
-
-Rotates a project's DSN key — bumping its rotation watermark so keys below it stop verifying — and returns the project with its new DSN.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | ID is the project id.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.PostO11ySentinelProjectsByIdKeysRotate(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.PostO11ySentinelProjectsByIdKeysRotate``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostO11ySentinelProjectsByIdKeysRotate`: O11yO11ySentryProjectOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.PostO11ySentinelProjectsByIdKeysRotate`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the project id. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostO11ySentinelProjectsByIdKeysRotateRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**O11yO11ySentryProjectOut**](O11yO11ySentryProjectOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22134,7 +20155,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22200,7 +20221,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22266,7 +20287,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22332,7 +20353,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22398,7 +20419,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22464,7 +20485,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22530,7 +20551,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22596,7 +20617,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22662,7 +20683,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22728,7 +20749,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22794,7 +20815,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22860,7 +20881,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22926,7 +20947,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -22935,7 +20956,7 @@ Name | Type | Description  | Notes
 
 ## PutHost
 
-> PutHost(ctx).O11yPostableHost(o11yPostableHost).Execute()
+> Approval PutHost(ctx).O11yPostableHost(o11yPostableHost).Execute()
 
 Records the deployment's host in Zeus, overwriting any prior one.
 
@@ -22958,11 +20979,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.PutHost(context.Background()).O11yPostableHost(o11yPostableHost).Execute()
+	resp, r, err := apiClient.O11yAPI.PutHost(context.Background()).O11yPostableHost(o11yPostableHost).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.PutHost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PutHost`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.PutHost`: %v\n", resp)
 }
 ```
 
@@ -22981,7 +21004,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -22990,7 +21013,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -23062,7 +21085,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -23134,7 +21157,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -23143,7 +21166,7 @@ Name | Type | Description  | Notes
 
 ## PutProfile
 
-> PutProfile(ctx).O11yPostableProfile(o11yPostableProfile).Execute()
+> Approval PutProfile(ctx).O11yPostableProfile(o11yPostableProfile).Execute()
 
 Records the deployment's profile in Zeus — how the team uses observability today and what they plan — overwriting any prior one.
 
@@ -23166,11 +21189,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.PutProfile(context.Background()).O11yPostableProfile(o11yPostableProfile).Execute()
+	resp, r, err := apiClient.O11yAPI.PutProfile(context.Background()).O11yPostableProfile(o11yPostableProfile).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.PutProfile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PutProfile`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.PutProfile`: %v\n", resp)
 }
 ```
 
@@ -23189,7 +21214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -23198,142 +21223,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## RemoveUserRoleByUserIDAndRoleID
-
-> RemoveUserRoleByUserIDAndRoleID(ctx, id, roleId).Execute()
-
-Takes a role away from one org member, by user id and role id — someone else, never the caller.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-	roleId := "roleId_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.RemoveUserRoleByUserIDAndRoleID(context.Background(), id, roleId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.RemoveUserRoleByUserIDAndRoleID``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-**roleId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRemoveUserRoleByUserIDAndRoleIDRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ResetPassword
-
-> ResetPassword(ctx).O11yO11yResetPasswordIn(o11yO11yResetPasswordIn).Execute()
-
-Sets a new password for whoever the reset token was minted for, consuming the token.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	o11yO11yResetPasswordIn := *openapiclient.NewO11yO11yResetPasswordIn() // O11yO11yResetPasswordIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.ResetPassword(context.Background()).O11yO11yResetPasswordIn(o11yO11yResetPasswordIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.ResetPassword``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiResetPasswordRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **o11yO11yResetPasswordIn** | [**O11yO11yResetPasswordIn**](O11yO11yResetPasswordIn.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -23342,7 +21232,7 @@ Name | Type | Description  | Notes
 
 ## RevokeServiceAccountKey
 
-> RevokeServiceAccountKey(ctx, id, fid).Execute()
+> Approval RevokeServiceAccountKey(ctx, id, fid).Execute()
 
 Revokes an API key.
 
@@ -23366,11 +21256,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.RevokeServiceAccountKey(context.Background(), id, fid).Execute()
+	resp, r, err := apiClient.O11yAPI.RevokeServiceAccountKey(context.Background(), id, fid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.RevokeServiceAccountKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `RevokeServiceAccountKey`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.RevokeServiceAccountKey`: %v\n", resp)
 }
 ```
 
@@ -23395,7 +21287,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -23404,73 +21296,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## RotateSession
-
-> O11yO11yTokenOut RotateSession(ctx).O11yO11yRotateSessionIn(o11yO11yRotateSessionIn).Execute()
-
-Exchanges a refresh token for a fresh token pair, retiring the old pair.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	o11yO11yRotateSessionIn := *openapiclient.NewO11yO11yRotateSessionIn() // O11yO11yRotateSessionIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.RotateSession(context.Background()).O11yO11yRotateSessionIn(o11yO11yRotateSessionIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.RotateSession``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `RotateSession`: O11yO11yTokenOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.RotateSession`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRotateSessionRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **o11yO11yRotateSessionIn** | [**O11yO11yRotateSessionIn**](O11yO11yRotateSessionIn.md) |  | 
-
-### Return type
-
-[**O11yO11yTokenOut**](O11yO11yTokenOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -23540,7 +21366,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -23618,79 +21444,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SetRoleByUserID
-
-> O11yO11yAck SetRoleByUserID(ctx, id).O11yO11ySetRoleIn(o11yO11ySetRoleIn).Execute()
-
-Assigns a role, by role name, to one org member — someone else, never the caller.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-	o11yO11ySetRoleIn := *openapiclient.NewO11yO11ySetRoleIn() // O11yO11ySetRoleIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.SetRoleByUserID(context.Background(), id).O11yO11ySetRoleIn(o11yO11ySetRoleIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.SetRoleByUserID``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SetRoleByUserID`: O11yO11yAck
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.SetRoleByUserID`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSetRoleByUserIDRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **o11yO11ySetRoleIn** | [**O11yO11ySetRoleIn**](O11yO11ySetRoleIn.md) |  | 
-
-### Return type
-
-[**O11yO11yAck**](O11yO11yAck.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -23699,7 +21453,7 @@ Name | Type | Description  | Notes
 
 ## TestChannel
 
-> TestChannel(ctx).O11yAlertmanagertypesReceiver(o11yAlertmanagertypesReceiver).Execute()
+> Approval TestChannel(ctx).O11yAlertmanagertypesReceiver(o11yAlertmanagertypesReceiver).Execute()
 
 Sends a test notification to the posted receiver.
 
@@ -23722,11 +21476,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.TestChannel(context.Background()).O11yAlertmanagertypesReceiver(o11yAlertmanagertypesReceiver).Execute()
+	resp, r, err := apiClient.O11yAPI.TestChannel(context.Background()).O11yAlertmanagertypesReceiver(o11yAlertmanagertypesReceiver).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.TestChannel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `TestChannel`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.TestChannel`: %v\n", resp)
 }
 ```
 
@@ -23745,7 +21501,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -23754,7 +21510,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -23763,7 +21519,7 @@ Name | Type | Description  | Notes
 
 ## TestChannelDeprecated
 
-> TestChannelDeprecated(ctx).O11yAlertmanagertypesReceiver(o11yAlertmanagertypesReceiver).Execute()
+> Approval TestChannelDeprecated(ctx).O11yAlertmanagertypesReceiver(o11yAlertmanagertypesReceiver).Execute()
 
 Sends a test notification to the posted receiver.
 
@@ -23786,11 +21542,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.TestChannelDeprecated(context.Background()).O11yAlertmanagertypesReceiver(o11yAlertmanagertypesReceiver).Execute()
+	resp, r, err := apiClient.O11yAPI.TestChannelDeprecated(context.Background()).O11yAlertmanagertypesReceiver(o11yAlertmanagertypesReceiver).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.TestChannelDeprecated``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `TestChannelDeprecated`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.TestChannelDeprecated`: %v\n", resp)
 }
 ```
 
@@ -23809,7 +21567,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -23818,7 +21576,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -23884,7 +21642,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -23950,7 +21708,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24016,7 +21774,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24025,7 +21783,7 @@ Name | Type | Description  | Notes
 
 ## UnlockDashboardV2
 
-> UnlockDashboardV2(ctx, id).Execute()
+> Approval UnlockDashboardV2(ctx, id).Execute()
 
 Unlocks a v2-shape dashboard.
 
@@ -24048,11 +21806,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UnlockDashboardV2(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.UnlockDashboardV2(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UnlockDashboardV2``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UnlockDashboardV2`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UnlockDashboardV2`: %v\n", resp)
 }
 ```
 
@@ -24075,7 +21835,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -24084,7 +21844,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24093,7 +21853,7 @@ Name | Type | Description  | Notes
 
 ## UnpinDashboardV2
 
-> UnpinDashboardV2(ctx, id).Execute()
+> Approval UnpinDashboardV2(ctx, id).Execute()
 
 Removes the caller's pin for a dashboard.
 
@@ -24116,11 +21876,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UnpinDashboardV2(context.Background(), id).Execute()
+	resp, r, err := apiClient.O11yAPI.UnpinDashboardV2(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UnpinDashboardV2``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UnpinDashboardV2`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UnpinDashboardV2`: %v\n", resp)
 }
 ```
 
@@ -24143,7 +21905,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -24152,7 +21914,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24161,7 +21923,7 @@ Name | Type | Description  | Notes
 
 ## UpdateAccount
 
-> UpdateAccount(ctx, cloudProvider, id).O11yO11yUpdateAccountIn(o11yO11yUpdateAccountIn).Execute()
+> Approval UpdateAccount(ctx, cloudProvider, id).O11yO11yUpdateAccountIn(o11yO11yUpdateAccountIn).Execute()
 
 Changes a connected account's configuration for the given provider, by id.
 
@@ -24186,11 +21948,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateAccount(context.Background(), cloudProvider, id).O11yO11yUpdateAccountIn(o11yO11yUpdateAccountIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateAccount(context.Background(), cloudProvider, id).O11yO11yUpdateAccountIn(o11yO11yUpdateAccountIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateAccount``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateAccount`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateAccount`: %v\n", resp)
 }
 ```
 
@@ -24216,7 +21980,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -24225,77 +21989,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UpdateAuthDomain
-
-> UpdateAuthDomain(ctx, id).O11yO11yUpdatableAuthDomain(o11yO11yUpdatableAuthDomain).Execute()
-
-Replaces one auth domain's SSO configuration, by id.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-	o11yO11yUpdatableAuthDomain := *openapiclient.NewO11yO11yUpdatableAuthDomain() // O11yO11yUpdatableAuthDomain | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateAuthDomain(context.Background(), id).O11yO11yUpdatableAuthDomain(o11yO11yUpdatableAuthDomain).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateAuthDomain``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateAuthDomainRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **o11yO11yUpdatableAuthDomain** | [**O11yO11yUpdatableAuthDomain**](O11yO11yUpdatableAuthDomain.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24304,7 +21998,7 @@ Name | Type | Description  | Notes
 
 ## UpdateChannelByID
 
-> UpdateChannelByID(ctx, id).O11yO11yChannelUpdateIn(o11yO11yChannelUpdateIn).Execute()
+> Approval UpdateChannelByID(ctx, id).O11yO11yChannelUpdateIn(o11yO11yChannelUpdateIn).Execute()
 
 Replaces a notification channel's receiver, by id.
 
@@ -24328,11 +22022,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateChannelByID(context.Background(), id).O11yO11yChannelUpdateIn(o11yO11yChannelUpdateIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateChannelByID(context.Background(), id).O11yO11yChannelUpdateIn(o11yO11yChannelUpdateIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateChannelByID``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateChannelByID`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateChannelByID`: %v\n", resp)
 }
 ```
 
@@ -24356,7 +22052,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -24365,7 +22061,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24437,7 +22133,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24509,7 +22205,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24518,7 +22214,7 @@ Name | Type | Description  | Notes
 
 ## UpdateDowntimeScheduleByID
 
-> UpdateDowntimeScheduleByID(ctx, id).O11yO11yDowntimeUpdateIn(o11yO11yDowntimeUpdateIn).Execute()
+> Approval UpdateDowntimeScheduleByID(ctx, id).O11yO11yDowntimeUpdateIn(o11yO11yDowntimeUpdateIn).Execute()
 
 Replaces a planned maintenance window, by id.
 
@@ -24542,11 +22238,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateDowntimeScheduleByID(context.Background(), id).O11yO11yDowntimeUpdateIn(o11yO11yDowntimeUpdateIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateDowntimeScheduleByID(context.Background(), id).O11yO11yDowntimeUpdateIn(o11yO11yDowntimeUpdateIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateDowntimeScheduleByID``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateDowntimeScheduleByID`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateDowntimeScheduleByID`: %v\n", resp)
 }
 ```
 
@@ -24570,7 +22268,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -24579,7 +22277,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24588,7 +22286,7 @@ Name | Type | Description  | Notes
 
 ## UpdateIngestionKey
 
-> UpdateIngestionKey(ctx, keyId).O11yO11yUpdateIngestionKeyIn(o11yO11yUpdateIngestionKeyIn).Execute()
+> Approval UpdateIngestionKey(ctx, keyId).O11yO11yUpdateIngestionKeyIn(o11yO11yUpdateIngestionKeyIn).Execute()
 
 Changes an ingestion key, by id.
 
@@ -24612,11 +22310,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateIngestionKey(context.Background(), keyId).O11yO11yUpdateIngestionKeyIn(o11yO11yUpdateIngestionKeyIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateIngestionKey(context.Background(), keyId).O11yO11yUpdateIngestionKeyIn(o11yO11yUpdateIngestionKeyIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateIngestionKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateIngestionKey`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateIngestionKey`: %v\n", resp)
 }
 ```
 
@@ -24640,7 +22340,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -24649,7 +22349,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24658,7 +22358,7 @@ Name | Type | Description  | Notes
 
 ## UpdateIngestionKeyLimit
 
-> UpdateIngestionKeyLimit(ctx, limitId).O11yO11yUpdateLimitIn(o11yO11yUpdateLimitIn).Execute()
+> Approval UpdateIngestionKeyLimit(ctx, limitId).O11yO11yUpdateLimitIn(o11yO11yUpdateLimitIn).Execute()
 
 Changes an ingestion key limit, by limit id.
 
@@ -24682,11 +22382,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateIngestionKeyLimit(context.Background(), limitId).O11yO11yUpdateLimitIn(o11yO11yUpdateLimitIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateIngestionKeyLimit(context.Background(), limitId).O11yO11yUpdateLimitIn(o11yO11yUpdateLimitIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateIngestionKeyLimit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateIngestionKeyLimit`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateIngestionKeyLimit`: %v\n", resp)
 }
 ```
 
@@ -24710,7 +22412,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -24719,7 +22421,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24785,7 +22487,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24857,7 +22559,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24866,7 +22568,7 @@ Name | Type | Description  | Notes
 
 ## UpdateMyOrganization
 
-> UpdateMyOrganization(ctx).O11yO11yOrganization(o11yO11yOrganization).Execute()
+> Approval UpdateMyOrganization(ctx).O11yO11yOrganization(o11yO11yOrganization).Execute()
 
 Rewrites the caller's own organization record — display name, name, alias — always addressed as \"me\", never by id.
 
@@ -24889,11 +22591,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateMyOrganization(context.Background()).O11yO11yOrganization(o11yO11yOrganization).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateMyOrganization(context.Background()).O11yO11yOrganization(o11yO11yOrganization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateMyOrganization``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateMyOrganization`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateMyOrganization`: %v\n", resp)
 }
 ```
 
@@ -24912,7 +22616,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -24921,71 +22625,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UpdateMyPassword
-
-> UpdateMyPassword(ctx).O11yO11yChangePasswordIn(o11yO11yChangePasswordIn).Execute()
-
-Replaces the calling user's password, refusing when the old one does not match.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	o11yO11yChangePasswordIn := *openapiclient.NewO11yO11yChangePasswordIn() // O11yO11yChangePasswordIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateMyPassword(context.Background()).O11yO11yChangePasswordIn(o11yO11yChangePasswordIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateMyPassword``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateMyPasswordRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **o11yO11yChangePasswordIn** | [**O11yO11yChangePasswordIn**](O11yO11yChangePasswordIn.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -24994,7 +22634,7 @@ Name | Type | Description  | Notes
 
 ## UpdateMyServiceAccount
 
-> UpdateMyServiceAccount(ctx).O11yO11yMyServiceAccountUpdateIn(o11yO11yMyServiceAccountUpdateIn).Execute()
+> Approval UpdateMyServiceAccount(ctx).O11yO11yMyServiceAccountUpdateIn(o11yO11yMyServiceAccountUpdateIn).Execute()
 
 Renames the calling service account.
 
@@ -25017,11 +22657,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateMyServiceAccount(context.Background()).O11yO11yMyServiceAccountUpdateIn(o11yO11yMyServiceAccountUpdateIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateMyServiceAccount(context.Background()).O11yO11yMyServiceAccountUpdateIn(o11yO11yMyServiceAccountUpdateIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateMyServiceAccount``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateMyServiceAccount`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateMyServiceAccount`: %v\n", resp)
 }
 ```
 
@@ -25040,7 +22682,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -25049,71 +22691,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UpdateMyUserV2
-
-> UpdateMyUserV2(ctx).O11yO11yUpdatableUser(o11yO11yUpdatableUser).Execute()
-
-Renames the calling user.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	o11yO11yUpdatableUser := *openapiclient.NewO11yO11yUpdatableUser() // O11yO11yUpdatableUser | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateMyUserV2(context.Background()).O11yO11yUpdatableUser(o11yO11yUpdatableUser).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateMyUserV2``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateMyUserV2Request struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **o11yO11yUpdatableUser** | [**O11yO11yUpdatableUser**](O11yO11yUpdatableUser.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -25122,7 +22700,7 @@ Name | Type | Description  | Notes
 
 ## UpdateOrgPreference
 
-> UpdateOrgPreference(ctx, name).O11yO11yUpdatablePreference(o11yO11yUpdatablePreference).Execute()
+> Approval UpdateOrgPreference(ctx, name).O11yO11yUpdatablePreference(o11yO11yUpdatablePreference).Execute()
 
 Sets one org-scoped preference, by name.
 
@@ -25146,11 +22724,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateOrgPreference(context.Background(), name).O11yO11yUpdatablePreference(o11yO11yUpdatablePreference).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateOrgPreference(context.Background(), name).O11yO11yUpdatablePreference(o11yO11yUpdatablePreference).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateOrgPreference``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateOrgPreference`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateOrgPreference`: %v\n", resp)
 }
 ```
 
@@ -25174,7 +22754,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -25183,7 +22763,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -25192,7 +22772,7 @@ Name | Type | Description  | Notes
 
 ## UpdatePublicDashboard
 
-> UpdatePublicDashboard(ctx, id).O11yO11yPublicDashboardWriteIn(o11yO11yPublicDashboardWriteIn).Execute()
+> Approval UpdatePublicDashboard(ctx, id).O11yO11yPublicDashboardWriteIn(o11yO11yPublicDashboardWriteIn).Execute()
 
 Updates the public-sharing config for a dashboard.
 
@@ -25216,11 +22796,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdatePublicDashboard(context.Background(), id).O11yO11yPublicDashboardWriteIn(o11yO11yPublicDashboardWriteIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdatePublicDashboard(context.Background(), id).O11yO11yPublicDashboardWriteIn(o11yO11yPublicDashboardWriteIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdatePublicDashboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdatePublicDashboard`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdatePublicDashboard`: %v\n", resp)
 }
 ```
 
@@ -25244,7 +22826,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -25253,7 +22835,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -25262,7 +22844,7 @@ Name | Type | Description  | Notes
 
 ## UpdateQuickFilters
 
-> UpdateQuickFilters(ctx).O11yO11yUpdatableQuickFilters(o11yO11yUpdatableQuickFilters).Execute()
+> Approval UpdateQuickFilters(ctx).O11yO11yUpdatableQuickFilters(o11yO11yUpdatableQuickFilters).Execute()
 
 Replaces the org's quick filters for one signal with the attribute list given.
 
@@ -25285,11 +22867,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateQuickFilters(context.Background()).O11yO11yUpdatableQuickFilters(o11yO11yUpdatableQuickFilters).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateQuickFilters(context.Background()).O11yO11yUpdatableQuickFilters(o11yO11yUpdatableQuickFilters).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateQuickFilters``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateQuickFilters`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateQuickFilters`: %v\n", resp)
 }
 ```
 
@@ -25308,7 +22892,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -25317,7 +22901,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -25326,7 +22910,7 @@ Name | Type | Description  | Notes
 
 ## UpdateRole
 
-> UpdateRole(ctx, id).O11yO11yRoleUpdateIn(o11yO11yRoleUpdateIn).Execute()
+> Approval UpdateRole(ctx, id).O11yO11yRoleUpdateIn(o11yO11yRoleUpdateIn).Execute()
 
 Replaces a custom role's description and transaction groups.
 
@@ -25350,11 +22934,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateRole(context.Background(), id).O11yO11yRoleUpdateIn(o11yO11yRoleUpdateIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateRole(context.Background(), id).O11yO11yRoleUpdateIn(o11yO11yRoleUpdateIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateRole``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateRole`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateRole`: %v\n", resp)
 }
 ```
 
@@ -25378,7 +22964,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -25387,7 +22973,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -25459,7 +23045,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -25468,7 +23054,7 @@ Name | Type | Description  | Notes
 
 ## UpdateRuleByID
 
-> UpdateRuleByID(ctx, id).Body(body).Execute()
+> Approval UpdateRuleByID(ctx, id).Body(body).Execute()
 
 Replaces an alert rule's definition, by id.
 
@@ -25492,11 +23078,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateRuleByID(context.Background(), id).Body(body).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateRuleByID(context.Background(), id).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateRuleByID``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateRuleByID`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateRuleByID`: %v\n", resp)
 }
 ```
 
@@ -25520,7 +23108,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -25529,7 +23117,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -25538,7 +23126,7 @@ Name | Type | Description  | Notes
 
 ## UpdateService
 
-> UpdateService(ctx, cloudProvider, id, serviceId).O11yO11yUpdateServiceIn(o11yO11yUpdateServiceIn).Execute()
+> Approval UpdateService(ctx, cloudProvider, id, serviceId).O11yO11yUpdateServiceIn(o11yO11yUpdateServiceIn).Execute()
 
 Changes a service's configuration for one connected account of the given provider, by account id and service id.
 
@@ -25564,11 +23152,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateService(context.Background(), cloudProvider, id, serviceId).O11yO11yUpdateServiceIn(o11yO11yUpdateServiceIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateService(context.Background(), cloudProvider, id, serviceId).O11yO11yUpdateServiceIn(o11yO11yUpdateServiceIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateService``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateService`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateService`: %v\n", resp)
 }
 ```
 
@@ -25596,7 +23186,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -25605,7 +23195,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -25614,7 +23204,7 @@ Name | Type | Description  | Notes
 
 ## UpdateServiceAccount
 
-> UpdateServiceAccount(ctx, id).O11yO11yServiceAccountUpdateIn(o11yO11yServiceAccountUpdateIn).Execute()
+> Approval UpdateServiceAccount(ctx, id).O11yO11yServiceAccountUpdateIn(o11yO11yServiceAccountUpdateIn).Execute()
 
 Renames a service account.
 
@@ -25638,11 +23228,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateServiceAccount(context.Background(), id).O11yO11yServiceAccountUpdateIn(o11yO11yServiceAccountUpdateIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateServiceAccount(context.Background(), id).O11yO11yServiceAccountUpdateIn(o11yO11yServiceAccountUpdateIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateServiceAccount``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateServiceAccount`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateServiceAccount`: %v\n", resp)
 }
 ```
 
@@ -25666,7 +23258,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -25675,7 +23267,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -25684,7 +23276,7 @@ Name | Type | Description  | Notes
 
 ## UpdateServiceAccountKey
 
-> UpdateServiceAccountKey(ctx, id, fid).O11yO11yAPIKeyUpdateIn(o11yO11yAPIKeyUpdateIn).Execute()
+> Approval UpdateServiceAccountKey(ctx, id, fid).O11yO11yAPIKeyUpdateIn(o11yO11yAPIKeyUpdateIn).Execute()
 
 Renames an API key or moves its expiry.
 
@@ -25709,11 +23301,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateServiceAccountKey(context.Background(), id, fid).O11yO11yAPIKeyUpdateIn(o11yO11yAPIKeyUpdateIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateServiceAccountKey(context.Background(), id, fid).O11yO11yAPIKeyUpdateIn(o11yO11yAPIKeyUpdateIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateServiceAccountKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateServiceAccountKey`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateServiceAccountKey`: %v\n", resp)
 }
 ```
 
@@ -25739,7 +23333,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -25748,7 +23342,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -25757,7 +23351,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSpanMapper
 
-> UpdateSpanMapper(ctx, groupId, mapperId).O11yO11ySpanMapperUpdateIn(o11yO11ySpanMapperUpdateIn).Execute()
+> Approval UpdateSpanMapper(ctx, groupId, mapperId).O11yO11ySpanMapperUpdateIn(o11yO11ySpanMapperUpdateIn).Execute()
 
 Changes a mapper's field context, config or enabled state.
 
@@ -25782,11 +23376,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateSpanMapper(context.Background(), groupId, mapperId).O11yO11ySpanMapperUpdateIn(o11yO11ySpanMapperUpdateIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateSpanMapper(context.Background(), groupId, mapperId).O11yO11ySpanMapperUpdateIn(o11yO11ySpanMapperUpdateIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateSpanMapper``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateSpanMapper`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateSpanMapper`: %v\n", resp)
 }
 ```
 
@@ -25812,7 +23408,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -25821,7 +23417,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -25830,7 +23426,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSpanMapperGroup
 
-> UpdateSpanMapperGroup(ctx, groupId).O11yO11ySpanMapperGroupUpdateIn(o11yO11ySpanMapperGroupUpdateIn).Execute()
+> Approval UpdateSpanMapperGroup(ctx, groupId).O11yO11ySpanMapperGroupUpdateIn(o11yO11ySpanMapperGroupUpdateIn).Execute()
 
 Changes a group's name, condition or enabled state.
 
@@ -25854,11 +23450,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateSpanMapperGroup(context.Background(), groupId).O11yO11ySpanMapperGroupUpdateIn(o11yO11ySpanMapperGroupUpdateIn).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateSpanMapperGroup(context.Background(), groupId).O11yO11ySpanMapperGroupUpdateIn(o11yO11ySpanMapperGroupUpdateIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateSpanMapperGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateSpanMapperGroup`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateSpanMapperGroup`: %v\n", resp)
 }
 ```
 
@@ -25882,7 +23480,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -25891,7 +23489,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -25957,7 +23555,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -26029,7 +23627,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -26095,149 +23693,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UpdateUser
-
-> UpdateUser(ctx, id).O11yO11yUserUpdate(o11yO11yUserUpdate).Execute()
-
-Renames one org member, by user id — someone else, never the caller, who renames themselves through updateMyUser.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-	o11yO11yUserUpdate := *openapiclient.NewO11yO11yUserUpdate() // O11yO11yUserUpdate | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateUser(context.Background(), id).O11yO11yUserUpdate(o11yO11yUserUpdate).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **o11yO11yUserUpdate** | [**O11yO11yUserUpdate**](O11yO11yUserUpdate.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UpdateUserDeprecated
-
-> O11yO11yDeprecatedUserOut UpdateUserDeprecated(ctx, id).O11yO11yDeprecatedUserUpdate(o11yO11yDeprecatedUserUpdate).Execute()
-
-Renames one org member and may move their legacy role, answering with the updated record.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | 
-	o11yO11yDeprecatedUserUpdate := *openapiclient.NewO11yO11yDeprecatedUserUpdate() // O11yO11yDeprecatedUserUpdate | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.O11yAPI.UpdateUserDeprecated(context.Background(), id).O11yO11yDeprecatedUserUpdate(o11yO11yDeprecatedUserUpdate).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateUserDeprecated``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateUserDeprecated`: O11yO11yDeprecatedUserOut
-	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateUserDeprecated`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateUserDeprecatedRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **o11yO11yDeprecatedUserUpdate** | [**O11yO11yDeprecatedUserUpdate**](O11yO11yDeprecatedUserUpdate.md) |  | 
-
-### Return type
-
-[**O11yO11yDeprecatedUserOut**](O11yO11yDeprecatedUserOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -26246,7 +23702,7 @@ Name | Type | Description  | Notes
 
 ## UpdateUserPreference
 
-> UpdateUserPreference(ctx, name).O11yO11yUpdatablePreference(o11yO11yUpdatablePreference).Execute()
+> Approval UpdateUserPreference(ctx, name).O11yO11yUpdatablePreference(o11yO11yUpdatablePreference).Execute()
 
 Sets one preference of the calling user, by name.
 
@@ -26270,11 +23726,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.UpdateUserPreference(context.Background(), name).O11yO11yUpdatablePreference(o11yO11yUpdatablePreference).Execute()
+	resp, r, err := apiClient.O11yAPI.UpdateUserPreference(context.Background(), name).O11yO11yUpdatablePreference(o11yO11yUpdatablePreference).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.UpdateUserPreference``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `UpdateUserPreference`: Approval
+	fmt.Fprintf(os.Stdout, "Response from `O11yAPI.UpdateUserPreference`: %v\n", resp)
 }
 ```
 
@@ -26298,7 +23756,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Approval**](Approval.md)
 
 ### Authorization
 
@@ -26307,7 +23765,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -26373,7 +23831,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -26445,71 +23903,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## VerifyResetPasswordToken
-
-> VerifyResetPasswordToken(ctx).O11yO11yResetTokenRef(o11yO11yResetTokenRef).Execute()
-
-Checks that a reset-password token exists and has not expired, without consuming it.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	o11yO11yResetTokenRef := *openapiclient.NewO11yO11yResetTokenRef() // O11yO11yResetTokenRef | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.O11yAPI.VerifyResetPasswordToken(context.Background()).O11yO11yResetTokenRef(o11yO11yResetTokenRef).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `O11yAPI.VerifyResetPasswordToken``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiVerifyResetPasswordTokenRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **o11yO11yResetTokenRef** | [**O11yO11yResetTokenRef**](O11yO11yResetTokenRef.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

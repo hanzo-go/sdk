@@ -19,13 +19,16 @@ var _ MappedNullable = &InsightsBody{}
 
 // InsightsBody struct for InsightsBody
 type InsightsBody struct {
-	Batch      []InsightsEvent        `json:"batch,omitempty"`
-	DistinctId *string                `json:"distinct_id,omitempty"`
-	Event      *string                `json:"event,omitempty"`
-	Properties map[string]interface{} `json:"properties,omitempty"`
-	Timestamp  *string                `json:"timestamp,omitempty"`
-	Uuid       *string                `json:"uuid,omitempty"`
+	Batch                []InsightsEvent        `json:"batch,omitempty"`
+	DistinctId           *string                `json:"distinct_id,omitempty"`
+	Event                *string                `json:"event,omitempty"`
+	Properties           map[string]interface{} `json:"properties,omitempty"`
+	Timestamp            *string                `json:"timestamp,omitempty"`
+	Uuid                 *string                `json:"uuid,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _InsightsBody InsightsBody
 
 // NewInsightsBody instantiates a new InsightsBody object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o InsightsBody) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Uuid) {
 		toSerialize["uuid"] = o.Uuid
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *InsightsBody) UnmarshalJSON(data []byte) (err error) {
+	varInsightsBody := _InsightsBody{}
+
+	err = json.Unmarshal(data, &varInsightsBody)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InsightsBody(varInsightsBody)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "batch")
+		delete(additionalProperties, "distinct_id")
+		delete(additionalProperties, "event")
+		delete(additionalProperties, "properties")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "uuid")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInsightsBody struct {

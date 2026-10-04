@@ -19,10 +19,13 @@ var _ MappedNullable = &O11ySlackField{}
 
 // O11ySlackField struct for O11ySlackField
 type O11ySlackField struct {
-	Short *bool   `json:"short,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Short                *bool   `json:"short,omitempty"`
+	Title                *string `json:"title,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySlackField O11ySlackField
 
 // NewO11ySlackField instantiates a new O11ySlackField object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11ySlackField) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySlackField) UnmarshalJSON(data []byte) (err error) {
+	varO11ySlackField := _O11ySlackField{}
+
+	err = json.Unmarshal(data, &varO11ySlackField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySlackField(varO11ySlackField)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "short")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySlackField struct {

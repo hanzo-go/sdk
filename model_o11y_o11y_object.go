@@ -22,8 +22,11 @@ type O11yO11yObject struct {
 	// Resource is the resource's type and kind.
 	Resource *O11yO11yResourceRef `json:"resource,omitempty"`
 	// Selector picks the instance — an FGA object string, wildcard allowed.
-	Selector *string `json:"selector,omitempty"`
+	Selector             *string `json:"selector,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yObject O11yO11yObject
 
 // NewO11yO11yObject instantiates a new O11yO11yObject object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yObject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Selector) {
 		toSerialize["selector"] = o.Selector
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yObject) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yObject := _O11yO11yObject{}
+
+	err = json.Unmarshal(data, &varO11yO11yObject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yObject(varO11yO11yObject)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "resource")
+		delete(additionalProperties, "selector")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yObject struct {

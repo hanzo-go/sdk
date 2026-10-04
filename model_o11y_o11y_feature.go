@@ -26,14 +26,16 @@ type O11yO11yFeature struct {
 	// Kind is the flag's value kind, e.g. boolean.
 	Kind *string `json:"kind,omitempty"`
 	// Name is the flag's name.
-	Name *string `json:"name,omitempty"`
-	// ResolvedValue is the value resolved for the caller's org.
-	ResolvedValue map[string]interface{} `json:"resolvedValue,omitempty"`
+	Name          *string     `json:"name,omitempty"`
+	ResolvedValue interface{} `json:"resolvedValue,omitempty"`
 	// Stage is the flag's lifecycle stage, e.g. stable.
 	Stage *string `json:"stage,omitempty"`
 	// Variants are the flag's possible values, by variant name.
-	Variants map[string]map[string]interface{} `json:"variants,omitempty"`
+	Variants             map[string]interface{} `json:"variants,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFeature O11yO11yFeature
 
 // NewO11yO11yFeature instantiates a new O11yO11yFeature object
 // This constructor will assign default values to properties that have it defined,
@@ -180,10 +182,10 @@ func (o *O11yO11yFeature) SetName(v string) {
 	o.Name = &v
 }
 
-// GetResolvedValue returns the ResolvedValue field value if set, zero value otherwise.
-func (o *O11yO11yFeature) GetResolvedValue() map[string]interface{} {
-	if o == nil || IsNil(o.ResolvedValue) {
-		var ret map[string]interface{}
+// GetResolvedValue returns the ResolvedValue field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *O11yO11yFeature) GetResolvedValue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ResolvedValue
@@ -191,11 +193,12 @@ func (o *O11yO11yFeature) GetResolvedValue() map[string]interface{} {
 
 // GetResolvedValueOk returns a tuple with the ResolvedValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yFeature) GetResolvedValueOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *O11yO11yFeature) GetResolvedValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ResolvedValue) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ResolvedValue, true
+	return &o.ResolvedValue, true
 }
 
 // HasResolvedValue returns a boolean if a field has been set.
@@ -207,8 +210,8 @@ func (o *O11yO11yFeature) HasResolvedValue() bool {
 	return false
 }
 
-// SetResolvedValue gets a reference to the given map[string]interface{} and assigns it to the ResolvedValue field.
-func (o *O11yO11yFeature) SetResolvedValue(v map[string]interface{}) {
+// SetResolvedValue gets a reference to the given interface{} and assigns it to the ResolvedValue field.
+func (o *O11yO11yFeature) SetResolvedValue(v interface{}) {
 	o.ResolvedValue = v
 }
 
@@ -245,9 +248,9 @@ func (o *O11yO11yFeature) SetStage(v string) {
 }
 
 // GetVariants returns the Variants field value if set, zero value otherwise.
-func (o *O11yO11yFeature) GetVariants() map[string]map[string]interface{} {
+func (o *O11yO11yFeature) GetVariants() map[string]interface{} {
 	if o == nil || IsNil(o.Variants) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Variants
@@ -255,9 +258,9 @@ func (o *O11yO11yFeature) GetVariants() map[string]map[string]interface{} {
 
 // GetVariantsOk returns a tuple with the Variants field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yFeature) GetVariantsOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yO11yFeature) GetVariantsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Variants) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Variants, true
 }
@@ -271,8 +274,8 @@ func (o *O11yO11yFeature) HasVariants() bool {
 	return false
 }
 
-// SetVariants gets a reference to the given map[string]map[string]interface{} and assigns it to the Variants field.
-func (o *O11yO11yFeature) SetVariants(v map[string]map[string]interface{}) {
+// SetVariants gets a reference to the given map[string]interface{} and assigns it to the Variants field.
+func (o *O11yO11yFeature) SetVariants(v map[string]interface{}) {
 	o.Variants = v
 }
 
@@ -298,7 +301,7 @@ func (o O11yO11yFeature) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if !IsNil(o.ResolvedValue) {
+	if o.ResolvedValue != nil {
 		toSerialize["resolvedValue"] = o.ResolvedValue
 	}
 	if !IsNil(o.Stage) {
@@ -307,7 +310,39 @@ func (o O11yO11yFeature) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variants) {
 		toSerialize["variants"] = o.Variants
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFeature) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFeature := _O11yO11yFeature{}
+
+	err = json.Unmarshal(data, &varO11yO11yFeature)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFeature(varO11yO11yFeature)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "defaultVariant")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "kind")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "resolvedValue")
+		delete(additionalProperties, "stage")
+		delete(additionalProperties, "variants")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFeature struct {

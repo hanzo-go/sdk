@@ -28,8 +28,11 @@ type O11yO11yLLMIngestAnnotation struct {
 	// Status is the annotation's initial review status. Defaults to PENDING.
 	Status *string `json:"status,omitempty"`
 	// TraceID is the trace the annotation attaches to. Required.
-	TraceId *string `json:"traceId,omitempty"`
+	TraceId              *string `json:"traceId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMIngestAnnotation O11yO11yLLMIngestAnnotation
 
 // NewO11yO11yLLMIngestAnnotation instantiates a new O11yO11yLLMIngestAnnotation object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yLLMIngestAnnotation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TraceId) {
 		toSerialize["traceId"] = o.TraceId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMIngestAnnotation) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMIngestAnnotation := _O11yO11yLLMIngestAnnotation{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMIngestAnnotation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMIngestAnnotation(varO11yO11yLLMIngestAnnotation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "content")
+		delete(additionalProperties, "observationId")
+		delete(additionalProperties, "queue")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "traceId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMIngestAnnotation struct {

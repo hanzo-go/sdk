@@ -22,8 +22,11 @@ type O11yO11yLogPipelinePreviewIn struct {
 	// Logs are the sample records to transform.
 	Logs []O11yO11yLogRecord `json:"logs,omitempty"`
 	// Pipelines are the pipelines to simulate, in order.
-	Pipelines []O11yO11yLogPipeline `json:"pipelines,omitempty"`
+	Pipelines            []O11yO11yLogPipeline `json:"pipelines,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogPipelinePreviewIn O11yO11yLogPipelinePreviewIn
 
 // NewO11yO11yLogPipelinePreviewIn instantiates a new O11yO11yLogPipelinePreviewIn object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yLogPipelinePreviewIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Pipelines) {
 		toSerialize["pipelines"] = o.Pipelines
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogPipelinePreviewIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogPipelinePreviewIn := _O11yO11yLogPipelinePreviewIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogPipelinePreviewIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogPipelinePreviewIn(varO11yO11yLogPipelinePreviewIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "logs")
+		delete(additionalProperties, "pipelines")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogPipelinePreviewIn struct {

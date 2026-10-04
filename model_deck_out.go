@@ -19,8 +19,11 @@ var _ MappedNullable = &DeckOut{}
 
 // DeckOut struct for DeckOut
 type DeckOut struct {
-	DocumentId *string `json:"documentId,omitempty"`
+	DocumentId           *string `json:"documentId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeckOut DeckOut
 
 // NewDeckOut instantiates a new DeckOut object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o DeckOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeckOut) UnmarshalJSON(data []byte) (err error) {
+	varDeckOut := _DeckOut{}
+
+	err = json.Unmarshal(data, &varDeckOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeckOut(varDeckOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "documentId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeckOut struct {

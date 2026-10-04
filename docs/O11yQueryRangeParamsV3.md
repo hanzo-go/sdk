@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CompositeQuery** | Pointer to [**O11yCompositeQuery**](O11yCompositeQuery.md) |  | [optional] 
+**CompositeQuery** | Pointer to [**O11yV3CompositeQuery**](O11yV3CompositeQuery.md) |  | [optional] 
 **End** | Pointer to **int64** |  | [optional] 
 **FormatForWeb** | Pointer to **bool** |  | [optional] 
 **NoCache** | Pointer to **bool** |  | [optional] 
 **Start** | Pointer to **int64** |  | [optional] 
 **Step** | Pointer to **int64** | step is in seconds; used for prometheus queries | [optional] 
-**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Variables** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -33,20 +33,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCompositeQuery
 
-`func (o *O11yQueryRangeParamsV3) GetCompositeQuery() O11yCompositeQuery`
+`func (o *O11yQueryRangeParamsV3) GetCompositeQuery() O11yV3CompositeQuery`
 
 GetCompositeQuery returns the CompositeQuery field if non-nil, zero value otherwise.
 
 ### GetCompositeQueryOk
 
-`func (o *O11yQueryRangeParamsV3) GetCompositeQueryOk() (*O11yCompositeQuery, bool)`
+`func (o *O11yQueryRangeParamsV3) GetCompositeQueryOk() (*O11yV3CompositeQuery, bool)`
 
 GetCompositeQueryOk returns a tuple with the CompositeQuery field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompositeQuery
 
-`func (o *O11yQueryRangeParamsV3) SetCompositeQuery(v O11yCompositeQuery)`
+`func (o *O11yQueryRangeParamsV3) SetCompositeQuery(v O11yV3CompositeQuery)`
 
 SetCompositeQuery sets CompositeQuery field to given value.
 
@@ -183,20 +183,20 @@ HasStep returns a boolean if a field has been set.
 
 ### GetVariables
 
-`func (o *O11yQueryRangeParamsV3) GetVariables() map[string]map[string]interface{}`
+`func (o *O11yQueryRangeParamsV3) GetVariables() map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *O11yQueryRangeParamsV3) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yQueryRangeParamsV3) GetVariablesOk() (*map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *O11yQueryRangeParamsV3) SetVariables(v map[string]map[string]interface{})`
+`func (o *O11yQueryRangeParamsV3) SetVariables(v map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 

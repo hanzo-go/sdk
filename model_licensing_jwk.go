@@ -26,8 +26,11 @@ type LicensingJWK struct {
 	// Use is always \"sig\".
 	Use *string `json:"use,omitempty"`
 	// X is the public key, base64url (the JWK convention).
-	X *string `json:"x,omitempty"`
+	X                    *string `json:"x,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicensingJWK LicensingJWK
 
 // NewLicensingJWK instantiates a new LicensingJWK object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o LicensingJWK) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.X) {
 		toSerialize["x"] = o.X
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicensingJWK) UnmarshalJSON(data []byte) (err error) {
+	varLicensingJWK := _LicensingJWK{}
+
+	err = json.Unmarshal(data, &varLicensingJWK)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicensingJWK(varLicensingJWK)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "crv")
+		delete(additionalProperties, "kty")
+		delete(additionalProperties, "use")
+		delete(additionalProperties, "x")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicensingJWK struct {

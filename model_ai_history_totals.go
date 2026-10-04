@@ -19,11 +19,14 @@ var _ MappedNullable = &AiHistoryTotals{}
 
 // AiHistoryTotals struct for AiHistoryTotals
 type AiHistoryTotals struct {
-	CumulativeCostSaved *float32 `json:"cumulative_cost_saved,omitempty"`
-	DaysActive          *int32   `json:"days_active,omitempty"`
-	Events              *int32   `json:"events,omitempty"`
-	RewardRate          *float32 `json:"reward_rate,omitempty"`
+	CumulativeCostSaved  *float32 `json:"cumulative_cost_saved,omitempty"`
+	DaysActive           *int32   `json:"days_active,omitempty"`
+	Events               *int32   `json:"events,omitempty"`
+	RewardRate           *float32 `json:"reward_rate,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiHistoryTotals AiHistoryTotals
 
 // NewAiHistoryTotals instantiates a new AiHistoryTotals object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o AiHistoryTotals) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RewardRate) {
 		toSerialize["reward_rate"] = o.RewardRate
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiHistoryTotals) UnmarshalJSON(data []byte) (err error) {
+	varAiHistoryTotals := _AiHistoryTotals{}
+
+	err = json.Unmarshal(data, &varAiHistoryTotals)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiHistoryTotals(varAiHistoryTotals)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cumulative_cost_saved")
+		delete(additionalProperties, "days_active")
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "reward_rate")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiHistoryTotals struct {

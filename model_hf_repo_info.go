@@ -19,16 +19,19 @@ var _ MappedNullable = &HfRepoInfo{}
 
 // HfRepoInfo struct for HfRepoInfo
 type HfRepoInfo struct {
-	Downloads    *int32      `json:"downloads,omitempty"`
-	Gated        interface{} `json:"gated,omitempty"`
-	Id           *string     `json:"id,omitempty"`
-	LastModified *string     `json:"lastModified,omitempty"`
-	Likes        *int32      `json:"likes,omitempty"`
-	PipelineTag  *string     `json:"pipeline_tag,omitempty"`
-	Private      *bool       `json:"private,omitempty"`
-	Siblings     []HfSibling `json:"siblings,omitempty"`
-	Tags         []string    `json:"tags,omitempty"`
+	Downloads            *int32      `json:"downloads,omitempty"`
+	Gated                interface{} `json:"gated,omitempty"`
+	Id                   *string     `json:"id,omitempty"`
+	LastModified         *string     `json:"lastModified,omitempty"`
+	Likes                *int32      `json:"likes,omitempty"`
+	PipelineTag          *string     `json:"pipeline_tag,omitempty"`
+	Private              *bool       `json:"private,omitempty"`
+	Siblings             []HfSibling `json:"siblings,omitempty"`
+	Tags                 []string    `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _HfRepoInfo HfRepoInfo
 
 // NewHfRepoInfo instantiates a new HfRepoInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -373,7 +376,41 @@ func (o HfRepoInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *HfRepoInfo) UnmarshalJSON(data []byte) (err error) {
+	varHfRepoInfo := _HfRepoInfo{}
+
+	err = json.Unmarshal(data, &varHfRepoInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HfRepoInfo(varHfRepoInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "downloads")
+		delete(additionalProperties, "gated")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "lastModified")
+		delete(additionalProperties, "likes")
+		delete(additionalProperties, "pipeline_tag")
+		delete(additionalProperties, "private")
+		delete(additionalProperties, "siblings")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableHfRepoInfo struct {

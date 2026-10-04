@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## GetBaseBases
 
-> []BaseView GetBaseBases(ctx).Execute()
+> []BaseBaseView GetBaseBases(ctx).Execute()
 
 Lists every Base the caller can reach, one per org their token carries.
 
@@ -39,7 +39,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BaseAPI.GetBaseBases``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBaseBases`: []BaseView
+	// response from `GetBaseBases`: []BaseBaseView
 	fmt.Fprintf(os.Stdout, "Response from `BaseAPI.GetBaseBases`: %v\n", resp)
 }
 ```
@@ -55,7 +55,7 @@ Other parameters are passed through a pointer to a apiGetBaseBasesRequest struct
 
 ### Return type
 
-[**[]BaseView**](BaseView.md)
+[**[]BaseBaseView**](BaseBaseView.md)
 
 ### Authorization
 
@@ -64,7 +64,7 @@ Other parameters are passed through a pointer to a apiGetBaseBasesRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -73,7 +73,7 @@ Other parameters are passed through a pointer to a apiGetBaseBasesRequest struct
 
 ## GetBaseBasesByOrg
 
-> BaseView GetBaseBasesByOrg(ctx, org).Execute()
+> BaseBaseView GetBaseBasesByOrg(ctx, org).Execute()
 
 Describes ONE org's Base — whether its store exists, and what it occupies.
 
@@ -101,7 +101,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BaseAPI.GetBaseBasesByOrg``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBaseBasesByOrg`: BaseView
+	// response from `GetBaseBasesByOrg`: BaseBaseView
 	fmt.Fprintf(os.Stdout, "Response from `BaseAPI.GetBaseBasesByOrg`: %v\n", resp)
 }
 ```
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BaseView**](BaseView.md)
+[**BaseBaseView**](BaseBaseView.md)
 
 ### Authorization
 
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ## GetBaseHealth
 
-> BaseHealth GetBaseHealth(ctx).Execute()
+> BaseBaseHealth GetBaseHealth(ctx).Execute()
 
 Reports that the base subsystem is serving.
 
@@ -170,7 +170,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BaseAPI.GetBaseHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBaseHealth`: BaseHealth
+	// response from `GetBaseHealth`: BaseBaseHealth
 	fmt.Fprintf(os.Stdout, "Response from `BaseAPI.GetBaseHealth`: %v\n", resp)
 }
 ```
@@ -186,7 +186,7 @@ Other parameters are passed through a pointer to a apiGetBaseHealthRequest struc
 
 ### Return type
 
-[**BaseHealth**](BaseHealth.md)
+[**BaseBaseHealth**](BaseBaseHealth.md)
 
 ### Authorization
 
@@ -195,7 +195,7 @@ Other parameters are passed through a pointer to a apiGetBaseHealthRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

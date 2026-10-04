@@ -24,8 +24,11 @@ type O11yO11yIdentN struct {
 	// Impersonation is the impersonation provider.
 	Impersonation *O11yO11yToggle `json:"impersonation,omitempty"`
 	// Tokenizer is the token-based provider.
-	Tokenizer *O11yO11yToggle `json:"tokenizer,omitempty"`
+	Tokenizer            *O11yO11yToggle `json:"tokenizer,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yIdentN O11yO11yIdentN
 
 // NewO11yO11yIdentN instantiates a new O11yO11yIdentN object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yIdentN) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tokenizer) {
 		toSerialize["tokenizer"] = o.Tokenizer
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yIdentN) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yIdentN := _O11yO11yIdentN{}
+
+	err = json.Unmarshal(data, &varO11yO11yIdentN)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yIdentN(varO11yO11yIdentN)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "apikey")
+		delete(additionalProperties, "impersonation")
+		delete(additionalProperties, "tokenizer")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yIdentN struct {

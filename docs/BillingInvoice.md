@@ -4,31 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AmountDue** | Pointer to **int64** |  | [optional] 
-**AmountPaid** | Pointer to **int64** |  | [optional] 
-**AttemptCount** | Pointer to **int64** |  | [optional] 
-**CreatedAt** | Pointer to **string** |  | [optional] 
-**CreditApplied** | Pointer to **int64** |  | [optional] 
-**Currency** | Pointer to **string** |  | [optional] 
-**CustomerEmail** | Pointer to **string** |  | [optional] 
-**Discount** | Pointer to **int64** |  | [optional] 
-**DueDate** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**LineItems** | Pointer to [**[]InvoiceLineItem**](InvoiceLineItem.md) | LineItems carries no omitempty and is never allocated empty, because the wire it reproduces sends &#x60;null&#x60; for an invoice with no lines. An empty array there would be a different answer to \&quot;were there lines\&quot;. | [optional] 
-**Number** | Pointer to **int64** |  | [optional] 
-**NumberStr** | Pointer to **string** |  | [optional] 
-**PaidAt** | Pointer to **string** |  | [optional] 
-**PaymentMethod** | Pointer to **string** |  | [optional] 
-**PaymentRef** | Pointer to **string** |  | [optional] 
-**PeriodEnd** | Pointer to **string** |  | [optional] 
-**PeriodStart** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**SubscriptionId** | Pointer to **string** |  | [optional] 
-**Subtotal** | Pointer to **int64** |  | [optional] 
-**Tax** | Pointer to **int64** |  | [optional] 
-**UpdatedAt** | Pointer to **string** |  | [optional] 
-**UserId** | Pointer to **string** |  | [optional] 
-**VoidedAt** | Pointer to **string** |  | [optional] 
+**AmountDueCents** | Pointer to **int64** | AmountDueCents is what remains collectible. | [optional] 
+**AmountPaidCents** | Pointer to **int64** | AmountPaidCents is what has been collected so far. | [optional] 
+**CreatedAt** | Pointer to **string** | CreatedAt is when the draft was raised, RFC3339. | [optional] 
+**Currency** | Pointer to **string** | Currency is the ISO 4217 code. | [optional] 
+**CustomerEmail** | Pointer to **string** | CustomerEmail is where it is sent. | [optional] 
+**Id** | Pointer to **string** | ID is the invoice id — what the issue, collect and void ops address. | [optional] 
+**Lines** | Pointer to [**[]BillingInvoiceLine**](BillingInvoiceLine.md) | Lines are the charges on the invoice. | [optional] 
+**Number** | Pointer to **string** | Number is the human-facing invoice number, e.g. \&quot;INV-0042\&quot;. A draft has none; issuing assigns it. | [optional] 
+**PaymentRef** | Pointer to **string** | PaymentRef is the processor reference for the collection, once paid. | [optional] 
+**Status** | Pointer to **string** | Status is draft, open, paid, void or uncollectible. A draft is not collectible; issuing moves it to open. | [optional] 
+**SubtotalCents** | Pointer to **int64** | SubtotalCents is the sum of the lines. | [optional] 
+**UserId** | Pointer to **string** | UserID is the customer billed. | [optional] 
 
 ## Methods
 
@@ -49,80 +36,55 @@ NewBillingInvoiceWithDefaults instantiates a new BillingInvoice object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetAmountDue
+### GetAmountDueCents
 
-`func (o *BillingInvoice) GetAmountDue() int64`
+`func (o *BillingInvoice) GetAmountDueCents() int64`
 
-GetAmountDue returns the AmountDue field if non-nil, zero value otherwise.
+GetAmountDueCents returns the AmountDueCents field if non-nil, zero value otherwise.
 
-### GetAmountDueOk
+### GetAmountDueCentsOk
 
-`func (o *BillingInvoice) GetAmountDueOk() (*int64, bool)`
+`func (o *BillingInvoice) GetAmountDueCentsOk() (*int64, bool)`
 
-GetAmountDueOk returns a tuple with the AmountDue field if it's non-nil, zero value otherwise
+GetAmountDueCentsOk returns a tuple with the AmountDueCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAmountDue
+### SetAmountDueCents
 
-`func (o *BillingInvoice) SetAmountDue(v int64)`
+`func (o *BillingInvoice) SetAmountDueCents(v int64)`
 
-SetAmountDue sets AmountDue field to given value.
+SetAmountDueCents sets AmountDueCents field to given value.
 
-### HasAmountDue
+### HasAmountDueCents
 
-`func (o *BillingInvoice) HasAmountDue() bool`
+`func (o *BillingInvoice) HasAmountDueCents() bool`
 
-HasAmountDue returns a boolean if a field has been set.
+HasAmountDueCents returns a boolean if a field has been set.
 
-### GetAmountPaid
+### GetAmountPaidCents
 
-`func (o *BillingInvoice) GetAmountPaid() int64`
+`func (o *BillingInvoice) GetAmountPaidCents() int64`
 
-GetAmountPaid returns the AmountPaid field if non-nil, zero value otherwise.
+GetAmountPaidCents returns the AmountPaidCents field if non-nil, zero value otherwise.
 
-### GetAmountPaidOk
+### GetAmountPaidCentsOk
 
-`func (o *BillingInvoice) GetAmountPaidOk() (*int64, bool)`
+`func (o *BillingInvoice) GetAmountPaidCentsOk() (*int64, bool)`
 
-GetAmountPaidOk returns a tuple with the AmountPaid field if it's non-nil, zero value otherwise
+GetAmountPaidCentsOk returns a tuple with the AmountPaidCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAmountPaid
+### SetAmountPaidCents
 
-`func (o *BillingInvoice) SetAmountPaid(v int64)`
+`func (o *BillingInvoice) SetAmountPaidCents(v int64)`
 
-SetAmountPaid sets AmountPaid field to given value.
+SetAmountPaidCents sets AmountPaidCents field to given value.
 
-### HasAmountPaid
+### HasAmountPaidCents
 
-`func (o *BillingInvoice) HasAmountPaid() bool`
+`func (o *BillingInvoice) HasAmountPaidCents() bool`
 
-HasAmountPaid returns a boolean if a field has been set.
-
-### GetAttemptCount
-
-`func (o *BillingInvoice) GetAttemptCount() int64`
-
-GetAttemptCount returns the AttemptCount field if non-nil, zero value otherwise.
-
-### GetAttemptCountOk
-
-`func (o *BillingInvoice) GetAttemptCountOk() (*int64, bool)`
-
-GetAttemptCountOk returns a tuple with the AttemptCount field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAttemptCount
-
-`func (o *BillingInvoice) SetAttemptCount(v int64)`
-
-SetAttemptCount sets AttemptCount field to given value.
-
-### HasAttemptCount
-
-`func (o *BillingInvoice) HasAttemptCount() bool`
-
-HasAttemptCount returns a boolean if a field has been set.
+HasAmountPaidCents returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -148,31 +110,6 @@ SetCreatedAt sets CreatedAt field to given value.
 `func (o *BillingInvoice) HasCreatedAt() bool`
 
 HasCreatedAt returns a boolean if a field has been set.
-
-### GetCreditApplied
-
-`func (o *BillingInvoice) GetCreditApplied() int64`
-
-GetCreditApplied returns the CreditApplied field if non-nil, zero value otherwise.
-
-### GetCreditAppliedOk
-
-`func (o *BillingInvoice) GetCreditAppliedOk() (*int64, bool)`
-
-GetCreditAppliedOk returns a tuple with the CreditApplied field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreditApplied
-
-`func (o *BillingInvoice) SetCreditApplied(v int64)`
-
-SetCreditApplied sets CreditApplied field to given value.
-
-### HasCreditApplied
-
-`func (o *BillingInvoice) HasCreditApplied() bool`
-
-HasCreditApplied returns a boolean if a field has been set.
 
 ### GetCurrency
 
@@ -224,56 +161,6 @@ SetCustomerEmail sets CustomerEmail field to given value.
 
 HasCustomerEmail returns a boolean if a field has been set.
 
-### GetDiscount
-
-`func (o *BillingInvoice) GetDiscount() int64`
-
-GetDiscount returns the Discount field if non-nil, zero value otherwise.
-
-### GetDiscountOk
-
-`func (o *BillingInvoice) GetDiscountOk() (*int64, bool)`
-
-GetDiscountOk returns a tuple with the Discount field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDiscount
-
-`func (o *BillingInvoice) SetDiscount(v int64)`
-
-SetDiscount sets Discount field to given value.
-
-### HasDiscount
-
-`func (o *BillingInvoice) HasDiscount() bool`
-
-HasDiscount returns a boolean if a field has been set.
-
-### GetDueDate
-
-`func (o *BillingInvoice) GetDueDate() string`
-
-GetDueDate returns the DueDate field if non-nil, zero value otherwise.
-
-### GetDueDateOk
-
-`func (o *BillingInvoice) GetDueDateOk() (*string, bool)`
-
-GetDueDateOk returns a tuple with the DueDate field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDueDate
-
-`func (o *BillingInvoice) SetDueDate(v string)`
-
-SetDueDate sets DueDate field to given value.
-
-### HasDueDate
-
-`func (o *BillingInvoice) HasDueDate() bool`
-
-HasDueDate returns a boolean if a field has been set.
-
 ### GetId
 
 `func (o *BillingInvoice) GetId() string`
@@ -299,47 +186,47 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
-### GetLineItems
+### GetLines
 
-`func (o *BillingInvoice) GetLineItems() []InvoiceLineItem`
+`func (o *BillingInvoice) GetLines() []BillingInvoiceLine`
 
-GetLineItems returns the LineItems field if non-nil, zero value otherwise.
+GetLines returns the Lines field if non-nil, zero value otherwise.
 
-### GetLineItemsOk
+### GetLinesOk
 
-`func (o *BillingInvoice) GetLineItemsOk() (*[]InvoiceLineItem, bool)`
+`func (o *BillingInvoice) GetLinesOk() (*[]BillingInvoiceLine, bool)`
 
-GetLineItemsOk returns a tuple with the LineItems field if it's non-nil, zero value otherwise
+GetLinesOk returns a tuple with the Lines field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLineItems
+### SetLines
 
-`func (o *BillingInvoice) SetLineItems(v []InvoiceLineItem)`
+`func (o *BillingInvoice) SetLines(v []BillingInvoiceLine)`
 
-SetLineItems sets LineItems field to given value.
+SetLines sets Lines field to given value.
 
-### HasLineItems
+### HasLines
 
-`func (o *BillingInvoice) HasLineItems() bool`
+`func (o *BillingInvoice) HasLines() bool`
 
-HasLineItems returns a boolean if a field has been set.
+HasLines returns a boolean if a field has been set.
 
 ### GetNumber
 
-`func (o *BillingInvoice) GetNumber() int64`
+`func (o *BillingInvoice) GetNumber() string`
 
 GetNumber returns the Number field if non-nil, zero value otherwise.
 
 ### GetNumberOk
 
-`func (o *BillingInvoice) GetNumberOk() (*int64, bool)`
+`func (o *BillingInvoice) GetNumberOk() (*string, bool)`
 
 GetNumberOk returns a tuple with the Number field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumber
 
-`func (o *BillingInvoice) SetNumber(v int64)`
+`func (o *BillingInvoice) SetNumber(v string)`
 
 SetNumber sets Number field to given value.
 
@@ -348,81 +235,6 @@ SetNumber sets Number field to given value.
 `func (o *BillingInvoice) HasNumber() bool`
 
 HasNumber returns a boolean if a field has been set.
-
-### GetNumberStr
-
-`func (o *BillingInvoice) GetNumberStr() string`
-
-GetNumberStr returns the NumberStr field if non-nil, zero value otherwise.
-
-### GetNumberStrOk
-
-`func (o *BillingInvoice) GetNumberStrOk() (*string, bool)`
-
-GetNumberStrOk returns a tuple with the NumberStr field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNumberStr
-
-`func (o *BillingInvoice) SetNumberStr(v string)`
-
-SetNumberStr sets NumberStr field to given value.
-
-### HasNumberStr
-
-`func (o *BillingInvoice) HasNumberStr() bool`
-
-HasNumberStr returns a boolean if a field has been set.
-
-### GetPaidAt
-
-`func (o *BillingInvoice) GetPaidAt() string`
-
-GetPaidAt returns the PaidAt field if non-nil, zero value otherwise.
-
-### GetPaidAtOk
-
-`func (o *BillingInvoice) GetPaidAtOk() (*string, bool)`
-
-GetPaidAtOk returns a tuple with the PaidAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPaidAt
-
-`func (o *BillingInvoice) SetPaidAt(v string)`
-
-SetPaidAt sets PaidAt field to given value.
-
-### HasPaidAt
-
-`func (o *BillingInvoice) HasPaidAt() bool`
-
-HasPaidAt returns a boolean if a field has been set.
-
-### GetPaymentMethod
-
-`func (o *BillingInvoice) GetPaymentMethod() string`
-
-GetPaymentMethod returns the PaymentMethod field if non-nil, zero value otherwise.
-
-### GetPaymentMethodOk
-
-`func (o *BillingInvoice) GetPaymentMethodOk() (*string, bool)`
-
-GetPaymentMethodOk returns a tuple with the PaymentMethod field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPaymentMethod
-
-`func (o *BillingInvoice) SetPaymentMethod(v string)`
-
-SetPaymentMethod sets PaymentMethod field to given value.
-
-### HasPaymentMethod
-
-`func (o *BillingInvoice) HasPaymentMethod() bool`
-
-HasPaymentMethod returns a boolean if a field has been set.
 
 ### GetPaymentRef
 
@@ -449,56 +261,6 @@ SetPaymentRef sets PaymentRef field to given value.
 
 HasPaymentRef returns a boolean if a field has been set.
 
-### GetPeriodEnd
-
-`func (o *BillingInvoice) GetPeriodEnd() string`
-
-GetPeriodEnd returns the PeriodEnd field if non-nil, zero value otherwise.
-
-### GetPeriodEndOk
-
-`func (o *BillingInvoice) GetPeriodEndOk() (*string, bool)`
-
-GetPeriodEndOk returns a tuple with the PeriodEnd field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPeriodEnd
-
-`func (o *BillingInvoice) SetPeriodEnd(v string)`
-
-SetPeriodEnd sets PeriodEnd field to given value.
-
-### HasPeriodEnd
-
-`func (o *BillingInvoice) HasPeriodEnd() bool`
-
-HasPeriodEnd returns a boolean if a field has been set.
-
-### GetPeriodStart
-
-`func (o *BillingInvoice) GetPeriodStart() string`
-
-GetPeriodStart returns the PeriodStart field if non-nil, zero value otherwise.
-
-### GetPeriodStartOk
-
-`func (o *BillingInvoice) GetPeriodStartOk() (*string, bool)`
-
-GetPeriodStartOk returns a tuple with the PeriodStart field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPeriodStart
-
-`func (o *BillingInvoice) SetPeriodStart(v string)`
-
-SetPeriodStart sets PeriodStart field to given value.
-
-### HasPeriodStart
-
-`func (o *BillingInvoice) HasPeriodStart() bool`
-
-HasPeriodStart returns a boolean if a field has been set.
-
 ### GetStatus
 
 `func (o *BillingInvoice) GetStatus() string`
@@ -524,105 +286,30 @@ SetStatus sets Status field to given value.
 
 HasStatus returns a boolean if a field has been set.
 
-### GetSubscriptionId
+### GetSubtotalCents
 
-`func (o *BillingInvoice) GetSubscriptionId() string`
+`func (o *BillingInvoice) GetSubtotalCents() int64`
 
-GetSubscriptionId returns the SubscriptionId field if non-nil, zero value otherwise.
+GetSubtotalCents returns the SubtotalCents field if non-nil, zero value otherwise.
 
-### GetSubscriptionIdOk
+### GetSubtotalCentsOk
 
-`func (o *BillingInvoice) GetSubscriptionIdOk() (*string, bool)`
+`func (o *BillingInvoice) GetSubtotalCentsOk() (*int64, bool)`
 
-GetSubscriptionIdOk returns a tuple with the SubscriptionId field if it's non-nil, zero value otherwise
+GetSubtotalCentsOk returns a tuple with the SubtotalCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSubscriptionId
+### SetSubtotalCents
 
-`func (o *BillingInvoice) SetSubscriptionId(v string)`
+`func (o *BillingInvoice) SetSubtotalCents(v int64)`
 
-SetSubscriptionId sets SubscriptionId field to given value.
+SetSubtotalCents sets SubtotalCents field to given value.
 
-### HasSubscriptionId
+### HasSubtotalCents
 
-`func (o *BillingInvoice) HasSubscriptionId() bool`
+`func (o *BillingInvoice) HasSubtotalCents() bool`
 
-HasSubscriptionId returns a boolean if a field has been set.
-
-### GetSubtotal
-
-`func (o *BillingInvoice) GetSubtotal() int64`
-
-GetSubtotal returns the Subtotal field if non-nil, zero value otherwise.
-
-### GetSubtotalOk
-
-`func (o *BillingInvoice) GetSubtotalOk() (*int64, bool)`
-
-GetSubtotalOk returns a tuple with the Subtotal field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSubtotal
-
-`func (o *BillingInvoice) SetSubtotal(v int64)`
-
-SetSubtotal sets Subtotal field to given value.
-
-### HasSubtotal
-
-`func (o *BillingInvoice) HasSubtotal() bool`
-
-HasSubtotal returns a boolean if a field has been set.
-
-### GetTax
-
-`func (o *BillingInvoice) GetTax() int64`
-
-GetTax returns the Tax field if non-nil, zero value otherwise.
-
-### GetTaxOk
-
-`func (o *BillingInvoice) GetTaxOk() (*int64, bool)`
-
-GetTaxOk returns a tuple with the Tax field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTax
-
-`func (o *BillingInvoice) SetTax(v int64)`
-
-SetTax sets Tax field to given value.
-
-### HasTax
-
-`func (o *BillingInvoice) HasTax() bool`
-
-HasTax returns a boolean if a field has been set.
-
-### GetUpdatedAt
-
-`func (o *BillingInvoice) GetUpdatedAt() string`
-
-GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
-
-### GetUpdatedAtOk
-
-`func (o *BillingInvoice) GetUpdatedAtOk() (*string, bool)`
-
-GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUpdatedAt
-
-`func (o *BillingInvoice) SetUpdatedAt(v string)`
-
-SetUpdatedAt sets UpdatedAt field to given value.
-
-### HasUpdatedAt
-
-`func (o *BillingInvoice) HasUpdatedAt() bool`
-
-HasUpdatedAt returns a boolean if a field has been set.
+HasSubtotalCents returns a boolean if a field has been set.
 
 ### GetUserId
 
@@ -648,31 +335,6 @@ SetUserId sets UserId field to given value.
 `func (o *BillingInvoice) HasUserId() bool`
 
 HasUserId returns a boolean if a field has been set.
-
-### GetVoidedAt
-
-`func (o *BillingInvoice) GetVoidedAt() string`
-
-GetVoidedAt returns the VoidedAt field if non-nil, zero value otherwise.
-
-### GetVoidedAtOk
-
-`func (o *BillingInvoice) GetVoidedAtOk() (*string, bool)`
-
-GetVoidedAtOk returns a tuple with the VoidedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVoidedAt
-
-`func (o *BillingInvoice) SetVoidedAt(v string)`
-
-SetVoidedAt sets VoidedAt field to given value.
-
-### HasVoidedAt
-
-`func (o *BillingInvoice) HasVoidedAt() bool`
-
-HasVoidedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

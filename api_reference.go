@@ -34,7 +34,7 @@ func (r ReferenceAPIRiskClearReferenceRequest) Key(key string) ReferenceAPIRiskC
 	return r
 }
 
-func (r ReferenceAPIRiskClearReferenceRequest) Execute() (*ClearReferenceOut, *http.Response, error) {
+func (r ReferenceAPIRiskClearReferenceRequest) Execute() (*ReferenceClearReferenceOut, *http.Response, error) {
 	return r.ApiService.RiskClearReferenceExecute(r)
 }
 
@@ -61,13 +61,13 @@ func (a *ReferenceAPIService) RiskClearReference(ctx context.Context, set string
 
 // Execute executes the request
 //
-//	@return ClearReferenceOut
-func (a *ReferenceAPIService) RiskClearReferenceExecute(r ReferenceAPIRiskClearReferenceRequest) (*ClearReferenceOut, *http.Response, error) {
+//	@return ReferenceClearReferenceOut
+func (a *ReferenceAPIService) RiskClearReferenceExecute(r ReferenceAPIRiskClearReferenceRequest) (*ReferenceClearReferenceOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClearReferenceOut
+		localVarReturnValue *ReferenceClearReferenceOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReferenceAPIService.RiskClearReference")
@@ -95,7 +95,7 @@ func (a *ReferenceAPIService) RiskClearReferenceExecute(r ReferenceAPIRiskClearR
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -124,6 +124,14 @@ func (a *ReferenceAPIService) RiskClearReferenceExecute(r ReferenceAPIRiskClearR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -159,7 +167,7 @@ func (r ReferenceAPIRiskReferenceRequest) Limit(limit int64) ReferenceAPIRiskRef
 	return r
 }
 
-func (r ReferenceAPIRiskReferenceRequest) Execute() (*ReferenceOut, *http.Response, error) {
+func (r ReferenceAPIRiskReferenceRequest) Execute() (*ReferenceReferenceOut, *http.Response, error) {
 	return r.ApiService.RiskReferenceExecute(r)
 }
 
@@ -187,13 +195,13 @@ func (a *ReferenceAPIService) RiskReference(ctx context.Context, set string) Ref
 
 // Execute executes the request
 //
-//	@return ReferenceOut
-func (a *ReferenceAPIService) RiskReferenceExecute(r ReferenceAPIRiskReferenceRequest) (*ReferenceOut, *http.Response, error) {
+//	@return ReferenceReferenceOut
+func (a *ReferenceAPIService) RiskReferenceExecute(r ReferenceAPIRiskReferenceRequest) (*ReferenceReferenceOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ReferenceOut
+		localVarReturnValue *ReferenceReferenceOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReferenceAPIService.RiskReference")
@@ -224,7 +232,7 @@ func (a *ReferenceAPIService) RiskReferenceExecute(r ReferenceAPIRiskReferenceRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -253,6 +261,14 @@ func (a *ReferenceAPIService) RiskReferenceExecute(r ReferenceAPIRiskReferenceRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -273,7 +289,7 @@ type ReferenceAPIRiskReferenceSetsRequest struct {
 	ApiService *ReferenceAPIService
 }
 
-func (r ReferenceAPIRiskReferenceSetsRequest) Execute() (*ReferenceSetsOut, *http.Response, error) {
+func (r ReferenceAPIRiskReferenceSetsRequest) Execute() (*ReferenceReferenceSetsOut, *http.Response, error) {
 	return r.ApiService.RiskReferenceSetsExecute(r)
 }
 
@@ -300,13 +316,13 @@ func (a *ReferenceAPIService) RiskReferenceSets(ctx context.Context) ReferenceAP
 
 // Execute executes the request
 //
-//	@return ReferenceSetsOut
-func (a *ReferenceAPIService) RiskReferenceSetsExecute(r ReferenceAPIRiskReferenceSetsRequest) (*ReferenceSetsOut, *http.Response, error) {
+//	@return ReferenceReferenceSetsOut
+func (a *ReferenceAPIService) RiskReferenceSetsExecute(r ReferenceAPIRiskReferenceSetsRequest) (*ReferenceReferenceSetsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ReferenceSetsOut
+		localVarReturnValue *ReferenceReferenceSetsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReferenceAPIService.RiskReferenceSets")
@@ -330,7 +346,7 @@ func (a *ReferenceAPIService) RiskReferenceSetsExecute(r ReferenceAPIRiskReferen
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -359,129 +375,14 @@ func (a *ReferenceAPIService) RiskReferenceSetsExecute(r ReferenceAPIRiskReferen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ReferenceAPIRiskRefreshReferenceRequest struct {
-	ctx                context.Context
-	ApiService         *ReferenceAPIService
-	refreshReferenceIn *RefreshReferenceIn
-}
-
-func (r ReferenceAPIRiskRefreshReferenceRequest) RefreshReferenceIn(refreshReferenceIn RefreshReferenceIn) ReferenceAPIRiskRefreshReferenceRequest {
-	r.refreshReferenceIn = &refreshReferenceIn
-	return r
-}
-
-func (r ReferenceAPIRiskRefreshReferenceRequest) Execute() (*RefreshReferenceOut, *http.Response, error) {
-	return r.ApiService.RiskRefreshReferenceExecute(r)
-}
-
-/*
-RiskRefreshReference Takes a new version of one set.
-
-Takes a new version of one set. SuperAdmin only.
-
-It is platform work, not tenant work: it writes the shared baseline every
-organisation reads, so it is gated to the platform's own identity. Nothing
-here can write an organisation's overrides, and nothing an organisation sends
-can reach this route.
-
-Idempotent. A version is the content digest of what was taken, so refreshing
-an unchanged publisher writes no rows and reports unchanged. Resumable: a run
-that died half-way is continued from where it stopped rather than restarted.
-
-A set whose source needs a licence we do not hold is refused with the reason,
-rather than being quietly skipped.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ReferenceAPIRiskRefreshReferenceRequest
-*/
-func (a *ReferenceAPIService) RiskRefreshReference(ctx context.Context) ReferenceAPIRiskRefreshReferenceRequest {
-	return ReferenceAPIRiskRefreshReferenceRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return RefreshReferenceOut
-func (a *ReferenceAPIService) RiskRefreshReferenceExecute(r ReferenceAPIRiskRefreshReferenceRequest) (*RefreshReferenceOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *RefreshReferenceOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReferenceAPIService.RiskRefreshReference")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/reference/refresh"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.refreshReferenceIn == nil {
-		return localVarReturnValue, nil, reportError("refreshReferenceIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.refreshReferenceIn
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -498,17 +399,17 @@ func (a *ReferenceAPIService) RiskRefreshReferenceExecute(r ReferenceAPIRiskRefr
 }
 
 type ReferenceAPIRiskResolveReferenceRequest struct {
-	ctx                context.Context
-	ApiService         *ReferenceAPIService
-	resolveReferenceIn *ResolveReferenceIn
+	ctx                         context.Context
+	ApiService                  *ReferenceAPIService
+	referenceResolveReferenceIn *ReferenceResolveReferenceIn
 }
 
-func (r ReferenceAPIRiskResolveReferenceRequest) ResolveReferenceIn(resolveReferenceIn ResolveReferenceIn) ReferenceAPIRiskResolveReferenceRequest {
-	r.resolveReferenceIn = &resolveReferenceIn
+func (r ReferenceAPIRiskResolveReferenceRequest) ReferenceResolveReferenceIn(referenceResolveReferenceIn ReferenceResolveReferenceIn) ReferenceAPIRiskResolveReferenceRequest {
+	r.referenceResolveReferenceIn = &referenceResolveReferenceIn
 	return r
 }
 
-func (r ReferenceAPIRiskResolveReferenceRequest) Execute() (*ResolveReferenceOut, *http.Response, error) {
+func (r ReferenceAPIRiskResolveReferenceRequest) Execute() (*ReferenceResolveReferenceOut, *http.Response, error) {
 	return r.ApiService.RiskResolveReferenceExecute(r)
 }
 
@@ -539,13 +440,13 @@ func (a *ReferenceAPIService) RiskResolveReference(ctx context.Context) Referenc
 
 // Execute executes the request
 //
-//	@return ResolveReferenceOut
-func (a *ReferenceAPIService) RiskResolveReferenceExecute(r ReferenceAPIRiskResolveReferenceRequest) (*ResolveReferenceOut, *http.Response, error) {
+//	@return ReferenceResolveReferenceOut
+func (a *ReferenceAPIService) RiskResolveReferenceExecute(r ReferenceAPIRiskResolveReferenceRequest) (*ReferenceResolveReferenceOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ResolveReferenceOut
+		localVarReturnValue *ReferenceResolveReferenceOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReferenceAPIService.RiskResolveReference")
@@ -558,8 +459,8 @@ func (a *ReferenceAPIService) RiskResolveReferenceExecute(r ReferenceAPIRiskReso
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.resolveReferenceIn == nil {
-		return localVarReturnValue, nil, reportError("resolveReferenceIn is required and must be specified")
+	if r.referenceResolveReferenceIn == nil {
+		return localVarReturnValue, nil, reportError("referenceResolveReferenceIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -572,7 +473,7 @@ func (a *ReferenceAPIService) RiskResolveReferenceExecute(r ReferenceAPIRiskReso
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -580,7 +481,7 @@ func (a *ReferenceAPIService) RiskResolveReferenceExecute(r ReferenceAPIRiskReso
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.resolveReferenceIn
+	localVarPostBody = r.referenceResolveReferenceIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -603,6 +504,14 @@ func (a *ReferenceAPIService) RiskResolveReferenceExecute(r ReferenceAPIRiskReso
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -619,18 +528,18 @@ func (a *ReferenceAPIService) RiskResolveReferenceExecute(r ReferenceAPIRiskReso
 }
 
 type ReferenceAPIRiskSetReferenceRequest struct {
-	ctx            context.Context
-	ApiService     *ReferenceAPIService
-	set            string
-	setReferenceIn *SetReferenceIn
+	ctx                     context.Context
+	ApiService              *ReferenceAPIService
+	set                     string
+	referenceSetReferenceIn *ReferenceSetReferenceIn
 }
 
-func (r ReferenceAPIRiskSetReferenceRequest) SetReferenceIn(setReferenceIn SetReferenceIn) ReferenceAPIRiskSetReferenceRequest {
-	r.setReferenceIn = &setReferenceIn
+func (r ReferenceAPIRiskSetReferenceRequest) ReferenceSetReferenceIn(referenceSetReferenceIn ReferenceSetReferenceIn) ReferenceAPIRiskSetReferenceRequest {
+	r.referenceSetReferenceIn = &referenceSetReferenceIn
 	return r
 }
 
-func (r ReferenceAPIRiskSetReferenceRequest) Execute() (*SetReferenceOut, *http.Response, error) {
+func (r ReferenceAPIRiskSetReferenceRequest) Execute() (*ReferenceSetReferenceOut, *http.Response, error) {
 	return r.ApiService.RiskSetReferenceExecute(r)
 }
 
@@ -663,13 +572,13 @@ func (a *ReferenceAPIService) RiskSetReference(ctx context.Context, set string) 
 
 // Execute executes the request
 //
-//	@return SetReferenceOut
-func (a *ReferenceAPIService) RiskSetReferenceExecute(r ReferenceAPIRiskSetReferenceRequest) (*SetReferenceOut, *http.Response, error) {
+//	@return ReferenceSetReferenceOut
+func (a *ReferenceAPIService) RiskSetReferenceExecute(r ReferenceAPIRiskSetReferenceRequest) (*ReferenceSetReferenceOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SetReferenceOut
+		localVarReturnValue *ReferenceSetReferenceOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReferenceAPIService.RiskSetReference")
@@ -683,8 +592,8 @@ func (a *ReferenceAPIService) RiskSetReferenceExecute(r ReferenceAPIRiskSetRefer
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.setReferenceIn == nil {
-		return localVarReturnValue, nil, reportError("setReferenceIn is required and must be specified")
+	if r.referenceSetReferenceIn == nil {
+		return localVarReturnValue, nil, reportError("referenceSetReferenceIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -697,7 +606,7 @@ func (a *ReferenceAPIService) RiskSetReferenceExecute(r ReferenceAPIRiskSetRefer
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -705,7 +614,7 @@ func (a *ReferenceAPIService) RiskSetReferenceExecute(r ReferenceAPIRiskSetRefer
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.setReferenceIn
+	localVarPostBody = r.referenceSetReferenceIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -728,6 +637,14 @@ func (a *ReferenceAPIService) RiskSetReferenceExecute(r ReferenceAPIRiskSetRefer
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

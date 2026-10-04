@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## GetAuthor
 
-> map[string]map[string]interface{} GetAuthor(ctx).Execute()
+> map[string]interface{} GetAuthor(ctx).Execute()
 
 Returns the caller's author-program dashboard: enrolment status, linked forge login, verified repositories and owner-wide claims, recorded deploys, accrued / pending / paid royalty, and the payout history.
 
@@ -41,7 +41,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuthorAPI.GetAuthor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAuthor`: map[string]map[string]interface{}
+	// response from `GetAuthor`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AuthorAPI.GetAuthor`: %v\n", resp)
 }
 ```
@@ -57,7 +57,7 @@ Other parameters are passed through a pointer to a apiGetAuthorRequest struct vi
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -66,7 +66,7 @@ Other parameters are passed through a pointer to a apiGetAuthorRequest struct vi
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -75,7 +75,7 @@ Other parameters are passed through a pointer to a apiGetAuthorRequest struct vi
 
 ## GetAuthorBasis
 
-> map[string]map[string]interface{} GetAuthorBasis(ctx).Period(period).Execute()
+> map[string]interface{} GetAuthorBasis(ctx).Period(period).Execute()
 
 Returns the AUDIT TRAIL behind the caller's own royalty: every ledger row with the spend it was computed from, the share applied at the time, the platform's matching half, whether each row satisfies the formula, and the attribution edges that already existed when the row was written.
 
@@ -103,7 +103,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuthorAPI.GetAuthorBasis``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAuthorBasis`: map[string]map[string]interface{}
+	// response from `GetAuthorBasis`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `AuthorAPI.GetAuthorBasis`: %v\n", resp)
 }
 ```
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -141,7 +141,7 @@ Name | Type | Description  | Notes
 
 ## PostAuthorConnect
 
-> Enrolment PostAuthorConnect(ctx).ConnectRequest(connectRequest).Execute()
+> AuthorEnrolment PostAuthorConnect(ctx).AuthorConnectRequest(authorConnectRequest).Execute()
 
 Enrols the caller's org in the author program at status \"connected\" and returns its enrolment, including the verify code the file method needs.
 
@@ -160,16 +160,16 @@ import (
 )
 
 func main() {
-	connectRequest := *openapiclient.NewConnectRequest() // ConnectRequest | 
+	authorConnectRequest := *openapiclient.NewAuthorConnectRequest() // AuthorConnectRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorAPI.PostAuthorConnect(context.Background()).ConnectRequest(connectRequest).Execute()
+	resp, r, err := apiClient.AuthorAPI.PostAuthorConnect(context.Background()).AuthorConnectRequest(authorConnectRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuthorAPI.PostAuthorConnect``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAuthorConnect`: Enrolment
+	// response from `PostAuthorConnect`: AuthorEnrolment
 	fmt.Fprintf(os.Stdout, "Response from `AuthorAPI.PostAuthorConnect`: %v\n", resp)
 }
 ```
@@ -185,11 +185,11 @@ Other parameters are passed through a pointer to a apiPostAuthorConnectRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connectRequest** | [**ConnectRequest**](ConnectRequest.md) |  | 
+ **authorConnectRequest** | [**AuthorConnectRequest**](AuthorConnectRequest.md) |  | 
 
 ### Return type
 
-[**Enrolment**](Enrolment.md)
+[**AuthorEnrolment**](AuthorEnrolment.md)
 
 ### Authorization
 
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -207,7 +207,7 @@ Name | Type | Description  | Notes
 
 ## PostAuthorDeploysRecord
 
-> DeployRecord PostAuthorDeploysRecord(ctx).DeployRequest(deployRequest).Execute()
+> AuthorDeployRecord PostAuthorDeploysRecord(ctx).AuthorDeployRequest(authorDeployRequest).Execute()
 
 Records that the caller's org deployed a project built from a source repository, which is the edge that makes an author's work earn royalty.
 
@@ -226,16 +226,16 @@ import (
 )
 
 func main() {
-	deployRequest := *openapiclient.NewDeployRequest() // DeployRequest | 
+	authorDeployRequest := *openapiclient.NewAuthorDeployRequest() // AuthorDeployRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorAPI.PostAuthorDeploysRecord(context.Background()).DeployRequest(deployRequest).Execute()
+	resp, r, err := apiClient.AuthorAPI.PostAuthorDeploysRecord(context.Background()).AuthorDeployRequest(authorDeployRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuthorAPI.PostAuthorDeploysRecord``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAuthorDeploysRecord`: DeployRecord
+	// response from `PostAuthorDeploysRecord`: AuthorDeployRecord
 	fmt.Fprintf(os.Stdout, "Response from `AuthorAPI.PostAuthorDeploysRecord`: %v\n", resp)
 }
 ```
@@ -251,11 +251,11 @@ Other parameters are passed through a pointer to a apiPostAuthorDeploysRecordReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deployRequest** | [**DeployRequest**](DeployRequest.md) |  | 
+ **authorDeployRequest** | [**AuthorDeployRequest**](AuthorDeployRequest.md) |  | 
 
 ### Return type
 
-[**DeployRecord**](DeployRecord.md)
+[**AuthorDeployRecord**](AuthorDeployRecord.md)
 
 ### Authorization
 
@@ -264,7 +264,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 ## PostAuthorReposVerify
 
-> Claim PostAuthorReposVerify(ctx).VerifyRequest(verifyRequest).Execute()
+> AuthorClaim PostAuthorReposVerify(ctx).AuthorVerifyRequest(authorVerifyRequest).Execute()
 
 Proves that the caller owns a repository — or a whole OWNER — and records the claim, which is what makes deploys of that code earn royalty.
 
@@ -292,16 +292,16 @@ import (
 )
 
 func main() {
-	verifyRequest := *openapiclient.NewVerifyRequest() // VerifyRequest | 
+	authorVerifyRequest := *openapiclient.NewAuthorVerifyRequest() // AuthorVerifyRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorAPI.PostAuthorReposVerify(context.Background()).VerifyRequest(verifyRequest).Execute()
+	resp, r, err := apiClient.AuthorAPI.PostAuthorReposVerify(context.Background()).AuthorVerifyRequest(authorVerifyRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuthorAPI.PostAuthorReposVerify``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAuthorReposVerify`: Claim
+	// response from `PostAuthorReposVerify`: AuthorClaim
 	fmt.Fprintf(os.Stdout, "Response from `AuthorAPI.PostAuthorReposVerify`: %v\n", resp)
 }
 ```
@@ -317,11 +317,11 @@ Other parameters are passed through a pointer to a apiPostAuthorReposVerifyReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **verifyRequest** | [**VerifyRequest**](VerifyRequest.md) |  | 
+ **authorVerifyRequest** | [**AuthorVerifyRequest**](AuthorVerifyRequest.md) |  | 
 
 ### Return type
 
-[**Claim**](Claim.md)
+[**AuthorClaim**](AuthorClaim.md)
 
 ### Authorization
 
@@ -330,7 +330,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

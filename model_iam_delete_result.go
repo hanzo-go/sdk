@@ -19,8 +19,11 @@ var _ MappedNullable = &IamDeleteResult{}
 
 // IamDeleteResult struct for IamDeleteResult
 type IamDeleteResult struct {
-	Deleted *bool `json:"deleted,omitempty"`
+	Deleted              *bool `json:"deleted,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamDeleteResult IamDeleteResult
 
 // NewIamDeleteResult instantiates a new IamDeleteResult object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o IamDeleteResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Deleted) {
 		toSerialize["deleted"] = o.Deleted
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamDeleteResult) UnmarshalJSON(data []byte) (err error) {
+	varIamDeleteResult := _IamDeleteResult{}
+
+	err = json.Unmarshal(data, &varIamDeleteResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamDeleteResult(varIamDeleteResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "deleted")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamDeleteResult struct {

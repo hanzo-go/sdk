@@ -5,16 +5,15 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetBotMembers**](BotAPI.md#GetBotMembers) | **Get** /v1/bot/members | Returns the caller org&#39;s bots as space members — each with the member account uuid and the Person reference the roster addresses it by.
-[**GetBotRuns**](BotAPI.md#GetBotRuns) | **Get** /v1/bot/runs | List returns the caller org&#39;s live bot runs, read from the bot runtime and projected into the console contract with each run&#39;s live session URL derived here.
+[**GetBotRuns**](BotAPI.md#GetBotRuns) | **Get** /v1/bot/runs | Returns the caller org&#39;s live bot runs, read from the bot runtime and projected into the console contract with each run&#39;s live session URL derived here.
 [**PostBotMembersSync**](BotAPI.md#PostBotMembersSync) | **Post** /v1/bot/members/sync | Re-projects the caller org&#39;s bots as members into every space of the org and removes the ones whose agent is gone.
-[**PostBotRuns**](BotAPI.md#PostBotRuns) | **Post** /v1/bot/runs | Answers 501 to every call: launching a bot run is not implemented.
-[**PostBotRunsByRunidStop**](BotAPI.md#PostBotRunsByRunidStop) | **Post** /v1/bot/runs/{runId}/stop | Stop terminates one of the caller org&#39;s own bot runs and reports its terminal state.
+[**PostBotRunsByRunidStop**](BotAPI.md#PostBotRunsByRunidStop) | **Post** /v1/bot/runs/{runId}/stop | Terminates one of the caller org&#39;s own bot runs and reports its terminal state.
 
 
 
 ## GetBotMembers
 
-> BotRoster GetBotMembers(ctx).Execute()
+> BotBotRoster GetBotMembers(ctx).Execute()
 
 Returns the caller org's bots as space members — each with the member account uuid and the Person reference the roster addresses it by.
 
@@ -41,7 +40,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.GetBotMembers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBotMembers`: BotRoster
+	// response from `GetBotMembers`: BotBotRoster
 	fmt.Fprintf(os.Stdout, "Response from `BotAPI.GetBotMembers`: %v\n", resp)
 }
 ```
@@ -57,7 +56,7 @@ Other parameters are passed through a pointer to a apiGetBotMembersRequest struc
 
 ### Return type
 
-[**BotRoster**](BotRoster.md)
+[**BotBotRoster**](BotBotRoster.md)
 
 ### Authorization
 
@@ -66,7 +65,7 @@ Other parameters are passed through a pointer to a apiGetBotMembersRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -75,9 +74,9 @@ Other parameters are passed through a pointer to a apiGetBotMembersRequest struc
 
 ## GetBotRuns
 
-> BotRuns GetBotRuns(ctx).Execute()
+> BotBotRuns GetBotRuns(ctx).Execute()
 
-List returns the caller org's live bot runs, read from the bot runtime and projected into the console contract with each run's live session URL derived here.
+Returns the caller org's live bot runs, read from the bot runtime and projected into the console contract with each run's live session URL derived here.
 
 
 
@@ -102,7 +101,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.GetBotRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBotRuns`: BotRuns
+	// response from `GetBotRuns`: BotBotRuns
 	fmt.Fprintf(os.Stdout, "Response from `BotAPI.GetBotRuns`: %v\n", resp)
 }
 ```
@@ -118,7 +117,7 @@ Other parameters are passed through a pointer to a apiGetBotRunsRequest struct v
 
 ### Return type
 
-[**BotRuns**](BotRuns.md)
+[**BotBotRuns**](BotBotRuns.md)
 
 ### Authorization
 
@@ -127,7 +126,7 @@ Other parameters are passed through a pointer to a apiGetBotRunsRequest struct v
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -136,7 +135,7 @@ Other parameters are passed through a pointer to a apiGetBotRunsRequest struct v
 
 ## PostBotMembersSync
 
-> BotSync PostBotMembersSync(ctx).Execute()
+> BotBotSync PostBotMembersSync(ctx).Execute()
 
 Re-projects the caller org's bots as members into every space of the org and removes the ones whose agent is gone.
 
@@ -163,7 +162,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.PostBotMembersSync``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBotMembersSync`: BotSync
+	// response from `PostBotMembersSync`: BotBotSync
 	fmt.Fprintf(os.Stdout, "Response from `BotAPI.PostBotMembersSync`: %v\n", resp)
 }
 ```
@@ -179,7 +178,7 @@ Other parameters are passed through a pointer to a apiPostBotMembersSyncRequest 
 
 ### Return type
 
-[**BotSync**](BotSync.md)
+[**BotBotSync**](BotBotSync.md)
 
 ### Authorization
 
@@ -188,66 +187,7 @@ Other parameters are passed through a pointer to a apiPostBotMembersSyncRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostBotRuns
-
-> PostBotRuns(ctx).Execute()
-
-Answers 501 to every call: launching a bot run is not implemented.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BotAPI.PostBotRuns(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.PostBotRuns``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostBotRunsRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -256,9 +196,9 @@ Other parameters are passed through a pointer to a apiPostBotRunsRequest struct 
 
 ## PostBotRunsByRunidStop
 
-> BotStopped PostBotRunsByRunidStop(ctx, runId).Execute()
+> BotBotStopped PostBotRunsByRunidStop(ctx, runId).Execute()
 
-Stop terminates one of the caller org's own bot runs and reports its terminal state.
+Terminates one of the caller org's own bot runs and reports its terminal state.
 
 
 
@@ -284,7 +224,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BotAPI.PostBotRunsByRunidStop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBotRunsByRunidStop`: BotStopped
+	// response from `PostBotRunsByRunidStop`: BotBotStopped
 	fmt.Fprintf(os.Stdout, "Response from `BotAPI.PostBotRunsByRunidStop`: %v\n", resp)
 }
 ```
@@ -308,7 +248,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BotStopped**](BotStopped.md)
+[**BotBotStopped**](BotBotStopped.md)
 
 ### Authorization
 
@@ -317,7 +257,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

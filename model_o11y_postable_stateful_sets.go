@@ -19,14 +19,17 @@ var _ MappedNullable = &O11yPostableStatefulSets{}
 
 // O11yPostableStatefulSets struct for O11yPostableStatefulSets
 type O11yPostableStatefulSets struct {
-	End     *int64                          `json:"end,omitempty"`
-	Filter  *O11yFilter                     `json:"filter,omitempty"`
-	GroupBy []O11yGroupByKey                `json:"groupBy,omitempty"`
-	Limit   *int64                          `json:"limit,omitempty"`
-	Offset  *int64                          `json:"offset,omitempty"`
-	OrderBy *O11yQuerybuildertypesv5OrderBy `json:"orderBy,omitempty"`
-	Start   *int64                          `json:"start,omitempty"`
+	End                  *int64                          `json:"end,omitempty"`
+	Filter               *O11yFilter                     `json:"filter,omitempty"`
+	GroupBy              []O11yGroupByKey                `json:"groupBy,omitempty"`
+	Limit                *int64                          `json:"limit,omitempty"`
+	Offset               *int64                          `json:"offset,omitempty"`
+	OrderBy              *O11yQuerybuildertypesv5OrderBy `json:"orderBy,omitempty"`
+	Start                *int64                          `json:"start,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPostableStatefulSets O11yPostableStatefulSets
 
 // NewO11yPostableStatefulSets instantiates a new O11yPostableStatefulSets object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o O11yPostableStatefulSets) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Start) {
 		toSerialize["start"] = o.Start
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPostableStatefulSets) UnmarshalJSON(data []byte) (err error) {
+	varO11yPostableStatefulSets := _O11yPostableStatefulSets{}
+
+	err = json.Unmarshal(data, &varO11yPostableStatefulSets)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPostableStatefulSets(varO11yPostableStatefulSets)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "orderBy")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPostableStatefulSets struct {

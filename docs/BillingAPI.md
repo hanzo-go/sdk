@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**CollectInvoice**](BillingAPI.md#CollectInvoice) | **Post** /v1/billing/invoices/{id}/collect | Collect an issued invoice from credits, balance, then card
 [**DeleteBillingAlertsById**](BillingAPI.md#DeleteBillingAlertsById) | **Delete** /v1/billing/alerts/{id} | Removes one of the caller&#39;s spend caps and answers 204.
 [**DeleteBillingMethodsById**](BillingAPI.md#DeleteBillingMethodsById) | **Delete** /v1/billing/methods/{id} | Removes one card or account the caller has saved.
-[**DeleteBillingPortalMethodsById**](BillingAPI.md#DeleteBillingPortalMethodsById) | **Delete** /v1/billing/portal/methods/{id} | DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
+[**DeleteBillingPortalMethodsById**](BillingAPI.md#DeleteBillingPortalMethodsById) | **Delete** /v1/billing/portal/methods/{id} | Removes one card or account the caller has saved, at the address a hosted checkout reaches it by.
 [**GetBillingAccounts**](BillingAPI.md#GetBillingAccounts) | **Get** /v1/billing/accounts | Answers the caller&#39;s billing accounts: the org itself, its currency, when it was opened, and the caller&#39;s own standing in it.
 [**GetBillingAccountsByIdMembers**](BillingAPI.md#GetBillingAccountsByIdMembers) | **Get** /v1/billing/accounts/{id}/members | Answers one billing account&#39;s roster.
 [**GetBillingAlerts**](BillingAPI.md#GetBillingAlerts) | **Get** /v1/billing/alerts | Lists this org&#39;s spend caps: the ceiling, its scope, whether it enforces, and how much of it has been spent this period.
@@ -21,7 +21,7 @@ Method | HTTP request | Description
 [**GetBillingCryptoOptions**](BillingAPI.md#GetBillingCryptoOptions) | **Get** /v1/billing/crypto/options | Answers which chains and tokens the crypto rail accepts — what an asset picker renders.
 [**GetBillingInvoices**](BillingAPI.md#GetBillingInvoices) | **Get** /v1/billing/invoices | Lists the caller&#39;s invoices, newest first, with the count beside them.
 [**GetBillingInvoicesByIdPdf**](BillingAPI.md#GetBillingInvoicesByIdPdf) | **Get** /v1/billing/invoices/{id}/pdf | Download one invoice as a PDF
-[**GetBillingLedger**](BillingAPI.md#GetBillingLedger) | **Get** /v1/billing/ledger | Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;) and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
+[**GetBillingLedger**](BillingAPI.md#GetBillingLedger) | **Get** /v1/billing/ledger | Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;), a HOLD sets money aside for a payment agreed and not yet made (negative, account &#x60;held:&lt;org&gt;&#x60;) and its return gives it back (positive), and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
 [**GetBillingMethods**](BillingAPI.md#GetBillingMethods) | **Get** /v1/billing/methods | Cards and accounts on file for the caller
 [**GetBillingPayouts**](BillingAPI.md#GetBillingPayouts) | **Get** /v1/billing/payouts | Answers the org&#39;s outbound payouts, newest first — amount, destination, status, and the failure reason where one applies.
 [**GetBillingPlans**](BillingAPI.md#GetBillingPlans) | **Get** /v1/billing/plans | The plan catalog, priced with whatever offer is in force
@@ -48,6 +48,7 @@ Method | HTTP request | Description
 [**PostBillingSubscribeCard**](BillingAPI.md#PostBillingSubscribeCard) | **Post** /v1/billing/subscribe/card | Buy a plan with a card
 [**PostBillingTopup**](BillingAPI.md#PostBillingTopup) | **Post** /v1/billing/topup | Charges a card the caller already saved and credits the balance.
 [**PostBillingTopupToken**](BillingAPI.md#PostBillingTopupToken) | **Post** /v1/billing/topup/token | Charges a single-use card token and credits the caller&#39;s balance.
+[**PostBillingUsage**](BillingAPI.md#PostBillingUsage) | **Post** /v1/billing/usage | Debits one act an application metered to the org it acts for, and answers the receipt.
 [**PutBillingRecharge**](BillingAPI.md#PutBillingRecharge) | **Put** /v1/billing/recharge | Sets the caller&#39;s auto-reload rule, and answers with the rule as stored.
 [**RaiseInvoice**](BillingAPI.md#RaiseInvoice) | **Post** /v1/billing/invoices | Raise a draft invoice against a customer
 [**ReactivateSubscription**](BillingAPI.md#ReactivateSubscription) | **Post** /v1/billing/subscriptions/{id}/reactivate | Put a canceled subscription back on its plan
@@ -57,7 +58,7 @@ Method | HTTP request | Description
 
 ## CancelSubscription
 
-> Subscription CancelSubscription(ctx, id).SubscriptionRef(subscriptionRef).Execute()
+> BillingSubscription CancelSubscription(ctx, id).BillingSubscriptionRef(billingSubscriptionRef).Execute()
 
 End a subscription
 
@@ -77,16 +78,16 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	subscriptionRef := *openapiclient.NewSubscriptionRef() // SubscriptionRef | 
+	billingSubscriptionRef := *openapiclient.NewBillingSubscriptionRef() // BillingSubscriptionRef | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.CancelSubscription(context.Background(), id).SubscriptionRef(subscriptionRef).Execute()
+	resp, r, err := apiClient.BillingAPI.CancelSubscription(context.Background(), id).BillingSubscriptionRef(billingSubscriptionRef).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.CancelSubscription``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CancelSubscription`: Subscription
+	// response from `CancelSubscription`: BillingSubscription
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.CancelSubscription`: %v\n", resp)
 }
 ```
@@ -107,11 +108,11 @@ Other parameters are passed through a pointer to a apiCancelSubscriptionRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **subscriptionRef** | [**SubscriptionRef**](SubscriptionRef.md) |  | 
+ **billingSubscriptionRef** | [**BillingSubscriptionRef**](BillingSubscriptionRef.md) |  | 
 
 ### Return type
 
-[**Subscription**](Subscription.md)
+[**BillingSubscription**](BillingSubscription.md)
 
 ### Authorization
 
@@ -120,7 +121,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -129,7 +130,7 @@ Name | Type | Description  | Notes
 
 ## CollectInvoice
 
-> Collected CollectInvoice(ctx, id).Execute()
+> BillingCollected CollectInvoice(ctx, id).Execute()
 
 Collect an issued invoice from credits, balance, then card
 
@@ -157,7 +158,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.CollectInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CollectInvoice`: Collected
+	// response from `CollectInvoice`: BillingCollected
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.CollectInvoice`: %v\n", resp)
 }
 ```
@@ -181,7 +182,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Collected**](Collected.md)
+[**BillingCollected**](BillingCollected.md)
 
 ### Authorization
 
@@ -190,7 +191,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -258,7 +259,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -267,7 +268,7 @@ Name | Type | Description  | Notes
 
 ## DeleteBillingMethodsById
 
-> Detachment DeleteBillingMethodsById(ctx, id).Execute()
+> BillingDetachment DeleteBillingMethodsById(ctx, id).Execute()
 
 Removes one card or account the caller has saved.
 
@@ -295,7 +296,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.DeleteBillingMethodsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteBillingMethodsById`: Detachment
+	// response from `DeleteBillingMethodsById`: BillingDetachment
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.DeleteBillingMethodsById`: %v\n", resp)
 }
 ```
@@ -319,7 +320,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Detachment**](Detachment.md)
+[**BillingDetachment**](BillingDetachment.md)
 
 ### Authorization
 
@@ -328,7 +329,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -337,9 +338,9 @@ Name | Type | Description  | Notes
 
 ## DeleteBillingPortalMethodsById
 
-> Detachment DeleteBillingPortalMethodsById(ctx, id).Execute()
+> BillingDetachment DeleteBillingPortalMethodsById(ctx, id).Execute()
 
-DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
+Removes one card or account the caller has saved, at the address a hosted checkout reaches it by.
 
 
 
@@ -365,7 +366,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.DeleteBillingPortalMethodsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteBillingPortalMethodsById`: Detachment
+	// response from `DeleteBillingPortalMethodsById`: BillingDetachment
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.DeleteBillingPortalMethodsById`: %v\n", resp)
 }
 ```
@@ -389,7 +390,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Detachment**](Detachment.md)
+[**BillingDetachment**](BillingDetachment.md)
 
 ### Authorization
 
@@ -398,7 +399,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -407,7 +408,7 @@ Name | Type | Description  | Notes
 
 ## GetBillingAccounts
 
-> []BillingAccount GetBillingAccounts(ctx).Execute()
+> []BillingBillingAccount GetBillingAccounts(ctx).Execute()
 
 Answers the caller's billing accounts: the org itself, its currency, when it was opened, and the caller's own standing in it.
 
@@ -434,7 +435,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingAccounts`: []BillingAccount
+	// response from `GetBillingAccounts`: []BillingBillingAccount
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingAccounts`: %v\n", resp)
 }
 ```
@@ -450,7 +451,7 @@ Other parameters are passed through a pointer to a apiGetBillingAccountsRequest 
 
 ### Return type
 
-[**[]BillingAccount**](BillingAccount.md)
+[**[]BillingBillingAccount**](BillingBillingAccount.md)
 
 ### Authorization
 
@@ -459,7 +460,7 @@ Other parameters are passed through a pointer to a apiGetBillingAccountsRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -468,7 +469,7 @@ Other parameters are passed through a pointer to a apiGetBillingAccountsRequest 
 
 ## GetBillingAccountsByIdMembers
 
-> []Holder GetBillingAccountsByIdMembers(ctx, id).Execute()
+> []BillingHolder GetBillingAccountsByIdMembers(ctx, id).Execute()
 
 Answers one billing account's roster.
 
@@ -496,7 +497,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingAccountsByIdMembers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingAccountsByIdMembers`: []Holder
+	// response from `GetBillingAccountsByIdMembers`: []BillingHolder
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingAccountsByIdMembers`: %v\n", resp)
 }
 ```
@@ -520,7 +521,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]Holder**](Holder.md)
+[**[]BillingHolder**](BillingHolder.md)
 
 ### Authorization
 
@@ -529,7 +530,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -538,7 +539,7 @@ Name | Type | Description  | Notes
 
 ## GetBillingAlerts
 
-> []Alert GetBillingAlerts(ctx).Execute()
+> []BillingAlert GetBillingAlerts(ctx).Execute()
 
 Lists this org's spend caps: the ceiling, its scope, whether it enforces, and how much of it has been spent this period.
 
@@ -565,7 +566,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingAlerts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingAlerts`: []Alert
+	// response from `GetBillingAlerts`: []BillingAlert
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingAlerts`: %v\n", resp)
 }
 ```
@@ -581,7 +582,7 @@ Other parameters are passed through a pointer to a apiGetBillingAlertsRequest st
 
 ### Return type
 
-[**[]Alert**](Alert.md)
+[**[]BillingAlert**](BillingAlert.md)
 
 ### Authorization
 
@@ -590,7 +591,7 @@ Other parameters are passed through a pointer to a apiGetBillingAlertsRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -599,7 +600,7 @@ Other parameters are passed through a pointer to a apiGetBillingAlertsRequest st
 
 ## GetBillingAlertsAuthorize
 
-> CapVerdict GetBillingAlertsAuthorize(ctx).Project(project).Service(service).Amount(amount).Pv(pv).Execute()
+> BillingCapVerdict GetBillingAlertsAuthorize(ctx).Project(project).Service(service).Amount(amount).Pv(pv).Execute()
 
 Answers whether one proposed spend fits inside this org's caps.
 
@@ -630,7 +631,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingAlertsAuthorize``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingAlertsAuthorize`: CapVerdict
+	// response from `GetBillingAlertsAuthorize`: BillingCapVerdict
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingAlertsAuthorize`: %v\n", resp)
 }
 ```
@@ -653,7 +654,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CapVerdict**](CapVerdict.md)
+[**BillingCapVerdict**](BillingCapVerdict.md)
 
 ### Authorization
 
@@ -662,7 +663,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -730,7 +731,7 @@ Other parameters are passed through a pointer to a apiGetBillingBalanceRequest s
 
 ## GetBillingCreditBalance
 
-> CreditBalance GetBillingCreditBalance(ctx).Execute()
+> BillingCreditBalance GetBillingCreditBalance(ctx).Execute()
 
 Answers what the caller can spend right now, one entry per currency.
 
@@ -757,7 +758,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingCreditBalance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingCreditBalance`: CreditBalance
+	// response from `GetBillingCreditBalance`: BillingCreditBalance
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingCreditBalance`: %v\n", resp)
 }
 ```
@@ -773,7 +774,7 @@ Other parameters are passed through a pointer to a apiGetBillingCreditBalanceReq
 
 ### Return type
 
-[**CreditBalance**](CreditBalance.md)
+[**BillingCreditBalance**](BillingCreditBalance.md)
 
 ### Authorization
 
@@ -782,7 +783,7 @@ Other parameters are passed through a pointer to a apiGetBillingCreditBalanceReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -843,7 +844,7 @@ Other parameters are passed through a pointer to a apiGetBillingCreditBalanceBre
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -852,7 +853,7 @@ Other parameters are passed through a pointer to a apiGetBillingCreditBalanceBre
 
 ## GetBillingCredits
 
-> CreditGrants GetBillingCredits(ctx).Execute()
+> BillingCreditGrants GetBillingCredits(ctx).Execute()
 
 Lists the caller's credit grants — every one of them, spent and lapsed and voided included.
 
@@ -879,7 +880,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingCredits``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingCredits`: CreditGrants
+	// response from `GetBillingCredits`: BillingCreditGrants
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingCredits`: %v\n", resp)
 }
 ```
@@ -895,7 +896,7 @@ Other parameters are passed through a pointer to a apiGetBillingCreditsRequest s
 
 ### Return type
 
-[**CreditGrants**](CreditGrants.md)
+[**BillingCreditGrants**](BillingCreditGrants.md)
 
 ### Authorization
 
@@ -904,7 +905,7 @@ Other parameters are passed through a pointer to a apiGetBillingCreditsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -913,7 +914,7 @@ Other parameters are passed through a pointer to a apiGetBillingCreditsRequest s
 
 ## GetBillingCryptoDepositById
 
-> CryptoDeposit GetBillingCryptoDepositById(ctx, id).Execute()
+> BillingCryptoDeposit GetBillingCryptoDepositById(ctx, id).Execute()
 
 Reads one of the caller's own deposit intents back — pending, confirming, or succeeded.
 
@@ -941,7 +942,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingCryptoDepositById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingCryptoDepositById`: CryptoDeposit
+	// response from `GetBillingCryptoDepositById`: BillingCryptoDeposit
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingCryptoDepositById`: %v\n", resp)
 }
 ```
@@ -965,7 +966,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CryptoDeposit**](CryptoDeposit.md)
+[**BillingCryptoDeposit**](BillingCryptoDeposit.md)
 
 ### Authorization
 
@@ -974,7 +975,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -983,7 +984,7 @@ Name | Type | Description  | Notes
 
 ## GetBillingCryptoOptions
 
-> CryptoOptions GetBillingCryptoOptions(ctx).Execute()
+> BillingCryptoOptions GetBillingCryptoOptions(ctx).Execute()
 
 Answers which chains and tokens the crypto rail accepts — what an asset picker renders.
 
@@ -1010,7 +1011,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingCryptoOptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingCryptoOptions`: CryptoOptions
+	// response from `GetBillingCryptoOptions`: BillingCryptoOptions
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingCryptoOptions`: %v\n", resp)
 }
 ```
@@ -1026,7 +1027,7 @@ Other parameters are passed through a pointer to a apiGetBillingCryptoOptionsReq
 
 ### Return type
 
-[**CryptoOptions**](CryptoOptions.md)
+[**BillingCryptoOptions**](BillingCryptoOptions.md)
 
 ### Authorization
 
@@ -1035,7 +1036,7 @@ Other parameters are passed through a pointer to a apiGetBillingCryptoOptionsReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1044,7 +1045,7 @@ Other parameters are passed through a pointer to a apiGetBillingCryptoOptionsReq
 
 ## GetBillingInvoices
 
-> Invoices GetBillingInvoices(ctx).Execute()
+> BillingInvoices GetBillingInvoices(ctx).Subject(subject).Status(status).SubscriptionId(subscriptionId).Limit(limit).Cursor(cursor).Execute()
 
 Lists the caller's invoices, newest first, with the count beside them.
 
@@ -1063,31 +1064,44 @@ import (
 )
 
 func main() {
+	subject := "subject_example" // string |  (optional)
+	status := "status_example" // string |  (optional)
+	subscriptionId := "subscriptionId_example" // string |  (optional)
+	limit := int64(789) // int64 |  (optional)
+	cursor := "cursor_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.GetBillingInvoices(context.Background()).Execute()
+	resp, r, err := apiClient.BillingAPI.GetBillingInvoices(context.Background()).Subject(subject).Status(status).SubscriptionId(subscriptionId).Limit(limit).Cursor(cursor).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingInvoices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingInvoices`: Invoices
+	// response from `GetBillingInvoices`: BillingInvoices
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingInvoices`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetBillingInvoicesRequest struct via the builder pattern
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **subject** | **string** |  | 
+ **status** | **string** |  | 
+ **subscriptionId** | **string** |  | 
+ **limit** | **int64** |  | 
+ **cursor** | **string** |  | 
+
 ### Return type
 
-[**Invoices**](Invoices.md)
+[**BillingInvoices**](BillingInvoices.md)
 
 ### Authorization
 
@@ -1096,7 +1110,7 @@ Other parameters are passed through a pointer to a apiGetBillingInvoicesRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1173,9 +1187,9 @@ Name | Type | Description  | Notes
 
 ## GetBillingLedger
 
-> []FinanceLedgerEntry GetBillingLedger(ctx).Range_(range_).Execute()
+> []BillingFinanceLedgerEntry GetBillingLedger(ctx).Range_(range_).Execute()
 
-Answers the org's own postings inside `range=`, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account `credits:<org>`) and every other posting DEBITS it (negative, account `usage:<org>`), described by its notes or its tags.
+Answers the org's own postings inside `range=`, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account `credits:<org>`), a HOLD sets money aside for a payment agreed and not yet made (negative, account `held:<org>`) and its return gives it back (positive), and every other posting DEBITS it (negative, account `usage:<org>`), described by its notes or its tags.
 
 
 
@@ -1201,7 +1215,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingLedger``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingLedger`: []FinanceLedgerEntry
+	// response from `GetBillingLedger`: []BillingFinanceLedgerEntry
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingLedger`: %v\n", resp)
 }
 ```
@@ -1221,7 +1235,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]FinanceLedgerEntry**](FinanceLedgerEntry.md)
+[**[]BillingFinanceLedgerEntry**](BillingFinanceLedgerEntry.md)
 
 ### Authorization
 
@@ -1230,7 +1244,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1298,7 +1312,7 @@ Other parameters are passed through a pointer to a apiGetBillingMethodsRequest s
 
 ## GetBillingPayouts
 
-> []Payout GetBillingPayouts(ctx).Execute()
+> []BillingPayout GetBillingPayouts(ctx).Execute()
 
 Answers the org's outbound payouts, newest first — amount, destination, status, and the failure reason where one applies.
 
@@ -1325,7 +1339,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingPayouts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingPayouts`: []Payout
+	// response from `GetBillingPayouts`: []BillingPayout
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingPayouts`: %v\n", resp)
 }
 ```
@@ -1341,7 +1355,7 @@ Other parameters are passed through a pointer to a apiGetBillingPayoutsRequest s
 
 ### Return type
 
-[**[]Payout**](Payout.md)
+[**[]BillingPayout**](BillingPayout.md)
 
 ### Authorization
 
@@ -1350,7 +1364,7 @@ Other parameters are passed through a pointer to a apiGetBillingPayoutsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1477,7 +1491,7 @@ Other parameters are passed through a pointer to a apiGetBillingPortalMethodsReq
 
 ## GetBillingRecharge
 
-> AutoRecharge GetBillingRecharge(ctx).Execute()
+> BillingAutoRecharge GetBillingRecharge(ctx).Execute()
 
 Reads the caller's auto-reload rule: top the balance up by `amountCents` whenever it falls below `thresholdCents`, charging the card on file off-session.
 
@@ -1504,7 +1518,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingRecharge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingRecharge`: AutoRecharge
+	// response from `GetBillingRecharge`: BillingAutoRecharge
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingRecharge`: %v\n", resp)
 }
 ```
@@ -1520,7 +1534,7 @@ Other parameters are passed through a pointer to a apiGetBillingRechargeRequest 
 
 ### Return type
 
-[**AutoRecharge**](AutoRecharge.md)
+[**BillingAutoRecharge**](BillingAutoRecharge.md)
 
 ### Authorization
 
@@ -1529,7 +1543,7 @@ Other parameters are passed through a pointer to a apiGetBillingRechargeRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1538,7 +1552,7 @@ Other parameters are passed through a pointer to a apiGetBillingRechargeRequest 
 
 ## GetBillingSettings
 
-> PaymentConfig GetBillingSettings(ctx).Execute()
+> BillingPaymentConfig GetBillingSettings(ctx).Execute()
 
 Answers the PUBLIC half of this org's processor configuration — the ids a browser needs to tokenize a card, and the environment it must tokenize against.
 
@@ -1565,7 +1579,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingSettings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingSettings`: PaymentConfig
+	// response from `GetBillingSettings`: BillingPaymentConfig
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingSettings`: %v\n", resp)
 }
 ```
@@ -1581,7 +1595,7 @@ Other parameters are passed through a pointer to a apiGetBillingSettingsRequest 
 
 ### Return type
 
-[**PaymentConfig**](PaymentConfig.md)
+[**BillingPaymentConfig**](BillingPaymentConfig.md)
 
 ### Authorization
 
@@ -1590,7 +1604,7 @@ Other parameters are passed through a pointer to a apiGetBillingSettingsRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1599,7 +1613,7 @@ Other parameters are passed through a pointer to a apiGetBillingSettingsRequest 
 
 ## GetBillingSubscriptions
 
-> Subscriptions GetBillingSubscriptions(ctx).Execute()
+> BillingSubscriptions GetBillingSubscriptions(ctx).Execute()
 
 Lists the plans the caller holds, with the count beside them.
 
@@ -1626,7 +1640,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingSubscriptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingSubscriptions`: Subscriptions
+	// response from `GetBillingSubscriptions`: BillingSubscriptions
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingSubscriptions`: %v\n", resp)
 }
 ```
@@ -1642,7 +1656,7 @@ Other parameters are passed through a pointer to a apiGetBillingSubscriptionsReq
 
 ### Return type
 
-[**Subscriptions**](Subscriptions.md)
+[**BillingSubscriptions**](BillingSubscriptions.md)
 
 ### Authorization
 
@@ -1651,7 +1665,7 @@ Other parameters are passed through a pointer to a apiGetBillingSubscriptionsReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1660,7 +1674,7 @@ Other parameters are passed through a pointer to a apiGetBillingSubscriptionsReq
 
 ## GetBillingTier
 
-> Tier GetBillingTier(ctx).Execute()
+> BillingTier GetBillingTier(ctx).Execute()
 
 Answers which tier the caller is on, what it allows, and what is left to spend.
 
@@ -1687,7 +1701,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingTier``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingTier`: Tier
+	// response from `GetBillingTier`: BillingTier
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingTier`: %v\n", resp)
 }
 ```
@@ -1703,7 +1717,7 @@ Other parameters are passed through a pointer to a apiGetBillingTierRequest stru
 
 ### Return type
 
-[**Tier**](Tier.md)
+[**BillingTier**](BillingTier.md)
 
 ### Authorization
 
@@ -1712,7 +1726,7 @@ Other parameters are passed through a pointer to a apiGetBillingTierRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1721,7 +1735,7 @@ Other parameters are passed through a pointer to a apiGetBillingTierRequest stru
 
 ## GetBillingTransactions
 
-> Transactions GetBillingTransactions(ctx).Currency(currency).Limit(limit).Offset(offset).Execute()
+> BillingTransactions GetBillingTransactions(ctx).Currency(currency).Limit(limit).Offset(offset).Execute()
 
 Answers one page of the caller's own ledger, newest first: what moved, how much, when, and what it was tagged with.
 
@@ -1751,7 +1765,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingTransactions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingTransactions`: Transactions
+	// response from `GetBillingTransactions`: BillingTransactions
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingTransactions`: %v\n", resp)
 }
 ```
@@ -1773,7 +1787,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Transactions**](Transactions.md)
+[**BillingTransactions**](BillingTransactions.md)
 
 ### Authorization
 
@@ -1782,7 +1796,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1791,7 +1805,7 @@ Name | Type | Description  | Notes
 
 ## GetBillingTransactionsById
 
-> Transaction GetBillingTransactionsById(ctx, id).Execute()
+> BillingTransaction GetBillingTransactionsById(ctx, id).Execute()
 
 Reads one ledger entry by its id.
 
@@ -1819,7 +1833,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingTransactionsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingTransactionsById`: Transaction
+	// response from `GetBillingTransactionsById`: BillingTransaction
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingTransactionsById`: %v\n", resp)
 }
 ```
@@ -1843,7 +1857,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Transaction**](Transaction.md)
+[**BillingTransaction**](BillingTransaction.md)
 
 ### Authorization
 
@@ -1852,7 +1866,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1920,7 +1934,7 @@ Other parameters are passed through a pointer to a apiGetBillingUsageRequest str
 
 ## GetBillingUsageAccounts
 
-> Accounts GetBillingUsageAccounts(ctx).Execute()
+> BillingAccounts GetBillingUsageAccounts(ctx).Execute()
 
 Answers per-account totals for the linked provider accounts the gateway ROUTED this caller's traffic through — requests, prompt and completion tokens, recorded cost — plus their honest sum.
 
@@ -1947,7 +1961,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingUsageAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingUsageAccounts`: Accounts
+	// response from `GetBillingUsageAccounts`: BillingAccounts
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingUsageAccounts`: %v\n", resp)
 }
 ```
@@ -1963,7 +1977,7 @@ Other parameters are passed through a pointer to a apiGetBillingUsageAccountsReq
 
 ### Return type
 
-[**Accounts**](Accounts.md)
+[**BillingAccounts**](BillingAccounts.md)
 
 ### Authorization
 
@@ -1972,7 +1986,7 @@ Other parameters are passed through a pointer to a apiGetBillingUsageAccountsReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1981,7 +1995,7 @@ Other parameters are passed through a pointer to a apiGetBillingUsageAccountsReq
 
 ## GetBillingUsageRollup
 
-> Rollup GetBillingUsageRollup(ctx).Execute()
+> BillingRollup GetBillingUsageRollup(ctx).Execute()
 
 Answers the caller's month: what their plan includes, what has been consumed against it, and the wallet beside it.
 
@@ -2008,7 +2022,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingUsageRollup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingUsageRollup`: Rollup
+	// response from `GetBillingUsageRollup`: BillingRollup
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingUsageRollup`: %v\n", resp)
 }
 ```
@@ -2024,7 +2038,7 @@ Other parameters are passed through a pointer to a apiGetBillingUsageRollupReque
 
 ### Return type
 
-[**Rollup**](Rollup.md)
+[**BillingRollup**](BillingRollup.md)
 
 ### Authorization
 
@@ -2033,7 +2047,7 @@ Other parameters are passed through a pointer to a apiGetBillingUsageRollupReque
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2042,7 +2056,7 @@ Other parameters are passed through a pointer to a apiGetBillingUsageRollupReque
 
 ## GetBillingWire
 
-> WireInstructions GetBillingWire(ctx).Execute()
+> BillingWireInstructions GetBillingWire(ctx).Execute()
 
 Answers where to send a wire top-up: the receiving bank details, with the caller's own payment reference.
 
@@ -2069,7 +2083,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingWire``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingWire`: WireInstructions
+	// response from `GetBillingWire`: BillingWireInstructions
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingWire`: %v\n", resp)
 }
 ```
@@ -2085,7 +2099,7 @@ Other parameters are passed through a pointer to a apiGetBillingWireRequest stru
 
 ### Return type
 
-[**WireInstructions**](WireInstructions.md)
+[**BillingWireInstructions**](BillingWireInstructions.md)
 
 ### Authorization
 
@@ -2094,7 +2108,7 @@ Other parameters are passed through a pointer to a apiGetBillingWireRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2103,7 +2117,7 @@ Other parameters are passed through a pointer to a apiGetBillingWireRequest stru
 
 ## GetInvoice
 
-> Invoice GetInvoice(ctx, id).Execute()
+> BillingInvoice GetInvoice(ctx, id).Execute()
 
 Read one invoice
 
@@ -2131,7 +2145,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetInvoice`: Invoice
+	// response from `GetInvoice`: BillingInvoice
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetInvoice`: %v\n", resp)
 }
 ```
@@ -2155,7 +2169,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Invoice**](Invoice.md)
+[**BillingInvoice**](BillingInvoice.md)
 
 ### Authorization
 
@@ -2164,7 +2178,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2173,7 +2187,7 @@ Name | Type | Description  | Notes
 
 ## IssueInvoice
 
-> Invoice IssueInvoice(ctx, id).Execute()
+> BillingInvoice IssueInvoice(ctx, id).Execute()
 
 Issue a draft invoice, making it collectible
 
@@ -2201,7 +2215,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.IssueInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `IssueInvoice`: Invoice
+	// response from `IssueInvoice`: BillingInvoice
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.IssueInvoice`: %v\n", resp)
 }
 ```
@@ -2225,7 +2239,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Invoice**](Invoice.md)
+[**BillingInvoice**](BillingInvoice.md)
 
 ### Authorization
 
@@ -2234,7 +2248,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2243,7 +2257,7 @@ Name | Type | Description  | Notes
 
 ## PatchBillingAlertsById
 
-> Alert PatchBillingAlertsById(ctx, id).AlertPatch(alertPatch).Execute()
+> BillingAlert PatchBillingAlertsById(ctx, id).BillingAlertPatch(billingAlertPatch).Execute()
 
 Changes one spend cap: raise or lower the ceiling, flip enforcement, retune the rate limit.
 
@@ -2263,16 +2277,16 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	alertPatch := *openapiclient.NewAlertPatch() // AlertPatch | 
+	billingAlertPatch := *openapiclient.NewBillingAlertPatch() // BillingAlertPatch | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.PatchBillingAlertsById(context.Background(), id).AlertPatch(alertPatch).Execute()
+	resp, r, err := apiClient.BillingAPI.PatchBillingAlertsById(context.Background(), id).BillingAlertPatch(billingAlertPatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PatchBillingAlertsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchBillingAlertsById`: Alert
+	// response from `PatchBillingAlertsById`: BillingAlert
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PatchBillingAlertsById`: %v\n", resp)
 }
 ```
@@ -2293,11 +2307,11 @@ Other parameters are passed through a pointer to a apiPatchBillingAlertsByIdRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **alertPatch** | [**AlertPatch**](AlertPatch.md) |  | 
+ **billingAlertPatch** | [**BillingAlertPatch**](BillingAlertPatch.md) |  | 
 
 ### Return type
 
-[**Alert**](Alert.md)
+[**BillingAlert**](BillingAlert.md)
 
 ### Authorization
 
@@ -2306,7 +2320,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2315,7 +2329,7 @@ Name | Type | Description  | Notes
 
 ## PostBillingAlerts
 
-> Alert PostBillingAlerts(ctx).AlertSpec(alertSpec).Execute()
+> BillingAlert PostBillingAlerts(ctx).BillingAlertSpec(billingAlertSpec).Execute()
 
 Opens a spend cap on the caller's own org.
 
@@ -2334,16 +2348,16 @@ import (
 )
 
 func main() {
-	alertSpec := *openapiclient.NewAlertSpec() // AlertSpec | 
+	billingAlertSpec := *openapiclient.NewBillingAlertSpec() // BillingAlertSpec | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.PostBillingAlerts(context.Background()).AlertSpec(alertSpec).Execute()
+	resp, r, err := apiClient.BillingAPI.PostBillingAlerts(context.Background()).BillingAlertSpec(billingAlertSpec).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingAlerts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBillingAlerts`: Alert
+	// response from `PostBillingAlerts`: BillingAlert
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PostBillingAlerts`: %v\n", resp)
 }
 ```
@@ -2359,11 +2373,11 @@ Other parameters are passed through a pointer to a apiPostBillingAlertsRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **alertSpec** | [**AlertSpec**](AlertSpec.md) |  | 
+ **billingAlertSpec** | [**BillingAlertSpec**](BillingAlertSpec.md) |  | 
 
 ### Return type
 
-[**Alert**](Alert.md)
+[**BillingAlert**](BillingAlert.md)
 
 ### Authorization
 
@@ -2372,7 +2386,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2381,7 +2395,7 @@ Name | Type | Description  | Notes
 
 ## PostBillingCryptoDeposit
 
-> CryptoDeposit PostBillingCryptoDeposit(ctx).CryptoAsset(cryptoAsset).Execute()
+> BillingCryptoDeposit PostBillingCryptoDeposit(ctx).BillingCryptoAsset(billingCryptoAsset).Execute()
 
 Issues a deposit address the caller can send crypto to, on the asset they ask for.
 
@@ -2400,16 +2414,16 @@ import (
 )
 
 func main() {
-	cryptoAsset := *openapiclient.NewCryptoAsset() // CryptoAsset | 
+	billingCryptoAsset := *openapiclient.NewBillingCryptoAsset() // BillingCryptoAsset | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.PostBillingCryptoDeposit(context.Background()).CryptoAsset(cryptoAsset).Execute()
+	resp, r, err := apiClient.BillingAPI.PostBillingCryptoDeposit(context.Background()).BillingCryptoAsset(billingCryptoAsset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingCryptoDeposit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBillingCryptoDeposit`: CryptoDeposit
+	// response from `PostBillingCryptoDeposit`: BillingCryptoDeposit
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PostBillingCryptoDeposit`: %v\n", resp)
 }
 ```
@@ -2425,11 +2439,11 @@ Other parameters are passed through a pointer to a apiPostBillingCryptoDepositRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cryptoAsset** | [**CryptoAsset**](CryptoAsset.md) |  | 
+ **billingCryptoAsset** | [**BillingCryptoAsset**](BillingCryptoAsset.md) |  | 
 
 ### Return type
 
-[**CryptoDeposit**](CryptoDeposit.md)
+[**BillingCryptoDeposit**](BillingCryptoDeposit.md)
 
 ### Authorization
 
@@ -2438,7 +2452,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2506,7 +2520,7 @@ Other parameters are passed through a pointer to a apiPostBillingMethodsRequest 
 
 ## PostBillingMode
 
-> Mode PostBillingMode(ctx).ModeIn(modeIn).Execute()
+> BillingMode PostBillingMode(ctx).BillingModeIn(billingModeIn).Execute()
 
 Moves this org between sandbox money and real money.
 
@@ -2525,16 +2539,16 @@ import (
 )
 
 func main() {
-	modeIn := *openapiclient.NewModeIn() // ModeIn | 
+	billingModeIn := *openapiclient.NewBillingModeIn() // BillingModeIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.PostBillingMode(context.Background()).ModeIn(modeIn).Execute()
+	resp, r, err := apiClient.BillingAPI.PostBillingMode(context.Background()).BillingModeIn(billingModeIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingMode``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBillingMode`: Mode
+	// response from `PostBillingMode`: BillingMode
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PostBillingMode`: %v\n", resp)
 }
 ```
@@ -2550,11 +2564,11 @@ Other parameters are passed through a pointer to a apiPostBillingModeRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **modeIn** | [**ModeIn**](ModeIn.md) |  | 
+ **billingModeIn** | [**BillingModeIn**](BillingModeIn.md) |  | 
 
 ### Return type
 
-[**Mode**](Mode.md)
+[**BillingMode**](BillingMode.md)
 
 ### Authorization
 
@@ -2563,7 +2577,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2631,7 +2645,7 @@ Other parameters are passed through a pointer to a apiPostBillingPortalMethodsRe
 
 ## PostBillingRechargeRunAll
 
-> Recharge PostBillingRechargeRunAll(ctx).Execute()
+> BillingRecharge PostBillingRechargeRunAll(ctx).Execute()
 
 Sweeps every org's auto-recharge and answers what it did.
 
@@ -2658,7 +2672,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingRechargeRunAll``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBillingRechargeRunAll`: Recharge
+	// response from `PostBillingRechargeRunAll`: BillingRecharge
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PostBillingRechargeRunAll`: %v\n", resp)
 }
 ```
@@ -2674,7 +2688,7 @@ Other parameters are passed through a pointer to a apiPostBillingRechargeRunAllR
 
 ### Return type
 
-[**Recharge**](Recharge.md)
+[**BillingRecharge**](BillingRecharge.md)
 
 ### Authorization
 
@@ -2683,7 +2697,7 @@ Other parameters are passed through a pointer to a apiPostBillingRechargeRunAllR
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2751,7 +2765,7 @@ Other parameters are passed through a pointer to a apiPostBillingSubscribeCardRe
 
 ## PostBillingTopup
 
-> Charged PostBillingTopup(ctx).TopupIn(topupIn).XIdempotencyKey(xIdempotencyKey).Execute()
+> BillingCharged PostBillingTopup(ctx).BillingTopupIn(billingTopupIn).XIdempotencyKey(xIdempotencyKey).Execute()
 
 Charges a card the caller already saved and credits the balance.
 
@@ -2770,17 +2784,17 @@ import (
 )
 
 func main() {
-	topupIn := *openapiclient.NewTopupIn() // TopupIn | 
+	billingTopupIn := *openapiclient.NewBillingTopupIn() // BillingTopupIn | 
 	xIdempotencyKey := "xIdempotencyKey_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.PostBillingTopup(context.Background()).TopupIn(topupIn).XIdempotencyKey(xIdempotencyKey).Execute()
+	resp, r, err := apiClient.BillingAPI.PostBillingTopup(context.Background()).BillingTopupIn(billingTopupIn).XIdempotencyKey(xIdempotencyKey).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingTopup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBillingTopup`: Charged
+	// response from `PostBillingTopup`: BillingCharged
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PostBillingTopup`: %v\n", resp)
 }
 ```
@@ -2796,12 +2810,12 @@ Other parameters are passed through a pointer to a apiPostBillingTopupRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **topupIn** | [**TopupIn**](TopupIn.md) |  | 
+ **billingTopupIn** | [**BillingTopupIn**](BillingTopupIn.md) |  | 
  **xIdempotencyKey** | **string** |  | 
 
 ### Return type
 
-[**Charged**](Charged.md)
+[**BillingCharged**](BillingCharged.md)
 
 ### Authorization
 
@@ -2810,7 +2824,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2819,7 +2833,7 @@ Name | Type | Description  | Notes
 
 ## PostBillingTopupToken
 
-> Charged PostBillingTopupToken(ctx).TopupIn(topupIn).XIdempotencyKey(xIdempotencyKey).Execute()
+> BillingCharged PostBillingTopupToken(ctx).BillingTopupIn(billingTopupIn).XIdempotencyKey(xIdempotencyKey).Execute()
 
 Charges a single-use card token and credits the caller's balance.
 
@@ -2838,17 +2852,17 @@ import (
 )
 
 func main() {
-	topupIn := *openapiclient.NewTopupIn() // TopupIn | 
+	billingTopupIn := *openapiclient.NewBillingTopupIn() // BillingTopupIn | 
 	xIdempotencyKey := "xIdempotencyKey_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.PostBillingTopupToken(context.Background()).TopupIn(topupIn).XIdempotencyKey(xIdempotencyKey).Execute()
+	resp, r, err := apiClient.BillingAPI.PostBillingTopupToken(context.Background()).BillingTopupIn(billingTopupIn).XIdempotencyKey(xIdempotencyKey).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingTopupToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBillingTopupToken`: Charged
+	// response from `PostBillingTopupToken`: BillingCharged
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PostBillingTopupToken`: %v\n", resp)
 }
 ```
@@ -2864,12 +2878,12 @@ Other parameters are passed through a pointer to a apiPostBillingTopupTokenReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **topupIn** | [**TopupIn**](TopupIn.md) |  | 
+ **billingTopupIn** | [**BillingTopupIn**](BillingTopupIn.md) |  | 
  **xIdempotencyKey** | **string** |  | 
 
 ### Return type
 
-[**Charged**](Charged.md)
+[**BillingCharged**](BillingCharged.md)
 
 ### Authorization
 
@@ -2878,7 +2892,73 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostBillingUsage
+
+> BillingUsageReceipt PostBillingUsage(ctx).BillingUsageReport(billingUsageReport).Execute()
+
+Debits one act an application metered to the org it acts for, and answers the receipt.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	billingUsageReport := *openapiclient.NewBillingUsageReport() // BillingUsageReport | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BillingAPI.PostBillingUsage(context.Background()).BillingUsageReport(billingUsageReport).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PostBillingUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostBillingUsage`: BillingUsageReceipt
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PostBillingUsage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostBillingUsageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **billingUsageReport** | [**BillingUsageReport**](BillingUsageReport.md) |  | 
+
+### Return type
+
+[**BillingUsageReceipt**](BillingUsageReceipt.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2887,7 +2967,7 @@ Name | Type | Description  | Notes
 
 ## PutBillingRecharge
 
-> AutoRecharge PutBillingRecharge(ctx).AutoRechargeEdit(autoRechargeEdit).Execute()
+> BillingAutoRecharge PutBillingRecharge(ctx).BillingAutoRechargeEdit(billingAutoRechargeEdit).Execute()
 
 Sets the caller's auto-reload rule, and answers with the rule as stored.
 
@@ -2906,16 +2986,16 @@ import (
 )
 
 func main() {
-	autoRechargeEdit := *openapiclient.NewAutoRechargeEdit() // AutoRechargeEdit | 
+	billingAutoRechargeEdit := *openapiclient.NewBillingAutoRechargeEdit() // BillingAutoRechargeEdit | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.PutBillingRecharge(context.Background()).AutoRechargeEdit(autoRechargeEdit).Execute()
+	resp, r, err := apiClient.BillingAPI.PutBillingRecharge(context.Background()).BillingAutoRechargeEdit(billingAutoRechargeEdit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.PutBillingRecharge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutBillingRecharge`: AutoRecharge
+	// response from `PutBillingRecharge`: BillingAutoRecharge
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.PutBillingRecharge`: %v\n", resp)
 }
 ```
@@ -2931,11 +3011,11 @@ Other parameters are passed through a pointer to a apiPutBillingRechargeRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **autoRechargeEdit** | [**AutoRechargeEdit**](AutoRechargeEdit.md) |  | 
+ **billingAutoRechargeEdit** | [**BillingAutoRechargeEdit**](BillingAutoRechargeEdit.md) |  | 
 
 ### Return type
 
-[**AutoRecharge**](AutoRecharge.md)
+[**BillingAutoRecharge**](BillingAutoRecharge.md)
 
 ### Authorization
 
@@ -2944,7 +3024,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2953,7 +3033,7 @@ Name | Type | Description  | Notes
 
 ## RaiseInvoice
 
-> Invoice RaiseInvoice(ctx).RaiseIn(raiseIn).Execute()
+> BillingInvoice RaiseInvoice(ctx).BillingRaiseIn(billingRaiseIn).Execute()
 
 Raise a draft invoice against a customer
 
@@ -2972,16 +3052,16 @@ import (
 )
 
 func main() {
-	raiseIn := *openapiclient.NewRaiseIn() // RaiseIn | 
+	billingRaiseIn := *openapiclient.NewBillingRaiseIn() // BillingRaiseIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.RaiseInvoice(context.Background()).RaiseIn(raiseIn).Execute()
+	resp, r, err := apiClient.BillingAPI.RaiseInvoice(context.Background()).BillingRaiseIn(billingRaiseIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.RaiseInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RaiseInvoice`: Invoice
+	// response from `RaiseInvoice`: BillingInvoice
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.RaiseInvoice`: %v\n", resp)
 }
 ```
@@ -2997,11 +3077,11 @@ Other parameters are passed through a pointer to a apiRaiseInvoiceRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **raiseIn** | [**RaiseIn**](RaiseIn.md) |  | 
+ **billingRaiseIn** | [**BillingRaiseIn**](BillingRaiseIn.md) |  | 
 
 ### Return type
 
-[**Invoice**](Invoice.md)
+[**BillingInvoice**](BillingInvoice.md)
 
 ### Authorization
 
@@ -3010,7 +3090,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3019,7 +3099,7 @@ Name | Type | Description  | Notes
 
 ## ReactivateSubscription
 
-> Subscription ReactivateSubscription(ctx, id).SubscriptionRef(subscriptionRef).Execute()
+> BillingSubscription ReactivateSubscription(ctx, id).BillingSubscriptionRef(billingSubscriptionRef).Execute()
 
 Put a canceled subscription back on its plan
 
@@ -3039,16 +3119,16 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	subscriptionRef := *openapiclient.NewSubscriptionRef() // SubscriptionRef | 
+	billingSubscriptionRef := *openapiclient.NewBillingSubscriptionRef() // BillingSubscriptionRef | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.ReactivateSubscription(context.Background(), id).SubscriptionRef(subscriptionRef).Execute()
+	resp, r, err := apiClient.BillingAPI.ReactivateSubscription(context.Background(), id).BillingSubscriptionRef(billingSubscriptionRef).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.ReactivateSubscription``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ReactivateSubscription`: Subscription
+	// response from `ReactivateSubscription`: BillingSubscription
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.ReactivateSubscription`: %v\n", resp)
 }
 ```
@@ -3069,11 +3149,11 @@ Other parameters are passed through a pointer to a apiReactivateSubscriptionRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **subscriptionRef** | [**SubscriptionRef**](SubscriptionRef.md) |  | 
+ **billingSubscriptionRef** | [**BillingSubscriptionRef**](BillingSubscriptionRef.md) |  | 
 
 ### Return type
 
-[**Subscription**](Subscription.md)
+[**BillingSubscription**](BillingSubscription.md)
 
 ### Authorization
 
@@ -3082,7 +3162,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3091,7 +3171,7 @@ Name | Type | Description  | Notes
 
 ## VoidInvoice
 
-> Invoice VoidInvoice(ctx, id).Execute()
+> BillingInvoice VoidInvoice(ctx, id).Execute()
 
 Void a draft or issued invoice
 
@@ -3119,7 +3199,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.VoidInvoice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `VoidInvoice`: Invoice
+	// response from `VoidInvoice`: BillingInvoice
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.VoidInvoice`: %v\n", resp)
 }
 ```
@@ -3143,7 +3223,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Invoice**](Invoice.md)
+[**BillingInvoice**](BillingInvoice.md)
 
 ### Authorization
 
@@ -3152,7 +3232,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

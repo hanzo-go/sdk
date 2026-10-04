@@ -4,18 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Application** | Pointer to **string** | Application is the CD Application name the generator mints: &lt;org&gt;-&lt;name&gt;. It is the join key against /v1/platform/cd. | [optional] 
-**Automated** | Pointer to **bool** | Automated is cd.automated: false means the Application reports drift and NOTHING moves. It is off by default for a new file on purpose. | [optional] 
-**Digest** | Pointer to **string** | image.digest — wins over tag | [optional] 
-**Env** | Pointer to [**[]DeclareEnv**](DeclareEnv.md) | Env is the declared container environment, as the chart&#39;s list of {name,value}. It is read back so a re-declare of an identical body is a no-op rather than a refusal — idempotency is what makes a retry safe. | [optional] 
-**Hosts** | Pointer to **[]string** | ingress.hosts, both shapes flattened | [optional] 
-**Name** | Pointer to **string** | the Helm release name — the file&#39;s basename | [optional] 
-**Org** | Pointer to **string** | Org is the owner. It is ALSO the values directory and the destination namespace, because those are one value under one name — see the header. | [optional] 
-**Path** | Pointer to **string** | Path is the file, relative to the repository root. | [optional] 
-**Project** | Pointer to **string** | Project is the AppProject the sync is admitted under, derived from the directory exactly as the ApplicationSet derives it. It differs from Org for a reserved directory, which syncs under the platform fence. | [optional] 
-**Replicas** | Pointer to **int64** |  | [optional] 
-**Repository** | Pointer to **string** | image.repository | [optional] 
-**Tag** | Pointer to **string** | image.tag | [optional] 
+**Application** | Pointer to **string** |  | [optional] 
+**Automated** | Pointer to **bool** |  | [optional] 
+**Component** | Pointer to **string** |  | [optional] 
+**Digest** | Pointer to **string** |  | [optional] 
+**Env** | Pointer to [**[]DeclareEnv**](DeclareEnv.md) |  | [optional] 
+**Hosts** | Pointer to **[]string** |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
+**Org** | Pointer to **string** |  | [optional] 
+**PartOf** | Pointer to **string** |  | [optional] 
+**Path** | Pointer to **string** |  | [optional] 
+**Project** | Pointer to **string** |  | [optional] 
+**Replicas** | Pointer to **int32** |  | [optional] 
+**Repository** | Pointer to **string** |  | [optional] 
+**Secrets** | Pointer to [**[]SecretRef**](SecretRef.md) |  | [optional] 
+**Tag** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -85,6 +88,31 @@ SetAutomated sets Automated field to given value.
 `func (o *Declaration) HasAutomated() bool`
 
 HasAutomated returns a boolean if a field has been set.
+
+### GetComponent
+
+`func (o *Declaration) GetComponent() string`
+
+GetComponent returns the Component field if non-nil, zero value otherwise.
+
+### GetComponentOk
+
+`func (o *Declaration) GetComponentOk() (*string, bool)`
+
+GetComponentOk returns a tuple with the Component field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetComponent
+
+`func (o *Declaration) SetComponent(v string)`
+
+SetComponent sets Component field to given value.
+
+### HasComponent
+
+`func (o *Declaration) HasComponent() bool`
+
+HasComponent returns a boolean if a field has been set.
 
 ### GetDigest
 
@@ -211,6 +239,31 @@ SetOrg sets Org field to given value.
 
 HasOrg returns a boolean if a field has been set.
 
+### GetPartOf
+
+`func (o *Declaration) GetPartOf() string`
+
+GetPartOf returns the PartOf field if non-nil, zero value otherwise.
+
+### GetPartOfOk
+
+`func (o *Declaration) GetPartOfOk() (*string, bool)`
+
+GetPartOfOk returns a tuple with the PartOf field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPartOf
+
+`func (o *Declaration) SetPartOf(v string)`
+
+SetPartOf sets PartOf field to given value.
+
+### HasPartOf
+
+`func (o *Declaration) HasPartOf() bool`
+
+HasPartOf returns a boolean if a field has been set.
+
 ### GetPath
 
 `func (o *Declaration) GetPath() string`
@@ -263,20 +316,20 @@ HasProject returns a boolean if a field has been set.
 
 ### GetReplicas
 
-`func (o *Declaration) GetReplicas() int64`
+`func (o *Declaration) GetReplicas() int32`
 
 GetReplicas returns the Replicas field if non-nil, zero value otherwise.
 
 ### GetReplicasOk
 
-`func (o *Declaration) GetReplicasOk() (*int64, bool)`
+`func (o *Declaration) GetReplicasOk() (*int32, bool)`
 
 GetReplicasOk returns a tuple with the Replicas field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReplicas
 
-`func (o *Declaration) SetReplicas(v int64)`
+`func (o *Declaration) SetReplicas(v int32)`
 
 SetReplicas sets Replicas field to given value.
 
@@ -310,6 +363,31 @@ SetRepository sets Repository field to given value.
 `func (o *Declaration) HasRepository() bool`
 
 HasRepository returns a boolean if a field has been set.
+
+### GetSecrets
+
+`func (o *Declaration) GetSecrets() []SecretRef`
+
+GetSecrets returns the Secrets field if non-nil, zero value otherwise.
+
+### GetSecretsOk
+
+`func (o *Declaration) GetSecretsOk() (*[]SecretRef, bool)`
+
+GetSecretsOk returns a tuple with the Secrets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSecrets
+
+`func (o *Declaration) SetSecrets(v []SecretRef)`
+
+SetSecrets sets Secrets field to given value.
+
+### HasSecrets
+
+`func (o *Declaration) HasSecrets() bool`
+
+HasSecrets returns a boolean if a field has been set.
 
 ### GetTag
 

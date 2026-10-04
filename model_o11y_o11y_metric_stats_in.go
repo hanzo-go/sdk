@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -32,7 +31,8 @@ type O11yO11yMetricStatsIn struct {
 	// OrderBy sorts the page, by samples or timeseries.
 	OrderBy *O11yO11yMetricOrder `json:"orderBy,omitempty"`
 	// Start is the start of the window as a Unix timestamp in milliseconds. Required.
-	Start int64 `json:"start"`
+	Start                int64 `json:"start"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11yMetricStatsIn O11yO11yMetricStatsIn
@@ -247,6 +247,11 @@ func (o O11yO11yMetricStatsIn) ToMap() (map[string]interface{}, error) {
 		toSerialize["orderBy"] = o.OrderBy
 	}
 	toSerialize["start"] = o.Start
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -276,15 +281,25 @@ func (o *O11yO11yMetricStatsIn) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11yMetricStatsIn := _O11yO11yMetricStatsIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11yMetricStatsIn)
+	err = json.Unmarshal(data, &varO11yO11yMetricStatsIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11yMetricStatsIn(varO11yO11yMetricStatsIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "orderBy")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

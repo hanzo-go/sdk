@@ -30,8 +30,11 @@ type O11yO11yTagFilter struct {
 	// StringValues are the values matched when the tag holds strings.
 	StringValues []string `json:"stringValues,omitempty"`
 	// TagType says which kind of value the tag holds: string, number or bool.
-	TagType *string `json:"tagType,omitempty"`
+	TagType              *string `json:"tagType,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTagFilter O11yO11yTagFilter
 
 // NewO11yO11yTagFilter instantiates a new O11yO11yTagFilter object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o O11yO11yTagFilter) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TagType) {
 		toSerialize["tagType"] = o.TagType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTagFilter) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTagFilter := _O11yO11yTagFilter{}
+
+	err = json.Unmarshal(data, &varO11yO11yTagFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTagFilter(varO11yO11yTagFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "boolValues")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "numberValues")
+		delete(additionalProperties, "operator")
+		delete(additionalProperties, "stringValues")
+		delete(additionalProperties, "tagType")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTagFilter struct {

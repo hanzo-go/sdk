@@ -33,16 +33,17 @@ func (r MarketplaceAPIDeleteMarketplaceListingsByIdRequest) Execute() (*http.Res
 }
 
 /*
-DeleteMarketplaceListingsById Unpublish withdraws one of the caller org's listings from the marketplace and answers 204.
+DeleteMarketplaceListingsById Withdraws one of the caller org's listings from the marketplace and answers 204.
 
-Unpublish withdraws one of the caller org's listings from the marketplace and
+Withdraws one of the caller org's listings from the marketplace and
 answers 204. Only the publishing org can remove its own listing; an id that is
 unknown, or belongs to another org, is the same 404, so a probe learns nothing
 about what exists. Removing a listing removes its price from per-call enforcement;
-it does not uninstall the tool for anyone who already installed it.
+it does not uninstall the tool for anyone who already installed it, and a job
+already opened through it runs to its end. An org admin unpublishes.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the listing to unpublish, from the path.
+	@param id ID is the listing, from the path.
 	@return MarketplaceAPIDeleteMarketplaceListingsByIdRequest
 */
 func (a *MarketplaceAPIService) DeleteMarketplaceListingsById(ctx context.Context, id string) MarketplaceAPIDeleteMarketplaceListingsByIdRequest {
@@ -83,7 +84,7 @@ func (a *MarketplaceAPIService) DeleteMarketplaceListingsByIdExecute(r Marketpla
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -112,6 +113,14 @@ func (a *MarketplaceAPIService) DeleteMarketplaceListingsByIdExecute(r Marketpla
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -123,14 +132,14 @@ type MarketplaceAPIGetMarketplaceRequest struct {
 	ApiService *MarketplaceAPIService
 }
 
-func (r MarketplaceAPIGetMarketplaceRequest) Execute() (*MarketCatalog, *http.Response, error) {
+func (r MarketplaceAPIGetMarketplaceRequest) Execute() (*MarketplaceMarketCatalog, *http.Response, error) {
 	return r.ApiService.GetMarketplaceExecute(r)
 }
 
 /*
-GetMarketplace Discover lists every tool and agent the caller can reach in their own org and project, enriched with any public listing's title, category and price, and with installed=true on the ones already activated for that scope.
+GetMarketplace Lists every tool and agent the caller can reach in their own org and project, enriched with any public listing's title, category and price, and with installed=true on the ones already activated for that scope.
 
-Discover lists every tool and agent the caller can reach in their own org and
+Lists every tool and agent the caller can reach in their own org and
 project, enriched with any public listing's title, category and price, and with
 installed=true on the ones already activated for that scope. It is the shop
 window: one read that answers what exists, what it costs and what is already on.
@@ -147,13 +156,13 @@ func (a *MarketplaceAPIService) GetMarketplace(ctx context.Context) MarketplaceA
 
 // Execute executes the request
 //
-//	@return MarketCatalog
-func (a *MarketplaceAPIService) GetMarketplaceExecute(r MarketplaceAPIGetMarketplaceRequest) (*MarketCatalog, *http.Response, error) {
+//	@return MarketplaceMarketCatalog
+func (a *MarketplaceAPIService) GetMarketplaceExecute(r MarketplaceAPIGetMarketplaceRequest) (*MarketplaceMarketCatalog, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MarketCatalog
+		localVarReturnValue *MarketplaceMarketCatalog
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.GetMarketplace")
@@ -177,7 +186,7 @@ func (a *MarketplaceAPIService) GetMarketplaceExecute(r MarketplaceAPIGetMarketp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -206,6 +215,259 @@ func (a *MarketplaceAPIService) GetMarketplaceExecute(r MarketplaceAPIGetMarketp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIGetMarketplaceJobsRequest struct {
+	ctx        context.Context
+	ApiService *MarketplaceAPIService
+	role       *string
+	status     *string
+}
+
+// Role is buyer — the jobs the caller&#39;s org hired for — or seller, the jobs it was hired for. Buyer when empty.
+func (r MarketplaceAPIGetMarketplaceJobsRequest) Role(role string) MarketplaceAPIGetMarketplaceJobsRequest {
+	r.role = &role
+	return r
+}
+
+// Status keeps one state.
+func (r MarketplaceAPIGetMarketplaceJobsRequest) Status(status string) MarketplaceAPIGetMarketplaceJobsRequest {
+	r.status = &status
+	return r
+}
+
+func (r MarketplaceAPIGetMarketplaceJobsRequest) Execute() (*MarketplaceJobPage, *http.Response, error) {
+	return r.ApiService.GetMarketplaceJobsExecute(r)
+}
+
+/*
+GetMarketplaceJobs Lists the jobs the caller's org is a party to, newest first: as buyer, the work it hired — with the quotes it has not paid and the jobs being funded, each with the attempt that made it, so a hire whose answer was lost is found here — and as seller, the work it was hired for, which never includes another org's quote.
+
+Lists the jobs the caller's org is a party to, newest first: as buyer, the work
+it hired — with the quotes it has not paid and the jobs being funded, each with
+the attempt that made it, so a hire whose answer was lost is found here — and as
+seller, the work it was hired for, which never includes another org's quote.
+Any member of the org.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketplaceAPIGetMarketplaceJobsRequest
+*/
+func (a *MarketplaceAPIService) GetMarketplaceJobs(ctx context.Context) MarketplaceAPIGetMarketplaceJobsRequest {
+	return MarketplaceAPIGetMarketplaceJobsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceJobPage
+func (a *MarketplaceAPIService) GetMarketplaceJobsExecute(r MarketplaceAPIGetMarketplaceJobsRequest) (*MarketplaceJobPage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceJobPage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.GetMarketplaceJobs")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/jobs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.role != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "role", r.role, "form", "")
+	}
+	if r.status != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIGetMarketplaceJobsByIdRequest struct {
+	ctx        context.Context
+	ApiService *MarketplaceAPIService
+	id         string
+}
+
+func (r MarketplaceAPIGetMarketplaceJobsByIdRequest) Execute() (*MarketplaceJob, *http.Response, error) {
+	return r.ApiService.GetMarketplaceJobsByIdExecute(r)
+}
+
+/*
+GetMarketplaceJobsById Reads one job the caller's org is a party to.
+
+Reads one job the caller's org is a party to. Another org's job, and one that
+does not exist, are the same 404.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the job, from the path.
+	@return MarketplaceAPIGetMarketplaceJobsByIdRequest
+*/
+func (a *MarketplaceAPIService) GetMarketplaceJobsById(ctx context.Context, id string) MarketplaceAPIGetMarketplaceJobsByIdRequest {
+	return MarketplaceAPIGetMarketplaceJobsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceJob
+func (a *MarketplaceAPIService) GetMarketplaceJobsByIdExecute(r MarketplaceAPIGetMarketplaceJobsByIdRequest) (*MarketplaceJob, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceJob
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.GetMarketplaceJobsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/jobs/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -226,7 +488,7 @@ type MarketplaceAPIGetMarketplaceListingsRequest struct {
 	ApiService *MarketplaceAPIService
 }
 
-func (r MarketplaceAPIGetMarketplaceListingsRequest) Execute() (*ListingPage, *http.Response, error) {
+func (r MarketplaceAPIGetMarketplaceListingsRequest) Execute() (*MarketplaceListingPage, *http.Response, error) {
 	return r.ApiService.GetMarketplaceListingsExecute(r)
 }
 
@@ -248,13 +510,13 @@ func (a *MarketplaceAPIService) GetMarketplaceListings(ctx context.Context) Mark
 
 // Execute executes the request
 //
-//	@return ListingPage
-func (a *MarketplaceAPIService) GetMarketplaceListingsExecute(r MarketplaceAPIGetMarketplaceListingsRequest) (*ListingPage, *http.Response, error) {
+//	@return MarketplaceListingPage
+func (a *MarketplaceAPIService) GetMarketplaceListingsExecute(r MarketplaceAPIGetMarketplaceListingsRequest) (*MarketplaceListingPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListingPage
+		localVarReturnValue *MarketplaceListingPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.GetMarketplaceListings")
@@ -278,7 +540,7 @@ func (a *MarketplaceAPIService) GetMarketplaceListingsExecute(r MarketplaceAPIGe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -307,6 +569,571 @@ func (a *MarketplaceAPIService) GetMarketplaceListingsExecute(r MarketplaceAPIGe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIGetMarketplaceSellerRequest struct {
+	ctx        context.Context
+	ApiService *MarketplaceAPIService
+	year       *int64
+}
+
+// Year is the calendar year (UTC); the current one when zero.
+func (r MarketplaceAPIGetMarketplaceSellerRequest) Year(year int64) MarketplaceAPIGetMarketplaceSellerRequest {
+	r.year = &year
+	return r
+}
+
+func (r MarketplaceAPIGetMarketplaceSellerRequest) Execute() (*MarketplaceOnboarding, *http.Response, error) {
+	return r.ApiService.GetMarketplaceSellerExecute(r)
+}
+
+/*
+GetMarketplaceSeller Answers where the caller's org stands as a seller, in one read: its founders' identity verification (KYC) and legal entity (KYB), its tax form and whether it is certified and valid, its own sanctions screening — only what an org may see about itself — the payout wallet it proved, the TaxPrincipalCredentials signed for its agents, what it earned in the year from the economic events the rails stated, and the 1099s payers furnished it.
+
+Answers where the caller's org stands as a seller, in one read: its founders'
+identity verification (KYC) and legal entity (KYB), its tax form and whether it
+is certified and valid, its own sanctions screening — only what an org may see
+about itself — the payout wallet it proved, the TaxPrincipalCredentials signed
+for its agents, what it earned in the year from the economic events the rails
+stated, and the 1099s payers furnished it. Ready says nothing is missing. Each
+owning app is asked as the org; one this deployment does not run is named absent
+rather than read as empty. An org admin reads it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketplaceAPIGetMarketplaceSellerRequest
+*/
+func (a *MarketplaceAPIService) GetMarketplaceSeller(ctx context.Context) MarketplaceAPIGetMarketplaceSellerRequest {
+	return MarketplaceAPIGetMarketplaceSellerRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceOnboarding
+func (a *MarketplaceAPIService) GetMarketplaceSellerExecute(r MarketplaceAPIGetMarketplaceSellerRequest) (*MarketplaceOnboarding, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceOnboarding
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.GetMarketplaceSeller")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/seller"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.year != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "year", r.year, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIGetMarketplaceShopRequest struct {
+	ctx        context.Context
+	ApiService *MarketplaceAPIService
+	q          *string
+	kind       *string
+	category   *string
+	price      *string
+	rating     *int64
+	seller     *string
+	limit      *int64
+	offset     *int64
+}
+
+// Q keeps listings whose title, description, category, thing or seller contains every word of it, case-insensitively.
+func (r MarketplaceAPIGetMarketplaceShopRequest) Q(q string) MarketplaceAPIGetMarketplaceShopRequest {
+	r.q = &q
+	return r
+}
+
+// Kind keeps one kind: agent, persona, app, skill, mcp or tool.
+func (r MarketplaceAPIGetMarketplaceShopRequest) Kind(kind string) MarketplaceAPIGetMarketplaceShopRequest {
+	r.kind = &kind
+	return r
+}
+
+// Category keeps one category, exactly.
+func (r MarketplaceAPIGetMarketplaceShopRequest) Category(category string) MarketplaceAPIGetMarketplaceShopRequest {
+	r.category = &category
+	return r
+}
+
+// Price keeps free listings or priced ones.
+func (r MarketplaceAPIGetMarketplaceShopRequest) Price(price string) MarketplaceAPIGetMarketplaceShopRequest {
+	r.price = &price
+	return r
+}
+
+// Rating keeps listings rated at least this many stars, 1 to 5.
+func (r MarketplaceAPIGetMarketplaceShopRequest) Rating(rating int64) MarketplaceAPIGetMarketplaceShopRequest {
+	r.rating = &rating
+	return r
+}
+
+// Seller keeps one seller org&#39;s listings.
+func (r MarketplaceAPIGetMarketplaceShopRequest) Seller(seller string) MarketplaceAPIGetMarketplaceShopRequest {
+	r.seller = &seller
+	return r
+}
+
+// Limit is the page size: 48 by default, 200 at most.
+func (r MarketplaceAPIGetMarketplaceShopRequest) Limit(limit int64) MarketplaceAPIGetMarketplaceShopRequest {
+	r.limit = &limit
+	return r
+}
+
+// Offset is where the page starts.
+func (r MarketplaceAPIGetMarketplaceShopRequest) Offset(offset int64) MarketplaceAPIGetMarketplaceShopRequest {
+	r.offset = &offset
+	return r
+}
+
+func (r MarketplaceAPIGetMarketplaceShopRequest) Execute() (*MarketplaceShop, *http.Response, error) {
+	return r.ApiService.GetMarketplaceShopExecute(r)
+}
+
+/*
+GetMarketplaceShop Searches every public listing of every kind — agents and personas to hire, apps, skills, MCP servers and tools — newest first, with facets by kind, category, price and rating, paged.
+
+Searches every public listing of every kind — agents and personas to hire,
+apps, skills, MCP servers and tools — newest first, with facets by kind,
+category, price and rating, paged. Each listing carries its seller's public
+face, its reputation from settled jobs and installs, and the command and MCP
+operation that buy it. It needs no credential and answers the same to everyone.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketplaceAPIGetMarketplaceShopRequest
+*/
+func (a *MarketplaceAPIService) GetMarketplaceShop(ctx context.Context) MarketplaceAPIGetMarketplaceShopRequest {
+	return MarketplaceAPIGetMarketplaceShopRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceShop
+func (a *MarketplaceAPIService) GetMarketplaceShopExecute(r MarketplaceAPIGetMarketplaceShopRequest) (*MarketplaceShop, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceShop
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.GetMarketplaceShop")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/shop"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.q != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	}
+	if r.kind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "kind", r.kind, "form", "")
+	}
+	if r.category != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "category", r.category, "form", "")
+	}
+	if r.price != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "price", r.price, "form", "")
+	}
+	if r.rating != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rating", r.rating, "form", "")
+	}
+	if r.seller != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "seller", r.seller, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIGetMarketplaceShopByIdRequest struct {
+	ctx        context.Context
+	ApiService *MarketplaceAPIService
+	id         string
+}
+
+func (r MarketplaceAPIGetMarketplaceShopByIdRequest) Execute() (*MarketplaceShopListing, *http.Response, error) {
+	return r.ApiService.GetMarketplaceShopByIdExecute(r)
+}
+
+/*
+GetMarketplaceShopById Reads one public listing as the shop shows it — its seller's public face, its reputation and the ways to buy it.
+
+Reads one public listing as the shop shows it — its seller's public face, its
+reputation and the ways to buy it. A private listing and one that does not
+exist are the same 404. It needs no credential.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the listing, from the path.
+	@return MarketplaceAPIGetMarketplaceShopByIdRequest
+*/
+func (a *MarketplaceAPIService) GetMarketplaceShopById(ctx context.Context, id string) MarketplaceAPIGetMarketplaceShopByIdRequest {
+	return MarketplaceAPIGetMarketplaceShopByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceShopListing
+func (a *MarketplaceAPIService) GetMarketplaceShopByIdExecute(r MarketplaceAPIGetMarketplaceShopByIdRequest) (*MarketplaceShopListing, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceShopListing
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.GetMarketplaceShopById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/shop/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPatchMarketplaceListingsByIdRequest struct {
+	ctx                 context.Context
+	ApiService          *MarketplaceAPIService
+	id                  string
+	marketplacePatchReq *MarketplacePatchReq
+}
+
+func (r MarketplaceAPIPatchMarketplaceListingsByIdRequest) MarketplacePatchReq(marketplacePatchReq MarketplacePatchReq) MarketplaceAPIPatchMarketplaceListingsByIdRequest {
+	r.marketplacePatchReq = &marketplacePatchReq
+	return r
+}
+
+func (r MarketplaceAPIPatchMarketplaceListingsByIdRequest) Execute() (*MarketplaceListing, *http.Response, error) {
+	return r.ApiService.PatchMarketplaceListingsByIdExecute(r)
+}
+
+/*
+PatchMarketplaceListingsById Edits one of the caller org's listings — its copy, price, payout wallet, visibility and documentation — under the same rules publish applies, and answers the listing as it now stands.
+
+Edits one of the caller org's listings — its copy, price, payout wallet,
+visibility and documentation — under the same rules publish applies, and
+answers the listing as it now stands. Another org's listing and one that does
+not exist are the same 404. An org admin edits.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the listing to edit, from the path.
+	@return MarketplaceAPIPatchMarketplaceListingsByIdRequest
+*/
+func (a *MarketplaceAPIService) PatchMarketplaceListingsById(ctx context.Context, id string) MarketplaceAPIPatchMarketplaceListingsByIdRequest {
+	return MarketplaceAPIPatchMarketplaceListingsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceListing
+func (a *MarketplaceAPIService) PatchMarketplaceListingsByIdExecute(r MarketplaceAPIPatchMarketplaceListingsByIdRequest) (*MarketplaceListing, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceListing
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PatchMarketplaceListingsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/listings/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketplacePatchReq == nil {
+		return localVarReturnValue, nil, reportError("marketplacePatchReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketplacePatchReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -323,24 +1150,24 @@ func (a *MarketplaceAPIService) GetMarketplaceListingsExecute(r MarketplaceAPIGe
 }
 
 type MarketplaceAPIPostMarketplaceInstallRequest struct {
-	ctx        context.Context
-	ApiService *MarketplaceAPIService
-	installReq *InstallReq
+	ctx                   context.Context
+	ApiService            *MarketplaceAPIService
+	marketplaceInstallReq *MarketplaceInstallReq
 }
 
-func (r MarketplaceAPIPostMarketplaceInstallRequest) InstallReq(installReq InstallReq) MarketplaceAPIPostMarketplaceInstallRequest {
-	r.installReq = &installReq
+func (r MarketplaceAPIPostMarketplaceInstallRequest) MarketplaceInstallReq(marketplaceInstallReq MarketplaceInstallReq) MarketplaceAPIPostMarketplaceInstallRequest {
+	r.marketplaceInstallReq = &marketplaceInstallReq
 	return r
 }
 
-func (r MarketplaceAPIPostMarketplaceInstallRequest) Execute() (*InstallState, *http.Response, error) {
+func (r MarketplaceAPIPostMarketplaceInstallRequest) Execute() (*MarketplaceInstallState, *http.Response, error) {
 	return r.ApiService.PostMarketplaceInstallExecute(r)
 }
 
 /*
-PostMarketplaceInstall Install activates one tool for the caller's own org and project.
+PostMarketplaceInstall Activates one tool for the caller's own org and project.
 
-Install activates one tool for the caller's own org and project. A marketplace
+Activates one tool for the caller's own org and project. A marketplace
 install IS the tool plane's activation write — one store, one truth — so an
 installed capability is immediately dispatchable and a monetized one is priced
 from its listing at every call. The tool must resolve in the caller's scope, so
@@ -358,13 +1185,13 @@ func (a *MarketplaceAPIService) PostMarketplaceInstall(ctx context.Context) Mark
 
 // Execute executes the request
 //
-//	@return InstallState
-func (a *MarketplaceAPIService) PostMarketplaceInstallExecute(r MarketplaceAPIPostMarketplaceInstallRequest) (*InstallState, *http.Response, error) {
+//	@return MarketplaceInstallState
+func (a *MarketplaceAPIService) PostMarketplaceInstallExecute(r MarketplaceAPIPostMarketplaceInstallRequest) (*MarketplaceInstallState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InstallState
+		localVarReturnValue *MarketplaceInstallState
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceInstall")
@@ -377,8 +1204,8 @@ func (a *MarketplaceAPIService) PostMarketplaceInstallExecute(r MarketplaceAPIPo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.installReq == nil {
-		return localVarReturnValue, nil, reportError("installReq is required and must be specified")
+	if r.marketplaceInstallReq == nil {
+		return localVarReturnValue, nil, reportError("marketplaceInstallReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -391,7 +1218,7 @@ func (a *MarketplaceAPIService) PostMarketplaceInstallExecute(r MarketplaceAPIPo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -399,7 +1226,7 @@ func (a *MarketplaceAPIService) PostMarketplaceInstallExecute(r MarketplaceAPIPo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.installReq
+	localVarPostBody = r.marketplaceInstallReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -422,6 +1249,1122 @@ func (a *MarketplaceAPIService) PostMarketplaceInstallExecute(r MarketplaceAPIPo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPostMarketplaceJobsRequest struct {
+	ctx               context.Context
+	ApiService        *MarketplaceAPIService
+	marketplaceHireIn *MarketplaceHireIn
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsRequest) MarketplaceHireIn(marketplaceHireIn MarketplaceHireIn) MarketplaceAPIPostMarketplaceJobsRequest {
+	r.marketplaceHireIn = &marketplaceHireIn
+	return r
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsRequest) Execute() (*MarketplaceJob, *http.Response, error) {
+	return r.ApiService.PostMarketplaceJobsExecute(r)
+}
+
+/*
+PostMarketplaceJobs Hires another org for a piece of work, through a public listing or by a direct offer, and answers 201 with the job — open, waiting for the seller.
+
+Hires another org for a piece of work, through a public listing or by a direct
+offer, and answers 201 with the job — open, waiting for the seller.
+
+It is paid over x402, in two steps on this one call. Sent without payment, the
+terms are cleared first — principal decides whether the buyer may pay the seller
+this amount, and a blocked payment, one that waits on the seller's tax form, and
+one that clears only with tax withheld, which this rail does not withhold, are
+refused and nothing is opened — and it answers 402 with the terms to sign, for
+the job resource job:<id>: on PAYMENT-REQUIRED, in the body, and in the message.
+Sent again with the signed authorization — on PAYMENT-SIGNATURE, or as
+payment — echoing that resource, the terms are cleared once more, the job is
+funding, and the rail checks the payment against exactly those terms, checks
+it stays acceptable until a dispute could last be ruled on, holds it for this
+job, and sets the amount aside in the buyer's wallet: a wallet that cannot
+cover it answers 402 insufficient_funds and opens nothing. Nothing is paid
+until the buyer releases the job, or its review window passes after delivery;
+a job that ends unpaid returns the amount to the wallet. Any member of the
+buying org; a platform SuperAdmin inspecting another org cannot spend it.
+
+A hire sent with an attempt — the buyer's own key for it, in the body — is one
+hire however often it is sent: the same attempt with the same request answers
+the same job, so a request whose answer was lost is sent again as it was, and
+opens one job and sets its amount aside once. It answers the quote's terms
+again while the job is quoted or funding (a quote over its hour is given up
+and quoted anew), and the job, 201, once it opened. Another request under an
+attempt already used is refused, 422. The buyer's own jobs list its quotes
+and those being funded, with their attempts, so an attempt in flight is found
+there too. Without an attempt, the same terms asked again within the hour
+answer the same quote, and the same payment sent again answers the job it
+opened.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketplaceAPIPostMarketplaceJobsRequest
+*/
+func (a *MarketplaceAPIService) PostMarketplaceJobs(ctx context.Context) MarketplaceAPIPostMarketplaceJobsRequest {
+	return MarketplaceAPIPostMarketplaceJobsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceJob
+func (a *MarketplaceAPIService) PostMarketplaceJobsExecute(r MarketplaceAPIPostMarketplaceJobsRequest) (*MarketplaceJob, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceJob
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceJobs")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/jobs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketplaceHireIn == nil {
+		return localVarReturnValue, nil, reportError("marketplaceHireIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketplaceHireIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPostMarketplaceJobsByIdAcceptRequest struct {
+	ctx        context.Context
+	ApiService *MarketplaceAPIService
+	id         string
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsByIdAcceptRequest) Execute() (*MarketplaceJob, *http.Response, error) {
+	return r.ApiService.PostMarketplaceJobsByIdAcceptExecute(r)
+}
+
+/*
+PostMarketplaceJobsByIdAccept Accepts a job the caller's org was hired for: the seller takes the work on and the clock toward its deadline is the seller's.
+
+Accepts a job the caller's org was hired for: the seller takes the work on and
+the clock toward its deadline is the seller's. Only an open job, and only before
+its deadline.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the job, from the path.
+	@return MarketplaceAPIPostMarketplaceJobsByIdAcceptRequest
+*/
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdAccept(ctx context.Context, id string) MarketplaceAPIPostMarketplaceJobsByIdAcceptRequest {
+	return MarketplaceAPIPostMarketplaceJobsByIdAcceptRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceJob
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdAcceptExecute(r MarketplaceAPIPostMarketplaceJobsByIdAcceptRequest) (*MarketplaceJob, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceJob
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceJobsByIdAccept")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/jobs/{id}/accept"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPostMarketplaceJobsByIdCancelRequest struct {
+	ctx        context.Context
+	ApiService *MarketplaceAPIService
+	id         string
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsByIdCancelRequest) Execute() (*MarketplaceJob, *http.Response, error) {
+	return r.ApiService.PostMarketplaceJobsByIdCancelExecute(r)
+}
+
+/*
+PostMarketplaceJobsByIdCancel Takes back a job the caller's org opened, before the seller accepts it.
+
+Takes back a job the caller's org opened, before the seller accepts it. Nothing
+was paid: the amount set aside returns to the wallet.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the job, from the path.
+	@return MarketplaceAPIPostMarketplaceJobsByIdCancelRequest
+*/
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdCancel(ctx context.Context, id string) MarketplaceAPIPostMarketplaceJobsByIdCancelRequest {
+	return MarketplaceAPIPostMarketplaceJobsByIdCancelRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceJob
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdCancelExecute(r MarketplaceAPIPostMarketplaceJobsByIdCancelRequest) (*MarketplaceJob, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceJob
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceJobsByIdCancel")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/jobs/{id}/cancel"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPostMarketplaceJobsByIdDeclineRequest struct {
+	ctx                  context.Context
+	ApiService           *MarketplaceAPIService
+	id                   string
+	marketplaceDeclineIn *MarketplaceDeclineIn
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsByIdDeclineRequest) MarketplaceDeclineIn(marketplaceDeclineIn MarketplaceDeclineIn) MarketplaceAPIPostMarketplaceJobsByIdDeclineRequest {
+	r.marketplaceDeclineIn = &marketplaceDeclineIn
+	return r
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsByIdDeclineRequest) Execute() (*MarketplaceJob, *http.Response, error) {
+	return r.ApiService.PostMarketplaceJobsByIdDeclineExecute(r)
+}
+
+/*
+PostMarketplaceJobsByIdDecline Declines a job the caller's org was hired for, before any work.
+
+Declines a job the caller's org was hired for, before any work. Nothing was
+paid: the buyer's authorization is given up, never settled, and the amount it
+set aside returns to the buyer's wallet.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the job, from the path.
+	@return MarketplaceAPIPostMarketplaceJobsByIdDeclineRequest
+*/
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdDecline(ctx context.Context, id string) MarketplaceAPIPostMarketplaceJobsByIdDeclineRequest {
+	return MarketplaceAPIPostMarketplaceJobsByIdDeclineRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceJob
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdDeclineExecute(r MarketplaceAPIPostMarketplaceJobsByIdDeclineRequest) (*MarketplaceJob, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceJob
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceJobsByIdDecline")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/jobs/{id}/decline"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketplaceDeclineIn == nil {
+		return localVarReturnValue, nil, reportError("marketplaceDeclineIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketplaceDeclineIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPostMarketplaceJobsByIdDeliverRequest struct {
+	ctx                  context.Context
+	ApiService           *MarketplaceAPIService
+	id                   string
+	marketplaceDeliverIn *MarketplaceDeliverIn
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsByIdDeliverRequest) MarketplaceDeliverIn(marketplaceDeliverIn MarketplaceDeliverIn) MarketplaceAPIPostMarketplaceJobsByIdDeliverRequest {
+	r.marketplaceDeliverIn = &marketplaceDeliverIn
+	return r
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsByIdDeliverRequest) Execute() (*MarketplaceJob, *http.Response, error) {
+	return r.ApiService.PostMarketplaceJobsByIdDeliverExecute(r)
+}
+
+/*
+PostMarketplaceJobsByIdDeliver Records delivery of a job the caller's org accepted, before its deadline, and starts the review window: the buyer releases or disputes within it, or it releases itself when it closes.
+
+Records delivery of a job the caller's org accepted, before its deadline, and
+starts the review window: the buyer releases or disputes within it, or it
+releases itself when it closes.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the job, from the path.
+	@return MarketplaceAPIPostMarketplaceJobsByIdDeliverRequest
+*/
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdDeliver(ctx context.Context, id string) MarketplaceAPIPostMarketplaceJobsByIdDeliverRequest {
+	return MarketplaceAPIPostMarketplaceJobsByIdDeliverRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceJob
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdDeliverExecute(r MarketplaceAPIPostMarketplaceJobsByIdDeliverRequest) (*MarketplaceJob, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceJob
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceJobsByIdDeliver")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/jobs/{id}/deliver"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketplaceDeliverIn == nil {
+		return localVarReturnValue, nil, reportError("marketplaceDeliverIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketplaceDeliverIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPostMarketplaceJobsByIdDisputeRequest struct {
+	ctx                  context.Context
+	ApiService           *MarketplaceAPIService
+	id                   string
+	marketplaceDisputeIn *MarketplaceDisputeIn
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsByIdDisputeRequest) MarketplaceDisputeIn(marketplaceDisputeIn MarketplaceDisputeIn) MarketplaceAPIPostMarketplaceJobsByIdDisputeRequest {
+	r.marketplaceDisputeIn = &marketplaceDisputeIn
+	return r
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsByIdDisputeRequest) Execute() (*MarketplaceJob, *http.Response, error) {
+	return r.ApiService.PostMarketplaceJobsByIdDisputeExecute(r)
+}
+
+/*
+PostMarketplaceJobsByIdDispute Stops a job for a ruling, as either party: before delivery (and before the deadline), or within the review window after it.
+
+Stops a job for a ruling, as either party: before delivery (and before the
+deadline), or within the review window after it. Nothing moves while it is
+disputed. It ends when the buyer releases it, the seller refunds it, the
+platform's arbiter rules, or the arbiter's time lapses and it is refunded.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the job, from the path.
+	@return MarketplaceAPIPostMarketplaceJobsByIdDisputeRequest
+*/
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdDispute(ctx context.Context, id string) MarketplaceAPIPostMarketplaceJobsByIdDisputeRequest {
+	return MarketplaceAPIPostMarketplaceJobsByIdDisputeRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceJob
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdDisputeExecute(r MarketplaceAPIPostMarketplaceJobsByIdDisputeRequest) (*MarketplaceJob, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceJob
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceJobsByIdDispute")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/jobs/{id}/dispute"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketplaceDisputeIn == nil {
+		return localVarReturnValue, nil, reportError("marketplaceDisputeIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketplaceDisputeIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPostMarketplaceJobsByIdFeedbackRequest struct {
+	ctx                   context.Context
+	ApiService            *MarketplaceAPIService
+	id                    string
+	marketplaceFeedbackIn *MarketplaceFeedbackIn
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsByIdFeedbackRequest) MarketplaceFeedbackIn(marketplaceFeedbackIn MarketplaceFeedbackIn) MarketplaceAPIPostMarketplaceJobsByIdFeedbackRequest {
+	r.marketplaceFeedbackIn = &marketplaceFeedbackIn
+	return r
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsByIdFeedbackRequest) Execute() (*MarketplaceFeedback, *http.Response, error) {
+	return r.ApiService.PostMarketplaceJobsByIdFeedbackExecute(r)
+}
+
+/*
+PostMarketplaceJobsByIdFeedback Rates the other party of a settled job — the seller when the caller's org bought, the buyer when it sold — once per party per job, and never edited.
+
+Rates the other party of a settled job — the seller when the caller's org
+bought, the buyer when it sold — once per party per job, and never edited. A
+job counts as settled once it was released, or refunded after the seller took
+it on; one cancelled or declined before any work earns nothing. What buyers say
+of a seller is its listing's and its own reputation in the shop. It answers 201
+with the feedback recorded.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the job, from the path.
+	@return MarketplaceAPIPostMarketplaceJobsByIdFeedbackRequest
+*/
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdFeedback(ctx context.Context, id string) MarketplaceAPIPostMarketplaceJobsByIdFeedbackRequest {
+	return MarketplaceAPIPostMarketplaceJobsByIdFeedbackRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceFeedback
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdFeedbackExecute(r MarketplaceAPIPostMarketplaceJobsByIdFeedbackRequest) (*MarketplaceFeedback, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceFeedback
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceJobsByIdFeedback")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/jobs/{id}/feedback"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketplaceFeedbackIn == nil {
+		return localVarReturnValue, nil, reportError("marketplaceFeedbackIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketplaceFeedbackIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPostMarketplaceJobsByIdRefundRequest struct {
+	ctx        context.Context
+	ApiService *MarketplaceAPIService
+	id         string
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsByIdRefundRequest) Execute() (*MarketplaceJob, *http.Response, error) {
+	return r.ApiService.PostMarketplaceJobsByIdRefundExecute(r)
+}
+
+/*
+PostMarketplaceJobsByIdRefund Refunds a job the caller's org accepted, as the seller, at any point before it is paid: nothing was moved, so the buyer's authorization is given up, never settled, and the amount it set aside returns to the buyer's wallet.
+
+Refunds a job the caller's org accepted, as the seller, at any point before it
+is paid: nothing was moved, so the buyer's authorization is given up, never
+settled, and the amount it set aside returns to the buyer's wallet.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the job, from the path.
+	@return MarketplaceAPIPostMarketplaceJobsByIdRefundRequest
+*/
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdRefund(ctx context.Context, id string) MarketplaceAPIPostMarketplaceJobsByIdRefundRequest {
+	return MarketplaceAPIPostMarketplaceJobsByIdRefundRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceJob
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdRefundExecute(r MarketplaceAPIPostMarketplaceJobsByIdRefundRequest) (*MarketplaceJob, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceJob
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceJobsByIdRefund")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/jobs/{id}/refund"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPostMarketplaceJobsByIdReleaseRequest struct {
+	ctx        context.Context
+	ApiService *MarketplaceAPIService
+	id         string
+}
+
+func (r MarketplaceAPIPostMarketplaceJobsByIdReleaseRequest) Execute() (*MarketplaceJob, *http.Response, error) {
+	return r.ApiService.PostMarketplaceJobsByIdReleaseExecute(r)
+}
+
+/*
+PostMarketplaceJobsByIdRelease Releases a job the caller's org is paying for, paying the seller the whole amount: the buyer's authorization is settled on the rail, once, and the rail states the payment.
+
+Releases a job the caller's org is paying for, paying the seller the whole
+amount: the buyer's authorization is settled on the rail, once, and the rail
+states the payment. The buyer may release any time after acceptance, including
+to end a dispute.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the job, from the path.
+	@return MarketplaceAPIPostMarketplaceJobsByIdReleaseRequest
+*/
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdRelease(ctx context.Context, id string) MarketplaceAPIPostMarketplaceJobsByIdReleaseRequest {
+	return MarketplaceAPIPostMarketplaceJobsByIdReleaseRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplaceJob
+func (a *MarketplaceAPIService) PostMarketplaceJobsByIdReleaseExecute(r MarketplaceAPIPostMarketplaceJobsByIdReleaseRequest) (*MarketplaceJob, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplaceJob
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceJobsByIdRelease")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/jobs/{id}/release"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -438,30 +2381,33 @@ func (a *MarketplaceAPIService) PostMarketplaceInstallExecute(r MarketplaceAPIPo
 }
 
 type MarketplaceAPIPostMarketplaceListingsRequest struct {
-	ctx        context.Context
-	ApiService *MarketplaceAPIService
-	publishReq *PublishReq
+	ctx                   context.Context
+	ApiService            *MarketplaceAPIService
+	marketplacePublishReq *MarketplacePublishReq
 }
 
-func (r MarketplaceAPIPostMarketplaceListingsRequest) PublishReq(publishReq PublishReq) MarketplaceAPIPostMarketplaceListingsRequest {
-	r.publishReq = &publishReq
+func (r MarketplaceAPIPostMarketplaceListingsRequest) MarketplacePublishReq(marketplacePublishReq MarketplacePublishReq) MarketplaceAPIPostMarketplaceListingsRequest {
+	r.marketplacePublishReq = &marketplacePublishReq
 	return r
 }
 
-func (r MarketplaceAPIPostMarketplaceListingsRequest) Execute() (*Listing, *http.Response, error) {
+func (r MarketplaceAPIPostMarketplaceListingsRequest) Execute() (*MarketplaceListing, *http.Response, error) {
 	return r.ApiService.PostMarketplaceListingsExecute(r)
 }
 
 /*
-PostMarketplaceListings Publish offers one tool on the marketplace, optionally monetized.
+PostMarketplaceListings Offers one thing the caller's org owns on the marketplace — an agent, persona, app, skill or MCP server, or, for the platform, a tool sold per call — optionally monetized.
 
-Publish offers one tool on the marketplace, optionally monetized. The tool must
-already resolve in the publisher's own scope, so a listing can never advertise a
-capability that does not exist; a listing with a price must name the payout wallet
-the x402 client settles to, so a monetized offer is never unpayable. The price is
-exact to 18 decimal places, so a per-call price below a cent is a real price and
-not a rounded-away zero. The listing is owned by the publishing org, paid into a
-wallet of that same org, and answers 201 with the created row.
+Offers one thing the caller's org owns on the marketplace — an agent,
+persona, app, skill or MCP server, or, for the platform, a tool sold per call —
+optionally monetized. The owning app is asked, as the org, whether the thing is
+the org's, so a listing never sells something that does not exist or belongs to
+someone else: a tool every org reaches is the platform's, and a server enabled
+off the public shelf is the shelf's. A monetized listing names a payout wallet of
+the org's own, which wallets confirms, so a price is never unpayable. The price
+is exact to 18 decimal places, so a per-call price below a cent is a real price
+and not a rounded-away zero. An org admin publishes, at most 1000 listings an
+org; it answers 201 with the created row.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return MarketplaceAPIPostMarketplaceListingsRequest
@@ -475,13 +2421,13 @@ func (a *MarketplaceAPIService) PostMarketplaceListings(ctx context.Context) Mar
 
 // Execute executes the request
 //
-//	@return Listing
-func (a *MarketplaceAPIService) PostMarketplaceListingsExecute(r MarketplaceAPIPostMarketplaceListingsRequest) (*Listing, *http.Response, error) {
+//	@return MarketplaceListing
+func (a *MarketplaceAPIService) PostMarketplaceListingsExecute(r MarketplaceAPIPostMarketplaceListingsRequest) (*MarketplaceListing, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Listing
+		localVarReturnValue *MarketplaceListing
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceListings")
@@ -494,8 +2440,8 @@ func (a *MarketplaceAPIService) PostMarketplaceListingsExecute(r MarketplaceAPIP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.publishReq == nil {
-		return localVarReturnValue, nil, reportError("publishReq is required and must be specified")
+	if r.marketplacePublishReq == nil {
+		return localVarReturnValue, nil, reportError("marketplacePublishReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -508,7 +2454,7 @@ func (a *MarketplaceAPIService) PostMarketplaceListingsExecute(r MarketplaceAPIP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -516,7 +2462,7 @@ func (a *MarketplaceAPIService) PostMarketplaceListingsExecute(r MarketplaceAPIP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.publishReq
+	localVarPostBody = r.marketplacePublishReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -539,6 +2485,260 @@ func (a *MarketplaceAPIService) PostMarketplaceListingsExecute(r MarketplaceAPIP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPostMarketplaceSellerPayoutRequest struct {
+	ctx                 context.Context
+	ApiService          *MarketplaceAPIService
+	marketplacePayoutIn *MarketplacePayoutIn
+}
+
+func (r MarketplaceAPIPostMarketplaceSellerPayoutRequest) MarketplacePayoutIn(marketplacePayoutIn MarketplacePayoutIn) MarketplaceAPIPostMarketplaceSellerPayoutRequest {
+	r.marketplacePayoutIn = &marketplacePayoutIn
+	return r
+}
+
+func (r MarketplaceAPIPostMarketplaceSellerPayoutRequest) Execute() (*MarketplacePayoutChallenge, *http.Response, error) {
+	return r.ApiService.PostMarketplaceSellerPayoutExecute(r)
+}
+
+/*
+PostMarketplaceSellerPayout Starts binding one of the caller org's wallets as the wallet it is paid into: answers a challenge naming the org, the wallet and its address, to be signed with that wallet within fifteen minutes and sent to POST /v1/marketplace/seller/payout/verify.
+
+Starts binding one of the caller org's wallets as the wallet it is paid into:
+answers a challenge naming the org, the wallet and its address, to be signed
+with that wallet within fifteen minutes and sent to POST
+/v1/marketplace/seller/payout/verify. A newer challenge replaces an older one.
+An org admin binds.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketplaceAPIPostMarketplaceSellerPayoutRequest
+*/
+func (a *MarketplaceAPIService) PostMarketplaceSellerPayout(ctx context.Context) MarketplaceAPIPostMarketplaceSellerPayoutRequest {
+	return MarketplaceAPIPostMarketplaceSellerPayoutRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplacePayoutChallenge
+func (a *MarketplaceAPIService) PostMarketplaceSellerPayoutExecute(r MarketplaceAPIPostMarketplaceSellerPayoutRequest) (*MarketplacePayoutChallenge, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplacePayoutChallenge
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceSellerPayout")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/seller/payout"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketplacePayoutIn == nil {
+		return localVarReturnValue, nil, reportError("marketplacePayoutIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketplacePayoutIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type MarketplaceAPIPostMarketplaceSellerPayoutVerifyRequest struct {
+	ctx                 context.Context
+	ApiService          *MarketplaceAPIService
+	marketplaceVerifyIn *MarketplaceVerifyIn
+}
+
+func (r MarketplaceAPIPostMarketplaceSellerPayoutVerifyRequest) MarketplaceVerifyIn(marketplaceVerifyIn MarketplaceVerifyIn) MarketplaceAPIPostMarketplaceSellerPayoutVerifyRequest {
+	r.marketplaceVerifyIn = &marketplaceVerifyIn
+	return r
+}
+
+func (r MarketplaceAPIPostMarketplaceSellerPayoutVerifyRequest) Execute() (*MarketplacePayout, *http.Response, error) {
+	return r.ApiService.PostMarketplaceSellerPayoutVerifyExecute(r)
+}
+
+/*
+PostMarketplaceSellerPayoutVerify Binds the caller org's payout wallet: the signature over its outstanding challenge is recovered, and must recover to the wallet's address, before the challenge expires.
+
+Binds the caller org's payout wallet: the signature over its outstanding
+challenge is recovered, and must recover to the wallet's address, before the
+challenge expires. A challenge binds once. It answers the payout wallet as it
+now stands; a job offered directly to the org is paid into it. An org admin
+binds.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return MarketplaceAPIPostMarketplaceSellerPayoutVerifyRequest
+*/
+func (a *MarketplaceAPIService) PostMarketplaceSellerPayoutVerify(ctx context.Context) MarketplaceAPIPostMarketplaceSellerPayoutVerifyRequest {
+	return MarketplaceAPIPostMarketplaceSellerPayoutVerifyRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return MarketplacePayout
+func (a *MarketplaceAPIService) PostMarketplaceSellerPayoutVerifyExecute(r MarketplaceAPIPostMarketplaceSellerPayoutVerifyRequest) (*MarketplacePayout, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *MarketplacePayout
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceSellerPayoutVerify")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/marketplace/seller/payout/verify"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.marketplaceVerifyIn == nil {
+		return localVarReturnValue, nil, reportError("marketplaceVerifyIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.marketplaceVerifyIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -555,24 +2755,24 @@ func (a *MarketplaceAPIService) PostMarketplaceListingsExecute(r MarketplaceAPIP
 }
 
 type MarketplaceAPIPostMarketplaceUninstallRequest struct {
-	ctx        context.Context
-	ApiService *MarketplaceAPIService
-	installReq *InstallReq
+	ctx                   context.Context
+	ApiService            *MarketplaceAPIService
+	marketplaceInstallReq *MarketplaceInstallReq
 }
 
-func (r MarketplaceAPIPostMarketplaceUninstallRequest) InstallReq(installReq InstallReq) MarketplaceAPIPostMarketplaceUninstallRequest {
-	r.installReq = &installReq
+func (r MarketplaceAPIPostMarketplaceUninstallRequest) MarketplaceInstallReq(marketplaceInstallReq MarketplaceInstallReq) MarketplaceAPIPostMarketplaceUninstallRequest {
+	r.marketplaceInstallReq = &marketplaceInstallReq
 	return r
 }
 
-func (r MarketplaceAPIPostMarketplaceUninstallRequest) Execute() (*InstallState, *http.Response, error) {
+func (r MarketplaceAPIPostMarketplaceUninstallRequest) Execute() (*MarketplaceInstallState, *http.Response, error) {
 	return r.ApiService.PostMarketplaceUninstallExecute(r)
 }
 
 /*
-PostMarketplaceUninstall Uninstall deactivates one tool for the caller's own org and project, so it stops being dispatchable there.
+PostMarketplaceUninstall Deactivates one tool for the caller's own org and project, so it stops being dispatchable there.
 
-Uninstall deactivates one tool for the caller's own org and project, so it stops
+Deactivates one tool for the caller's own org and project, so it stops
 being dispatchable there. It is the exact inverse of install and touches the same
 activation record; deactivating something that was never active is not an error.
 The listing itself is untouched — this withdraws the caller's use of a capability,
@@ -590,13 +2790,13 @@ func (a *MarketplaceAPIService) PostMarketplaceUninstall(ctx context.Context) Ma
 
 // Execute executes the request
 //
-//	@return InstallState
-func (a *MarketplaceAPIService) PostMarketplaceUninstallExecute(r MarketplaceAPIPostMarketplaceUninstallRequest) (*InstallState, *http.Response, error) {
+//	@return MarketplaceInstallState
+func (a *MarketplaceAPIService) PostMarketplaceUninstallExecute(r MarketplaceAPIPostMarketplaceUninstallRequest) (*MarketplaceInstallState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InstallState
+		localVarReturnValue *MarketplaceInstallState
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketplaceAPIService.PostMarketplaceUninstall")
@@ -609,8 +2809,8 @@ func (a *MarketplaceAPIService) PostMarketplaceUninstallExecute(r MarketplaceAPI
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.installReq == nil {
-		return localVarReturnValue, nil, reportError("installReq is required and must be specified")
+	if r.marketplaceInstallReq == nil {
+		return localVarReturnValue, nil, reportError("marketplaceInstallReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -623,7 +2823,7 @@ func (a *MarketplaceAPIService) PostMarketplaceUninstallExecute(r MarketplaceAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -631,7 +2831,7 @@ func (a *MarketplaceAPIService) PostMarketplaceUninstallExecute(r MarketplaceAPI
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.installReq
+	localVarPostBody = r.marketplaceInstallReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -654,6 +2854,14 @@ func (a *MarketplaceAPIService) PostMarketplaceUninstallExecute(r MarketplaceAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -22,8 +22,11 @@ type O11yO11yTable struct {
 	// Columns names each position in a row.
 	Columns []string `json:"columns,omitempty"`
 	// Rows are the result rows, each as long as Columns.
-	Rows [][]map[string]interface{} `json:"rows,omitempty"`
+	Rows                 [][]interface{} `json:"rows,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTable O11yO11yTable
 
 // NewO11yO11yTable instantiates a new O11yO11yTable object
 // This constructor will assign default values to properties that have it defined,
@@ -75,9 +78,9 @@ func (o *O11yO11yTable) SetColumns(v []string) {
 }
 
 // GetRows returns the Rows field value if set, zero value otherwise.
-func (o *O11yO11yTable) GetRows() [][]map[string]interface{} {
+func (o *O11yO11yTable) GetRows() [][]interface{} {
 	if o == nil || IsNil(o.Rows) {
-		var ret [][]map[string]interface{}
+		var ret [][]interface{}
 		return ret
 	}
 	return o.Rows
@@ -85,7 +88,7 @@ func (o *O11yO11yTable) GetRows() [][]map[string]interface{} {
 
 // GetRowsOk returns a tuple with the Rows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yTable) GetRowsOk() ([][]map[string]interface{}, bool) {
+func (o *O11yO11yTable) GetRowsOk() ([][]interface{}, bool) {
 	if o == nil || IsNil(o.Rows) {
 		return nil, false
 	}
@@ -101,8 +104,8 @@ func (o *O11yO11yTable) HasRows() bool {
 	return false
 }
 
-// SetRows gets a reference to the given [][]map[string]interface{} and assigns it to the Rows field.
-func (o *O11yO11yTable) SetRows(v [][]map[string]interface{}) {
+// SetRows gets a reference to the given [][]interface{} and assigns it to the Rows field.
+func (o *O11yO11yTable) SetRows(v [][]interface{}) {
 	o.Rows = v
 }
 
@@ -122,7 +125,34 @@ func (o O11yO11yTable) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Rows) {
 		toSerialize["rows"] = o.Rows
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTable) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTable := _O11yO11yTable{}
+
+	err = json.Unmarshal(data, &varO11yO11yTable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTable(varO11yO11yTable)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "columns")
+		delete(additionalProperties, "rows")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTable struct {

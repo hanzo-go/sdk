@@ -41,7 +41,7 @@ func (r HelpAPIGetHelpArticlesRequest) Limit(limit int64) HelpAPIGetHelpArticles
 	return r
 }
 
-func (r HelpAPIGetHelpArticlesRequest) Execute() (*HelpArticleList, *http.Response, error) {
+func (r HelpAPIGetHelpArticlesRequest) Execute() (*HelpHelpArticleList, *http.Response, error) {
 	return r.ApiService.GetHelpArticlesExecute(r)
 }
 
@@ -51,7 +51,8 @@ GetHelpArticles Returns the public knowledge base: the help center's Published, 
 Returns the public knowledge base: the help center's Published,
 publicly-visible articles as cards. The org is server-fixed and the
 status/is_public filter is server-set, so neither the tenant nor the visibility
-can be widened by the caller. A deployment with no help center answers 404.
+can be widened by the caller. A deployment with no help center answers 404, and
+one whose center has not installed the Help model answers an empty list.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return HelpAPIGetHelpArticlesRequest
@@ -65,13 +66,13 @@ func (a *HelpAPIService) GetHelpArticles(ctx context.Context) HelpAPIGetHelpArti
 
 // Execute executes the request
 //
-//	@return HelpArticleList
-func (a *HelpAPIService) GetHelpArticlesExecute(r HelpAPIGetHelpArticlesRequest) (*HelpArticleList, *http.Response, error) {
+//	@return HelpHelpArticleList
+func (a *HelpAPIService) GetHelpArticlesExecute(r HelpAPIGetHelpArticlesRequest) (*HelpHelpArticleList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *HelpArticleList
+		localVarReturnValue *HelpHelpArticleList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HelpAPIService.GetHelpArticles")
@@ -101,7 +102,7 @@ func (a *HelpAPIService) GetHelpArticlesExecute(r HelpAPIGetHelpArticlesRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -130,6 +131,14 @@ func (a *HelpAPIService) GetHelpArticlesExecute(r HelpAPIGetHelpArticlesRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -151,7 +160,7 @@ type HelpAPIGetHelpArticlesBySlugRequest struct {
 	slug       string
 }
 
-func (r HelpAPIGetHelpArticlesBySlugRequest) Execute() (*HelpArticle, *http.Response, error) {
+func (r HelpAPIGetHelpArticlesBySlugRequest) Execute() (*HelpHelpArticle, *http.Response, error) {
 	return r.ApiService.GetHelpArticlesBySlugExecute(r)
 }
 
@@ -176,13 +185,13 @@ func (a *HelpAPIService) GetHelpArticlesBySlug(ctx context.Context, slug string)
 
 // Execute executes the request
 //
-//	@return HelpArticle
-func (a *HelpAPIService) GetHelpArticlesBySlugExecute(r HelpAPIGetHelpArticlesBySlugRequest) (*HelpArticle, *http.Response, error) {
+//	@return HelpHelpArticle
+func (a *HelpAPIService) GetHelpArticlesBySlugExecute(r HelpAPIGetHelpArticlesBySlugRequest) (*HelpHelpArticle, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *HelpArticle
+		localVarReturnValue *HelpHelpArticle
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HelpAPIService.GetHelpArticlesBySlug")
@@ -207,7 +216,7 @@ func (a *HelpAPIService) GetHelpArticlesBySlugExecute(r HelpAPIGetHelpArticlesBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -236,6 +245,14 @@ func (a *HelpAPIService) GetHelpArticlesBySlugExecute(r HelpAPIGetHelpArticlesBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -256,7 +273,7 @@ type HelpAPIGetHelpCategoriesRequest struct {
 	ApiService *HelpAPIService
 }
 
-func (r HelpAPIGetHelpCategoriesRequest) Execute() (*HelpCategoryList, *http.Response, error) {
+func (r HelpAPIGetHelpCategoriesRequest) Execute() (*HelpHelpCategoryList, *http.Response, error) {
 	return r.ApiService.GetHelpCategoriesExecute(r)
 }
 
@@ -267,7 +284,8 @@ Returns the knowledge-base sections for the public center's
 navigation — but ONLY the sections that front at least one Published, public
 article, so an internal (agent-only) category name or description never leaks. A
 section with no public article is invisible; a center with no public articles has
-no sections, which is an empty list rather than an error.
+no sections, which is an empty list rather than an error — as is a center that
+has not installed the Help model.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return HelpAPIGetHelpCategoriesRequest
@@ -281,13 +299,13 @@ func (a *HelpAPIService) GetHelpCategories(ctx context.Context) HelpAPIGetHelpCa
 
 // Execute executes the request
 //
-//	@return HelpCategoryList
-func (a *HelpAPIService) GetHelpCategoriesExecute(r HelpAPIGetHelpCategoriesRequest) (*HelpCategoryList, *http.Response, error) {
+//	@return HelpHelpCategoryList
+func (a *HelpAPIService) GetHelpCategoriesExecute(r HelpAPIGetHelpCategoriesRequest) (*HelpHelpCategoryList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *HelpCategoryList
+		localVarReturnValue *HelpHelpCategoryList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HelpAPIService.GetHelpCategories")
@@ -311,7 +329,7 @@ func (a *HelpAPIService) GetHelpCategoriesExecute(r HelpAPIGetHelpCategoriesRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -340,6 +358,14 @@ func (a *HelpAPIService) GetHelpCategoriesExecute(r HelpAPIGetHelpCategoriesRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -356,17 +382,17 @@ func (a *HelpAPIService) GetHelpCategoriesExecute(r HelpAPIGetHelpCategoriesRequ
 }
 
 type HelpAPIPostHelpTicketsRequest struct {
-	ctx              context.Context
-	ApiService       *HelpAPIService
-	helpTicketIntake *HelpTicketIntake
+	ctx                  context.Context
+	ApiService           *HelpAPIService
+	helpHelpTicketIntake *HelpHelpTicketIntake
 }
 
-func (r HelpAPIPostHelpTicketsRequest) HelpTicketIntake(helpTicketIntake HelpTicketIntake) HelpAPIPostHelpTicketsRequest {
-	r.helpTicketIntake = &helpTicketIntake
+func (r HelpAPIPostHelpTicketsRequest) HelpHelpTicketIntake(helpHelpTicketIntake HelpHelpTicketIntake) HelpAPIPostHelpTicketsRequest {
+	r.helpHelpTicketIntake = &helpHelpTicketIntake
 	return r
 }
 
-func (r HelpAPIPostHelpTicketsRequest) Execute() (*HelpTicketFiled, *http.Response, error) {
+func (r HelpAPIPostHelpTicketsRequest) Execute() (*HelpHelpTicketFiled, *http.Response, error) {
 	return r.ApiService.PostHelpTicketsExecute(r)
 }
 
@@ -395,13 +421,13 @@ func (a *HelpAPIService) PostHelpTickets(ctx context.Context) HelpAPIPostHelpTic
 
 // Execute executes the request
 //
-//	@return HelpTicketFiled
-func (a *HelpAPIService) PostHelpTicketsExecute(r HelpAPIPostHelpTicketsRequest) (*HelpTicketFiled, *http.Response, error) {
+//	@return HelpHelpTicketFiled
+func (a *HelpAPIService) PostHelpTicketsExecute(r HelpAPIPostHelpTicketsRequest) (*HelpHelpTicketFiled, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *HelpTicketFiled
+		localVarReturnValue *HelpHelpTicketFiled
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HelpAPIService.PostHelpTickets")
@@ -414,8 +440,8 @@ func (a *HelpAPIService) PostHelpTicketsExecute(r HelpAPIPostHelpTicketsRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.helpTicketIntake == nil {
-		return localVarReturnValue, nil, reportError("helpTicketIntake is required and must be specified")
+	if r.helpHelpTicketIntake == nil {
+		return localVarReturnValue, nil, reportError("helpHelpTicketIntake is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -428,7 +454,7 @@ func (a *HelpAPIService) PostHelpTicketsExecute(r HelpAPIPostHelpTicketsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -436,7 +462,7 @@ func (a *HelpAPIService) PostHelpTicketsExecute(r HelpAPIPostHelpTicketsRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.helpTicketIntake
+	localVarPostBody = r.helpHelpTicketIntake
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -459,6 +485,14 @@ func (a *HelpAPIService) PostHelpTicketsExecute(r HelpAPIPostHelpTicketsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

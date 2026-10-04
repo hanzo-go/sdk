@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yStatefulSetListResponse{}
 
 // O11yStatefulSetListResponse struct for O11yStatefulSetListResponse
 type O11yStatefulSetListResponse struct {
-	Records []O11yStatefulSetListRecord `json:"records,omitempty"`
-	Total   *int64                      `json:"total,omitempty"`
-	Type    *string                     `json:"type,omitempty"`
+	Records              []O11yStatefulSetListRecord `json:"records,omitempty"`
+	Total                *int64                      `json:"total,omitempty"`
+	Type                 *string                     `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yStatefulSetListResponse O11yStatefulSetListResponse
 
 // NewO11yStatefulSetListResponse instantiates a new O11yStatefulSetListResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yStatefulSetListResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yStatefulSetListResponse) UnmarshalJSON(data []byte) (err error) {
+	varO11yStatefulSetListResponse := _O11yStatefulSetListResponse{}
+
+	err = json.Unmarshal(data, &varO11yStatefulSetListResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yStatefulSetListResponse(varO11yStatefulSetListResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "records")
+		delete(additionalProperties, "total")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yStatefulSetListResponse struct {

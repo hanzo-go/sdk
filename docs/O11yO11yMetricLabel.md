@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | Pointer to [**O11yO11yMetricField**](O11yO11yMetricField.md) | Key is the label&#39;s field. | [optional] 
-**Value** | Pointer to **map[string]interface{}** | Value is the label&#39;s value. | [optional] 
+**Value** | Pointer to **interface{}** |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasKey returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *O11yO11yMetricLabel) GetValue() map[string]interface{}`
+`func (o *O11yO11yMetricLabel) GetValue() interface{}`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *O11yO11yMetricLabel) GetValueOk() (*map[string]interface{}, bool)`
+`func (o *O11yO11yMetricLabel) GetValueOk() (*interface{}, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *O11yO11yMetricLabel) SetValue(v map[string]interface{})`
+`func (o *O11yO11yMetricLabel) SetValue(v interface{})`
 
 SetValue sets Value field to given value.
 
@@ -76,6 +76,16 @@ SetValue sets Value field to given value.
 
 HasValue returns a boolean if a field has been set.
 
+### SetValueNil
+
+`func (o *O11yO11yMetricLabel) SetValueNil(b bool)`
+
+ SetValueNil sets the value for Value to be an explicit nil
+
+### UnsetValue
+`func (o *O11yO11yMetricLabel) UnsetValue()`
+
+UnsetValue ensures that no value is present for Value, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

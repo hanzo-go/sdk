@@ -5,11 +5,11 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeletePromptByName**](PromptAPI.md#DeletePromptByName) | **Delete** /v1/prompt/{name} | Delete removes one of the caller org&#39;s prompts and every version of it, answering 204.
-[**GetPrompt**](PromptAPI.md#GetPrompt) | **Get** /v1/prompt | List returns the caller org&#39;s prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
-[**GetPromptByName**](PromptAPI.md#GetPromptByName) | **Get** /v1/prompt/{name} | Get returns one of the caller org&#39;s prompts: its CURRENT template text plus the metadata of every version it has had.
-[**GetPromptCatalog**](PromptAPI.md#GetPromptCatalog) | **Get** /v1/prompt/catalog | Catalog returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller&#39;s own prompts and never mixed into them.
-[**GetPromptMetrics**](PromptAPI.md#GetPromptMetrics) | **Get** /v1/prompt/metrics | Metrics returns real per-prompt statistics for the caller&#39;s org: how many versions each prompt has, which one is current, and when it was created and last changed.
-[**PostPrompt**](PromptAPI.md#PostPrompt) | **Post** /v1/prompt | Create records a prompt for the caller&#39;s org and answers 201 with it.
+[**GetPrompt**](PromptAPI.md#GetPrompt) | **Get** /v1/prompt | Returns the caller org&#39;s prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
+[**GetPromptByName**](PromptAPI.md#GetPromptByName) | **Get** /v1/prompt/{name} | Returns one of the caller org&#39;s prompts: its CURRENT template text plus the metadata of every version it has had.
+[**GetPromptCatalog**](PromptAPI.md#GetPromptCatalog) | **Get** /v1/prompt/catalog | Returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller&#39;s own prompts and never mixed into them.
+[**GetPromptMetrics**](PromptAPI.md#GetPromptMetrics) | **Get** /v1/prompt/metrics | Returns real per-prompt statistics for the caller&#39;s org: how many versions each prompt has, which one is current, and when it was created and last changed.
+[**PostPrompt**](PromptAPI.md#PostPrompt) | **Post** /v1/prompt | Records a prompt for the caller&#39;s org and answers 201 with it.
 
 
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -83,9 +83,9 @@ Name | Type | Description  | Notes
 
 ## GetPrompt
 
-> PromptList GetPrompt(ctx).Execute()
+> PromptPromptList GetPrompt(ctx).Execute()
 
-List returns the caller org's prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
+Returns the caller org's prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
 
 
 
@@ -110,7 +110,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromptAPI.GetPrompt``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPrompt`: PromptList
+	// response from `GetPrompt`: PromptPromptList
 	fmt.Fprintf(os.Stdout, "Response from `PromptAPI.GetPrompt`: %v\n", resp)
 }
 ```
@@ -126,7 +126,7 @@ Other parameters are passed through a pointer to a apiGetPromptRequest struct vi
 
 ### Return type
 
-[**PromptList**](PromptList.md)
+[**PromptPromptList**](PromptPromptList.md)
 
 ### Authorization
 
@@ -135,7 +135,7 @@ Other parameters are passed through a pointer to a apiGetPromptRequest struct vi
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -144,9 +144,9 @@ Other parameters are passed through a pointer to a apiGetPromptRequest struct vi
 
 ## GetPromptByName
 
-> PromptDetail GetPromptByName(ctx, name).Execute()
+> PromptPromptDetail GetPromptByName(ctx, name).Execute()
 
-Get returns one of the caller org's prompts: its CURRENT template text plus the metadata of every version it has had.
+Returns one of the caller org's prompts: its CURRENT template text plus the metadata of every version it has had.
 
 
 
@@ -172,7 +172,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromptAPI.GetPromptByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPromptByName`: PromptDetail
+	// response from `GetPromptByName`: PromptPromptDetail
 	fmt.Fprintf(os.Stdout, "Response from `PromptAPI.GetPromptByName`: %v\n", resp)
 }
 ```
@@ -196,7 +196,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PromptDetail**](PromptDetail.md)
+[**PromptPromptDetail**](PromptPromptDetail.md)
 
 ### Authorization
 
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -214,9 +214,9 @@ Name | Type | Description  | Notes
 
 ## GetPromptCatalog
 
-> CatalogList GetPromptCatalog(ctx).Execute()
+> PromptCatalogList GetPromptCatalog(ctx).Execute()
 
-Catalog returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller's own prompts and never mixed into them.
+Returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller's own prompts and never mixed into them.
 
 
 
@@ -241,7 +241,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromptAPI.GetPromptCatalog``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPromptCatalog`: CatalogList
+	// response from `GetPromptCatalog`: PromptCatalogList
 	fmt.Fprintf(os.Stdout, "Response from `PromptAPI.GetPromptCatalog`: %v\n", resp)
 }
 ```
@@ -257,7 +257,7 @@ Other parameters are passed through a pointer to a apiGetPromptCatalogRequest st
 
 ### Return type
 
-[**CatalogList**](CatalogList.md)
+[**PromptCatalogList**](PromptCatalogList.md)
 
 ### Authorization
 
@@ -266,7 +266,7 @@ Other parameters are passed through a pointer to a apiGetPromptCatalogRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -275,9 +275,9 @@ Other parameters are passed through a pointer to a apiGetPromptCatalogRequest st
 
 ## GetPromptMetrics
 
-> MetricList GetPromptMetrics(ctx).Execute()
+> PromptMetricList GetPromptMetrics(ctx).Execute()
 
-Metrics returns real per-prompt statistics for the caller's org: how many versions each prompt has, which one is current, and when it was created and last changed.
+Returns real per-prompt statistics for the caller's org: how many versions each prompt has, which one is current, and when it was created and last changed.
 
 
 
@@ -302,7 +302,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromptAPI.GetPromptMetrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPromptMetrics`: MetricList
+	// response from `GetPromptMetrics`: PromptMetricList
 	fmt.Fprintf(os.Stdout, "Response from `PromptAPI.GetPromptMetrics`: %v\n", resp)
 }
 ```
@@ -318,7 +318,7 @@ Other parameters are passed through a pointer to a apiGetPromptMetricsRequest st
 
 ### Return type
 
-[**MetricList**](MetricList.md)
+[**PromptMetricList**](PromptMetricList.md)
 
 ### Authorization
 
@@ -327,7 +327,7 @@ Other parameters are passed through a pointer to a apiGetPromptMetricsRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -336,9 +336,9 @@ Other parameters are passed through a pointer to a apiGetPromptMetricsRequest st
 
 ## PostPrompt
 
-> PromptDetail PostPrompt(ctx).PromptReq(promptReq).Execute()
+> PromptPromptDetail PostPrompt(ctx).PromptPromptReq(promptPromptReq).Execute()
 
-Create records a prompt for the caller's org and answers 201 with it.
+Records a prompt for the caller's org and answers 201 with it.
 
 
 
@@ -355,16 +355,16 @@ import (
 )
 
 func main() {
-	promptReq := *openapiclient.NewPromptReq() // PromptReq | 
+	promptPromptReq := *openapiclient.NewPromptPromptReq() // PromptPromptReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PromptAPI.PostPrompt(context.Background()).PromptReq(promptReq).Execute()
+	resp, r, err := apiClient.PromptAPI.PostPrompt(context.Background()).PromptPromptReq(promptPromptReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PromptAPI.PostPrompt``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPrompt`: PromptDetail
+	// response from `PostPrompt`: PromptPromptDetail
 	fmt.Fprintf(os.Stdout, "Response from `PromptAPI.PostPrompt`: %v\n", resp)
 }
 ```
@@ -380,11 +380,11 @@ Other parameters are passed through a pointer to a apiPostPromptRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **promptReq** | [**PromptReq**](PromptReq.md) |  | 
+ **promptPromptReq** | [**PromptPromptReq**](PromptPromptReq.md) |  | 
 
 ### Return type
 
-[**PromptDetail**](PromptDetail.md)
+[**PromptPromptDetail**](PromptPromptDetail.md)
 
 ### Authorization
 
@@ -393,7 +393,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

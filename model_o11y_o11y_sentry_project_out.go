@@ -22,8 +22,11 @@ type O11yO11ySentryProjectOut struct {
 	// Data is the project.
 	Data *O11yO11ySentryProject `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11ySentryProjectOut O11yO11ySentryProjectOut
 
 // NewO11yO11ySentryProjectOut instantiates a new O11yO11ySentryProjectOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11ySentryProjectOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11ySentryProjectOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11ySentryProjectOut := _O11yO11ySentryProjectOut{}
+
+	err = json.Unmarshal(data, &varO11yO11ySentryProjectOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11ySentryProjectOut(varO11yO11ySentryProjectOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11ySentryProjectOut struct {

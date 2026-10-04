@@ -26,8 +26,11 @@ type O11yO11yQueryStats struct {
 	// RowsScanned is how many rows the query read.
 	RowsScanned *int32 `json:"rowsScanned,omitempty"`
 	// StepIntervals is the step used per query, in seconds.
-	StepIntervals map[string]int32 `json:"stepIntervals,omitempty"`
+	StepIntervals        map[string]int32 `json:"stepIntervals,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueryStats O11yO11yQueryStats
 
 // NewO11yO11yQueryStats instantiates a new O11yO11yQueryStats object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yQueryStats) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StepIntervals) {
 		toSerialize["stepIntervals"] = o.StepIntervals
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueryStats) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueryStats := _O11yO11yQueryStats{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueryStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueryStats(varO11yO11yQueryStats)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "bytesScanned")
+		delete(additionalProperties, "durationMs")
+		delete(additionalProperties, "rowsScanned")
+		delete(additionalProperties, "stepIntervals")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueryStats struct {

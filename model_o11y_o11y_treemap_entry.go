@@ -24,8 +24,11 @@ type O11yO11yTreemapEntry struct {
 	// Percentage is the metric's share, in percent.
 	Percentage *float64 `json:"percentage,omitempty"`
 	// TotalValue is the metric's absolute count.
-	TotalValue *int32 `json:"totalValue,omitempty"`
+	TotalValue           *int32 `json:"totalValue,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTreemapEntry O11yO11yTreemapEntry
 
 // NewO11yO11yTreemapEntry instantiates a new O11yO11yTreemapEntry object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yTreemapEntry) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalValue) {
 		toSerialize["totalValue"] = o.TotalValue
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTreemapEntry) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTreemapEntry := _O11yO11yTreemapEntry{}
+
+	err = json.Unmarshal(data, &varO11yO11yTreemapEntry)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTreemapEntry(varO11yO11yTreemapEntry)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "metricName")
+		delete(additionalProperties, "percentage")
+		delete(additionalProperties, "totalValue")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTreemapEntry struct {

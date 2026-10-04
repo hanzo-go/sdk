@@ -79,6 +79,302 @@ func (a *AgentAPIService) DeleteAgentByRefExecute(r AgentAPIDeleteAgentByRefRequ
 	}
 
 	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AgentAPIDeleteAgentChatConversationsByIdSharesByShareRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	id         string
+	share      string
+}
+
+func (r AgentAPIDeleteAgentChatConversationsByIdSharesByShareRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAgentChatConversationsByIdSharesByShareExecute(r)
+}
+
+/*
+DeleteAgentChatConversationsByIdSharesByShare Revoke a link to one of your conversations
+
+Ends one share of a conversation the caller owns, for every viewer: it leaves their lists, and its token opens nothing and reads exactly like a token that never existed. Every revoke is written to the audit trail.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@param share
+	@return AgentAPIDeleteAgentChatConversationsByIdSharesByShareRequest
+*/
+func (a *AgentAPIService) DeleteAgentChatConversationsByIdSharesByShare(ctx context.Context, id string, share string) AgentAPIDeleteAgentChatConversationsByIdSharesByShareRequest {
+	return AgentAPIDeleteAgentChatConversationsByIdSharesByShareRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		share:      share,
+	}
+}
+
+// Execute executes the request
+func (a *AgentAPIService) DeleteAgentChatConversationsByIdSharesByShareExecute(r AgentAPIDeleteAgentChatConversationsByIdSharesByShareRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.DeleteAgentChatConversationsByIdSharesByShare")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/chat/conversations/{id}/shares/{share}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"share"+"}", url.PathEscape(parameterValueToString(r.share, "share")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AgentAPIDeleteAgentChatConversationsByIdSharesByShareViewersByViewerRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	id         string
+	share      string
+	viewer     string
+}
+
+func (r AgentAPIDeleteAgentChatConversationsByIdSharesByShareViewersByViewerRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAgentChatConversationsByIdSharesByShareViewersByViewerExecute(r)
+}
+
+/*
+DeleteAgentChatConversationsByIdSharesByShareViewersByViewer Remove one viewer from a link
+
+Closes one share of a conversation the caller owns to one viewer: it leaves their list, and the token no longer opens it for them. Everyone else the share is open to keeps it. Every removal is written to the audit trail.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@param share
+	@param viewer
+	@return AgentAPIDeleteAgentChatConversationsByIdSharesByShareViewersByViewerRequest
+*/
+func (a *AgentAPIService) DeleteAgentChatConversationsByIdSharesByShareViewersByViewer(ctx context.Context, id string, share string, viewer string) AgentAPIDeleteAgentChatConversationsByIdSharesByShareViewersByViewerRequest {
+	return AgentAPIDeleteAgentChatConversationsByIdSharesByShareViewersByViewerRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		share:      share,
+		viewer:     viewer,
+	}
+}
+
+// Execute executes the request
+func (a *AgentAPIService) DeleteAgentChatConversationsByIdSharesByShareViewersByViewerExecute(r AgentAPIDeleteAgentChatConversationsByIdSharesByShareViewersByViewerRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.DeleteAgentChatConversationsByIdSharesByShareViewersByViewer")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/chat/conversations/{id}/shares/{share}/viewers/{viewer}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"share"+"}", url.PathEscape(parameterValueToString(r.share, "share")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"viewer"+"}", url.PathEscape(parameterValueToString(r.viewer, "viewer")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AgentAPIDeleteAgentChatSharesByShareRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	share      string
+}
+
+func (r AgentAPIDeleteAgentChatSharesByShareRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAgentChatSharesByShareExecute(r)
+}
+
+/*
+DeleteAgentChatSharesByShare Revoke any link in your organization
+
+For an admin of the caller's organization: ends one share made in it, for every viewer, exactly as its owner's revoke does. Anyone else is answered 403, and a share of another organization 404. Every revoke is written to the audit trail.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param share
+	@return AgentAPIDeleteAgentChatSharesByShareRequest
+*/
+func (a *AgentAPIService) DeleteAgentChatSharesByShare(ctx context.Context, share string) AgentAPIDeleteAgentChatSharesByShareRequest {
+	return AgentAPIDeleteAgentChatSharesByShareRequest{
+		ApiService: a,
+		ctx:        ctx,
+		share:      share,
+	}
+}
+
+// Execute executes the request
+func (a *AgentAPIService) DeleteAgentChatSharesByShareExecute(r AgentAPIDeleteAgentChatSharesByShareRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.DeleteAgentChatSharesByShare")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/chat/shares/{share}"
+	localVarPath = strings.Replace(localVarPath, "{"+"share"+"}", url.PathEscape(parameterValueToString(r.share, "share")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
@@ -120,7 +416,7 @@ type AgentAPIDeleteAgentTargetsByIdRequest struct {
 	id         string
 }
 
-func (r AgentAPIDeleteAgentTargetsByIdRequest) Execute() (*TargetDeleted, *http.Response, error) {
+func (r AgentAPIDeleteAgentTargetsByIdRequest) Execute() (*AgentTargetDeleted, *http.Response, error) {
 	return r.ApiService.DeleteAgentTargetsByIdExecute(r)
 }
 
@@ -145,13 +441,13 @@ func (a *AgentAPIService) DeleteAgentTargetsById(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return TargetDeleted
-func (a *AgentAPIService) DeleteAgentTargetsByIdExecute(r AgentAPIDeleteAgentTargetsByIdRequest) (*TargetDeleted, *http.Response, error) {
+//	@return AgentTargetDeleted
+func (a *AgentAPIService) DeleteAgentTargetsByIdExecute(r AgentAPIDeleteAgentTargetsByIdRequest) (*AgentTargetDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TargetDeleted
+		localVarReturnValue *AgentTargetDeleted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.DeleteAgentTargetsById")
@@ -176,7 +472,7 @@ func (a *AgentAPIService) DeleteAgentTargetsByIdExecute(r AgentAPIDeleteAgentTar
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -205,6 +501,14 @@ func (a *AgentAPIService) DeleteAgentTargetsByIdExecute(r AgentAPIDeleteAgentTar
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -225,7 +529,7 @@ type AgentAPIGetAgentRequest struct {
 	ApiService *AgentAPIService
 }
 
-func (r AgentAPIGetAgentRequest) Execute() (*AgentList, *http.Response, error) {
+func (r AgentAPIGetAgentRequest) Execute() (*AgentAgentList, *http.Response, error) {
 	return r.ApiService.GetAgentExecute(r)
 }
 
@@ -247,13 +551,13 @@ func (a *AgentAPIService) GetAgent(ctx context.Context) AgentAPIGetAgentRequest 
 
 // Execute executes the request
 //
-//	@return AgentList
-func (a *AgentAPIService) GetAgentExecute(r AgentAPIGetAgentRequest) (*AgentList, *http.Response, error) {
+//	@return AgentAgentList
+func (a *AgentAPIService) GetAgentExecute(r AgentAPIGetAgentRequest) (*AgentAgentList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AgentList
+		localVarReturnValue *AgentAgentList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgent")
@@ -277,7 +581,7 @@ func (a *AgentAPIService) GetAgentExecute(r AgentAPIGetAgentRequest) (*AgentList
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -306,6 +610,14 @@ func (a *AgentAPIService) GetAgentExecute(r AgentAPIGetAgentRequest) (*AgentList
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -326,7 +638,7 @@ type AgentAPIGetAgentActivityRequest struct {
 	ApiService *AgentAPIService
 }
 
-func (r AgentAPIGetAgentActivityRequest) Execute() (*ActivityFeed, *http.Response, error) {
+func (r AgentAPIGetAgentActivityRequest) Execute() (*AgentActivityFeed, *http.Response, error) {
 	return r.ApiService.GetAgentActivityExecute(r)
 }
 
@@ -350,13 +662,13 @@ func (a *AgentAPIService) GetAgentActivity(ctx context.Context) AgentAPIGetAgent
 
 // Execute executes the request
 //
-//	@return ActivityFeed
-func (a *AgentAPIService) GetAgentActivityExecute(r AgentAPIGetAgentActivityRequest) (*ActivityFeed, *http.Response, error) {
+//	@return AgentActivityFeed
+func (a *AgentAPIService) GetAgentActivityExecute(r AgentAPIGetAgentActivityRequest) (*AgentActivityFeed, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ActivityFeed
+		localVarReturnValue *AgentActivityFeed
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentActivity")
@@ -380,7 +692,7 @@ func (a *AgentAPIService) GetAgentActivityExecute(r AgentAPIGetAgentActivityRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -409,6 +721,14 @@ func (a *AgentAPIService) GetAgentActivityExecute(r AgentAPIGetAgentActivityRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -436,7 +756,7 @@ func (r AgentAPIGetAgentBuildsRequest) Limit(limit int64) AgentAPIGetAgentBuilds
 	return r
 }
 
-func (r AgentAPIGetAgentBuildsRequest) Execute() (*BuildList, *http.Response, error) {
+func (r AgentAPIGetAgentBuildsRequest) Execute() (*AgentBuildList, *http.Response, error) {
 	return r.ApiService.GetAgentBuildsExecute(r)
 }
 
@@ -460,13 +780,13 @@ func (a *AgentAPIService) GetAgentBuilds(ctx context.Context) AgentAPIGetAgentBu
 
 // Execute executes the request
 //
-//	@return BuildList
-func (a *AgentAPIService) GetAgentBuildsExecute(r AgentAPIGetAgentBuildsRequest) (*BuildList, *http.Response, error) {
+//	@return AgentBuildList
+func (a *AgentAPIService) GetAgentBuildsExecute(r AgentAPIGetAgentBuildsRequest) (*AgentBuildList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BuildList
+		localVarReturnValue *AgentBuildList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentBuilds")
@@ -493,7 +813,7 @@ func (a *AgentAPIService) GetAgentBuildsExecute(r AgentAPIGetAgentBuildsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -522,6 +842,14 @@ func (a *AgentAPIService) GetAgentBuildsExecute(r AgentAPIGetAgentBuildsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -544,7 +872,7 @@ type AgentAPIGetAgentBuildsByOrgByProjectRequest struct {
 	project    string
 }
 
-func (r AgentAPIGetAgentBuildsByOrgByProjectRequest) Execute() (*BuildView, *http.Response, error) {
+func (r AgentAPIGetAgentBuildsByOrgByProjectRequest) Execute() (*AgentBuildView, *http.Response, error) {
 	return r.ApiService.GetAgentBuildsByOrgByProjectExecute(r)
 }
 
@@ -577,13 +905,13 @@ func (a *AgentAPIService) GetAgentBuildsByOrgByProject(ctx context.Context, org 
 
 // Execute executes the request
 //
-//	@return BuildView
-func (a *AgentAPIService) GetAgentBuildsByOrgByProjectExecute(r AgentAPIGetAgentBuildsByOrgByProjectRequest) (*BuildView, *http.Response, error) {
+//	@return AgentBuildView
+func (a *AgentAPIService) GetAgentBuildsByOrgByProjectExecute(r AgentAPIGetAgentBuildsByOrgByProjectRequest) (*AgentBuildView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BuildView
+		localVarReturnValue *AgentBuildView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentBuildsByOrgByProject")
@@ -609,7 +937,7 @@ func (a *AgentAPIService) GetAgentBuildsByOrgByProjectExecute(r AgentAPIGetAgent
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -638,6 +966,14 @@ func (a *AgentAPIService) GetAgentBuildsByOrgByProjectExecute(r AgentAPIGetAgent
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -659,7 +995,7 @@ type AgentAPIGetAgentByRefRequest struct {
 	ref        string
 }
 
-func (r AgentAPIGetAgentByRefRequest) Execute() (*AgentDetail, *http.Response, error) {
+func (r AgentAPIGetAgentByRefRequest) Execute() (*AgentAgentDetail, *http.Response, error) {
 	return r.ApiService.GetAgentByRefExecute(r)
 }
 
@@ -684,13 +1020,13 @@ func (a *AgentAPIService) GetAgentByRef(ctx context.Context, ref string) AgentAP
 
 // Execute executes the request
 //
-//	@return AgentDetail
-func (a *AgentAPIService) GetAgentByRefExecute(r AgentAPIGetAgentByRefRequest) (*AgentDetail, *http.Response, error) {
+//	@return AgentAgentDetail
+func (a *AgentAPIService) GetAgentByRefExecute(r AgentAPIGetAgentByRefRequest) (*AgentAgentDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AgentDetail
+		localVarReturnValue *AgentAgentDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentByRef")
@@ -715,7 +1051,7 @@ func (a *AgentAPIService) GetAgentByRefExecute(r AgentAPIGetAgentByRefRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -744,6 +1080,14 @@ func (a *AgentAPIService) GetAgentByRefExecute(r AgentAPIGetAgentByRefRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -772,7 +1116,7 @@ func (r AgentAPIGetAgentByRefRunsRequest) Limit(limit int64) AgentAPIGetAgentByR
 	return r
 }
 
-func (r AgentAPIGetAgentByRefRunsRequest) Execute() (*RunList, *http.Response, error) {
+func (r AgentAPIGetAgentByRefRunsRequest) Execute() (*AgentRunList, *http.Response, error) {
 	return r.ApiService.GetAgentByRefRunsExecute(r)
 }
 
@@ -797,13 +1141,13 @@ func (a *AgentAPIService) GetAgentByRefRuns(ctx context.Context, ref string) Age
 
 // Execute executes the request
 //
-//	@return RunList
-func (a *AgentAPIService) GetAgentByRefRunsExecute(r AgentAPIGetAgentByRefRunsRequest) (*RunList, *http.Response, error) {
+//	@return AgentRunList
+func (a *AgentAPIService) GetAgentByRefRunsExecute(r AgentAPIGetAgentByRefRunsRequest) (*AgentRunList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RunList
+		localVarReturnValue *AgentRunList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentByRefRuns")
@@ -831,7 +1175,7 @@ func (a *AgentAPIService) GetAgentByRefRunsExecute(r AgentAPIGetAgentByRefRunsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -860,6 +1204,145 @@ func (a *AgentAPIService) GetAgentByRefRunsExecute(r AgentAPIGetAgentByRefRunsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIGetAgentByRefSpendRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	ref        string
+	by         *string
+}
+
+// By groups the answer: \&quot;component\&quot; is the only grouping today.
+func (r AgentAPIGetAgentByRefSpendRequest) By(by string) AgentAPIGetAgentByRefSpendRequest {
+	r.by = &by
+	return r
+}
+
+func (r AgentAPIGetAgentByRefSpendRequest) Execute() (*AgentSpendView, *http.Response, error) {
+	return r.ApiService.GetAgentByRefSpendExecute(r)
+}
+
+/*
+GetAgentByRefSpend Answers what one of your org's agents has spent, in integer micro-USD.
+
+Answers what one of your org's agents has spent, in integer micro-USD.
+
+It answers the agent's budget — `cap_micro_usd` per `period`,
+`max_task_micro_usd` per run — with what the current period has consumed,
+what remains, and `by_component`: the spend attributed to `model` (every
+completion the agent bought), `computer` (the runtime it was resident for)
+and `tool`. A component with no spend is absent, not zero. Every amount is an
+integer number of micro-USD (1,000,000 = $1); 11902000 is $11.902. Pass
+`by=component` to ask for the breakdown by name — it is the one grouping, and
+the default.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ref Ref is the agent's public id or its org-unique name.
+	@return AgentAPIGetAgentByRefSpendRequest
+*/
+func (a *AgentAPIService) GetAgentByRefSpend(ctx context.Context, ref string) AgentAPIGetAgentByRefSpendRequest {
+	return AgentAPIGetAgentByRefSpendRequest{
+		ApiService: a,
+		ctx:        ctx,
+		ref:        ref,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AgentSpendView
+func (a *AgentAPIService) GetAgentByRefSpendExecute(r AgentAPIGetAgentByRefSpendRequest) (*AgentSpendView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AgentSpendView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentByRefSpend")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/{ref}/spend"
+	localVarPath = strings.Replace(localVarPath, "{"+"ref"+"}", url.PathEscape(parameterValueToString(r.ref, "ref")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.by != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "by", r.by, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -889,7 +1372,7 @@ GetAgentChatConversations List the agent threads in your org
 
 Returns a summary of every agent conversation in the caller's org — id, derived title, and when it was last appended to — for populating a thread list.
 
-Scoped to the caller's org and nothing else, and that isolation is structural rather than a filter: conversations are persisted in a store opened PER ORG, so there is no query in which another tenant's threads could appear. A validated principal with a non-empty org is required; 403 without one.
+Scoped to the caller's org and nothing else, and that isolation is structural rather than a filter: conversations are persisted in a store opened PER ORG, so there is no query in which another tenant's threads could appear. A validated principal with a non-empty org is required: 401 without a principal, 403 without an org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AgentAPIGetAgentChatConversationsRequest
@@ -980,7 +1463,7 @@ GetAgentChatConversationsById Read one agent thread in full
 
 Returns every message of one conversation in order — role, content, the assistant's tool calls where it made any, and each message's creation time — which is the transcript a client replays to resume a thread.
 
-The lookup happens inside the caller's OWN per-org store, so an id belonging to another tenant is not refused, it is simply absent: the answer is 200 with an empty message list. Read it as "no such conversation for you" rather than as an empty thread. A validated principal with a non-empty org is required; 403 without one.
+The lookup happens inside the caller's OWN per-org store, so an id belonging to another tenant is not refused, it is simply absent: the answer is 200 with an empty message list. Read it as "no such conversation for you" rather than as an empty thread. A validated principal with a non-empty org is required: 401 without a principal, 403 without an org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -1008,6 +1491,98 @@ func (a *AgentAPIService) GetAgentChatConversationsByIdExecute(r AgentAPIGetAgen
 	}
 
 	localVarPath := localBasePath + "/v1/agent/chat/conversations/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AgentAPIGetAgentChatConversationsByIdSharesRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	id         string
+}
+
+func (r AgentAPIGetAgentChatConversationsByIdSharesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAgentChatConversationsByIdSharesExecute(r)
+}
+
+/*
+GetAgentChatConversationsByIdShares List the live links to one of your conversations
+
+Returns each unrevoked share of a conversation the caller owns: its id, its access (`read`), when it was made, and its `viewers` — each signed-in person who opened it, with the name they signed in with and when. Tokens are not in the list; they are returned only when a share is made.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return AgentAPIGetAgentChatConversationsByIdSharesRequest
+*/
+func (a *AgentAPIService) GetAgentChatConversationsByIdShares(ctx context.Context, id string) AgentAPIGetAgentChatConversationsByIdSharesRequest {
+	return AgentAPIGetAgentChatConversationsByIdSharesRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *AgentAPIService) GetAgentChatConversationsByIdSharesExecute(r AgentAPIGetAgentChatConversationsByIdSharesRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentChatConversationsByIdShares")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/chat/conversations/{id}/shares"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1149,67 +1724,49 @@ func (a *AgentAPIService) GetAgentChatPresetsExecute(r AgentAPIGetAgentChatPrese
 	return localVarHTTPResponse, nil
 }
 
-type AgentAPIGetAgentMetricsRequest struct {
+type AgentAPIGetAgentChatSharedRequest struct {
 	ctx        context.Context
 	ApiService *AgentAPIService
-	range_     *string
 }
 
-// Range is the window to bucket: 24H, 7D or 30D. Anything else reads as 30D.
-func (r AgentAPIGetAgentMetricsRequest) Range_(range_ string) AgentAPIGetAgentMetricsRequest {
-	r.range_ = &range_
-	return r
-}
-
-func (r AgentAPIGetAgentMetricsRequest) Execute() (*MetricsView, *http.Response, error) {
-	return r.ApiService.GetAgentMetricsExecute(r)
+func (r AgentAPIGetAgentChatSharedRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAgentChatSharedExecute(r)
 }
 
 /*
-GetAgentMetrics Serves the invocations-over-time histogram for the org's Agents dashboard.
+GetAgentChatShared List the chats shared with you
 
-Serves the invocations-over-time histogram for the org's Agents
-dashboard. Every point is a REAL count of recorded runs in that time bucket —
-one series line per agent that ran in the window. The Resource Usage rollup is
-all-null because this store meters no CPU/memory/storage/cost; the console
-renders those as "—" rather than a fabricated figure. No runs => empty series
-(an honest "not connected / no activity yet"), never a synthesized trend.
+Returns each live share the caller opened signed in: its id, the conversation's title and when the caller first opened it, most recent first. A revoked share, or one its owner closed to the caller, is not in it. A signed-in person is required.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return AgentAPIGetAgentMetricsRequest
+	@return AgentAPIGetAgentChatSharedRequest
 */
-func (a *AgentAPIService) GetAgentMetrics(ctx context.Context) AgentAPIGetAgentMetricsRequest {
-	return AgentAPIGetAgentMetricsRequest{
+func (a *AgentAPIService) GetAgentChatShared(ctx context.Context) AgentAPIGetAgentChatSharedRequest {
+	return AgentAPIGetAgentChatSharedRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return MetricsView
-func (a *AgentAPIService) GetAgentMetricsExecute(r AgentAPIGetAgentMetricsRequest) (*MetricsView, *http.Response, error) {
+func (a *AgentAPIService) GetAgentChatSharedExecute(r AgentAPIGetAgentChatSharedRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *MetricsView
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentMetrics")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentChatShared")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/agent/metrics"
+	localVarPath := localBasePath + "/v1/agent/chat/shared"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.range_ != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "range", r.range_, "form", "")
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1220,7 +1777,286 @@ func (a *AgentAPIService) GetAgentMetricsExecute(r AgentAPIGetAgentMetricsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AgentAPIGetAgentChatSharedByShareRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	share      string
+}
+
+func (r AgentAPIGetAgentChatSharedByShareRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAgentChatSharedByShareExecute(r)
+}
+
+/*
+GetAgentChatSharedByShare Read a chat shared with you
+
+Returns the snapshot of a share the caller is a viewer of, without its token, in the shape POST /shares/read answers a signed-in person. Anyone who is not one of its viewers is answered 404.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param share
+	@return AgentAPIGetAgentChatSharedByShareRequest
+*/
+func (a *AgentAPIService) GetAgentChatSharedByShare(ctx context.Context, share string) AgentAPIGetAgentChatSharedByShareRequest {
+	return AgentAPIGetAgentChatSharedByShareRequest{
+		ApiService: a,
+		ctx:        ctx,
+		share:      share,
+	}
+}
+
+// Execute executes the request
+func (a *AgentAPIService) GetAgentChatSharedByShareExecute(r AgentAPIGetAgentChatSharedByShareRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentChatSharedByShare")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/chat/shared/{share}"
+	localVarPath = strings.Replace(localVarPath, "{"+"share"+"}", url.PathEscape(parameterValueToString(r.share, "share")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AgentAPIGetAgentChatSharesRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+}
+
+func (r AgentAPIGetAgentChatSharesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAgentChatSharesExecute(r)
+}
+
+/*
+GetAgentChatShares List every live link in your organization
+
+For an admin of the caller's organization: every unrevoked share made in it, with the conversation's id and title, the member who made it, when, and how many people it is open to. `?user=` narrows it to one member's. Anyone else is answered 403.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AgentAPIGetAgentChatSharesRequest
+*/
+func (a *AgentAPIService) GetAgentChatShares(ctx context.Context) AgentAPIGetAgentChatSharesRequest {
+	return AgentAPIGetAgentChatSharesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AgentAPIService) GetAgentChatSharesExecute(r AgentAPIGetAgentChatSharesRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentChatShares")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/chat/shares"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AgentAPIGetAgentCodingBySessionArtifactsRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	session    string
+}
+
+func (r AgentAPIGetAgentCodingBySessionArtifactsRequest) Execute() (*AgentCodingArtifacts, *http.Response, error) {
+	return r.ApiService.GetAgentCodingBySessionArtifactsExecute(r)
+}
+
+/*
+GetAgentCodingBySessionArtifacts Lists what a coding run left, kept after its sandbox is gone: every file it added or changed and its whole change as `changes.patch`, stored beside the run; the ports it served, each a preview while its sandbox is kept; its pull request and where its work was published.
+
+Lists what a coding run left, kept after its sandbox is gone: every file it
+added or changed and its whole change as `changes.patch`, stored beside the run;
+the ports it served, each a preview while its sandbox is kept; its pull request
+and where its work was published. A run that is still working, or saved
+nothing, answers an empty list.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param session Session is the run's handle — the sessionId POST /v1/agent/coding answered with — from the path.
+	@return AgentAPIGetAgentCodingBySessionArtifactsRequest
+*/
+func (a *AgentAPIService) GetAgentCodingBySessionArtifacts(ctx context.Context, session string) AgentAPIGetAgentCodingBySessionArtifactsRequest {
+	return AgentAPIGetAgentCodingBySessionArtifactsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		session:    session,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AgentCodingArtifacts
+func (a *AgentAPIService) GetAgentCodingBySessionArtifactsExecute(r AgentAPIGetAgentCodingBySessionArtifactsRequest) (*AgentCodingArtifacts, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AgentCodingArtifacts
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentCodingBySessionArtifacts")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/coding/{session}/artifacts"
+	localVarPath = strings.Replace(localVarPath, "{"+"session"+"}", url.PathEscape(parameterValueToString(r.session, "session")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1249,6 +2085,516 @@ func (a *AgentAPIService) GetAgentMetricsExecute(r AgentAPIGetAgentMetricsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIGetAgentCodingBySessionBlobRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	session    string
+	path       *string
+}
+
+// Path is repo-relative, from the query. Empty is the repository&#39;s root.
+func (r AgentAPIGetAgentCodingBySessionBlobRequest) Path(path string) AgentAPIGetAgentCodingBySessionBlobRequest {
+	r.path = &path
+	return r
+}
+
+func (r AgentAPIGetAgentCodingBySessionBlobRequest) Execute() (*AgentCodingBlob, *http.Response, error) {
+	return r.ApiService.GetAgentCodingBySessionBlobExecute(r)
+}
+
+/*
+GetAgentCodingBySessionBlob Returns one file of a coding run's repository, read where the tree is read, in the shape GET /v1/git/repos/{name}/blob answers: text verbatim, anything else base64, and a file past the 1 MiB view cap marked truncated with no content.
+
+Returns one file of a coding run's repository, read where the tree is read,
+in the shape GET /v1/git/repos/{name}/blob answers: text verbatim, anything
+else base64, and a file past the 1 MiB view cap marked truncated with no
+content.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param session Session is the run's handle, from the path.
+	@return AgentAPIGetAgentCodingBySessionBlobRequest
+*/
+func (a *AgentAPIService) GetAgentCodingBySessionBlob(ctx context.Context, session string) AgentAPIGetAgentCodingBySessionBlobRequest {
+	return AgentAPIGetAgentCodingBySessionBlobRequest{
+		ApiService: a,
+		ctx:        ctx,
+		session:    session,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AgentCodingBlob
+func (a *AgentAPIService) GetAgentCodingBySessionBlobExecute(r AgentAPIGetAgentCodingBySessionBlobRequest) (*AgentCodingBlob, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AgentCodingBlob
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentCodingBySessionBlob")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/coding/{session}/blob"
+	localVarPath = strings.Replace(localVarPath, "{"+"session"+"}", url.PathEscape(parameterValueToString(r.session, "session")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.path != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "path", r.path, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIGetAgentCodingBySessionChangesRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	session    string
+}
+
+func (r AgentAPIGetAgentCodingBySessionChangesRequest) Execute() (*AgentCodingChanges, *http.Response, error) {
+	return r.ApiService.GetAgentCodingBySessionChangesExecute(r)
+}
+
+/*
+GetAgentCodingBySessionChanges Returns what a coding run changed, read from the forge it pushed its branch to: the commits on its branch that the base does not have, newest first; the net change of the branch against its base, one entry per file with that file's patch; and its pull request with the reviews it has had, or null while it has none.
+
+Returns what a coding run changed, read from the forge it pushed its branch
+to: the commits on its branch that the base does not have, newest first; the
+net change of the branch against its base, one entry per file with that file's
+patch; and its pull request with the reviews it has had, or null while it has
+none.
+
+A run whose branch is not on the forge yet — still working, or finished with
+nothing to change — answers with no commits, no files and no pull request.
+Every read is made as the caller, so a repository they cannot open on the
+forge is not found here either, whoever can see the run.
+
+One answer is bounded, and says where it was cut rather than failing: the
+newest 250 commits (`moreCommits` when there are more), the change up to 8 MiB
+of diff or 3000 files (`moreFiles`, the last file marked truncated), and the
+first 50 reviews (`moreReviews`), each body up to 16 KiB and 256 KiB across
+them (`truncated` on a cut one). A caller has at most two of these reads in
+flight and is answered 429 past that; two asking for the same change at once
+share one read.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param session Session is the run's handle — the sessionId POST /v1/agent/coding answered with — from the path.
+	@return AgentAPIGetAgentCodingBySessionChangesRequest
+*/
+func (a *AgentAPIService) GetAgentCodingBySessionChanges(ctx context.Context, session string) AgentAPIGetAgentCodingBySessionChangesRequest {
+	return AgentAPIGetAgentCodingBySessionChangesRequest{
+		ApiService: a,
+		ctx:        ctx,
+		session:    session,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AgentCodingChanges
+func (a *AgentAPIService) GetAgentCodingBySessionChangesExecute(r AgentAPIGetAgentCodingBySessionChangesRequest) (*AgentCodingChanges, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AgentCodingChanges
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentCodingBySessionChanges")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/coding/{session}/changes"
+	localVarPath = strings.Replace(localVarPath, "{"+"session"+"}", url.PathEscape(parameterValueToString(r.session, "session")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIGetAgentCodingBySessionTreeRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	session    string
+	path       *string
+}
+
+// Path is repo-relative, from the query. Empty is the repository&#39;s root.
+func (r AgentAPIGetAgentCodingBySessionTreeRequest) Path(path string) AgentAPIGetAgentCodingBySessionTreeRequest {
+	r.path = &path
+	return r
+}
+
+func (r AgentAPIGetAgentCodingBySessionTreeRequest) Execute() (*AgentCodingTree, *http.Response, error) {
+	return r.ApiService.GetAgentCodingBySessionTreeExecute(r)
+}
+
+/*
+GetAgentCodingBySessionTree Lists one directory of a coding run's repository, one level down with directories first: at the run's own branch once the forge holds it, and at the branch it started from until then — `ref` says which.
+
+Lists one directory of a coding run's repository, one level down with
+directories first: at the run's own branch once the forge holds it, and at the
+branch it started from until then — `ref` says which. Walk down a level at a
+time; an empty path is the root.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param session Session is the run's handle, from the path.
+	@return AgentAPIGetAgentCodingBySessionTreeRequest
+*/
+func (a *AgentAPIService) GetAgentCodingBySessionTree(ctx context.Context, session string) AgentAPIGetAgentCodingBySessionTreeRequest {
+	return AgentAPIGetAgentCodingBySessionTreeRequest{
+		ApiService: a,
+		ctx:        ctx,
+		session:    session,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AgentCodingTree
+func (a *AgentAPIService) GetAgentCodingBySessionTreeExecute(r AgentAPIGetAgentCodingBySessionTreeRequest) (*AgentCodingTree, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AgentCodingTree
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentCodingBySessionTree")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/coding/{session}/tree"
+	localVarPath = strings.Replace(localVarPath, "{"+"session"+"}", url.PathEscape(parameterValueToString(r.session, "session")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.path != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "path", r.path, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIGetAgentMetricsRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	range_     *string
+}
+
+// Range is the window to bucket: 24H, 7D or 30D. Anything else reads as 30D.
+func (r AgentAPIGetAgentMetricsRequest) Range_(range_ string) AgentAPIGetAgentMetricsRequest {
+	r.range_ = &range_
+	return r
+}
+
+func (r AgentAPIGetAgentMetricsRequest) Execute() (*AgentMetricsView, *http.Response, error) {
+	return r.ApiService.GetAgentMetricsExecute(r)
+}
+
+/*
+GetAgentMetrics Serves the invocations-over-time histogram for the org's Agents dashboard.
+
+Serves the invocations-over-time histogram for the org's Agents
+dashboard. Every point is a REAL count of recorded runs in that time bucket —
+one series line per agent that ran in the window. The Resource Usage rollup is
+all-null because this store meters no CPU/memory/storage/cost; the console
+renders those as "—" rather than a fabricated figure. No runs => empty series
+(an honest "not connected / no activity yet"), never a synthesized trend.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AgentAPIGetAgentMetricsRequest
+*/
+func (a *AgentAPIService) GetAgentMetrics(ctx context.Context) AgentAPIGetAgentMetricsRequest {
+	return AgentAPIGetAgentMetricsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AgentMetricsView
+func (a *AgentAPIService) GetAgentMetricsExecute(r AgentAPIGetAgentMetricsRequest) (*AgentMetricsView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AgentMetricsView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentMetrics")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/metrics"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.range_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "range", r.range_, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1283,7 +2629,7 @@ func (r AgentAPIGetAgentRunsRequest) Status(status string) AgentAPIGetAgentRunsR
 	return r
 }
 
-func (r AgentAPIGetAgentRunsRequest) Execute() (*RunList, *http.Response, error) {
+func (r AgentAPIGetAgentRunsRequest) Execute() (*AgentRunList, *http.Response, error) {
 	return r.ApiService.GetAgentRunsExecute(r)
 }
 
@@ -1316,13 +2662,13 @@ func (a *AgentAPIService) GetAgentRuns(ctx context.Context) AgentAPIGetAgentRuns
 
 // Execute executes the request
 //
-//	@return RunList
-func (a *AgentAPIService) GetAgentRunsExecute(r AgentAPIGetAgentRunsRequest) (*RunList, *http.Response, error) {
+//	@return AgentRunList
+func (a *AgentAPIService) GetAgentRunsExecute(r AgentAPIGetAgentRunsRequest) (*AgentRunList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RunList
+		localVarReturnValue *AgentRunList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentRuns")
@@ -1352,7 +2698,7 @@ func (a *AgentAPIService) GetAgentRunsExecute(r AgentAPIGetAgentRunsRequest) (*R
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1381,6 +2727,14 @@ func (a *AgentAPIService) GetAgentRunsExecute(r AgentAPIGetAgentRunsRequest) (*R
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1404,7 +2758,9 @@ type AgentAPIGetAgentSessionsRequest struct {
 	status     *string
 	project    *string
 	room       *string
+	kind       *string
 	limit      *int64
+	after      *string
 }
 
 // Root scopes the page to one subagent tree (its root session id).
@@ -1437,13 +2793,25 @@ func (r AgentAPIGetAgentSessionsRequest) Room(room string) AgentAPIGetAgentSessi
 	return r
 }
 
+// Kind filters to the sessions of one kind of run: \&quot;coding\&quot; lists coding runs, each carrying its repo, base, branch, environment and pull request.
+func (r AgentAPIGetAgentSessionsRequest) Kind(kind string) AgentAPIGetAgentSessionsRequest {
+	r.kind = &kind
+	return r
+}
+
 // Limit caps the page. Absent, zero or over 500 reads as 100.
 func (r AgentAPIGetAgentSessionsRequest) Limit(limit int64) AgentAPIGetAgentSessionsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r AgentAPIGetAgentSessionsRequest) Execute() (*SessionList, *http.Response, error) {
+// After is the &#x60;next&#x60; of the previous page. Absent starts at the newest.
+func (r AgentAPIGetAgentSessionsRequest) After(after string) AgentAPIGetAgentSessionsRequest {
+	r.after = &after
+	return r
+}
+
+func (r AgentAPIGetAgentSessionsRequest) Execute() (*AgentSessionList, *http.Response, error) {
 	return r.ApiService.GetAgentSessionsExecute(r)
 }
 
@@ -1467,13 +2835,13 @@ func (a *AgentAPIService) GetAgentSessions(ctx context.Context) AgentAPIGetAgent
 
 // Execute executes the request
 //
-//	@return SessionList
-func (a *AgentAPIService) GetAgentSessionsExecute(r AgentAPIGetAgentSessionsRequest) (*SessionList, *http.Response, error) {
+//	@return AgentSessionList
+func (a *AgentAPIService) GetAgentSessionsExecute(r AgentAPIGetAgentSessionsRequest) (*AgentSessionList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SessionList
+		localVarReturnValue *AgentSessionList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentSessions")
@@ -1502,8 +2870,14 @@ func (a *AgentAPIService) GetAgentSessionsExecute(r AgentAPIGetAgentSessionsRequ
 	if r.room != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "room", r.room, "form", "")
 	}
+	if r.kind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "kind", r.kind, "form", "")
+	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.after != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1515,7 +2889,7 @@ func (a *AgentAPIService) GetAgentSessionsExecute(r AgentAPIGetAgentSessionsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1544,6 +2918,14 @@ func (a *AgentAPIService) GetAgentSessionsExecute(r AgentAPIGetAgentSessionsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1565,7 +2947,7 @@ type AgentAPIGetAgentSessionsByIdRequest struct {
 	id         string
 }
 
-func (r AgentAPIGetAgentSessionsByIdRequest) Execute() (*SessionDetail, *http.Response, error) {
+func (r AgentAPIGetAgentSessionsByIdRequest) Execute() (*AgentSessionDetail, *http.Response, error) {
 	return r.ApiService.GetAgentSessionsByIdExecute(r)
 }
 
@@ -1573,7 +2955,9 @@ func (r AgentAPIGetAgentSessionsByIdRequest) Execute() (*SessionDetail, *http.Re
 GetAgentSessionsById Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
 
 Returns one session with its direct child sessions and its 50 most
-recent events, oldest of those first.
+recent events, oldest of those first. The children are those the caller may
+see, by the rule the session itself is read by: a member's own, and every one
+for an admin of the org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to act on, from the path.
@@ -1589,13 +2973,13 @@ func (a *AgentAPIService) GetAgentSessionsById(ctx context.Context, id string) A
 
 // Execute executes the request
 //
-//	@return SessionDetail
-func (a *AgentAPIService) GetAgentSessionsByIdExecute(r AgentAPIGetAgentSessionsByIdRequest) (*SessionDetail, *http.Response, error) {
+//	@return AgentSessionDetail
+func (a *AgentAPIService) GetAgentSessionsByIdExecute(r AgentAPIGetAgentSessionsByIdRequest) (*AgentSessionDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SessionDetail
+		localVarReturnValue *AgentSessionDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentSessionsById")
@@ -1620,7 +3004,7 @@ func (a *AgentAPIService) GetAgentSessionsByIdExecute(r AgentAPIGetAgentSessions
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1649,6 +3033,14 @@ func (a *AgentAPIService) GetAgentSessionsByIdExecute(r AgentAPIGetAgentSessions
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1677,7 +3069,7 @@ func (r AgentAPIGetAgentSessionsByIdControlRequest) After(after int64) AgentAPIG
 	return r
 }
 
-func (r AgentAPIGetAgentSessionsByIdControlRequest) Execute() (*ControlDrain, *http.Response, error) {
+func (r AgentAPIGetAgentSessionsByIdControlRequest) Execute() (*AgentControlDrain, *http.Response, error) {
 	return r.ApiService.GetAgentSessionsByIdControlExecute(r)
 }
 
@@ -1706,13 +3098,13 @@ func (a *AgentAPIService) GetAgentSessionsByIdControl(ctx context.Context, id st
 
 // Execute executes the request
 //
-//	@return ControlDrain
-func (a *AgentAPIService) GetAgentSessionsByIdControlExecute(r AgentAPIGetAgentSessionsByIdControlRequest) (*ControlDrain, *http.Response, error) {
+//	@return AgentControlDrain
+func (a *AgentAPIService) GetAgentSessionsByIdControlExecute(r AgentAPIGetAgentSessionsByIdControlRequest) (*AgentControlDrain, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ControlDrain
+		localVarReturnValue *AgentControlDrain
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentSessionsByIdControl")
@@ -1740,7 +3132,7 @@ func (a *AgentAPIService) GetAgentSessionsByIdControlExecute(r AgentAPIGetAgentS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1769,6 +3161,14 @@ func (a *AgentAPIService) GetAgentSessionsByIdControlExecute(r AgentAPIGetAgentS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1790,7 +3190,7 @@ type AgentAPIGetAgentSessionsByIdProgressRequest struct {
 	id         string
 }
 
-func (r AgentAPIGetAgentSessionsByIdProgressRequest) Execute() (*SessionProgress, *http.Response, error) {
+func (r AgentAPIGetAgentSessionsByIdProgressRequest) Execute() (*AgentSessionProgress, *http.Response, error) {
 	return r.ApiService.GetAgentSessionsByIdProgressExecute(r)
 }
 
@@ -1827,13 +3227,13 @@ func (a *AgentAPIService) GetAgentSessionsByIdProgress(ctx context.Context, id s
 
 // Execute executes the request
 //
-//	@return SessionProgress
-func (a *AgentAPIService) GetAgentSessionsByIdProgressExecute(r AgentAPIGetAgentSessionsByIdProgressRequest) (*SessionProgress, *http.Response, error) {
+//	@return AgentSessionProgress
+func (a *AgentAPIService) GetAgentSessionsByIdProgressExecute(r AgentAPIGetAgentSessionsByIdProgressRequest) (*AgentSessionProgress, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SessionProgress
+		localVarReturnValue *AgentSessionProgress
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentSessionsByIdProgress")
@@ -1858,7 +3258,7 @@ func (a *AgentAPIService) GetAgentSessionsByIdProgressExecute(r AgentAPIGetAgent
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1887,6 +3287,14 @@ func (a *AgentAPIService) GetAgentSessionsByIdProgressExecute(r AgentAPIGetAgent
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1908,7 +3316,7 @@ type AgentAPIGetAgentSessionsByIdTreeRequest struct {
 	id         string
 }
 
-func (r AgentAPIGetAgentSessionsByIdTreeRequest) Execute() (*TreeNode, *http.Response, error) {
+func (r AgentAPIGetAgentSessionsByIdTreeRequest) Execute() (*AgentTreeNode, *http.Response, error) {
 	return r.ApiService.GetAgentSessionsByIdTreeExecute(r)
 }
 
@@ -1918,7 +3326,9 @@ GetAgentSessionsByIdTree Returns the subagent-flow graph rooted at this session:
 Returns the subagent-flow graph rooted at this session: the session,
 its children, their children, each node carrying its own event count. One
 indexed read pulls the whole flow (every node of a flow shares a root id), so
-the shape is assembled in memory rather than by walking the store per node.
+the shape is assembled in memory rather than by walking the store per node. It
+holds the sessions the caller may see — a member's own, every one for an admin
+of the org — and a session they may not see is absent with all beneath it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to act on, from the path.
@@ -1934,13 +3344,13 @@ func (a *AgentAPIService) GetAgentSessionsByIdTree(ctx context.Context, id strin
 
 // Execute executes the request
 //
-//	@return TreeNode
-func (a *AgentAPIService) GetAgentSessionsByIdTreeExecute(r AgentAPIGetAgentSessionsByIdTreeRequest) (*TreeNode, *http.Response, error) {
+//	@return AgentTreeNode
+func (a *AgentAPIService) GetAgentSessionsByIdTreeExecute(r AgentAPIGetAgentSessionsByIdTreeRequest) (*AgentTreeNode, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TreeNode
+		localVarReturnValue *AgentTreeNode
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentSessionsByIdTree")
@@ -1965,7 +3375,7 @@ func (a *AgentAPIService) GetAgentSessionsByIdTreeExecute(r AgentAPIGetAgentSess
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1994,6 +3404,14 @@ func (a *AgentAPIService) GetAgentSessionsByIdTreeExecute(r AgentAPIGetAgentSess
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2023,7 +3441,7 @@ GetAgentSessionsStream Live session and event updates for the caller's org, as S
 
 Holds the connection open as text/event-stream and pushes a frame each time the org's registry moves: an `event: session` frame carrying the same session shape the list and detail reads answer with (a registration, an update, or a login-manager revoke tearing a session down), and an `event: event` frame carrying one appended turn. Optional ?root=<session id> narrows the feed to a single subagent tree.
 
-Requires a validated principal carrying an org; 403 without one. Org-scoped fail-closed: the bus filters on tenant before it fans out, so a subscriber only ever receives its own org's updates, and ?root= narrows that further but can never widen it.
+Requires a validated principal carrying an org: 401 without a principal, 403 without an org. Org-scoped fail-closed: the bus filters on tenant before it fans out, so a subscriber only ever receives its own org's updates, and ?root= narrows that further but can never widen it. Within the org a subscriber receives what GET /v1/agent/sessions/{id} would show them: a member the frames of the sessions they opened, an org admin or a SuperAdmin the org's.
 
 Delivery is best-effort and the GET reads remain the source of truth. A subscriber that falls more than 256 frames behind is DROPPED — its channel is closed and the stream ends — so one stuck dashboard can never back-pressure a session write; the client reconnects and re-reads the session endpoints to resynchronise. A `: ping` comment every 25 seconds holds the connection open through proxies and is how a departed client is noticed.
 
@@ -2106,7 +3524,7 @@ type AgentAPIGetAgentTargetsRequest struct {
 	ApiService *AgentAPIService
 }
 
-func (r AgentAPIGetAgentTargetsRequest) Execute() (*TargetList, *http.Response, error) {
+func (r AgentAPIGetAgentTargetsRequest) Execute() (*AgentTargetList, *http.Response, error) {
 	return r.ApiService.GetAgentTargetsExecute(r)
 }
 
@@ -2128,13 +3546,13 @@ func (a *AgentAPIService) GetAgentTargets(ctx context.Context) AgentAPIGetAgentT
 
 // Execute executes the request
 //
-//	@return TargetList
-func (a *AgentAPIService) GetAgentTargetsExecute(r AgentAPIGetAgentTargetsRequest) (*TargetList, *http.Response, error) {
+//	@return AgentTargetList
+func (a *AgentAPIService) GetAgentTargetsExecute(r AgentAPIGetAgentTargetsRequest) (*AgentTargetList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TargetList
+		localVarReturnValue *AgentTargetList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentTargets")
@@ -2158,7 +3576,7 @@ func (a *AgentAPIService) GetAgentTargetsExecute(r AgentAPIGetAgentTargetsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2187,6 +3605,14 @@ func (a *AgentAPIService) GetAgentTargetsExecute(r AgentAPIGetAgentTargetsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2208,7 +3634,7 @@ type AgentAPIGetAgentTargetsByIdRequest struct {
 	id         string
 }
 
-func (r AgentAPIGetAgentTargetsByIdRequest) Execute() (*TargetView, *http.Response, error) {
+func (r AgentAPIGetAgentTargetsByIdRequest) Execute() (*AgentTargetView, *http.Response, error) {
 	return r.ApiService.GetAgentTargetsByIdExecute(r)
 }
 
@@ -2231,13 +3657,13 @@ func (a *AgentAPIService) GetAgentTargetsById(ctx context.Context, id string) Ag
 
 // Execute executes the request
 //
-//	@return TargetView
-func (a *AgentAPIService) GetAgentTargetsByIdExecute(r AgentAPIGetAgentTargetsByIdRequest) (*TargetView, *http.Response, error) {
+//	@return AgentTargetView
+func (a *AgentAPIService) GetAgentTargetsByIdExecute(r AgentAPIGetAgentTargetsByIdRequest) (*AgentTargetView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TargetView
+		localVarReturnValue *AgentTargetView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.GetAgentTargetsById")
@@ -2262,7 +3688,7 @@ func (a *AgentAPIService) GetAgentTargetsByIdExecute(r AgentAPIGetAgentTargetsBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2291,6 +3717,14 @@ func (a *AgentAPIService) GetAgentTargetsByIdExecute(r AgentAPIGetAgentTargetsBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2307,18 +3741,18 @@ func (a *AgentAPIService) GetAgentTargetsByIdExecute(r AgentAPIGetAgentTargetsBy
 }
 
 type AgentAPIPatchAgentByRefRequest struct {
-	ctx           context.Context
-	ApiService    *AgentAPIService
-	ref           string
-	updateAgentIn *UpdateAgentIn
+	ctx                context.Context
+	ApiService         *AgentAPIService
+	ref                string
+	agentUpdateAgentIn *AgentUpdateAgentIn
 }
 
-func (r AgentAPIPatchAgentByRefRequest) UpdateAgentIn(updateAgentIn UpdateAgentIn) AgentAPIPatchAgentByRefRequest {
-	r.updateAgentIn = &updateAgentIn
+func (r AgentAPIPatchAgentByRefRequest) AgentUpdateAgentIn(agentUpdateAgentIn AgentUpdateAgentIn) AgentAPIPatchAgentByRefRequest {
+	r.agentUpdateAgentIn = &agentUpdateAgentIn
 	return r
 }
 
-func (r AgentAPIPatchAgentByRefRequest) Execute() (*AgentView, *http.Response, error) {
+func (r AgentAPIPatchAgentByRefRequest) Execute() (*AgentAgentView, *http.Response, error) {
 	return r.ApiService.PatchAgentByRefExecute(r)
 }
 
@@ -2345,13 +3779,13 @@ func (a *AgentAPIService) PatchAgentByRef(ctx context.Context, ref string) Agent
 
 // Execute executes the request
 //
-//	@return AgentView
-func (a *AgentAPIService) PatchAgentByRefExecute(r AgentAPIPatchAgentByRefRequest) (*AgentView, *http.Response, error) {
+//	@return AgentAgentView
+func (a *AgentAPIService) PatchAgentByRefExecute(r AgentAPIPatchAgentByRefRequest) (*AgentAgentView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AgentView
+		localVarReturnValue *AgentAgentView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PatchAgentByRef")
@@ -2365,8 +3799,8 @@ func (a *AgentAPIService) PatchAgentByRefExecute(r AgentAPIPatchAgentByRefReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.updateAgentIn == nil {
-		return localVarReturnValue, nil, reportError("updateAgentIn is required and must be specified")
+	if r.agentUpdateAgentIn == nil {
+		return localVarReturnValue, nil, reportError("agentUpdateAgentIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2379,7 +3813,7 @@ func (a *AgentAPIService) PatchAgentByRefExecute(r AgentAPIPatchAgentByRefReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2387,7 +3821,7 @@ func (a *AgentAPIService) PatchAgentByRefExecute(r AgentAPIPatchAgentByRefReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateAgentIn
+	localVarPostBody = r.agentUpdateAgentIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2410,6 +3844,14 @@ func (a *AgentAPIService) PatchAgentByRefExecute(r AgentAPIPatchAgentByRefReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2426,18 +3868,18 @@ func (a *AgentAPIService) PatchAgentByRefExecute(r AgentAPIPatchAgentByRefReques
 }
 
 type AgentAPIPatchAgentSessionsByIdRequest struct {
-	ctx            context.Context
-	ApiService     *AgentAPIService
-	id             string
-	patchSessionIn *PatchSessionIn
+	ctx                 context.Context
+	ApiService          *AgentAPIService
+	id                  string
+	agentPatchSessionIn *AgentPatchSessionIn
 }
 
-func (r AgentAPIPatchAgentSessionsByIdRequest) PatchSessionIn(patchSessionIn PatchSessionIn) AgentAPIPatchAgentSessionsByIdRequest {
-	r.patchSessionIn = &patchSessionIn
+func (r AgentAPIPatchAgentSessionsByIdRequest) AgentPatchSessionIn(agentPatchSessionIn AgentPatchSessionIn) AgentAPIPatchAgentSessionsByIdRequest {
+	r.agentPatchSessionIn = &agentPatchSessionIn
 	return r
 }
 
-func (r AgentAPIPatchAgentSessionsByIdRequest) Execute() (*SessionView, *http.Response, error) {
+func (r AgentAPIPatchAgentSessionsByIdRequest) Execute() (*AgentSessionView, *http.Response, error) {
 	return r.ApiService.PatchAgentSessionsByIdExecute(r)
 }
 
@@ -2465,13 +3907,13 @@ func (a *AgentAPIService) PatchAgentSessionsById(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return SessionView
-func (a *AgentAPIService) PatchAgentSessionsByIdExecute(r AgentAPIPatchAgentSessionsByIdRequest) (*SessionView, *http.Response, error) {
+//	@return AgentSessionView
+func (a *AgentAPIService) PatchAgentSessionsByIdExecute(r AgentAPIPatchAgentSessionsByIdRequest) (*AgentSessionView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SessionView
+		localVarReturnValue *AgentSessionView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PatchAgentSessionsById")
@@ -2485,8 +3927,8 @@ func (a *AgentAPIService) PatchAgentSessionsByIdExecute(r AgentAPIPatchAgentSess
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.patchSessionIn == nil {
-		return localVarReturnValue, nil, reportError("patchSessionIn is required and must be specified")
+	if r.agentPatchSessionIn == nil {
+		return localVarReturnValue, nil, reportError("agentPatchSessionIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2499,7 +3941,7 @@ func (a *AgentAPIService) PatchAgentSessionsByIdExecute(r AgentAPIPatchAgentSess
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2507,7 +3949,7 @@ func (a *AgentAPIService) PatchAgentSessionsByIdExecute(r AgentAPIPatchAgentSess
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.patchSessionIn
+	localVarPostBody = r.agentPatchSessionIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2530,6 +3972,14 @@ func (a *AgentAPIService) PatchAgentSessionsByIdExecute(r AgentAPIPatchAgentSess
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2546,18 +3996,18 @@ func (a *AgentAPIService) PatchAgentSessionsByIdExecute(r AgentAPIPatchAgentSess
 }
 
 type AgentAPIPatchAgentTargetsByIdRequest struct {
-	ctx           context.Context
-	ApiService    *AgentAPIService
-	id            string
-	patchTargetIn *PatchTargetIn
+	ctx                context.Context
+	ApiService         *AgentAPIService
+	id                 string
+	agentPatchTargetIn *AgentPatchTargetIn
 }
 
-func (r AgentAPIPatchAgentTargetsByIdRequest) PatchTargetIn(patchTargetIn PatchTargetIn) AgentAPIPatchAgentTargetsByIdRequest {
-	r.patchTargetIn = &patchTargetIn
+func (r AgentAPIPatchAgentTargetsByIdRequest) AgentPatchTargetIn(agentPatchTargetIn AgentPatchTargetIn) AgentAPIPatchAgentTargetsByIdRequest {
+	r.agentPatchTargetIn = &agentPatchTargetIn
 	return r
 }
 
-func (r AgentAPIPatchAgentTargetsByIdRequest) Execute() (*TargetView, *http.Response, error) {
+func (r AgentAPIPatchAgentTargetsByIdRequest) Execute() (*AgentTargetView, *http.Response, error) {
 	return r.ApiService.PatchAgentTargetsByIdExecute(r)
 }
 
@@ -2582,13 +4032,13 @@ func (a *AgentAPIService) PatchAgentTargetsById(ctx context.Context, id string) 
 
 // Execute executes the request
 //
-//	@return TargetView
-func (a *AgentAPIService) PatchAgentTargetsByIdExecute(r AgentAPIPatchAgentTargetsByIdRequest) (*TargetView, *http.Response, error) {
+//	@return AgentTargetView
+func (a *AgentAPIService) PatchAgentTargetsByIdExecute(r AgentAPIPatchAgentTargetsByIdRequest) (*AgentTargetView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TargetView
+		localVarReturnValue *AgentTargetView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PatchAgentTargetsById")
@@ -2602,8 +4052,8 @@ func (a *AgentAPIService) PatchAgentTargetsByIdExecute(r AgentAPIPatchAgentTarge
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.patchTargetIn == nil {
-		return localVarReturnValue, nil, reportError("patchTargetIn is required and must be specified")
+	if r.agentPatchTargetIn == nil {
+		return localVarReturnValue, nil, reportError("agentPatchTargetIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2616,7 +4066,7 @@ func (a *AgentAPIService) PatchAgentTargetsByIdExecute(r AgentAPIPatchAgentTarge
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2624,7 +4074,7 @@ func (a *AgentAPIService) PatchAgentTargetsByIdExecute(r AgentAPIPatchAgentTarge
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.patchTargetIn
+	localVarPostBody = r.agentPatchTargetIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2647,6 +4097,14 @@ func (a *AgentAPIService) PatchAgentTargetsByIdExecute(r AgentAPIPatchAgentTarge
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2663,17 +4121,17 @@ func (a *AgentAPIService) PatchAgentTargetsByIdExecute(r AgentAPIPatchAgentTarge
 }
 
 type AgentAPIPostAgentRequest struct {
-	ctx           context.Context
-	ApiService    *AgentAPIService
-	createAgentIn *CreateAgentIn
+	ctx                context.Context
+	ApiService         *AgentAPIService
+	agentCreateAgentIn *AgentCreateAgentIn
 }
 
-func (r AgentAPIPostAgentRequest) CreateAgentIn(createAgentIn CreateAgentIn) AgentAPIPostAgentRequest {
-	r.createAgentIn = &createAgentIn
+func (r AgentAPIPostAgentRequest) AgentCreateAgentIn(agentCreateAgentIn AgentCreateAgentIn) AgentAPIPostAgentRequest {
+	r.agentCreateAgentIn = &agentCreateAgentIn
 	return r
 }
 
-func (r AgentAPIPostAgentRequest) Execute() (*AgentView, *http.Response, error) {
+func (r AgentAPIPostAgentRequest) Execute() (*AgentAgentView, *http.Response, error) {
 	return r.ApiService.PostAgentExecute(r)
 }
 
@@ -2687,7 +4145,9 @@ deployment's configured default; a named one is checked against the gateway's
 served catalog, so a model this deployment never serves is refused here rather
 than failing at run time. A long-running agent must carry a 5-field cron
 schedule (the scheduler would otherwise never fire it) and counts against a
-per-org cap on scheduled agents.
+per-org cap on scheduled agents. An agent spawned by another names it as its
+parent; the parent must be an agent of the caller's org, and the new agent
+carries its whole lineage.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AgentAPIPostAgentRequest
@@ -2701,13 +4161,13 @@ func (a *AgentAPIService) PostAgent(ctx context.Context) AgentAPIPostAgentReques
 
 // Execute executes the request
 //
-//	@return AgentView
-func (a *AgentAPIService) PostAgentExecute(r AgentAPIPostAgentRequest) (*AgentView, *http.Response, error) {
+//	@return AgentAgentView
+func (a *AgentAPIService) PostAgentExecute(r AgentAPIPostAgentRequest) (*AgentAgentView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AgentView
+		localVarReturnValue *AgentAgentView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgent")
@@ -2720,8 +4180,8 @@ func (a *AgentAPIService) PostAgentExecute(r AgentAPIPostAgentRequest) (*AgentVi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createAgentIn == nil {
-		return localVarReturnValue, nil, reportError("createAgentIn is required and must be specified")
+	if r.agentCreateAgentIn == nil {
+		return localVarReturnValue, nil, reportError("agentCreateAgentIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2734,7 +4194,7 @@ func (a *AgentAPIService) PostAgentExecute(r AgentAPIPostAgentRequest) (*AgentVi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2742,7 +4202,7 @@ func (a *AgentAPIService) PostAgentExecute(r AgentAPIPostAgentRequest) (*AgentVi
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createAgentIn
+	localVarPostBody = r.agentCreateAgentIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2765,6 +4225,14 @@ func (a *AgentAPIService) PostAgentExecute(r AgentAPIPostAgentRequest) (*AgentVi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2778,6 +4246,96 @@ func (a *AgentAPIService) PostAgentExecute(r AgentAPIPostAgentRequest) (*AgentVi
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIPostAgentAskRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+}
+
+func (r AgentAPIPostAgentAskRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAgentAskExecute(r)
+}
+
+/*
+PostAgentAsk The MCP server a coding run's harness asks its person through.
+
+Speaks MCP over streamable HTTP and serves one tool, ask_user: a question and 2 to 8 options, shown as buttons in the run's thread, answered by the person the run is for. The call waits for the answer, up to 30 minutes, streaming as text/event-stream with a comment every 15 seconds, and returns it as the tool's result, or says none came.
+
+The caller is a coding run, not a tenant: the request carries the run's ticket in X-Hanzo-Run and no bearer. The ticket is minted for one run, opens this server and nothing else, names the run the question belongs to, and ends with the run. A request without a live ticket is 401, and any tool but ask_user is refused.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AgentAPIPostAgentAskRequest
+*/
+func (a *AgentAPIService) PostAgentAsk(ctx context.Context) AgentAPIPostAgentAskRequest {
+	return AgentAPIPostAgentAskRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AgentAPIService) PostAgentAskExecute(r AgentAPIPostAgentAskRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentAsk")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/ask"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type AgentAPIPostAgentByRefRunRequest struct {
@@ -2986,7 +4544,7 @@ PostAgentChatConversations Record turns in a conversation
 
 Writes turns to the caller's thread store without running a completion, and answers the `conversationId` they were written under. An absent `conversationId` opens a new thread; supplying one appends to it.
 
-This is for a client that streams its own turn through /v1/chat/completions and still wants the conversation in its history — the round records what IT answers, and is otherwise the only writer. It takes the same store, the same per-org isolation and the same notion of a thread: what is recorded here reads back through the two GETs beside it and the round can continue it by id. A validated principal with a non-empty org is required; 403 without one.
+This is for a client that streams its own turn through /v1/chat/completions and still wants the conversation in its history — the round records what IT answers, and is otherwise the only writer. It takes the same store, the same per-org isolation and the same notion of a thread: what is recorded here reads back through the two GETs beside it and the round can continue it by id. A validated principal with a non-empty org is required: 401 without a principal, 403 without an org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AgentAPIPostAgentChatConversationsRequest
@@ -3062,23 +4620,231 @@ func (a *AgentAPIService) PostAgentChatConversationsExecute(r AgentAPIPostAgentC
 	return localVarHTTPResponse, nil
 }
 
-type AgentAPIPostAgentCodingRequest struct {
-	ctx           context.Context
-	ApiService    *AgentAPIService
-	codingStartIn *CodingStartIn
+type AgentAPIPostAgentChatConversationsByIdSharesRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	id         string
 }
 
-func (r AgentAPIPostAgentCodingRequest) CodingStartIn(codingStartIn CodingStartIn) AgentAPIPostAgentCodingRequest {
-	r.codingStartIn = &codingStartIn
+func (r AgentAPIPostAgentChatConversationsByIdSharesRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAgentChatConversationsByIdSharesExecute(r)
+}
+
+/*
+PostAgentChatConversationsByIdShares Share one of your conversations by link
+
+Makes a read-only link to a conversation the caller owns and answers the share and its `token`. The token is 256 random bits and is returned ONCE: the store keeps only its SHA-256, so a lost token is replaced by making another share, never read back. The token names the chat and authenticates nobody.
+
+A share is a snapshot of the user and assistant turns up to the moment it was made. System turns, tool calls and tool results are never part of it, and turns added later need a new share. Only the member who opened the conversation may share it; anyone else — and anyone at all for a conversation recorded with no member — is answered 404. Every share made is written to the audit trail.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return AgentAPIPostAgentChatConversationsByIdSharesRequest
+*/
+func (a *AgentAPIService) PostAgentChatConversationsByIdShares(ctx context.Context, id string) AgentAPIPostAgentChatConversationsByIdSharesRequest {
+	return AgentAPIPostAgentChatConversationsByIdSharesRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *AgentAPIService) PostAgentChatConversationsByIdSharesExecute(r AgentAPIPostAgentChatConversationsByIdSharesRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentChatConversationsByIdShares")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/chat/conversations/{id}/shares"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AgentAPIPostAgentChatSharesReadRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+}
+
+func (r AgentAPIPostAgentChatSharesReadRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAgentChatSharesReadExecute(r)
+}
+
+/*
+PostAgentChatSharesRead Open a conversation shared by link
+
+Takes `{token}` in the body, so the token never sits in a URL a log keeps. A caller who is not a signed-in person gets the title and `full: false`, and no turn of the transcript — which is what a sign-in prompt shows. A signed-in person, of any org, is recorded as a viewer the owner can see, and reads the whole snapshot with the share's id; the reader's own org is neither read nor changed. An assistant turn carries `model` only when this server stored it from that model's completion. A token that does not open — malformed, unknown, revoked, or closed to this viewer — is answered 404 with one sentence for all.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AgentAPIPostAgentChatSharesReadRequest
+*/
+func (a *AgentAPIService) PostAgentChatSharesRead(ctx context.Context) AgentAPIPostAgentChatSharesReadRequest {
+	return AgentAPIPostAgentChatSharesReadRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AgentAPIService) PostAgentChatSharesReadExecute(r AgentAPIPostAgentChatSharesReadRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentChatSharesRead")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/chat/shares/read"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AgentAPIPostAgentCodingRequest struct {
+	ctx                context.Context
+	ApiService         *AgentAPIService
+	agentCodingStartIn *AgentCodingStartIn
+}
+
+func (r AgentAPIPostAgentCodingRequest) AgentCodingStartIn(agentCodingStartIn AgentCodingStartIn) AgentAPIPostAgentCodingRequest {
+	r.agentCodingStartIn = &agentCodingStartIn
 	return r
 }
 
-func (r AgentAPIPostAgentCodingRequest) Execute() (*CodingStarted, *http.Response, error) {
+func (r AgentAPIPostAgentCodingRequest) Execute() (*AgentCodingStarted, *http.Response, error) {
 	return r.ApiService.PostAgentCodingExecute(r)
 }
 
 /*
 PostAgentCoding Start one autonomous coding run against a repo in the caller's org
+
+Runs a coding task on a repository: clones it into a sandbox, lets a model read
+and edit the code, run the tests, and push the work to a branch. Say the thing
+you want done — "fix the failing auth test in hanzoai/cloud" — and the run
+infers the repo, the branch and the plan. No prefix, no ceremony.
+
+Name no repo and the run works in an empty workspace of its own: nothing is
+cloned and nothing is pushed, and what it makes is kept in its sandbox and as
+its artifacts. Name a repository the caller can read and not push to — a public
+one — and it is cloned read-only, the same way.
+
+It answers 202 with the run's handle the moment the run is ADMITTED — not when
+it finishes. A coding run takes minutes; holding a request open for one would
+tie a connection to a model loop and give the caller nothing it cannot get
+better from the session stream.
+
+The handle is a session id, and that is deliberate: the session is already the
+run's durable record and its live stream (/v1/agent/sessions/stream?root=<id>), so
+this op does not grow a progress endpoint, a status endpoint or a cancel
+endpoint of its own. One way to watch a run, whoever started it.
+
+It is also how work CONTINUES. Pass an earlier run's session as `after` and
+this one starts from where that one stopped, so "now add tests for it" builds
+on the branch already pushed instead of a fresh clone. The follow-up still gets
+its own branch and its own session — one run, one branch, always reviewable on
+its own.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AgentAPIPostAgentCodingRequest
@@ -3092,13 +4858,13 @@ func (a *AgentAPIService) PostAgentCoding(ctx context.Context) AgentAPIPostAgent
 
 // Execute executes the request
 //
-//	@return CodingStarted
-func (a *AgentAPIService) PostAgentCodingExecute(r AgentAPIPostAgentCodingRequest) (*CodingStarted, *http.Response, error) {
+//	@return AgentCodingStarted
+func (a *AgentAPIService) PostAgentCodingExecute(r AgentAPIPostAgentCodingRequest) (*AgentCodingStarted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CodingStarted
+		localVarReturnValue *AgentCodingStarted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentCoding")
@@ -3111,8 +4877,8 @@ func (a *AgentAPIService) PostAgentCodingExecute(r AgentAPIPostAgentCodingReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.codingStartIn == nil {
-		return localVarReturnValue, nil, reportError("codingStartIn is required and must be specified")
+	if r.agentCodingStartIn == nil {
+		return localVarReturnValue, nil, reportError("agentCodingStartIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3125,7 +4891,7 @@ func (a *AgentAPIService) PostAgentCodingExecute(r AgentAPIPostAgentCodingReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3133,7 +4899,7 @@ func (a *AgentAPIService) PostAgentCodingExecute(r AgentAPIPostAgentCodingReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.codingStartIn
+	localVarPostBody = r.agentCodingStartIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3156,6 +4922,14 @@ func (a *AgentAPIService) PostAgentCodingExecute(r AgentAPIPostAgentCodingReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3171,18 +4945,232 @@ func (a *AgentAPIService) PostAgentCodingExecute(r AgentAPIPostAgentCodingReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type AgentAPIPostAgentSessionsRequest struct {
-	ctx         context.Context
-	ApiService  *AgentAPIService
-	registerReq *RegisterReq
+type AgentAPIPostAgentCodingBySessionMergeRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	session    string
 }
 
-func (r AgentAPIPostAgentSessionsRequest) RegisterReq(registerReq RegisterReq) AgentAPIPostAgentSessionsRequest {
-	r.registerReq = &registerReq
+func (r AgentAPIPostAgentCodingBySessionMergeRequest) Execute() (*AgentCodingMerged, *http.Response, error) {
+	return r.ApiService.PostAgentCodingBySessionMergeExecute(r)
+}
+
+/*
+PostAgentCodingBySessionMerge Merges a coding run's pull request into the branch it proposes into, on the forge the run pushed to, and answers the pull request after.
+
+Merges a coding run's pull request into the branch it proposes into, on the
+forge the run pushed to, and answers the pull request after.
+
+The caller must be able to read the run: its person, or an admin of its org.
+What lands is the run's branch at the commit the forge holds when this asks —
+a push after that is refused, not merged unseen — and nothing is forced: a
+pull request that conflicts, was closed, or that a rule on its base keeps
+from merging is 409 with the forge's reason. One already merged answers as
+it is.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param session Session is the run's handle — the sessionId POST /v1/agent/coding answered with — from the path.
+	@return AgentAPIPostAgentCodingBySessionMergeRequest
+*/
+func (a *AgentAPIService) PostAgentCodingBySessionMerge(ctx context.Context, session string) AgentAPIPostAgentCodingBySessionMergeRequest {
+	return AgentAPIPostAgentCodingBySessionMergeRequest{
+		ApiService: a,
+		ctx:        ctx,
+		session:    session,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AgentCodingMerged
+func (a *AgentAPIService) PostAgentCodingBySessionMergeExecute(r AgentAPIPostAgentCodingBySessionMergeRequest) (*AgentCodingMerged, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AgentCodingMerged
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentCodingBySessionMerge")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/coding/{session}/merge"
+	localVarPath = strings.Replace(localVarPath, "{"+"session"+"}", url.PathEscape(parameterValueToString(r.session, "session")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIPostAgentMcpByServerRequest struct {
+	ctx        context.Context
+	ApiService *AgentAPIService
+	server     string
+}
+
+func (r AgentAPIPostAgentMcpByServerRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAgentMcpByServerExecute(r)
+}
+
+/*
+PostAgentMcpByServer The MCP address a coding run's harness reaches one of its org's MCP servers through.
+
+Speaks MCP over streamable HTTP for one of the org's MCP servers, named by its id: tools/list answers the tools of it an admin of the org activated, and tools/call calls one. The server's address and credential never reach the run: the tool plane adds the credential and dials the server.
+
+The caller is a coding run, not a tenant: the request carries the run's ticket in X-Hanzo-Run and no bearer. A request without a live ticket is 401, and a server the run's kit did not carry when it started is 403. A run has at most four requests in flight here and twenty in a burst, then one a second; a request past that is 429 with Retry-After.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param server
+	@return AgentAPIPostAgentMcpByServerRequest
+*/
+func (a *AgentAPIService) PostAgentMcpByServer(ctx context.Context, server string) AgentAPIPostAgentMcpByServerRequest {
+	return AgentAPIPostAgentMcpByServerRequest{
+		ApiService: a,
+		ctx:        ctx,
+		server:     server,
+	}
+}
+
+// Execute executes the request
+func (a *AgentAPIService) PostAgentMcpByServerExecute(r AgentAPIPostAgentMcpByServerRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentMcpByServer")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/mcp/{server}"
+	localVarPath = strings.Replace(localVarPath, "{"+"server"+"}", url.PathEscape(parameterValueToString(r.server, "server")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AgentAPIPostAgentSessionsRequest struct {
+	ctx              context.Context
+	ApiService       *AgentAPIService
+	agentRegisterReq *AgentRegisterReq
+}
+
+func (r AgentAPIPostAgentSessionsRequest) AgentRegisterReq(agentRegisterReq AgentRegisterReq) AgentAPIPostAgentSessionsRequest {
+	r.agentRegisterReq = &agentRegisterReq
 	return r
 }
 
-func (r AgentAPIPostAgentSessionsRequest) Execute() (*SessionView, *http.Response, error) {
+func (r AgentAPIPostAgentSessionsRequest) Execute() (*AgentSessionView, *http.Response, error) {
 	return r.ApiService.PostAgentSessionsExecute(r)
 }
 
@@ -3208,13 +5196,13 @@ func (a *AgentAPIService) PostAgentSessions(ctx context.Context) AgentAPIPostAge
 
 // Execute executes the request
 //
-//	@return SessionView
-func (a *AgentAPIService) PostAgentSessionsExecute(r AgentAPIPostAgentSessionsRequest) (*SessionView, *http.Response, error) {
+//	@return AgentSessionView
+func (a *AgentAPIService) PostAgentSessionsExecute(r AgentAPIPostAgentSessionsRequest) (*AgentSessionView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SessionView
+		localVarReturnValue *AgentSessionView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessions")
@@ -3227,8 +5215,8 @@ func (a *AgentAPIService) PostAgentSessionsExecute(r AgentAPIPostAgentSessionsRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.registerReq == nil {
-		return localVarReturnValue, nil, reportError("registerReq is required and must be specified")
+	if r.agentRegisterReq == nil {
+		return localVarReturnValue, nil, reportError("agentRegisterReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3241,7 +5229,7 @@ func (a *AgentAPIService) PostAgentSessionsExecute(r AgentAPIPostAgentSessionsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3249,7 +5237,7 @@ func (a *AgentAPIService) PostAgentSessionsExecute(r AgentAPIPostAgentSessionsRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.registerReq
+	localVarPostBody = r.agentRegisterReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3272,6 +5260,144 @@ func (a *AgentAPIService) PostAgentSessionsExecute(r AgentAPIPostAgentSessionsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AgentAPIPostAgentSessionsByIdBudgetRequest struct {
+	ctx                  context.Context
+	ApiService           *AgentAPIService
+	id                   string
+	agentSessionBudgetIn *AgentSessionBudgetIn
+}
+
+func (r AgentAPIPostAgentSessionsByIdBudgetRequest) AgentSessionBudgetIn(agentSessionBudgetIn AgentSessionBudgetIn) AgentAPIPostAgentSessionsByIdBudgetRequest {
+	r.agentSessionBudgetIn = &agentSessionBudgetIn
+	return r
+}
+
+func (r AgentAPIPostAgentSessionsByIdBudgetRequest) Execute() (*AgentSessionBudgetView, *http.Response, error) {
+	return r.ApiService.PostAgentSessionsByIdBudgetExecute(r)
+}
+
+/*
+PostAgentSessionsByIdBudget Sets, raises, or removes a session's cap.
+
+Sets, raises, or removes a session's cap.
+
+  - a replacement must be strictly greater than what the session has consumed
+
+  - removal is one-way: a session whose cap was removed cannot take one again,
+    and a session created without one cannot be given one
+
+  - raising or removing the cap resumes work that paused at it
+
+    @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+    @param id ID is the session, from the path.
+    @return AgentAPIPostAgentSessionsByIdBudgetRequest
+*/
+func (a *AgentAPIService) PostAgentSessionsByIdBudget(ctx context.Context, id string) AgentAPIPostAgentSessionsByIdBudgetRequest {
+	return AgentAPIPostAgentSessionsByIdBudgetRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AgentSessionBudgetView
+func (a *AgentAPIService) PostAgentSessionsByIdBudgetExecute(r AgentAPIPostAgentSessionsByIdBudgetRequest) (*AgentSessionBudgetView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AgentSessionBudgetView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessionsByIdBudget")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/agent/sessions/{id}/budget"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.agentSessionBudgetIn == nil {
+		return localVarReturnValue, nil, reportError("agentSessionBudgetIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.agentSessionBudgetIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3288,18 +5414,18 @@ func (a *AgentAPIService) PostAgentSessionsExecute(r AgentAPIPostAgentSessionsRe
 }
 
 type AgentAPIPostAgentSessionsByIdEventsRequest struct {
-	ctx        context.Context
-	ApiService *AgentAPIService
-	id         string
-	eventIn    *EventIn
+	ctx          context.Context
+	ApiService   *AgentAPIService
+	id           string
+	agentEventIn *AgentEventIn
 }
 
-func (r AgentAPIPostAgentSessionsByIdEventsRequest) EventIn(eventIn EventIn) AgentAPIPostAgentSessionsByIdEventsRequest {
-	r.eventIn = &eventIn
+func (r AgentAPIPostAgentSessionsByIdEventsRequest) AgentEventIn(agentEventIn AgentEventIn) AgentAPIPostAgentSessionsByIdEventsRequest {
+	r.agentEventIn = &agentEventIn
 	return r
 }
 
-func (r AgentAPIPostAgentSessionsByIdEventsRequest) Execute() (*EventView, *http.Response, error) {
+func (r AgentAPIPostAgentSessionsByIdEventsRequest) Execute() (*AgentEventView, *http.Response, error) {
 	return r.ApiService.PostAgentSessionsByIdEventsExecute(r)
 }
 
@@ -3334,13 +5460,13 @@ func (a *AgentAPIService) PostAgentSessionsByIdEvents(ctx context.Context, id st
 
 // Execute executes the request
 //
-//	@return EventView
-func (a *AgentAPIService) PostAgentSessionsByIdEventsExecute(r AgentAPIPostAgentSessionsByIdEventsRequest) (*EventView, *http.Response, error) {
+//	@return AgentEventView
+func (a *AgentAPIService) PostAgentSessionsByIdEventsExecute(r AgentAPIPostAgentSessionsByIdEventsRequest) (*AgentEventView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EventView
+		localVarReturnValue *AgentEventView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessionsByIdEvents")
@@ -3354,8 +5480,8 @@ func (a *AgentAPIService) PostAgentSessionsByIdEventsExecute(r AgentAPIPostAgent
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.eventIn == nil {
-		return localVarReturnValue, nil, reportError("eventIn is required and must be specified")
+	if r.agentEventIn == nil {
+		return localVarReturnValue, nil, reportError("agentEventIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3368,7 +5494,7 @@ func (a *AgentAPIService) PostAgentSessionsByIdEventsExecute(r AgentAPIPostAgent
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3376,7 +5502,7 @@ func (a *AgentAPIService) PostAgentSessionsByIdEventsExecute(r AgentAPIPostAgent
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.eventIn
+	localVarPostBody = r.agentEventIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3399,6 +5525,14 @@ func (a *AgentAPIService) PostAgentSessionsByIdEventsExecute(r AgentAPIPostAgent
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3415,18 +5549,18 @@ func (a *AgentAPIService) PostAgentSessionsByIdEventsExecute(r AgentAPIPostAgent
 }
 
 type AgentAPIPostAgentSessionsByIdMessageRequest struct {
-	ctx        context.Context
-	ApiService *AgentAPIService
-	id         string
-	controlIn  *ControlIn
+	ctx            context.Context
+	ApiService     *AgentAPIService
+	id             string
+	agentControlIn *AgentControlIn
 }
 
-func (r AgentAPIPostAgentSessionsByIdMessageRequest) ControlIn(controlIn ControlIn) AgentAPIPostAgentSessionsByIdMessageRequest {
-	r.controlIn = &controlIn
+func (r AgentAPIPostAgentSessionsByIdMessageRequest) AgentControlIn(agentControlIn AgentControlIn) AgentAPIPostAgentSessionsByIdMessageRequest {
+	r.agentControlIn = &agentControlIn
 	return r
 }
 
-func (r AgentAPIPostAgentSessionsByIdMessageRequest) Execute() (*ControlResult, *http.Response, error) {
+func (r AgentAPIPostAgentSessionsByIdMessageRequest) Execute() (*AgentControlResult, *http.Response, error) {
 	return r.ApiService.PostAgentSessionsByIdMessageExecute(r)
 }
 
@@ -3436,6 +5570,12 @@ PostAgentSessionsByIdMessage Sends a steering message to a running session — t
 Sends a steering message to a running session — the endpoint a
 human or another agent interrupts through. It requires a `message` or a
 `payload`; the other three commands do not.
+
+A chat turn's run READS it: the message is handed to the model as the person's
+next words at its next step, and a message that arrives while the model is
+writing its answer gets a step of its own before the answer stands. A turn that
+has already answered takes no more and answers 409 — what is said after an
+answer is a new turn.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to steer, from the path.
@@ -3451,13 +5591,13 @@ func (a *AgentAPIService) PostAgentSessionsByIdMessage(ctx context.Context, id s
 
 // Execute executes the request
 //
-//	@return ControlResult
-func (a *AgentAPIService) PostAgentSessionsByIdMessageExecute(r AgentAPIPostAgentSessionsByIdMessageRequest) (*ControlResult, *http.Response, error) {
+//	@return AgentControlResult
+func (a *AgentAPIService) PostAgentSessionsByIdMessageExecute(r AgentAPIPostAgentSessionsByIdMessageRequest) (*AgentControlResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ControlResult
+		localVarReturnValue *AgentControlResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessionsByIdMessage")
@@ -3471,8 +5611,8 @@ func (a *AgentAPIService) PostAgentSessionsByIdMessageExecute(r AgentAPIPostAgen
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.controlIn == nil {
-		return localVarReturnValue, nil, reportError("controlIn is required and must be specified")
+	if r.agentControlIn == nil {
+		return localVarReturnValue, nil, reportError("agentControlIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3485,7 +5625,7 @@ func (a *AgentAPIService) PostAgentSessionsByIdMessageExecute(r AgentAPIPostAgen
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3493,7 +5633,7 @@ func (a *AgentAPIService) PostAgentSessionsByIdMessageExecute(r AgentAPIPostAgen
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.controlIn
+	localVarPostBody = r.agentControlIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3516,6 +5656,14 @@ func (a *AgentAPIService) PostAgentSessionsByIdMessageExecute(r AgentAPIPostAgen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3532,18 +5680,18 @@ func (a *AgentAPIService) PostAgentSessionsByIdMessageExecute(r AgentAPIPostAgen
 }
 
 type AgentAPIPostAgentSessionsByIdPauseRequest struct {
-	ctx        context.Context
-	ApiService *AgentAPIService
-	id         string
-	controlIn  *ControlIn
+	ctx            context.Context
+	ApiService     *AgentAPIService
+	id             string
+	agentControlIn *AgentControlIn
 }
 
-func (r AgentAPIPostAgentSessionsByIdPauseRequest) ControlIn(controlIn ControlIn) AgentAPIPostAgentSessionsByIdPauseRequest {
-	r.controlIn = &controlIn
+func (r AgentAPIPostAgentSessionsByIdPauseRequest) AgentControlIn(agentControlIn AgentControlIn) AgentAPIPostAgentSessionsByIdPauseRequest {
+	r.agentControlIn = &agentControlIn
 	return r
 }
 
-func (r AgentAPIPostAgentSessionsByIdPauseRequest) Execute() (*ControlResult, *http.Response, error) {
+func (r AgentAPIPostAgentSessionsByIdPauseRequest) Execute() (*AgentControlResult, *http.Response, error) {
 	return r.ApiService.PostAgentSessionsByIdPauseExecute(r)
 }
 
@@ -3552,6 +5700,10 @@ PostAgentSessionsByIdPause Asks a running session to pause.
 
 Asks a running session to pause. Recorded durably, and forwarded
 to the durable-execution engine when the session is task-backed.
+
+A chat turn's run is paused where it runs: it stops, the session stays live as
+`paused`, and its sandbox is PARKED — the pod stops and every file stays, with
+nothing billed for compute — until a resume picks it up.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to steer, from the path.
@@ -3567,13 +5719,13 @@ func (a *AgentAPIService) PostAgentSessionsByIdPause(ctx context.Context, id str
 
 // Execute executes the request
 //
-//	@return ControlResult
-func (a *AgentAPIService) PostAgentSessionsByIdPauseExecute(r AgentAPIPostAgentSessionsByIdPauseRequest) (*ControlResult, *http.Response, error) {
+//	@return AgentControlResult
+func (a *AgentAPIService) PostAgentSessionsByIdPauseExecute(r AgentAPIPostAgentSessionsByIdPauseRequest) (*AgentControlResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ControlResult
+		localVarReturnValue *AgentControlResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessionsByIdPause")
@@ -3587,8 +5739,8 @@ func (a *AgentAPIService) PostAgentSessionsByIdPauseExecute(r AgentAPIPostAgentS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.controlIn == nil {
-		return localVarReturnValue, nil, reportError("controlIn is required and must be specified")
+	if r.agentControlIn == nil {
+		return localVarReturnValue, nil, reportError("agentControlIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3601,7 +5753,7 @@ func (a *AgentAPIService) PostAgentSessionsByIdPauseExecute(r AgentAPIPostAgentS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3609,7 +5761,7 @@ func (a *AgentAPIService) PostAgentSessionsByIdPauseExecute(r AgentAPIPostAgentS
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.controlIn
+	localVarPostBody = r.agentControlIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3632,6 +5784,14 @@ func (a *AgentAPIService) PostAgentSessionsByIdPauseExecute(r AgentAPIPostAgentS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3648,18 +5808,18 @@ func (a *AgentAPIService) PostAgentSessionsByIdPauseExecute(r AgentAPIPostAgentS
 }
 
 type AgentAPIPostAgentSessionsByIdResumeRequest struct {
-	ctx        context.Context
-	ApiService *AgentAPIService
-	id         string
-	controlIn  *ControlIn
+	ctx            context.Context
+	ApiService     *AgentAPIService
+	id             string
+	agentControlIn *AgentControlIn
 }
 
-func (r AgentAPIPostAgentSessionsByIdResumeRequest) ControlIn(controlIn ControlIn) AgentAPIPostAgentSessionsByIdResumeRequest {
-	r.controlIn = &controlIn
+func (r AgentAPIPostAgentSessionsByIdResumeRequest) AgentControlIn(agentControlIn AgentControlIn) AgentAPIPostAgentSessionsByIdResumeRequest {
+	r.agentControlIn = &agentControlIn
 	return r
 }
 
-func (r AgentAPIPostAgentSessionsByIdResumeRequest) Execute() (*ControlResult, *http.Response, error) {
+func (r AgentAPIPostAgentSessionsByIdResumeRequest) Execute() (*AgentControlResult, *http.Response, error) {
 	return r.ApiService.PostAgentSessionsByIdResumeExecute(r)
 }
 
@@ -3667,6 +5827,11 @@ func (r AgentAPIPostAgentSessionsByIdResumeRequest) Execute() (*ControlResult, *
 PostAgentSessionsByIdResume Asks a paused session to continue, on the same terms as a pause.
 
 Asks a paused session to continue, on the same terms as a pause.
+
+A chat turn that was paused or STOPPED runs again: the same session, in the same
+sandbox with every file it had written, told `message` next ("Continue where you
+left off." when there is none). Only the person whose turn it was may resume
+it, since the agent runs as them.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the session to steer, from the path.
@@ -3682,13 +5847,13 @@ func (a *AgentAPIService) PostAgentSessionsByIdResume(ctx context.Context, id st
 
 // Execute executes the request
 //
-//	@return ControlResult
-func (a *AgentAPIService) PostAgentSessionsByIdResumeExecute(r AgentAPIPostAgentSessionsByIdResumeRequest) (*ControlResult, *http.Response, error) {
+//	@return AgentControlResult
+func (a *AgentAPIService) PostAgentSessionsByIdResumeExecute(r AgentAPIPostAgentSessionsByIdResumeRequest) (*AgentControlResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ControlResult
+		localVarReturnValue *AgentControlResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessionsByIdResume")
@@ -3702,8 +5867,8 @@ func (a *AgentAPIService) PostAgentSessionsByIdResumeExecute(r AgentAPIPostAgent
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.controlIn == nil {
-		return localVarReturnValue, nil, reportError("controlIn is required and must be specified")
+	if r.agentControlIn == nil {
+		return localVarReturnValue, nil, reportError("agentControlIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3716,7 +5881,7 @@ func (a *AgentAPIService) PostAgentSessionsByIdResumeExecute(r AgentAPIPostAgent
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3724,7 +5889,7 @@ func (a *AgentAPIService) PostAgentSessionsByIdResumeExecute(r AgentAPIPostAgent
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.controlIn
+	localVarPostBody = r.agentControlIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3747,6 +5912,14 @@ func (a *AgentAPIService) PostAgentSessionsByIdResumeExecute(r AgentAPIPostAgent
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3763,18 +5936,18 @@ func (a *AgentAPIService) PostAgentSessionsByIdResumeExecute(r AgentAPIPostAgent
 }
 
 type AgentAPIPostAgentSessionsByIdStopRequest struct {
-	ctx        context.Context
-	ApiService *AgentAPIService
-	id         string
-	controlIn  *ControlIn
+	ctx            context.Context
+	ApiService     *AgentAPIService
+	id             string
+	agentControlIn *AgentControlIn
 }
 
-func (r AgentAPIPostAgentSessionsByIdStopRequest) ControlIn(controlIn ControlIn) AgentAPIPostAgentSessionsByIdStopRequest {
-	r.controlIn = &controlIn
+func (r AgentAPIPostAgentSessionsByIdStopRequest) AgentControlIn(agentControlIn AgentControlIn) AgentAPIPostAgentSessionsByIdStopRequest {
+	r.agentControlIn = &agentControlIn
 	return r
 }
 
-func (r AgentAPIPostAgentSessionsByIdStopRequest) Execute() (*ControlResult, *http.Response, error) {
+func (r AgentAPIPostAgentSessionsByIdStopRequest) Execute() (*AgentControlResult, *http.Response, error) {
 	return r.ApiService.PostAgentSessionsByIdStopExecute(r)
 }
 
@@ -3802,13 +5975,13 @@ func (a *AgentAPIService) PostAgentSessionsByIdStop(ctx context.Context, id stri
 
 // Execute executes the request
 //
-//	@return ControlResult
-func (a *AgentAPIService) PostAgentSessionsByIdStopExecute(r AgentAPIPostAgentSessionsByIdStopRequest) (*ControlResult, *http.Response, error) {
+//	@return AgentControlResult
+func (a *AgentAPIService) PostAgentSessionsByIdStopExecute(r AgentAPIPostAgentSessionsByIdStopRequest) (*AgentControlResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ControlResult
+		localVarReturnValue *AgentControlResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentSessionsByIdStop")
@@ -3822,8 +5995,8 @@ func (a *AgentAPIService) PostAgentSessionsByIdStopExecute(r AgentAPIPostAgentSe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.controlIn == nil {
-		return localVarReturnValue, nil, reportError("controlIn is required and must be specified")
+	if r.agentControlIn == nil {
+		return localVarReturnValue, nil, reportError("agentControlIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3836,7 +6009,7 @@ func (a *AgentAPIService) PostAgentSessionsByIdStopExecute(r AgentAPIPostAgentSe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3844,7 +6017,7 @@ func (a *AgentAPIService) PostAgentSessionsByIdStopExecute(r AgentAPIPostAgentSe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.controlIn
+	localVarPostBody = r.agentControlIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3867,6 +6040,14 @@ func (a *AgentAPIService) PostAgentSessionsByIdStopExecute(r AgentAPIPostAgentSe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3883,17 +6064,17 @@ func (a *AgentAPIService) PostAgentSessionsByIdStopExecute(r AgentAPIPostAgentSe
 }
 
 type AgentAPIPostAgentTargetsRequest struct {
-	ctx        context.Context
-	ApiService *AgentAPIService
-	targetReq  *TargetReq
+	ctx            context.Context
+	ApiService     *AgentAPIService
+	agentTargetReq *AgentTargetReq
 }
 
-func (r AgentAPIPostAgentTargetsRequest) TargetReq(targetReq TargetReq) AgentAPIPostAgentTargetsRequest {
-	r.targetReq = &targetReq
+func (r AgentAPIPostAgentTargetsRequest) AgentTargetReq(agentTargetReq AgentTargetReq) AgentAPIPostAgentTargetsRequest {
+	r.agentTargetReq = &agentTargetReq
 	return r
 }
 
-func (r AgentAPIPostAgentTargetsRequest) Execute() (*TargetView, *http.Response, error) {
+func (r AgentAPIPostAgentTargetsRequest) Execute() (*AgentTargetView, *http.Response, error) {
 	return r.ApiService.PostAgentTargetsExecute(r)
 }
 
@@ -3917,13 +6098,13 @@ func (a *AgentAPIService) PostAgentTargets(ctx context.Context) AgentAPIPostAgen
 
 // Execute executes the request
 //
-//	@return TargetView
-func (a *AgentAPIService) PostAgentTargetsExecute(r AgentAPIPostAgentTargetsRequest) (*TargetView, *http.Response, error) {
+//	@return AgentTargetView
+func (a *AgentAPIService) PostAgentTargetsExecute(r AgentAPIPostAgentTargetsRequest) (*AgentTargetView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TargetView
+		localVarReturnValue *AgentTargetView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentTargets")
@@ -3936,8 +6117,8 @@ func (a *AgentAPIService) PostAgentTargetsExecute(r AgentAPIPostAgentTargetsRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.targetReq == nil {
-		return localVarReturnValue, nil, reportError("targetReq is required and must be specified")
+	if r.agentTargetReq == nil {
+		return localVarReturnValue, nil, reportError("agentTargetReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3950,7 +6131,7 @@ func (a *AgentAPIService) PostAgentTargetsExecute(r AgentAPIPostAgentTargetsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3958,7 +6139,7 @@ func (a *AgentAPIService) PostAgentTargetsExecute(r AgentAPIPostAgentTargetsRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.targetReq
+	localVarPostBody = r.agentTargetReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3981,6 +6162,14 @@ func (a *AgentAPIService) PostAgentTargetsExecute(r AgentAPIPostAgentTargetsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -4002,7 +6191,7 @@ type AgentAPIPostAgentTargetsByIdClaimRequest struct {
 	id         string
 }
 
-func (r AgentAPIPostAgentTargetsByIdClaimRequest) Execute() (*RoutedRunOut, *http.Response, error) {
+func (r AgentAPIPostAgentTargetsByIdClaimRequest) Execute() (*AgentRoutedRunOut, *http.Response, error) {
 	return r.ApiService.PostAgentTargetsByIdClaimExecute(r)
 }
 
@@ -4033,13 +6222,13 @@ func (a *AgentAPIService) PostAgentTargetsByIdClaim(ctx context.Context, id stri
 
 // Execute executes the request
 //
-//	@return RoutedRunOut
-func (a *AgentAPIService) PostAgentTargetsByIdClaimExecute(r AgentAPIPostAgentTargetsByIdClaimRequest) (*RoutedRunOut, *http.Response, error) {
+//	@return AgentRoutedRunOut
+func (a *AgentAPIService) PostAgentTargetsByIdClaimExecute(r AgentAPIPostAgentTargetsByIdClaimRequest) (*AgentRoutedRunOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RoutedRunOut
+		localVarReturnValue *AgentRoutedRunOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentTargetsByIdClaim")
@@ -4064,7 +6253,7 @@ func (a *AgentAPIService) PostAgentTargetsByIdClaimExecute(r AgentAPIPostAgentTa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4093,6 +6282,14 @@ func (a *AgentAPIService) PostAgentTargetsByIdClaimExecute(r AgentAPIPostAgentTa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -4114,7 +6311,7 @@ type AgentAPIPostAgentTargetsByIdKeyRequest struct {
 	id         string
 }
 
-func (r AgentAPIPostAgentTargetsByIdKeyRequest) Execute() (*ClaimKeyOut, *http.Response, error) {
+func (r AgentAPIPostAgentTargetsByIdKeyRequest) Execute() (*AgentClaimKeyOut, *http.Response, error) {
 	return r.ApiService.PostAgentTargetsByIdKeyExecute(r)
 }
 
@@ -4141,13 +6338,13 @@ func (a *AgentAPIService) PostAgentTargetsByIdKey(ctx context.Context, id string
 
 // Execute executes the request
 //
-//	@return ClaimKeyOut
-func (a *AgentAPIService) PostAgentTargetsByIdKeyExecute(r AgentAPIPostAgentTargetsByIdKeyRequest) (*ClaimKeyOut, *http.Response, error) {
+//	@return AgentClaimKeyOut
+func (a *AgentAPIService) PostAgentTargetsByIdKeyExecute(r AgentAPIPostAgentTargetsByIdKeyRequest) (*AgentClaimKeyOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClaimKeyOut
+		localVarReturnValue *AgentClaimKeyOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentTargetsByIdKey")
@@ -4172,7 +6369,7 @@ func (a *AgentAPIService) PostAgentTargetsByIdKeyExecute(r AgentAPIPostAgentTarg
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4201,6 +6398,14 @@ func (a *AgentAPIService) PostAgentTargetsByIdKeyExecute(r AgentAPIPostAgentTarg
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -4217,19 +6422,19 @@ func (a *AgentAPIService) PostAgentTargetsByIdKeyExecute(r AgentAPIPostAgentTarg
 }
 
 type AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest struct {
-	ctx         context.Context
-	ApiService  *AgentAPIService
-	id          string
-	runId       string
-	reportRunIn *ReportRunIn
+	ctx              context.Context
+	ApiService       *AgentAPIService
+	id               string
+	runId            string
+	agentReportRunIn *AgentReportRunIn
 }
 
-func (r AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest) ReportRunIn(reportRunIn ReportRunIn) AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest {
-	r.reportRunIn = &reportRunIn
+func (r AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest) AgentReportRunIn(agentReportRunIn AgentReportRunIn) AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest {
+	r.agentReportRunIn = &agentReportRunIn
 	return r
 }
 
-func (r AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest) Execute() (*ReportOut, *http.Response, error) {
+func (r AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest) Execute() (*AgentReportOut, *http.Response, error) {
 	return r.ApiService.PostAgentTargetsByIdRunsByRunidReportExecute(r)
 }
 
@@ -4259,13 +6464,13 @@ func (a *AgentAPIService) PostAgentTargetsByIdRunsByRunidReport(ctx context.Cont
 
 // Execute executes the request
 //
-//	@return ReportOut
-func (a *AgentAPIService) PostAgentTargetsByIdRunsByRunidReportExecute(r AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest) (*ReportOut, *http.Response, error) {
+//	@return AgentReportOut
+func (a *AgentAPIService) PostAgentTargetsByIdRunsByRunidReportExecute(r AgentAPIPostAgentTargetsByIdRunsByRunidReportRequest) (*AgentReportOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ReportOut
+		localVarReturnValue *AgentReportOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentAPIService.PostAgentTargetsByIdRunsByRunidReport")
@@ -4280,8 +6485,8 @@ func (a *AgentAPIService) PostAgentTargetsByIdRunsByRunidReportExecute(r AgentAP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.reportRunIn == nil {
-		return localVarReturnValue, nil, reportError("reportRunIn is required and must be specified")
+	if r.agentReportRunIn == nil {
+		return localVarReturnValue, nil, reportError("agentReportRunIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -4294,7 +6499,7 @@ func (a *AgentAPIService) PostAgentTargetsByIdRunsByRunidReportExecute(r AgentAP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4302,7 +6507,7 @@ func (a *AgentAPIService) PostAgentTargetsByIdRunsByRunidReportExecute(r AgentAP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.reportRunIn
+	localVarPostBody = r.agentReportRunIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -4325,6 +6530,14 @@ func (a *AgentAPIService) PostAgentTargetsByIdRunsByRunidReportExecute(r AgentAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

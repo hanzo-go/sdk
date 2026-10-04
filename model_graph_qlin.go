@@ -19,10 +19,13 @@ var _ MappedNullable = &GraphQLIn{}
 
 // GraphQLIn struct for GraphQLIn
 type GraphQLIn struct {
-	OperationName *string     `json:"operationName,omitempty"`
-	Query         *string     `json:"query,omitempty"`
-	Variables     interface{} `json:"variables,omitempty"`
+	OperationName        *string     `json:"operationName,omitempty"`
+	Query                *string     `json:"query,omitempty"`
+	Variables            interface{} `json:"variables,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GraphQLIn GraphQLIn
 
 // NewGraphQLIn instantiates a new GraphQLIn object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o GraphQLIn) ToMap() (map[string]interface{}, error) {
 	if o.Variables != nil {
 		toSerialize["variables"] = o.Variables
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GraphQLIn) UnmarshalJSON(data []byte) (err error) {
+	varGraphQLIn := _GraphQLIn{}
+
+	err = json.Unmarshal(data, &varGraphQLIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GraphQLIn(varGraphQLIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "operationName")
+		delete(additionalProperties, "query")
+		delete(additionalProperties, "variables")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGraphQLIn struct {

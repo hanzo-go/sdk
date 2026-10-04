@@ -19,15 +19,18 @@ var _ MappedNullable = &ServiceDetail{}
 
 // ServiceDetail struct for ServiceDetail
 type ServiceDetail struct {
-	ClusterIP    *string       `json:"clusterIP,omitempty"`
-	CreatedTime  *string       `json:"createdTime,omitempty"`
-	ExternalHost *string       `json:"externalHost,omitempty"`
-	ExternalIP   *string       `json:"externalIP,omitempty"`
-	InternalHost *string       `json:"internalHost,omitempty"`
-	Name         *string       `json:"name,omitempty"`
-	Ports        []ServicePort `json:"ports,omitempty"`
-	Type         *string       `json:"type,omitempty"`
+	ClusterIP            *string       `json:"clusterIP,omitempty"`
+	CreatedTime          *string       `json:"createdTime,omitempty"`
+	ExternalHost         *string       `json:"externalHost,omitempty"`
+	ExternalIP           *string       `json:"externalIP,omitempty"`
+	InternalHost         *string       `json:"internalHost,omitempty"`
+	Name                 *string       `json:"name,omitempty"`
+	Ports                []ServicePort `json:"ports,omitempty"`
+	Type                 *string       `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServiceDetail ServiceDetail
 
 // NewServiceDetail instantiates a new ServiceDetail object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o ServiceDetail) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ServiceDetail) UnmarshalJSON(data []byte) (err error) {
+	varServiceDetail := _ServiceDetail{}
+
+	err = json.Unmarshal(data, &varServiceDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceDetail(varServiceDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "clusterIP")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "externalHost")
+		delete(additionalProperties, "externalIP")
+		delete(additionalProperties, "internalHost")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "ports")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServiceDetail struct {

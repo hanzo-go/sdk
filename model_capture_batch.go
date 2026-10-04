@@ -19,9 +19,12 @@ var _ MappedNullable = &CaptureBatch{}
 
 // CaptureBatch struct for CaptureBatch
 type CaptureBatch struct {
-	Batch  []CaptureEvent `json:"batch,omitempty"`
-	Events []CaptureEvent `json:"events,omitempty"`
+	Batch                []CaptureEvent `json:"batch,omitempty"`
+	Events               []CaptureEvent `json:"events,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CaptureBatch CaptureBatch
 
 // NewCaptureBatch instantiates a new CaptureBatch object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o CaptureBatch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Events) {
 		toSerialize["events"] = o.Events
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CaptureBatch) UnmarshalJSON(data []byte) (err error) {
+	varCaptureBatch := _CaptureBatch{}
+
+	err = json.Unmarshal(data, &varCaptureBatch)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CaptureBatch(varCaptureBatch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "batch")
+		delete(additionalProperties, "events")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCaptureBatch struct {

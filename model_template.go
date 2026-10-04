@@ -19,19 +19,22 @@ var _ MappedNullable = &Template{}
 
 // Template struct for Template
 type Template struct {
-	BasicConfigOptions []TemplateConfigOption `json:"basicConfigOptions,omitempty"`
-	CreatedTime        *string                `json:"createdTime,omitempty"`
-	Description        *string                `json:"description,omitempty"`
-	DisplayName        *string                `json:"displayName,omitempty"`
-	EnableBasicConfig  *bool                  `json:"enableBasicConfig,omitempty"`
-	Icon               *string                `json:"icon,omitempty"`
-	Manifest           *string                `json:"manifest,omitempty"`
-	Name               *string                `json:"name,omitempty"`
-	Owner              *string                `json:"owner,omitempty"`
-	Readme             *string                `json:"readme,omitempty"`
-	UpdatedTime        *string                `json:"updatedTime,omitempty"`
-	Version            *string                `json:"version,omitempty"`
+	BasicConfigOptions   []TemplateConfigOption `json:"basicConfigOptions,omitempty"`
+	CreatedTime          *string                `json:"createdTime,omitempty"`
+	Description          *string                `json:"description,omitempty"`
+	DisplayName          *string                `json:"displayName,omitempty"`
+	EnableBasicConfig    *bool                  `json:"enableBasicConfig,omitempty"`
+	Icon                 *string                `json:"icon,omitempty"`
+	Manifest             *string                `json:"manifest,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	Owner                *string                `json:"owner,omitempty"`
+	Readme               *string                `json:"readme,omitempty"`
+	UpdatedTime          *string                `json:"updatedTime,omitempty"`
+	Version              *string                `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Template Template
 
 // NewTemplate instantiates a new Template object
 // This constructor will assign default values to properties that have it defined,
@@ -480,7 +483,44 @@ func (o Template) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Template) UnmarshalJSON(data []byte) (err error) {
+	varTemplate := _Template{}
+
+	err = json.Unmarshal(data, &varTemplate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Template(varTemplate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "basicConfigOptions")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "enableBasicConfig")
+		delete(additionalProperties, "icon")
+		delete(additionalProperties, "manifest")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "readme")
+		delete(additionalProperties, "updatedTime")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTemplate struct {

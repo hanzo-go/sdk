@@ -19,10 +19,13 @@ var _ MappedNullable = &IamSamlItem{}
 
 // IamSamlItem struct for IamSamlItem
 type IamSamlItem struct {
-	Name       *string `json:"name,omitempty"`
-	NameFormat *string `json:"nameFormat,omitempty"`
-	Value      *string `json:"value,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	NameFormat           *string `json:"nameFormat,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamSamlItem IamSamlItem
 
 // NewIamSamlItem instantiates a new IamSamlItem object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o IamSamlItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamSamlItem) UnmarshalJSON(data []byte) (err error) {
+	varIamSamlItem := _IamSamlItem{}
+
+	err = json.Unmarshal(data, &varIamSamlItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamSamlItem(varIamSamlItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "nameFormat")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamSamlItem struct {

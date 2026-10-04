@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**GetGitByOrgByRepoInfoRefs**](GitAPI.md#GetGitByOrgByRepoInfoRefs) | **Get** /v1/git/{org}/{repo}/info/refs | Advertise a repository&#39;s refs to a git client
 [**GetGitExplore**](GitAPI.md#GetGitExplore) | **Get** /v1/git/explore | Discover public repositories across every org
 [**GetGitKeys**](GitAPI.md#GetGitKeys) | **Get** /v1/git/keys | Returns the SSH public keys registered to the caller&#39;s org — the keys that authenticate &#x60;git clone git@&lt;host&gt;:&lt;org&gt;/&lt;repo&gt;.git&#x60;.
+[**GetGitPools**](GitAPI.md#GetGitPools) | **Get** /v1/git/pools | Returns the capacity this org has declared and how many daemons have entered each pool.
 [**GetGitRepos**](GitAPI.md#GetGitRepos) | **Get** /v1/git/repos | Returns the repos in the caller&#39;s scope, most recently updated first.
 [**GetGitReposByName**](GitAPI.md#GetGitReposByName) | **Get** /v1/git/repos/{name} | Returns one repo with its live ref state: every branch name and the resolved HEAD commit.
 [**GetGitReposByNameBlob**](GitAPI.md#GetGitReposByNameBlob) | **Get** /v1/git/repos/{name}/blob | Returns one file&#39;s bytes at one revision.
@@ -27,13 +28,18 @@ Method | HTTP request | Description
 [**GetGitReposByNameSubscriptions**](GitAPI.md#GetGitReposByNameSubscriptions) | **Get** /v1/git/repos/{name}/subscriptions | Returns a repo&#39;s Slack subscriptions — which channels the lifecycle notifier posts this repo&#39;s push and deploy events to.
 [**GetGitReposByNameTargets**](GitAPI.md#GetGitReposByNameTargets) | **Get** /v1/git/repos/{name}/targets | Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
 [**GetGitReposByNameTree**](GitAPI.md#GetGitReposByNameTree) | **Get** /v1/git/repos/{name}/tree | Lists the immediate children of one directory at one revision, directories before files.
+[**GetGitRunners**](GitAPI.md#GetGitRunners) | **Get** /v1/git/runners | Returns the daemons registered into this org&#39;s pools, newest first, with when each was last heard from.
+[**GetGitRuns**](GitAPI.md#GetGitRuns) | **Get** /v1/git/runs | Returns this org&#39;s runs, newest first.
+[**GetGitRunsById**](GitAPI.md#GetGitRunsById) | **Get** /v1/git/runs/{id} | Returns one run.
 [**GetGitUsage**](GitAPI.md#GetGitUsage) | **Get** /v1/git/usage | Returns per-repo and total storage bytes for the caller&#39;s org — the queryable, per-tenant number commerce and o11y meter on.
+[**GetGitWorkflows**](GitAPI.md#GetGitWorkflows) | **Get** /v1/git/workflows | Reports the workflows a repository declares at a ref and which declared pool would execute each job — the answer to \&quot;would a push here run, and where\&quot;.
 [**PatchGitReposByName**](GitAPI.md#PatchGitReposByName) | **Patch** /v1/git/repos/{name} | Flips a repo&#39;s public bit, the one mutable repo setting today.
 [**PostGitByOrgByProjectByRepoGitReceivePack**](GitAPI.md#PostGitByOrgByProjectByRepoGitReceivePack) | **Post** /v1/git/{org}/{project}/{repo}/git-receive-pack | Accept a push, and turn it into a build
 [**PostGitByOrgByProjectByRepoGitUploadPack**](GitAPI.md#PostGitByOrgByProjectByRepoGitUploadPack) | **Post** /v1/git/{org}/{project}/{repo}/git-upload-pack | Serve a clone or fetch
 [**PostGitByOrgByRepoGitReceivePack**](GitAPI.md#PostGitByOrgByRepoGitReceivePack) | **Post** /v1/git/{org}/{repo}/git-receive-pack | Accept a push, and turn it into a build
 [**PostGitByOrgByRepoGitUploadPack**](GitAPI.md#PostGitByOrgByRepoGitUploadPack) | **Post** /v1/git/{org}/{repo}/git-upload-pack | Serve a clone or fetch
 [**PostGitKeys**](GitAPI.md#PostGitKeys) | **Post** /v1/git/keys | Registers an SSH public key so it can authenticate &#x60;git clone git@&lt;host&gt;:&lt;org&gt;/&lt;repo&gt;.git&#x60; for the caller&#39;s org.
+[**PostGitPools**](GitAPI.md#PostGitPools) | **Post** /v1/git/pools | Records the capacity an org has, and answers with the secret a runner daemon presents to enter it.
 [**PostGitRepos**](GitAPI.md#PostGitRepos) | **Post** /v1/git/repos | Provisions an empty bare repository in the caller&#39;s scope and returns it with its clone URLs.
 [**PostGitReposByNameGc**](GitAPI.md#PostGitReposByNameGc) | **Post** /v1/git/repos/{name}/gc | Repacks a repo into one bitmapped pack and rewrites its commit-graph, so the next clone reuses the bitmap instead of walking the whole object graph.
 [**PostGitReposByNameMirror**](GitAPI.md#PostGitReposByNameMirror) | **Post** /v1/git/repos/{name}/mirror | Imports an external git repository into the caller&#39;s repo, provisioning it on first use.
@@ -42,7 +48,13 @@ Method | HTTP request | Description
 [**PostGitReposByNamePush**](GitAPI.md#PostGitReposByNamePush) | **Post** /v1/git/repos/{name}/push | Lands a set of files as one commit without a git client — the hanzo.app builder&#39;s push.
 [**PostGitReposByNameSubscriptions**](GitAPI.md#PostGitReposByNameSubscriptions) | **Post** /v1/git/repos/{name}/subscriptions | Binds a Slack channel to a repo, so the lifecycle notifier posts that repo&#39;s push and deploy events there.
 [**PostGitReposByNameTargets**](GitAPI.md#PostGitReposByNameTargets) | **Post** /v1/git/repos/{name}/targets | Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
+[**PostGitRuns**](GitAPI.md#PostGitRuns) | **Post** /v1/git/runs | Runs a repository&#39;s workflows at a ref, on demand.
 [**PostGitWebhook**](GitAPI.md#PostGitWebhook) | **Post** /v1/git/webhook | Retired — push-to-deploy has no inbound webhook
+[**PostRunnerDeclare**](GitAPI.md#PostRunnerDeclare) | **Post** /v1/runner/declare | Republishes what a registered runner can do, and answers with what this side understands, so the two learn about each other from one exchange.
+[**PostRunnerLog**](GitAPI.md#PostRunnerLog) | **Post** /v1/runner/log | Adds console output to a task&#39;s log and answers with how far that log is durable, so the runner knows where to resend from.
+[**PostRunnerRegister**](GitAPI.md#PostRunnerRegister) | **Post** /v1/runner/register | Trades a pool&#39;s join secret for a runner identity and the token that authenticates every later call.
+[**PostRunnerState**](GitAPI.md#PostRunnerState) | **Post** /v1/runner/state | Records a task&#39;s progress and that of its steps, and answers with the result this side now holds — which is how a runner learns its task was stopped from somewhere else.
+[**PostRunnerTask**](GitAPI.md#PostRunnerTask) | **Post** /v1/runner/task | Hands the runner a job to execute, if its pool has one, and answers immediately either way.
 
 
 
@@ -107,7 +119,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -175,7 +187,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -246,7 +258,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -317,7 +329,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -731,7 +743,7 @@ Other parameters are passed through a pointer to a apiGetGitExploreRequest struc
 
 ## GetGitKeys
 
-> KeyList GetGitKeys(ctx).Execute()
+> GitKeyList GetGitKeys(ctx).Execute()
 
 Returns the SSH public keys registered to the caller's org — the keys that authenticate `git clone git@<host>:<org>/<repo>.git`.
 
@@ -758,7 +770,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitKeys`: KeyList
+	// response from `GetGitKeys`: GitKeyList
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitKeys`: %v\n", resp)
 }
 ```
@@ -774,7 +786,7 @@ Other parameters are passed through a pointer to a apiGetGitKeysRequest struct v
 
 ### Return type
 
-[**KeyList**](KeyList.md)
+[**GitKeyList**](GitKeyList.md)
 
 ### Authorization
 
@@ -783,7 +795,68 @@ Other parameters are passed through a pointer to a apiGetGitKeysRequest struct v
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetGitPools
+
+> GitPoolList GetGitPools(ctx).Execute()
+
+Returns the capacity this org has declared and how many daemons have entered each pool.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.GetGitPools(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitPools``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGitPools`: GitPoolList
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitPools`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitPoolsRequest struct via the builder pattern
+
+
+### Return type
+
+[**GitPoolList**](GitPoolList.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -792,7 +865,7 @@ Other parameters are passed through a pointer to a apiGetGitKeysRequest struct v
 
 ## GetGitRepos
 
-> RepoList GetGitRepos(ctx).Execute()
+> GitRepoList GetGitRepos(ctx).Execute()
 
 Returns the repos in the caller's scope, most recently updated first.
 
@@ -819,7 +892,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitRepos``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitRepos`: RepoList
+	// response from `GetGitRepos`: GitRepoList
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitRepos`: %v\n", resp)
 }
 ```
@@ -835,7 +908,7 @@ Other parameters are passed through a pointer to a apiGetGitReposRequest struct 
 
 ### Return type
 
-[**RepoList**](RepoList.md)
+[**GitRepoList**](GitRepoList.md)
 
 ### Authorization
 
@@ -844,7 +917,7 @@ Other parameters are passed through a pointer to a apiGetGitReposRequest struct 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -853,7 +926,7 @@ Other parameters are passed through a pointer to a apiGetGitReposRequest struct 
 
 ## GetGitReposByName
 
-> RepoView GetGitReposByName(ctx, name).Execute()
+> GitRepoView GetGitReposByName(ctx, name).Execute()
 
 Returns one repo with its live ref state: every branch name and the resolved HEAD commit.
 
@@ -881,7 +954,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitReposByName`: RepoView
+	// response from `GetGitReposByName`: GitRepoView
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByName`: %v\n", resp)
 }
 ```
@@ -905,7 +978,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RepoView**](RepoView.md)
+[**GitRepoView**](GitRepoView.md)
 
 ### Authorization
 
@@ -914,7 +987,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -923,7 +996,7 @@ Name | Type | Description  | Notes
 
 ## GetGitReposByNameBlob
 
-> BlobJSON GetGitReposByNameBlob(ctx, name).Ref(ref).Path(path).Execute()
+> GitBlobJSON GetGitReposByNameBlob(ctx, name).Ref(ref).Path(path).Execute()
 
 Returns one file's bytes at one revision.
 
@@ -953,7 +1026,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameBlob``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitReposByNameBlob`: BlobJSON
+	// response from `GetGitReposByNameBlob`: GitBlobJSON
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameBlob`: %v\n", resp)
 }
 ```
@@ -979,7 +1052,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BlobJSON**](BlobJSON.md)
+[**GitBlobJSON**](GitBlobJSON.md)
 
 ### Authorization
 
@@ -988,7 +1061,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -997,7 +1070,7 @@ Name | Type | Description  | Notes
 
 ## GetGitReposByNameCommits
 
-> CommitsJSON GetGitReposByNameCommits(ctx, name).Ref(ref).Path(path).Limit(limit).Execute()
+> GitCommitsJSON GetGitReposByNameCommits(ctx, name).Ref(ref).Path(path).Limit(limit).Execute()
 
 Walks a ref's history newest first, or one path's history when a path is given.
 
@@ -1028,7 +1101,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameCommits``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitReposByNameCommits`: CommitsJSON
+	// response from `GetGitReposByNameCommits`: GitCommitsJSON
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameCommits`: %v\n", resp)
 }
 ```
@@ -1055,7 +1128,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CommitsJSON**](CommitsJSON.md)
+[**GitCommitsJSON**](GitCommitsJSON.md)
 
 ### Authorization
 
@@ -1064,7 +1137,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1073,7 +1146,7 @@ Name | Type | Description  | Notes
 
 ## GetGitReposByNameFiles
 
-> FilesJSON GetGitReposByNameFiles(ctx, name).Ref(ref).Glob(glob).Execute()
+> GitFilesJSON GetGitReposByNameFiles(ctx, name).Ref(ref).Glob(glob).Execute()
 
 Returns every file a glob selects at one revision, WITH its bytes and the revision they came from.
 
@@ -1103,7 +1176,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameFiles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitReposByNameFiles`: FilesJSON
+	// response from `GetGitReposByNameFiles`: GitFilesJSON
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameFiles`: %v\n", resp)
 }
 ```
@@ -1129,7 +1202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FilesJSON**](FilesJSON.md)
+[**GitFilesJSON**](GitFilesJSON.md)
 
 ### Authorization
 
@@ -1138,7 +1211,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1147,7 +1220,7 @@ Name | Type | Description  | Notes
 
 ## GetGitReposByNamePulls
 
-> PullList GetGitReposByNamePulls(ctx, name).State(state).Execute()
+> GitPullList GetGitReposByNamePulls(ctx, name).State(state).Execute()
 
 Returns a repo's pull requests, newest number first — what is waiting to be reviewed, and what has already landed.
 
@@ -1176,7 +1249,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNamePulls``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitReposByNamePulls`: PullList
+	// response from `GetGitReposByNamePulls`: GitPullList
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNamePulls`: %v\n", resp)
 }
 ```
@@ -1201,7 +1274,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PullList**](PullList.md)
+[**GitPullList**](GitPullList.md)
 
 ### Authorization
 
@@ -1210,7 +1283,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1219,7 +1292,7 @@ Name | Type | Description  | Notes
 
 ## GetGitReposByNamePullsByNumber
 
-> PullView GetGitReposByNamePullsByNumber(ctx, name, number).Execute()
+> GitPullView GetGitReposByNamePullsByNumber(ctx, name, number).Execute()
 
 Returns one pull request by its per-repo number.
 
@@ -1248,7 +1321,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNamePullsByNumber``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitReposByNamePullsByNumber`: PullView
+	// response from `GetGitReposByNamePullsByNumber`: GitPullView
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNamePullsByNumber`: %v\n", resp)
 }
 ```
@@ -1274,7 +1347,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PullView**](PullView.md)
+[**GitPullView**](GitPullView.md)
 
 ### Authorization
 
@@ -1283,7 +1356,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1292,7 +1365,7 @@ Name | Type | Description  | Notes
 
 ## GetGitReposByNameReadme
 
-> ReadmeJSON GetGitReposByNameReadme(ctx, name).Ref(ref).Execute()
+> GitReadmeJSON GetGitReposByNameReadme(ctx, name).Ref(ref).Execute()
 
 Returns the README at the tree root as plain text — unrendered, so the caller decides how to present it.
 
@@ -1321,7 +1394,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameReadme``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitReposByNameReadme`: ReadmeJSON
+	// response from `GetGitReposByNameReadme`: GitReadmeJSON
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameReadme`: %v\n", resp)
 }
 ```
@@ -1346,7 +1419,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ReadmeJSON**](ReadmeJSON.md)
+[**GitReadmeJSON**](GitReadmeJSON.md)
 
 ### Authorization
 
@@ -1355,7 +1428,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1364,7 +1437,7 @@ Name | Type | Description  | Notes
 
 ## GetGitReposByNameRefs
 
-> RefsJSON GetGitReposByNameRefs(ctx, name).Execute()
+> GitRefsJSON GetGitReposByNameRefs(ctx, name).Execute()
 
 Lists a repo's branches, tags and default branch — what a branch picker needs in one call.
 
@@ -1392,7 +1465,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameRefs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitReposByNameRefs`: RefsJSON
+	// response from `GetGitReposByNameRefs`: GitRefsJSON
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameRefs`: %v\n", resp)
 }
 ```
@@ -1416,7 +1489,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RefsJSON**](RefsJSON.md)
+[**GitRefsJSON**](GitRefsJSON.md)
 
 ### Authorization
 
@@ -1425,7 +1498,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1434,7 +1507,7 @@ Name | Type | Description  | Notes
 
 ## GetGitReposByNameSubscriptions
 
-> SubscriptionList GetGitReposByNameSubscriptions(ctx, name).Execute()
+> GitSubscriptionList GetGitReposByNameSubscriptions(ctx, name).Execute()
 
 Returns a repo's Slack subscriptions — which channels the lifecycle notifier posts this repo's push and deploy events to.
 
@@ -1462,7 +1535,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameSubscriptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitReposByNameSubscriptions`: SubscriptionList
+	// response from `GetGitReposByNameSubscriptions`: GitSubscriptionList
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameSubscriptions`: %v\n", resp)
 }
 ```
@@ -1486,7 +1559,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SubscriptionList**](SubscriptionList.md)
+[**GitSubscriptionList**](GitSubscriptionList.md)
 
 ### Authorization
 
@@ -1495,7 +1568,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1504,7 +1577,7 @@ Name | Type | Description  | Notes
 
 ## GetGitReposByNameTargets
 
-> MirrorList GetGitReposByNameTargets(ctx, name).Execute()
+> GitMirrorList GetGitReposByNameTargets(ctx, name).Execute()
 
 Returns a repo's outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
 
@@ -1532,7 +1605,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameTargets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitReposByNameTargets`: MirrorList
+	// response from `GetGitReposByNameTargets`: GitMirrorList
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameTargets`: %v\n", resp)
 }
 ```
@@ -1556,7 +1629,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MirrorList**](MirrorList.md)
+[**GitMirrorList**](GitMirrorList.md)
 
 ### Authorization
 
@@ -1565,7 +1638,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1574,7 +1647,7 @@ Name | Type | Description  | Notes
 
 ## GetGitReposByNameTree
 
-> TreeJSON GetGitReposByNameTree(ctx, name).Ref(ref).Path(path).Execute()
+> GitTreeJSON GetGitReposByNameTree(ctx, name).Ref(ref).Path(path).Execute()
 
 Lists the immediate children of one directory at one revision, directories before files.
 
@@ -1604,7 +1677,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitReposByNameTree``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitReposByNameTree`: TreeJSON
+	// response from `GetGitReposByNameTree`: GitTreeJSON
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitReposByNameTree`: %v\n", resp)
 }
 ```
@@ -1630,7 +1703,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TreeJSON**](TreeJSON.md)
+[**GitTreeJSON**](GitTreeJSON.md)
 
 ### Authorization
 
@@ -1639,7 +1712,206 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetGitRunners
+
+> GitRunnerList GetGitRunners(ctx).Execute()
+
+Returns the daemons registered into this org's pools, newest first, with when each was last heard from.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.GetGitRunners(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitRunners``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGitRunners`: GitRunnerList
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitRunners`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitRunnersRequest struct via the builder pattern
+
+
+### Return type
+
+[**GitRunnerList**](GitRunnerList.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetGitRuns
+
+> GitWorkflowRuns GetGitRuns(ctx).Repo(repo).Limit(limit).Execute()
+
+Returns this org's runs, newest first.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	repo := "repo_example" // string | Repo restricts the listing to one repository. Empty lists the whole org. (optional)
+	limit := int64(789) // int64 | Limit caps the answer; 0 means the default of 50, and 200 is the ceiling. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.GetGitRuns(context.Background()).Repo(repo).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGitRuns`: GitWorkflowRuns
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitRuns`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitRunsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **repo** | **string** | Repo restricts the listing to one repository. Empty lists the whole org. | 
+ **limit** | **int64** | Limit caps the answer; 0 means the default of 50, and 200 is the ceiling. | 
+
+### Return type
+
+[**GitWorkflowRuns**](GitWorkflowRuns.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetGitRunsById
+
+> GitWorkflowRun GetGitRunsById(ctx, id).Execute()
+
+Returns one run.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | ID is the run to read, from the :id path segment.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.GetGitRunsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitRunsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGitRunsById`: GitWorkflowRun
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitRunsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the run to read, from the :id path segment. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitRunsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**GitWorkflowRun**](GitWorkflowRun.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1648,7 +1920,7 @@ Name | Type | Description  | Notes
 
 ## GetGitUsage
 
-> UsageView GetGitUsage(ctx).Execute()
+> GitUsageView GetGitUsage(ctx).Execute()
 
 Returns per-repo and total storage bytes for the caller's org — the queryable, per-tenant number commerce and o11y meter on.
 
@@ -1675,7 +1947,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGitUsage`: UsageView
+	// response from `GetGitUsage`: GitUsageView
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitUsage`: %v\n", resp)
 }
 ```
@@ -1691,7 +1963,7 @@ Other parameters are passed through a pointer to a apiGetGitUsageRequest struct 
 
 ### Return type
 
-[**UsageView**](UsageView.md)
+[**GitUsageView**](GitUsageView.md)
 
 ### Authorization
 
@@ -1700,7 +1972,75 @@ Other parameters are passed through a pointer to a apiGetGitUsageRequest struct 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetGitWorkflows
+
+> GitWorkflowList GetGitWorkflows(ctx).Repo(repo).Ref(ref).Execute()
+
+Reports the workflows a repository declares at a ref and which declared pool would execute each job — the answer to \"would a push here run, and where\".
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	repo := "repo_example" // string | Repo is the repository whose workflows to read. (optional)
+	ref := "ref_example" // string | Ref is the branch to read them at; empty means the default. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.GetGitWorkflows(context.Background()).Repo(repo).Ref(ref).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.GetGitWorkflows``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGitWorkflows`: GitWorkflowList
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.GetGitWorkflows`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitWorkflowsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **repo** | **string** | Repo is the repository whose workflows to read. | 
+ **ref** | **string** | Ref is the branch to read them at; empty means the default. | 
+
+### Return type
+
+[**GitWorkflowList**](GitWorkflowList.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1709,7 +2049,7 @@ Other parameters are passed through a pointer to a apiGetGitUsageRequest struct 
 
 ## PatchGitReposByName
 
-> RepoView PatchGitReposByName(ctx, name).PatchIn(patchIn).Execute()
+> GitRepoView PatchGitReposByName(ctx, name).GitPatchIn(gitPatchIn).Execute()
 
 Flips a repo's public bit, the one mutable repo setting today.
 
@@ -1729,16 +2069,16 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the repo to update, from the :name path segment.
-	patchIn := *openapiclient.NewPatchIn() // PatchIn | 
+	gitPatchIn := *openapiclient.NewGitPatchIn() // GitPatchIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.PatchGitReposByName(context.Background(), name).PatchIn(patchIn).Execute()
+	resp, r, err := apiClient.GitAPI.PatchGitReposByName(context.Background(), name).GitPatchIn(gitPatchIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PatchGitReposByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchGitReposByName`: RepoView
+	// response from `PatchGitReposByName`: GitRepoView
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PatchGitReposByName`: %v\n", resp)
 }
 ```
@@ -1759,11 +2099,11 @@ Other parameters are passed through a pointer to a apiPatchGitReposByNameRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **patchIn** | [**PatchIn**](PatchIn.md) |  | 
+ **gitPatchIn** | [**GitPatchIn**](GitPatchIn.md) |  | 
 
 ### Return type
 
-[**RepoView**](RepoView.md)
+[**GitRepoView**](GitRepoView.md)
 
 ### Authorization
 
@@ -1772,7 +2112,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2079,7 +2419,7 @@ Name | Type | Description  | Notes
 
 ## PostGitKeys
 
-> KeyView PostGitKeys(ctx).RegisterKeyReq(registerKeyReq).Execute()
+> GitKeyView PostGitKeys(ctx).GitRegisterKeyReq(gitRegisterKeyReq).Execute()
 
 Registers an SSH public key so it can authenticate `git clone git@<host>:<org>/<repo>.git` for the caller's org.
 
@@ -2098,16 +2438,16 @@ import (
 )
 
 func main() {
-	registerKeyReq := *openapiclient.NewRegisterKeyReq() // RegisterKeyReq | 
+	gitRegisterKeyReq := *openapiclient.NewGitRegisterKeyReq() // GitRegisterKeyReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.PostGitKeys(context.Background()).RegisterKeyReq(registerKeyReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitKeys(context.Background()).GitRegisterKeyReq(gitRegisterKeyReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGitKeys`: KeyView
+	// response from `PostGitKeys`: GitKeyView
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitKeys`: %v\n", resp)
 }
 ```
@@ -2123,11 +2463,11 @@ Other parameters are passed through a pointer to a apiPostGitKeysRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **registerKeyReq** | [**RegisterKeyReq**](RegisterKeyReq.md) |  | 
+ **gitRegisterKeyReq** | [**GitRegisterKeyReq**](GitRegisterKeyReq.md) |  | 
 
 ### Return type
 
-[**KeyView**](KeyView.md)
+[**GitKeyView**](GitKeyView.md)
 
 ### Authorization
 
@@ -2136,7 +2476,73 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGitPools
+
+> GitPoolDeclared PostGitPools(ctx).GitPoolDeclare(gitPoolDeclare).Execute()
+
+Records the capacity an org has, and answers with the secret a runner daemon presents to enter it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	gitPoolDeclare := *openapiclient.NewGitPoolDeclare() // GitPoolDeclare | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.PostGitPools(context.Background()).GitPoolDeclare(gitPoolDeclare).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitPools``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostGitPools`: GitPoolDeclared
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitPools`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGitPoolsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **gitPoolDeclare** | [**GitPoolDeclare**](GitPoolDeclare.md) |  | 
+
+### Return type
+
+[**GitPoolDeclared**](GitPoolDeclared.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2145,7 +2551,7 @@ Name | Type | Description  | Notes
 
 ## PostGitRepos
 
-> RepoView PostGitRepos(ctx).CreateReq(createReq).Execute()
+> GitRepoView PostGitRepos(ctx).GitCreateReq(gitCreateReq).Execute()
 
 Provisions an empty bare repository in the caller's scope and returns it with its clone URLs.
 
@@ -2164,16 +2570,16 @@ import (
 )
 
 func main() {
-	createReq := *openapiclient.NewCreateReq() // CreateReq | 
+	gitCreateReq := *openapiclient.NewGitCreateReq() // GitCreateReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.PostGitRepos(context.Background()).CreateReq(createReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitRepos(context.Background()).GitCreateReq(gitCreateReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitRepos``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGitRepos`: RepoView
+	// response from `PostGitRepos`: GitRepoView
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitRepos`: %v\n", resp)
 }
 ```
@@ -2189,11 +2595,11 @@ Other parameters are passed through a pointer to a apiPostGitReposRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createReq** | [**CreateReq**](CreateReq.md) |  | 
+ **gitCreateReq** | [**GitCreateReq**](GitCreateReq.md) |  | 
 
 ### Return type
 
-[**RepoView**](RepoView.md)
+[**GitRepoView**](GitRepoView.md)
 
 ### Authorization
 
@@ -2202,7 +2608,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2211,7 +2617,7 @@ Name | Type | Description  | Notes
 
 ## PostGitReposByNameGc
 
-> GcOut PostGitReposByNameGc(ctx, name).Execute()
+> GitGcOut PostGitReposByNameGc(ctx, name).Execute()
 
 Repacks a repo into one bitmapped pack and rewrites its commit-graph, so the next clone reuses the bitmap instead of walking the whole object graph.
 
@@ -2239,7 +2645,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameGc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGitReposByNameGc`: GcOut
+	// response from `PostGitReposByNameGc`: GitGcOut
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameGc`: %v\n", resp)
 }
 ```
@@ -2263,7 +2669,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GcOut**](GcOut.md)
+[**GitGcOut**](GitGcOut.md)
 
 ### Authorization
 
@@ -2272,7 +2678,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2281,7 +2687,7 @@ Name | Type | Description  | Notes
 
 ## PostGitReposByNameMirror
 
-> RepoView PostGitReposByNameMirror(ctx, name).MirrorReq(mirrorReq).Execute()
+> GitRepoView PostGitReposByNameMirror(ctx, name).GitMirrorReq(gitMirrorReq).Execute()
 
 Imports an external git repository into the caller's repo, provisioning it on first use.
 
@@ -2301,16 +2707,16 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the local repo to mirror into, from the :name path segment. It is CREATED on first use.
-	mirrorReq := *openapiclient.NewMirrorReq() // MirrorReq | 
+	gitMirrorReq := *openapiclient.NewGitMirrorReq() // GitMirrorReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.PostGitReposByNameMirror(context.Background(), name).MirrorReq(mirrorReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitReposByNameMirror(context.Background(), name).GitMirrorReq(gitMirrorReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameMirror``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGitReposByNameMirror`: RepoView
+	// response from `PostGitReposByNameMirror`: GitRepoView
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameMirror`: %v\n", resp)
 }
 ```
@@ -2331,11 +2737,11 @@ Other parameters are passed through a pointer to a apiPostGitReposByNameMirrorRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **mirrorReq** | [**MirrorReq**](MirrorReq.md) |  | 
+ **gitMirrorReq** | [**GitMirrorReq**](GitMirrorReq.md) |  | 
 
 ### Return type
 
-[**RepoView**](RepoView.md)
+[**GitRepoView**](GitRepoView.md)
 
 ### Authorization
 
@@ -2344,7 +2750,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2353,7 +2759,7 @@ Name | Type | Description  | Notes
 
 ## PostGitReposByNamePulls
 
-> PullView PostGitReposByNamePulls(ctx, name).OpenReq(openReq).Execute()
+> GitPullView PostGitReposByNamePulls(ctx, name).GitOpenReq(gitOpenReq).Execute()
 
 Proposes a branch for merging and returns it with its number.
 
@@ -2373,16 +2779,16 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the repo the proposal belongs to, from the :name path segment.
-	openReq := *openapiclient.NewOpenReq() // OpenReq | 
+	gitOpenReq := *openapiclient.NewGitOpenReq() // GitOpenReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.PostGitReposByNamePulls(context.Background(), name).OpenReq(openReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitReposByNamePulls(context.Background(), name).GitOpenReq(gitOpenReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNamePulls``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGitReposByNamePulls`: PullView
+	// response from `PostGitReposByNamePulls`: GitPullView
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNamePulls`: %v\n", resp)
 }
 ```
@@ -2403,11 +2809,11 @@ Other parameters are passed through a pointer to a apiPostGitReposByNamePullsReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **openReq** | [**OpenReq**](OpenReq.md) |  | 
+ **gitOpenReq** | [**GitOpenReq**](GitOpenReq.md) |  | 
 
 ### Return type
 
-[**PullView**](PullView.md)
+[**GitPullView**](GitPullView.md)
 
 ### Authorization
 
@@ -2416,7 +2822,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2425,7 +2831,7 @@ Name | Type | Description  | Notes
 
 ## PostGitReposByNamePullsByNumberMerge
 
-> PullView PostGitReposByNamePullsByNumberMerge(ctx, name, number).Execute()
+> GitPullView PostGitReposByNamePullsByNumberMerge(ctx, name, number).Execute()
 
 Merges an open pull request by FAST-FORWARDING base to head, and answers the proposal in its merged state with the revision base now points at.
 
@@ -2454,7 +2860,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNamePullsByNumberMerge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGitReposByNamePullsByNumberMerge`: PullView
+	// response from `PostGitReposByNamePullsByNumberMerge`: GitPullView
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNamePullsByNumberMerge`: %v\n", resp)
 }
 ```
@@ -2480,7 +2886,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PullView**](PullView.md)
+[**GitPullView**](GitPullView.md)
 
 ### Authorization
 
@@ -2489,7 +2895,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2498,7 +2904,7 @@ Name | Type | Description  | Notes
 
 ## PostGitReposByNamePush
 
-> PushResp PostGitReposByNamePush(ctx, name).PushReq(pushReq).Execute()
+> GitPushResp PostGitReposByNamePush(ctx, name).GitPushReq(gitPushReq).Execute()
 
 Lands a set of files as one commit without a git client — the hanzo.app builder's push.
 
@@ -2518,16 +2924,16 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the repo to push into, from the :name path segment. It is CREATED on first push if it does not exist.
-	pushReq := *openapiclient.NewPushReq() // PushReq | 
+	gitPushReq := *openapiclient.NewGitPushReq() // GitPushReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.PostGitReposByNamePush(context.Background(), name).PushReq(pushReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitReposByNamePush(context.Background(), name).GitPushReq(gitPushReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNamePush``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGitReposByNamePush`: PushResp
+	// response from `PostGitReposByNamePush`: GitPushResp
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNamePush`: %v\n", resp)
 }
 ```
@@ -2548,11 +2954,11 @@ Other parameters are passed through a pointer to a apiPostGitReposByNamePushRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pushReq** | [**PushReq**](PushReq.md) |  | 
+ **gitPushReq** | [**GitPushReq**](GitPushReq.md) |  | 
 
 ### Return type
 
-[**PushResp**](PushResp.md)
+[**GitPushResp**](GitPushResp.md)
 
 ### Authorization
 
@@ -2561,7 +2967,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2570,7 +2976,7 @@ Name | Type | Description  | Notes
 
 ## PostGitReposByNameSubscriptions
 
-> SubscriptionView PostGitReposByNameSubscriptions(ctx, name).SubscribeReq(subscribeReq).Execute()
+> GitSubscriptionView PostGitReposByNameSubscriptions(ctx, name).GitSubscribeReq(gitSubscribeReq).Execute()
 
 Binds a Slack channel to a repo, so the lifecycle notifier posts that repo's push and deploy events there.
 
@@ -2590,16 +2996,16 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the repo to subscribe, from the :name path segment.
-	subscribeReq := *openapiclient.NewSubscribeReq() // SubscribeReq | 
+	gitSubscribeReq := *openapiclient.NewGitSubscribeReq() // GitSubscribeReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.PostGitReposByNameSubscriptions(context.Background(), name).SubscribeReq(subscribeReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitReposByNameSubscriptions(context.Background(), name).GitSubscribeReq(gitSubscribeReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameSubscriptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGitReposByNameSubscriptions`: SubscriptionView
+	// response from `PostGitReposByNameSubscriptions`: GitSubscriptionView
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameSubscriptions`: %v\n", resp)
 }
 ```
@@ -2620,11 +3026,11 @@ Other parameters are passed through a pointer to a apiPostGitReposByNameSubscrip
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **subscribeReq** | [**SubscribeReq**](SubscribeReq.md) |  | 
+ **gitSubscribeReq** | [**GitSubscribeReq**](GitSubscribeReq.md) |  | 
 
 ### Return type
 
-[**SubscriptionView**](SubscriptionView.md)
+[**GitSubscriptionView**](GitSubscriptionView.md)
 
 ### Authorization
 
@@ -2633,7 +3039,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2642,7 +3048,7 @@ Name | Type | Description  | Notes
 
 ## PostGitReposByNameTargets
 
-> MirrorTargetView PostGitReposByNameTargets(ctx, name).MirrorTargetReq(mirrorTargetReq).Execute()
+> GitMirrorTargetView PostGitReposByNameTargets(ctx, name).GitMirrorTargetReq(gitMirrorTargetReq).Execute()
 
 Registers a downstream remote the repo's advanced refs are pushed to whenever a push lands here.
 
@@ -2662,16 +3068,16 @@ import (
 
 func main() {
 	name := "widgets" // string | Name is the repo whose advanced refs are pushed downstream, from the :name path segment.
-	mirrorTargetReq := *openapiclient.NewMirrorTargetReq() // MirrorTargetReq | 
+	gitMirrorTargetReq := *openapiclient.NewGitMirrorTargetReq() // GitMirrorTargetReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GitAPI.PostGitReposByNameTargets(context.Background(), name).MirrorTargetReq(mirrorTargetReq).Execute()
+	resp, r, err := apiClient.GitAPI.PostGitReposByNameTargets(context.Background(), name).GitMirrorTargetReq(gitMirrorTargetReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitReposByNameTargets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostGitReposByNameTargets`: MirrorTargetView
+	// response from `PostGitReposByNameTargets`: GitMirrorTargetView
 	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitReposByNameTargets`: %v\n", resp)
 }
 ```
@@ -2692,11 +3098,11 @@ Other parameters are passed through a pointer to a apiPostGitReposByNameTargetsR
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **mirrorTargetReq** | [**MirrorTargetReq**](MirrorTargetReq.md) |  | 
+ **gitMirrorTargetReq** | [**GitMirrorTargetReq**](GitMirrorTargetReq.md) |  | 
 
 ### Return type
 
-[**MirrorTargetView**](MirrorTargetView.md)
+[**GitMirrorTargetView**](GitMirrorTargetView.md)
 
 ### Authorization
 
@@ -2705,7 +3111,73 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGitRuns
+
+> GitWorkflowRuns PostGitRuns(ctx).GitRunStart(gitRunStart).Execute()
+
+Runs a repository's workflows at a ref, on demand.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	gitRunStart := *openapiclient.NewGitRunStart() // GitRunStart | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.PostGitRuns(context.Background()).GitRunStart(gitRunStart).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostGitRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostGitRuns`: GitWorkflowRuns
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostGitRuns`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGitRunsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **gitRunStart** | [**GitRunStart**](GitRunStart.md) |  | 
+
+### Return type
+
+[**GitWorkflowRuns**](GitWorkflowRuns.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2765,6 +3237,352 @@ Other parameters are passed through a pointer to a apiPostGitWebhookRequest stru
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostRunnerDeclare
+
+> RunnerDeclareOut PostRunnerDeclare(ctx).RunnerDeclareIn(runnerDeclareIn).XRunnerUuid(xRunnerUuid).XRunnerToken(xRunnerToken).Execute()
+
+Republishes what a registered runner can do, and answers with what this side understands, so the two learn about each other from one exchange.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	runnerDeclareIn := *openapiclient.NewRunnerDeclareIn() // RunnerDeclareIn | 
+	xRunnerUuid := "xRunnerUuid_example" // string |  (optional)
+	xRunnerToken := "xRunnerToken_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.PostRunnerDeclare(context.Background()).RunnerDeclareIn(runnerDeclareIn).XRunnerUuid(xRunnerUuid).XRunnerToken(xRunnerToken).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostRunnerDeclare``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostRunnerDeclare`: RunnerDeclareOut
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostRunnerDeclare`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostRunnerDeclareRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **runnerDeclareIn** | [**RunnerDeclareIn**](RunnerDeclareIn.md) |  | 
+ **xRunnerUuid** | **string** |  | 
+ **xRunnerToken** | **string** |  | 
+
+### Return type
+
+[**RunnerDeclareOut**](RunnerDeclareOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostRunnerLog
+
+> RunnerLogOut PostRunnerLog(ctx).RunnerLogIn(runnerLogIn).XRunnerUuid(xRunnerUuid).XRunnerToken(xRunnerToken).Execute()
+
+Adds console output to a task's log and answers with how far that log is durable, so the runner knows where to resend from.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	runnerLogIn := *openapiclient.NewRunnerLogIn() // RunnerLogIn | 
+	xRunnerUuid := "xRunnerUuid_example" // string |  (optional)
+	xRunnerToken := "xRunnerToken_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.PostRunnerLog(context.Background()).RunnerLogIn(runnerLogIn).XRunnerUuid(xRunnerUuid).XRunnerToken(xRunnerToken).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostRunnerLog``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostRunnerLog`: RunnerLogOut
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostRunnerLog`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostRunnerLogRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **runnerLogIn** | [**RunnerLogIn**](RunnerLogIn.md) |  | 
+ **xRunnerUuid** | **string** |  | 
+ **xRunnerToken** | **string** |  | 
+
+### Return type
+
+[**RunnerLogOut**](RunnerLogOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostRunnerRegister
+
+> RunnerRegisterOut PostRunnerRegister(ctx).RunnerRegisterIn(runnerRegisterIn).Execute()
+
+Trades a pool's join secret for a runner identity and the token that authenticates every later call.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	runnerRegisterIn := *openapiclient.NewRunnerRegisterIn() // RunnerRegisterIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.PostRunnerRegister(context.Background()).RunnerRegisterIn(runnerRegisterIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostRunnerRegister``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostRunnerRegister`: RunnerRegisterOut
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostRunnerRegister`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostRunnerRegisterRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **runnerRegisterIn** | [**RunnerRegisterIn**](RunnerRegisterIn.md) |  | 
+
+### Return type
+
+[**RunnerRegisterOut**](RunnerRegisterOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostRunnerState
+
+> RunnerStateOut PostRunnerState(ctx).RunnerStateIn(runnerStateIn).XRunnerUuid(xRunnerUuid).XRunnerToken(xRunnerToken).Execute()
+
+Records a task's progress and that of its steps, and answers with the result this side now holds — which is how a runner learns its task was stopped from somewhere else.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	runnerStateIn := *openapiclient.NewRunnerStateIn() // RunnerStateIn | 
+	xRunnerUuid := "xRunnerUuid_example" // string |  (optional)
+	xRunnerToken := "xRunnerToken_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.PostRunnerState(context.Background()).RunnerStateIn(runnerStateIn).XRunnerUuid(xRunnerUuid).XRunnerToken(xRunnerToken).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostRunnerState``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostRunnerState`: RunnerStateOut
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostRunnerState`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostRunnerStateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **runnerStateIn** | [**RunnerStateIn**](RunnerStateIn.md) |  | 
+ **xRunnerUuid** | **string** |  | 
+ **xRunnerToken** | **string** |  | 
+
+### Return type
+
+[**RunnerStateOut**](RunnerStateOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostRunnerTask
+
+> RunnerTaskOut PostRunnerTask(ctx).RunnerTaskIn(runnerTaskIn).XRunnerUuid(xRunnerUuid).XRunnerToken(xRunnerToken).Execute()
+
+Hands the runner a job to execute, if its pool has one, and answers immediately either way.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	runnerTaskIn := *openapiclient.NewRunnerTaskIn() // RunnerTaskIn | 
+	xRunnerUuid := "xRunnerUuid_example" // string |  (optional)
+	xRunnerToken := "xRunnerToken_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GitAPI.PostRunnerTask(context.Background()).RunnerTaskIn(runnerTaskIn).XRunnerUuid(xRunnerUuid).XRunnerToken(xRunnerToken).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GitAPI.PostRunnerTask``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostRunnerTask`: RunnerTaskOut
+	fmt.Fprintf(os.Stdout, "Response from `GitAPI.PostRunnerTask`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostRunnerTaskRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **runnerTaskIn** | [**RunnerTaskIn**](RunnerTaskIn.md) |  | 
+ **xRunnerUuid** | **string** |  | 
+ **xRunnerToken** | **string** |  | 
+
+### Return type
+
+[**RunnerTaskOut**](RunnerTaskOut.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

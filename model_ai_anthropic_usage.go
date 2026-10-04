@@ -19,9 +19,16 @@ var _ MappedNullable = &AiAnthropicUsage{}
 
 // AiAnthropicUsage struct for AiAnthropicUsage
 type AiAnthropicUsage struct {
-	InputTokens  *int32 `json:"input_tokens,omitempty"`
-	OutputTokens *int32 `json:"output_tokens,omitempty"`
+	CacheCreation            *AiCacheWrites     `json:"cache_creation,omitempty"`
+	CacheCreationInputTokens *int32             `json:"cache_creation_input_tokens,omitempty"`
+	CacheReadInputTokens     *int32             `json:"cache_read_input_tokens,omitempty"`
+	InputTokens              *int32             `json:"input_tokens,omitempty"`
+	Iterations               []AiAnthropicUsage `json:"iterations,omitempty"`
+	OutputTokens             *int32             `json:"output_tokens,omitempty"`
+	AdditionalProperties     map[string]interface{}
 }
+
+type _AiAnthropicUsage AiAnthropicUsage
 
 // NewAiAnthropicUsage instantiates a new AiAnthropicUsage object
 // This constructor will assign default values to properties that have it defined,
@@ -38,6 +45,102 @@ func NewAiAnthropicUsage() *AiAnthropicUsage {
 func NewAiAnthropicUsageWithDefaults() *AiAnthropicUsage {
 	this := AiAnthropicUsage{}
 	return &this
+}
+
+// GetCacheCreation returns the CacheCreation field value if set, zero value otherwise.
+func (o *AiAnthropicUsage) GetCacheCreation() AiCacheWrites {
+	if o == nil || IsNil(o.CacheCreation) {
+		var ret AiCacheWrites
+		return ret
+	}
+	return *o.CacheCreation
+}
+
+// GetCacheCreationOk returns a tuple with the CacheCreation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiAnthropicUsage) GetCacheCreationOk() (*AiCacheWrites, bool) {
+	if o == nil || IsNil(o.CacheCreation) {
+		return nil, false
+	}
+	return o.CacheCreation, true
+}
+
+// HasCacheCreation returns a boolean if a field has been set.
+func (o *AiAnthropicUsage) HasCacheCreation() bool {
+	if o != nil && !IsNil(o.CacheCreation) {
+		return true
+	}
+
+	return false
+}
+
+// SetCacheCreation gets a reference to the given AiCacheWrites and assigns it to the CacheCreation field.
+func (o *AiAnthropicUsage) SetCacheCreation(v AiCacheWrites) {
+	o.CacheCreation = &v
+}
+
+// GetCacheCreationInputTokens returns the CacheCreationInputTokens field value if set, zero value otherwise.
+func (o *AiAnthropicUsage) GetCacheCreationInputTokens() int32 {
+	if o == nil || IsNil(o.CacheCreationInputTokens) {
+		var ret int32
+		return ret
+	}
+	return *o.CacheCreationInputTokens
+}
+
+// GetCacheCreationInputTokensOk returns a tuple with the CacheCreationInputTokens field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiAnthropicUsage) GetCacheCreationInputTokensOk() (*int32, bool) {
+	if o == nil || IsNil(o.CacheCreationInputTokens) {
+		return nil, false
+	}
+	return o.CacheCreationInputTokens, true
+}
+
+// HasCacheCreationInputTokens returns a boolean if a field has been set.
+func (o *AiAnthropicUsage) HasCacheCreationInputTokens() bool {
+	if o != nil && !IsNil(o.CacheCreationInputTokens) {
+		return true
+	}
+
+	return false
+}
+
+// SetCacheCreationInputTokens gets a reference to the given int32 and assigns it to the CacheCreationInputTokens field.
+func (o *AiAnthropicUsage) SetCacheCreationInputTokens(v int32) {
+	o.CacheCreationInputTokens = &v
+}
+
+// GetCacheReadInputTokens returns the CacheReadInputTokens field value if set, zero value otherwise.
+func (o *AiAnthropicUsage) GetCacheReadInputTokens() int32 {
+	if o == nil || IsNil(o.CacheReadInputTokens) {
+		var ret int32
+		return ret
+	}
+	return *o.CacheReadInputTokens
+}
+
+// GetCacheReadInputTokensOk returns a tuple with the CacheReadInputTokens field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiAnthropicUsage) GetCacheReadInputTokensOk() (*int32, bool) {
+	if o == nil || IsNil(o.CacheReadInputTokens) {
+		return nil, false
+	}
+	return o.CacheReadInputTokens, true
+}
+
+// HasCacheReadInputTokens returns a boolean if a field has been set.
+func (o *AiAnthropicUsage) HasCacheReadInputTokens() bool {
+	if o != nil && !IsNil(o.CacheReadInputTokens) {
+		return true
+	}
+
+	return false
+}
+
+// SetCacheReadInputTokens gets a reference to the given int32 and assigns it to the CacheReadInputTokens field.
+func (o *AiAnthropicUsage) SetCacheReadInputTokens(v int32) {
+	o.CacheReadInputTokens = &v
 }
 
 // GetInputTokens returns the InputTokens field value if set, zero value otherwise.
@@ -70,6 +173,38 @@ func (o *AiAnthropicUsage) HasInputTokens() bool {
 // SetInputTokens gets a reference to the given int32 and assigns it to the InputTokens field.
 func (o *AiAnthropicUsage) SetInputTokens(v int32) {
 	o.InputTokens = &v
+}
+
+// GetIterations returns the Iterations field value if set, zero value otherwise.
+func (o *AiAnthropicUsage) GetIterations() []AiAnthropicUsage {
+	if o == nil || IsNil(o.Iterations) {
+		var ret []AiAnthropicUsage
+		return ret
+	}
+	return o.Iterations
+}
+
+// GetIterationsOk returns a tuple with the Iterations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiAnthropicUsage) GetIterationsOk() ([]AiAnthropicUsage, bool) {
+	if o == nil || IsNil(o.Iterations) {
+		return nil, false
+	}
+	return o.Iterations, true
+}
+
+// HasIterations returns a boolean if a field has been set.
+func (o *AiAnthropicUsage) HasIterations() bool {
+	if o != nil && !IsNil(o.Iterations) {
+		return true
+	}
+
+	return false
+}
+
+// SetIterations gets a reference to the given []AiAnthropicUsage and assigns it to the Iterations field.
+func (o *AiAnthropicUsage) SetIterations(v []AiAnthropicUsage) {
+	o.Iterations = v
 }
 
 // GetOutputTokens returns the OutputTokens field value if set, zero value otherwise.
@@ -114,13 +249,56 @@ func (o AiAnthropicUsage) MarshalJSON() ([]byte, error) {
 
 func (o AiAnthropicUsage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CacheCreation) {
+		toSerialize["cache_creation"] = o.CacheCreation
+	}
+	if !IsNil(o.CacheCreationInputTokens) {
+		toSerialize["cache_creation_input_tokens"] = o.CacheCreationInputTokens
+	}
+	if !IsNil(o.CacheReadInputTokens) {
+		toSerialize["cache_read_input_tokens"] = o.CacheReadInputTokens
+	}
 	if !IsNil(o.InputTokens) {
 		toSerialize["input_tokens"] = o.InputTokens
+	}
+	if !IsNil(o.Iterations) {
+		toSerialize["iterations"] = o.Iterations
 	}
 	if !IsNil(o.OutputTokens) {
 		toSerialize["output_tokens"] = o.OutputTokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiAnthropicUsage) UnmarshalJSON(data []byte) (err error) {
+	varAiAnthropicUsage := _AiAnthropicUsage{}
+
+	err = json.Unmarshal(data, &varAiAnthropicUsage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiAnthropicUsage(varAiAnthropicUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cache_creation")
+		delete(additionalProperties, "cache_creation_input_tokens")
+		delete(additionalProperties, "cache_read_input_tokens")
+		delete(additionalProperties, "input_tokens")
+		delete(additionalProperties, "iterations")
+		delete(additionalProperties, "output_tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiAnthropicUsage struct {

@@ -24,10 +24,13 @@ type O11yWebhookConfig struct {
 	// MaxAlerts is the maximum number of alerts to be sent per webhook message. Alerts exceeding this threshold will be truncated. Setting this to 0 allows an unlimited number of alerts.
 	MaxAlerts *int32 `json:"max_alerts,omitempty"`
 	// Timeout is the maximum time allowed to invoke the webhook. Setting this to 0 does not impose a timeout.
-	Timeout *int64      `json:"timeout,omitempty"`
-	Url     interface{} `json:"url,omitempty"`
-	UrlFile *string     `json:"url_file,omitempty"`
+	Timeout              *int64      `json:"timeout,omitempty"`
+	Url                  interface{} `json:"url,omitempty"`
+	UrlFile              *string     `json:"url_file,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yWebhookConfig O11yWebhookConfig
 
 // NewO11yWebhookConfig instantiates a new O11yWebhookConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -267,7 +270,38 @@ func (o O11yWebhookConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UrlFile) {
 		toSerialize["url_file"] = o.UrlFile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yWebhookConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yWebhookConfig := _O11yWebhookConfig{}
+
+	err = json.Unmarshal(data, &varO11yWebhookConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yWebhookConfig(varO11yWebhookConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "max_alerts")
+		delete(additionalProperties, "timeout")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "url_file")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yWebhookConfig struct {

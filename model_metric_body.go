@@ -19,10 +19,13 @@ var _ MappedNullable = &MetricBody{}
 
 // MetricBody struct for MetricBody
 type MetricBody struct {
-	Labels map[string]interface{} `json:"labels,omitempty"`
-	Name   *string                `json:"name,omitempty"`
-	Value  *float32               `json:"value,omitempty"`
+	Labels               map[string]interface{} `json:"labels,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	Value                *float32               `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MetricBody MetricBody
 
 // NewMetricBody instantiates a new MetricBody object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o MetricBody) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MetricBody) UnmarshalJSON(data []byte) (err error) {
+	varMetricBody := _MetricBody{}
+
+	err = json.Unmarshal(data, &varMetricBody)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MetricBody(varMetricBody)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMetricBody struct {

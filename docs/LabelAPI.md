@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## RiskDisposeLabels
 
-> RiskDisposeOut RiskDisposeLabels(ctx).RiskDisposeIn(riskDisposeIn).Execute()
+> LabelRiskDisposeOut RiskDisposeLabels(ctx).LabelRiskDisposeIn(labelRiskDisposeIn).Execute()
 
 Dispose of this tenant's expired assertions, whole records only
 
@@ -35,16 +35,16 @@ import (
 )
 
 func main() {
-	riskDisposeIn := *openapiclient.NewRiskDisposeIn() // RiskDisposeIn | 
+	labelRiskDisposeIn := *openapiclient.NewLabelRiskDisposeIn() // LabelRiskDisposeIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LabelAPI.RiskDisposeLabels(context.Background()).RiskDisposeIn(riskDisposeIn).Execute()
+	resp, r, err := apiClient.LabelAPI.RiskDisposeLabels(context.Background()).LabelRiskDisposeIn(labelRiskDisposeIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LabelAPI.RiskDisposeLabels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskDisposeLabels`: RiskDisposeOut
+	// response from `RiskDisposeLabels`: LabelRiskDisposeOut
 	fmt.Fprintf(os.Stdout, "Response from `LabelAPI.RiskDisposeLabels`: %v\n", resp)
 }
 ```
@@ -60,11 +60,11 @@ Other parameters are passed through a pointer to a apiRiskDisposeLabelsRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **riskDisposeIn** | [**RiskDisposeIn**](RiskDisposeIn.md) |  | 
+ **labelRiskDisposeIn** | [**LabelRiskDisposeIn**](LabelRiskDisposeIn.md) |  | 
 
 ### Return type
 
-[**RiskDisposeOut**](RiskDisposeOut.md)
+[**LabelRiskDisposeOut**](LabelRiskDisposeOut.md)
 
 ### Authorization
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## RiskHoldLabels
 
-> RiskHoldOut RiskHoldLabels(ctx).RiskHoldIn(riskHoldIn).Execute()
+> LabelRiskHoldOut RiskHoldLabels(ctx).LabelRiskHoldIn(labelRiskHoldIn).Execute()
 
 Place or release a litigation hold on named records
 
@@ -101,16 +101,16 @@ import (
 )
 
 func main() {
-	riskHoldIn := *openapiclient.NewRiskHoldIn() // RiskHoldIn | 
+	labelRiskHoldIn := *openapiclient.NewLabelRiskHoldIn() // LabelRiskHoldIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LabelAPI.RiskHoldLabels(context.Background()).RiskHoldIn(riskHoldIn).Execute()
+	resp, r, err := apiClient.LabelAPI.RiskHoldLabels(context.Background()).LabelRiskHoldIn(labelRiskHoldIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LabelAPI.RiskHoldLabels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskHoldLabels`: RiskHoldOut
+	// response from `RiskHoldLabels`: LabelRiskHoldOut
 	fmt.Fprintf(os.Stdout, "Response from `LabelAPI.RiskHoldLabels`: %v\n", resp)
 }
 ```
@@ -126,11 +126,11 @@ Other parameters are passed through a pointer to a apiRiskHoldLabelsRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **riskHoldIn** | [**RiskHoldIn**](RiskHoldIn.md) |  | 
+ **labelRiskHoldIn** | [**LabelRiskHoldIn**](LabelRiskHoldIn.md) |  | 
 
 ### Return type
 
-[**RiskHoldOut**](RiskHoldOut.md)
+[**LabelRiskHoldOut**](LabelRiskHoldOut.md)
 
 ### Authorization
 
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
 ## RiskLabel
 
-> RiskLabelOut RiskLabel(ctx).RiskLabelIn(riskLabelIn).Execute()
+> LabelRiskLabelOut RiskLabel(ctx).LabelRiskLabelIn(labelRiskLabelIn).Execute()
 
 Assert ground truth about events
 
@@ -167,16 +167,16 @@ import (
 )
 
 func main() {
-	riskLabelIn := *openapiclient.NewRiskLabelIn() // RiskLabelIn | 
+	labelRiskLabelIn := *openapiclient.NewLabelRiskLabelIn() // LabelRiskLabelIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LabelAPI.RiskLabel(context.Background()).RiskLabelIn(riskLabelIn).Execute()
+	resp, r, err := apiClient.LabelAPI.RiskLabel(context.Background()).LabelRiskLabelIn(labelRiskLabelIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LabelAPI.RiskLabel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskLabel`: RiskLabelOut
+	// response from `RiskLabel`: LabelRiskLabelOut
 	fmt.Fprintf(os.Stdout, "Response from `LabelAPI.RiskLabel`: %v\n", resp)
 }
 ```
@@ -192,11 +192,11 @@ Other parameters are passed through a pointer to a apiRiskLabelRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **riskLabelIn** | [**RiskLabelIn**](RiskLabelIn.md) |  | 
+ **labelRiskLabelIn** | [**LabelRiskLabelIn**](LabelRiskLabelIn.md) |  | 
 
 ### Return type
 
-[**RiskLabelOut**](RiskLabelOut.md)
+[**LabelRiskLabelOut**](LabelRiskLabelOut.md)
 
 ### Authorization
 
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ## RiskLabelCoverage
 
-> RiskLabelCoverage RiskLabelCoverage(ctx).From(from).To(to).Horizon(horizon).Execute()
+> LabelRiskLabelCoverage RiskLabelCoverage(ctx).From(from).To(to).Horizon(horizon).Execute()
 
 How much of the window has matured, and how much of that is judged
 
@@ -244,7 +244,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LabelAPI.RiskLabelCoverage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskLabelCoverage`: RiskLabelCoverage
+	// response from `RiskLabelCoverage`: LabelRiskLabelCoverage
 	fmt.Fprintf(os.Stdout, "Response from `LabelAPI.RiskLabelCoverage`: %v\n", resp)
 }
 ```
@@ -266,7 +266,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RiskLabelCoverage**](RiskLabelCoverage.md)
+[**LabelRiskLabelCoverage**](LabelRiskLabelCoverage.md)
 
 ### Authorization
 
@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -284,7 +284,7 @@ Name | Type | Description  | Notes
 
 ## RiskLabelVocabulary
 
-> RiskLabelVocabulary RiskLabelVocabulary(ctx).Execute()
+> LabelRiskLabelVocabulary RiskLabelVocabulary(ctx).Execute()
 
 The closed vocabularies and the precedence rule that resolves a conflict
 
@@ -311,7 +311,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LabelAPI.RiskLabelVocabulary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskLabelVocabulary`: RiskLabelVocabulary
+	// response from `RiskLabelVocabulary`: LabelRiskLabelVocabulary
 	fmt.Fprintf(os.Stdout, "Response from `LabelAPI.RiskLabelVocabulary`: %v\n", resp)
 }
 ```
@@ -327,7 +327,7 @@ Other parameters are passed through a pointer to a apiRiskLabelVocabularyRequest
 
 ### Return type
 
-[**RiskLabelVocabulary**](RiskLabelVocabulary.md)
+[**LabelRiskLabelVocabulary**](LabelRiskLabelVocabulary.md)
 
 ### Authorization
 
@@ -336,7 +336,7 @@ Other parameters are passed through a pointer to a apiRiskLabelVocabularyRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -345,7 +345,7 @@ Other parameters are passed through a pointer to a apiRiskLabelVocabularyRequest
 
 ## RiskLabels
 
-> RiskLabelsOut RiskLabels(ctx).Kind(kind).Subject(subject).Source(source).From(from).To(to).Limit(limit).Execute()
+> LabelRiskLabelsOut RiskLabels(ctx).Kind(kind).Subject(subject).Source(source).From(from).To(to).Limit(limit).Execute()
 
 Read the assertions this tenant has recorded
 
@@ -378,7 +378,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LabelAPI.RiskLabels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskLabels`: RiskLabelsOut
+	// response from `RiskLabels`: LabelRiskLabelsOut
 	fmt.Fprintf(os.Stdout, "Response from `LabelAPI.RiskLabels`: %v\n", resp)
 }
 ```
@@ -403,7 +403,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RiskLabelsOut**](RiskLabelsOut.md)
+[**LabelRiskLabelsOut**](LabelRiskLabelsOut.md)
 
 ### Authorization
 
@@ -412,7 +412,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -421,7 +421,7 @@ Name | Type | Description  | Notes
 
 ## RiskResolveLabels
 
-> RiskResolveOut RiskResolveLabels(ctx).RiskResolveIn(riskResolveIn).Execute()
+> LabelRiskResolveOut RiskResolveLabels(ctx).LabelRiskResolveIn(labelRiskResolveIn).Execute()
 
 Resolve the label in force for named events, as of each event's own horizon
 
@@ -440,16 +440,16 @@ import (
 )
 
 func main() {
-	riskResolveIn := *openapiclient.NewRiskResolveIn() // RiskResolveIn | 
+	labelRiskResolveIn := *openapiclient.NewLabelRiskResolveIn() // LabelRiskResolveIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LabelAPI.RiskResolveLabels(context.Background()).RiskResolveIn(riskResolveIn).Execute()
+	resp, r, err := apiClient.LabelAPI.RiskResolveLabels(context.Background()).LabelRiskResolveIn(labelRiskResolveIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LabelAPI.RiskResolveLabels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskResolveLabels`: RiskResolveOut
+	// response from `RiskResolveLabels`: LabelRiskResolveOut
 	fmt.Fprintf(os.Stdout, "Response from `LabelAPI.RiskResolveLabels`: %v\n", resp)
 }
 ```
@@ -465,11 +465,11 @@ Other parameters are passed through a pointer to a apiRiskResolveLabelsRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **riskResolveIn** | [**RiskResolveIn**](RiskResolveIn.md) |  | 
+ **labelRiskResolveIn** | [**LabelRiskResolveIn**](LabelRiskResolveIn.md) |  | 
 
 ### Return type
 
-[**RiskResolveOut**](RiskResolveOut.md)
+[**LabelRiskResolveOut**](LabelRiskResolveOut.md)
 
 ### Authorization
 
@@ -478,7 +478,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

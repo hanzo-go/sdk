@@ -96,14 +96,14 @@ func (r CatalogAPIGetCatalogRequest) Offset(offset string) CatalogAPIGetCatalogR
 	return r
 }
 
-func (r CatalogAPIGetCatalogRequest) Execute() (*CatalogPage, *http.Response, error) {
+func (r CatalogAPIGetCatalogRequest) Execute() (*CatalogCatalogPage, *http.Response, error) {
 	return r.ApiService.GetCatalogExecute(r)
 }
 
 /*
-GetCatalog Browse searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
+GetCatalog Searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
 
-Browse searches AND browses the cross-org catalog: every project, app and site
+Searches AND browses the cross-org catalog: every project, app and site
 the fleet has built, whichever org built it.
 
 It reads TWO corpora and returns them as one page — the published,
@@ -130,13 +130,13 @@ func (a *CatalogAPIService) GetCatalog(ctx context.Context) CatalogAPIGetCatalog
 
 // Execute executes the request
 //
-//	@return CatalogPage
-func (a *CatalogAPIService) GetCatalogExecute(r CatalogAPIGetCatalogRequest) (*CatalogPage, *http.Response, error) {
+//	@return CatalogCatalogPage
+func (a *CatalogAPIService) GetCatalogExecute(r CatalogAPIGetCatalogRequest) (*CatalogCatalogPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CatalogPage
+		localVarReturnValue *CatalogCatalogPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CatalogAPIService.GetCatalog")
@@ -190,7 +190,7 @@ func (a *CatalogAPIService) GetCatalogExecute(r CatalogAPIGetCatalogRequest) (*C
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -219,6 +219,14 @@ func (a *CatalogAPIService) GetCatalogExecute(r CatalogAPIGetCatalogRequest) (*C
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

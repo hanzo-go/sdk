@@ -19,9 +19,12 @@ var _ MappedNullable = &IamUpdateInput{}
 
 // IamUpdateInput struct for IamUpdateInput
 type IamUpdateInput struct {
-	Password *string  `json:"password,omitempty"`
-	User     *IamUser `json:"user,omitempty"`
+	Password             *string  `json:"password,omitempty"`
+	User                 *IamUser `json:"user,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamUpdateInput IamUpdateInput
 
 // NewIamUpdateInput instantiates a new IamUpdateInput object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o IamUpdateInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamUpdateInput) UnmarshalJSON(data []byte) (err error) {
+	varIamUpdateInput := _IamUpdateInput{}
+
+	err = json.Unmarshal(data, &varIamUpdateInput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamUpdateInput(varIamUpdateInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "user")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamUpdateInput struct {

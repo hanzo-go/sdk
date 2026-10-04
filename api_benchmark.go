@@ -26,7 +26,7 @@ type BenchmarkAPIGetBenchmarkCatalogRequest struct {
 	ApiService *BenchmarkAPIService
 }
 
-func (r BenchmarkAPIGetBenchmarkCatalogRequest) Execute() (*BenchmarkCatalog, *http.Response, error) {
+func (r BenchmarkAPIGetBenchmarkCatalogRequest) Execute() (*BenchmarkBenchmarkCatalog, *http.Response, error) {
 	return r.ApiService.GetBenchmarkCatalogExecute(r)
 }
 
@@ -53,13 +53,13 @@ func (a *BenchmarkAPIService) GetBenchmarkCatalog(ctx context.Context) Benchmark
 
 // Execute executes the request
 //
-//	@return BenchmarkCatalog
-func (a *BenchmarkAPIService) GetBenchmarkCatalogExecute(r BenchmarkAPIGetBenchmarkCatalogRequest) (*BenchmarkCatalog, *http.Response, error) {
+//	@return BenchmarkBenchmarkCatalog
+func (a *BenchmarkAPIService) GetBenchmarkCatalogExecute(r BenchmarkAPIGetBenchmarkCatalogRequest) (*BenchmarkBenchmarkCatalog, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BenchmarkCatalog
+		localVarReturnValue *BenchmarkBenchmarkCatalog
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenchmarkAPIService.GetBenchmarkCatalog")
@@ -83,7 +83,7 @@ func (a *BenchmarkAPIService) GetBenchmarkCatalogExecute(r BenchmarkAPIGetBenchm
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -112,6 +112,14 @@ func (a *BenchmarkAPIService) GetBenchmarkCatalogExecute(r BenchmarkAPIGetBenchm
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -135,6 +143,7 @@ type BenchmarkAPIGetBenchmarkClaimsRequest struct {
 	provider   *string
 	source     *string
 	protocol   *string
+	org        *string
 }
 
 // Benchmark filters to one benchmark id. Empty returns every benchmark.
@@ -167,17 +176,27 @@ func (r BenchmarkAPIGetBenchmarkClaimsRequest) Protocol(protocol string) Benchma
 	return r
 }
 
-func (r BenchmarkAPIGetBenchmarkClaimsRequest) Execute() (*ClaimsOut, *http.Response, error) {
+// Org filters to the claims one org made; \&quot;admin\&quot; reads the platform&#39;s own. It narrows what the caller may already read and never widens it.
+func (r BenchmarkAPIGetBenchmarkClaimsRequest) Org(org string) BenchmarkAPIGetBenchmarkClaimsRequest {
+	r.org = &org
+	return r
+}
+
+func (r BenchmarkAPIGetBenchmarkClaimsRequest) Execute() (*BenchmarkClaimsOut, *http.Response, error) {
 	return r.ApiService.GetBenchmarkClaimsExecute(r)
 }
 
 /*
-GetBenchmarkClaims Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered.
+GetBenchmarkClaims Lists the effective claims the caller may read, each labelled with the org that made it and the user who recorded it.
 
-Lists the effective published claims: what the leaderboard will use for
-each (benchmark, model) after the seed, the import and any stored correction
-are layered. It answers the operator's question — what does this arena
-currently believe someone else reported, and did we ship that or fix it.
+Lists the effective claims the caller may read, each labelled with the
+org that made it and the user who recorded it.
+
+Anyone reads the public claims. A signed-in caller also reads its own org's
+private ones. No caller reads another org's private claims — a SuperAdmin
+acting in that org included, since acting in an org is not membership of it.
+Rows under org "admin" are the platform's own curated readings: the compiled
+seed and any correction a SuperAdmin wrote.
 
 Effective values only. The history of a key lives in the append-only file and
 is not what this op is for; a list that returned every superseded row would
@@ -195,13 +214,13 @@ func (a *BenchmarkAPIService) GetBenchmarkClaims(ctx context.Context) BenchmarkA
 
 // Execute executes the request
 //
-//	@return ClaimsOut
-func (a *BenchmarkAPIService) GetBenchmarkClaimsExecute(r BenchmarkAPIGetBenchmarkClaimsRequest) (*ClaimsOut, *http.Response, error) {
+//	@return BenchmarkClaimsOut
+func (a *BenchmarkAPIService) GetBenchmarkClaimsExecute(r BenchmarkAPIGetBenchmarkClaimsRequest) (*BenchmarkClaimsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClaimsOut
+		localVarReturnValue *BenchmarkClaimsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenchmarkAPIService.GetBenchmarkClaims")
@@ -230,6 +249,9 @@ func (a *BenchmarkAPIService) GetBenchmarkClaimsExecute(r BenchmarkAPIGetBenchma
 	if r.protocol != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "Protocol", r.protocol, "form", "")
 	}
+	if r.org != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "Org", r.org, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -240,7 +262,7 @@ func (a *BenchmarkAPIService) GetBenchmarkClaimsExecute(r BenchmarkAPIGetBenchma
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -269,6 +291,14 @@ func (a *BenchmarkAPIService) GetBenchmarkClaimsExecute(r BenchmarkAPIGetBenchma
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -310,7 +340,7 @@ func (r BenchmarkAPIGetBenchmarkCompareRequest) Benchmark(benchmark string) Benc
 	return r
 }
 
-func (r BenchmarkAPIGetBenchmarkCompareRequest) Execute() (*Pairing, *http.Response, error) {
+func (r BenchmarkAPIGetBenchmarkCompareRequest) Execute() (*BenchmarkPairing, *http.Response, error) {
 	return r.ApiService.GetBenchmarkCompareExecute(r)
 }
 
@@ -338,13 +368,13 @@ func (a *BenchmarkAPIService) GetBenchmarkCompare(ctx context.Context) Benchmark
 
 // Execute executes the request
 //
-//	@return Pairing
-func (a *BenchmarkAPIService) GetBenchmarkCompareExecute(r BenchmarkAPIGetBenchmarkCompareRequest) (*Pairing, *http.Response, error) {
+//	@return BenchmarkPairing
+func (a *BenchmarkAPIService) GetBenchmarkCompareExecute(r BenchmarkAPIGetBenchmarkCompareRequest) (*BenchmarkPairing, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Pairing
+		localVarReturnValue *BenchmarkPairing
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenchmarkAPIService.GetBenchmarkCompare")
@@ -379,7 +409,7 @@ func (a *BenchmarkAPIService) GetBenchmarkCompareExecute(r BenchmarkAPIGetBenchm
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -408,6 +438,14 @@ func (a *BenchmarkAPIService) GetBenchmarkCompareExecute(r BenchmarkAPIGetBenchm
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -442,7 +480,7 @@ func (r BenchmarkAPIGetBenchmarkHistoryRequest) Model(model string) BenchmarkAPI
 	return r
 }
 
-func (r BenchmarkAPIGetBenchmarkHistoryRequest) Execute() (*HistoryOut, *http.Response, error) {
+func (r BenchmarkAPIGetBenchmarkHistoryRequest) Execute() (*BenchmarkHistoryOut, *http.Response, error) {
 	return r.ApiService.GetBenchmarkHistoryExecute(r)
 }
 
@@ -473,13 +511,13 @@ func (a *BenchmarkAPIService) GetBenchmarkHistory(ctx context.Context) Benchmark
 
 // Execute executes the request
 //
-//	@return HistoryOut
-func (a *BenchmarkAPIService) GetBenchmarkHistoryExecute(r BenchmarkAPIGetBenchmarkHistoryRequest) (*HistoryOut, *http.Response, error) {
+//	@return BenchmarkHistoryOut
+func (a *BenchmarkAPIService) GetBenchmarkHistoryExecute(r BenchmarkAPIGetBenchmarkHistoryRequest) (*BenchmarkHistoryOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *HistoryOut
+		localVarReturnValue *BenchmarkHistoryOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenchmarkAPIService.GetBenchmarkHistory")
@@ -509,7 +547,7 @@ func (a *BenchmarkAPIService) GetBenchmarkHistoryExecute(r BenchmarkAPIGetBenchm
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -538,6 +576,14 @@ func (a *BenchmarkAPIService) GetBenchmarkHistoryExecute(r BenchmarkAPIGetBenchm
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -565,7 +611,7 @@ func (r BenchmarkAPIGetBenchmarkLeaderboardRequest) Benchmark(benchmark string) 
 	return r
 }
 
-func (r BenchmarkAPIGetBenchmarkLeaderboardRequest) Execute() (*Leaderboard, *http.Response, error) {
+func (r BenchmarkAPIGetBenchmarkLeaderboardRequest) Execute() (*BenchmarkLeaderboard, *http.Response, error) {
 	return r.ApiService.GetBenchmarkLeaderboardExecute(r)
 }
 
@@ -582,6 +628,10 @@ The two planes are NEVER blended, and that is the rule to read the rows by: a
 model we have measured but no vendor has claimed for shows published null, a
 model with only a claim shows measured null, and gap exists only where both do.
 
+Published, Claims, Spread and Mean read the platform's own public claims (org
+"admin") and nothing else, whoever asks. Other orgs' claims are at
+/v1/benchmark/claims, labelled, and never on this board.
+
 n is coverage and is not decoration: two measured numbers taken over different
 item counts are not comparable, so read the row's n before reading its accuracy.
 
@@ -597,13 +647,13 @@ func (a *BenchmarkAPIService) GetBenchmarkLeaderboard(ctx context.Context) Bench
 
 // Execute executes the request
 //
-//	@return Leaderboard
-func (a *BenchmarkAPIService) GetBenchmarkLeaderboardExecute(r BenchmarkAPIGetBenchmarkLeaderboardRequest) (*Leaderboard, *http.Response, error) {
+//	@return BenchmarkLeaderboard
+func (a *BenchmarkAPIService) GetBenchmarkLeaderboardExecute(r BenchmarkAPIGetBenchmarkLeaderboardRequest) (*BenchmarkLeaderboard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Leaderboard
+		localVarReturnValue *BenchmarkLeaderboard
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenchmarkAPIService.GetBenchmarkLeaderboard")
@@ -630,7 +680,7 @@ func (a *BenchmarkAPIService) GetBenchmarkLeaderboardExecute(r BenchmarkAPIGetBe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -659,6 +709,14 @@ func (a *BenchmarkAPIService) GetBenchmarkLeaderboardExecute(r BenchmarkAPIGetBe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -679,7 +737,7 @@ type BenchmarkAPIGetBenchmarkPresetsRequest struct {
 	ApiService *BenchmarkAPIService
 }
 
-func (r BenchmarkAPIGetBenchmarkPresetsRequest) Execute() (*PresetList, *http.Response, error) {
+func (r BenchmarkAPIGetBenchmarkPresetsRequest) Execute() (*BenchmarkPresetList, *http.Response, error) {
 	return r.ApiService.GetBenchmarkPresetsExecute(r)
 }
 
@@ -708,13 +766,13 @@ func (a *BenchmarkAPIService) GetBenchmarkPresets(ctx context.Context) Benchmark
 
 // Execute executes the request
 //
-//	@return PresetList
-func (a *BenchmarkAPIService) GetBenchmarkPresetsExecute(r BenchmarkAPIGetBenchmarkPresetsRequest) (*PresetList, *http.Response, error) {
+//	@return BenchmarkPresetList
+func (a *BenchmarkAPIService) GetBenchmarkPresetsExecute(r BenchmarkAPIGetBenchmarkPresetsRequest) (*BenchmarkPresetList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PresetList
+		localVarReturnValue *BenchmarkPresetList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenchmarkAPIService.GetBenchmarkPresets")
@@ -738,7 +796,7 @@ func (a *BenchmarkAPIService) GetBenchmarkPresetsExecute(r BenchmarkAPIGetBenchm
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -767,6 +825,14 @@ func (a *BenchmarkAPIService) GetBenchmarkPresetsExecute(r BenchmarkAPIGetBenchm
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -783,28 +849,47 @@ func (a *BenchmarkAPIService) GetBenchmarkPresetsExecute(r BenchmarkAPIGetBenchm
 }
 
 type BenchmarkAPIPostBenchmarkClaimsRequest struct {
-	ctx         context.Context
-	ApiService  *BenchmarkAPIService
-	putClaimsIn *PutClaimsIn
+	ctx                  context.Context
+	ApiService           *BenchmarkAPIService
+	benchmarkPutClaimsIn *BenchmarkPutClaimsIn
 }
 
-func (r BenchmarkAPIPostBenchmarkClaimsRequest) PutClaimsIn(putClaimsIn PutClaimsIn) BenchmarkAPIPostBenchmarkClaimsRequest {
-	r.putClaimsIn = &putClaimsIn
+func (r BenchmarkAPIPostBenchmarkClaimsRequest) BenchmarkPutClaimsIn(benchmarkPutClaimsIn BenchmarkPutClaimsIn) BenchmarkAPIPostBenchmarkClaimsRequest {
+	r.benchmarkPutClaimsIn = &benchmarkPutClaimsIn
 	return r
 }
 
-func (r BenchmarkAPIPostBenchmarkClaimsRequest) Execute() (*PutClaimsOut, *http.Response, error) {
+func (r BenchmarkAPIPostBenchmarkClaimsRequest) Execute() (*BenchmarkPutClaimsOut, *http.Response, error) {
 	return r.ApiService.PostBenchmarkClaimsExecute(r)
 }
 
 /*
-PostBenchmarkClaims Records published claims: one to correct a number, many to import a leaderboard.
+PostBenchmarkClaims Records claims for the caller's org: one to correct a number, many to import a leaderboard.
 
-Records published claims: one to correct a number, many to import a
-leaderboard. Every row must carry a Source, because a claim without its
-citation is a number nobody can check — and an unattributed number in the
-published plane is indistinguishable from a measurement, which is the one
-confusion this whole surface is built to prevent.
+Records claims for the caller's org: one to correct a number, many to
+import a leaderboard. Any signed-in caller may write; a caller with no verified
+principal is refused 401.
+
+The org and the author are the verified caller's. Nothing in the body names
+either, and a body that tries is not read. Claims are private to that org unless
+visibility is "public". Writing as org "admin" curates the leaderboard, so it
+takes a SuperAdmin; anyone else acting there is refused 403, and the refusal is
+audited.
+
+Every row must carry a Source, because a claim without its citation is a
+number nobody can check, and a benchmark id from /catalog, because an unknown
+id would sit in the store invisible to every read. A row names its benchmark,
+model, provider and protocol in at most 128 characters each, cites a source of
+at most 2048 bytes, and scores a percentage from 0 to 100; a row outside that is
+rejected by number.
+
+A request carries at most 500 rows in at most 1 MiB (413 past either), and an
+org writes at most 2000 rows per UTC day (429 past that, and nothing from the
+request is written).
+
+The trail takes the call's intent, naming every row, BEFORE the first row
+lands; a trail that cannot take it answers 503 and nothing is written. A second
+record then names which rows were stored and which failed.
 
 Writes are append-only, so this never destroys the value it replaces. A
 vendor restating a score leaves both rows on disk, which is how the restating
@@ -822,13 +907,13 @@ func (a *BenchmarkAPIService) PostBenchmarkClaims(ctx context.Context) Benchmark
 
 // Execute executes the request
 //
-//	@return PutClaimsOut
-func (a *BenchmarkAPIService) PostBenchmarkClaimsExecute(r BenchmarkAPIPostBenchmarkClaimsRequest) (*PutClaimsOut, *http.Response, error) {
+//	@return BenchmarkPutClaimsOut
+func (a *BenchmarkAPIService) PostBenchmarkClaimsExecute(r BenchmarkAPIPostBenchmarkClaimsRequest) (*BenchmarkPutClaimsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PutClaimsOut
+		localVarReturnValue *BenchmarkPutClaimsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenchmarkAPIService.PostBenchmarkClaims")
@@ -841,8 +926,8 @@ func (a *BenchmarkAPIService) PostBenchmarkClaimsExecute(r BenchmarkAPIPostBench
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.putClaimsIn == nil {
-		return localVarReturnValue, nil, reportError("putClaimsIn is required and must be specified")
+	if r.benchmarkPutClaimsIn == nil {
+		return localVarReturnValue, nil, reportError("benchmarkPutClaimsIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -855,7 +940,7 @@ func (a *BenchmarkAPIService) PostBenchmarkClaimsExecute(r BenchmarkAPIPostBench
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -863,7 +948,7 @@ func (a *BenchmarkAPIService) PostBenchmarkClaimsExecute(r BenchmarkAPIPostBench
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.putClaimsIn
+	localVarPostBody = r.benchmarkPutClaimsIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -886,6 +971,14 @@ func (a *BenchmarkAPIService) PostBenchmarkClaimsExecute(r BenchmarkAPIPostBench
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -902,17 +995,17 @@ func (a *BenchmarkAPIService) PostBenchmarkClaimsExecute(r BenchmarkAPIPostBench
 }
 
 type BenchmarkAPIPostBenchmarkPresetsRequest struct {
-	ctx        context.Context
-	ApiService *BenchmarkAPIService
-	preset     *Preset
+	ctx             context.Context
+	ApiService      *BenchmarkAPIService
+	benchmarkPreset *BenchmarkPreset
 }
 
-func (r BenchmarkAPIPostBenchmarkPresetsRequest) Preset(preset Preset) BenchmarkAPIPostBenchmarkPresetsRequest {
-	r.preset = &preset
+func (r BenchmarkAPIPostBenchmarkPresetsRequest) BenchmarkPreset(benchmarkPreset BenchmarkPreset) BenchmarkAPIPostBenchmarkPresetsRequest {
+	r.benchmarkPreset = &benchmarkPreset
 	return r
 }
 
-func (r BenchmarkAPIPostBenchmarkPresetsRequest) Execute() (*PresetAccepted, *http.Response, error) {
+func (r BenchmarkAPIPostBenchmarkPresetsRequest) Execute() (*BenchmarkPresetAccepted, *http.Response, error) {
 	return r.ApiService.PostBenchmarkPresetsExecute(r)
 }
 
@@ -926,6 +1019,10 @@ enso-<name> it would be served as.
 It VALIDATES AND ECHOES: the definition is not persisted yet, so a preset
 accepted here is not one the model layer will resolve. Treat the response as a
 check on the blend, not a promise to serve it.
+
+Any signed-in caller may compose; a caller with no verified principal is refused
+401. Owner is the caller's verified org whatever the body says, so a blend is
+never checked or echoed as another org's.
 
 Defaults fill the shape rather than refusing it: an omitted rank becomes the arms
 in declared order and a panel below 1 becomes 1. The one real invariant is that
@@ -945,13 +1042,13 @@ func (a *BenchmarkAPIService) PostBenchmarkPresets(ctx context.Context) Benchmar
 
 // Execute executes the request
 //
-//	@return PresetAccepted
-func (a *BenchmarkAPIService) PostBenchmarkPresetsExecute(r BenchmarkAPIPostBenchmarkPresetsRequest) (*PresetAccepted, *http.Response, error) {
+//	@return BenchmarkPresetAccepted
+func (a *BenchmarkAPIService) PostBenchmarkPresetsExecute(r BenchmarkAPIPostBenchmarkPresetsRequest) (*BenchmarkPresetAccepted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PresetAccepted
+		localVarReturnValue *BenchmarkPresetAccepted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenchmarkAPIService.PostBenchmarkPresets")
@@ -964,8 +1061,8 @@ func (a *BenchmarkAPIService) PostBenchmarkPresetsExecute(r BenchmarkAPIPostBenc
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.preset == nil {
-		return localVarReturnValue, nil, reportError("preset is required and must be specified")
+	if r.benchmarkPreset == nil {
+		return localVarReturnValue, nil, reportError("benchmarkPreset is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -978,7 +1075,7 @@ func (a *BenchmarkAPIService) PostBenchmarkPresetsExecute(r BenchmarkAPIPostBenc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -986,7 +1083,7 @@ func (a *BenchmarkAPIService) PostBenchmarkPresetsExecute(r BenchmarkAPIPostBenc
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.preset
+	localVarPostBody = r.benchmarkPreset
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1009,6 +1106,14 @@ func (a *BenchmarkAPIService) PostBenchmarkPresetsExecute(r BenchmarkAPIPostBenc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1025,17 +1130,17 @@ func (a *BenchmarkAPIService) PostBenchmarkPresetsExecute(r BenchmarkAPIPostBenc
 }
 
 type BenchmarkAPIPostBenchmarkRunsRequest struct {
-	ctx        context.Context
-	ApiService *BenchmarkAPIService
-	suite      *Suite
+	ctx            context.Context
+	ApiService     *BenchmarkAPIService
+	benchmarkSuite *BenchmarkSuite
 }
 
-func (r BenchmarkAPIPostBenchmarkRunsRequest) Suite(suite Suite) BenchmarkAPIPostBenchmarkRunsRequest {
-	r.suite = &suite
+func (r BenchmarkAPIPostBenchmarkRunsRequest) BenchmarkSuite(benchmarkSuite BenchmarkSuite) BenchmarkAPIPostBenchmarkRunsRequest {
+	r.benchmarkSuite = &benchmarkSuite
 	return r
 }
 
-func (r BenchmarkAPIPostBenchmarkRunsRequest) Execute() (*Admission, *http.Response, error) {
+func (r BenchmarkAPIPostBenchmarkRunsRequest) Execute() (*BenchmarkAdmission, *http.Response, error) {
 	return r.ApiService.PostBenchmarkRunsExecute(r)
 }
 
@@ -1047,6 +1152,10 @@ answers 202 with the receipt.
 
 It is an ADMISSION, not a result: the work is done by the harness afterwards and
 the numbers appear on the leaderboard as it completes them.
+
+Any signed-in caller may ask; a caller with no verified principal is refused
+401. The receipt names the caller's verified org and user — nothing in the
+body names either — and stores nothing.
 
 Cost is bounded by the store rather than by a quota: attempts are append-only and
 keyed by (benchmark, item, model), so an (item, model) pair already attempted is
@@ -1069,13 +1178,13 @@ func (a *BenchmarkAPIService) PostBenchmarkRuns(ctx context.Context) BenchmarkAP
 
 // Execute executes the request
 //
-//	@return Admission
-func (a *BenchmarkAPIService) PostBenchmarkRunsExecute(r BenchmarkAPIPostBenchmarkRunsRequest) (*Admission, *http.Response, error) {
+//	@return BenchmarkAdmission
+func (a *BenchmarkAPIService) PostBenchmarkRunsExecute(r BenchmarkAPIPostBenchmarkRunsRequest) (*BenchmarkAdmission, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Admission
+		localVarReturnValue *BenchmarkAdmission
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenchmarkAPIService.PostBenchmarkRuns")
@@ -1088,8 +1197,8 @@ func (a *BenchmarkAPIService) PostBenchmarkRunsExecute(r BenchmarkAPIPostBenchma
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.suite == nil {
-		return localVarReturnValue, nil, reportError("suite is required and must be specified")
+	if r.benchmarkSuite == nil {
+		return localVarReturnValue, nil, reportError("benchmarkSuite is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1102,7 +1211,7 @@ func (a *BenchmarkAPIService) PostBenchmarkRunsExecute(r BenchmarkAPIPostBenchma
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1110,7 +1219,7 @@ func (a *BenchmarkAPIService) PostBenchmarkRunsExecute(r BenchmarkAPIPostBenchma
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.suite
+	localVarPostBody = r.benchmarkSuite
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1133,6 +1242,14 @@ func (a *BenchmarkAPIService) PostBenchmarkRunsExecute(r BenchmarkAPIPostBenchma
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -19,13 +19,16 @@ var _ MappedNullable = &IamMfaProps{}
 
 // IamMfaProps struct for IamMfaProps
 type IamMfaProps struct {
-	CountryCode        *string `json:"countryCode,omitempty"`
-	Enabled            *bool   `json:"enabled,omitempty"`
-	IsPreferred        *bool   `json:"isPreferred,omitempty"`
-	MfaRememberInHours *int64  `json:"mfaRememberInHours,omitempty"`
-	MfaType            *string `json:"mfaType,omitempty"`
-	Url                *string `json:"url,omitempty"`
+	CountryCode          *string `json:"countryCode,omitempty"`
+	Enabled              *bool   `json:"enabled,omitempty"`
+	IsPreferred          *bool   `json:"isPreferred,omitempty"`
+	MfaRememberInHours   *int64  `json:"mfaRememberInHours,omitempty"`
+	MfaType              *string `json:"mfaType,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamMfaProps IamMfaProps
 
 // NewIamMfaProps instantiates a new IamMfaProps object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o IamMfaProps) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamMfaProps) UnmarshalJSON(data []byte) (err error) {
+	varIamMfaProps := _IamMfaProps{}
+
+	err = json.Unmarshal(data, &varIamMfaProps)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamMfaProps(varIamMfaProps)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "countryCode")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "isPreferred")
+		delete(additionalProperties, "mfaRememberInHours")
+		delete(additionalProperties, "mfaType")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamMfaProps struct {

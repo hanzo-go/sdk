@@ -44,7 +44,10 @@ type O11yBuilderQuery struct {
 	StepInterval         *int64             `json:"stepInterval,omitempty"`
 	Temporality          *string            `json:"temporality,omitempty"`
 	TimeAggregation      *string            `json:"timeAggregation,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yBuilderQuery O11yBuilderQuery
 
 // NewO11yBuilderQuery instantiates a new O11yBuilderQuery object
 // This constructor will assign default values to properties that have it defined,
@@ -948,7 +951,57 @@ func (o O11yBuilderQuery) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TimeAggregation) {
 		toSerialize["timeAggregation"] = o.TimeAggregation
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yBuilderQuery) UnmarshalJSON(data []byte) (err error) {
+	varO11yBuilderQuery := _O11yBuilderQuery{}
+
+	err = json.Unmarshal(data, &varO11yBuilderQuery)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yBuilderQuery(varO11yBuilderQuery)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "IsAnomaly")
+		delete(additionalProperties, "QueriesUsedInFormula")
+		delete(additionalProperties, "ShiftBy")
+		delete(additionalProperties, "aggregateAttribute")
+		delete(additionalProperties, "aggregateOperator")
+		delete(additionalProperties, "dataSource")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "expression")
+		delete(additionalProperties, "filters")
+		delete(additionalProperties, "functions")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "having")
+		delete(additionalProperties, "legend")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "orderBy")
+		delete(additionalProperties, "pageSize")
+		delete(additionalProperties, "queryName")
+		delete(additionalProperties, "reduceTo")
+		delete(additionalProperties, "selectColumns")
+		delete(additionalProperties, "seriesAggregation")
+		delete(additionalProperties, "spaceAggregation")
+		delete(additionalProperties, "stepInterval")
+		delete(additionalProperties, "temporality")
+		delete(additionalProperties, "timeAggregation")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yBuilderQuery struct {

@@ -19,19 +19,22 @@ var _ MappedNullable = &O11yWechatConfig{}
 
 // O11yWechatConfig struct for O11yWechatConfig
 type O11yWechatConfig struct {
-	NotifierConfig *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
-	AgentId        *string               `json:"agent_id,omitempty"`
-	ApiSecret      interface{}           `json:"api_secret,omitempty"`
-	ApiSecretFile  *string               `json:"api_secret_file,omitempty"`
-	ApiUrl         interface{}           `json:"api_url,omitempty"`
-	CorpId         *string               `json:"corp_id,omitempty"`
-	HttpConfig     *O11yHTTPClientConfig `json:"http_config,omitempty"`
-	Message        *string               `json:"message,omitempty"`
-	MessageType    *string               `json:"message_type,omitempty"`
-	ToParty        *string               `json:"to_party,omitempty"`
-	ToTag          *string               `json:"to_tag,omitempty"`
-	ToUser         *string               `json:"to_user,omitempty"`
+	NotifierConfig       *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
+	AgentId              *string               `json:"agent_id,omitempty"`
+	ApiSecret            interface{}           `json:"api_secret,omitempty"`
+	ApiSecretFile        *string               `json:"api_secret_file,omitempty"`
+	ApiUrl               interface{}           `json:"api_url,omitempty"`
+	CorpId               *string               `json:"corp_id,omitempty"`
+	HttpConfig           *O11yHTTPClientConfig `json:"http_config,omitempty"`
+	Message              *string               `json:"message,omitempty"`
+	MessageType          *string               `json:"message_type,omitempty"`
+	ToParty              *string               `json:"to_party,omitempty"`
+	ToTag                *string               `json:"to_tag,omitempty"`
+	ToUser               *string               `json:"to_user,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yWechatConfig O11yWechatConfig
 
 // NewO11yWechatConfig instantiates a new O11yWechatConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -482,7 +485,44 @@ func (o O11yWechatConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ToUser) {
 		toSerialize["to_user"] = o.ToUser
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yWechatConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yWechatConfig := _O11yWechatConfig{}
+
+	err = json.Unmarshal(data, &varO11yWechatConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yWechatConfig(varO11yWechatConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "agent_id")
+		delete(additionalProperties, "api_secret")
+		delete(additionalProperties, "api_secret_file")
+		delete(additionalProperties, "api_url")
+		delete(additionalProperties, "corp_id")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "message_type")
+		delete(additionalProperties, "to_party")
+		delete(additionalProperties, "to_tag")
+		delete(additionalProperties, "to_user")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yWechatConfig struct {

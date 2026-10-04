@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 ## GetMqHealth
 
-> Health GetMqHealth(ctx).Execute()
+> MqHealth GetMqHealth(ctx).Execute()
 
 Reports whether the message plane behind this surface answers.
 
@@ -261,7 +261,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMqHealth`: Health
+	// response from `GetMqHealth`: MqHealth
 	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqHealth`: %v\n", resp)
 }
 ```
@@ -277,7 +277,7 @@ Other parameters are passed through a pointer to a apiGetMqHealthRequest struct 
 
 ### Return type
 
-[**Health**](Health.md)
+[**MqHealth**](MqHealth.md)
 
 ### Authorization
 
@@ -286,7 +286,7 @@ Other parameters are passed through a pointer to a apiGetMqHealthRequest struct 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -295,7 +295,7 @@ Other parameters are passed through a pointer to a apiGetMqHealthRequest struct 
 
 ## GetMqInfo
 
-> InfoOut GetMqInfo(ctx).Execute()
+> MqInfoOut GetMqInfo(ctx).Execute()
 
 Returns the broker's identity and the org's stream count.
 
@@ -322,7 +322,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqInfo``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMqInfo`: InfoOut
+	// response from `GetMqInfo`: MqInfoOut
 	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqInfo`: %v\n", resp)
 }
 ```
@@ -338,7 +338,7 @@ Other parameters are passed through a pointer to a apiGetMqInfoRequest struct vi
 
 ### Return type
 
-[**InfoOut**](InfoOut.md)
+[**MqInfoOut**](MqInfoOut.md)
 
 ### Authorization
 
@@ -347,7 +347,7 @@ Other parameters are passed through a pointer to a apiGetMqInfoRequest struct vi
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -356,7 +356,7 @@ Other parameters are passed through a pointer to a apiGetMqInfoRequest struct vi
 
 ## GetMqStream
 
-> Streams GetMqStream(ctx).Limit(limit).Offset(offset).Execute()
+> MqStreams GetMqStream(ctx).Limit(limit).Offset(offset).Execute()
 
 Returns the org's streams, name-ordered, with their live state.
 
@@ -385,7 +385,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStream``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMqStream`: Streams
+	// response from `GetMqStream`: MqStreams
 	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStream`: %v\n", resp)
 }
 ```
@@ -406,7 +406,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Streams**](Streams.md)
+[**MqStreams**](MqStreams.md)
 
 ### Authorization
 
@@ -415,7 +415,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -424,7 +424,7 @@ Name | Type | Description  | Notes
 
 ## GetMqStreamByName
 
-> Stream GetMqStreamByName(ctx, name).Execute()
+> MqStream GetMqStreamByName(ctx, name).Execute()
 
 Returns one stream's configuration and live state.
 
@@ -452,7 +452,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMqStreamByName`: Stream
+	// response from `GetMqStreamByName`: MqStream
 	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamByName`: %v\n", resp)
 }
 ```
@@ -476,7 +476,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Stream**](Stream.md)
+[**MqStream**](MqStream.md)
 
 ### Authorization
 
@@ -485,7 +485,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -494,7 +494,7 @@ Name | Type | Description  | Notes
 
 ## GetMqStreamByNameMessage
 
-> ReadOut GetMqStreamByNameMessage(ctx, name).Seq(seq).LastBySubject(lastBySubject).NextBySubject(nextBySubject).Limit(limit).Execute()
+> MqReadOut GetMqStreamByNameMessage(ctx, name).Seq(seq).LastBySubject(lastBySubject).NextBySubject(nextBySubject).Limit(limit).Execute()
 
 Reads stored messages without a consumer: by sequence, by newest on a subject, or walking a subject forward from a sequence.
 
@@ -526,7 +526,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamByNameMessage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMqStreamByNameMessage`: ReadOut
+	// response from `GetMqStreamByNameMessage`: MqReadOut
 	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamByNameMessage`: %v\n", resp)
 }
 ```
@@ -554,7 +554,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ReadOut**](ReadOut.md)
+[**MqReadOut**](MqReadOut.md)
 
 ### Authorization
 
@@ -563,7 +563,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -572,7 +572,7 @@ Name | Type | Description  | Notes
 
 ## GetMqStreamByStreamConsumer
 
-> PickOut GetMqStreamByStreamConsumer(ctx, stream).Limit(limit).Offset(offset).Execute()
+> MqPickOut GetMqStreamByStreamConsumer(ctx, stream).Limit(limit).Offset(offset).Execute()
 
 Returns a stream's consumers, name-ordered, with delivery state.
 
@@ -602,7 +602,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamByStreamConsumer``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMqStreamByStreamConsumer`: PickOut
+	// response from `GetMqStreamByStreamConsumer`: MqPickOut
 	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamByStreamConsumer`: %v\n", resp)
 }
 ```
@@ -628,7 +628,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PickOut**](PickOut.md)
+[**MqPickOut**](MqPickOut.md)
 
 ### Authorization
 
@@ -637,7 +637,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -646,7 +646,7 @@ Name | Type | Description  | Notes
 
 ## GetMqStreamByStreamConsumerByName
 
-> Consumer GetMqStreamByStreamConsumerByName(ctx, stream, name).Execute()
+> MqConsumer GetMqStreamByStreamConsumerByName(ctx, stream, name).Execute()
 
 Returns one consumer's configuration and delivery state.
 
@@ -675,7 +675,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.GetMqStreamByStreamConsumerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMqStreamByStreamConsumerByName`: Consumer
+	// response from `GetMqStreamByStreamConsumerByName`: MqConsumer
 	fmt.Fprintf(os.Stdout, "Response from `MqAPI.GetMqStreamByStreamConsumerByName`: %v\n", resp)
 }
 ```
@@ -701,7 +701,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Consumer**](Consumer.md)
+[**MqConsumer**](MqConsumer.md)
 
 ### Authorization
 
@@ -710,7 +710,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -719,7 +719,7 @@ Name | Type | Description  | Notes
 
 ## PostMqStream
 
-> Stream PostMqStream(ctx).StreamConfig(streamConfig).Execute()
+> MqStream PostMqStream(ctx).MqConfig(mqConfig).Execute()
 
 Creates a durable stream in the org's namespace and returns it.
 
@@ -738,16 +738,16 @@ import (
 )
 
 func main() {
-	streamConfig := *openapiclient.NewStreamConfig() // StreamConfig | 
+	mqConfig := *openapiclient.NewMqConfig() // MqConfig | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.PostMqStream(context.Background()).StreamConfig(streamConfig).Execute()
+	resp, r, err := apiClient.MqAPI.PostMqStream(context.Background()).MqConfig(mqConfig).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStream``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMqStream`: Stream
+	// response from `PostMqStream`: MqStream
 	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStream`: %v\n", resp)
 }
 ```
@@ -763,11 +763,11 @@ Other parameters are passed through a pointer to a apiPostMqStreamRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **streamConfig** | [**StreamConfig**](StreamConfig.md) |  | 
+ **mqConfig** | [**MqConfig**](MqConfig.md) |  | 
 
 ### Return type
 
-[**Stream**](Stream.md)
+[**MqStream**](MqStream.md)
 
 ### Authorization
 
@@ -776,7 +776,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -785,7 +785,7 @@ Name | Type | Description  | Notes
 
 ## PostMqStreamByNamePurge
 
-> PurgeOut PostMqStreamByNamePurge(ctx, name).Purge(purge).Execute()
+> MqPurgeOut PostMqStreamByNamePurge(ctx, name).MqPurge(mqPurge).Execute()
 
 Removes messages from a stream, leaving its consumers in place.
 
@@ -805,16 +805,16 @@ import (
 
 func main() {
 	name := "name_example" // string | Name is the stream name, from the path.
-	purge := *openapiclient.NewPurge() // Purge | 
+	mqPurge := *openapiclient.NewMqPurge() // MqPurge | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.PostMqStreamByNamePurge(context.Background(), name).Purge(purge).Execute()
+	resp, r, err := apiClient.MqAPI.PostMqStreamByNamePurge(context.Background(), name).MqPurge(mqPurge).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreamByNamePurge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMqStreamByNamePurge`: PurgeOut
+	// response from `PostMqStreamByNamePurge`: MqPurgeOut
 	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreamByNamePurge`: %v\n", resp)
 }
 ```
@@ -835,11 +835,11 @@ Other parameters are passed through a pointer to a apiPostMqStreamByNamePurgeReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **purge** | [**Purge**](Purge.md) |  | 
+ **mqPurge** | [**MqPurge**](MqPurge.md) |  | 
 
 ### Return type
 
-[**PurgeOut**](PurgeOut.md)
+[**MqPurgeOut**](MqPurgeOut.md)
 
 ### Authorization
 
@@ -848,7 +848,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -857,7 +857,7 @@ Name | Type | Description  | Notes
 
 ## PostMqStreamByStreamConsumer
 
-> Consumer PostMqStreamByStreamConsumer(ctx, stream).MakeIn(makeIn).Execute()
+> MqConsumer PostMqStreamByStreamConsumer(ctx, stream).MqMakeIn(mqMakeIn).Execute()
 
 Creates a durable pull consumer on a stream and returns it.
 
@@ -877,16 +877,16 @@ import (
 
 func main() {
 	stream := "stream_example" // string | Stream is the stream name, from the path.
-	makeIn := *openapiclient.NewMakeIn() // MakeIn | 
+	mqMakeIn := *openapiclient.NewMqMakeIn() // MqMakeIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.PostMqStreamByStreamConsumer(context.Background(), stream).MakeIn(makeIn).Execute()
+	resp, r, err := apiClient.MqAPI.PostMqStreamByStreamConsumer(context.Background(), stream).MqMakeIn(mqMakeIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreamByStreamConsumer``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMqStreamByStreamConsumer`: Consumer
+	// response from `PostMqStreamByStreamConsumer`: MqConsumer
 	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreamByStreamConsumer`: %v\n", resp)
 }
 ```
@@ -907,11 +907,11 @@ Other parameters are passed through a pointer to a apiPostMqStreamByStreamConsum
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **makeIn** | [**MakeIn**](MakeIn.md) |  | 
+ **mqMakeIn** | [**MqMakeIn**](MqMakeIn.md) |  | 
 
 ### Return type
 
-[**Consumer**](Consumer.md)
+[**MqConsumer**](MqConsumer.md)
 
 ### Authorization
 
@@ -920,7 +920,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -929,7 +929,7 @@ Name | Type | Description  | Notes
 
 ## PostMqStreamByStreamConsumerByNameNext
 
-> ReadOut PostMqStreamByStreamConsumerByNameNext(ctx, stream, name).NextIn(nextIn).Execute()
+> MqReadOut PostMqStreamByStreamConsumerByNameNext(ctx, stream, name).MqNextIn(mqNextIn).Execute()
 
 Pulls the consumer's next batch.
 
@@ -950,16 +950,16 @@ import (
 func main() {
 	stream := "stream_example" // string | Stream is the stream name, from the path.
 	name := "name_example" // string | Name is the consumer name, from the path.
-	nextIn := *openapiclient.NewNextIn() // NextIn | 
+	mqNextIn := *openapiclient.NewMqNextIn() // MqNextIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.PostMqStreamByStreamConsumerByNameNext(context.Background(), stream, name).NextIn(nextIn).Execute()
+	resp, r, err := apiClient.MqAPI.PostMqStreamByStreamConsumerByNameNext(context.Background(), stream, name).MqNextIn(mqNextIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PostMqStreamByStreamConsumerByNameNext``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMqStreamByStreamConsumerByNameNext`: ReadOut
+	// response from `PostMqStreamByStreamConsumerByNameNext`: MqReadOut
 	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PostMqStreamByStreamConsumerByNameNext`: %v\n", resp)
 }
 ```
@@ -982,11 +982,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **nextIn** | [**NextIn**](NextIn.md) |  | 
+ **mqNextIn** | [**MqNextIn**](MqNextIn.md) |  | 
 
 ### Return type
 
-[**ReadOut**](ReadOut.md)
+[**MqReadOut**](MqReadOut.md)
 
 ### Authorization
 
@@ -995,7 +995,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1004,7 +1004,7 @@ Name | Type | Description  | Notes
 
 ## PutMqStreamByName
 
-> Stream PutMqStreamByName(ctx, name).StreamConfig(streamConfig).Execute()
+> MqStream PutMqStreamByName(ctx, name).MqConfig(mqConfig).Execute()
 
 Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
 
@@ -1024,16 +1024,16 @@ import (
 
 func main() {
 	name := "name_example" // string | Name is the stream name, unique within the org (alphanumeric, hyphens, underscores).
-	streamConfig := *openapiclient.NewStreamConfig() // StreamConfig | 
+	mqConfig := *openapiclient.NewMqConfig() // MqConfig | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MqAPI.PutMqStreamByName(context.Background(), name).StreamConfig(streamConfig).Execute()
+	resp, r, err := apiClient.MqAPI.PutMqStreamByName(context.Background(), name).MqConfig(mqConfig).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MqAPI.PutMqStreamByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutMqStreamByName`: Stream
+	// response from `PutMqStreamByName`: MqStream
 	fmt.Fprintf(os.Stdout, "Response from `MqAPI.PutMqStreamByName`: %v\n", resp)
 }
 ```
@@ -1054,11 +1054,11 @@ Other parameters are passed through a pointer to a apiPutMqStreamByNameRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **streamConfig** | [**StreamConfig**](StreamConfig.md) |  | 
+ **mqConfig** | [**MqConfig**](MqConfig.md) |  | 
 
 ### Return type
 
-[**Stream**](Stream.md)
+[**MqStream**](MqStream.md)
 
 ### Authorization
 
@@ -1067,7 +1067,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

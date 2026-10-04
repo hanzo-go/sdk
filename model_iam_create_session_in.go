@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,11 +20,12 @@ var _ MappedNullable = &IamCreateSessionIn{}
 
 // IamCreateSessionIn struct for IamCreateSessionIn
 type IamCreateSessionIn struct {
-	Application     string   `json:"application"`
-	ExclusiveSignin *bool    `json:"exclusiveSignin,omitempty"`
-	Name            string   `json:"name"`
-	Owner           string   `json:"owner"`
-	SessionId       []string `json:"sessionId,omitempty"`
+	Application          string   `json:"application"`
+	ExclusiveSignin      *bool    `json:"exclusiveSignin,omitempty"`
+	Name                 string   `json:"name"`
+	Owner                string   `json:"owner"`
+	SessionId            []string `json:"sessionId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _IamCreateSessionIn IamCreateSessionIn
@@ -205,6 +205,11 @@ func (o IamCreateSessionIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SessionId) {
 		toSerialize["sessionId"] = o.SessionId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -234,15 +239,24 @@ func (o *IamCreateSessionIn) UnmarshalJSON(data []byte) (err error) {
 
 	varIamCreateSessionIn := _IamCreateSessionIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varIamCreateSessionIn)
+	err = json.Unmarshal(data, &varIamCreateSessionIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = IamCreateSessionIn(varIamCreateSessionIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "application")
+		delete(additionalProperties, "exclusiveSignin")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "sessionId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

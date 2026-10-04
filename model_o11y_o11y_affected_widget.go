@@ -22,8 +22,11 @@ type O11yO11yAffectedWidget struct {
 	// ID is the panel's id.
 	Id *string `json:"id,omitempty"`
 	// Name is the panel's name.
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yAffectedWidget O11yO11yAffectedWidget
 
 // NewO11yO11yAffectedWidget instantiates a new O11yO11yAffectedWidget object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yAffectedWidget) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yAffectedWidget) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yAffectedWidget := _O11yO11yAffectedWidget{}
+
+	err = json.Unmarshal(data, &varO11yO11yAffectedWidget)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yAffectedWidget(varO11yO11yAffectedWidget)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yAffectedWidget struct {

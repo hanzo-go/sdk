@@ -19,10 +19,13 @@ var _ MappedNullable = &O11ySpanAggregationResult{}
 
 // O11ySpanAggregationResult struct for O11ySpanAggregationResult
 type O11ySpanAggregationResult struct {
-	Aggregation interface{}            `json:"aggregation,omitempty"`
-	Field       *O11yTelemetryFieldKey `json:"field,omitempty"`
-	Value       map[string]int32       `json:"value,omitempty"`
+	Aggregation          interface{}            `json:"aggregation,omitempty"`
+	Field                *O11yTelemetryFieldKey `json:"field,omitempty"`
+	Value                map[string]int32       `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySpanAggregationResult O11ySpanAggregationResult
 
 // NewO11ySpanAggregationResult instantiates a new O11ySpanAggregationResult object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o O11ySpanAggregationResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySpanAggregationResult) UnmarshalJSON(data []byte) (err error) {
+	varO11ySpanAggregationResult := _O11ySpanAggregationResult{}
+
+	err = json.Unmarshal(data, &varO11ySpanAggregationResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySpanAggregationResult(varO11ySpanAggregationResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aggregation")
+		delete(additionalProperties, "field")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySpanAggregationResult struct {

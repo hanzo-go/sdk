@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**GetPlanDns**](PlanAPI.md#GetPlanDns) | **Get** /v1/plan/dns | ListDNSPlans returns the DNS plan catalog: the tiers priced on zones, records per zone and queries per day.
 [**GetPlanEntitlementsById**](PlanAPI.md#GetPlanEntitlementsById) | **Get** /v1/plan/entitlements/{id} | Returns what one plan GRANTS and not what it costs: the canonical namespaced entitlement block and the flat license-feature list derived from it.
 [**GetPlanGpu**](PlanAPI.md#GetPlanGpu) | **Get** /v1/plan/gpu | ListGPUTiers returns the rentable GPU configurations, each with its accelerator count and model, VRAM, vCPUs, host memory and hourly price.
-[**GetPlanHealth**](PlanAPI.md#GetPlanHealth) | **Get** /v1/plan/health | Health reports that the plans subsystem is mounted and serving.
+[**GetPlanHealth**](PlanAPI.md#GetPlanHealth) | **Get** /v1/plan/health | Reports that the plans subsystem is mounted and serving.
 [**GetPlanPolicy**](PlanAPI.md#GetPlanPolicy) | **Get** /v1/plan/policy | Returns the published pricing policy: whether pricing is transparent, the revenue-sharing terms (idle compute resale and the open-source share) and the principles the catalog is priced by.
 [**GetPlanRegions**](PlanAPI.md#GetPlanRegions) | **Get** /v1/plan/regions | Returns the regions cloud capacity is offered in, each with its display name and physical location.
 [**GetPlanResolveById**](PlanAPI.md#GetPlanResolveById) | **Get** /v1/plan/resolve/{id} | Resolves one plan to everything a consumer of the catalog needs at once: its canonical entitlement block, the flat license-feature list a signed license carries, its billing reference, and the catalog it came from.
@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 ## GetPlan
 
-> PlanList GetPlan(ctx).Execute()
+> PlanPlanList GetPlan(ctx).Execute()
 
 Returns the Hanzo cloud plan catalog: every cloud tier with its price, included capacity, limits and feature list, scoped to the caller's catalog.
 
@@ -50,7 +50,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlanAPI.GetPlan``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlan`: PlanList
+	// response from `GetPlan`: PlanPlanList
 	fmt.Fprintf(os.Stdout, "Response from `PlanAPI.GetPlan`: %v\n", resp)
 }
 ```
@@ -66,7 +66,7 @@ Other parameters are passed through a pointer to a apiGetPlanRequest struct via 
 
 ### Return type
 
-[**PlanList**](PlanList.md)
+[**PlanPlanList**](PlanPlanList.md)
 
 ### Authorization
 
@@ -75,7 +75,7 @@ Other parameters are passed through a pointer to a apiGetPlanRequest struct via 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -84,7 +84,7 @@ Other parameters are passed through a pointer to a apiGetPlanRequest struct via 
 
 ## GetPlanBlockchain
 
-> PlanList GetPlanBlockchain(ctx).Execute()
+> PlanPlanList GetPlanBlockchain(ctx).Execute()
 
 Returns the blockchain RPC plan catalog: the tiers metered in monthly compute units, with their prices, limits and overage terms.
 
@@ -111,7 +111,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlanAPI.GetPlanBlockchain``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlanBlockchain`: PlanList
+	// response from `GetPlanBlockchain`: PlanPlanList
 	fmt.Fprintf(os.Stdout, "Response from `PlanAPI.GetPlanBlockchain`: %v\n", resp)
 }
 ```
@@ -127,7 +127,7 @@ Other parameters are passed through a pointer to a apiGetPlanBlockchainRequest s
 
 ### Return type
 
-[**PlanList**](PlanList.md)
+[**PlanPlanList**](PlanPlanList.md)
 
 ### Authorization
 
@@ -136,7 +136,7 @@ Other parameters are passed through a pointer to a apiGetPlanBlockchainRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -145,7 +145,7 @@ Other parameters are passed through a pointer to a apiGetPlanBlockchainRequest s
 
 ## GetPlanDns
 
-> PlanList GetPlanDns(ctx).Execute()
+> PlanPlanList GetPlanDns(ctx).Execute()
 
 ListDNSPlans returns the DNS plan catalog: the tiers priced on zones, records per zone and queries per day.
 
@@ -172,7 +172,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlanAPI.GetPlanDns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlanDns`: PlanList
+	// response from `GetPlanDns`: PlanPlanList
 	fmt.Fprintf(os.Stdout, "Response from `PlanAPI.GetPlanDns`: %v\n", resp)
 }
 ```
@@ -188,7 +188,7 @@ Other parameters are passed through a pointer to a apiGetPlanDnsRequest struct v
 
 ### Return type
 
-[**PlanList**](PlanList.md)
+[**PlanPlanList**](PlanPlanList.md)
 
 ### Authorization
 
@@ -197,7 +197,7 @@ Other parameters are passed through a pointer to a apiGetPlanDnsRequest struct v
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -206,7 +206,7 @@ Other parameters are passed through a pointer to a apiGetPlanDnsRequest struct v
 
 ## GetPlanEntitlementsById
 
-> PlanEntitlements GetPlanEntitlementsById(ctx, id).Execute()
+> PlanPlanEntitlements GetPlanEntitlementsById(ctx, id).Execute()
 
 Returns what one plan GRANTS and not what it costs: the canonical namespaced entitlement block and the flat license-feature list derived from it.
 
@@ -234,7 +234,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlanAPI.GetPlanEntitlementsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlanEntitlementsById`: PlanEntitlements
+	// response from `GetPlanEntitlementsById`: PlanPlanEntitlements
 	fmt.Fprintf(os.Stdout, "Response from `PlanAPI.GetPlanEntitlementsById`: %v\n", resp)
 }
 ```
@@ -258,7 +258,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PlanEntitlements**](PlanEntitlements.md)
+[**PlanPlanEntitlements**](PlanPlanEntitlements.md)
 
 ### Authorization
 
@@ -267,7 +267,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -276,7 +276,7 @@ Name | Type | Description  | Notes
 
 ## GetPlanGpu
 
-> PlanTierList GetPlanGpu(ctx).Execute()
+> PlanPlanTierList GetPlanGpu(ctx).Execute()
 
 ListGPUTiers returns the rentable GPU configurations, each with its accelerator count and model, VRAM, vCPUs, host memory and hourly price.
 
@@ -303,7 +303,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlanAPI.GetPlanGpu``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlanGpu`: PlanTierList
+	// response from `GetPlanGpu`: PlanPlanTierList
 	fmt.Fprintf(os.Stdout, "Response from `PlanAPI.GetPlanGpu`: %v\n", resp)
 }
 ```
@@ -319,7 +319,7 @@ Other parameters are passed through a pointer to a apiGetPlanGpuRequest struct v
 
 ### Return type
 
-[**PlanTierList**](PlanTierList.md)
+[**PlanPlanTierList**](PlanPlanTierList.md)
 
 ### Authorization
 
@@ -328,7 +328,7 @@ Other parameters are passed through a pointer to a apiGetPlanGpuRequest struct v
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -337,9 +337,9 @@ Other parameters are passed through a pointer to a apiGetPlanGpuRequest struct v
 
 ## GetPlanHealth
 
-> PlanHealth GetPlanHealth(ctx).Execute()
+> PlanPlanHealth GetPlanHealth(ctx).Execute()
 
-Health reports that the plans subsystem is mounted and serving.
+Reports that the plans subsystem is mounted and serving.
 
 
 
@@ -364,7 +364,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlanAPI.GetPlanHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlanHealth`: PlanHealth
+	// response from `GetPlanHealth`: PlanPlanHealth
 	fmt.Fprintf(os.Stdout, "Response from `PlanAPI.GetPlanHealth`: %v\n", resp)
 }
 ```
@@ -380,7 +380,7 @@ Other parameters are passed through a pointer to a apiGetPlanHealthRequest struc
 
 ### Return type
 
-[**PlanHealth**](PlanHealth.md)
+[**PlanPlanHealth**](PlanPlanHealth.md)
 
 ### Authorization
 
@@ -389,7 +389,7 @@ Other parameters are passed through a pointer to a apiGetPlanHealthRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -450,7 +450,7 @@ Other parameters are passed through a pointer to a apiGetPlanPolicyRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -459,7 +459,7 @@ Other parameters are passed through a pointer to a apiGetPlanPolicyRequest struc
 
 ## GetPlanRegions
 
-> PlanRegionList GetPlanRegions(ctx).Execute()
+> PlanPlanRegionList GetPlanRegions(ctx).Execute()
 
 Returns the regions cloud capacity is offered in, each with its display name and physical location.
 
@@ -486,7 +486,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlanAPI.GetPlanRegions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlanRegions`: PlanRegionList
+	// response from `GetPlanRegions`: PlanPlanRegionList
 	fmt.Fprintf(os.Stdout, "Response from `PlanAPI.GetPlanRegions`: %v\n", resp)
 }
 ```
@@ -502,7 +502,7 @@ Other parameters are passed through a pointer to a apiGetPlanRegionsRequest stru
 
 ### Return type
 
-[**PlanRegionList**](PlanRegionList.md)
+[**PlanPlanRegionList**](PlanPlanRegionList.md)
 
 ### Authorization
 
@@ -511,7 +511,7 @@ Other parameters are passed through a pointer to a apiGetPlanRegionsRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -520,7 +520,7 @@ Other parameters are passed through a pointer to a apiGetPlanRegionsRequest stru
 
 ## GetPlanResolveById
 
-> PlanResolution GetPlanResolveById(ctx, id).Execute()
+> PlanPlanResolution GetPlanResolveById(ctx, id).Execute()
 
 Resolves one plan to everything a consumer of the catalog needs at once: its canonical entitlement block, the flat license-feature list a signed license carries, its billing reference, and the catalog it came from.
 
@@ -548,7 +548,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlanAPI.GetPlanResolveById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlanResolveById`: PlanResolution
+	// response from `GetPlanResolveById`: PlanPlanResolution
 	fmt.Fprintf(os.Stdout, "Response from `PlanAPI.GetPlanResolveById`: %v\n", resp)
 }
 ```
@@ -572,7 +572,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PlanResolution**](PlanResolution.md)
+[**PlanPlanResolution**](PlanPlanResolution.md)
 
 ### Authorization
 
@@ -581,7 +581,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -590,7 +590,7 @@ Name | Type | Description  | Notes
 
 ## GetPlanSchema
 
-> PlanSchemas GetPlanSchema(ctx).Execute()
+> PlanPlanSchemas GetPlanSchema(ctx).Execute()
 
 Returns the two JSON Schema documents this surface speaks: entitlements.schema.json, which declares every entitlement key with its type, unit and enum, and plan.schema.json, which a catalog plan record conforms to.
 
@@ -617,7 +617,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlanAPI.GetPlanSchema``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlanSchema`: PlanSchemas
+	// response from `GetPlanSchema`: PlanPlanSchemas
 	fmt.Fprintf(os.Stdout, "Response from `PlanAPI.GetPlanSchema`: %v\n", resp)
 }
 ```
@@ -633,7 +633,7 @@ Other parameters are passed through a pointer to a apiGetPlanSchemaRequest struc
 
 ### Return type
 
-[**PlanSchemas**](PlanSchemas.md)
+[**PlanPlanSchemas**](PlanPlanSchemas.md)
 
 ### Authorization
 
@@ -642,7 +642,7 @@ Other parameters are passed through a pointer to a apiGetPlanSchemaRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -703,7 +703,7 @@ Other parameters are passed through a pointer to a apiGetPlanStorageRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -712,7 +712,7 @@ Other parameters are passed through a pointer to a apiGetPlanStorageRequest stru
 
 ## GetPlanSubscriptions
 
-> PlanList GetPlanSubscriptions(ctx).Execute()
+> PlanPlanList GetPlanSubscriptions(ctx).Execute()
 
 Returns the subscription ladder — the personal and team tiers a customer buys to use the cloud, each with its monthly and annual price, seat rules, limits and billing reference.
 
@@ -739,7 +739,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlanAPI.GetPlanSubscriptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlanSubscriptions`: PlanList
+	// response from `GetPlanSubscriptions`: PlanPlanList
 	fmt.Fprintf(os.Stdout, "Response from `PlanAPI.GetPlanSubscriptions`: %v\n", resp)
 }
 ```
@@ -755,7 +755,7 @@ Other parameters are passed through a pointer to a apiGetPlanSubscriptionsReques
 
 ### Return type
 
-[**PlanList**](PlanList.md)
+[**PlanPlanList**](PlanPlanList.md)
 
 ### Authorization
 
@@ -764,7 +764,7 @@ Other parameters are passed through a pointer to a apiGetPlanSubscriptionsReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -773,7 +773,7 @@ Other parameters are passed through a pointer to a apiGetPlanSubscriptionsReques
 
 ## GetPlanTools
 
-> PlanToolList GetPlanTools(ctx).Execute()
+> PlanPlanToolList GetPlanTools(ctx).Execute()
 
 Returns the per-use price of every metered tool — web search, code interpreter, image generation, speech — each with the unit it is billed in.
 
@@ -800,7 +800,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlanAPI.GetPlanTools``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlanTools`: PlanToolList
+	// response from `GetPlanTools`: PlanPlanToolList
 	fmt.Fprintf(os.Stdout, "Response from `PlanAPI.GetPlanTools`: %v\n", resp)
 }
 ```
@@ -816,7 +816,7 @@ Other parameters are passed through a pointer to a apiGetPlanToolsRequest struct
 
 ### Return type
 
-[**PlanToolList**](PlanToolList.md)
+[**PlanPlanToolList**](PlanPlanToolList.md)
 
 ### Authorization
 
@@ -825,7 +825,7 @@ Other parameters are passed through a pointer to a apiGetPlanToolsRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -834,7 +834,7 @@ Other parameters are passed through a pointer to a apiGetPlanToolsRequest struct
 
 ## GetPlanVocab
 
-> PlanVocab GetPlanVocab(ctx).Execute()
+> PlanPlanVocab GetPlanVocab(ctx).Execute()
 
 Returns the entitlement key vocabulary: every key with its namespace, JSON type, nullability, unit, enum and title, the list of namespaces, and the engine features a license can grant.
 
@@ -861,7 +861,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PlanAPI.GetPlanVocab``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlanVocab`: PlanVocab
+	// response from `GetPlanVocab`: PlanPlanVocab
 	fmt.Fprintf(os.Stdout, "Response from `PlanAPI.GetPlanVocab`: %v\n", resp)
 }
 ```
@@ -877,7 +877,7 @@ Other parameters are passed through a pointer to a apiGetPlanVocabRequest struct
 
 ### Return type
 
-[**PlanVocab**](PlanVocab.md)
+[**PlanPlanVocab**](PlanPlanVocab.md)
 
 ### Authorization
 
@@ -886,7 +886,7 @@ Other parameters are passed through a pointer to a apiGetPlanVocabRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

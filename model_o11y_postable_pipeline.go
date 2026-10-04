@@ -19,15 +19,18 @@ var _ MappedNullable = &O11yPostablePipeline{}
 
 // O11yPostablePipeline struct for O11yPostablePipeline
 type O11yPostablePipeline struct {
-	Alias       *string        `json:"alias,omitempty"`
-	Config      []interface{}  `json:"config,omitempty"`
-	Description *string        `json:"description,omitempty"`
-	Enabled     *bool          `json:"enabled,omitempty"`
-	Filter      *O11yFilterSet `json:"filter,omitempty"`
-	Id          *string        `json:"id,omitempty"`
-	Name        *string        `json:"name,omitempty"`
-	OrderId     *int64         `json:"orderId,omitempty"`
+	Alias                *string        `json:"alias,omitempty"`
+	Config               []interface{}  `json:"config,omitempty"`
+	Description          *string        `json:"description,omitempty"`
+	Enabled              *bool          `json:"enabled,omitempty"`
+	Filter               *O11yFilterSet `json:"filter,omitempty"`
+	Id                   *string        `json:"id,omitempty"`
+	Name                 *string        `json:"name,omitempty"`
+	OrderId              *int64         `json:"orderId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPostablePipeline O11yPostablePipeline
 
 // NewO11yPostablePipeline instantiates a new O11yPostablePipeline object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o O11yPostablePipeline) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OrderId) {
 		toSerialize["orderId"] = o.OrderId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPostablePipeline) UnmarshalJSON(data []byte) (err error) {
+	varO11yPostablePipeline := _O11yPostablePipeline{}
+
+	err = json.Unmarshal(data, &varO11yPostablePipeline)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPostablePipeline(varO11yPostablePipeline)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alias")
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "orderId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPostablePipeline struct {

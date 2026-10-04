@@ -19,13 +19,16 @@ var _ MappedNullable = &SpanBody{}
 
 // SpanBody struct for SpanBody
 type SpanBody struct {
-	Duration *int32  `json:"duration,omitempty"`
-	Id       *string `json:"id,omitempty"`
-	Kind     *string `json:"kind,omitempty"`
-	Parent   *string `json:"parent,omitempty"`
-	Status   *string `json:"status,omitempty"`
-	Trace    *string `json:"trace,omitempty"`
+	Duration             *int32  `json:"duration,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	Kind                 *string `json:"kind,omitempty"`
+	Parent               *string `json:"parent,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	Trace                *string `json:"trace,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SpanBody SpanBody
 
 // NewSpanBody instantiates a new SpanBody object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o SpanBody) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Trace) {
 		toSerialize["trace"] = o.Trace
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SpanBody) UnmarshalJSON(data []byte) (err error) {
+	varSpanBody := _SpanBody{}
+
+	err = json.Unmarshal(data, &varSpanBody)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SpanBody(varSpanBody)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "duration")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "kind")
+		delete(additionalProperties, "parent")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "trace")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSpanBody struct {

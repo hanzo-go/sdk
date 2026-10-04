@@ -40,7 +40,7 @@ func (r CodeAPIGetCodeAskRequest) Repo(repo string) CodeAPIGetCodeAskRequest {
 	return r
 }
 
-func (r CodeAPIGetCodeAskRequest) Execute() (*AskAnswer, *http.Response, error) {
+func (r CodeAPIGetCodeAskRequest) Execute() (*CodeAskAnswer, *http.Response, error) {
 	return r.ApiService.GetCodeAskExecute(r)
 }
 
@@ -66,13 +66,13 @@ func (a *CodeAPIService) GetCodeAsk(ctx context.Context) CodeAPIGetCodeAskReques
 
 // Execute executes the request
 //
-//	@return AskAnswer
-func (a *CodeAPIService) GetCodeAskExecute(r CodeAPIGetCodeAskRequest) (*AskAnswer, *http.Response, error) {
+//	@return CodeAskAnswer
+func (a *CodeAPIService) GetCodeAskExecute(r CodeAPIGetCodeAskRequest) (*CodeAskAnswer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AskAnswer
+		localVarReturnValue *CodeAskAnswer
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CodeAPIService.GetCodeAsk")
@@ -102,7 +102,7 @@ func (a *CodeAPIService) GetCodeAskExecute(r CodeAPIGetCodeAskRequest) (*AskAnsw
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -131,6 +131,14 @@ func (a *CodeAPIService) GetCodeAskExecute(r CodeAPIGetCodeAskRequest) (*AskAnsw
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -165,7 +173,7 @@ func (r CodeAPIGetCodeFileRequest) Repo(repo string) CodeAPIGetCodeFileRequest {
 	return r
 }
 
-func (r CodeAPIGetCodeFileRequest) Execute() (*FileContent, *http.Response, error) {
+func (r CodeAPIGetCodeFileRequest) Execute() (*CodeFileContent, *http.Response, error) {
 	return r.ApiService.GetCodeFileExecute(r)
 }
 
@@ -190,13 +198,13 @@ func (a *CodeAPIService) GetCodeFile(ctx context.Context) CodeAPIGetCodeFileRequ
 
 // Execute executes the request
 //
-//	@return FileContent
-func (a *CodeAPIService) GetCodeFileExecute(r CodeAPIGetCodeFileRequest) (*FileContent, *http.Response, error) {
+//	@return CodeFileContent
+func (a *CodeAPIService) GetCodeFileExecute(r CodeAPIGetCodeFileRequest) (*CodeFileContent, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FileContent
+		localVarReturnValue *CodeFileContent
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CodeAPIService.GetCodeFile")
@@ -226,7 +234,7 @@ func (a *CodeAPIService) GetCodeFileExecute(r CodeAPIGetCodeFileRequest) (*FileC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -255,6 +263,14 @@ func (a *CodeAPIService) GetCodeFileExecute(r CodeAPIGetCodeFileRequest) (*FileC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -303,7 +319,7 @@ func (r CodeAPIGetCodeSearchRequest) Limit(limit int64) CodeAPIGetCodeSearchRequ
 	return r
 }
 
-func (r CodeAPIGetCodeSearchRequest) Execute() (*SearchResults, *http.Response, error) {
+func (r CodeAPIGetCodeSearchRequest) Execute() (*CodeSearchResults, *http.Response, error) {
 	return r.ApiService.GetCodeSearchExecute(r)
 }
 
@@ -331,13 +347,13 @@ func (a *CodeAPIService) GetCodeSearch(ctx context.Context) CodeAPIGetCodeSearch
 
 // Execute executes the request
 //
-//	@return SearchResults
-func (a *CodeAPIService) GetCodeSearchExecute(r CodeAPIGetCodeSearchRequest) (*SearchResults, *http.Response, error) {
+//	@return CodeSearchResults
+func (a *CodeAPIService) GetCodeSearchExecute(r CodeAPIGetCodeSearchRequest) (*CodeSearchResults, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SearchResults
+		localVarReturnValue *CodeSearchResults
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CodeAPIService.GetCodeSearch")
@@ -373,7 +389,7 @@ func (a *CodeAPIService) GetCodeSearchExecute(r CodeAPIGetCodeSearchRequest) (*S
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -402,6 +418,14 @@ func (a *CodeAPIService) GetCodeSearchExecute(r CodeAPIGetCodeSearchRequest) (*S
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -429,7 +453,7 @@ func (r CodeAPIGetCodeTreeRequest) Repo(repo string) CodeAPIGetCodeTreeRequest {
 	return r
 }
 
-func (r CodeAPIGetCodeTreeRequest) Execute() (*RepoTree, *http.Response, error) {
+func (r CodeAPIGetCodeTreeRequest) Execute() (*CodeRepoTree, *http.Response, error) {
 	return r.ApiService.GetCodeTreeExecute(r)
 }
 
@@ -453,13 +477,13 @@ func (a *CodeAPIService) GetCodeTree(ctx context.Context) CodeAPIGetCodeTreeRequ
 
 // Execute executes the request
 //
-//	@return RepoTree
-func (a *CodeAPIService) GetCodeTreeExecute(r CodeAPIGetCodeTreeRequest) (*RepoTree, *http.Response, error) {
+//	@return CodeRepoTree
+func (a *CodeAPIService) GetCodeTreeExecute(r CodeAPIGetCodeTreeRequest) (*CodeRepoTree, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RepoTree
+		localVarReturnValue *CodeRepoTree
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CodeAPIService.GetCodeTree")
@@ -486,7 +510,7 @@ func (a *CodeAPIService) GetCodeTreeExecute(r CodeAPIGetCodeTreeRequest) (*RepoT
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -515,6 +539,14 @@ func (a *CodeAPIService) GetCodeTreeExecute(r CodeAPIGetCodeTreeRequest) (*RepoT
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -531,26 +563,27 @@ func (a *CodeAPIService) GetCodeTreeExecute(r CodeAPIGetCodeTreeRequest) (*RepoT
 }
 
 type CodeAPIPostCodeAskRequest struct {
-	ctx        context.Context
-	ApiService *CodeAPIService
-	askPostIn  *AskPostIn
+	ctx           context.Context
+	ApiService    *CodeAPIService
+	codeAskPostIn *CodeAskPostIn
 }
 
-func (r CodeAPIPostCodeAskRequest) AskPostIn(askPostIn AskPostIn) CodeAPIPostCodeAskRequest {
-	r.askPostIn = &askPostIn
+func (r CodeAPIPostCodeAskRequest) CodeAskPostIn(codeAskPostIn CodeAskPostIn) CodeAPIPostCodeAskRequest {
+	r.codeAskPostIn = &codeAskPostIn
 	return r
 }
 
-func (r CodeAPIPostCodeAskRequest) Execute() (*AskAnswer, *http.Response, error) {
+func (r CodeAPIPostCodeAskRequest) Execute() (*CodeAskAnswer, *http.Response, error) {
 	return r.ApiService.PostCodeAskExecute(r)
 }
 
 /*
-PostCodeAsk Is askGet with the question in the request BODY, for a question too long or too awkward to put in a URL.
+PostCodeAsk Answers a question about the caller org's code with a CITED answer, taking the question from the request BODY, for a question too long or too awkward to put in a URL.
 
-Is askGet with the question in the request BODY, for a question too
-long or too awkward to put in a URL. `query` and `repo` in the body take
-precedence over `?q=` and `?repo=`; either source works alone.
+Answers a question about the caller org's code with a CITED answer,
+taking the question from the request BODY, for a question too long or too
+awkward to put in a URL. `query` and `repo` in the body take precedence over
+`?q=` and `?repo=`; either source works alone.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return CodeAPIPostCodeAskRequest
@@ -564,13 +597,13 @@ func (a *CodeAPIService) PostCodeAsk(ctx context.Context) CodeAPIPostCodeAskRequ
 
 // Execute executes the request
 //
-//	@return AskAnswer
-func (a *CodeAPIService) PostCodeAskExecute(r CodeAPIPostCodeAskRequest) (*AskAnswer, *http.Response, error) {
+//	@return CodeAskAnswer
+func (a *CodeAPIService) PostCodeAskExecute(r CodeAPIPostCodeAskRequest) (*CodeAskAnswer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AskAnswer
+		localVarReturnValue *CodeAskAnswer
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CodeAPIService.PostCodeAsk")
@@ -583,8 +616,8 @@ func (a *CodeAPIService) PostCodeAskExecute(r CodeAPIPostCodeAskRequest) (*AskAn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.askPostIn == nil {
-		return localVarReturnValue, nil, reportError("askPostIn is required and must be specified")
+	if r.codeAskPostIn == nil {
+		return localVarReturnValue, nil, reportError("codeAskPostIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -597,7 +630,7 @@ func (a *CodeAPIService) PostCodeAskExecute(r CodeAPIPostCodeAskRequest) (*AskAn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -605,7 +638,7 @@ func (a *CodeAPIService) PostCodeAskExecute(r CodeAPIPostCodeAskRequest) (*AskAn
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.askPostIn
+	localVarPostBody = r.codeAskPostIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -628,6 +661,14 @@ func (a *CodeAPIService) PostCodeAskExecute(r CodeAPIPostCodeAskRequest) (*AskAn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -644,17 +685,17 @@ func (a *CodeAPIService) PostCodeAskExecute(r CodeAPIPostCodeAskRequest) (*AskAn
 }
 
 type CodeAPIPostCodeContextRequest struct {
-	ctx        context.Context
-	ApiService *CodeAPIService
-	contextIn  *ContextIn
+	ctx           context.Context
+	ApiService    *CodeAPIService
+	codeContextIn *CodeContextIn
 }
 
-func (r CodeAPIPostCodeContextRequest) ContextIn(contextIn ContextIn) CodeAPIPostCodeContextRequest {
-	r.contextIn = &contextIn
+func (r CodeAPIPostCodeContextRequest) CodeContextIn(codeContextIn CodeContextIn) CodeAPIPostCodeContextRequest {
+	r.codeContextIn = &codeContextIn
 	return r
 }
 
-func (r CodeAPIPostCodeContextRequest) Execute() (*ContextBundle, *http.Response, error) {
+func (r CodeAPIPostCodeContextRequest) Execute() (*CodeContextBundle, *http.Response, error) {
 	return r.ApiService.PostCodeContextExecute(r)
 }
 
@@ -682,13 +723,13 @@ func (a *CodeAPIService) PostCodeContext(ctx context.Context) CodeAPIPostCodeCon
 
 // Execute executes the request
 //
-//	@return ContextBundle
-func (a *CodeAPIService) PostCodeContextExecute(r CodeAPIPostCodeContextRequest) (*ContextBundle, *http.Response, error) {
+//	@return CodeContextBundle
+func (a *CodeAPIService) PostCodeContextExecute(r CodeAPIPostCodeContextRequest) (*CodeContextBundle, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ContextBundle
+		localVarReturnValue *CodeContextBundle
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CodeAPIService.PostCodeContext")
@@ -701,8 +742,8 @@ func (a *CodeAPIService) PostCodeContextExecute(r CodeAPIPostCodeContextRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.contextIn == nil {
-		return localVarReturnValue, nil, reportError("contextIn is required and must be specified")
+	if r.codeContextIn == nil {
+		return localVarReturnValue, nil, reportError("codeContextIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -715,7 +756,7 @@ func (a *CodeAPIService) PostCodeContextExecute(r CodeAPIPostCodeContextRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -723,7 +764,7 @@ func (a *CodeAPIService) PostCodeContextExecute(r CodeAPIPostCodeContextRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.contextIn
+	localVarPostBody = r.codeContextIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -746,6 +787,14 @@ func (a *CodeAPIService) PostCodeContextExecute(r CodeAPIPostCodeContextRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -762,17 +811,17 @@ func (a *CodeAPIService) PostCodeContextExecute(r CodeAPIPostCodeContextRequest)
 }
 
 type CodeAPIPostCodeIndexRequest struct {
-	ctx        context.Context
-	ApiService *CodeAPIService
-	indexIn    *IndexIn
+	ctx         context.Context
+	ApiService  *CodeAPIService
+	codeIndexIn *CodeIndexIn
 }
 
-func (r CodeAPIPostCodeIndexRequest) IndexIn(indexIn IndexIn) CodeAPIPostCodeIndexRequest {
-	r.indexIn = &indexIn
+func (r CodeAPIPostCodeIndexRequest) CodeIndexIn(codeIndexIn CodeIndexIn) CodeAPIPostCodeIndexRequest {
+	r.codeIndexIn = &codeIndexIn
 	return r
 }
 
-func (r CodeAPIPostCodeIndexRequest) Execute() (*IndexResult, *http.Response, error) {
+func (r CodeAPIPostCodeIndexRequest) Execute() (*CodeIndexResult, *http.Response, error) {
 	return r.ApiService.PostCodeIndexExecute(r)
 }
 
@@ -800,13 +849,13 @@ func (a *CodeAPIService) PostCodeIndex(ctx context.Context) CodeAPIPostCodeIndex
 
 // Execute executes the request
 //
-//	@return IndexResult
-func (a *CodeAPIService) PostCodeIndexExecute(r CodeAPIPostCodeIndexRequest) (*IndexResult, *http.Response, error) {
+//	@return CodeIndexResult
+func (a *CodeAPIService) PostCodeIndexExecute(r CodeAPIPostCodeIndexRequest) (*CodeIndexResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexResult
+		localVarReturnValue *CodeIndexResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CodeAPIService.PostCodeIndex")
@@ -819,8 +868,8 @@ func (a *CodeAPIService) PostCodeIndexExecute(r CodeAPIPostCodeIndexRequest) (*I
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.indexIn == nil {
-		return localVarReturnValue, nil, reportError("indexIn is required and must be specified")
+	if r.codeIndexIn == nil {
+		return localVarReturnValue, nil, reportError("codeIndexIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -833,7 +882,7 @@ func (a *CodeAPIService) PostCodeIndexExecute(r CodeAPIPostCodeIndexRequest) (*I
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -841,7 +890,7 @@ func (a *CodeAPIService) PostCodeIndexExecute(r CodeAPIPostCodeIndexRequest) (*I
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.indexIn
+	localVarPostBody = r.codeIndexIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -864,6 +913,14 @@ func (a *CodeAPIService) PostCodeIndexExecute(r CodeAPIPostCodeIndexRequest) (*I
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

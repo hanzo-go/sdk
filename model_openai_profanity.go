@@ -19,9 +19,12 @@ var _ MappedNullable = &OpenaiProfanity{}
 
 // OpenaiProfanity struct for OpenaiProfanity
 type OpenaiProfanity struct {
-	Detected *bool `json:"detected,omitempty"`
-	Filtered *bool `json:"filtered,omitempty"`
+	Detected             *bool `json:"detected,omitempty"`
+	Filtered             *bool `json:"filtered,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiProfanity OpenaiProfanity
 
 // NewOpenaiProfanity instantiates a new OpenaiProfanity object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o OpenaiProfanity) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Filtered) {
 		toSerialize["filtered"] = o.Filtered
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiProfanity) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiProfanity := _OpenaiProfanity{}
+
+	err = json.Unmarshal(data, &varOpenaiProfanity)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiProfanity(varOpenaiProfanity)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "detected")
+		delete(additionalProperties, "filtered")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiProfanity struct {

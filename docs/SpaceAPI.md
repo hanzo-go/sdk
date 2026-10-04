@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**DeleteSpaceBySpaceDrivesByDrive**](SpaceAPI.md#DeleteSpaceBySpaceDrivesByDrive) | **Delete** /v1/space/{space}/drives/{drive} | Removes an EMPTY drive and answers 204.
 [**GetSpaceBySpaceDrives**](SpaceAPI.md#GetSpaceBySpaceDrives) | **Get** /v1/space/{space}/drives | Lists a space&#39;s drives.
 [**GetSpaceBySpaceDrivesByDriveFiles**](SpaceAPI.md#GetSpaceBySpaceDrivesByDriveFiles) | **Get** /v1/space/{space}/drives/{drive}/files | Lists one folder level of a drive.
-[**GetSpaceHealth**](SpaceAPI.md#GetSpaceHealth) | **Get** /v1/space/health | Health reports whether this deployment can serve spaces, drives and files.
+[**GetSpaceHealth**](SpaceAPI.md#GetSpaceHealth) | **Get** /v1/space/health | Reports whether this deployment can serve spaces, drives and files.
 [**GetSpaceSpaces**](SpaceAPI.md#GetSpaceSpaces) | **Get** /v1/space/spaces | Lists the caller org&#39;s own spaces.
 [**PostSpaceBySpaceDrives**](SpaceAPI.md#PostSpaceBySpaceDrives) | **Post** /v1/space/{space}/drives | Makes a new drive in a space and answers 201 with it.
 [**PostSpaceSpaces**](SpaceAPI.md#PostSpaceSpaces) | **Post** /v1/space/spaces | Makes a new space for the caller&#39;s org and answers 201 with it.
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## GetSpaceBySpaceDrives
 
-> DriveList GetSpaceBySpaceDrives(ctx, space).Execute()
+> SpaceDriveList GetSpaceBySpaceDrives(ctx, space).Execute()
 
 Lists a space's drives.
 
@@ -115,7 +115,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SpaceAPI.GetSpaceBySpaceDrives``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSpaceBySpaceDrives`: DriveList
+	// response from `GetSpaceBySpaceDrives`: SpaceDriveList
 	fmt.Fprintf(os.Stdout, "Response from `SpaceAPI.GetSpaceBySpaceDrives`: %v\n", resp)
 }
 ```
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DriveList**](DriveList.md)
+[**SpaceDriveList**](SpaceDriveList.md)
 
 ### Authorization
 
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 ## GetSpaceBySpaceDrivesByDriveFiles
 
-> FileList GetSpaceBySpaceDrivesByDriveFiles(ctx, space, drive).Folder(folder).Recursive(recursive).Execute()
+> SpaceFileList GetSpaceBySpaceDrivesByDriveFiles(ctx, space, drive).Folder(folder).Recursive(recursive).Execute()
 
 Lists one folder level of a drive.
 
@@ -188,7 +188,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SpaceAPI.GetSpaceBySpaceDrivesByDriveFiles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSpaceBySpaceDrivesByDriveFiles`: FileList
+	// response from `GetSpaceBySpaceDrivesByDriveFiles`: SpaceFileList
 	fmt.Fprintf(os.Stdout, "Response from `SpaceAPI.GetSpaceBySpaceDrivesByDriveFiles`: %v\n", resp)
 }
 ```
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FileList**](FileList.md)
+[**SpaceFileList**](SpaceFileList.md)
 
 ### Authorization
 
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -234,9 +234,9 @@ Name | Type | Description  | Notes
 
 ## GetSpaceHealth
 
-> SpaceHealth GetSpaceHealth(ctx).Execute()
+> SpaceSpaceHealth GetSpaceHealth(ctx).Execute()
 
-Health reports whether this deployment can serve spaces, drives and files.
+Reports whether this deployment can serve spaces, drives and files.
 
 
 
@@ -261,7 +261,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SpaceAPI.GetSpaceHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSpaceHealth`: SpaceHealth
+	// response from `GetSpaceHealth`: SpaceSpaceHealth
 	fmt.Fprintf(os.Stdout, "Response from `SpaceAPI.GetSpaceHealth`: %v\n", resp)
 }
 ```
@@ -277,7 +277,7 @@ Other parameters are passed through a pointer to a apiGetSpaceHealthRequest stru
 
 ### Return type
 
-[**SpaceHealth**](SpaceHealth.md)
+[**SpaceSpaceHealth**](SpaceSpaceHealth.md)
 
 ### Authorization
 
@@ -286,7 +286,7 @@ Other parameters are passed through a pointer to a apiGetSpaceHealthRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -295,7 +295,7 @@ Other parameters are passed through a pointer to a apiGetSpaceHealthRequest stru
 
 ## GetSpaceSpaces
 
-> SpaceList GetSpaceSpaces(ctx).Execute()
+> SpaceSpaceList GetSpaceSpaces(ctx).Execute()
 
 Lists the caller org's own spaces.
 
@@ -322,7 +322,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SpaceAPI.GetSpaceSpaces``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSpaceSpaces`: SpaceList
+	// response from `GetSpaceSpaces`: SpaceSpaceList
 	fmt.Fprintf(os.Stdout, "Response from `SpaceAPI.GetSpaceSpaces`: %v\n", resp)
 }
 ```
@@ -338,7 +338,7 @@ Other parameters are passed through a pointer to a apiGetSpaceSpacesRequest stru
 
 ### Return type
 
-[**SpaceList**](SpaceList.md)
+[**SpaceSpaceList**](SpaceSpaceList.md)
 
 ### Authorization
 
@@ -347,7 +347,7 @@ Other parameters are passed through a pointer to a apiGetSpaceSpacesRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -356,7 +356,7 @@ Other parameters are passed through a pointer to a apiGetSpaceSpacesRequest stru
 
 ## PostSpaceBySpaceDrives
 
-> DriveItem PostSpaceBySpaceDrives(ctx, space).DriveIn(driveIn).Execute()
+> SpaceDriveItem PostSpaceBySpaceDrives(ctx, space).SpaceDriveIn(spaceDriveIn).Execute()
 
 Makes a new drive in a space and answers 201 with it.
 
@@ -376,16 +376,16 @@ import (
 
 func main() {
 	space := "space_example" // string | Space is the space to create the drive in, from the path. It carries NO `url:\"-\"`, unlike the field below it, and the difference is the whole reason both tags are written out: zip's binder skips a field tagged \"-\" for EVERY URL source, path params included, so a path-borne value that carried it would arrive empty and the create would refuse a perfectly good address.
-	driveIn := *openapiclient.NewDriveIn() // DriveIn | 
+	spaceDriveIn := *openapiclient.NewSpaceDriveIn() // SpaceDriveIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SpaceAPI.PostSpaceBySpaceDrives(context.Background(), space).DriveIn(driveIn).Execute()
+	resp, r, err := apiClient.SpaceAPI.PostSpaceBySpaceDrives(context.Background(), space).SpaceDriveIn(spaceDriveIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SpaceAPI.PostSpaceBySpaceDrives``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostSpaceBySpaceDrives`: DriveItem
+	// response from `PostSpaceBySpaceDrives`: SpaceDriveItem
 	fmt.Fprintf(os.Stdout, "Response from `SpaceAPI.PostSpaceBySpaceDrives`: %v\n", resp)
 }
 ```
@@ -406,11 +406,11 @@ Other parameters are passed through a pointer to a apiPostSpaceBySpaceDrivesRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **driveIn** | [**DriveIn**](DriveIn.md) |  | 
+ **spaceDriveIn** | [**SpaceDriveIn**](SpaceDriveIn.md) |  | 
 
 ### Return type
 
-[**DriveItem**](DriveItem.md)
+[**SpaceDriveItem**](SpaceDriveItem.md)
 
 ### Authorization
 
@@ -419,7 +419,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -428,7 +428,7 @@ Name | Type | Description  | Notes
 
 ## PostSpaceSpaces
 
-> SpaceItem PostSpaceSpaces(ctx).SpaceIn(spaceIn).Execute()
+> SpaceSpaceItem PostSpaceSpaces(ctx).SpaceSpaceIn(spaceSpaceIn).Execute()
 
 Makes a new space for the caller's org and answers 201 with it.
 
@@ -447,16 +447,16 @@ import (
 )
 
 func main() {
-	spaceIn := *openapiclient.NewSpaceIn() // SpaceIn | 
+	spaceSpaceIn := *openapiclient.NewSpaceSpaceIn() // SpaceSpaceIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SpaceAPI.PostSpaceSpaces(context.Background()).SpaceIn(spaceIn).Execute()
+	resp, r, err := apiClient.SpaceAPI.PostSpaceSpaces(context.Background()).SpaceSpaceIn(spaceSpaceIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SpaceAPI.PostSpaceSpaces``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostSpaceSpaces`: SpaceItem
+	// response from `PostSpaceSpaces`: SpaceSpaceItem
 	fmt.Fprintf(os.Stdout, "Response from `SpaceAPI.PostSpaceSpaces`: %v\n", resp)
 }
 ```
@@ -472,11 +472,11 @@ Other parameters are passed through a pointer to a apiPostSpaceSpacesRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **spaceIn** | [**SpaceIn**](SpaceIn.md) |  | 
+ **spaceSpaceIn** | [**SpaceSpaceIn**](SpaceSpaceIn.md) |  | 
 
 ### Return type
 
-[**SpaceItem**](SpaceItem.md)
+[**SpaceSpaceItem**](SpaceSpaceItem.md)
 
 ### Authorization
 
@@ -485,7 +485,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

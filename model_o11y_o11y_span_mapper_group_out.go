@@ -22,8 +22,11 @@ type O11yO11ySpanMapperGroupOut struct {
 	// Data is the group.
 	Data *O11ySpanMapperGroup `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11ySpanMapperGroupOut O11yO11ySpanMapperGroupOut
 
 // NewO11yO11ySpanMapperGroupOut instantiates a new O11yO11ySpanMapperGroupOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11ySpanMapperGroupOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11ySpanMapperGroupOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11ySpanMapperGroupOut := _O11yO11ySpanMapperGroupOut{}
+
+	err = json.Unmarshal(data, &varO11yO11ySpanMapperGroupOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11ySpanMapperGroupOut(varO11yO11ySpanMapperGroupOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11ySpanMapperGroupOut struct {

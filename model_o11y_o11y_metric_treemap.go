@@ -22,8 +22,11 @@ type O11yO11yMetricTreemap struct {
 	// Samples are the entries when measuring by sample count.
 	Samples []O11yO11yTreemapEntry `json:"samples,omitempty"`
 	// TimeSeries are the entries when measuring by time-series count.
-	Timeseries []O11yO11yTreemapEntry `json:"timeseries,omitempty"`
+	Timeseries           []O11yO11yTreemapEntry `json:"timeseries,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricTreemap O11yO11yMetricTreemap
 
 // NewO11yO11yMetricTreemap instantiates a new O11yO11yMetricTreemap object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yMetricTreemap) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Timeseries) {
 		toSerialize["timeseries"] = o.Timeseries
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricTreemap) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricTreemap := _O11yO11yMetricTreemap{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricTreemap)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricTreemap(varO11yO11yMetricTreemap)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "samples")
+		delete(additionalProperties, "timeseries")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricTreemap struct {

@@ -25,7 +25,10 @@ type AiCostStats struct {
 	PricedEvents         *int32   `json:"priced_events,omitempty"`
 	RoutedIndex          *float32 `json:"routed_index,omitempty"`
 	SavedPct             *float32 `json:"saved_pct,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiCostStats AiCostStats
 
 // NewAiCostStats instantiates a new AiCostStats object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o AiCostStats) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SavedPct) {
 		toSerialize["saved_pct"] = o.SavedPct
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiCostStats) UnmarshalJSON(data []byte) (err error) {
+	varAiCostStats := _AiCostStats{}
+
+	err = json.Unmarshal(data, &varAiCostStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiCostStats(varAiCostStats)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "baseline_model")
+		delete(additionalProperties, "counterfactual_index")
+		delete(additionalProperties, "cumulative_saved_index")
+		delete(additionalProperties, "priced_events")
+		delete(additionalProperties, "routed_index")
+		delete(additionalProperties, "saved_pct")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiCostStats struct {

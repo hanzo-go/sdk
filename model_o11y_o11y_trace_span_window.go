@@ -24,12 +24,15 @@ type O11yO11yTraceSpanWindow struct {
 	// EndTimestampMillis is when it closes.
 	EndTimestampMillis *int32 `json:"endTimestampMillis,omitempty"`
 	// Events are the rows, each positionally matching Columns.
-	Events [][]map[string]interface{} `json:"events,omitempty"`
+	Events [][]interface{} `json:"events,omitempty"`
 	// IsSubTree says the window is a subtree of the trace rather than the whole of it.
 	IsSubTree *bool `json:"isSubTree,omitempty"`
 	// StartTimestampMillis is when the window opens.
 	StartTimestampMillis *int32 `json:"startTimestampMillis,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTraceSpanWindow O11yO11yTraceSpanWindow
 
 // NewO11yO11yTraceSpanWindow instantiates a new O11yO11yTraceSpanWindow object
 // This constructor will assign default values to properties that have it defined,
@@ -113,9 +116,9 @@ func (o *O11yO11yTraceSpanWindow) SetEndTimestampMillis(v int32) {
 }
 
 // GetEvents returns the Events field value if set, zero value otherwise.
-func (o *O11yO11yTraceSpanWindow) GetEvents() [][]map[string]interface{} {
+func (o *O11yO11yTraceSpanWindow) GetEvents() [][]interface{} {
 	if o == nil || IsNil(o.Events) {
-		var ret [][]map[string]interface{}
+		var ret [][]interface{}
 		return ret
 	}
 	return o.Events
@@ -123,7 +126,7 @@ func (o *O11yO11yTraceSpanWindow) GetEvents() [][]map[string]interface{} {
 
 // GetEventsOk returns a tuple with the Events field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yTraceSpanWindow) GetEventsOk() ([][]map[string]interface{}, bool) {
+func (o *O11yO11yTraceSpanWindow) GetEventsOk() ([][]interface{}, bool) {
 	if o == nil || IsNil(o.Events) {
 		return nil, false
 	}
@@ -139,8 +142,8 @@ func (o *O11yO11yTraceSpanWindow) HasEvents() bool {
 	return false
 }
 
-// SetEvents gets a reference to the given [][]map[string]interface{} and assigns it to the Events field.
-func (o *O11yO11yTraceSpanWindow) SetEvents(v [][]map[string]interface{}) {
+// SetEvents gets a reference to the given [][]interface{} and assigns it to the Events field.
+func (o *O11yO11yTraceSpanWindow) SetEvents(v [][]interface{}) {
 	o.Events = v
 }
 
@@ -233,7 +236,37 @@ func (o O11yO11yTraceSpanWindow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StartTimestampMillis) {
 		toSerialize["startTimestampMillis"] = o.StartTimestampMillis
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTraceSpanWindow) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTraceSpanWindow := _O11yO11yTraceSpanWindow{}
+
+	err = json.Unmarshal(data, &varO11yO11yTraceSpanWindow)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTraceSpanWindow(varO11yO11yTraceSpanWindow)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "columns")
+		delete(additionalProperties, "endTimestampMillis")
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "isSubTree")
+		delete(additionalProperties, "startTimestampMillis")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTraceSpanWindow struct {

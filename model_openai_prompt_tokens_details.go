@@ -19,9 +19,12 @@ var _ MappedNullable = &OpenaiPromptTokensDetails{}
 
 // OpenaiPromptTokensDetails struct for OpenaiPromptTokensDetails
 type OpenaiPromptTokensDetails struct {
-	AudioTokens  *int32 `json:"audio_tokens,omitempty"`
-	CachedTokens *int32 `json:"cached_tokens,omitempty"`
+	AudioTokens          *int32 `json:"audio_tokens,omitempty"`
+	CachedTokens         *int32 `json:"cached_tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiPromptTokensDetails OpenaiPromptTokensDetails
 
 // NewOpenaiPromptTokensDetails instantiates a new OpenaiPromptTokensDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o OpenaiPromptTokensDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CachedTokens) {
 		toSerialize["cached_tokens"] = o.CachedTokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiPromptTokensDetails) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiPromptTokensDetails := _OpenaiPromptTokensDetails{}
+
+	err = json.Unmarshal(data, &varOpenaiPromptTokensDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiPromptTokensDetails(varOpenaiPromptTokensDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "audio_tokens")
+		delete(additionalProperties, "cached_tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiPromptTokensDetails struct {

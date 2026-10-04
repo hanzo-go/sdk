@@ -8,9 +8,9 @@ Method | HTTP request | Description
 [**GetBooksBankTransactions**](BooksAPI.md#GetBooksBankTransactions) | **Get** /v1/books/bank/transactions | Returns the org&#39;s normalized bank transactions, newest first — every row the import and connector paths have ingested, with its amount in exact cents, its direction, and whether it has been matched to a voucher yet.
 [**GetBooksBankUnreconciled**](BooksAPI.md#GetBooksBankUnreconciled) | **Get** /v1/books/bank/unreconciled | Returns the org&#39;s unmatched bank inflows and their open clarifying questions — the queue a human answers so an unexplained deposit is never guessed into revenue.
 [**GetBooksExport**](BooksAPI.md#GetBooksExport) | **Get** /v1/books/export | Returns the complete financial package for the caller&#39;s org over (from, to]: the trial balance, the P&amp;L, the balance sheet, and the GL detail behind them — the four statements a tax preparer or an investor asks for, assembled from the one ledger in a single read so they cannot disagree with each other.
-[**GetBooksGl**](BooksAPI.md#GetBooksGl) | **Get** /v1/books/gl | ListGL returns the org&#39;s most recent GL Entry rows, newest first.
+[**GetBooksGl**](BooksAPI.md#GetBooksGl) | **Get** /v1/books/gl | Returns the org&#39;s most recent GL Entry rows, newest first.
 [**GetBooksInbox**](BooksAPI.md#GetBooksInbox) | **Get** /v1/books/inbox | Returns the org&#39;s open document queue — everything uploaded but not yet booked, newest first, each with its extracted summary and the confidence the scanner resolved its category at.
-[**GetBooksMetrics**](BooksAPI.md#GetBooksMetrics) | **Get** /v1/books/metrics | Metrics returns the org&#39;s deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
+[**GetBooksMetrics**](BooksAPI.md#GetBooksMetrics) | **Get** /v1/books/metrics | Returns the org&#39;s deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
 [**GetBooksPnl**](BooksAPI.md#GetBooksPnl) | **Get** /v1/books/pnl | Returns the org&#39;s accrual-basis Profit &amp; Loss over an optional (from, to] window of RFC3339 posting times: recognized revenue, matched cost, and the net.
 [**GetBooksPosition**](BooksAPI.md#GetBooksPosition) | **Get** /v1/books/position | Returns the org&#39;s Balance Sheet as of &#x60;to&#x60; (empty &#x3D; all time), with the Assets &#x3D;&#x3D; Liabilities + Equity equation proof.
 [**GetBooksQuestions**](BooksAPI.md#GetBooksQuestions) | **Get** /v1/books/questions | Returns the clarifying questions the caller&#39;s own recent GL raises — the unusual postings a founder should look at (outliers, reversals, round-offs, uncosted revenue, an overdrawn wallet), sharpest first.
@@ -19,22 +19,20 @@ Method | HTTP request | Description
 [**GetBooksTrial**](BooksAPI.md#GetBooksTrial) | **Get** /v1/books/trial | Returns the org&#39;s trial balance over an optional [from, to] window of RFC3339 posting times, including the opening/closing columns and the TotalDebit &#x3D;&#x3D; TotalCredit proof that the books balance.
 [**GetBooksVendors**](BooksAPI.md#GetBooksVendors) | **Get** /v1/books/vendors | Returns the org&#39;s vendor book: each canonical vendor, the alias spellings a receipt may print it under, and the expense account new bills from it default to.
 [**PostBooksAsk**](BooksAPI.md#PostBooksAsk) | **Post** /v1/books/ask | Answers a plain-language question about the caller&#39;s own books — \&quot;what is my MRR?\&quot;, \&quot;how long is my runway?\&quot; — with figures taken from their ledger, never a guessed number.
-[**PostBooksBankExchange**](BooksAPI.md#PostBooksBankExchange) | **Post** /v1/books/bank/exchange | Finish connecting a bank account (not yet available)
 [**PostBooksBankImport**](BooksAPI.md#PostBooksBankImport) | **Post** /v1/books/bank/import | Import a bank statement file into your books
 [**PostBooksBankSync**](BooksAPI.md#PostBooksBankSync) | **Post** /v1/books/bank/sync | Pulls every connected bank (Plaid/Teller) for the caller&#39;s org, maps each fetched transaction to a posting and books it idempotently, then advances that connector&#39;s cursor so the next sync resumes where this one stopped.
-[**PostBooksBankToken**](BooksAPI.md#PostBooksBankToken) | **Post** /v1/books/bank/token | Begin connecting a bank account (not yet available)
 [**PostBooksInbox**](BooksAPI.md#PostBooksInbox) | **Post** /v1/books/inbox | Queue a document for later scanning
 [**PostBooksRules**](BooksAPI.md#PostBooksRules) | **Post** /v1/books/rules | Creates or updates one auto-categorization rule, keyed by its pattern — writing a pattern that already exists REPLACES that row&#39;s category and priority.
 [**PostBooksScan**](BooksAPI.md#PostBooksScan) | **Post** /v1/books/scan | Scan a receipt or invoice into a proposed voucher
 [**PostBooksScanBook**](BooksAPI.md#PostBooksScanBook) | **Post** /v1/books/scan/book | Posts a reviewed scanned bill to the ledger.
-[**PostBooksSync**](BooksAPI.md#PostBooksSync) | **Post** /v1/books/sync | Sync ingests the caller&#39;s OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
+[**PostBooksSync**](BooksAPI.md#PostBooksSync) | **Post** /v1/books/sync | Ingests the caller&#39;s OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
 [**PostBooksVendors**](BooksAPI.md#PostBooksVendors) | **Post** /v1/books/vendors | Creates or updates one vendor in the org&#39;s vendor book, keyed by its canonical name — writing a canonical name that already exists REPLACES that row&#39;s aliases and default category.
 
 
 
 ## GetBooksAccounts
 
-> []Account GetBooksAccounts(ctx).Sandbox(sandbox).Execute()
+> []BooksAccount GetBooksAccounts(ctx).Sandbox(sandbox).Execute()
 
 Returns the org's chart of accounts — the seeded fixed chart every posting key in the ledger refers to.
 
@@ -62,7 +60,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksAccounts`: []Account
+	// response from `GetBooksAccounts`: []BooksAccount
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksAccounts`: %v\n", resp)
 }
 ```
@@ -82,7 +80,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]Account**](Account.md)
+[**[]BooksAccount**](BooksAccount.md)
 
 ### Authorization
 
@@ -91,7 +89,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -100,7 +98,7 @@ Name | Type | Description  | Notes
 
 ## GetBooksBankTransactions
 
-> []BankTxnRow GetBooksBankTransactions(ctx).Sandbox(sandbox).Limit(limit).Execute()
+> []BooksBankTxnRow GetBooksBankTransactions(ctx).Sandbox(sandbox).Limit(limit).Execute()
 
 Returns the org's normalized bank transactions, newest first — every row the import and connector paths have ingested, with its amount in exact cents, its direction, and whether it has been matched to a voucher yet.
 
@@ -129,7 +127,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksBankTransactions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksBankTransactions`: []BankTxnRow
+	// response from `GetBooksBankTransactions`: []BooksBankTxnRow
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksBankTransactions`: %v\n", resp)
 }
 ```
@@ -150,7 +148,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]BankTxnRow**](BankTxnRow.md)
+[**[]BooksBankTxnRow**](BooksBankTxnRow.md)
 
 ### Authorization
 
@@ -159,7 +157,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -168,7 +166,7 @@ Name | Type | Description  | Notes
 
 ## GetBooksBankUnreconciled
 
-> UnreconciledOut GetBooksBankUnreconciled(ctx).Sandbox(sandbox).Execute()
+> BooksUnreconciledOut GetBooksBankUnreconciled(ctx).Sandbox(sandbox).Execute()
 
 Returns the org's unmatched bank inflows and their open clarifying questions — the queue a human answers so an unexplained deposit is never guessed into revenue.
 
@@ -196,7 +194,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksBankUnreconciled``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksBankUnreconciled`: UnreconciledOut
+	// response from `GetBooksBankUnreconciled`: BooksUnreconciledOut
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksBankUnreconciled`: %v\n", resp)
 }
 ```
@@ -216,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UnreconciledOut**](UnreconciledOut.md)
+[**BooksUnreconciledOut**](BooksUnreconciledOut.md)
 
 ### Authorization
 
@@ -225,7 +223,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -234,7 +232,7 @@ Name | Type | Description  | Notes
 
 ## GetBooksExport
 
-> FinancialPackage GetBooksExport(ctx).Sandbox(sandbox).From(from).To(to).Format(format).Limit(limit).Execute()
+> BooksFinancialPackage GetBooksExport(ctx).Sandbox(sandbox).From(from).To(to).Format(format).Limit(limit).Execute()
 
 Returns the complete financial package for the caller's org over (from, to]: the trial balance, the P&L, the balance sheet, and the GL detail behind them — the four statements a tax preparer or an investor asks for, assembled from the one ledger in a single read so they cannot disagree with each other.
 
@@ -266,7 +264,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksExport``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksExport`: FinancialPackage
+	// response from `GetBooksExport`: BooksFinancialPackage
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksExport`: %v\n", resp)
 }
 ```
@@ -290,7 +288,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FinancialPackage**](FinancialPackage.md)
+[**BooksFinancialPackage**](BooksFinancialPackage.md)
 
 ### Authorization
 
@@ -299,7 +297,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -308,9 +306,9 @@ Name | Type | Description  | Notes
 
 ## GetBooksGl
 
-> []GLRow GetBooksGl(ctx).Sandbox(sandbox).Limit(limit).Execute()
+> []BooksGLRow GetBooksGl(ctx).Sandbox(sandbox).Limit(limit).Execute()
 
-ListGL returns the org's most recent GL Entry rows, newest first.
+Returns the org's most recent GL Entry rows, newest first.
 
 
 
@@ -337,7 +335,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksGl``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksGl`: []GLRow
+	// response from `GetBooksGl`: []BooksGLRow
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksGl`: %v\n", resp)
 }
 ```
@@ -358,7 +356,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]GLRow**](GLRow.md)
+[**[]BooksGLRow**](BooksGLRow.md)
 
 ### Authorization
 
@@ -367,7 +365,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -376,7 +374,7 @@ Name | Type | Description  | Notes
 
 ## GetBooksInbox
 
-> InboxOut GetBooksInbox(ctx).Sandbox(sandbox).Execute()
+> BooksInboxOut GetBooksInbox(ctx).Sandbox(sandbox).Execute()
 
 Returns the org's open document queue — everything uploaded but not yet booked, newest first, each with its extracted summary and the confidence the scanner resolved its category at.
 
@@ -404,7 +402,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksInbox``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksInbox`: InboxOut
+	// response from `GetBooksInbox`: BooksInboxOut
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksInbox`: %v\n", resp)
 }
 ```
@@ -424,7 +422,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InboxOut**](InboxOut.md)
+[**BooksInboxOut**](BooksInboxOut.md)
 
 ### Authorization
 
@@ -433,7 +431,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -442,9 +440,9 @@ Name | Type | Description  | Notes
 
 ## GetBooksMetrics
 
-> MetricsResponse GetBooksMetrics(ctx).Sandbox(sandbox).From(from).To(to).Execute()
+> BooksMetricsResponse GetBooksMetrics(ctx).Sandbox(sandbox).From(from).To(to).Execute()
 
-Metrics returns the org's deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
+Returns the org's deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
 
 
 
@@ -472,7 +470,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksMetrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksMetrics`: MetricsResponse
+	// response from `GetBooksMetrics`: BooksMetricsResponse
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksMetrics`: %v\n", resp)
 }
 ```
@@ -494,7 +492,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MetricsResponse**](MetricsResponse.md)
+[**BooksMetricsResponse**](BooksMetricsResponse.md)
 
 ### Authorization
 
@@ -503,7 +501,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -512,7 +510,7 @@ Name | Type | Description  | Notes
 
 ## GetBooksPnl
 
-> PnL GetBooksPnl(ctx).Sandbox(sandbox).From(from).To(to).Execute()
+> BooksPnL GetBooksPnl(ctx).Sandbox(sandbox).From(from).To(to).Execute()
 
 Returns the org's accrual-basis Profit & Loss over an optional (from, to] window of RFC3339 posting times: recognized revenue, matched cost, and the net.
 
@@ -542,7 +540,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksPnl``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksPnl`: PnL
+	// response from `GetBooksPnl`: BooksPnL
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksPnl`: %v\n", resp)
 }
 ```
@@ -564,7 +562,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PnL**](PnL.md)
+[**BooksPnL**](BooksPnL.md)
 
 ### Authorization
 
@@ -573,7 +571,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -582,7 +580,7 @@ Name | Type | Description  | Notes
 
 ## GetBooksPosition
 
-> BalanceSheet GetBooksPosition(ctx).Sandbox(sandbox).To(to).Execute()
+> BooksBalanceSheet GetBooksPosition(ctx).Sandbox(sandbox).To(to).Execute()
 
 Returns the org's Balance Sheet as of `to` (empty = all time), with the Assets == Liabilities + Equity equation proof.
 
@@ -611,7 +609,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksPosition``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksPosition`: BalanceSheet
+	// response from `GetBooksPosition`: BooksBalanceSheet
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksPosition`: %v\n", resp)
 }
 ```
@@ -632,7 +630,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BalanceSheet**](BalanceSheet.md)
+[**BooksBalanceSheet**](BooksBalanceSheet.md)
 
 ### Authorization
 
@@ -641,7 +639,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -650,7 +648,7 @@ Name | Type | Description  | Notes
 
 ## GetBooksQuestions
 
-> QuestionsResponse GetBooksQuestions(ctx).Sandbox(sandbox).Execute()
+> BooksQuestionsResponse GetBooksQuestions(ctx).Sandbox(sandbox).Execute()
 
 Returns the clarifying questions the caller's own recent GL raises — the unusual postings a founder should look at (outliers, reversals, round-offs, uncosted revenue, an overdrawn wallet), sharpest first.
 
@@ -678,7 +676,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksQuestions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksQuestions`: QuestionsResponse
+	// response from `GetBooksQuestions`: BooksQuestionsResponse
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksQuestions`: %v\n", resp)
 }
 ```
@@ -698,7 +696,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**QuestionsResponse**](QuestionsResponse.md)
+[**BooksQuestionsResponse**](BooksQuestionsResponse.md)
 
 ### Authorization
 
@@ -707,7 +705,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -716,7 +714,7 @@ Name | Type | Description  | Notes
 
 ## GetBooksRules
 
-> RulesOut GetBooksRules(ctx).Sandbox(sandbox).Execute()
+> BooksRulesOut GetBooksRules(ctx).Sandbox(sandbox).Execute()
 
 Returns the org's auto-categorization rules, highest priority first.
 
@@ -744,7 +742,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksRules`: RulesOut
+	// response from `GetBooksRules`: BooksRulesOut
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksRules`: %v\n", resp)
 }
 ```
@@ -764,7 +762,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RulesOut**](RulesOut.md)
+[**BooksRulesOut**](BooksRulesOut.md)
 
 ### Authorization
 
@@ -773,7 +771,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -782,7 +780,7 @@ Name | Type | Description  | Notes
 
 ## GetBooksTransactions
 
-> TransactionsOut GetBooksTransactions(ctx).Sandbox(sandbox).From(from).To(to).Category(category).Vendor(vendor).Limit(limit).Execute()
+> BooksTransactionsOut GetBooksTransactions(ctx).Sandbox(sandbox).From(from).To(to).Category(category).Vendor(vendor).Limit(limit).Execute()
 
 Returns the org's booked ledger as a single-line register, newest first: one row per voucher, with its date, description, vendor, category, source and amount in exact cents.
 
@@ -815,7 +813,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksTransactions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksTransactions`: TransactionsOut
+	// response from `GetBooksTransactions`: BooksTransactionsOut
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksTransactions`: %v\n", resp)
 }
 ```
@@ -840,7 +838,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TransactionsOut**](TransactionsOut.md)
+[**BooksTransactionsOut**](BooksTransactionsOut.md)
 
 ### Authorization
 
@@ -849,7 +847,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -858,7 +856,7 @@ Name | Type | Description  | Notes
 
 ## GetBooksTrial
 
-> TrialBalance GetBooksTrial(ctx).Sandbox(sandbox).From(from).To(to).Execute()
+> BooksTrialBalance GetBooksTrial(ctx).Sandbox(sandbox).From(from).To(to).Execute()
 
 Returns the org's trial balance over an optional [from, to] window of RFC3339 posting times, including the opening/closing columns and the TotalDebit == TotalCredit proof that the books balance.
 
@@ -888,7 +886,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksTrial``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksTrial`: TrialBalance
+	// response from `GetBooksTrial`: BooksTrialBalance
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksTrial`: %v\n", resp)
 }
 ```
@@ -910,7 +908,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrialBalance**](TrialBalance.md)
+[**BooksTrialBalance**](BooksTrialBalance.md)
 
 ### Authorization
 
@@ -919,7 +917,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -928,7 +926,7 @@ Name | Type | Description  | Notes
 
 ## GetBooksVendors
 
-> VendorsOut GetBooksVendors(ctx).Sandbox(sandbox).Execute()
+> BooksVendorsOut GetBooksVendors(ctx).Sandbox(sandbox).Execute()
 
 Returns the org's vendor book: each canonical vendor, the alias spellings a receipt may print it under, and the expense account new bills from it default to.
 
@@ -956,7 +954,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBooksVendors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBooksVendors`: VendorsOut
+	// response from `GetBooksVendors`: BooksVendorsOut
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.GetBooksVendors`: %v\n", resp)
 }
 ```
@@ -976,7 +974,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VendorsOut**](VendorsOut.md)
+[**BooksVendorsOut**](BooksVendorsOut.md)
 
 ### Authorization
 
@@ -985,7 +983,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -994,7 +992,7 @@ Name | Type | Description  | Notes
 
 ## PostBooksAsk
 
-> AskResponse PostBooksAsk(ctx).AskRequest(askRequest).Execute()
+> BooksAskResponse PostBooksAsk(ctx).BooksAskRequest(booksAskRequest).Execute()
 
 Answers a plain-language question about the caller's own books — \"what is my MRR?\", \"how long is my runway?\" — with figures taken from their ledger, never a guessed number.
 
@@ -1013,16 +1011,16 @@ import (
 )
 
 func main() {
-	askRequest := *openapiclient.NewAskRequest() // AskRequest | 
+	booksAskRequest := *openapiclient.NewBooksAskRequest() // BooksAskRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.PostBooksAsk(context.Background()).AskRequest(askRequest).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksAsk(context.Background()).BooksAskRequest(booksAskRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksAsk``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBooksAsk`: AskResponse
+	// response from `PostBooksAsk`: BooksAskResponse
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksAsk`: %v\n", resp)
 }
 ```
@@ -1038,11 +1036,11 @@ Other parameters are passed through a pointer to a apiPostBooksAskRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **askRequest** | [**AskRequest**](AskRequest.md) |  | 
+ **booksAskRequest** | [**BooksAskRequest**](BooksAskRequest.md) |  | 
 
 ### Return type
 
-[**AskResponse**](AskResponse.md)
+[**BooksAskResponse**](BooksAskResponse.md)
 
 ### Authorization
 
@@ -1051,66 +1049,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostBooksBankExchange
-
-> PostBooksBankExchange(ctx).Execute()
-
-Finish connecting a bank account (not yet available)
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BooksAPI.PostBooksBankExchange(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksBankExchange``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostBooksBankExchangeRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1185,7 +1124,7 @@ Name | Type | Description  | Notes
 
 ## PostBooksBankSync
 
-> BankTally PostBooksBankSync(ctx).Execute()
+> BooksBankTally PostBooksBankSync(ctx).Execute()
 
 Pulls every connected bank (Plaid/Teller) for the caller's org, maps each fetched transaction to a posting and books it idempotently, then advances that connector's cursor so the next sync resumes where this one stopped.
 
@@ -1212,7 +1151,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksBankSync``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBooksBankSync`: BankTally
+	// response from `PostBooksBankSync`: BooksBankTally
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksBankSync`: %v\n", resp)
 }
 ```
@@ -1228,7 +1167,7 @@ Other parameters are passed through a pointer to a apiPostBooksBankSyncRequest s
 
 ### Return type
 
-[**BankTally**](BankTally.md)
+[**BooksBankTally**](BooksBankTally.md)
 
 ### Authorization
 
@@ -1237,66 +1176,7 @@ Other parameters are passed through a pointer to a apiPostBooksBankSyncRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostBooksBankToken
-
-> PostBooksBankToken(ctx).Execute()
-
-Begin connecting a bank account (not yet available)
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BooksAPI.PostBooksBankToken(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksBankToken``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostBooksBankTokenRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1371,7 +1251,7 @@ Name | Type | Description  | Notes
 
 ## PostBooksRules
 
-> Rule PostBooksRules(ctx).Rule(rule).Execute()
+> BooksRule PostBooksRules(ctx).BooksRule(booksRule).Execute()
 
 Creates or updates one auto-categorization rule, keyed by its pattern — writing a pattern that already exists REPLACES that row's category and priority.
 
@@ -1390,16 +1270,16 @@ import (
 )
 
 func main() {
-	rule := *openapiclient.NewRule() // Rule | 
+	booksRule := *openapiclient.NewBooksRule() // BooksRule | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.PostBooksRules(context.Background()).Rule(rule).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksRules(context.Background()).BooksRule(booksRule).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBooksRules`: Rule
+	// response from `PostBooksRules`: BooksRule
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksRules`: %v\n", resp)
 }
 ```
@@ -1415,11 +1295,11 @@ Other parameters are passed through a pointer to a apiPostBooksRulesRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **rule** | [**Rule**](Rule.md) |  | 
+ **booksRule** | [**BooksRule**](BooksRule.md) |  | 
 
 ### Return type
 
-[**Rule**](Rule.md)
+[**BooksRule**](BooksRule.md)
 
 ### Authorization
 
@@ -1428,7 +1308,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1503,7 +1383,7 @@ Name | Type | Description  | Notes
 
 ## PostBooksScanBook
 
-> BookResponse PostBooksScanBook(ctx).BookRequest(bookRequest).Execute()
+> BooksBookResponse PostBooksScanBook(ctx).BooksBookRequest(booksBookRequest).Execute()
 
 Posts a reviewed scanned bill to the ledger.
 
@@ -1522,16 +1402,16 @@ import (
 )
 
 func main() {
-	bookRequest := *openapiclient.NewBookRequest() // BookRequest | 
+	booksBookRequest := *openapiclient.NewBooksBookRequest() // BooksBookRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.PostBooksScanBook(context.Background()).BookRequest(bookRequest).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksScanBook(context.Background()).BooksBookRequest(booksBookRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksScanBook``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBooksScanBook`: BookResponse
+	// response from `PostBooksScanBook`: BooksBookResponse
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksScanBook`: %v\n", resp)
 }
 ```
@@ -1547,11 +1427,11 @@ Other parameters are passed through a pointer to a apiPostBooksScanBookRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **bookRequest** | [**BookRequest**](BookRequest.md) |  | 
+ **booksBookRequest** | [**BooksBookRequest**](BooksBookRequest.md) |  | 
 
 ### Return type
 
-[**BookResponse**](BookResponse.md)
+[**BooksBookResponse**](BooksBookResponse.md)
 
 ### Authorization
 
@@ -1560,7 +1440,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1569,9 +1449,9 @@ Name | Type | Description  | Notes
 
 ## PostBooksSync
 
-> SyncTally PostBooksSync(ctx).Execute()
+> BooksSyncTally PostBooksSync(ctx).Execute()
 
-Sync ingests the caller's OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
+Ingests the caller's OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
 
 
 
@@ -1596,7 +1476,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksSync``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBooksSync`: SyncTally
+	// response from `PostBooksSync`: BooksSyncTally
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksSync`: %v\n", resp)
 }
 ```
@@ -1612,7 +1492,7 @@ Other parameters are passed through a pointer to a apiPostBooksSyncRequest struc
 
 ### Return type
 
-[**SyncTally**](SyncTally.md)
+[**BooksSyncTally**](BooksSyncTally.md)
 
 ### Authorization
 
@@ -1621,7 +1501,7 @@ Other parameters are passed through a pointer to a apiPostBooksSyncRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1630,7 +1510,7 @@ Other parameters are passed through a pointer to a apiPostBooksSyncRequest struc
 
 ## PostBooksVendors
 
-> VendorRow PostBooksVendors(ctx).VendorRow(vendorRow).Execute()
+> BooksVendorRow PostBooksVendors(ctx).BooksVendorRow(booksVendorRow).Execute()
 
 Creates or updates one vendor in the org's vendor book, keyed by its canonical name — writing a canonical name that already exists REPLACES that row's aliases and default category.
 
@@ -1649,16 +1529,16 @@ import (
 )
 
 func main() {
-	vendorRow := *openapiclient.NewVendorRow() // VendorRow | 
+	booksVendorRow := *openapiclient.NewBooksVendorRow() // BooksVendorRow | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.PostBooksVendors(context.Background()).VendorRow(vendorRow).Execute()
+	resp, r, err := apiClient.BooksAPI.PostBooksVendors(context.Background()).BooksVendorRow(booksVendorRow).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.PostBooksVendors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBooksVendors`: VendorRow
+	// response from `PostBooksVendors`: BooksVendorRow
 	fmt.Fprintf(os.Stdout, "Response from `BooksAPI.PostBooksVendors`: %v\n", resp)
 }
 ```
@@ -1674,11 +1554,11 @@ Other parameters are passed through a pointer to a apiPostBooksVendorsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **vendorRow** | [**VendorRow**](VendorRow.md) |  | 
+ **booksVendorRow** | [**BooksVendorRow**](BooksVendorRow.md) |  | 
 
 ### Return type
 
-[**VendorRow**](VendorRow.md)
+[**BooksVendorRow**](BooksVendorRow.md)
 
 ### Authorization
 
@@ -1687,7 +1567,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

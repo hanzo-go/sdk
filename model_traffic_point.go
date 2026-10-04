@@ -19,14 +19,17 @@ var _ MappedNullable = &TrafficPoint{}
 
 // TrafficPoint struct for TrafficPoint
 type TrafficPoint struct {
-	ByService map[string]int32 `json:"byService,omitempty"`
-	ByTask    map[string]int32 `json:"byTask,omitempty"`
-	Count     *int32           `json:"count,omitempty"`
-	Country   *string          `json:"country,omitempty"`
-	Lat       *float32         `json:"lat,omitempty"`
-	Lon       *float32         `json:"lon,omitempty"`
-	Region    *string          `json:"region,omitempty"`
+	ByService            map[string]int32 `json:"byService,omitempty"`
+	ByTask               map[string]int32 `json:"byTask,omitempty"`
+	Count                *int32           `json:"count,omitempty"`
+	Country              *string          `json:"country,omitempty"`
+	Lat                  *float32         `json:"lat,omitempty"`
+	Lon                  *float32         `json:"lon,omitempty"`
+	Region               *string          `json:"region,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TrafficPoint TrafficPoint
 
 // NewTrafficPoint instantiates a new TrafficPoint object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o TrafficPoint) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Region) {
 		toSerialize["region"] = o.Region
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TrafficPoint) UnmarshalJSON(data []byte) (err error) {
+	varTrafficPoint := _TrafficPoint{}
+
+	err = json.Unmarshal(data, &varTrafficPoint)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TrafficPoint(varTrafficPoint)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "byService")
+		delete(additionalProperties, "byTask")
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "country")
+		delete(additionalProperties, "lat")
+		delete(additionalProperties, "lon")
+		delete(additionalProperties, "region")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTrafficPoint struct {

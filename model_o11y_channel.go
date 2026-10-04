@@ -20,14 +20,17 @@ var _ MappedNullable = &O11yChannel{}
 
 // O11yChannel struct for O11yChannel
 type O11yChannel struct {
-	CreatedAt *time.Time  `json:"createdAt,omitempty"`
-	Data      *string     `json:"data,omitempty"`
-	Id        interface{} `json:"id,omitempty"`
-	Name      *string     `json:"name,omitempty"`
-	OrgId     *string     `json:"orgId,omitempty"`
-	Type      *string     `json:"type,omitempty"`
-	UpdatedAt *time.Time  `json:"updatedAt,omitempty"`
+	CreatedAt            *time.Time  `json:"createdAt,omitempty"`
+	Data                 *string     `json:"data,omitempty"`
+	Id                   interface{} `json:"id,omitempty"`
+	Name                 *string     `json:"name,omitempty"`
+	OrgId                *string     `json:"orgId,omitempty"`
+	Type                 *string     `json:"type,omitempty"`
+	UpdatedAt            *time.Time  `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yChannel O11yChannel
 
 // NewO11yChannel instantiates a new O11yChannel object
 // This constructor will assign default values to properties that have it defined,
@@ -302,7 +305,39 @@ func (o O11yChannel) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yChannel) UnmarshalJSON(data []byte) (err error) {
+	varO11yChannel := _O11yChannel{}
+
+	err = json.Unmarshal(data, &varO11yChannel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yChannel(varO11yChannel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "orgId")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yChannel struct {

@@ -19,8 +19,11 @@ var _ MappedNullable = &AiResponsesInputDetails{}
 
 // AiResponsesInputDetails struct for AiResponsesInputDetails
 type AiResponsesInputDetails struct {
-	CachedTokens *int32 `json:"cached_tokens,omitempty"`
+	CachedTokens         *int32 `json:"cached_tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiResponsesInputDetails AiResponsesInputDetails
 
 // NewAiResponsesInputDetails instantiates a new AiResponsesInputDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o AiResponsesInputDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CachedTokens) {
 		toSerialize["cached_tokens"] = o.CachedTokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiResponsesInputDetails) UnmarshalJSON(data []byte) (err error) {
+	varAiResponsesInputDetails := _AiResponsesInputDetails{}
+
+	err = json.Unmarshal(data, &varAiResponsesInputDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiResponsesInputDetails(varAiResponsesInputDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cached_tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiResponsesInputDetails struct {

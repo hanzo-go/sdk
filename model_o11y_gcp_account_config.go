@@ -24,8 +24,11 @@ type O11yGCPAccountConfig struct {
 	// Project ID where otel collector will be deployed
 	DeploymentRegion *string `json:"deploymentRegion,omitempty"`
 	// List of project IDs to monitor
-	ProjectIds []string `json:"projectIds,omitempty"`
+	ProjectIds           []string `json:"projectIds,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGCPAccountConfig O11yGCPAccountConfig
 
 // NewO11yGCPAccountConfig instantiates a new O11yGCPAccountConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yGCPAccountConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ProjectIds) {
 		toSerialize["projectIds"] = o.ProjectIds
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGCPAccountConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yGCPAccountConfig := _O11yGCPAccountConfig{}
+
+	err = json.Unmarshal(data, &varO11yGCPAccountConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGCPAccountConfig(varO11yGCPAccountConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "deploymentProjectId")
+		delete(additionalProperties, "deploymentRegion")
+		delete(additionalProperties, "projectIds")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGCPAccountConfig struct {

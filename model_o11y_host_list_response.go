@@ -27,7 +27,10 @@ type O11yHostListResponse struct {
 	SentAnyHostMetricsData   *bool                `json:"sentAnyHostMetricsData,omitempty"`
 	Total                    *int64               `json:"total,omitempty"`
 	Type                     *string              `json:"type,omitempty"`
+	AdditionalProperties     map[string]interface{}
 }
+
+type _O11yHostListResponse O11yHostListResponse
 
 // NewO11yHostListResponse instantiates a new O11yHostListResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o O11yHostListResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yHostListResponse) UnmarshalJSON(data []byte) (err error) {
+	varO11yHostListResponse := _O11yHostListResponse{}
+
+	err = json.Unmarshal(data, &varO11yHostListResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yHostListResponse(varO11yHostListResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "clusterNames")
+		delete(additionalProperties, "endTimeBeforeRetention")
+		delete(additionalProperties, "isSendingK8SAgentMetrics")
+		delete(additionalProperties, "nodeNames")
+		delete(additionalProperties, "records")
+		delete(additionalProperties, "sentAnyHostMetricsData")
+		delete(additionalProperties, "total")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yHostListResponse struct {

@@ -19,16 +19,19 @@ var _ MappedNullable = &O11yRocketchatAttachmentAction{}
 
 // O11yRocketchatAttachmentAction struct for O11yRocketchatAttachmentAction
 type O11yRocketchatAttachmentAction struct {
-	ImageUrl           *string `json:"image_url,omitempty"`
-	IsWebview          *bool   `json:"is_webview,omitempty"`
-	Msg                *string `json:"msg,omitempty"`
-	MsgInChatWindow    *bool   `json:"msg_in_chat_window,omitempty"`
-	MsgProcessingType  *string `json:"msg_processing_type,omitempty"`
-	Text               *string `json:"text,omitempty"`
-	Type               *string `json:"type,omitempty"`
-	Url                *string `json:"url,omitempty"`
-	WebviewHeightRatio *string `json:"webview_height_ratio,omitempty"`
+	ImageUrl             *string `json:"image_url,omitempty"`
+	IsWebview            *bool   `json:"is_webview,omitempty"`
+	Msg                  *string `json:"msg,omitempty"`
+	MsgInChatWindow      *bool   `json:"msg_in_chat_window,omitempty"`
+	MsgProcessingType    *string `json:"msg_processing_type,omitempty"`
+	Text                 *string `json:"text,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	WebviewHeightRatio   *string `json:"webview_height_ratio,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yRocketchatAttachmentAction O11yRocketchatAttachmentAction
 
 // NewO11yRocketchatAttachmentAction instantiates a new O11yRocketchatAttachmentAction object
 // This constructor will assign default values to properties that have it defined,
@@ -372,7 +375,41 @@ func (o O11yRocketchatAttachmentAction) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.WebviewHeightRatio) {
 		toSerialize["webview_height_ratio"] = o.WebviewHeightRatio
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yRocketchatAttachmentAction) UnmarshalJSON(data []byte) (err error) {
+	varO11yRocketchatAttachmentAction := _O11yRocketchatAttachmentAction{}
+
+	err = json.Unmarshal(data, &varO11yRocketchatAttachmentAction)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yRocketchatAttachmentAction(varO11yRocketchatAttachmentAction)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image_url")
+		delete(additionalProperties, "is_webview")
+		delete(additionalProperties, "msg")
+		delete(additionalProperties, "msg_in_chat_window")
+		delete(additionalProperties, "msg_processing_type")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "webview_height_ratio")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yRocketchatAttachmentAction struct {

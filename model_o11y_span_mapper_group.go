@@ -20,16 +20,19 @@ var _ MappedNullable = &O11ySpanMapperGroup{}
 
 // O11ySpanMapperGroup struct for O11ySpanMapperGroup
 type O11ySpanMapperGroup struct {
-	Condition *O11ySpanMapperGroupCondition `json:"condition,omitempty"`
-	CreatedAt *time.Time                    `json:"createdAt,omitempty"`
-	CreatedBy *string                       `json:"createdBy,omitempty"`
-	Enabled   *bool                         `json:"enabled,omitempty"`
-	Id        interface{}                   `json:"id,omitempty"`
-	Name      *string                       `json:"name,omitempty"`
-	OrgId     interface{}                   `json:"orgId,omitempty"`
-	UpdatedAt *time.Time                    `json:"updatedAt,omitempty"`
-	UpdatedBy *string                       `json:"updatedBy,omitempty"`
+	Condition            *O11ySpanMapperGroupCondition `json:"condition,omitempty"`
+	CreatedAt            *time.Time                    `json:"createdAt,omitempty"`
+	CreatedBy            *string                       `json:"createdBy,omitempty"`
+	Enabled              *bool                         `json:"enabled,omitempty"`
+	Id                   interface{}                   `json:"id,omitempty"`
+	Name                 *string                       `json:"name,omitempty"`
+	OrgId                interface{}                   `json:"orgId,omitempty"`
+	UpdatedAt            *time.Time                    `json:"updatedAt,omitempty"`
+	UpdatedBy            *string                       `json:"updatedBy,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySpanMapperGroup O11ySpanMapperGroup
 
 // NewO11ySpanMapperGroup instantiates a new O11ySpanMapperGroup object
 // This constructor will assign default values to properties that have it defined,
@@ -375,7 +378,41 @@ func (o O11ySpanMapperGroup) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedBy) {
 		toSerialize["updatedBy"] = o.UpdatedBy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySpanMapperGroup) UnmarshalJSON(data []byte) (err error) {
+	varO11ySpanMapperGroup := _O11ySpanMapperGroup{}
+
+	err = json.Unmarshal(data, &varO11ySpanMapperGroup)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySpanMapperGroup(varO11ySpanMapperGroup)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "condition")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "orgId")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedBy")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySpanMapperGroup struct {

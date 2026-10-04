@@ -48,7 +48,7 @@ func (r SecurityAPIGetSecurityFindingsRequest) Limit(limit int64) SecurityAPIGet
 	return r
 }
 
-func (r SecurityAPIGetSecurityFindingsRequest) Execute() (*FindingList, *http.Response, error) {
+func (r SecurityAPIGetSecurityFindingsRequest) Execute() (*SecurityFindingList, *http.Response, error) {
 	return r.ApiService.GetSecurityFindingsExecute(r)
 }
 
@@ -74,13 +74,13 @@ func (a *SecurityAPIService) GetSecurityFindings(ctx context.Context) SecurityAP
 
 // Execute executes the request
 //
-//	@return FindingList
-func (a *SecurityAPIService) GetSecurityFindingsExecute(r SecurityAPIGetSecurityFindingsRequest) (*FindingList, *http.Response, error) {
+//	@return SecurityFindingList
+func (a *SecurityAPIService) GetSecurityFindingsExecute(r SecurityAPIGetSecurityFindingsRequest) (*SecurityFindingList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FindingList
+		localVarReturnValue *SecurityFindingList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SecurityAPIService.GetSecurityFindings")
@@ -113,7 +113,7 @@ func (a *SecurityAPIService) GetSecurityFindingsExecute(r SecurityAPIGetSecurity
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -142,6 +142,14 @@ func (a *SecurityAPIService) GetSecurityFindingsExecute(r SecurityAPIGetSecurity
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -163,7 +171,7 @@ type SecurityAPIGetSecurityFindingsByIdRequest struct {
 	id         string
 }
 
-func (r SecurityAPIGetSecurityFindingsByIdRequest) Execute() (*FindingView, *http.Response, error) {
+func (r SecurityAPIGetSecurityFindingsByIdRequest) Execute() (*SecurityFindingView, *http.Response, error) {
 	return r.ApiService.GetSecurityFindingsByIdExecute(r)
 }
 
@@ -191,13 +199,13 @@ func (a *SecurityAPIService) GetSecurityFindingsById(ctx context.Context, id str
 
 // Execute executes the request
 //
-//	@return FindingView
-func (a *SecurityAPIService) GetSecurityFindingsByIdExecute(r SecurityAPIGetSecurityFindingsByIdRequest) (*FindingView, *http.Response, error) {
+//	@return SecurityFindingView
+func (a *SecurityAPIService) GetSecurityFindingsByIdExecute(r SecurityAPIGetSecurityFindingsByIdRequest) (*SecurityFindingView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FindingView
+		localVarReturnValue *SecurityFindingView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SecurityAPIService.GetSecurityFindingsById")
@@ -222,7 +230,7 @@ func (a *SecurityAPIService) GetSecurityFindingsByIdExecute(r SecurityAPIGetSecu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -251,6 +259,14 @@ func (a *SecurityAPIService) GetSecurityFindingsByIdExecute(r SecurityAPIGetSecu
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -271,7 +287,7 @@ type SecurityAPIGetSecurityHealthRequest struct {
 	ApiService *SecurityAPIService
 }
 
-func (r SecurityAPIGetSecurityHealthRequest) Execute() (*Ruleset, *http.Response, error) {
+func (r SecurityAPIGetSecurityHealthRequest) Execute() (*SecurityRuleset, *http.Response, error) {
 	return r.ApiService.GetSecurityHealthExecute(r)
 }
 
@@ -297,13 +313,13 @@ func (a *SecurityAPIService) GetSecurityHealth(ctx context.Context) SecurityAPIG
 
 // Execute executes the request
 //
-//	@return Ruleset
-func (a *SecurityAPIService) GetSecurityHealthExecute(r SecurityAPIGetSecurityHealthRequest) (*Ruleset, *http.Response, error) {
+//	@return SecurityRuleset
+func (a *SecurityAPIService) GetSecurityHealthExecute(r SecurityAPIGetSecurityHealthRequest) (*SecurityRuleset, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Ruleset
+		localVarReturnValue *SecurityRuleset
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SecurityAPIService.GetSecurityHealth")
@@ -327,7 +343,7 @@ func (a *SecurityAPIService) GetSecurityHealthExecute(r SecurityAPIGetSecurityHe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -356,6 +372,14 @@ func (a *SecurityAPIService) GetSecurityHealthExecute(r SecurityAPIGetSecurityHe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -376,7 +400,7 @@ type SecurityAPIGetSecurityRulesRequest struct {
 	ApiService *SecurityAPIService
 }
 
-func (r SecurityAPIGetSecurityRulesRequest) Execute() (*RuleList, *http.Response, error) {
+func (r SecurityAPIGetSecurityRulesRequest) Execute() (*SecurityRuleList, *http.Response, error) {
 	return r.ApiService.GetSecurityRulesExecute(r)
 }
 
@@ -402,13 +426,13 @@ func (a *SecurityAPIService) GetSecurityRules(ctx context.Context) SecurityAPIGe
 
 // Execute executes the request
 //
-//	@return RuleList
-func (a *SecurityAPIService) GetSecurityRulesExecute(r SecurityAPIGetSecurityRulesRequest) (*RuleList, *http.Response, error) {
+//	@return SecurityRuleList
+func (a *SecurityAPIService) GetSecurityRulesExecute(r SecurityAPIGetSecurityRulesRequest) (*SecurityRuleList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RuleList
+		localVarReturnValue *SecurityRuleList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SecurityAPIService.GetSecurityRules")
@@ -432,7 +456,7 @@ func (a *SecurityAPIService) GetSecurityRulesExecute(r SecurityAPIGetSecurityRul
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -461,6 +485,14 @@ func (a *SecurityAPIService) GetSecurityRulesExecute(r SecurityAPIGetSecurityRul
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -488,7 +520,7 @@ func (r SecurityAPIGetSecurityScansRequest) Limit(limit int64) SecurityAPIGetSec
 	return r
 }
 
-func (r SecurityAPIGetSecurityScansRequest) Execute() (*ScanList, *http.Response, error) {
+func (r SecurityAPIGetSecurityScansRequest) Execute() (*SecurityScanList, *http.Response, error) {
 	return r.ApiService.GetSecurityScansExecute(r)
 }
 
@@ -513,13 +545,13 @@ func (a *SecurityAPIService) GetSecurityScans(ctx context.Context) SecurityAPIGe
 
 // Execute executes the request
 //
-//	@return ScanList
-func (a *SecurityAPIService) GetSecurityScansExecute(r SecurityAPIGetSecurityScansRequest) (*ScanList, *http.Response, error) {
+//	@return SecurityScanList
+func (a *SecurityAPIService) GetSecurityScansExecute(r SecurityAPIGetSecurityScansRequest) (*SecurityScanList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ScanList
+		localVarReturnValue *SecurityScanList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SecurityAPIService.GetSecurityScans")
@@ -546,7 +578,7 @@ func (a *SecurityAPIService) GetSecurityScansExecute(r SecurityAPIGetSecuritySca
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -575,6 +607,14 @@ func (a *SecurityAPIService) GetSecurityScansExecute(r SecurityAPIGetSecuritySca
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -596,7 +636,7 @@ type SecurityAPIGetSecurityScansByIdRequest struct {
 	id         string
 }
 
-func (r SecurityAPIGetSecurityScansByIdRequest) Execute() (*ScanDetail, *http.Response, error) {
+func (r SecurityAPIGetSecurityScansByIdRequest) Execute() (*SecurityScanDetail, *http.Response, error) {
 	return r.ApiService.GetSecurityScansByIdExecute(r)
 }
 
@@ -625,13 +665,13 @@ func (a *SecurityAPIService) GetSecurityScansById(ctx context.Context, id string
 
 // Execute executes the request
 //
-//	@return ScanDetail
-func (a *SecurityAPIService) GetSecurityScansByIdExecute(r SecurityAPIGetSecurityScansByIdRequest) (*ScanDetail, *http.Response, error) {
+//	@return SecurityScanDetail
+func (a *SecurityAPIService) GetSecurityScansByIdExecute(r SecurityAPIGetSecurityScansByIdRequest) (*SecurityScanDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ScanDetail
+		localVarReturnValue *SecurityScanDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SecurityAPIService.GetSecurityScansById")
@@ -656,7 +696,7 @@ func (a *SecurityAPIService) GetSecurityScansByIdExecute(r SecurityAPIGetSecurit
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -685,6 +725,14 @@ func (a *SecurityAPIService) GetSecurityScansByIdExecute(r SecurityAPIGetSecurit
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -701,17 +749,17 @@ func (a *SecurityAPIService) GetSecurityScansByIdExecute(r SecurityAPIGetSecurit
 }
 
 type SecurityAPIPostSecurityScansRequest struct {
-	ctx        context.Context
-	ApiService *SecurityAPIService
-	submitReq  *SubmitReq
+	ctx               context.Context
+	ApiService        *SecurityAPIService
+	securitySubmitReq *SecuritySubmitReq
 }
 
-func (r SecurityAPIPostSecurityScansRequest) SubmitReq(submitReq SubmitReq) SecurityAPIPostSecurityScansRequest {
-	r.submitReq = &submitReq
+func (r SecurityAPIPostSecurityScansRequest) SecuritySubmitReq(securitySubmitReq SecuritySubmitReq) SecurityAPIPostSecurityScansRequest {
+	r.securitySubmitReq = &securitySubmitReq
 	return r
 }
 
-func (r SecurityAPIPostSecurityScansRequest) Execute() (*ScanView, *http.Response, error) {
+func (r SecurityAPIPostSecurityScansRequest) Execute() (*SecurityScanView, *http.Response, error) {
 	return r.ApiService.PostSecurityScansExecute(r)
 }
 
@@ -746,13 +794,13 @@ func (a *SecurityAPIService) PostSecurityScans(ctx context.Context) SecurityAPIP
 
 // Execute executes the request
 //
-//	@return ScanView
-func (a *SecurityAPIService) PostSecurityScansExecute(r SecurityAPIPostSecurityScansRequest) (*ScanView, *http.Response, error) {
+//	@return SecurityScanView
+func (a *SecurityAPIService) PostSecurityScansExecute(r SecurityAPIPostSecurityScansRequest) (*SecurityScanView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ScanView
+		localVarReturnValue *SecurityScanView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SecurityAPIService.PostSecurityScans")
@@ -765,8 +813,8 @@ func (a *SecurityAPIService) PostSecurityScansExecute(r SecurityAPIPostSecurityS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.submitReq == nil {
-		return localVarReturnValue, nil, reportError("submitReq is required and must be specified")
+	if r.securitySubmitReq == nil {
+		return localVarReturnValue, nil, reportError("securitySubmitReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -779,7 +827,7 @@ func (a *SecurityAPIService) PostSecurityScansExecute(r SecurityAPIPostSecurityS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -787,7 +835,7 @@ func (a *SecurityAPIService) PostSecurityScansExecute(r SecurityAPIPostSecurityS
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.submitReq
+	localVarPostBody = r.securitySubmitReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -810,6 +858,14 @@ func (a *SecurityAPIService) PostSecurityScansExecute(r SecurityAPIPostSecurityS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

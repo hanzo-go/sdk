@@ -89,14 +89,14 @@ func (r AuditAPIGetAuditRequest) P(p string) AuditAPIGetAuditRequest {
 	return r
 }
 
-func (r AuditAPIGetAuditRequest) Execute() (*TrailPage, *http.Response, error) {
+func (r AuditAPIGetAuditRequest) Execute() (*AuditTrailPage, *http.Response, error) {
 	return r.ApiService.GetAuditExecute(r)
 }
 
 /*
-GetAudit List reads the caller's OWN org audit trail, newest first, with the total the filter matched so a console can page it.
+GetAudit Reads the caller's OWN org audit trail, newest first, with the total the filter matched so a console can page it.
 
-List reads the caller's OWN org audit trail, newest first, with the total the
+Reads the caller's OWN org audit trail, newest first, with the total the
 filter matched so a console can page it.
 
 Every filter is optional and applies WITHIN the caller's org — the org itself is
@@ -117,13 +117,13 @@ func (a *AuditAPIService) GetAudit(ctx context.Context) AuditAPIGetAuditRequest 
 
 // Execute executes the request
 //
-//	@return TrailPage
-func (a *AuditAPIService) GetAuditExecute(r AuditAPIGetAuditRequest) (*TrailPage, *http.Response, error) {
+//	@return AuditTrailPage
+func (a *AuditAPIService) GetAuditExecute(r AuditAPIGetAuditRequest) (*AuditTrailPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrailPage
+		localVarReturnValue *AuditTrailPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditAPIService.GetAudit")
@@ -174,7 +174,7 @@ func (a *AuditAPIService) GetAuditExecute(r AuditAPIGetAuditRequest) (*TrailPage
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -203,6 +203,14 @@ func (a *AuditAPIService) GetAuditExecute(r AuditAPIGetAuditRequest) (*TrailPage
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

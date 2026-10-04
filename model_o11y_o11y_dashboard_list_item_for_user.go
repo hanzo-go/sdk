@@ -28,14 +28,17 @@ type O11yO11yDashboardListItemForUser struct {
 	Name      *string    `json:"name,omitempty"`
 	OrgId     *string    `json:"orgId,omitempty"`
 	// Pinned reports whether the calling user has pinned this dashboard.
-	Pinned        *bool                      `json:"pinned,omitempty"`
-	SchemaVersion *string                    `json:"schemaVersion,omitempty"`
-	Source        *string                    `json:"source,omitempty"`
-	Spec          *O11yO11yDashboardListSpec `json:"spec,omitempty"`
-	Tags          []O11yO11yDashboardTag     `json:"tags,omitempty"`
-	UpdatedAt     *time.Time                 `json:"updatedAt,omitempty"`
-	UpdatedBy     *string                    `json:"updatedBy,omitempty"`
+	Pinned               *bool                      `json:"pinned,omitempty"`
+	SchemaVersion        *string                    `json:"schemaVersion,omitempty"`
+	Source               *string                    `json:"source,omitempty"`
+	Spec                 *O11yO11yDashboardListSpec `json:"spec,omitempty"`
+	Tags                 []O11yO11yDashboardTag     `json:"tags,omitempty"`
+	UpdatedAt            *time.Time                 `json:"updatedAt,omitempty"`
+	UpdatedBy            *string                    `json:"updatedBy,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardListItemForUser O11yO11yDashboardListItemForUser
 
 // NewO11yO11yDashboardListItemForUser instantiates a new O11yO11yDashboardListItemForUser object
 // This constructor will assign default values to properties that have it defined,
@@ -554,7 +557,46 @@ func (o O11yO11yDashboardListItemForUser) ToMap() (map[string]interface{}, error
 	if !IsNil(o.UpdatedBy) {
 		toSerialize["updatedBy"] = o.UpdatedBy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardListItemForUser) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardListItemForUser := _O11yO11yDashboardListItemForUser{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardListItemForUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardListItemForUser(varO11yO11yDashboardListItemForUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "image")
+		delete(additionalProperties, "locked")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "orgId")
+		delete(additionalProperties, "pinned")
+		delete(additionalProperties, "schemaVersion")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "spec")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedBy")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardListItemForUser struct {

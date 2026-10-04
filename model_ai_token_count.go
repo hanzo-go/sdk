@@ -19,8 +19,11 @@ var _ MappedNullable = &AiTokenCount{}
 
 // AiTokenCount struct for AiTokenCount
 type AiTokenCount struct {
-	InputTokens *int32 `json:"input_tokens,omitempty"`
+	InputTokens          *int32 `json:"input_tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiTokenCount AiTokenCount
 
 // NewAiTokenCount instantiates a new AiTokenCount object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o AiTokenCount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.InputTokens) {
 		toSerialize["input_tokens"] = o.InputTokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiTokenCount) UnmarshalJSON(data []byte) (err error) {
+	varAiTokenCount := _AiTokenCount{}
+
+	err = json.Unmarshal(data, &varAiTokenCount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiTokenCount(varAiTokenCount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "input_tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiTokenCount struct {

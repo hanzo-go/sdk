@@ -19,30 +19,25 @@ var _ MappedNullable = &Declaration{}
 
 // Declaration struct for Declaration
 type Declaration struct {
-	// Application is the CD Application name the generator mints: <org>-<name>. It is the join key against /v1/platform/cd.
-	Application *string `json:"application,omitempty"`
-	// Automated is cd.automated: false means the Application reports drift and NOTHING moves. It is off by default for a new file on purpose.
-	Automated *bool `json:"automated,omitempty"`
-	// image.digest — wins over tag
-	Digest *string `json:"digest,omitempty"`
-	// Env is the declared container environment, as the chart's list of {name,value}. It is read back so a re-declare of an identical body is a no-op rather than a refusal — idempotency is what makes a retry safe.
-	Env []DeclareEnv `json:"env,omitempty"`
-	// ingress.hosts, both shapes flattened
-	Hosts []string `json:"hosts,omitempty"`
-	// the Helm release name — the file's basename
-	Name *string `json:"name,omitempty"`
-	// Org is the owner. It is ALSO the values directory and the destination namespace, because those are one value under one name — see the header.
-	Org *string `json:"org,omitempty"`
-	// Path is the file, relative to the repository root.
-	Path *string `json:"path,omitempty"`
-	// Project is the AppProject the sync is admitted under, derived from the directory exactly as the ApplicationSet derives it. It differs from Org for a reserved directory, which syncs under the platform fence.
-	Project  *string `json:"project,omitempty"`
-	Replicas *int64  `json:"replicas,omitempty"`
-	// image.repository
-	Repository *string `json:"repository,omitempty"`
-	// image.tag
-	Tag *string `json:"tag,omitempty"`
+	Application          *string      `json:"application,omitempty"`
+	Automated            *bool        `json:"automated,omitempty"`
+	Component            *string      `json:"component,omitempty"`
+	Digest               *string      `json:"digest,omitempty"`
+	Env                  []DeclareEnv `json:"env,omitempty"`
+	Hosts                []string     `json:"hosts,omitempty"`
+	Name                 *string      `json:"name,omitempty"`
+	Org                  *string      `json:"org,omitempty"`
+	PartOf               *string      `json:"partOf,omitempty"`
+	Path                 *string      `json:"path,omitempty"`
+	Project              *string      `json:"project,omitempty"`
+	Replicas             *int32       `json:"replicas,omitempty"`
+	Repository           *string      `json:"repository,omitempty"`
+	Secrets              []SecretRef  `json:"secrets,omitempty"`
+	Tag                  *string      `json:"tag,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Declaration Declaration
 
 // NewDeclaration instantiates a new Declaration object
 // This constructor will assign default values to properties that have it defined,
@@ -123,6 +118,38 @@ func (o *Declaration) HasAutomated() bool {
 // SetAutomated gets a reference to the given bool and assigns it to the Automated field.
 func (o *Declaration) SetAutomated(v bool) {
 	o.Automated = &v
+}
+
+// GetComponent returns the Component field value if set, zero value otherwise.
+func (o *Declaration) GetComponent() string {
+	if o == nil || IsNil(o.Component) {
+		var ret string
+		return ret
+	}
+	return *o.Component
+}
+
+// GetComponentOk returns a tuple with the Component field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Declaration) GetComponentOk() (*string, bool) {
+	if o == nil || IsNil(o.Component) {
+		return nil, false
+	}
+	return o.Component, true
+}
+
+// HasComponent returns a boolean if a field has been set.
+func (o *Declaration) HasComponent() bool {
+	if o != nil && !IsNil(o.Component) {
+		return true
+	}
+
+	return false
+}
+
+// SetComponent gets a reference to the given string and assigns it to the Component field.
+func (o *Declaration) SetComponent(v string) {
+	o.Component = &v
 }
 
 // GetDigest returns the Digest field value if set, zero value otherwise.
@@ -285,6 +312,38 @@ func (o *Declaration) SetOrg(v string) {
 	o.Org = &v
 }
 
+// GetPartOf returns the PartOf field value if set, zero value otherwise.
+func (o *Declaration) GetPartOf() string {
+	if o == nil || IsNil(o.PartOf) {
+		var ret string
+		return ret
+	}
+	return *o.PartOf
+}
+
+// GetPartOfOk returns a tuple with the PartOf field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Declaration) GetPartOfOk() (*string, bool) {
+	if o == nil || IsNil(o.PartOf) {
+		return nil, false
+	}
+	return o.PartOf, true
+}
+
+// HasPartOf returns a boolean if a field has been set.
+func (o *Declaration) HasPartOf() bool {
+	if o != nil && !IsNil(o.PartOf) {
+		return true
+	}
+
+	return false
+}
+
+// SetPartOf gets a reference to the given string and assigns it to the PartOf field.
+func (o *Declaration) SetPartOf(v string) {
+	o.PartOf = &v
+}
+
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *Declaration) GetPath() string {
 	if o == nil || IsNil(o.Path) {
@@ -350,9 +409,9 @@ func (o *Declaration) SetProject(v string) {
 }
 
 // GetReplicas returns the Replicas field value if set, zero value otherwise.
-func (o *Declaration) GetReplicas() int64 {
+func (o *Declaration) GetReplicas() int32 {
 	if o == nil || IsNil(o.Replicas) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.Replicas
@@ -360,7 +419,7 @@ func (o *Declaration) GetReplicas() int64 {
 
 // GetReplicasOk returns a tuple with the Replicas field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Declaration) GetReplicasOk() (*int64, bool) {
+func (o *Declaration) GetReplicasOk() (*int32, bool) {
 	if o == nil || IsNil(o.Replicas) {
 		return nil, false
 	}
@@ -376,8 +435,8 @@ func (o *Declaration) HasReplicas() bool {
 	return false
 }
 
-// SetReplicas gets a reference to the given int64 and assigns it to the Replicas field.
-func (o *Declaration) SetReplicas(v int64) {
+// SetReplicas gets a reference to the given int32 and assigns it to the Replicas field.
+func (o *Declaration) SetReplicas(v int32) {
 	o.Replicas = &v
 }
 
@@ -411,6 +470,38 @@ func (o *Declaration) HasRepository() bool {
 // SetRepository gets a reference to the given string and assigns it to the Repository field.
 func (o *Declaration) SetRepository(v string) {
 	o.Repository = &v
+}
+
+// GetSecrets returns the Secrets field value if set, zero value otherwise.
+func (o *Declaration) GetSecrets() []SecretRef {
+	if o == nil || IsNil(o.Secrets) {
+		var ret []SecretRef
+		return ret
+	}
+	return o.Secrets
+}
+
+// GetSecretsOk returns a tuple with the Secrets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Declaration) GetSecretsOk() ([]SecretRef, bool) {
+	if o == nil || IsNil(o.Secrets) {
+		return nil, false
+	}
+	return o.Secrets, true
+}
+
+// HasSecrets returns a boolean if a field has been set.
+func (o *Declaration) HasSecrets() bool {
+	if o != nil && !IsNil(o.Secrets) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecrets gets a reference to the given []SecretRef and assigns it to the Secrets field.
+func (o *Declaration) SetSecrets(v []SecretRef) {
+	o.Secrets = v
 }
 
 // GetTag returns the Tag field value if set, zero value otherwise.
@@ -461,6 +552,9 @@ func (o Declaration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Automated) {
 		toSerialize["automated"] = o.Automated
 	}
+	if !IsNil(o.Component) {
+		toSerialize["component"] = o.Component
+	}
 	if !IsNil(o.Digest) {
 		toSerialize["digest"] = o.Digest
 	}
@@ -476,6 +570,9 @@ func (o Declaration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Org) {
 		toSerialize["org"] = o.Org
 	}
+	if !IsNil(o.PartOf) {
+		toSerialize["partOf"] = o.PartOf
+	}
 	if !IsNil(o.Path) {
 		toSerialize["path"] = o.Path
 	}
@@ -488,10 +585,53 @@ func (o Declaration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Repository) {
 		toSerialize["repository"] = o.Repository
 	}
+	if !IsNil(o.Secrets) {
+		toSerialize["secrets"] = o.Secrets
+	}
 	if !IsNil(o.Tag) {
 		toSerialize["tag"] = o.Tag
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Declaration) UnmarshalJSON(data []byte) (err error) {
+	varDeclaration := _Declaration{}
+
+	err = json.Unmarshal(data, &varDeclaration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Declaration(varDeclaration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "application")
+		delete(additionalProperties, "automated")
+		delete(additionalProperties, "component")
+		delete(additionalProperties, "digest")
+		delete(additionalProperties, "env")
+		delete(additionalProperties, "hosts")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "org")
+		delete(additionalProperties, "partOf")
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "project")
+		delete(additionalProperties, "replicas")
+		delete(additionalProperties, "repository")
+		delete(additionalProperties, "secrets")
+		delete(additionalProperties, "tag")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeclaration struct {

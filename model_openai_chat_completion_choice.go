@@ -24,7 +24,10 @@ type OpenaiChatCompletionChoice struct {
 	Index                *int32                       `json:"index,omitempty"`
 	Logprobs             *OpenaiLogProbs              `json:"logprobs,omitempty"`
 	Message              *OpenaiChatCompletionMessage `json:"message,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiChatCompletionChoice OpenaiChatCompletionChoice
 
 // NewOpenaiChatCompletionChoice instantiates a new OpenaiChatCompletionChoice object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o OpenaiChatCompletionChoice) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiChatCompletionChoice) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiChatCompletionChoice := _OpenaiChatCompletionChoice{}
+
+	err = json.Unmarshal(data, &varOpenaiChatCompletionChoice)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiChatCompletionChoice(varOpenaiChatCompletionChoice)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "content_filter_results")
+		delete(additionalProperties, "finish_reason")
+		delete(additionalProperties, "index")
+		delete(additionalProperties, "logprobs")
+		delete(additionalProperties, "message")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiChatCompletionChoice struct {

@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 ## GetEsignDocuments
 
-> EsignDocuments GetEsignDocuments(ctx).Execute()
+> EsignEsignDocuments GetEsignDocuments(ctx).Execute()
 
 Returns your org's documents, newest first.
 
@@ -49,7 +49,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.GetEsignDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEsignDocuments`: EsignDocuments
+	// response from `GetEsignDocuments`: EsignEsignDocuments
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.GetEsignDocuments`: %v\n", resp)
 }
 ```
@@ -65,7 +65,7 @@ Other parameters are passed through a pointer to a apiGetEsignDocumentsRequest s
 
 ### Return type
 
-[**EsignDocuments**](EsignDocuments.md)
+[**EsignEsignDocuments**](EsignEsignDocuments.md)
 
 ### Authorization
 
@@ -74,7 +74,7 @@ Other parameters are passed through a pointer to a apiGetEsignDocumentsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -83,7 +83,7 @@ Other parameters are passed through a pointer to a apiGetEsignDocumentsRequest s
 
 ## GetEsignDocumentsById
 
-> EsignDocument GetEsignDocumentsById(ctx, id).Execute()
+> EsignEsignDocument GetEsignDocumentsById(ctx, id).Execute()
 
 Returns one document with its recipients and field layout.
 
@@ -111,7 +111,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.GetEsignDocumentsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEsignDocumentsById`: EsignDocument
+	// response from `GetEsignDocumentsById`: EsignEsignDocument
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.GetEsignDocumentsById`: %v\n", resp)
 }
 ```
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EsignDocument**](EsignDocument.md)
+[**EsignEsignDocument**](EsignEsignDocument.md)
 
 ### Authorization
 
@@ -144,7 +144,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ## GetEsignDocumentsByIdAudit
 
-> EsignTrail GetEsignDocumentsByIdAudit(ctx, id).Execute()
+> EsignEsignTrail GetEsignDocumentsByIdAudit(ctx, id).Execute()
 
 Returns the document's full audit trail, oldest first.
 
@@ -181,7 +181,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.GetEsignDocumentsByIdAudit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEsignDocumentsByIdAudit`: EsignTrail
+	// response from `GetEsignDocumentsByIdAudit`: EsignEsignTrail
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.GetEsignDocumentsByIdAudit`: %v\n", resp)
 }
 ```
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EsignTrail**](EsignTrail.md)
+[**EsignEsignTrail**](EsignEsignTrail.md)
 
 ### Authorization
 
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 ## GetEsignDocumentsByIdDownload
 
-> EsignPDF GetEsignDocumentsByIdDownload(ctx, id).Execute()
+> EsignEsignPDF GetEsignDocumentsByIdDownload(ctx, id).Execute()
 
 Returns the document — the sealed PDF once it is complete.
 
@@ -251,7 +251,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.GetEsignDocumentsByIdDownload``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEsignDocumentsByIdDownload`: EsignPDF
+	// response from `GetEsignDocumentsByIdDownload`: EsignEsignPDF
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.GetEsignDocumentsByIdDownload`: %v\n", resp)
 }
 ```
@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EsignPDF**](EsignPDF.md)
+[**EsignEsignPDF**](EsignEsignPDF.md)
 
 ### Authorization
 
@@ -284,7 +284,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -293,7 +293,7 @@ Name | Type | Description  | Notes
 
 ## GetEsignHealth
 
-> EsignHealth GetEsignHealth(ctx).Execute()
+> EsignEsignHealth GetEsignHealth(ctx).Execute()
 
 Reports whether the e-signature surface is mounted.
 
@@ -320,7 +320,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.GetEsignHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEsignHealth`: EsignHealth
+	// response from `GetEsignHealth`: EsignEsignHealth
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.GetEsignHealth`: %v\n", resp)
 }
 ```
@@ -336,7 +336,7 @@ Other parameters are passed through a pointer to a apiGetEsignHealthRequest stru
 
 ### Return type
 
-[**EsignHealth**](EsignHealth.md)
+[**EsignEsignHealth**](EsignEsignHealth.md)
 
 ### Authorization
 
@@ -345,7 +345,7 @@ Other parameters are passed through a pointer to a apiGetEsignHealthRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -354,7 +354,7 @@ Other parameters are passed through a pointer to a apiGetEsignHealthRequest stru
 
 ## GetEsignOByOrgSignByToken
 
-> EsignSession GetEsignOByOrgSignByToken(ctx, org, token).Execute()
+> EsignEsignSession GetEsignOByOrgSignByToken(ctx, org, token).Execute()
 
 Opens a document you were asked to sign, using your signing link.
 
@@ -383,7 +383,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.GetEsignOByOrgSignByToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEsignOByOrgSignByToken`: EsignSession
+	// response from `GetEsignOByOrgSignByToken`: EsignEsignSession
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.GetEsignOByOrgSignByToken`: %v\n", resp)
 }
 ```
@@ -409,7 +409,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EsignSession**](EsignSession.md)
+[**EsignEsignSession**](EsignEsignSession.md)
 
 ### Authorization
 
@@ -418,7 +418,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -427,7 +427,7 @@ Name | Type | Description  | Notes
 
 ## PostEsignDocuments
 
-> EsignDocument PostEsignDocuments(ctx).EsignUploadIn(esignUploadIn).Execute()
+> EsignEsignDocument PostEsignDocuments(ctx).EsignEsignUploadIn(esignEsignUploadIn).Execute()
 
 Uploads a PDF and opens a draft ready for recipients and fields.
 
@@ -446,16 +446,16 @@ import (
 )
 
 func main() {
-	esignUploadIn := *openapiclient.NewEsignUploadIn() // EsignUploadIn | 
+	esignEsignUploadIn := *openapiclient.NewEsignEsignUploadIn() // EsignEsignUploadIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EsignAPI.PostEsignDocuments(context.Background()).EsignUploadIn(esignUploadIn).Execute()
+	resp, r, err := apiClient.EsignAPI.PostEsignDocuments(context.Background()).EsignEsignUploadIn(esignEsignUploadIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.PostEsignDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEsignDocuments`: EsignDocument
+	// response from `PostEsignDocuments`: EsignEsignDocument
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.PostEsignDocuments`: %v\n", resp)
 }
 ```
@@ -471,11 +471,11 @@ Other parameters are passed through a pointer to a apiPostEsignDocumentsRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **esignUploadIn** | [**EsignUploadIn**](EsignUploadIn.md) |  | 
+ **esignEsignUploadIn** | [**EsignEsignUploadIn**](EsignEsignUploadIn.md) |  | 
 
 ### Return type
 
-[**EsignDocument**](EsignDocument.md)
+[**EsignEsignDocument**](EsignEsignDocument.md)
 
 ### Authorization
 
@@ -484,7 +484,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -493,7 +493,7 @@ Name | Type | Description  | Notes
 
 ## PostEsignDocumentsByIdFields
 
-> EsignPlacement PostEsignDocumentsByIdFields(ctx, id).EsignFieldIn(esignFieldIn).Execute()
+> EsignEsignPlacement PostEsignDocumentsByIdFields(ctx, id).EsignEsignFieldIn(esignEsignFieldIn).Execute()
 
 Places a field on the page for one recipient to fill.
 
@@ -513,16 +513,16 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	esignFieldIn := *openapiclient.NewEsignFieldIn() // EsignFieldIn | 
+	esignEsignFieldIn := *openapiclient.NewEsignEsignFieldIn() // EsignEsignFieldIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EsignAPI.PostEsignDocumentsByIdFields(context.Background(), id).EsignFieldIn(esignFieldIn).Execute()
+	resp, r, err := apiClient.EsignAPI.PostEsignDocumentsByIdFields(context.Background(), id).EsignEsignFieldIn(esignEsignFieldIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.PostEsignDocumentsByIdFields``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEsignDocumentsByIdFields`: EsignPlacement
+	// response from `PostEsignDocumentsByIdFields`: EsignEsignPlacement
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.PostEsignDocumentsByIdFields`: %v\n", resp)
 }
 ```
@@ -543,11 +543,11 @@ Other parameters are passed through a pointer to a apiPostEsignDocumentsByIdFiel
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **esignFieldIn** | [**EsignFieldIn**](EsignFieldIn.md) |  | 
+ **esignEsignFieldIn** | [**EsignEsignFieldIn**](EsignEsignFieldIn.md) |  | 
 
 ### Return type
 
-[**EsignPlacement**](EsignPlacement.md)
+[**EsignEsignPlacement**](EsignEsignPlacement.md)
 
 ### Authorization
 
@@ -556,7 +556,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -565,7 +565,7 @@ Name | Type | Description  | Notes
 
 ## PostEsignDocumentsByIdRecipients
 
-> EsignInvite PostEsignDocumentsByIdRecipients(ctx, id).EsignRecipientIn(esignRecipientIn).Execute()
+> EsignEsignInvite PostEsignDocumentsByIdRecipients(ctx, id).EsignEsignRecipientIn(esignEsignRecipientIn).Execute()
 
 Adds someone to a draft and mints their signing token.
 
@@ -585,16 +585,16 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	esignRecipientIn := *openapiclient.NewEsignRecipientIn() // EsignRecipientIn | 
+	esignEsignRecipientIn := *openapiclient.NewEsignEsignRecipientIn() // EsignEsignRecipientIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EsignAPI.PostEsignDocumentsByIdRecipients(context.Background(), id).EsignRecipientIn(esignRecipientIn).Execute()
+	resp, r, err := apiClient.EsignAPI.PostEsignDocumentsByIdRecipients(context.Background(), id).EsignEsignRecipientIn(esignEsignRecipientIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.PostEsignDocumentsByIdRecipients``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEsignDocumentsByIdRecipients`: EsignInvite
+	// response from `PostEsignDocumentsByIdRecipients`: EsignEsignInvite
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.PostEsignDocumentsByIdRecipients`: %v\n", resp)
 }
 ```
@@ -615,11 +615,11 @@ Other parameters are passed through a pointer to a apiPostEsignDocumentsByIdReci
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **esignRecipientIn** | [**EsignRecipientIn**](EsignRecipientIn.md) |  | 
+ **esignEsignRecipientIn** | [**EsignEsignRecipientIn**](EsignEsignRecipientIn.md) |  | 
 
 ### Return type
 
-[**EsignInvite**](EsignInvite.md)
+[**EsignEsignInvite**](EsignEsignInvite.md)
 
 ### Authorization
 
@@ -628,7 +628,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -637,7 +637,7 @@ Name | Type | Description  | Notes
 
 ## PostEsignDocumentsByIdSend
 
-> EsignLinks PostEsignDocumentsByIdSend(ctx, id).Execute()
+> EsignEsignLinks PostEsignDocumentsByIdSend(ctx, id).Execute()
 
 Sends the document out and answers each signer's link.
 
@@ -665,7 +665,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.PostEsignDocumentsByIdSend``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEsignDocumentsByIdSend`: EsignLinks
+	// response from `PostEsignDocumentsByIdSend`: EsignEsignLinks
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.PostEsignDocumentsByIdSend`: %v\n", resp)
 }
 ```
@@ -689,7 +689,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EsignLinks**](EsignLinks.md)
+[**EsignEsignLinks**](EsignEsignLinks.md)
 
 ### Authorization
 
@@ -698,7 +698,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -707,7 +707,7 @@ Name | Type | Description  | Notes
 
 ## PostEsignOByOrgSignByTokenComplete
 
-> EsignCompletion PostEsignOByOrgSignByTokenComplete(ctx, org, token).Execute()
+> EsignEsignCompletion PostEsignOByOrgSignByTokenComplete(ctx, org, token).Execute()
 
 Finishes your signing — and seals the document if you were the last.
 
@@ -736,7 +736,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.PostEsignOByOrgSignByTokenComplete``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEsignOByOrgSignByTokenComplete`: EsignCompletion
+	// response from `PostEsignOByOrgSignByTokenComplete`: EsignEsignCompletion
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.PostEsignOByOrgSignByTokenComplete`: %v\n", resp)
 }
 ```
@@ -762,7 +762,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EsignCompletion**](EsignCompletion.md)
+[**EsignEsignCompletion**](EsignEsignCompletion.md)
 
 ### Authorization
 
@@ -771,7 +771,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -780,7 +780,7 @@ Name | Type | Description  | Notes
 
 ## PostEsignOByOrgSignByTokenFieldsByFieldid
 
-> EsignInsertion PostEsignOByOrgSignByTokenFieldsByFieldid(ctx, org, token, fieldId).EsignValueIn(esignValueIn).Execute()
+> EsignEsignInsertion PostEsignOByOrgSignByTokenFieldsByFieldid(ctx, org, token, fieldId).EsignEsignValueIn(esignEsignValueIn).Execute()
 
 Fills in one of your fields.
 
@@ -802,16 +802,16 @@ func main() {
 	org := "org_example" // string | 
 	token := "token_example" // string | 
 	fieldId := "fieldId_example" // string | 
-	esignValueIn := *openapiclient.NewEsignValueIn() // EsignValueIn | 
+	esignEsignValueIn := *openapiclient.NewEsignEsignValueIn() // EsignEsignValueIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EsignAPI.PostEsignOByOrgSignByTokenFieldsByFieldid(context.Background(), org, token, fieldId).EsignValueIn(esignValueIn).Execute()
+	resp, r, err := apiClient.EsignAPI.PostEsignOByOrgSignByTokenFieldsByFieldid(context.Background(), org, token, fieldId).EsignEsignValueIn(esignEsignValueIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.PostEsignOByOrgSignByTokenFieldsByFieldid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEsignOByOrgSignByTokenFieldsByFieldid`: EsignInsertion
+	// response from `PostEsignOByOrgSignByTokenFieldsByFieldid`: EsignEsignInsertion
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.PostEsignOByOrgSignByTokenFieldsByFieldid`: %v\n", resp)
 }
 ```
@@ -836,11 +836,11 @@ Name | Type | Description  | Notes
 
 
 
- **esignValueIn** | [**EsignValueIn**](EsignValueIn.md) |  | 
+ **esignEsignValueIn** | [**EsignEsignValueIn**](EsignEsignValueIn.md) |  | 
 
 ### Return type
 
-[**EsignInsertion**](EsignInsertion.md)
+[**EsignEsignInsertion**](EsignEsignInsertion.md)
 
 ### Authorization
 
@@ -849,7 +849,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -858,7 +858,7 @@ Name | Type | Description  | Notes
 
 ## PostEsignOByOrgSignByTokenReject
 
-> EsignRejection PostEsignOByOrgSignByTokenReject(ctx, org, token).EsignRejectIn(esignRejectIn).Execute()
+> EsignEsignRejection PostEsignOByOrgSignByTokenReject(ctx, org, token).EsignEsignRejectIn(esignEsignRejectIn).Execute()
 
 Declines to sign, with an optional reason.
 
@@ -879,16 +879,16 @@ import (
 func main() {
 	org := "org_example" // string | 
 	token := "token_example" // string | 
-	esignRejectIn := *openapiclient.NewEsignRejectIn() // EsignRejectIn | 
+	esignEsignRejectIn := *openapiclient.NewEsignEsignRejectIn() // EsignEsignRejectIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EsignAPI.PostEsignOByOrgSignByTokenReject(context.Background(), org, token).EsignRejectIn(esignRejectIn).Execute()
+	resp, r, err := apiClient.EsignAPI.PostEsignOByOrgSignByTokenReject(context.Background(), org, token).EsignEsignRejectIn(esignEsignRejectIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EsignAPI.PostEsignOByOrgSignByTokenReject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEsignOByOrgSignByTokenReject`: EsignRejection
+	// response from `PostEsignOByOrgSignByTokenReject`: EsignEsignRejection
 	fmt.Fprintf(os.Stdout, "Response from `EsignAPI.PostEsignOByOrgSignByTokenReject`: %v\n", resp)
 }
 ```
@@ -911,11 +911,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **esignRejectIn** | [**EsignRejectIn**](EsignRejectIn.md) |  | 
+ **esignEsignRejectIn** | [**EsignEsignRejectIn**](EsignEsignRejectIn.md) |  | 
 
 ### Return type
 
-[**EsignRejection**](EsignRejection.md)
+[**EsignEsignRejection**](EsignEsignRejection.md)
 
 ### Authorization
 
@@ -924,7 +924,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

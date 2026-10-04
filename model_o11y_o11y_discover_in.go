@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -36,7 +35,8 @@ type O11yO11yDiscoverIn struct {
 	// Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
 	Period *string `json:"period,omitempty"`
 	// Project is the project to read, as its id. Required.
-	Project string `json:"project"`
+	Project              string `json:"project"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11yDiscoverIn O11yO11yDiscoverIn
@@ -339,6 +339,11 @@ func (o O11yO11yDiscoverIn) ToMap() (map[string]interface{}, error) {
 		toSerialize["period"] = o.Period
 	}
 	toSerialize["project"] = o.Project
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -366,15 +371,27 @@ func (o *O11yO11yDiscoverIn) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11yDiscoverIn := _O11yO11yDiscoverIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11yDiscoverIn)
+	err = json.Unmarshal(data, &varO11yO11yDiscoverIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11yDiscoverIn(varO11yO11yDiscoverIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aggregations")
+		delete(additionalProperties, "filters")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "orderBy")
+		delete(additionalProperties, "orderDir")
+		delete(additionalProperties, "period")
+		delete(additionalProperties, "project")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

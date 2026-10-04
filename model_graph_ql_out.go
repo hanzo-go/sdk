@@ -19,9 +19,12 @@ var _ MappedNullable = &GraphQLOut{}
 
 // GraphQLOut struct for GraphQLOut
 type GraphQLOut struct {
-	Data   interface{}    `json:"data,omitempty"`
-	Errors []GraphQLError `json:"errors,omitempty"`
+	Data                 interface{}    `json:"data,omitempty"`
+	Errors               []GraphQLError `json:"errors,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GraphQLOut GraphQLOut
 
 // NewGraphQLOut instantiates a new GraphQLOut object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o GraphQLOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Errors) {
 		toSerialize["errors"] = o.Errors
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GraphQLOut) UnmarshalJSON(data []byte) (err error) {
+	varGraphQLOut := _GraphQLOut{}
+
+	err = json.Unmarshal(data, &varGraphQLOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GraphQLOut(varGraphQLOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "errors")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGraphQLOut struct {

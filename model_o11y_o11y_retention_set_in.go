@@ -28,8 +28,11 @@ type O11yO11yRetentionSetIn struct {
 	// TTLConditions are ordered per-label rules; the first matching rule wins.
 	TtlConditions []O11yO11yRetentionRule `json:"ttlConditions,omitempty"`
 	// Type is the signal the policy applies to — traces, metrics or logs.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yRetentionSetIn O11yO11yRetentionSetIn
 
 // NewO11yO11yRetentionSetIn instantiates a new O11yO11yRetentionSetIn object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yRetentionSetIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yRetentionSetIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yRetentionSetIn := _O11yO11yRetentionSetIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yRetentionSetIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yRetentionSetIn(varO11yO11yRetentionSetIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "coldStorageDurationDays")
+		delete(additionalProperties, "coldStorageVolume")
+		delete(additionalProperties, "defaultTTLDays")
+		delete(additionalProperties, "ttlConditions")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yRetentionSetIn struct {

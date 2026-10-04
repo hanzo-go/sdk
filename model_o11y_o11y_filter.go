@@ -24,8 +24,11 @@ type O11yO11yFilter struct {
 	// Op is how to test it: eq, neq or like.
 	Op *string `json:"op,omitempty"`
 	// Value is what to test it against.
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFilter O11yO11yFilter
 
 // NewO11yO11yFilter instantiates a new O11yO11yFilter object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yFilter) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFilter) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFilter := _O11yO11yFilter{}
+
+	err = json.Unmarshal(data, &varO11yO11yFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFilter(varO11yO11yFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "field")
+		delete(additionalProperties, "op")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFilter struct {

@@ -19,14 +19,17 @@ var _ MappedNullable = &IamSigninItem{}
 
 // IamSigninItem struct for IamSigninItem
 type IamSigninItem struct {
-	CustomCss   *string `json:"customCss,omitempty"`
-	IsCustom    *bool   `json:"isCustom,omitempty"`
-	Label       *string `json:"label,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Placeholder *string `json:"placeholder,omitempty"`
-	Rule        *string `json:"rule,omitempty"`
-	Visible     *bool   `json:"visible,omitempty"`
+	CustomCss            *string `json:"customCss,omitempty"`
+	IsCustom             *bool   `json:"isCustom,omitempty"`
+	Label                *string `json:"label,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Placeholder          *string `json:"placeholder,omitempty"`
+	Rule                 *string `json:"rule,omitempty"`
+	Visible              *bool   `json:"visible,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamSigninItem IamSigninItem
 
 // NewIamSigninItem instantiates a new IamSigninItem object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o IamSigninItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Visible) {
 		toSerialize["visible"] = o.Visible
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamSigninItem) UnmarshalJSON(data []byte) (err error) {
+	varIamSigninItem := _IamSigninItem{}
+
+	err = json.Unmarshal(data, &varIamSigninItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamSigninItem(varIamSigninItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "customCss")
+		delete(additionalProperties, "isCustom")
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "placeholder")
+		delete(additionalProperties, "rule")
+		delete(additionalProperties, "visible")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamSigninItem struct {

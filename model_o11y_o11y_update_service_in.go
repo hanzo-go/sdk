@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yO11yUpdateServiceIn{}
 
 // O11yO11yUpdateServiceIn struct for O11yO11yUpdateServiceIn
 type O11yO11yUpdateServiceIn struct {
-	Config *O11yServiceConfig `json:"config,omitempty"`
+	Config               *O11yServiceConfig `json:"config,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yUpdateServiceIn O11yO11yUpdateServiceIn
 
 // NewO11yO11yUpdateServiceIn instantiates a new O11yO11yUpdateServiceIn object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yO11yUpdateServiceIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Config) {
 		toSerialize["config"] = o.Config
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yUpdateServiceIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yUpdateServiceIn := _O11yO11yUpdateServiceIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yUpdateServiceIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yUpdateServiceIn(varO11yO11yUpdateServiceIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "config")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yUpdateServiceIn struct {

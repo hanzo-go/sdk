@@ -19,8 +19,13 @@ var _ MappedNullable = &TagConfig{}
 
 // TagConfig struct for TagConfig
 type TagConfig struct {
-	Tags []BrowserTagOut `json:"tags,omitempty"`
+	Audience             *string         `json:"audience,omitempty"`
+	Consent              *Decision       `json:"consent,omitempty"`
+	Tags                 []BrowserTagOut `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TagConfig TagConfig
 
 // NewTagConfig instantiates a new TagConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -37,6 +42,70 @@ func NewTagConfig() *TagConfig {
 func NewTagConfigWithDefaults() *TagConfig {
 	this := TagConfig{}
 	return &this
+}
+
+// GetAudience returns the Audience field value if set, zero value otherwise.
+func (o *TagConfig) GetAudience() string {
+	if o == nil || IsNil(o.Audience) {
+		var ret string
+		return ret
+	}
+	return *o.Audience
+}
+
+// GetAudienceOk returns a tuple with the Audience field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TagConfig) GetAudienceOk() (*string, bool) {
+	if o == nil || IsNil(o.Audience) {
+		return nil, false
+	}
+	return o.Audience, true
+}
+
+// HasAudience returns a boolean if a field has been set.
+func (o *TagConfig) HasAudience() bool {
+	if o != nil && !IsNil(o.Audience) {
+		return true
+	}
+
+	return false
+}
+
+// SetAudience gets a reference to the given string and assigns it to the Audience field.
+func (o *TagConfig) SetAudience(v string) {
+	o.Audience = &v
+}
+
+// GetConsent returns the Consent field value if set, zero value otherwise.
+func (o *TagConfig) GetConsent() Decision {
+	if o == nil || IsNil(o.Consent) {
+		var ret Decision
+		return ret
+	}
+	return *o.Consent
+}
+
+// GetConsentOk returns a tuple with the Consent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TagConfig) GetConsentOk() (*Decision, bool) {
+	if o == nil || IsNil(o.Consent) {
+		return nil, false
+	}
+	return o.Consent, true
+}
+
+// HasConsent returns a boolean if a field has been set.
+func (o *TagConfig) HasConsent() bool {
+	if o != nil && !IsNil(o.Consent) {
+		return true
+	}
+
+	return false
+}
+
+// SetConsent gets a reference to the given Decision and assigns it to the Consent field.
+func (o *TagConfig) SetConsent(v Decision) {
+	o.Consent = &v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
@@ -81,10 +150,44 @@ func (o TagConfig) MarshalJSON() ([]byte, error) {
 
 func (o TagConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Audience) {
+		toSerialize["audience"] = o.Audience
+	}
+	if !IsNil(o.Consent) {
+		toSerialize["consent"] = o.Consent
+	}
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TagConfig) UnmarshalJSON(data []byte) (err error) {
+	varTagConfig := _TagConfig{}
+
+	err = json.Unmarshal(data, &varTagConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TagConfig(varTagConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "audience")
+		delete(additionalProperties, "consent")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTagConfig struct {

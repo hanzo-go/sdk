@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yGettableCreatedIngestionKeyLimit{}
 
 // O11yGettableCreatedIngestionKeyLimit struct for O11yGettableCreatedIngestionKeyLimit
 type O11yGettableCreatedIngestionKeyLimit struct {
-	Id *string `json:"id,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableCreatedIngestionKeyLimit O11yGettableCreatedIngestionKeyLimit
 
 // NewO11yGettableCreatedIngestionKeyLimit instantiates a new O11yGettableCreatedIngestionKeyLimit object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yGettableCreatedIngestionKeyLimit) ToMap() (map[string]interface{}, e
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableCreatedIngestionKeyLimit) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableCreatedIngestionKeyLimit := _O11yGettableCreatedIngestionKeyLimit{}
+
+	err = json.Unmarshal(data, &varO11yGettableCreatedIngestionKeyLimit)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableCreatedIngestionKeyLimit(varO11yGettableCreatedIngestionKeyLimit)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableCreatedIngestionKeyLimit struct {

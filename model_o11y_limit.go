@@ -26,10 +26,13 @@ type O11yLimit struct {
 	KeyId     *string          `json:"key_id,omitempty"`
 	Metric    *O11yLimitMetric `json:"metric,omitempty"`
 	// \"logs\", \"traces\", \"metrics\"
-	Signal    *string    `json:"signal,omitempty"`
-	Tags      []string   `json:"tags,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	Signal               *string    `json:"signal,omitempty"`
+	Tags                 []string   `json:"tags,omitempty"`
+	UpdatedAt            *time.Time `json:"updated_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yLimit O11yLimit
 
 // NewO11yLimit instantiates a new O11yLimit object
 // This constructor will assign default values to properties that have it defined,
@@ -338,7 +341,40 @@ func (o O11yLimit) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yLimit) UnmarshalJSON(data []byte) (err error) {
+	varO11yLimit := _O11yLimit{}
+
+	err = json.Unmarshal(data, &varO11yLimit)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yLimit(varO11yLimit)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "key_id")
+		delete(additionalProperties, "metric")
+		delete(additionalProperties, "signal")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "updated_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yLimit struct {

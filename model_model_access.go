@@ -19,14 +19,17 @@ var _ MappedNullable = &ModelAccess{}
 
 // ModelAccess struct for ModelAccess
 type ModelAccess struct {
-	CreatedTime *string `json:"createdTime,omitempty"`
-	Email       *string `json:"email,omitempty"`
-	Model       *string `json:"model,omitempty"`
-	Owner       *string `json:"owner,omitempty"`
-	Status      *string `json:"status,omitempty"`
-	UpdatedTime *string `json:"updatedTime,omitempty"`
-	User        *string `json:"user,omitempty"`
+	CreatedTime          *string `json:"createdTime,omitempty"`
+	Email                *string `json:"email,omitempty"`
+	Model                *string `json:"model,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	UpdatedTime          *string `json:"updatedTime,omitempty"`
+	User                 *string `json:"user,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ModelAccess ModelAccess
 
 // NewModelAccess instantiates a new ModelAccess object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o ModelAccess) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ModelAccess) UnmarshalJSON(data []byte) (err error) {
+	varModelAccess := _ModelAccess{}
+
+	err = json.Unmarshal(data, &varModelAccess)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ModelAccess(varModelAccess)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "updatedTime")
+		delete(additionalProperties, "user")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableModelAccess struct {

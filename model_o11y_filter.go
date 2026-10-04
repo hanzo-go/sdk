@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yFilter{}
 // O11yFilter struct for O11yFilter
 type O11yFilter struct {
 	// expression to filter by following the filter syntax
-	Expression *string `json:"expression,omitempty"`
+	Expression           *string `json:"expression,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yFilter O11yFilter
 
 // NewO11yFilter instantiates a new O11yFilter object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yFilter) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Expression) {
 		toSerialize["expression"] = o.Expression
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yFilter) UnmarshalJSON(data []byte) (err error) {
+	varO11yFilter := _O11yFilter{}
+
+	err = json.Unmarshal(data, &varO11yFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yFilter(varO11yFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "expression")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yFilter struct {

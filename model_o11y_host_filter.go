@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yHostFilter{}
 
 // O11yHostFilter struct for O11yHostFilter
 type O11yHostFilter struct {
-	Filter         *O11yFilter `json:"Filter,omitempty"`
-	FilterByStatus interface{} `json:"filterByStatus,omitempty"`
+	Filter               *O11yFilter `json:"Filter,omitempty"`
+	FilterByStatus       interface{} `json:"filterByStatus,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yHostFilter O11yHostFilter
 
 // NewO11yHostFilter instantiates a new O11yHostFilter object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o O11yHostFilter) ToMap() (map[string]interface{}, error) {
 	if o.FilterByStatus != nil {
 		toSerialize["filterByStatus"] = o.FilterByStatus
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yHostFilter) UnmarshalJSON(data []byte) (err error) {
+	varO11yHostFilter := _O11yHostFilter{}
+
+	err = json.Unmarshal(data, &varO11yHostFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yHostFilter(varO11yHostFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "Filter")
+		delete(additionalProperties, "filterByStatus")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yHostFilter struct {

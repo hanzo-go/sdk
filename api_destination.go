@@ -28,7 +28,7 @@ type DestinationAPIDeleteDestinationByPlatformRequest struct {
 	platform   string
 }
 
-func (r DestinationAPIDeleteDestinationByPlatformRequest) Execute() (*DestinationDisconnected, *http.Response, error) {
+func (r DestinationAPIDeleteDestinationByPlatformRequest) Execute() (*DestinationDestinationDisconnected, *http.Response, error) {
 	return r.ApiService.DeleteDestinationByPlatformExecute(r)
 }
 
@@ -39,7 +39,7 @@ Forgets a destination for the caller's org: every credential held in
 KMS, then the stored config. Idempotent, and it requires org admin.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics.
+	@param platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights.
 	@return DestinationAPIDeleteDestinationByPlatformRequest
 */
 func (a *DestinationAPIService) DeleteDestinationByPlatform(ctx context.Context, platform string) DestinationAPIDeleteDestinationByPlatformRequest {
@@ -52,13 +52,13 @@ func (a *DestinationAPIService) DeleteDestinationByPlatform(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return DestinationDisconnected
-func (a *DestinationAPIService) DeleteDestinationByPlatformExecute(r DestinationAPIDeleteDestinationByPlatformRequest) (*DestinationDisconnected, *http.Response, error) {
+//	@return DestinationDestinationDisconnected
+func (a *DestinationAPIService) DeleteDestinationByPlatformExecute(r DestinationAPIDeleteDestinationByPlatformRequest) (*DestinationDestinationDisconnected, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DestinationDisconnected
+		localVarReturnValue *DestinationDestinationDisconnected
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DestinationAPIService.DeleteDestinationByPlatform")
@@ -83,7 +83,7 @@ func (a *DestinationAPIService) DeleteDestinationByPlatformExecute(r Destination
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -112,6 +112,14 @@ func (a *DestinationAPIService) DeleteDestinationByPlatformExecute(r Destination
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -132,7 +140,7 @@ type DestinationAPIGetDestinationRequest struct {
 	ApiService *DestinationAPIService
 }
 
-func (r DestinationAPIGetDestinationRequest) Execute() (*DestinationList, *http.Response, error) {
+func (r DestinationAPIGetDestinationRequest) Execute() (*DestinationDestinationList, *http.Response, error) {
 	return r.ApiService.GetDestinationExecute(r)
 }
 
@@ -156,13 +164,13 @@ func (a *DestinationAPIService) GetDestination(ctx context.Context) DestinationA
 
 // Execute executes the request
 //
-//	@return DestinationList
-func (a *DestinationAPIService) GetDestinationExecute(r DestinationAPIGetDestinationRequest) (*DestinationList, *http.Response, error) {
+//	@return DestinationDestinationList
+func (a *DestinationAPIService) GetDestinationExecute(r DestinationAPIGetDestinationRequest) (*DestinationDestinationList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DestinationList
+		localVarReturnValue *DestinationDestinationList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DestinationAPIService.GetDestination")
@@ -186,7 +194,7 @@ func (a *DestinationAPIService) GetDestinationExecute(r DestinationAPIGetDestina
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -215,6 +223,14 @@ func (a *DestinationAPIService) GetDestinationExecute(r DestinationAPIGetDestina
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -236,7 +252,7 @@ type DestinationAPIGetDestinationByPlatformRequest struct {
 	platform   string
 }
 
-func (r DestinationAPIGetDestinationByPlatformRequest) Execute() (*DestinationStatus, *http.Response, error) {
+func (r DestinationAPIGetDestinationByPlatformRequest) Execute() (*DestinationDestinationStatus, *http.Response, error) {
 	return r.ApiService.GetDestinationByPlatformExecute(r)
 }
 
@@ -248,7 +264,7 @@ its connection state, and whether a credential resolves right now. A platform
 this deployment does not carry is not found.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics.
+	@param platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights.
 	@return DestinationAPIGetDestinationByPlatformRequest
 */
 func (a *DestinationAPIService) GetDestinationByPlatform(ctx context.Context, platform string) DestinationAPIGetDestinationByPlatformRequest {
@@ -261,13 +277,13 @@ func (a *DestinationAPIService) GetDestinationByPlatform(ctx context.Context, pl
 
 // Execute executes the request
 //
-//	@return DestinationStatus
-func (a *DestinationAPIService) GetDestinationByPlatformExecute(r DestinationAPIGetDestinationByPlatformRequest) (*DestinationStatus, *http.Response, error) {
+//	@return DestinationDestinationStatus
+func (a *DestinationAPIService) GetDestinationByPlatformExecute(r DestinationAPIGetDestinationByPlatformRequest) (*DestinationDestinationStatus, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DestinationStatus
+		localVarReturnValue *DestinationDestinationStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DestinationAPIService.GetDestinationByPlatform")
@@ -292,7 +308,7 @@ func (a *DestinationAPIService) GetDestinationByPlatformExecute(r DestinationAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -321,6 +337,14 @@ func (a *DestinationAPIService) GetDestinationByPlatformExecute(r DestinationAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -454,20 +478,24 @@ type DestinationAPIPostDestinationByPlatformTestRequest struct {
 	platform   string
 }
 
-func (r DestinationAPIPostDestinationByPlatformTestRequest) Execute() (*DestinationTest, *http.Response, error) {
+func (r DestinationAPIPostDestinationByPlatformTestRequest) Execute() (*DestinationDestinationTest, *http.Response, error) {
 	return r.ApiService.PostDestinationByPlatformTestExecute(r)
 }
 
 /*
-PostDestinationByPlatformTest Sends ONE synthetic pageview through the connected destination end to end and reports what the platform said.
+PostDestinationByPlatformTest Sends ONE synthetic conversion through the connected destination end to end and reports what the platform said.
 
-Sends ONE synthetic pageview through the connected destination end to end
-and reports what the platform said. A send the platform refuses is reported as
-data — {"ok": false, "error": …} at 200 — so the console shows the platform's
-own words rather than an error about Hanzo. It requires org admin.
+Sends ONE synthetic conversion through the connected destination end to
+end and reports what the platform said. Where the platform can check one without
+recording it, it is a lead and nothing is kept: GA4 answers from its validation
+server, Google Ads validates without importing, and Meta files it under the
+connection's Test Event Code (and is refused without one). Anywhere else it is a
+page view. A send the platform refuses is reported as data — {"ok": false,
+"error": …} at 200 — so the console shows the platform's own words rather than
+an error about Hanzo. It requires org admin.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics.
+	@param platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights.
 	@return DestinationAPIPostDestinationByPlatformTestRequest
 */
 func (a *DestinationAPIService) PostDestinationByPlatformTest(ctx context.Context, platform string) DestinationAPIPostDestinationByPlatformTestRequest {
@@ -480,13 +508,13 @@ func (a *DestinationAPIService) PostDestinationByPlatformTest(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return DestinationTest
-func (a *DestinationAPIService) PostDestinationByPlatformTestExecute(r DestinationAPIPostDestinationByPlatformTestRequest) (*DestinationTest, *http.Response, error) {
+//	@return DestinationDestinationTest
+func (a *DestinationAPIService) PostDestinationByPlatformTestExecute(r DestinationAPIPostDestinationByPlatformTestRequest) (*DestinationDestinationTest, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DestinationTest
+		localVarReturnValue *DestinationDestinationTest
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DestinationAPIService.PostDestinationByPlatformTest")
@@ -511,7 +539,7 @@ func (a *DestinationAPIService) PostDestinationByPlatformTestExecute(r Destinati
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -540,6 +568,14 @@ func (a *DestinationAPIService) PostDestinationByPlatformTestExecute(r Destinati
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

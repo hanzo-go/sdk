@@ -19,12 +19,15 @@ var _ MappedNullable = &Index{}
 
 // Index struct for Index
 type Index struct {
-	Links       map[string]Link `json:"_links,omitempty"`
-	Description *string         `json:"description,omitempty"`
-	Name        *string         `json:"name,omitempty"`
-	Operations  []Op            `json:"operations,omitempty"`
-	Stage       *string         `json:"stage,omitempty"`
+	Links                map[string]Link `json:"_links,omitempty"`
+	Description          *string         `json:"description,omitempty"`
+	Name                 *string         `json:"name,omitempty"`
+	Operations           []Op            `json:"operations,omitempty"`
+	Stage                *string         `json:"stage,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Index Index
 
 // NewIndex instantiates a new Index object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o Index) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Stage) {
 		toSerialize["stage"] = o.Stage
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Index) UnmarshalJSON(data []byte) (err error) {
+	varIndex := _Index{}
+
+	err = json.Unmarshal(data, &varIndex)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Index(varIndex)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "_links")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "operations")
+		delete(additionalProperties, "stage")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIndex struct {

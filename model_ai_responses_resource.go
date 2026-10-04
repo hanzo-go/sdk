@@ -19,28 +19,31 @@ var _ MappedNullable = &AiResponsesResource{}
 
 // AiResponsesResource struct for AiResponsesResource
 type AiResponsesResource struct {
-	CreatedAt          *int32            `json:"created_at,omitempty"`
-	Error              interface{}       `json:"error,omitempty"`
-	Id                 *string           `json:"id,omitempty"`
-	IncompleteDetails  interface{}       `json:"incomplete_details,omitempty"`
-	Instructions       *string           `json:"instructions,omitempty"`
-	MaxOutputTokens    *int32            `json:"max_output_tokens,omitempty"`
-	Metadata           map[string]string `json:"metadata,omitempty"`
-	Model              *string           `json:"model,omitempty"`
-	Object             *string           `json:"object,omitempty"`
-	Output             []interface{}     `json:"output,omitempty"`
-	ParallelToolCalls  *bool             `json:"parallel_tool_calls,omitempty"`
-	PreviousResponseId interface{}       `json:"previous_response_id,omitempty"`
-	Reasoning          interface{}       `json:"reasoning,omitempty"`
-	Status             *string           `json:"status,omitempty"`
-	Store              *bool             `json:"store,omitempty"`
-	Temperature        *float32          `json:"temperature,omitempty"`
-	Text               interface{}       `json:"text,omitempty"`
-	ToolChoice         interface{}       `json:"tool_choice,omitempty"`
-	Tools              []AiResponsesTool `json:"tools,omitempty"`
-	TopP               *float32          `json:"top_p,omitempty"`
-	Usage              *AiResponsesUsage `json:"usage,omitempty"`
+	CreatedAt            *int32            `json:"created_at,omitempty"`
+	Error                interface{}       `json:"error,omitempty"`
+	Id                   *string           `json:"id,omitempty"`
+	IncompleteDetails    interface{}       `json:"incomplete_details,omitempty"`
+	Instructions         *string           `json:"instructions,omitempty"`
+	MaxOutputTokens      *int32            `json:"max_output_tokens,omitempty"`
+	Metadata             map[string]string `json:"metadata,omitempty"`
+	Model                *string           `json:"model,omitempty"`
+	Object               *string           `json:"object,omitempty"`
+	Output               []interface{}     `json:"output,omitempty"`
+	ParallelToolCalls    *bool             `json:"parallel_tool_calls,omitempty"`
+	PreviousResponseId   interface{}       `json:"previous_response_id,omitempty"`
+	Reasoning            interface{}       `json:"reasoning,omitempty"`
+	Status               *string           `json:"status,omitempty"`
+	Store                *bool             `json:"store,omitempty"`
+	Temperature          *float32          `json:"temperature,omitempty"`
+	Text                 interface{}       `json:"text,omitempty"`
+	ToolChoice           interface{}       `json:"tool_choice,omitempty"`
+	Tools                []AiResponsesTool `json:"tools,omitempty"`
+	TopP                 *float32          `json:"top_p,omitempty"`
+	Usage                *AiResponsesUsage `json:"usage,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiResponsesResource AiResponsesResource
 
 // NewAiResponsesResource instantiates a new AiResponsesResource object
 // This constructor will assign default values to properties that have it defined,
@@ -810,7 +813,53 @@ func (o AiResponsesResource) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Usage) {
 		toSerialize["usage"] = o.Usage
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiResponsesResource) UnmarshalJSON(data []byte) (err error) {
+	varAiResponsesResource := _AiResponsesResource{}
+
+	err = json.Unmarshal(data, &varAiResponsesResource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiResponsesResource(varAiResponsesResource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "error")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "incomplete_details")
+		delete(additionalProperties, "instructions")
+		delete(additionalProperties, "max_output_tokens")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "object")
+		delete(additionalProperties, "output")
+		delete(additionalProperties, "parallel_tool_calls")
+		delete(additionalProperties, "previous_response_id")
+		delete(additionalProperties, "reasoning")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "store")
+		delete(additionalProperties, "temperature")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "tool_choice")
+		delete(additionalProperties, "tools")
+		delete(additionalProperties, "top_p")
+		delete(additionalProperties, "usage")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiResponsesResource struct {

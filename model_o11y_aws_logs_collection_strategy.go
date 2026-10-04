@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yAWSLogsCollectionStrategy{}
 
 // O11yAWSLogsCollectionStrategy struct for O11yAWSLogsCollectionStrategy
 type O11yAWSLogsCollectionStrategy struct {
-	Subscriptions []O11yAWSCloudWatchLogsSubscription `json:"subscriptions,omitempty"`
+	Subscriptions        []O11yAWSCloudWatchLogsSubscription `json:"subscriptions,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAWSLogsCollectionStrategy O11yAWSLogsCollectionStrategy
 
 // NewO11yAWSLogsCollectionStrategy instantiates a new O11yAWSLogsCollectionStrategy object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yAWSLogsCollectionStrategy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Subscriptions) {
 		toSerialize["subscriptions"] = o.Subscriptions
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAWSLogsCollectionStrategy) UnmarshalJSON(data []byte) (err error) {
+	varO11yAWSLogsCollectionStrategy := _O11yAWSLogsCollectionStrategy{}
+
+	err = json.Unmarshal(data, &varO11yAWSLogsCollectionStrategy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAWSLogsCollectionStrategy(varO11yAWSLogsCollectionStrategy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "subscriptions")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAWSLogsCollectionStrategy struct {

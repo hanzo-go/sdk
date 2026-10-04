@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yProviderIntegrationConfig{}
 
 // O11yProviderIntegrationConfig struct for O11yProviderIntegrationConfig
 type O11yProviderIntegrationConfig struct {
-	Aws   *O11yAWSIntegrationConfig   `json:"aws,omitempty"`
-	Azure *O11yAzureIntegrationConfig `json:"azure,omitempty"`
-	Gcp   map[string]interface{}      `json:"gcp,omitempty"`
+	Aws                  *O11yAWSIntegrationConfig   `json:"aws,omitempty"`
+	Azure                *O11yAzureIntegrationConfig `json:"azure,omitempty"`
+	Gcp                  map[string]interface{}      `json:"gcp,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yProviderIntegrationConfig O11yProviderIntegrationConfig
 
 // NewO11yProviderIntegrationConfig instantiates a new O11yProviderIntegrationConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yProviderIntegrationConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Gcp) {
 		toSerialize["gcp"] = o.Gcp
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yProviderIntegrationConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yProviderIntegrationConfig := _O11yProviderIntegrationConfig{}
+
+	err = json.Unmarshal(data, &varO11yProviderIntegrationConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yProviderIntegrationConfig(varO11yProviderIntegrationConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aws")
+		delete(additionalProperties, "azure")
+		delete(additionalProperties, "gcp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yProviderIntegrationConfig struct {

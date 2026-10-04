@@ -19,23 +19,26 @@ var _ MappedNullable = &IamInvitationsInput{}
 
 // IamInvitationsInput struct for IamInvitationsInput
 type IamInvitationsInput struct {
-	Application *string `json:"application,omitempty"`
-	Code        *string `json:"code,omitempty"`
-	CreatedTime *string `json:"createdTime,omitempty"`
-	DefaultCode *string `json:"defaultCode,omitempty"`
-	DisplayName *string `json:"displayName,omitempty"`
-	Email       *string `json:"email,omitempty"`
-	IsRegexp    *bool   `json:"isRegexp,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Owner       *string `json:"owner,omitempty"`
-	Phone       *string `json:"phone,omitempty"`
-	Quota       *int64  `json:"quota,omitempty"`
-	SignupGroup *string `json:"signupGroup,omitempty"`
-	State       *string `json:"state,omitempty"`
-	UpdatedTime *string `json:"updatedTime,omitempty"`
-	UsedCount   *int64  `json:"usedCount,omitempty"`
-	Username    *string `json:"username,omitempty"`
+	Application          *string `json:"application,omitempty"`
+	Code                 *string `json:"code,omitempty"`
+	CreatedTime          *string `json:"createdTime,omitempty"`
+	DefaultCode          *string `json:"defaultCode,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
+	Email                *string `json:"email,omitempty"`
+	IsRegexp             *bool   `json:"isRegexp,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	Phone                *string `json:"phone,omitempty"`
+	Quota                *int64  `json:"quota,omitempty"`
+	SignupGroup          *string `json:"signupGroup,omitempty"`
+	State                *string `json:"state,omitempty"`
+	UpdatedTime          *string `json:"updatedTime,omitempty"`
+	UsedCount            *int64  `json:"usedCount,omitempty"`
+	Username             *string `json:"username,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamInvitationsInput IamInvitationsInput
 
 // NewIamInvitationsInput instantiates a new IamInvitationsInput object
 // This constructor will assign default values to properties that have it defined,
@@ -624,7 +627,48 @@ func (o IamInvitationsInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamInvitationsInput) UnmarshalJSON(data []byte) (err error) {
+	varIamInvitationsInput := _IamInvitationsInput{}
+
+	err = json.Unmarshal(data, &varIamInvitationsInput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamInvitationsInput(varIamInvitationsInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "application")
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "defaultCode")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "isRegexp")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "phone")
+		delete(additionalProperties, "quota")
+		delete(additionalProperties, "signupGroup")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "updatedTime")
+		delete(additionalProperties, "usedCount")
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamInvitationsInput struct {

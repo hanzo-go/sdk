@@ -19,19 +19,22 @@ var _ MappedNullable = &Graph{}
 
 // Graph struct for Graph
 type Graph struct {
-	Category    *string `json:"category,omitempty"`
-	CreatedTime *string `json:"createdTime,omitempty"`
-	Density     *int32  `json:"density,omitempty"`
-	DisplayName *string `json:"displayName,omitempty"`
-	EndTime     *string `json:"endTime,omitempty"`
-	ErrorText   *string `json:"errorText,omitempty"`
-	Layout      *string `json:"layout,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Owner       *string `json:"owner,omitempty"`
-	StartTime   *string `json:"startTime,omitempty"`
-	Store       *string `json:"store,omitempty"`
-	Text        *string `json:"text,omitempty"`
+	Category             *string `json:"category,omitempty"`
+	CreatedTime          *string `json:"createdTime,omitempty"`
+	Density              *int32  `json:"density,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
+	EndTime              *string `json:"endTime,omitempty"`
+	ErrorText            *string `json:"errorText,omitempty"`
+	Layout               *string `json:"layout,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	StartTime            *string `json:"startTime,omitempty"`
+	Store                *string `json:"store,omitempty"`
+	Text                 *string `json:"text,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Graph Graph
 
 // NewGraph instantiates a new Graph object
 // This constructor will assign default values to properties that have it defined,
@@ -480,7 +483,44 @@ func (o Graph) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Text) {
 		toSerialize["text"] = o.Text
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Graph) UnmarshalJSON(data []byte) (err error) {
+	varGraph := _Graph{}
+
+	err = json.Unmarshal(data, &varGraph)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Graph(varGraph)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "density")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "endTime")
+		delete(additionalProperties, "errorText")
+		delete(additionalProperties, "layout")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "startTime")
+		delete(additionalProperties, "store")
+		delete(additionalProperties, "text")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGraph struct {

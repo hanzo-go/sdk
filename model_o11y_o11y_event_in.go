@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,13 +21,14 @@ var _ MappedNullable = &O11yO11yEventIn{}
 // O11yO11yEventIn struct for O11yO11yEventIn
 type O11yO11yEventIn struct {
 	// Attributes are free-form event properties.
-	Attributes map[string]map[string]interface{} `json:"attributes,omitempty"`
+	Attributes map[string]interface{} `json:"attributes,omitempty"`
 	// EventName names the event; required for track events.
 	EventName *string `json:"eventName,omitempty"`
 	// EventType is the kind of event — track, identify or group. Required.
 	EventType string `json:"eventType"`
 	// RateLimited marks an event the reporting client rate-limited.
-	RateLimited *bool `json:"rateLimited,omitempty"`
+	RateLimited          *bool `json:"rateLimited,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11yEventIn O11yO11yEventIn
@@ -52,9 +52,9 @@ func NewO11yO11yEventInWithDefaults() *O11yO11yEventIn {
 }
 
 // GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *O11yO11yEventIn) GetAttributes() map[string]map[string]interface{} {
+func (o *O11yO11yEventIn) GetAttributes() map[string]interface{} {
 	if o == nil || IsNil(o.Attributes) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Attributes
@@ -62,9 +62,9 @@ func (o *O11yO11yEventIn) GetAttributes() map[string]map[string]interface{} {
 
 // GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yEventIn) GetAttributesOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yO11yEventIn) GetAttributesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Attributes) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Attributes, true
 }
@@ -78,8 +78,8 @@ func (o *O11yO11yEventIn) HasAttributes() bool {
 	return false
 }
 
-// SetAttributes gets a reference to the given map[string]map[string]interface{} and assigns it to the Attributes field.
-func (o *O11yO11yEventIn) SetAttributes(v map[string]map[string]interface{}) {
+// SetAttributes gets a reference to the given map[string]interface{} and assigns it to the Attributes field.
+func (o *O11yO11yEventIn) SetAttributes(v map[string]interface{}) {
 	o.Attributes = v
 }
 
@@ -191,6 +191,11 @@ func (o O11yO11yEventIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RateLimited) {
 		toSerialize["rateLimited"] = o.RateLimited
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -218,15 +223,23 @@ func (o *O11yO11yEventIn) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11yEventIn := _O11yO11yEventIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11yEventIn)
+	err = json.Unmarshal(data, &varO11yO11yEventIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11yEventIn(varO11yO11yEventIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "eventName")
+		delete(additionalProperties, "eventType")
+		delete(additionalProperties, "rateLimited")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

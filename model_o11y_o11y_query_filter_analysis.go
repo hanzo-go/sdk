@@ -22,8 +22,11 @@ type O11yO11yQueryFilterAnalysis struct {
 	// Groups are the columns the query groups by.
 	Groups []O11yO11yColumnInfo `json:"groups,omitempty"`
 	// MetricNames are the metrics the query reads.
-	MetricNames []string `json:"metricNames,omitempty"`
+	MetricNames          []string `json:"metricNames,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueryFilterAnalysis O11yO11yQueryFilterAnalysis
 
 // NewO11yO11yQueryFilterAnalysis instantiates a new O11yO11yQueryFilterAnalysis object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yQueryFilterAnalysis) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MetricNames) {
 		toSerialize["metricNames"] = o.MetricNames
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueryFilterAnalysis) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueryFilterAnalysis := _O11yO11yQueryFilterAnalysis{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueryFilterAnalysis)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueryFilterAnalysis(varO11yO11yQueryFilterAnalysis)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "groups")
+		delete(additionalProperties, "metricNames")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueryFilterAnalysis struct {

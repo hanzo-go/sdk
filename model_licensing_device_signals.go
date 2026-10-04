@@ -33,8 +33,11 @@ type LicensingDeviceSignals struct {
 	// MAC addresses of stable interfaces (order-insensitive; we sort).
 	Macs []string `json:"macs,omitempty"`
 	// OS / Arch coarse platform tags.
-	Os *string `json:"os,omitempty"`
+	Os                   *string `json:"os,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicensingDeviceSignals LicensingDeviceSignals
 
 // NewLicensingDeviceSignals instantiates a new LicensingDeviceSignals object
 // This constructor will assign default values to properties that have it defined,
@@ -343,7 +346,40 @@ func (o LicensingDeviceSignals) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Os) {
 		toSerialize["os"] = o.Os
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicensingDeviceSignals) UnmarshalJSON(data []byte) (err error) {
+	varLicensingDeviceSignals := _LicensingDeviceSignals{}
+
+	err = json.Unmarshal(data, &varLicensingDeviceSignals)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicensingDeviceSignals(varLicensingDeviceSignals)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "arch")
+		delete(additionalProperties, "cpuid")
+		delete(additionalProperties, "disk_serial")
+		delete(additionalProperties, "hostname")
+		delete(additionalProperties, "install_id")
+		delete(additionalProperties, "machine_id")
+		delete(additionalProperties, "macs")
+		delete(additionalProperties, "os")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicensingDeviceSignals struct {

@@ -27,7 +27,7 @@ type DeployAPIGetDeployApplicationsRequest struct {
 	ApiService *DeployAPIService
 }
 
-func (r DeployAPIGetDeployApplicationsRequest) Execute() (*ArgoAppList, *http.Response, error) {
+func (r DeployAPIGetDeployApplicationsRequest) Execute() (*DeployArgoAppList, *http.Response, error) {
 	return r.ApiService.GetDeployApplicationsExecute(r)
 }
 
@@ -57,13 +57,13 @@ func (a *DeployAPIService) GetDeployApplications(ctx context.Context) DeployAPIG
 
 // Execute executes the request
 //
-//	@return ArgoAppList
-func (a *DeployAPIService) GetDeployApplicationsExecute(r DeployAPIGetDeployApplicationsRequest) (*ArgoAppList, *http.Response, error) {
+//	@return DeployArgoAppList
+func (a *DeployAPIService) GetDeployApplicationsExecute(r DeployAPIGetDeployApplicationsRequest) (*DeployArgoAppList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ArgoAppList
+		localVarReturnValue *DeployArgoAppList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployApplications")
@@ -87,7 +87,7 @@ func (a *DeployAPIService) GetDeployApplicationsExecute(r DeployAPIGetDeployAppl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -116,6 +116,14 @@ func (a *DeployAPIService) GetDeployApplicationsExecute(r DeployAPIGetDeployAppl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -137,7 +145,7 @@ type DeployAPIGetDeployApplicationsByNameRequest struct {
 	name       string
 }
 
-func (r DeployAPIGetDeployApplicationsByNameRequest) Execute() (*ArgoApp, *http.Response, error) {
+func (r DeployAPIGetDeployApplicationsByNameRequest) Execute() (*DeployArgoApp, *http.Response, error) {
 	return r.ApiService.GetDeployApplicationsByNameExecute(r)
 }
 
@@ -167,13 +175,13 @@ func (a *DeployAPIService) GetDeployApplicationsByName(ctx context.Context, name
 
 // Execute executes the request
 //
-//	@return ArgoApp
-func (a *DeployAPIService) GetDeployApplicationsByNameExecute(r DeployAPIGetDeployApplicationsByNameRequest) (*ArgoApp, *http.Response, error) {
+//	@return DeployArgoApp
+func (a *DeployAPIService) GetDeployApplicationsByNameExecute(r DeployAPIGetDeployApplicationsByNameRequest) (*DeployArgoApp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ArgoApp
+		localVarReturnValue *DeployArgoApp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployApplicationsByName")
@@ -198,7 +206,7 @@ func (a *DeployAPIService) GetDeployApplicationsByNameExecute(r DeployAPIGetDepl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -227,6 +235,14 @@ func (a *DeployAPIService) GetDeployApplicationsByNameExecute(r DeployAPIGetDepl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -248,7 +264,7 @@ type DeployAPIGetDeployApplicationsByNameResourceTreeRequest struct {
 	name       string
 }
 
-func (r DeployAPIGetDeployApplicationsByNameResourceTreeRequest) Execute() (*ArgoTree, *http.Response, error) {
+func (r DeployAPIGetDeployApplicationsByNameResourceTreeRequest) Execute() (*DeployArgoTree, *http.Response, error) {
 	return r.ApiService.GetDeployApplicationsByNameResourceTreeExecute(r)
 }
 
@@ -279,13 +295,13 @@ func (a *DeployAPIService) GetDeployApplicationsByNameResourceTree(ctx context.C
 
 // Execute executes the request
 //
-//	@return ArgoTree
-func (a *DeployAPIService) GetDeployApplicationsByNameResourceTreeExecute(r DeployAPIGetDeployApplicationsByNameResourceTreeRequest) (*ArgoTree, *http.Response, error) {
+//	@return DeployArgoTree
+func (a *DeployAPIService) GetDeployApplicationsByNameResourceTreeExecute(r DeployAPIGetDeployApplicationsByNameResourceTreeRequest) (*DeployArgoTree, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ArgoTree
+		localVarReturnValue *DeployArgoTree
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployApplicationsByNameResourceTree")
@@ -310,7 +326,7 @@ func (a *DeployAPIService) GetDeployApplicationsByNameResourceTreeExecute(r Depl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -339,6 +355,14 @@ func (a *DeployAPIService) GetDeployApplicationsByNameResourceTreeExecute(r Depl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -361,7 +385,7 @@ type DeployAPIGetDeployApplicationsByNameRevisionsByRevisionMetadataRequest stru
 	revision   string
 }
 
-func (r DeployAPIGetDeployApplicationsByNameRevisionsByRevisionMetadataRequest) Execute() (*ArgoRevisionMetadata, *http.Response, error) {
+func (r DeployAPIGetDeployApplicationsByNameRevisionsByRevisionMetadataRequest) Execute() (*DeployArgoRevisionMetadata, *http.Response, error) {
 	return r.ApiService.GetDeployApplicationsByNameRevisionsByRevisionMetadataExecute(r)
 }
 
@@ -399,13 +423,13 @@ func (a *DeployAPIService) GetDeployApplicationsByNameRevisionsByRevisionMetadat
 
 // Execute executes the request
 //
-//	@return ArgoRevisionMetadata
-func (a *DeployAPIService) GetDeployApplicationsByNameRevisionsByRevisionMetadataExecute(r DeployAPIGetDeployApplicationsByNameRevisionsByRevisionMetadataRequest) (*ArgoRevisionMetadata, *http.Response, error) {
+//	@return DeployArgoRevisionMetadata
+func (a *DeployAPIService) GetDeployApplicationsByNameRevisionsByRevisionMetadataExecute(r DeployAPIGetDeployApplicationsByNameRevisionsByRevisionMetadataRequest) (*DeployArgoRevisionMetadata, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ArgoRevisionMetadata
+		localVarReturnValue *DeployArgoRevisionMetadata
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployApplicationsByNameRevisionsByRevisionMetadata")
@@ -431,7 +455,7 @@ func (a *DeployAPIService) GetDeployApplicationsByNameRevisionsByRevisionMetadat
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -460,6 +484,14 @@ func (a *DeployAPIService) GetDeployApplicationsByNameRevisionsByRevisionMetadat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -481,7 +513,7 @@ type DeployAPIGetDeployApplicationsByNameSyncwindowsRequest struct {
 	name       string
 }
 
-func (r DeployAPIGetDeployApplicationsByNameSyncwindowsRequest) Execute() (*ArgoSyncWindows, *http.Response, error) {
+func (r DeployAPIGetDeployApplicationsByNameSyncwindowsRequest) Execute() (*DeployArgoSyncWindows, *http.Response, error) {
 	return r.ApiService.GetDeployApplicationsByNameSyncwindowsExecute(r)
 }
 
@@ -512,13 +544,13 @@ func (a *DeployAPIService) GetDeployApplicationsByNameSyncwindows(ctx context.Co
 
 // Execute executes the request
 //
-//	@return ArgoSyncWindows
-func (a *DeployAPIService) GetDeployApplicationsByNameSyncwindowsExecute(r DeployAPIGetDeployApplicationsByNameSyncwindowsRequest) (*ArgoSyncWindows, *http.Response, error) {
+//	@return DeployArgoSyncWindows
+func (a *DeployAPIService) GetDeployApplicationsByNameSyncwindowsExecute(r DeployAPIGetDeployApplicationsByNameSyncwindowsRequest) (*DeployArgoSyncWindows, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ArgoSyncWindows
+		localVarReturnValue *DeployArgoSyncWindows
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployApplicationsByNameSyncwindows")
@@ -543,7 +575,7 @@ func (a *DeployAPIService) GetDeployApplicationsByNameSyncwindowsExecute(r Deplo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -572,6 +604,14 @@ func (a *DeployAPIService) GetDeployApplicationsByNameSyncwindowsExecute(r Deplo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -587,102 +627,12 @@ func (a *DeployAPIService) GetDeployApplicationsByNameSyncwindowsExecute(r Deplo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DeployAPIGetDeployCallbackRequest struct {
-	ctx        context.Context
-	ApiService *DeployAPIService
-}
-
-func (r DeployAPIGetDeployCallbackRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetDeployCallbackExecute(r)
-}
-
-/*
-GetDeployCallback Finish the sign-in round trip and mint the console session
-
-Completes the redirect from IAM: it validates `state` against the single-use flow cookie in constant time, redeems the authorization code with the PKCE verifier, and then VERIFIES the resulting token exactly as this deployment's identity boundary will on every later request — so a token that would be refused next request fails here with the real reason instead of producing a sign-in loop. On success it sets the session cookie, bounded by the token's own expiry, and redirects to the validated return path.
-
-It fails closed, and closes on the ADMIN ORG: a principal whose verified owner claim is not the reserved admin org is told plainly that it lacks the role (403) and no cookie is minted for it. That check is not the authorization decision — every gated route re-derives SuperAdmin from the verified JWT — it exists so nobody is handed a session that silently 403s everything. No flow in progress, or a mismatched `state`, is a 400; a refused or unexchangeable code is a 401.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return DeployAPIGetDeployCallbackRequest
-*/
-func (a *DeployAPIService) GetDeployCallback(ctx context.Context) DeployAPIGetDeployCallbackRequest {
-	return DeployAPIGetDeployCallbackRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *DeployAPIService) GetDeployCallbackExecute(r DeployAPIGetDeployCallbackRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployCallback")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/deploy/callback"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type DeployAPIGetDeployClustersRequest struct {
 	ctx        context.Context
 	ApiService *DeployAPIService
 }
 
-func (r DeployAPIGetDeployClustersRequest) Execute() (*ArgoClusterList, *http.Response, error) {
+func (r DeployAPIGetDeployClustersRequest) Execute() (*DeployArgoClusterList, *http.Response, error) {
 	return r.ApiService.GetDeployClustersExecute(r)
 }
 
@@ -712,13 +662,13 @@ func (a *DeployAPIService) GetDeployClusters(ctx context.Context) DeployAPIGetDe
 
 // Execute executes the request
 //
-//	@return ArgoClusterList
-func (a *DeployAPIService) GetDeployClustersExecute(r DeployAPIGetDeployClustersRequest) (*ArgoClusterList, *http.Response, error) {
+//	@return DeployArgoClusterList
+func (a *DeployAPIService) GetDeployClustersExecute(r DeployAPIGetDeployClustersRequest) (*DeployArgoClusterList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ArgoClusterList
+		localVarReturnValue *DeployArgoClusterList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployClusters")
@@ -742,7 +692,7 @@ func (a *DeployAPIService) GetDeployClustersExecute(r DeployAPIGetDeployClusters
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -771,125 +721,14 @@ func (a *DeployAPIService) GetDeployClustersExecute(r DeployAPIGetDeployClusters
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type DeployAPIGetDeployGitopsRequest struct {
-	ctx        context.Context
-	ApiService *DeployAPIService
-}
-
-func (r DeployAPIGetDeployGitopsRequest) Execute() (*GitOpsPlane, *http.Response, error) {
-	return r.ApiService.GetDeployGitopsExecute(r)
-}
-
-/*
-GetDeployGitops Lists every Hanzo CD Application in the cluster: the git source each one polls, the commit it last APPLIED, how its last sync operation ended, and its recent deploy history — newest deploy first, ordered by namespace then name.
-
-Lists every Hanzo CD Application in the cluster: the git source
-each one polls, the commit it last APPLIED, how its last sync operation ended,
-and its recent deploy history — newest deploy first, ordered by namespace then
-name.
-
-This is the layer ABOVE the application board, and the two disagree in exactly
-the case an operator most needs to see: main carries a new image pin, CD has
-not applied that commit yet, so every App CR still declares the old tag and the
-application board is legitimately "Synced" while the deploy has not landed.
-Only the applied revision here can show that.
-
-installed is false — with a reason and an empty list — when the CD CRD is not
-served in this cluster. That is a FACT about the cluster rather than a failure
-of the request, so the caller can say "no CD plane here" instead of rendering
-an error it cannot act on; a genuine transport or RBAC failure still errors.
-
-Read-only, and platform SuperAdmin only: the CD plane is fleet infrastructure
-with no tenant dimension. This view observes CD and never drives it — the sync
-policy is automated with self-heal, and the actionable verb an operator has is
-the per-application reconcile at POST /v1/deploy/applications/{name}/sync.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return DeployAPIGetDeployGitopsRequest
-*/
-func (a *DeployAPIService) GetDeployGitops(ctx context.Context) DeployAPIGetDeployGitopsRequest {
-	return DeployAPIGetDeployGitopsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return GitOpsPlane
-func (a *DeployAPIService) GetDeployGitopsExecute(r DeployAPIGetDeployGitopsRequest) (*GitOpsPlane, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GitOpsPlane
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployGitops")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/deploy/gitops"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -910,14 +749,14 @@ type DeployAPIGetDeployHealthRequest struct {
 	ApiService *DeployAPIService
 }
 
-func (r DeployAPIGetDeployHealthRequest) Execute() (*DeployHealth, *http.Response, error) {
+func (r DeployAPIGetDeployHealthRequest) Execute() (*DeployDeployHealth, *http.Response, error) {
 	return r.ApiService.GetDeployHealthExecute(r)
 }
 
 /*
-GetDeployHealth Health reports whether this deployment can observe the delivery plane.
+GetDeployHealth Reports whether this deployment can observe the delivery plane.
 
-Health reports whether this deployment can observe the delivery plane.
+Reports whether this deployment can observe the delivery plane.
 
 200 only when the Kubernetes API answers AND the App custom resource is served;
 503 with the same shape otherwise, naming which half failed. It reports BOOLEANS
@@ -937,13 +776,13 @@ func (a *DeployAPIService) GetDeployHealth(ctx context.Context) DeployAPIGetDepl
 
 // Execute executes the request
 //
-//	@return DeployHealth
-func (a *DeployAPIService) GetDeployHealthExecute(r DeployAPIGetDeployHealthRequest) (*DeployHealth, *http.Response, error) {
+//	@return DeployDeployHealth
+func (a *DeployAPIService) GetDeployHealthExecute(r DeployAPIGetDeployHealthRequest) (*DeployDeployHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeployHealth
+		localVarReturnValue *DeployDeployHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployHealth")
@@ -967,7 +806,7 @@ func (a *DeployAPIService) GetDeployHealthExecute(r DeployAPIGetDeployHealthRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -997,7 +836,7 @@ func (a *DeployAPIService) GetDeployHealthExecute(r DeployAPIGetDeployHealthRequ
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
-			var v DeployHealth
+			var v DeployDeployHealth
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1005,7 +844,16 @@ func (a *DeployAPIService) GetDeployHealthExecute(r DeployAPIGetDeployHealthRequ
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1116,7 +964,7 @@ type DeployAPIGetDeployProjectsRequest struct {
 	ApiService *DeployAPIService
 }
 
-func (r DeployAPIGetDeployProjectsRequest) Execute() (*ArgoProjectList, *http.Response, error) {
+func (r DeployAPIGetDeployProjectsRequest) Execute() (*DeployArgoProjectList, *http.Response, error) {
 	return r.ApiService.GetDeployProjectsExecute(r)
 }
 
@@ -1147,13 +995,13 @@ func (a *DeployAPIService) GetDeployProjects(ctx context.Context) DeployAPIGetDe
 
 // Execute executes the request
 //
-//	@return ArgoProjectList
-func (a *DeployAPIService) GetDeployProjectsExecute(r DeployAPIGetDeployProjectsRequest) (*ArgoProjectList, *http.Response, error) {
+//	@return DeployArgoProjectList
+func (a *DeployAPIService) GetDeployProjectsExecute(r DeployAPIGetDeployProjectsRequest) (*DeployArgoProjectList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ArgoProjectList
+		localVarReturnValue *DeployArgoProjectList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployProjects")
@@ -1177,7 +1025,7 @@ func (a *DeployAPIService) GetDeployProjectsExecute(r DeployAPIGetDeployProjects
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1206,6 +1054,14 @@ func (a *DeployAPIService) GetDeployProjectsExecute(r DeployAPIGetDeployProjects
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1226,7 +1082,7 @@ type DeployAPIGetDeploySessionUserinfoRequest struct {
 	ApiService *DeployAPIService
 }
 
-func (r DeployAPIGetDeploySessionUserinfoRequest) Execute() (*SessionUser, *http.Response, error) {
+func (r DeployAPIGetDeploySessionUserinfoRequest) Execute() (*DeploySessionUser, *http.Response, error) {
 	return r.ApiService.GetDeploySessionUserinfoExecute(r)
 }
 
@@ -1259,13 +1115,13 @@ func (a *DeployAPIService) GetDeploySessionUserinfo(ctx context.Context) DeployA
 
 // Execute executes the request
 //
-//	@return SessionUser
-func (a *DeployAPIService) GetDeploySessionUserinfoExecute(r DeployAPIGetDeploySessionUserinfoRequest) (*SessionUser, *http.Response, error) {
+//	@return DeploySessionUser
+func (a *DeployAPIService) GetDeploySessionUserinfoExecute(r DeployAPIGetDeploySessionUserinfoRequest) (*DeploySessionUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SessionUser
+		localVarReturnValue *DeploySessionUser
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeploySessionUserinfo")
@@ -1289,7 +1145,7 @@ func (a *DeployAPIService) GetDeploySessionUserinfoExecute(r DeployAPIGetDeployS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1318,115 +1174,14 @@ func (a *DeployAPIService) GetDeploySessionUserinfoExecute(r DeployAPIGetDeployS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type DeployAPIGetDeploySettingsRequest struct {
-	ctx        context.Context
-	ApiService *DeployAPIService
-}
-
-func (r DeployAPIGetDeploySettingsRequest) Execute() (*ConsoleSettings, *http.Response, error) {
-	return r.ApiService.GetDeploySettingsExecute(r)
-}
-
-/*
-GetDeploySettings Returns the argocd AuthSettings object the dashboard SPA awaits before its first render.
-
-Returns the argocd AuthSettings object the dashboard SPA
-awaits before its first render.
-
-Every value is a CONSTANT of this projection rather than configuration read
-from anywhere: the SPA's own login form is reported disabled and its OIDC
-config null because Hanzo IAM owns identity at the edge and this console's
-sign-in is GET /v1/deploy/login, and every argocd feature the projection does
-not implement — status badges, Dex connectors, config-management plugins,
-kustomize versions, the exec terminal, apps-in-any-namespace, the hydrator,
-sync-with-replace — is reported off. Platform SuperAdmin only.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return DeployAPIGetDeploySettingsRequest
-*/
-func (a *DeployAPIService) GetDeploySettings(ctx context.Context) DeployAPIGetDeploySettingsRequest {
-	return DeployAPIGetDeploySettingsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ConsoleSettings
-func (a *DeployAPIService) GetDeploySettingsExecute(r DeployAPIGetDeploySettingsRequest) (*ConsoleSettings, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ConsoleSettings
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeploySettings")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/deploy/settings"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1626,118 +1381,13 @@ func (a *DeployAPIService) GetDeployStreamApplicationsByNameResourceTreeExecute(
 	return localVarHTTPResponse, nil
 }
 
-type DeployAPIGetDeployVersionRequest struct {
-	ctx        context.Context
-	ApiService *DeployAPIService
-}
-
-func (r DeployAPIGetDeployVersionRequest) Execute() (*VersionMessage, *http.Response, error) {
-	return r.ApiService.GetDeployVersionExecute(r)
-}
-
-/*
-GetDeployVersion Returns the argocd VersionMessage the dashboard SPA reads at bootstrap.
-
-Returns the argocd VersionMessage the dashboard SPA reads at
-bootstrap. There is no argocd binary behind this plane — it is a projection
-over operator App CRs — so the fields say so rather than describing a build:
-Version names the projection, BuildDate is the moment this response was
-generated, and Compiler/Platform/GoVersion are the constants the SPA tolerates
-rather than facts about this process. Platform SuperAdmin only.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return DeployAPIGetDeployVersionRequest
-*/
-func (a *DeployAPIService) GetDeployVersion(ctx context.Context) DeployAPIGetDeployVersionRequest {
-	return DeployAPIGetDeployVersionRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return VersionMessage
-func (a *DeployAPIService) GetDeployVersionExecute(r DeployAPIGetDeployVersionRequest) (*VersionMessage, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *VersionMessage
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.GetDeployVersion")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/deploy/version"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type DeployAPIPostDeployApplicationsByNameRollbackRequest struct {
 	ctx        context.Context
 	ApiService *DeployAPIService
 	name       string
 }
 
-func (r DeployAPIPostDeployApplicationsByNameRollbackRequest) Execute() (*ArgoApp, *http.Response, error) {
+func (r DeployAPIPostDeployApplicationsByNameRollbackRequest) Execute() (*DeployArgoApp, *http.Response, error) {
 	return r.ApiService.PostDeployApplicationsByNameRollbackExecute(r)
 }
 
@@ -1777,13 +1427,13 @@ func (a *DeployAPIService) PostDeployApplicationsByNameRollback(ctx context.Cont
 
 // Execute executes the request
 //
-//	@return ArgoApp
-func (a *DeployAPIService) PostDeployApplicationsByNameRollbackExecute(r DeployAPIPostDeployApplicationsByNameRollbackRequest) (*ArgoApp, *http.Response, error) {
+//	@return DeployArgoApp
+func (a *DeployAPIService) PostDeployApplicationsByNameRollbackExecute(r DeployAPIPostDeployApplicationsByNameRollbackRequest) (*DeployArgoApp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ArgoApp
+		localVarReturnValue *DeployArgoApp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.PostDeployApplicationsByNameRollback")
@@ -1808,7 +1458,7 @@ func (a *DeployAPIService) PostDeployApplicationsByNameRollbackExecute(r DeployA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1837,125 +1487,14 @@ func (a *DeployAPIService) PostDeployApplicationsByNameRollbackExecute(r DeployA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type DeployAPIPostDeployApplicationsByNameSyncRequest struct {
-	ctx        context.Context
-	ApiService *DeployAPIService
-	name       string
-}
-
-func (r DeployAPIPostDeployApplicationsByNameSyncRequest) Execute() (*ArgoApp, *http.Response, error) {
-	return r.ApiService.PostDeployApplicationsByNameSyncExecute(r)
-}
-
-/*
-PostDeployApplicationsByNameSync Asks the operator to reconcile ONE application now.
-
-Asks the operator to reconcile ONE application now.
-
-It stamps a sync-requested timestamp onto the application's App CR, which the
-operator's watch observes, and answers the application re-projected. It ASKS,
-it does not apply: the operator reconciles on its own clock, so a 200 means the
-request landed, not that the rollout finished — the returned row's running
-version still lags until it does.
-
-SuperAdmin-only and fail-closed, and the gate is INSIDE the op rather than in
-middleware wrapped around the route. That is a correctness requirement, not a
-preference: this op is also reached by POST /mcp and by the by-name call plane,
-neither of which runs route middleware, so a gate that only the REST projection
-runs would publish an unguarded alias of a fleet-mutating write. It reads no
-request body — the URL names the application and nothing else does. An unknown
-name is a 404 (never a 403, which would confirm the application exists), a name
-that is not a DNS-1123 label is a 400, and no cluster client is a 503.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR's metadata.name satisfies that, and anything else is a 400 rather than a lookup.
-	@return DeployAPIPostDeployApplicationsByNameSyncRequest
-*/
-func (a *DeployAPIService) PostDeployApplicationsByNameSync(ctx context.Context, name string) DeployAPIPostDeployApplicationsByNameSyncRequest {
-	return DeployAPIPostDeployApplicationsByNameSyncRequest{
-		ApiService: a,
-		ctx:        ctx,
-		name:       name,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ArgoApp
-func (a *DeployAPIService) PostDeployApplicationsByNameSyncExecute(r DeployAPIPostDeployApplicationsByNameSyncRequest) (*ArgoApp, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ArgoApp
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.PostDeployApplicationsByNameSync")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/deploy/applications/{name}/sync"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1976,7 +1515,7 @@ type DeployAPIPostDeployLogoutRequest struct {
 	ApiService *DeployAPIService
 }
 
-func (r DeployAPIPostDeployLogoutRequest) Execute() (*SessionEnded, *http.Response, error) {
+func (r DeployAPIPostDeployLogoutRequest) Execute() (*DeploySessionEnded, *http.Response, error) {
 	return r.ApiService.PostDeployLogoutExecute(r)
 }
 
@@ -2007,13 +1546,13 @@ func (a *DeployAPIService) PostDeployLogout(ctx context.Context) DeployAPIPostDe
 
 // Execute executes the request
 //
-//	@return SessionEnded
-func (a *DeployAPIService) PostDeployLogoutExecute(r DeployAPIPostDeployLogoutRequest) (*SessionEnded, *http.Response, error) {
+//	@return DeploySessionEnded
+func (a *DeployAPIService) PostDeployLogoutExecute(r DeployAPIPostDeployLogoutRequest) (*DeploySessionEnded, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SessionEnded
+		localVarReturnValue *DeploySessionEnded
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.PostDeployLogout")
@@ -2037,7 +1576,7 @@ func (a *DeployAPIService) PostDeployLogoutExecute(r DeployAPIPostDeployLogoutRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2066,122 +1605,14 @@ func (a *DeployAPIService) PostDeployLogoutExecute(r DeployAPIPostDeployLogoutRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type DeployAPIPostDeployReconcileRequest struct {
-	ctx        context.Context
-	ApiService *DeployAPIService
-}
-
-func (r DeployAPIPostDeployReconcileRequest) Execute() (*ReconcileReport, *http.Response, error) {
-	return r.ApiService.PostDeployReconcileExecute(r)
-}
-
-/*
-PostDeployReconcile Renders the configured git source and applies it to the cluster, once.
-
-Renders the configured git source and applies it to the
-cluster, once.
-
-It runs one full GitOps sync through the embedded engine — render the
-configured repo, ref and path, then three-way server-side apply with scoped
-prune — and answers the revision it applied, the source it came from, the
-declared/synced/pruned/failed counts and a per-resource result. This is the
-WRITE half of the plane: it mutates live cluster objects and, with prune
-enabled, deletes objects the source no longer declares.
-
-SuperAdmin-only and fail-closed, with the gate INSIDE the op because a typed op
-is also reached by POST /mcp and by the by-name call plane, where no route
-middleware runs. The git source is read AS THE PLATFORM, not as the caller: the
-coordinate is this deployment's own configuration and never a parameter, which
-is why the op reads no request body at all. A deployment with the engine
-switched off, or with no usable cluster config, answers 503; a failure to
-start, render or sync is a 502.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return DeployAPIPostDeployReconcileRequest
-*/
-func (a *DeployAPIService) PostDeployReconcile(ctx context.Context) DeployAPIPostDeployReconcileRequest {
-	return DeployAPIPostDeployReconcileRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ReconcileReport
-func (a *DeployAPIService) PostDeployReconcileExecute(r DeployAPIPostDeployReconcileRequest) (*ReconcileReport, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ReconcileReport
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeployAPIService.PostDeployReconcile")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/deploy/reconcile"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

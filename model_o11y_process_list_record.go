@@ -19,14 +19,17 @@ var _ MappedNullable = &O11yProcessListRecord{}
 
 // O11yProcessListRecord struct for O11yProcessListRecord
 type O11yProcessListRecord struct {
-	Meta           map[string]string `json:"meta,omitempty"`
-	ProcessCMD     *string           `json:"processCMD,omitempty"`
-	ProcessCMDLine *string           `json:"processCMDLine,omitempty"`
-	ProcessCPU     *float64          `json:"processCPU,omitempty"`
-	ProcessID      *string           `json:"processID,omitempty"`
-	ProcessMemory  *float64          `json:"processMemory,omitempty"`
-	ProcessName    *string           `json:"processName,omitempty"`
+	Meta                 map[string]string `json:"meta,omitempty"`
+	ProcessCMD           *string           `json:"processCMD,omitempty"`
+	ProcessCMDLine       *string           `json:"processCMDLine,omitempty"`
+	ProcessCPU           *float64          `json:"processCPU,omitempty"`
+	ProcessID            *string           `json:"processID,omitempty"`
+	ProcessMemory        *float64          `json:"processMemory,omitempty"`
+	ProcessName          *string           `json:"processName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yProcessListRecord O11yProcessListRecord
 
 // NewO11yProcessListRecord instantiates a new O11yProcessListRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o O11yProcessListRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ProcessName) {
 		toSerialize["processName"] = o.ProcessName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yProcessListRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yProcessListRecord := _O11yProcessListRecord{}
+
+	err = json.Unmarshal(data, &varO11yProcessListRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yProcessListRecord(varO11yProcessListRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "processCMD")
+		delete(additionalProperties, "processCMDLine")
+		delete(additionalProperties, "processCPU")
+		delete(additionalProperties, "processID")
+		delete(additionalProperties, "processMemory")
+		delete(additionalProperties, "processName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yProcessListRecord struct {

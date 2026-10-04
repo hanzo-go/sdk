@@ -19,17 +19,48 @@ var _ MappedNullable = &CatalogEntry{}
 
 // CatalogEntry struct for CatalogEntry
 type CatalogEntry struct {
-	// Configured is whether THIS DEPLOYMENT holds the OAuth client credentials for the provider. False means Connect would dead-end, so the console can offer it disabled instead of broken. It is deployment-wide and says nothing about whether the caller's org has connected the source — that is the connector list's `status`.
-	Configured *bool `json:"configured,omitempty"`
-	// Description is one line of shop copy: what connecting this source pulls in. Native connectors carry written prose; a piece-backed one reads \"activepieces connector (<piece>)\".
+	// Archetype is WHAT KIND OF THING this is, from a closed and ordered list — model | contract | chain | sdk | template | infra | site | app — derived from the repository's own topics, name and description, first match winning, and always `site` for a deployed site. It is DERIVED, never guessed by a model, because a wrong archetype hides a row from the browse rail more thoroughly than a missing one does. Empty when no topic matched: unclassified, not uncategorisable.
+	Archetype *string `json:"archetype,omitempty"`
+	// Description is the repository's own one-line GitHub description, carried verbatim. It comes from the SOURCE half of a row, so a site that was never matched to a repository has none, and nothing here is written by us.
 	Description *string `json:"description,omitempty"`
-	// DisplayName is the label to show a person. First-party connectors carry a written name (\"GitHub\", \"Google Drive\"); a piece-backed one falls back to the provider capitalized, because the rich activepieces metadata lives behind a cross-service call this read will not make.
-	DisplayName *string `json:"displayName,omitempty"`
-	// \"native\" | \"piece\"
+	// Forkable is NOT omitempty: false is an answer here, not a missing field. Omitted, a client could not tell \"you cannot fork this\" from \"nobody said\".
+	Forkable *bool `json:"forkable,omitempty"`
+	// ID is \"<org>/<name>\" and is the corpus's primary key: a re-published entry updates in place under it rather than accumulating duplicates, so it is the one handle stable enough to link to or to name in a `template` filter. Two orgs can spell the same id, and `canonical` picks which one keeps it.
+	Id *string `json:"id,omitempty"`
+	// repo | site
 	Kind *string `json:"kind,omitempty"`
-	// Provider is the source's id and the address every connector op takes it by (/v1/knowledge/connectors/:provider). One of github, slack, google, notion.
-	Provider *string `json:"provider,omitempty"`
+	// Language is the repository's primary implementation language as GitHub computes it (\"Go\", \"TypeScript\"), and the case is GitHub's. Empty for a site with no source half and for a repository GitHub could not classify.
+	Language *string `json:"language,omitempty"`
+	// License is the terms that upstream work carries, in whichever form the half that credited it had: an SPDX id (\"MIT\", \"Apache-2.0\") on a GitHub fork, free text on a site whose publisher declared it. GitHub's NOASSERTION — \"we could not identify it\" — reads as none rather than as a licence by that name. So empty means UNDECLARED and never unencumbered, and Upstream is what says whether the question applies at all.
+	License *string `json:"license,omitempty"`
+	// Name is the short identifier inside the org — the repository's name, or the site's slug — and is the half of ID after the slash. Not a display name; Title is.
+	Name *string `json:"name,omitempty"`
+	// Note is why a row is NOT in the published catalog, set by the admission gate (gate.go) on the sites it holds back. It is the difference between a demo that silently vanished from the public lens and one whose owner can read the reason and fix it. A published row never carries one.
+	Note *string `json:"note,omitempty"`
+	// hanzo | lux | zoo
+	Org *string `json:"org,omitempty"`
+	// Origin is WHAT THIS IS TO YOU: template | community | third-party | product (origin.go owns the four nouns and derives them). Not omitempty, for the same reason Forkable is not: every row has an answer, and a missing one is exactly the flattening this field exists to end.
+	Origin *string `json:"origin,omitempty"`
+	// source
+	Repo *string `json:"repo,omitempty"`
+	// Scope is provenance, not storage: \"public\" for a row from the published corpus, \"org\" for one only this caller can see. A UI that cannot tell them apart cannot warn before sharing a link.
+	Scope *string `json:"scope,omitempty"`
+	// Stars is GitHub's stargazer count for the source repository, read at the last sync and never accumulated here. It is not a ranking — the page sorts on Updated — but it is the tiebreak when two orgs claim one ID. Absent for a site with no repository behind it, and for a repository nobody has starred.
+	Stars *int64 `json:"stars,omitempty"`
+	// lineage, if forked from one
+	Template *string `json:"template,omitempty"`
+	// Title is what to SHOW. A site's human name wins where it has one; a repo row falls back to the repository name, so on a repo this usually just repeats Name. Absent only for a site whose project was never named — render Name.
+	Title *string `json:"title,omitempty"`
+	// Updated is when the thing last MOVED, as RFC 3339 in UTC: a repository's last push, or a site's last deploy. The page is ordered on it, most recent first, by comparing these strings — so the format is load-bearing and not cosmetic. Absent means the source reported no timestamp, and such a row sorts last.
+	Updated *string `json:"updated,omitempty"`
+	// Upstream/License credit the third-party work an entry was published from: the difference between \"this org built it\" and \"somebody else built it and we are showing it to you\".  WHO built it is Org, above — the account that paid for the project. There was once a separate admin-gated `official` boolean here claiming the same thing, and because it was gated it disagreed: apps Hanzo wrote and hosts were published by a script holding an ordinary org token, so it stayed false on all of them and this directory filed our own work as somebody else's. A field that restates an unforgeable fact can only ever be the wrong copy of it.
+	Upstream *string `json:"upstream,omitempty"`
+	// live, if it is deployed
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CatalogEntry CatalogEntry
 
 // NewCatalogEntry instantiates a new CatalogEntry object
 // This constructor will assign default values to properties that have it defined,
@@ -48,36 +79,36 @@ func NewCatalogEntryWithDefaults() *CatalogEntry {
 	return &this
 }
 
-// GetConfigured returns the Configured field value if set, zero value otherwise.
-func (o *CatalogEntry) GetConfigured() bool {
-	if o == nil || IsNil(o.Configured) {
-		var ret bool
+// GetArchetype returns the Archetype field value if set, zero value otherwise.
+func (o *CatalogEntry) GetArchetype() string {
+	if o == nil || IsNil(o.Archetype) {
+		var ret string
 		return ret
 	}
-	return *o.Configured
+	return *o.Archetype
 }
 
-// GetConfiguredOk returns a tuple with the Configured field value if set, nil otherwise
+// GetArchetypeOk returns a tuple with the Archetype field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CatalogEntry) GetConfiguredOk() (*bool, bool) {
-	if o == nil || IsNil(o.Configured) {
+func (o *CatalogEntry) GetArchetypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Archetype) {
 		return nil, false
 	}
-	return o.Configured, true
+	return o.Archetype, true
 }
 
-// HasConfigured returns a boolean if a field has been set.
-func (o *CatalogEntry) HasConfigured() bool {
-	if o != nil && !IsNil(o.Configured) {
+// HasArchetype returns a boolean if a field has been set.
+func (o *CatalogEntry) HasArchetype() bool {
+	if o != nil && !IsNil(o.Archetype) {
 		return true
 	}
 
 	return false
 }
 
-// SetConfigured gets a reference to the given bool and assigns it to the Configured field.
-func (o *CatalogEntry) SetConfigured(v bool) {
-	o.Configured = &v
+// SetArchetype gets a reference to the given string and assigns it to the Archetype field.
+func (o *CatalogEntry) SetArchetype(v string) {
+	o.Archetype = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -112,36 +143,68 @@ func (o *CatalogEntry) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
-func (o *CatalogEntry) GetDisplayName() string {
-	if o == nil || IsNil(o.DisplayName) {
-		var ret string
+// GetForkable returns the Forkable field value if set, zero value otherwise.
+func (o *CatalogEntry) GetForkable() bool {
+	if o == nil || IsNil(o.Forkable) {
+		var ret bool
 		return ret
 	}
-	return *o.DisplayName
+	return *o.Forkable
 }
 
-// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// GetForkableOk returns a tuple with the Forkable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CatalogEntry) GetDisplayNameOk() (*string, bool) {
-	if o == nil || IsNil(o.DisplayName) {
+func (o *CatalogEntry) GetForkableOk() (*bool, bool) {
+	if o == nil || IsNil(o.Forkable) {
 		return nil, false
 	}
-	return o.DisplayName, true
+	return o.Forkable, true
 }
 
-// HasDisplayName returns a boolean if a field has been set.
-func (o *CatalogEntry) HasDisplayName() bool {
-	if o != nil && !IsNil(o.DisplayName) {
+// HasForkable returns a boolean if a field has been set.
+func (o *CatalogEntry) HasForkable() bool {
+	if o != nil && !IsNil(o.Forkable) {
 		return true
 	}
 
 	return false
 }
 
-// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
-func (o *CatalogEntry) SetDisplayName(v string) {
-	o.DisplayName = &v
+// SetForkable gets a reference to the given bool and assigns it to the Forkable field.
+func (o *CatalogEntry) SetForkable(v bool) {
+	o.Forkable = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *CatalogEntry) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *CatalogEntry) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *CatalogEntry) SetId(v string) {
+	o.Id = &v
 }
 
 // GetKind returns the Kind field value if set, zero value otherwise.
@@ -176,36 +239,452 @@ func (o *CatalogEntry) SetKind(v string) {
 	o.Kind = &v
 }
 
-// GetProvider returns the Provider field value if set, zero value otherwise.
-func (o *CatalogEntry) GetProvider() string {
-	if o == nil || IsNil(o.Provider) {
+// GetLanguage returns the Language field value if set, zero value otherwise.
+func (o *CatalogEntry) GetLanguage() string {
+	if o == nil || IsNil(o.Language) {
 		var ret string
 		return ret
 	}
-	return *o.Provider
+	return *o.Language
 }
 
-// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CatalogEntry) GetProviderOk() (*string, bool) {
-	if o == nil || IsNil(o.Provider) {
+func (o *CatalogEntry) GetLanguageOk() (*string, bool) {
+	if o == nil || IsNil(o.Language) {
 		return nil, false
 	}
-	return o.Provider, true
+	return o.Language, true
 }
 
-// HasProvider returns a boolean if a field has been set.
-func (o *CatalogEntry) HasProvider() bool {
-	if o != nil && !IsNil(o.Provider) {
+// HasLanguage returns a boolean if a field has been set.
+func (o *CatalogEntry) HasLanguage() bool {
+	if o != nil && !IsNil(o.Language) {
 		return true
 	}
 
 	return false
 }
 
-// SetProvider gets a reference to the given string and assigns it to the Provider field.
-func (o *CatalogEntry) SetProvider(v string) {
-	o.Provider = &v
+// SetLanguage gets a reference to the given string and assigns it to the Language field.
+func (o *CatalogEntry) SetLanguage(v string) {
+	o.Language = &v
+}
+
+// GetLicense returns the License field value if set, zero value otherwise.
+func (o *CatalogEntry) GetLicense() string {
+	if o == nil || IsNil(o.License) {
+		var ret string
+		return ret
+	}
+	return *o.License
+}
+
+// GetLicenseOk returns a tuple with the License field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetLicenseOk() (*string, bool) {
+	if o == nil || IsNil(o.License) {
+		return nil, false
+	}
+	return o.License, true
+}
+
+// HasLicense returns a boolean if a field has been set.
+func (o *CatalogEntry) HasLicense() bool {
+	if o != nil && !IsNil(o.License) {
+		return true
+	}
+
+	return false
+}
+
+// SetLicense gets a reference to the given string and assigns it to the License field.
+func (o *CatalogEntry) SetLicense(v string) {
+	o.License = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *CatalogEntry) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *CatalogEntry) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *CatalogEntry) SetName(v string) {
+	o.Name = &v
+}
+
+// GetNote returns the Note field value if set, zero value otherwise.
+func (o *CatalogEntry) GetNote() string {
+	if o == nil || IsNil(o.Note) {
+		var ret string
+		return ret
+	}
+	return *o.Note
+}
+
+// GetNoteOk returns a tuple with the Note field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetNoteOk() (*string, bool) {
+	if o == nil || IsNil(o.Note) {
+		return nil, false
+	}
+	return o.Note, true
+}
+
+// HasNote returns a boolean if a field has been set.
+func (o *CatalogEntry) HasNote() bool {
+	if o != nil && !IsNil(o.Note) {
+		return true
+	}
+
+	return false
+}
+
+// SetNote gets a reference to the given string and assigns it to the Note field.
+func (o *CatalogEntry) SetNote(v string) {
+	o.Note = &v
+}
+
+// GetOrg returns the Org field value if set, zero value otherwise.
+func (o *CatalogEntry) GetOrg() string {
+	if o == nil || IsNil(o.Org) {
+		var ret string
+		return ret
+	}
+	return *o.Org
+}
+
+// GetOrgOk returns a tuple with the Org field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetOrgOk() (*string, bool) {
+	if o == nil || IsNil(o.Org) {
+		return nil, false
+	}
+	return o.Org, true
+}
+
+// HasOrg returns a boolean if a field has been set.
+func (o *CatalogEntry) HasOrg() bool {
+	if o != nil && !IsNil(o.Org) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrg gets a reference to the given string and assigns it to the Org field.
+func (o *CatalogEntry) SetOrg(v string) {
+	o.Org = &v
+}
+
+// GetOrigin returns the Origin field value if set, zero value otherwise.
+func (o *CatalogEntry) GetOrigin() string {
+	if o == nil || IsNil(o.Origin) {
+		var ret string
+		return ret
+	}
+	return *o.Origin
+}
+
+// GetOriginOk returns a tuple with the Origin field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetOriginOk() (*string, bool) {
+	if o == nil || IsNil(o.Origin) {
+		return nil, false
+	}
+	return o.Origin, true
+}
+
+// HasOrigin returns a boolean if a field has been set.
+func (o *CatalogEntry) HasOrigin() bool {
+	if o != nil && !IsNil(o.Origin) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrigin gets a reference to the given string and assigns it to the Origin field.
+func (o *CatalogEntry) SetOrigin(v string) {
+	o.Origin = &v
+}
+
+// GetRepo returns the Repo field value if set, zero value otherwise.
+func (o *CatalogEntry) GetRepo() string {
+	if o == nil || IsNil(o.Repo) {
+		var ret string
+		return ret
+	}
+	return *o.Repo
+}
+
+// GetRepoOk returns a tuple with the Repo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetRepoOk() (*string, bool) {
+	if o == nil || IsNil(o.Repo) {
+		return nil, false
+	}
+	return o.Repo, true
+}
+
+// HasRepo returns a boolean if a field has been set.
+func (o *CatalogEntry) HasRepo() bool {
+	if o != nil && !IsNil(o.Repo) {
+		return true
+	}
+
+	return false
+}
+
+// SetRepo gets a reference to the given string and assigns it to the Repo field.
+func (o *CatalogEntry) SetRepo(v string) {
+	o.Repo = &v
+}
+
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *CatalogEntry) GetScope() string {
+	if o == nil || IsNil(o.Scope) {
+		var ret string
+		return ret
+	}
+	return *o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetScopeOk() (*string, bool) {
+	if o == nil || IsNil(o.Scope) {
+		return nil, false
+	}
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *CatalogEntry) HasScope() bool {
+	if o != nil && !IsNil(o.Scope) {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given string and assigns it to the Scope field.
+func (o *CatalogEntry) SetScope(v string) {
+	o.Scope = &v
+}
+
+// GetStars returns the Stars field value if set, zero value otherwise.
+func (o *CatalogEntry) GetStars() int64 {
+	if o == nil || IsNil(o.Stars) {
+		var ret int64
+		return ret
+	}
+	return *o.Stars
+}
+
+// GetStarsOk returns a tuple with the Stars field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetStarsOk() (*int64, bool) {
+	if o == nil || IsNil(o.Stars) {
+		return nil, false
+	}
+	return o.Stars, true
+}
+
+// HasStars returns a boolean if a field has been set.
+func (o *CatalogEntry) HasStars() bool {
+	if o != nil && !IsNil(o.Stars) {
+		return true
+	}
+
+	return false
+}
+
+// SetStars gets a reference to the given int64 and assigns it to the Stars field.
+func (o *CatalogEntry) SetStars(v int64) {
+	o.Stars = &v
+}
+
+// GetTemplate returns the Template field value if set, zero value otherwise.
+func (o *CatalogEntry) GetTemplate() string {
+	if o == nil || IsNil(o.Template) {
+		var ret string
+		return ret
+	}
+	return *o.Template
+}
+
+// GetTemplateOk returns a tuple with the Template field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetTemplateOk() (*string, bool) {
+	if o == nil || IsNil(o.Template) {
+		return nil, false
+	}
+	return o.Template, true
+}
+
+// HasTemplate returns a boolean if a field has been set.
+func (o *CatalogEntry) HasTemplate() bool {
+	if o != nil && !IsNil(o.Template) {
+		return true
+	}
+
+	return false
+}
+
+// SetTemplate gets a reference to the given string and assigns it to the Template field.
+func (o *CatalogEntry) SetTemplate(v string) {
+	o.Template = &v
+}
+
+// GetTitle returns the Title field value if set, zero value otherwise.
+func (o *CatalogEntry) GetTitle() string {
+	if o == nil || IsNil(o.Title) {
+		var ret string
+		return ret
+	}
+	return *o.Title
+}
+
+// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetTitleOk() (*string, bool) {
+	if o == nil || IsNil(o.Title) {
+		return nil, false
+	}
+	return o.Title, true
+}
+
+// HasTitle returns a boolean if a field has been set.
+func (o *CatalogEntry) HasTitle() bool {
+	if o != nil && !IsNil(o.Title) {
+		return true
+	}
+
+	return false
+}
+
+// SetTitle gets a reference to the given string and assigns it to the Title field.
+func (o *CatalogEntry) SetTitle(v string) {
+	o.Title = &v
+}
+
+// GetUpdated returns the Updated field value if set, zero value otherwise.
+func (o *CatalogEntry) GetUpdated() string {
+	if o == nil || IsNil(o.Updated) {
+		var ret string
+		return ret
+	}
+	return *o.Updated
+}
+
+// GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetUpdatedOk() (*string, bool) {
+	if o == nil || IsNil(o.Updated) {
+		return nil, false
+	}
+	return o.Updated, true
+}
+
+// HasUpdated returns a boolean if a field has been set.
+func (o *CatalogEntry) HasUpdated() bool {
+	if o != nil && !IsNil(o.Updated) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdated gets a reference to the given string and assigns it to the Updated field.
+func (o *CatalogEntry) SetUpdated(v string) {
+	o.Updated = &v
+}
+
+// GetUpstream returns the Upstream field value if set, zero value otherwise.
+func (o *CatalogEntry) GetUpstream() string {
+	if o == nil || IsNil(o.Upstream) {
+		var ret string
+		return ret
+	}
+	return *o.Upstream
+}
+
+// GetUpstreamOk returns a tuple with the Upstream field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetUpstreamOk() (*string, bool) {
+	if o == nil || IsNil(o.Upstream) {
+		return nil, false
+	}
+	return o.Upstream, true
+}
+
+// HasUpstream returns a boolean if a field has been set.
+func (o *CatalogEntry) HasUpstream() bool {
+	if o != nil && !IsNil(o.Upstream) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpstream gets a reference to the given string and assigns it to the Upstream field.
+func (o *CatalogEntry) SetUpstream(v string) {
+	o.Upstream = &v
+}
+
+// GetUrl returns the Url field value if set, zero value otherwise.
+func (o *CatalogEntry) GetUrl() string {
+	if o == nil || IsNil(o.Url) {
+		var ret string
+		return ret
+	}
+	return *o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CatalogEntry) GetUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.Url) {
+		return nil, false
+	}
+	return o.Url, true
+}
+
+// HasUrl returns a boolean if a field has been set.
+func (o *CatalogEntry) HasUrl() bool {
+	if o != nil && !IsNil(o.Url) {
+		return true
+	}
+
+	return false
+}
+
+// SetUrl gets a reference to the given string and assigns it to the Url field.
+func (o *CatalogEntry) SetUrl(v string) {
+	o.Url = &v
 }
 
 func (o CatalogEntry) MarshalJSON() ([]byte, error) {
@@ -218,22 +697,108 @@ func (o CatalogEntry) MarshalJSON() ([]byte, error) {
 
 func (o CatalogEntry) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Configured) {
-		toSerialize["configured"] = o.Configured
+	if !IsNil(o.Archetype) {
+		toSerialize["archetype"] = o.Archetype
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !IsNil(o.DisplayName) {
-		toSerialize["displayName"] = o.DisplayName
+	if !IsNil(o.Forkable) {
+		toSerialize["forkable"] = o.Forkable
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
 	}
 	if !IsNil(o.Kind) {
 		toSerialize["kind"] = o.Kind
 	}
-	if !IsNil(o.Provider) {
-		toSerialize["provider"] = o.Provider
+	if !IsNil(o.Language) {
+		toSerialize["language"] = o.Language
 	}
+	if !IsNil(o.License) {
+		toSerialize["license"] = o.License
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Note) {
+		toSerialize["note"] = o.Note
+	}
+	if !IsNil(o.Org) {
+		toSerialize["org"] = o.Org
+	}
+	if !IsNil(o.Origin) {
+		toSerialize["origin"] = o.Origin
+	}
+	if !IsNil(o.Repo) {
+		toSerialize["repo"] = o.Repo
+	}
+	if !IsNil(o.Scope) {
+		toSerialize["scope"] = o.Scope
+	}
+	if !IsNil(o.Stars) {
+		toSerialize["stars"] = o.Stars
+	}
+	if !IsNil(o.Template) {
+		toSerialize["template"] = o.Template
+	}
+	if !IsNil(o.Title) {
+		toSerialize["title"] = o.Title
+	}
+	if !IsNil(o.Updated) {
+		toSerialize["updated"] = o.Updated
+	}
+	if !IsNil(o.Upstream) {
+		toSerialize["upstream"] = o.Upstream
+	}
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CatalogEntry) UnmarshalJSON(data []byte) (err error) {
+	varCatalogEntry := _CatalogEntry{}
+
+	err = json.Unmarshal(data, &varCatalogEntry)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CatalogEntry(varCatalogEntry)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "archetype")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "forkable")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "kind")
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "license")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "note")
+		delete(additionalProperties, "org")
+		delete(additionalProperties, "origin")
+		delete(additionalProperties, "repo")
+		delete(additionalProperties, "scope")
+		delete(additionalProperties, "stars")
+		delete(additionalProperties, "template")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "updated")
+		delete(additionalProperties, "upstream")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCatalogEntry struct {

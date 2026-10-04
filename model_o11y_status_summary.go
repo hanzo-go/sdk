@@ -31,7 +31,10 @@ type O11yStatusSummary struct {
 	PageUrl *string `json:"page_url,omitempty"`
 	// ScheduledMaintenances is always empty, for the same reason.
 	ScheduledMaintenances []O11yStatusMaintenance `json:"scheduled_maintenances,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
+
+type _O11yStatusSummary O11yStatusSummary
 
 // NewO11yStatusSummary instantiates a new O11yStatusSummary object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o O11yStatusSummary) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ScheduledMaintenances) {
 		toSerialize["scheduled_maintenances"] = o.ScheduledMaintenances
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yStatusSummary) UnmarshalJSON(data []byte) (err error) {
+	varO11yStatusSummary := _O11yStatusSummary{}
+
+	err = json.Unmarshal(data, &varO11yStatusSummary)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yStatusSummary(varO11yStatusSummary)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "checked_at")
+		delete(additionalProperties, "in_progress_maintenances")
+		delete(additionalProperties, "ongoing_incidents")
+		delete(additionalProperties, "page_title")
+		delete(additionalProperties, "page_url")
+		delete(additionalProperties, "scheduled_maintenances")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yStatusSummary struct {

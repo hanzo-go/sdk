@@ -8,14 +8,14 @@ Method | HTTP request | Description
 [**GetContentChannels**](ContentAPI.md#GetContentChannels) | **Get** /v1/content/channels | Lists the distribution channels the caller&#39;s org has connected — the social integrations a publish can target.
 [**GetContentLifecycle**](ContentAPI.md#GetContentLifecycle) | **Get** /v1/content/lifecycle | Returns the ONE marketing-content state machine: the ordered lifecycle states, which state a fresh document starts in, which one is publicly live, and the legal successors of every state.
 [**PostContentByDoctypeByNameTransition**](ContentAPI.md#PostContentByDoctypeByNameTransition) | **Post** /v1/content/{doctype}/{name}/transition | Moves one content item to a new lifecycle state and, on the move to published, fans it out to the item&#39;s channels.
-[**PostContentGenerate**](ContentAPI.md#PostContentGenerate) | **Post** /v1/content/generate | Draft a piece of marketing content and file it in the CMS as a draft.
+[**PostContentGenerate**](ContentAPI.md#PostContentGenerate) | **Post** /v1/content/generate | Draft a provider of marketing content and file it in the CMS as a draft.
 [**PostContentPublish**](ContentAPI.md#PostContentPublish) | **Post** /v1/content/publish | Publish distributes one CMS content item to the channels recorded on it and returns the honest per-channel outcome.
 
 
 
 ## GetContentBoard
 
-> BoardPage GetContentBoard(ctx).Status(status).Project(project).Doctype(doctype).Limit(limit).Execute()
+> ContentBoardPage GetContentBoard(ctx).Status(status).Project(project).Doctype(doctype).Limit(limit).Execute()
 
 Aggregates the caller org's marketing content across every publishable content type into ONE queue board — the cross-type read the framework's per-DocType list cannot give.
 
@@ -46,7 +46,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ContentAPI.GetContentBoard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetContentBoard`: BoardPage
+	// response from `GetContentBoard`: ContentBoardPage
 	fmt.Fprintf(os.Stdout, "Response from `ContentAPI.GetContentBoard`: %v\n", resp)
 }
 ```
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BoardPage**](BoardPage.md)
+[**ContentBoardPage**](ContentBoardPage.md)
 
 ### Authorization
 
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## GetContentChannels
 
-> ChannelList GetContentChannels(ctx).Execute()
+> ContentChannelList GetContentChannels(ctx).Execute()
 
 Lists the distribution channels the caller's org has connected — the social integrations a publish can target.
 
@@ -114,7 +114,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ContentAPI.GetContentChannels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetContentChannels`: ChannelList
+	// response from `GetContentChannels`: ContentChannelList
 	fmt.Fprintf(os.Stdout, "Response from `ContentAPI.GetContentChannels`: %v\n", resp)
 }
 ```
@@ -130,7 +130,7 @@ Other parameters are passed through a pointer to a apiGetContentChannelsRequest 
 
 ### Return type
 
-[**ChannelList**](ChannelList.md)
+[**ContentChannelList**](ContentChannelList.md)
 
 ### Authorization
 
@@ -139,7 +139,7 @@ Other parameters are passed through a pointer to a apiGetContentChannelsRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -148,7 +148,7 @@ Other parameters are passed through a pointer to a apiGetContentChannelsRequest 
 
 ## GetContentLifecycle
 
-> StateGraph GetContentLifecycle(ctx).Execute()
+> ContentStateGraph GetContentLifecycle(ctx).Execute()
 
 Returns the ONE marketing-content state machine: the ordered lifecycle states, which state a fresh document starts in, which one is publicly live, and the legal successors of every state.
 
@@ -175,7 +175,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ContentAPI.GetContentLifecycle``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetContentLifecycle`: StateGraph
+	// response from `GetContentLifecycle`: ContentStateGraph
 	fmt.Fprintf(os.Stdout, "Response from `ContentAPI.GetContentLifecycle`: %v\n", resp)
 }
 ```
@@ -191,7 +191,7 @@ Other parameters are passed through a pointer to a apiGetContentLifecycleRequest
 
 ### Return type
 
-[**StateGraph**](StateGraph.md)
+[**ContentStateGraph**](ContentStateGraph.md)
 
 ### Authorization
 
@@ -200,7 +200,7 @@ Other parameters are passed through a pointer to a apiGetContentLifecycleRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -209,7 +209,7 @@ Other parameters are passed through a pointer to a apiGetContentLifecycleRequest
 
 ## PostContentByDoctypeByNameTransition
 
-> TransitionResult PostContentByDoctypeByNameTransition(ctx, doctype, name).TransitionIn(transitionIn).Execute()
+> ContentTransitionResult PostContentByDoctypeByNameTransition(ctx, doctype, name).ContentTransitionIn(contentTransitionIn).Execute()
 
 Moves one content item to a new lifecycle state and, on the move to published, fans it out to the item's channels.
 
@@ -230,16 +230,16 @@ import (
 func main() {
 	doctype := "marketing.SocialPost" // string | DocType is the content type to act on, from the path.
 	name := "spring-teaser" // string | Name is the document to act on, from the path.
-	transitionIn := *openapiclient.NewTransitionIn() // TransitionIn | 
+	contentTransitionIn := *openapiclient.NewContentTransitionIn() // ContentTransitionIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ContentAPI.PostContentByDoctypeByNameTransition(context.Background(), doctype, name).TransitionIn(transitionIn).Execute()
+	resp, r, err := apiClient.ContentAPI.PostContentByDoctypeByNameTransition(context.Background(), doctype, name).ContentTransitionIn(contentTransitionIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ContentAPI.PostContentByDoctypeByNameTransition``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostContentByDoctypeByNameTransition`: TransitionResult
+	// response from `PostContentByDoctypeByNameTransition`: ContentTransitionResult
 	fmt.Fprintf(os.Stdout, "Response from `ContentAPI.PostContentByDoctypeByNameTransition`: %v\n", resp)
 }
 ```
@@ -262,11 +262,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **transitionIn** | [**TransitionIn**](TransitionIn.md) |  | 
+ **contentTransitionIn** | [**ContentTransitionIn**](ContentTransitionIn.md) |  | 
 
 ### Return type
 
-[**TransitionResult**](TransitionResult.md)
+[**ContentTransitionResult**](ContentTransitionResult.md)
 
 ### Authorization
 
@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -284,9 +284,9 @@ Name | Type | Description  | Notes
 
 ## PostContentGenerate
 
-> GenerateResult PostContentGenerate(ctx).GenerateInput(generateInput).Execute()
+> ContentGenerateResult PostContentGenerate(ctx).ContentGenerateInput(contentGenerateInput).Execute()
 
-Draft a piece of marketing content and file it in the CMS as a draft.
+Draft a provider of marketing content and file it in the CMS as a draft.
 
 
 
@@ -303,16 +303,16 @@ import (
 )
 
 func main() {
-	generateInput := *openapiclient.NewGenerateInput() // GenerateInput | 
+	contentGenerateInput := *openapiclient.NewContentGenerateInput() // ContentGenerateInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ContentAPI.PostContentGenerate(context.Background()).GenerateInput(generateInput).Execute()
+	resp, r, err := apiClient.ContentAPI.PostContentGenerate(context.Background()).ContentGenerateInput(contentGenerateInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ContentAPI.PostContentGenerate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostContentGenerate`: GenerateResult
+	// response from `PostContentGenerate`: ContentGenerateResult
 	fmt.Fprintf(os.Stdout, "Response from `ContentAPI.PostContentGenerate`: %v\n", resp)
 }
 ```
@@ -328,11 +328,11 @@ Other parameters are passed through a pointer to a apiPostContentGenerateRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **generateInput** | [**GenerateInput**](GenerateInput.md) |  | 
+ **contentGenerateInput** | [**ContentGenerateInput**](ContentGenerateInput.md) |  | 
 
 ### Return type
 
-[**GenerateResult**](GenerateResult.md)
+[**ContentGenerateResult**](ContentGenerateResult.md)
 
 ### Authorization
 
@@ -341,7 +341,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -350,7 +350,7 @@ Name | Type | Description  | Notes
 
 ## PostContentPublish
 
-> PublishResult PostContentPublish(ctx).PublishInput(publishInput).Execute()
+> ContentPublishResult PostContentPublish(ctx).ContentPublishInput(contentPublishInput).Execute()
 
 Publish distributes one CMS content item to the channels recorded on it and returns the honest per-channel outcome.
 
@@ -369,16 +369,16 @@ import (
 )
 
 func main() {
-	publishInput := *openapiclient.NewPublishInput() // PublishInput | 
+	contentPublishInput := *openapiclient.NewContentPublishInput() // ContentPublishInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ContentAPI.PostContentPublish(context.Background()).PublishInput(publishInput).Execute()
+	resp, r, err := apiClient.ContentAPI.PostContentPublish(context.Background()).ContentPublishInput(contentPublishInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ContentAPI.PostContentPublish``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostContentPublish`: PublishResult
+	// response from `PostContentPublish`: ContentPublishResult
 	fmt.Fprintf(os.Stdout, "Response from `ContentAPI.PostContentPublish`: %v\n", resp)
 }
 ```
@@ -394,11 +394,11 @@ Other parameters are passed through a pointer to a apiPostContentPublishRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **publishInput** | [**PublishInput**](PublishInput.md) |  | 
+ **contentPublishInput** | [**ContentPublishInput**](ContentPublishInput.md) |  | 
 
 ### Return type
 
-[**PublishResult**](PublishResult.md)
+[**ContentPublishResult**](ContentPublishResult.md)
 
 ### Authorization
 
@@ -407,7 +407,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

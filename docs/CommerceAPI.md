@@ -9,9 +9,7 @@ Method | HTTP request | Description
 [**DeleteCommerceDiscountByDiscountid**](CommerceAPI.md#DeleteCommerceDiscountByDiscountid) | **Delete** /v1/commerce/discount/{discountid} | Delete a discount, keeping a recoverable copy
 [**DeleteCommerceMovieByMovieid**](CommerceAPI.md#DeleteCommerceMovieByMovieid) | **Delete** /v1/commerce/movie/{movieid} | Delete a movie, keeping a recoverable copy
 [**DeleteCommerceNoteByNoteid**](CommerceAPI.md#DeleteCommerceNoteByNoteid) | **Delete** /v1/commerce/note/{noteid} | Delete a note, keeping a recoverable copy
-[**DeleteCommercePlansEntriesBySlug**](CommerceAPI.md#DeleteCommercePlansEntriesBySlug) | **Delete** /v1/commerce/plans/entries/{slug} | Remove a plan from the authority
 [**DeleteCommerceProductByProductid**](CommerceAPI.md#DeleteCommerceProductByProductid) | **Delete** /v1/commerce/product/{productid} | Delete a product, keeping a recoverable copy
-[**DeleteCommerceRatesEntriesByProductByMeter**](CommerceAPI.md#DeleteCommerceRatesEntriesByProductByMeter) | **Delete** /v1/commerce/rates/entries/{product}/{meter} | Remove a rate outright
 [**DeleteCommerceReturnByReturnid**](CommerceAPI.md#DeleteCommerceReturnByReturnid) | **Delete** /v1/commerce/return/{returnid} | Delete a return, keeping a recoverable copy
 [**DeleteCommerceSaleschannelBySaleschannelid**](CommerceAPI.md#DeleteCommerceSaleschannelBySaleschannelid) | **Delete** /v1/commerce/saleschannel/{saleschannelid} | Delete a sales channel, keeping a recoverable copy
 [**DeleteCommerceStocklocationByStocklocationid**](CommerceAPI.md#DeleteCommerceStocklocationByStocklocationid) | **Delete** /v1/commerce/stocklocation/{stocklocationid} | Delete a stock location, keeping a recoverable copy
@@ -27,34 +25,29 @@ Method | HTTP request | Description
 [**DeleteCommerceWebhookByWebhookid**](CommerceAPI.md#DeleteCommerceWebhookByWebhookid) | **Delete** /v1/commerce/webhook/{webhookid} | Delete a webhook, keeping a recoverable copy
 [**DiscardCart**](CommerceAPI.md#DiscardCart) | **Post** /v1/commerce/cart/{id}/discard | Discard a cart the shopper abandoned
 [**GetCart**](CommerceAPI.md#GetCart) | **Get** /v1/commerce/cart/{id} | Read one cart with its lines and totals
-[**GetCommerceAdminCatalog**](CommerceAPI.md#GetCommerceAdminCatalog) | **Get** /v1/commerce/admin/catalog | The catalog projection with cost and margin included
 [**GetCommerceCatalog**](CommerceAPI.md#GetCommerceCatalog) | **Get** /v1/commerce/catalog | The public product catalog projection for a brand
-[**GetCommerceCatalogEntries**](CommerceAPI.md#GetCommerceCatalogEntries) | **Get** /v1/commerce/catalog/entries | The raw catalog entries, including the unpublished ones
-[**GetCommerceCollection**](CommerceAPI.md#GetCommerceCollection) | **Get** /v1/commerce/collection/ | List your org&#39;s collections, as a page
+[**GetCommerceCollection**](CommerceAPI.md#GetCommerceCollection) | **Get** /v1/commerce/collection | List your org&#39;s collections, as a page
 [**GetCommerceCollectionByCollectionid**](CommerceAPI.md#GetCommerceCollectionByCollectionid) | **Get** /v1/commerce/collection/{collectionid} | Fetch one collection
 [**GetCommerceCurrencies**](CommerceAPI.md#GetCommerceCurrencies) | **Get** /v1/commerce/currencies | The reference currency list the price and settings pickers render
-[**GetCommerceDeposits**](CommerceAPI.md#GetCommerceDeposits) | **Get** /v1/commerce/deposits | Read the crypto deposit watcher&#39;s runtime state, asset by asset
-[**GetCommerceDisclosure**](CommerceAPI.md#GetCommerceDisclosure) | **Get** /v1/commerce/disclosure/ | List your org&#39;s disclosures, as a page
+[**GetCommerceDisclosure**](CommerceAPI.md#GetCommerceDisclosure) | **Get** /v1/commerce/disclosure | List your org&#39;s disclosures, as a page
 [**GetCommerceDisclosureByDisclosureid**](CommerceAPI.md#GetCommerceDisclosureByDisclosureid) | **Get** /v1/commerce/disclosure/{disclosureid} | Fetch one disclosure
-[**GetCommerceDiscount**](CommerceAPI.md#GetCommerceDiscount) | **Get** /v1/commerce/discount/ | List your org&#39;s discounts, as a page
+[**GetCommerceDiscount**](CommerceAPI.md#GetCommerceDiscount) | **Get** /v1/commerce/discount | List your org&#39;s discounts, as a page
 [**GetCommerceDiscountByDiscountid**](CommerceAPI.md#GetCommerceDiscountByDiscountid) | **Get** /v1/commerce/discount/{discountid} | Fetch one discount
 [**GetCommerceHealth**](CommerceAPI.md#GetCommerceHealth) | **Get** /v1/commerce/health | Answers ok whenever the commerce subsystem is mounted.
-[**GetCommerceMovie**](CommerceAPI.md#GetCommerceMovie) | **Get** /v1/commerce/movie/ | List your org&#39;s movies, as a page
+[**GetCommerceMovie**](CommerceAPI.md#GetCommerceMovie) | **Get** /v1/commerce/movie | List your org&#39;s movies, as a page
 [**GetCommerceMovieByMovieid**](CommerceAPI.md#GetCommerceMovieByMovieid) | **Get** /v1/commerce/movie/{movieid} | Fetch one movie
-[**GetCommerceNote**](CommerceAPI.md#GetCommerceNote) | **Get** /v1/commerce/note/ | List your org&#39;s notes, as a page
+[**GetCommerceNote**](CommerceAPI.md#GetCommerceNote) | **Get** /v1/commerce/note | List your org&#39;s notes, as a page
 [**GetCommerceNoteByNoteid**](CommerceAPI.md#GetCommerceNoteByNoteid) | **Get** /v1/commerce/note/{noteid} | Fetch one note
 [**GetCommerceOrg**](CommerceAPI.md#GetCommerceOrg) | **Get** /v1/commerce/org | The public org configuration a checkout page boots from
-[**GetCommercePlansEntries**](CommerceAPI.md#GetCommercePlansEntries) | **Get** /v1/commerce/plans/entries | The raw plan authority rows
-[**GetCommerceProduct**](CommerceAPI.md#GetCommerceProduct) | **Get** /v1/commerce/product/ | List your org&#39;s products, as a page
+[**GetCommerceProduct**](CommerceAPI.md#GetCommerceProduct) | **Get** /v1/commerce/product | List your org&#39;s products, as a page
 [**GetCommerceProductByProductid**](CommerceAPI.md#GetCommerceProductByProductid) | **Get** /v1/commerce/product/{productid} | Fetch one product
-[**GetCommerceRatesEntries**](CommerceAPI.md#GetCommerceRatesEntries) | **Get** /v1/commerce/rates/entries | List what one unit of each metered thing costs
-[**GetCommerceReturn**](CommerceAPI.md#GetCommerceReturn) | **Get** /v1/commerce/return/ | List your org&#39;s returns, as a page
+[**GetCommerceReturn**](CommerceAPI.md#GetCommerceReturn) | **Get** /v1/commerce/return | List your org&#39;s returns, as a page
 [**GetCommerceReturnByReturnid**](CommerceAPI.md#GetCommerceReturnByReturnid) | **Get** /v1/commerce/return/{returnid} | Fetch one return
-[**GetCommerceSaleschannel**](CommerceAPI.md#GetCommerceSaleschannel) | **Get** /v1/commerce/saleschannel/ | List your org&#39;s sales channels, as a page
+[**GetCommerceSaleschannel**](CommerceAPI.md#GetCommerceSaleschannel) | **Get** /v1/commerce/saleschannel | List your org&#39;s sales channels, as a page
 [**GetCommerceSaleschannelBySaleschannelid**](CommerceAPI.md#GetCommerceSaleschannelBySaleschannelid) | **Get** /v1/commerce/saleschannel/{saleschannelid} | Fetch one sales channel
-[**GetCommerceStocklocation**](CommerceAPI.md#GetCommerceStocklocation) | **Get** /v1/commerce/stocklocation/ | List your org&#39;s stock locations, as a page
+[**GetCommerceStocklocation**](CommerceAPI.md#GetCommerceStocklocation) | **Get** /v1/commerce/stocklocation | List your org&#39;s stock locations, as a page
 [**GetCommerceStocklocationByStocklocationid**](CommerceAPI.md#GetCommerceStocklocationByStocklocationid) | **Get** /v1/commerce/stocklocation/{stocklocationid} | Fetch one stock location
-[**GetCommerceStore**](CommerceAPI.md#GetCommerceStore) | **Get** /v1/commerce/store/ | List your org&#39;s storefronts as a page
+[**GetCommerceStore**](CommerceAPI.md#GetCommerceStore) | **Get** /v1/commerce/store | List your org&#39;s storefronts as a page
 [**GetCommerceStoreAccess**](CommerceAPI.md#GetCommerceStoreAccess) | **Get** /v1/commerce/store/access | Whether a store is entitled to trade, and why
 [**GetCommerceStoreByStoreid**](CommerceAPI.md#GetCommerceStoreByStoreid) | **Get** /v1/commerce/store/{storeid} | Fetch one storefront
 [**GetCommerceStoreByStoreidBundleByKey**](CommerceAPI.md#GetCommerceStoreByStoreidBundleByKey) | **Get** /v1/commerce/store/{storeid}/bundle/{key} | Fetch a bundle as this storefront sells it
@@ -63,21 +56,21 @@ Method | HTTP request | Description
 [**GetCommerceStoreByStoreidProductByKey**](CommerceAPI.md#GetCommerceStoreByStoreidProductByKey) | **Get** /v1/commerce/store/{storeid}/product/{key} | Fetch a product as this storefront sells it
 [**GetCommerceStoreByStoreidVariantByKey**](CommerceAPI.md#GetCommerceStoreByStoreidVariantByKey) | **Get** /v1/commerce/store/{storeid}/variant/{key} | Fetch a variant as this storefront sells it
 [**GetCommerceStoreCurrent**](CommerceAPI.md#GetCommerceStoreCurrent) | **Get** /v1/commerce/store/current | Resolve your org&#39;s active storefront without naming an id
-[**GetCommerceSubmission**](CommerceAPI.md#GetCommerceSubmission) | **Get** /v1/commerce/submission/ | List your org&#39;s submissions, as a page
+[**GetCommerceSubmission**](CommerceAPI.md#GetCommerceSubmission) | **Get** /v1/commerce/submission | List your org&#39;s submissions, as a page
 [**GetCommerceSubmissionBySubmissionid**](CommerceAPI.md#GetCommerceSubmissionBySubmissionid) | **Get** /v1/commerce/submission/{submissionid} | Fetch one submission
-[**GetCommerceSubscriber**](CommerceAPI.md#GetCommerceSubscriber) | **Get** /v1/commerce/subscriber/ | List your org&#39;s subscribers, as a page
+[**GetCommerceSubscriber**](CommerceAPI.md#GetCommerceSubscriber) | **Get** /v1/commerce/subscriber | List your org&#39;s subscribers, as a page
 [**GetCommerceSubscriberBySubscriberid**](CommerceAPI.md#GetCommerceSubscriberBySubscriberid) | **Get** /v1/commerce/subscriber/{subscriberid} | Fetch one subscriber
-[**GetCommerceTokentransaction**](CommerceAPI.md#GetCommerceTokentransaction) | **Get** /v1/commerce/tokentransaction/ | List your org&#39;s token transactions, as a page
+[**GetCommerceTokentransaction**](CommerceAPI.md#GetCommerceTokentransaction) | **Get** /v1/commerce/tokentransaction | List your org&#39;s token transactions, as a page
 [**GetCommerceTokentransactionByTokentransactionid**](CommerceAPI.md#GetCommerceTokentransactionByTokentransactionid) | **Get** /v1/commerce/tokentransaction/{tokentransactionid} | Fetch one token transaction
-[**GetCommerceTransfer**](CommerceAPI.md#GetCommerceTransfer) | **Get** /v1/commerce/transfer/ | List your org&#39;s transfers, as a page
+[**GetCommerceTransfer**](CommerceAPI.md#GetCommerceTransfer) | **Get** /v1/commerce/transfer | List your org&#39;s transfers, as a page
 [**GetCommerceTransferByTransferid**](CommerceAPI.md#GetCommerceTransferByTransferid) | **Get** /v1/commerce/transfer/{transferid} | Fetch one transfer
-[**GetCommerceVariant**](CommerceAPI.md#GetCommerceVariant) | **Get** /v1/commerce/variant/ | List your org&#39;s variants, as a page
+[**GetCommerceVariant**](CommerceAPI.md#GetCommerceVariant) | **Get** /v1/commerce/variant | List your org&#39;s variants, as a page
 [**GetCommerceVariantByVariantid**](CommerceAPI.md#GetCommerceVariantByVariantid) | **Get** /v1/commerce/variant/{variantid} | Fetch one variant
-[**GetCommerceWallet**](CommerceAPI.md#GetCommerceWallet) | **Get** /v1/commerce/wallet/ | List your org&#39;s wallets, as a page
+[**GetCommerceWallet**](CommerceAPI.md#GetCommerceWallet) | **Get** /v1/commerce/wallet | List your org&#39;s wallets, as a page
 [**GetCommerceWalletByWalletid**](CommerceAPI.md#GetCommerceWalletByWalletid) | **Get** /v1/commerce/wallet/{walletid} | Fetch one wallet
-[**GetCommerceWatchlist**](CommerceAPI.md#GetCommerceWatchlist) | **Get** /v1/commerce/watchlist/ | List your org&#39;s watchlists, as a page
+[**GetCommerceWatchlist**](CommerceAPI.md#GetCommerceWatchlist) | **Get** /v1/commerce/watchlist | List your org&#39;s watchlists, as a page
 [**GetCommerceWatchlistByWatchlistid**](CommerceAPI.md#GetCommerceWatchlistByWatchlistid) | **Get** /v1/commerce/watchlist/{watchlistid} | Fetch one watchlist
-[**GetCommerceWebhook**](CommerceAPI.md#GetCommerceWebhook) | **Get** /v1/commerce/webhook/ | List your org&#39;s webhooks, as a page
+[**GetCommerceWebhook**](CommerceAPI.md#GetCommerceWebhook) | **Get** /v1/commerce/webhook | List your org&#39;s webhooks, as a page
 [**GetCommerceWebhookByWebhookid**](CommerceAPI.md#GetCommerceWebhookByWebhookid) | **Get** /v1/commerce/webhook/{webhookid} | Fetch one webhook
 [**OpenCart**](CommerceAPI.md#OpenCart) | **Post** /v1/commerce/cart | Open a cart for a shopper to fill
 [**PatchCommerceCollectionByCollectionid**](CommerceAPI.md#PatchCommerceCollectionByCollectionid) | **Patch** /v1/commerce/collection/{collectionid} | Change part of a collection
@@ -99,33 +92,27 @@ Method | HTTP request | Description
 [**PatchCommerceWalletByWalletid**](CommerceAPI.md#PatchCommerceWalletByWalletid) | **Patch** /v1/commerce/wallet/{walletid} | Change part of a wallet
 [**PatchCommerceWatchlistByWatchlistid**](CommerceAPI.md#PatchCommerceWatchlistByWatchlistid) | **Patch** /v1/commerce/watchlist/{watchlistid} | Change part of a watchlist
 [**PatchCommerceWebhookByWebhookid**](CommerceAPI.md#PatchCommerceWebhookByWebhookid) | **Patch** /v1/commerce/webhook/{webhookid} | Change part of a webhook
-[**PostCommerceCatalogEntries**](CommerceAPI.md#PostCommerceCatalogEntries) | **Post** /v1/commerce/catalog/entries | Add a catalog entry
 [**PostCommerceCatalogModels**](CommerceAPI.md#PostCommerceCatalogModels) | **Post** /v1/commerce/catalog/models | Land a syncer&#39;s view of the model catalog: upstream costs and machine facts
 [**PostCommerceCatalogModelsRefresh**](CommerceAPI.md#PostCommerceCatalogModelsRefresh) | **Post** /v1/commerce/catalog/models/refresh | Refresh the model catalog by reading the upstream provider
-[**PostCommerceCatalogSeed**](CommerceAPI.md#PostCommerceCatalogSeed) | **Post** /v1/commerce/catalog/seed | Seed the embedded catalog, without disturbing edits already made
-[**PostCommerceCollection**](CommerceAPI.md#PostCommerceCollection) | **Post** /v1/commerce/collection/ | Create a collection
+[**PostCommerceCollection**](CommerceAPI.md#PostCommerceCollection) | **Post** /v1/commerce/collection | Create a collection
 [**PostCommerceCollectionByCollectionid**](CommerceAPI.md#PostCommerceCollectionByCollectionid) | **Post** /v1/commerce/collection/{collectionid} | Method-override tunnel for a collection — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceDisclosure**](CommerceAPI.md#PostCommerceDisclosure) | **Post** /v1/commerce/disclosure/ | Create a disclosure
+[**PostCommerceDisclosure**](CommerceAPI.md#PostCommerceDisclosure) | **Post** /v1/commerce/disclosure | Create a disclosure
 [**PostCommerceDisclosureByDisclosureid**](CommerceAPI.md#PostCommerceDisclosureByDisclosureid) | **Post** /v1/commerce/disclosure/{disclosureid} | Method-override tunnel for a disclosure — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceDiscount**](CommerceAPI.md#PostCommerceDiscount) | **Post** /v1/commerce/discount/ | Create a discount
+[**PostCommerceDiscount**](CommerceAPI.md#PostCommerceDiscount) | **Post** /v1/commerce/discount | Create a discount
 [**PostCommerceDiscountByDiscountid**](CommerceAPI.md#PostCommerceDiscountByDiscountid) | **Post** /v1/commerce/discount/{discountid} | Method-override tunnel for a discount — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceMovie**](CommerceAPI.md#PostCommerceMovie) | **Post** /v1/commerce/movie/ | Create a movie
+[**PostCommerceMovie**](CommerceAPI.md#PostCommerceMovie) | **Post** /v1/commerce/movie | Create a movie
 [**PostCommerceMovieByMovieid**](CommerceAPI.md#PostCommerceMovieByMovieid) | **Post** /v1/commerce/movie/{movieid} | Method-override tunnel for a movie — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceNote**](CommerceAPI.md#PostCommerceNote) | **Post** /v1/commerce/note/ | Create a note
+[**PostCommerceNote**](CommerceAPI.md#PostCommerceNote) | **Post** /v1/commerce/note | Create a note
 [**PostCommerceNoteByNoteid**](CommerceAPI.md#PostCommerceNoteByNoteid) | **Post** /v1/commerce/note/{noteid} | Method-override tunnel for a note — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommercePlansEntries**](CommerceAPI.md#PostCommercePlansEntries) | **Post** /v1/commerce/plans/entries | Add a subscription plan
-[**PostCommercePlansSeed**](CommerceAPI.md#PostCommercePlansSeed) | **Post** /v1/commerce/plans/seed | Seed the embedded plan catalog, without overwriting administrative edits
-[**PostCommerceProduct**](CommerceAPI.md#PostCommerceProduct) | **Post** /v1/commerce/product/ | Create a product
+[**PostCommerceProduct**](CommerceAPI.md#PostCommerceProduct) | **Post** /v1/commerce/product | Create a product
 [**PostCommerceProductByProductid**](CommerceAPI.md#PostCommerceProductByProductid) | **Post** /v1/commerce/product/{productid} | Method-override tunnel for a product — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceRatesEntries**](CommerceAPI.md#PostCommerceRatesEntries) | **Post** /v1/commerce/rates/entries | Add a rate
-[**PostCommerceRatesImport**](CommerceAPI.md#PostCommerceRatesImport) | **Post** /v1/commerce/rates/import | Load the published price document, reconciling rather than replacing
-[**PostCommerceReturn**](CommerceAPI.md#PostCommerceReturn) | **Post** /v1/commerce/return/ | Create a return
+[**PostCommerceReturn**](CommerceAPI.md#PostCommerceReturn) | **Post** /v1/commerce/return | Create a return
 [**PostCommerceReturnByReturnid**](CommerceAPI.md#PostCommerceReturnByReturnid) | **Post** /v1/commerce/return/{returnid} | Method-override tunnel for a return — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceSaleschannel**](CommerceAPI.md#PostCommerceSaleschannel) | **Post** /v1/commerce/saleschannel/ | Create a sales channel
+[**PostCommerceSaleschannel**](CommerceAPI.md#PostCommerceSaleschannel) | **Post** /v1/commerce/saleschannel | Create a sales channel
 [**PostCommerceSaleschannelBySaleschannelid**](CommerceAPI.md#PostCommerceSaleschannelBySaleschannelid) | **Post** /v1/commerce/saleschannel/{saleschannelid} | Method-override tunnel for a sales channel — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceStocklocation**](CommerceAPI.md#PostCommerceStocklocation) | **Post** /v1/commerce/stocklocation/ | Create a stock location
+[**PostCommerceStocklocation**](CommerceAPI.md#PostCommerceStocklocation) | **Post** /v1/commerce/stocklocation | Create a stock location
 [**PostCommerceStocklocationByStocklocationid**](CommerceAPI.md#PostCommerceStocklocationByStocklocationid) | **Post** /v1/commerce/stocklocation/{stocklocationid} | Method-override tunnel for a stock location — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceStore**](CommerceAPI.md#PostCommerceStore) | **Post** /v1/commerce/store/ | Create a storefront
+[**PostCommerceStore**](CommerceAPI.md#PostCommerceStore) | **Post** /v1/commerce/store | Create a storefront
 [**PostCommerceStoreByStoreid**](CommerceAPI.md#PostCommerceStoreByStoreid) | **Post** /v1/commerce/store/{storeid} | Method-override tunnel for clients that cannot send PUT, PATCH or DELETE
 [**PostCommerceStoreByStoreidAuthorize**](CommerceAPI.md#PostCommerceStoreByStoreidAuthorize) | **Post** /v1/commerce/store/{storeid}/authorize | Authorize a new order against a storefront, holding the funds without settling them
 [**PostCommerceStoreByStoreidAuthorizeByOrderid**](CommerceAPI.md#PostCommerceStoreByStoreidAuthorizeByOrderid) | **Post** /v1/commerce/store/{storeid}/authorize/{orderid} | Authorize an order that already exists, holding the funds without settling them
@@ -144,21 +131,21 @@ Method | HTTP request | Description
 [**PostCommerceStoreByStoreidPaypalPay**](CommerceAPI.md#PostCommerceStoreByStoreidPaypalPay) | **Post** /v1/commerce/store/{storeid}/paypal/pay | Start a PayPal authorization for a new order
 [**PostCommerceStoreByStoreidTrial**](CommerceAPI.md#PostCommerceStoreByStoreidTrial) | **Post** /v1/commerce/store/{storeid}/trial | Start this store&#39;s no-card trial on the entry plan
 [**PostCommerceStoreToken**](CommerceAPI.md#PostCommerceStoreToken) | **Post** /v1/commerce/store/token | Mint your org&#39;s least-privilege storefront read key
-[**PostCommerceSubmission**](CommerceAPI.md#PostCommerceSubmission) | **Post** /v1/commerce/submission/ | Create a submission
+[**PostCommerceSubmission**](CommerceAPI.md#PostCommerceSubmission) | **Post** /v1/commerce/submission | Create a submission
 [**PostCommerceSubmissionBySubmissionid**](CommerceAPI.md#PostCommerceSubmissionBySubmissionid) | **Post** /v1/commerce/submission/{submissionid} | Method-override tunnel for a submission — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceSubscriber**](CommerceAPI.md#PostCommerceSubscriber) | **Post** /v1/commerce/subscriber/ | Create a subscriber
+[**PostCommerceSubscriber**](CommerceAPI.md#PostCommerceSubscriber) | **Post** /v1/commerce/subscriber | Create a subscriber
 [**PostCommerceSubscriberBySubscriberid**](CommerceAPI.md#PostCommerceSubscriberBySubscriberid) | **Post** /v1/commerce/subscriber/{subscriberid} | Method-override tunnel for a subscriber — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceTokentransaction**](CommerceAPI.md#PostCommerceTokentransaction) | **Post** /v1/commerce/tokentransaction/ | Create a token transaction
+[**PostCommerceTokentransaction**](CommerceAPI.md#PostCommerceTokentransaction) | **Post** /v1/commerce/tokentransaction | Create a token transaction
 [**PostCommerceTokentransactionByTokentransactionid**](CommerceAPI.md#PostCommerceTokentransactionByTokentransactionid) | **Post** /v1/commerce/tokentransaction/{tokentransactionid} | Method-override tunnel for a token transaction — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceTransfer**](CommerceAPI.md#PostCommerceTransfer) | **Post** /v1/commerce/transfer/ | Create a transfer
+[**PostCommerceTransfer**](CommerceAPI.md#PostCommerceTransfer) | **Post** /v1/commerce/transfer | Create a transfer
 [**PostCommerceTransferByTransferid**](CommerceAPI.md#PostCommerceTransferByTransferid) | **Post** /v1/commerce/transfer/{transferid} | Method-override tunnel for a transfer — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceVariant**](CommerceAPI.md#PostCommerceVariant) | **Post** /v1/commerce/variant/ | Create a variant
+[**PostCommerceVariant**](CommerceAPI.md#PostCommerceVariant) | **Post** /v1/commerce/variant | Create a variant
 [**PostCommerceVariantByVariantid**](CommerceAPI.md#PostCommerceVariantByVariantid) | **Post** /v1/commerce/variant/{variantid} | Method-override tunnel for a variant — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceWallet**](CommerceAPI.md#PostCommerceWallet) | **Post** /v1/commerce/wallet/ | Create a wallet
+[**PostCommerceWallet**](CommerceAPI.md#PostCommerceWallet) | **Post** /v1/commerce/wallet | Create a wallet
 [**PostCommerceWalletByWalletid**](CommerceAPI.md#PostCommerceWalletByWalletid) | **Post** /v1/commerce/wallet/{walletid} | Method-override tunnel for a wallet — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceWatchlist**](CommerceAPI.md#PostCommerceWatchlist) | **Post** /v1/commerce/watchlist/ | Create a watchlist
+[**PostCommerceWatchlist**](CommerceAPI.md#PostCommerceWatchlist) | **Post** /v1/commerce/watchlist | Create a watchlist
 [**PostCommerceWatchlistByWatchlistid**](CommerceAPI.md#PostCommerceWatchlistByWatchlistid) | **Post** /v1/commerce/watchlist/{watchlistid} | Method-override tunnel for a watchlist — for clients that cannot send PUT, PATCH or DELETE
-[**PostCommerceWebhook**](CommerceAPI.md#PostCommerceWebhook) | **Post** /v1/commerce/webhook/ | Create a webhook
+[**PostCommerceWebhook**](CommerceAPI.md#PostCommerceWebhook) | **Post** /v1/commerce/webhook | Create a webhook
 [**PostCommerceWebhookByWebhookid**](CommerceAPI.md#PostCommerceWebhookByWebhookid) | **Post** /v1/commerce/webhook/{webhookid} | Method-override tunnel for a webhook — for clients that cannot send PUT, PATCH or DELETE
 [**PostCommerceWebhooksByProvider**](CommerceAPI.md#PostCommerceWebhooksByProvider) | **Post** /v1/commerce/webhooks/{provider} | Payment-provider webhook intake for settlement and subscription lifecycle events
 [**PutCommerceCollectionByCollectionid**](CommerceAPI.md#PutCommerceCollectionByCollectionid) | **Put** /v1/commerce/collection/{collectionid} | Replace a collection outright
@@ -166,9 +153,7 @@ Method | HTTP request | Description
 [**PutCommerceDiscountByDiscountid**](CommerceAPI.md#PutCommerceDiscountByDiscountid) | **Put** /v1/commerce/discount/{discountid} | Replace a discount outright
 [**PutCommerceMovieByMovieid**](CommerceAPI.md#PutCommerceMovieByMovieid) | **Put** /v1/commerce/movie/{movieid} | Replace a movie outright
 [**PutCommerceNoteByNoteid**](CommerceAPI.md#PutCommerceNoteByNoteid) | **Put** /v1/commerce/note/{noteid} | Replace a note outright
-[**PutCommercePlansEntriesBySlug**](CommerceAPI.md#PutCommercePlansEntriesBySlug) | **Put** /v1/commerce/plans/entries/{slug} | Edit a plan, leaving the fields you omit alone
 [**PutCommerceProductByProductid**](CommerceAPI.md#PutCommerceProductByProductid) | **Put** /v1/commerce/product/{productid} | Replace a product outright
-[**PutCommerceRatesEntriesByProductByMeter**](CommerceAPI.md#PutCommerceRatesEntriesByProductByMeter) | **Put** /v1/commerce/rates/entries/{product}/{meter} | Edit a rate, and mark it as operator-set
 [**PutCommerceReturnByReturnid**](CommerceAPI.md#PutCommerceReturnByReturnid) | **Put** /v1/commerce/return/{returnid} | Replace a return outright
 [**PutCommerceSaleschannelBySaleschannelid**](CommerceAPI.md#PutCommerceSaleschannelBySaleschannelid) | **Put** /v1/commerce/saleschannel/{saleschannelid} | Replace a sales channel outright
 [**PutCommerceStocklocationByStocklocationid**](CommerceAPI.md#PutCommerceStocklocationByStocklocationid) | **Put** /v1/commerce/stocklocation/{stocklocationid} | Replace a stock location outright
@@ -526,74 +511,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteCommercePlansEntriesBySlug
-
-> DeleteCommercePlansEntriesBySlug(ctx, slug).Execute()
-
-Remove a plan from the authority
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	slug := "slug_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.DeleteCommercePlansEntriesBySlug(context.Background(), slug).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.DeleteCommercePlansEntriesBySlug``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteCommercePlansEntriesBySlugRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## DeleteCommerceProductByProductid
 
 > DeleteCommerceProductByProductid(ctx, productid).Execute()
@@ -642,77 +559,6 @@ Other parameters are passed through a pointer to a apiDeleteCommerceProductByPro
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteCommerceRatesEntriesByProductByMeter
-
-> DeleteCommerceRatesEntriesByProductByMeter(ctx, product, meter).Execute()
-
-Remove a rate outright
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	product := "product_example" // string | 
-	meter := "meter_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.DeleteCommerceRatesEntriesByProductByMeter(context.Background(), product, meter).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.DeleteCommerceRatesEntriesByProductByMeter``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**product** | **string** |  | 
-**meter** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteCommerceRatesEntriesByProductByMeterRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type
@@ -1683,7 +1529,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1753,66 +1599,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetCommerceAdminCatalog
-
-> GetCommerceAdminCatalog(ctx).Execute()
-
-The catalog projection with cost and margin included
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.GetCommerceAdminCatalog(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceAdminCatalog``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCommerceAdminCatalogRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1858,65 +1645,6 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetCommerceCatalogRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetCommerceCatalogEntries
-
-> GetCommerceCatalogEntries(ctx).Execute()
-
-The raw catalog entries, including the unpublished ones
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.GetCommerceCatalogEntries(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceCatalogEntries``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCommerceCatalogEntriesRequest struct via the builder pattern
 
 
 ### Return type
@@ -2103,65 +1831,6 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetCommerceCurrenciesRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetCommerceDeposits
-
-> GetCommerceDeposits(ctx).Execute()
-
-Read the crypto deposit watcher's runtime state, asset by asset
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.GetCommerceDeposits(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceDeposits``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCommerceDepositsRequest struct via the builder pattern
 
 
 ### Return type
@@ -2490,7 +2159,7 @@ Other parameters are passed through a pointer to a apiGetCommerceHealthRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2810,65 +2479,6 @@ Other parameters are passed through a pointer to a apiGetCommerceOrgRequest stru
 [[Back to README]](../README.md)
 
 
-## GetCommercePlansEntries
-
-> GetCommercePlansEntries(ctx).Execute()
-
-The raw plan authority rows
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.GetCommercePlansEntries(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommercePlansEntries``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCommercePlansEntriesRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## GetCommerceProduct
 
 > GetCommerceProduct(ctx).Execute()
@@ -2976,65 +2586,6 @@ Other parameters are passed through a pointer to a apiGetCommerceProductByProduc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetCommerceRatesEntries
-
-> GetCommerceRatesEntries(ctx).Execute()
-
-List what one unit of each metered thing costs
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.GetCommerceRatesEntries(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.GetCommerceRatesEntries``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCommerceRatesEntriesRequest struct via the builder pattern
 
 
 ### Return type
@@ -5108,7 +4659,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6410,65 +5961,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCommerceCatalogEntries
-
-> PostCommerceCatalogEntries(ctx).Execute()
-
-Add a catalog entry
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PostCommerceCatalogEntries(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceCatalogEntries``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCommerceCatalogEntriesRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PostCommerceCatalogModels
 
 > PostCommerceCatalogModels(ctx).Execute()
@@ -6567,65 +6059,6 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostCommerceCatalogModelsRefreshRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCommerceCatalogSeed
-
-> PostCommerceCatalogSeed(ctx).Execute()
-
-Seed the embedded catalog, without disturbing edits already made
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PostCommerceCatalogSeed(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceCatalogSeed``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCommerceCatalogSeedRequest struct via the builder pattern
 
 
 ### Return type
@@ -7281,124 +6714,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCommercePlansEntries
-
-> PostCommercePlansEntries(ctx).Execute()
-
-Add a subscription plan
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PostCommercePlansEntries(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommercePlansEntries``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCommercePlansEntriesRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCommercePlansSeed
-
-> PostCommercePlansSeed(ctx).Execute()
-
-Seed the embedded plan catalog, without overwriting administrative edits
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PostCommercePlansSeed(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommercePlansSeed``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCommercePlansSeedRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PostCommerceProduct
 
 > PostCommerceProduct(ctx).Execute()
@@ -7506,124 +6821,6 @@ Other parameters are passed through a pointer to a apiPostCommerceProductByProdu
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCommerceRatesEntries
-
-> PostCommerceRatesEntries(ctx).Execute()
-
-Add a rate
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PostCommerceRatesEntries(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceRatesEntries``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCommerceRatesEntriesRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCommerceRatesImport
-
-> PostCommerceRatesImport(ctx).Execute()
-
-Load the published price document, reconciling rather than replacing
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PostCommerceRatesImport(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PostCommerceRatesImport``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCommerceRatesImportRequest struct via the builder pattern
 
 
 ### Return type
@@ -10750,74 +9947,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutCommercePlansEntriesBySlug
-
-> PutCommercePlansEntriesBySlug(ctx, slug).Execute()
-
-Edit a plan, leaving the fields you omit alone
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	slug := "slug_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PutCommercePlansEntriesBySlug(context.Background(), slug).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PutCommercePlansEntriesBySlug``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**slug** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPutCommercePlansEntriesBySlugRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PutCommerceProductByProductid
 
 > PutCommerceProductByProductid(ctx, productid).Execute()
@@ -10866,77 +9995,6 @@ Other parameters are passed through a pointer to a apiPutCommerceProductByProduc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PutCommerceRatesEntriesByProductByMeter
-
-> PutCommerceRatesEntriesByProductByMeter(ctx, product, meter).Execute()
-
-Edit a rate, and mark it as operator-set
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	product := "product_example" // string | 
-	meter := "meter_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CommerceAPI.PutCommerceRatesEntriesByProductByMeter(context.Background(), product, meter).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CommerceAPI.PutCommerceRatesEntriesByProductByMeter``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**product** | **string** |  | 
-**meter** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPutCommerceRatesEntriesByProductByMeterRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type
@@ -11909,7 +10967,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

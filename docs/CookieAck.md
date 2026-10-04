@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Result** | Pointer to **bool** | Result is true when the cookie was written or cleared. | [optional] 
+**Result** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 

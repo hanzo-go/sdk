@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yInstallIntegrationRequest{}
 
 // O11yInstallIntegrationRequest struct for O11yInstallIntegrationRequest
 type O11yInstallIntegrationRequest struct {
-	Config        map[string]map[string]interface{} `json:"config,omitempty"`
-	IntegrationId *string                           `json:"integration_id,omitempty"`
+	Config               map[string]interface{} `json:"config,omitempty"`
+	IntegrationId        *string                `json:"integration_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yInstallIntegrationRequest O11yInstallIntegrationRequest
 
 // NewO11yInstallIntegrationRequest instantiates a new O11yInstallIntegrationRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -41,9 +44,9 @@ func NewO11yInstallIntegrationRequestWithDefaults() *O11yInstallIntegrationReque
 }
 
 // GetConfig returns the Config field value if set, zero value otherwise.
-func (o *O11yInstallIntegrationRequest) GetConfig() map[string]map[string]interface{} {
+func (o *O11yInstallIntegrationRequest) GetConfig() map[string]interface{} {
 	if o == nil || IsNil(o.Config) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Config
@@ -51,9 +54,9 @@ func (o *O11yInstallIntegrationRequest) GetConfig() map[string]map[string]interf
 
 // GetConfigOk returns a tuple with the Config field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yInstallIntegrationRequest) GetConfigOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yInstallIntegrationRequest) GetConfigOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Config) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Config, true
 }
@@ -67,8 +70,8 @@ func (o *O11yInstallIntegrationRequest) HasConfig() bool {
 	return false
 }
 
-// SetConfig gets a reference to the given map[string]map[string]interface{} and assigns it to the Config field.
-func (o *O11yInstallIntegrationRequest) SetConfig(v map[string]map[string]interface{}) {
+// SetConfig gets a reference to the given map[string]interface{} and assigns it to the Config field.
+func (o *O11yInstallIntegrationRequest) SetConfig(v map[string]interface{}) {
 	o.Config = v
 }
 
@@ -120,7 +123,34 @@ func (o O11yInstallIntegrationRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IntegrationId) {
 		toSerialize["integration_id"] = o.IntegrationId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yInstallIntegrationRequest) UnmarshalJSON(data []byte) (err error) {
+	varO11yInstallIntegrationRequest := _O11yInstallIntegrationRequest{}
+
+	err = json.Unmarshal(data, &varO11yInstallIntegrationRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yInstallIntegrationRequest(varO11yInstallIntegrationRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "integration_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yInstallIntegrationRequest struct {

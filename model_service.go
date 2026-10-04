@@ -19,16 +19,19 @@ var _ MappedNullable = &Service{}
 
 // Service struct for Service
 type Service struct {
-	ExpectedStatus *string `json:"expectedStatus,omitempty"`
-	Message        *string `json:"message,omitempty"`
-	Name           *string `json:"name,omitempty"`
-	No             *int32  `json:"no,omitempty"`
-	Path           *string `json:"path,omitempty"`
-	Port           *int32  `json:"port,omitempty"`
-	ProcessId      *int32  `json:"processId,omitempty"`
-	Status         *string `json:"status,omitempty"`
-	SubStatus      *string `json:"subStatus,omitempty"`
+	ExpectedStatus       *string `json:"expectedStatus,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	No                   *int32  `json:"no,omitempty"`
+	Path                 *string `json:"path,omitempty"`
+	Port                 *int32  `json:"port,omitempty"`
+	ProcessId            *int32  `json:"processId,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	SubStatus            *string `json:"subStatus,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Service Service
 
 // NewService instantiates a new Service object
 // This constructor will assign default values to properties that have it defined,
@@ -372,7 +375,41 @@ func (o Service) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SubStatus) {
 		toSerialize["subStatus"] = o.SubStatus
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Service) UnmarshalJSON(data []byte) (err error) {
+	varService := _Service{}
+
+	err = json.Unmarshal(data, &varService)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Service(varService)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "expectedStatus")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "no")
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "port")
+		delete(additionalProperties, "processId")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "subStatus")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableService struct {

@@ -22,9 +22,12 @@ type O11yAzureTelemetryCollectionStrategy struct {
 	Logs    *O11yAzureLogsCollectionStrategy `json:"logs,omitempty"`
 	Metrics map[string]interface{}           `json:"metrics,omitempty"`
 	// https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types
-	ResourceProvider *string `json:"resourceProvider,omitempty"`
-	ResourceType     *string `json:"resourceType,omitempty"`
+	ResourceProvider     *string `json:"resourceProvider,omitempty"`
+	ResourceType         *string `json:"resourceType,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAzureTelemetryCollectionStrategy O11yAzureTelemetryCollectionStrategy
 
 // NewO11yAzureTelemetryCollectionStrategy instantiates a new O11yAzureTelemetryCollectionStrategy object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o O11yAzureTelemetryCollectionStrategy) ToMap() (map[string]interface{}, e
 	if !IsNil(o.ResourceType) {
 		toSerialize["resourceType"] = o.ResourceType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAzureTelemetryCollectionStrategy) UnmarshalJSON(data []byte) (err error) {
+	varO11yAzureTelemetryCollectionStrategy := _O11yAzureTelemetryCollectionStrategy{}
+
+	err = json.Unmarshal(data, &varO11yAzureTelemetryCollectionStrategy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAzureTelemetryCollectionStrategy(varO11yAzureTelemetryCollectionStrategy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "logs")
+		delete(additionalProperties, "metrics")
+		delete(additionalProperties, "resourceProvider")
+		delete(additionalProperties, "resourceType")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAzureTelemetryCollectionStrategy struct {

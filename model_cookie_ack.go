@@ -19,9 +19,11 @@ var _ MappedNullable = &CookieAck{}
 
 // CookieAck struct for CookieAck
 type CookieAck struct {
-	// Result is true when the cookie was written or cleared.
-	Result *bool `json:"result,omitempty"`
+	Result               *bool `json:"result,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CookieAck CookieAck
 
 // NewCookieAck instantiates a new CookieAck object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +87,33 @@ func (o CookieAck) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Result) {
 		toSerialize["result"] = o.Result
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CookieAck) UnmarshalJSON(data []byte) (err error) {
+	varCookieAck := _CookieAck{}
+
+	err = json.Unmarshal(data, &varCookieAck)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CookieAck(varCookieAck)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "result")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCookieAck struct {

@@ -20,20 +20,23 @@ var _ MappedNullable = &O11yO11ySavedViewUpdateIn{}
 
 // O11yO11ySavedViewUpdateIn struct for O11yO11ySavedViewUpdateIn
 type O11yO11ySavedViewUpdateIn struct {
-	Category       *string             `json:"category,omitempty"`
-	CompositeQuery *O11yCompositeQuery `json:"compositeQuery,omitempty"`
-	CreatedAt      *time.Time          `json:"createdAt,omitempty"`
-	CreatedBy      *string             `json:"createdBy,omitempty"`
-	ExtraData      *string             `json:"extraData,omitempty"`
-	Id             interface{}         `json:"id,omitempty"`
-	Name           *string             `json:"name,omitempty"`
-	SourcePage     *string             `json:"sourcePage,omitempty"`
-	Tags           []string            `json:"tags,omitempty"`
-	UpdatedAt      *time.Time          `json:"updatedAt,omitempty"`
-	UpdatedBy      *string             `json:"updatedBy,omitempty"`
+	Category       *string               `json:"category,omitempty"`
+	CompositeQuery *O11yV3CompositeQuery `json:"compositeQuery,omitempty"`
+	CreatedAt      *time.Time            `json:"createdAt,omitempty"`
+	CreatedBy      *string               `json:"createdBy,omitempty"`
+	ExtraData      *string               `json:"extraData,omitempty"`
+	Id             interface{}           `json:"id,omitempty"`
+	Name           *string               `json:"name,omitempty"`
+	SourcePage     *string               `json:"sourcePage,omitempty"`
+	Tags           []string              `json:"tags,omitempty"`
+	UpdatedAt      *time.Time            `json:"updatedAt,omitempty"`
+	UpdatedBy      *string               `json:"updatedBy,omitempty"`
 	// ViewID is the id of the view to replace, taken from the URL.
-	ViewId *string `json:"viewId,omitempty"`
+	ViewId               *string `json:"viewId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11ySavedViewUpdateIn O11yO11ySavedViewUpdateIn
 
 // NewO11yO11ySavedViewUpdateIn instantiates a new O11yO11ySavedViewUpdateIn object
 // This constructor will assign default values to properties that have it defined,
@@ -85,9 +88,9 @@ func (o *O11yO11ySavedViewUpdateIn) SetCategory(v string) {
 }
 
 // GetCompositeQuery returns the CompositeQuery field value if set, zero value otherwise.
-func (o *O11yO11ySavedViewUpdateIn) GetCompositeQuery() O11yCompositeQuery {
+func (o *O11yO11ySavedViewUpdateIn) GetCompositeQuery() O11yV3CompositeQuery {
 	if o == nil || IsNil(o.CompositeQuery) {
-		var ret O11yCompositeQuery
+		var ret O11yV3CompositeQuery
 		return ret
 	}
 	return *o.CompositeQuery
@@ -95,7 +98,7 @@ func (o *O11yO11ySavedViewUpdateIn) GetCompositeQuery() O11yCompositeQuery {
 
 // GetCompositeQueryOk returns a tuple with the CompositeQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11ySavedViewUpdateIn) GetCompositeQueryOk() (*O11yCompositeQuery, bool) {
+func (o *O11yO11ySavedViewUpdateIn) GetCompositeQueryOk() (*O11yV3CompositeQuery, bool) {
 	if o == nil || IsNil(o.CompositeQuery) {
 		return nil, false
 	}
@@ -111,8 +114,8 @@ func (o *O11yO11ySavedViewUpdateIn) HasCompositeQuery() bool {
 	return false
 }
 
-// SetCompositeQuery gets a reference to the given O11yCompositeQuery and assigns it to the CompositeQuery field.
-func (o *O11yO11ySavedViewUpdateIn) SetCompositeQuery(v O11yCompositeQuery) {
+// SetCompositeQuery gets a reference to the given O11yV3CompositeQuery and assigns it to the CompositeQuery field.
+func (o *O11yO11ySavedViewUpdateIn) SetCompositeQuery(v O11yV3CompositeQuery) {
 	o.CompositeQuery = &v
 }
 
@@ -483,7 +486,44 @@ func (o O11yO11ySavedViewUpdateIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ViewId) {
 		toSerialize["viewId"] = o.ViewId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11ySavedViewUpdateIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11ySavedViewUpdateIn := _O11yO11ySavedViewUpdateIn{}
+
+	err = json.Unmarshal(data, &varO11yO11ySavedViewUpdateIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11ySavedViewUpdateIn(varO11yO11ySavedViewUpdateIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "compositeQuery")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "extraData")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "sourcePage")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedBy")
+		delete(additionalProperties, "viewId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11ySavedViewUpdateIn struct {

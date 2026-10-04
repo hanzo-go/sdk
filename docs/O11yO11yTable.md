@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Columns** | Pointer to **[]string** | Columns names each position in a row. | [optional] 
-**Rows** | Pointer to **[][]map[string]interface{}** | Rows are the result rows, each as long as Columns. | [optional] 
+**Rows** | Pointer to **[][]interface{}** | Rows are the result rows, each as long as Columns. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasColumns returns a boolean if a field has been set.
 
 ### GetRows
 
-`func (o *O11yO11yTable) GetRows() [][]map[string]interface{}`
+`func (o *O11yO11yTable) GetRows() [][]interface{}`
 
 GetRows returns the Rows field if non-nil, zero value otherwise.
 
 ### GetRowsOk
 
-`func (o *O11yO11yTable) GetRowsOk() (*[][]map[string]interface{}, bool)`
+`func (o *O11yO11yTable) GetRowsOk() (*[][]interface{}, bool)`
 
 GetRowsOk returns a tuple with the Rows field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRows
 
-`func (o *O11yO11yTable) SetRows(v [][]map[string]interface{})`
+`func (o *O11yO11yTable) SetRows(v [][]interface{})`
 
 SetRows sets Rows field to given value.
 

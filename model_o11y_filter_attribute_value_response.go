@@ -20,10 +20,13 @@ var _ MappedNullable = &O11yFilterAttributeValueResponse{}
 // O11yFilterAttributeValueResponse struct for O11yFilterAttributeValueResponse
 type O11yFilterAttributeValueResponse struct {
 	BoolAttributeValues   []bool                            `json:"boolAttributeValues,omitempty"`
-	NumberAttributeValues []map[string]interface{}          `json:"numberAttributeValues,omitempty"`
+	NumberAttributeValues []interface{}                     `json:"numberAttributeValues,omitempty"`
 	RelatedValues         *O11yFilterAttributeValueResponse `json:"relatedValues,omitempty"`
 	StringAttributeValues []string                          `json:"stringAttributeValues,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
+
+type _O11yFilterAttributeValueResponse O11yFilterAttributeValueResponse
 
 // NewO11yFilterAttributeValueResponse instantiates a new O11yFilterAttributeValueResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -75,9 +78,9 @@ func (o *O11yFilterAttributeValueResponse) SetBoolAttributeValues(v []bool) {
 }
 
 // GetNumberAttributeValues returns the NumberAttributeValues field value if set, zero value otherwise.
-func (o *O11yFilterAttributeValueResponse) GetNumberAttributeValues() []map[string]interface{} {
+func (o *O11yFilterAttributeValueResponse) GetNumberAttributeValues() []interface{} {
 	if o == nil || IsNil(o.NumberAttributeValues) {
-		var ret []map[string]interface{}
+		var ret []interface{}
 		return ret
 	}
 	return o.NumberAttributeValues
@@ -85,7 +88,7 @@ func (o *O11yFilterAttributeValueResponse) GetNumberAttributeValues() []map[stri
 
 // GetNumberAttributeValuesOk returns a tuple with the NumberAttributeValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yFilterAttributeValueResponse) GetNumberAttributeValuesOk() ([]map[string]interface{}, bool) {
+func (o *O11yFilterAttributeValueResponse) GetNumberAttributeValuesOk() ([]interface{}, bool) {
 	if o == nil || IsNil(o.NumberAttributeValues) {
 		return nil, false
 	}
@@ -101,8 +104,8 @@ func (o *O11yFilterAttributeValueResponse) HasNumberAttributeValues() bool {
 	return false
 }
 
-// SetNumberAttributeValues gets a reference to the given []map[string]interface{} and assigns it to the NumberAttributeValues field.
-func (o *O11yFilterAttributeValueResponse) SetNumberAttributeValues(v []map[string]interface{}) {
+// SetNumberAttributeValues gets a reference to the given []interface{} and assigns it to the NumberAttributeValues field.
+func (o *O11yFilterAttributeValueResponse) SetNumberAttributeValues(v []interface{}) {
 	o.NumberAttributeValues = v
 }
 
@@ -192,7 +195,36 @@ func (o O11yFilterAttributeValueResponse) ToMap() (map[string]interface{}, error
 	if !IsNil(o.StringAttributeValues) {
 		toSerialize["stringAttributeValues"] = o.StringAttributeValues
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yFilterAttributeValueResponse) UnmarshalJSON(data []byte) (err error) {
+	varO11yFilterAttributeValueResponse := _O11yFilterAttributeValueResponse{}
+
+	err = json.Unmarshal(data, &varO11yFilterAttributeValueResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yFilterAttributeValueResponse(varO11yFilterAttributeValueResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "boolAttributeValues")
+		delete(additionalProperties, "numberAttributeValues")
+		delete(additionalProperties, "relatedValues")
+		delete(additionalProperties, "stringAttributeValues")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yFilterAttributeValueResponse struct {

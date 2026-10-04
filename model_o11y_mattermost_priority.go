@@ -22,7 +22,10 @@ type O11yMattermostPriority struct {
 	PersistentNotifications *bool   `json:"persistent_notifications,omitempty"`
 	Priority                *string `json:"priority,omitempty"`
 	RequestedAck            *bool   `json:"requested_ack,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
+
+type _O11yMattermostPriority O11yMattermostPriority
 
 // NewO11yMattermostPriority instantiates a new O11yMattermostPriority object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yMattermostPriority) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RequestedAck) {
 		toSerialize["requested_ack"] = o.RequestedAck
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yMattermostPriority) UnmarshalJSON(data []byte) (err error) {
+	varO11yMattermostPriority := _O11yMattermostPriority{}
+
+	err = json.Unmarshal(data, &varO11yMattermostPriority)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yMattermostPriority(varO11yMattermostPriority)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "persistent_notifications")
+		delete(additionalProperties, "priority")
+		delete(additionalProperties, "requested_ack")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yMattermostPriority struct {

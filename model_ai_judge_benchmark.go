@@ -19,11 +19,14 @@ var _ MappedNullable = &AiJudgeBenchmark{}
 
 // AiJudgeBenchmark struct for AiJudgeBenchmark
 type AiJudgeBenchmark struct {
-	Mfjp            *float32 `json:"mfjp,omitempty"`
-	NaiveMean       *float32 `json:"naiveMean,omitempty"`
-	SingleAdversary *float32 `json:"singleAdversary,omitempty"`
-	SingleNoisy     *float32 `json:"singleNoisy,omitempty"`
+	Mfjp                 *float32 `json:"mfjp,omitempty"`
+	NaiveMean            *float32 `json:"naiveMean,omitempty"`
+	SingleAdversary      *float32 `json:"singleAdversary,omitempty"`
+	SingleNoisy          *float32 `json:"singleNoisy,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiJudgeBenchmark AiJudgeBenchmark
 
 // NewAiJudgeBenchmark instantiates a new AiJudgeBenchmark object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o AiJudgeBenchmark) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SingleNoisy) {
 		toSerialize["singleNoisy"] = o.SingleNoisy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiJudgeBenchmark) UnmarshalJSON(data []byte) (err error) {
+	varAiJudgeBenchmark := _AiJudgeBenchmark{}
+
+	err = json.Unmarshal(data, &varAiJudgeBenchmark)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiJudgeBenchmark(varAiJudgeBenchmark)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "mfjp")
+		delete(additionalProperties, "naiveMean")
+		delete(additionalProperties, "singleAdversary")
+		delete(additionalProperties, "singleNoisy")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiJudgeBenchmark struct {

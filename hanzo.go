@@ -15,7 +15,7 @@
 // a package with a generated one of the same name.
 //
 // The whole generated surface is still here: Client embeds *APIClient, so
-// client.AgentsAPI and the other 2400 operations are reached off the same value
+// client.AgentAPI and the other 2449 operations are reached off the same value
 // under the same credential.
 package hanzoai
 

@@ -19,10 +19,13 @@ var _ MappedNullable = &TrafficGlobe{}
 
 // TrafficGlobe struct for TrafficGlobe
 type TrafficGlobe struct {
-	Points []TrafficPoint `json:"points,omitempty"`
-	Totals *TrafficTotals `json:"totals,omitempty"`
-	Window *TrafficWindow `json:"window,omitempty"`
+	Points               []TrafficPoint `json:"points,omitempty"`
+	Totals               *TrafficTotals `json:"totals,omitempty"`
+	Window               *TrafficWindow `json:"window,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TrafficGlobe TrafficGlobe
 
 // NewTrafficGlobe instantiates a new TrafficGlobe object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o TrafficGlobe) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Window) {
 		toSerialize["window"] = o.Window
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TrafficGlobe) UnmarshalJSON(data []byte) (err error) {
+	varTrafficGlobe := _TrafficGlobe{}
+
+	err = json.Unmarshal(data, &varTrafficGlobe)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TrafficGlobe(varTrafficGlobe)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "points")
+		delete(additionalProperties, "totals")
+		delete(additionalProperties, "window")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTrafficGlobe struct {

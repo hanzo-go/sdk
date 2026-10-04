@@ -19,11 +19,14 @@ var _ MappedNullable = &O11yGettableHost{}
 
 // O11yGettableHost struct for O11yGettableHost
 type O11yGettableHost struct {
-	Hosts []O11yHost `json:"hosts,omitempty"`
-	Name  *string    `json:"name,omitempty"`
-	State *string    `json:"state,omitempty"`
-	Tier  *string    `json:"tier,omitempty"`
+	Hosts                []O11yHost `json:"hosts,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	State                *string    `json:"state,omitempty"`
+	Tier                 *string    `json:"tier,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableHost O11yGettableHost
 
 // NewO11yGettableHost instantiates a new O11yGettableHost object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11yGettableHost) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tier) {
 		toSerialize["tier"] = o.Tier
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableHost) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableHost := _O11yGettableHost{}
+
+	err = json.Unmarshal(data, &varO11yGettableHost)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableHost(varO11yGettableHost)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "hosts")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "tier")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableHost struct {

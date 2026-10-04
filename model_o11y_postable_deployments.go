@@ -19,14 +19,17 @@ var _ MappedNullable = &O11yPostableDeployments{}
 
 // O11yPostableDeployments struct for O11yPostableDeployments
 type O11yPostableDeployments struct {
-	End     *int64                          `json:"end,omitempty"`
-	Filter  *O11yFilter                     `json:"filter,omitempty"`
-	GroupBy []O11yGroupByKey                `json:"groupBy,omitempty"`
-	Limit   *int64                          `json:"limit,omitempty"`
-	Offset  *int64                          `json:"offset,omitempty"`
-	OrderBy *O11yQuerybuildertypesv5OrderBy `json:"orderBy,omitempty"`
-	Start   *int64                          `json:"start,omitempty"`
+	End                  *int64                          `json:"end,omitempty"`
+	Filter               *O11yFilter                     `json:"filter,omitempty"`
+	GroupBy              []O11yGroupByKey                `json:"groupBy,omitempty"`
+	Limit                *int64                          `json:"limit,omitempty"`
+	Offset               *int64                          `json:"offset,omitempty"`
+	OrderBy              *O11yQuerybuildertypesv5OrderBy `json:"orderBy,omitempty"`
+	Start                *int64                          `json:"start,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPostableDeployments O11yPostableDeployments
 
 // NewO11yPostableDeployments instantiates a new O11yPostableDeployments object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o O11yPostableDeployments) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Start) {
 		toSerialize["start"] = o.Start
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPostableDeployments) UnmarshalJSON(data []byte) (err error) {
+	varO11yPostableDeployments := _O11yPostableDeployments{}
+
+	err = json.Unmarshal(data, &varO11yPostableDeployments)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPostableDeployments(varO11yPostableDeployments)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "orderBy")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPostableDeployments struct {

@@ -19,15 +19,18 @@ var _ MappedNullable = &OpenaiChatCompletionResponse{}
 
 // OpenaiChatCompletionResponse struct for OpenaiChatCompletionResponse
 type OpenaiChatCompletionResponse struct {
-	Choices             []OpenaiChatCompletionChoice `json:"choices,omitempty"`
-	Created             *int32                       `json:"created,omitempty"`
-	Id                  *string                      `json:"id,omitempty"`
-	Model               *string                      `json:"model,omitempty"`
-	Object              *string                      `json:"object,omitempty"`
-	PromptFilterResults []OpenaiPromptFilterResult   `json:"prompt_filter_results,omitempty"`
-	SystemFingerprint   *string                      `json:"system_fingerprint,omitempty"`
-	Usage               *OpenaiUsage                 `json:"usage,omitempty"`
+	Choices              []OpenaiChatCompletionChoice `json:"choices,omitempty"`
+	Created              *int32                       `json:"created,omitempty"`
+	Id                   *string                      `json:"id,omitempty"`
+	Model                *string                      `json:"model,omitempty"`
+	Object               *string                      `json:"object,omitempty"`
+	PromptFilterResults  []OpenaiPromptFilterResult   `json:"prompt_filter_results,omitempty"`
+	SystemFingerprint    *string                      `json:"system_fingerprint,omitempty"`
+	Usage                *OpenaiUsage                 `json:"usage,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiChatCompletionResponse OpenaiChatCompletionResponse
 
 // NewOpenaiChatCompletionResponse instantiates a new OpenaiChatCompletionResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o OpenaiChatCompletionResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Usage) {
 		toSerialize["usage"] = o.Usage
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiChatCompletionResponse) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiChatCompletionResponse := _OpenaiChatCompletionResponse{}
+
+	err = json.Unmarshal(data, &varOpenaiChatCompletionResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiChatCompletionResponse(varOpenaiChatCompletionResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "choices")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "object")
+		delete(additionalProperties, "prompt_filter_results")
+		delete(additionalProperties, "system_fingerprint")
+		delete(additionalProperties, "usage")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiChatCompletionResponse struct {

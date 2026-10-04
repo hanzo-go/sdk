@@ -20,19 +20,22 @@ var _ MappedNullable = &O11ySavedView{}
 
 // O11ySavedView struct for O11ySavedView
 type O11ySavedView struct {
-	Category       *string             `json:"category,omitempty"`
-	CompositeQuery *O11yCompositeQuery `json:"compositeQuery,omitempty"`
-	CreatedAt      *time.Time          `json:"createdAt,omitempty"`
-	CreatedBy      *string             `json:"createdBy,omitempty"`
+	Category       *string               `json:"category,omitempty"`
+	CompositeQuery *O11yV3CompositeQuery `json:"compositeQuery,omitempty"`
+	CreatedAt      *time.Time            `json:"createdAt,omitempty"`
+	CreatedBy      *string               `json:"createdBy,omitempty"`
 	// ExtraData is JSON encoded data used by frontend to store additional data
-	ExtraData  *string     `json:"extraData,omitempty"`
-	Id         interface{} `json:"id,omitempty"`
-	Name       *string     `json:"name,omitempty"`
-	SourcePage *string     `json:"sourcePage,omitempty"`
-	Tags       []string    `json:"tags,omitempty"`
-	UpdatedAt  *time.Time  `json:"updatedAt,omitempty"`
-	UpdatedBy  *string     `json:"updatedBy,omitempty"`
+	ExtraData            *string     `json:"extraData,omitempty"`
+	Id                   interface{} `json:"id,omitempty"`
+	Name                 *string     `json:"name,omitempty"`
+	SourcePage           *string     `json:"sourcePage,omitempty"`
+	Tags                 []string    `json:"tags,omitempty"`
+	UpdatedAt            *time.Time  `json:"updatedAt,omitempty"`
+	UpdatedBy            *string     `json:"updatedBy,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySavedView O11ySavedView
 
 // NewO11ySavedView instantiates a new O11ySavedView object
 // This constructor will assign default values to properties that have it defined,
@@ -84,9 +87,9 @@ func (o *O11ySavedView) SetCategory(v string) {
 }
 
 // GetCompositeQuery returns the CompositeQuery field value if set, zero value otherwise.
-func (o *O11ySavedView) GetCompositeQuery() O11yCompositeQuery {
+func (o *O11ySavedView) GetCompositeQuery() O11yV3CompositeQuery {
 	if o == nil || IsNil(o.CompositeQuery) {
-		var ret O11yCompositeQuery
+		var ret O11yV3CompositeQuery
 		return ret
 	}
 	return *o.CompositeQuery
@@ -94,7 +97,7 @@ func (o *O11ySavedView) GetCompositeQuery() O11yCompositeQuery {
 
 // GetCompositeQueryOk returns a tuple with the CompositeQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11ySavedView) GetCompositeQueryOk() (*O11yCompositeQuery, bool) {
+func (o *O11ySavedView) GetCompositeQueryOk() (*O11yV3CompositeQuery, bool) {
 	if o == nil || IsNil(o.CompositeQuery) {
 		return nil, false
 	}
@@ -110,8 +113,8 @@ func (o *O11ySavedView) HasCompositeQuery() bool {
 	return false
 }
 
-// SetCompositeQuery gets a reference to the given O11yCompositeQuery and assigns it to the CompositeQuery field.
-func (o *O11ySavedView) SetCompositeQuery(v O11yCompositeQuery) {
+// SetCompositeQuery gets a reference to the given O11yV3CompositeQuery and assigns it to the CompositeQuery field.
+func (o *O11ySavedView) SetCompositeQuery(v O11yV3CompositeQuery) {
 	o.CompositeQuery = &v
 }
 
@@ -447,7 +450,43 @@ func (o O11ySavedView) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedBy) {
 		toSerialize["updatedBy"] = o.UpdatedBy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySavedView) UnmarshalJSON(data []byte) (err error) {
+	varO11ySavedView := _O11ySavedView{}
+
+	err = json.Unmarshal(data, &varO11ySavedView)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySavedView(varO11ySavedView)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "compositeQuery")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "extraData")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "sourcePage")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedBy")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySavedView struct {

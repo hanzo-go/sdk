@@ -19,9 +19,12 @@ var _ MappedNullable = &ForgeJobRepository{}
 
 // ForgeJobRepository struct for ForgeJobRepository
 type ForgeJobRepository struct {
-	Name  *string                  `json:"name,omitempty"`
-	Owner *ForgeJobRepositoryOwner `json:"owner,omitempty"`
+	Name                 *string                  `json:"name,omitempty"`
+	Owner                *ForgeJobRepositoryOwner `json:"owner,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ForgeJobRepository ForgeJobRepository
 
 // NewForgeJobRepository instantiates a new ForgeJobRepository object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o ForgeJobRepository) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ForgeJobRepository) UnmarshalJSON(data []byte) (err error) {
+	varForgeJobRepository := _ForgeJobRepository{}
+
+	err = json.Unmarshal(data, &varForgeJobRepository)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ForgeJobRepository(varForgeJobRepository)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableForgeJobRepository struct {

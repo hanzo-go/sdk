@@ -19,21 +19,21 @@ var _ MappedNullable = &IamInput{}
 
 // IamInput struct for IamInput
 type IamInput struct {
-	Action       *string `json:"action,omitempty"`
-	ClientIp     *string `json:"clientIp,omitempty"`
-	CreatedTime  *string `json:"createdTime,omitempty"`
-	IsTriggered  *bool   `json:"isTriggered,omitempty"`
-	Language     *string `json:"language,omitempty"`
-	Method       *string `json:"method,omitempty"`
-	Name         *string `json:"name,omitempty"`
-	Object       *string `json:"object,omitempty"`
-	Organization *string `json:"organization,omitempty"`
-	Owner        *string `json:"owner,omitempty"`
-	RequestUri   *string `json:"requestUri,omitempty"`
-	Response     *string `json:"response,omitempty"`
-	StatusCode   *int64  `json:"statusCode,omitempty"`
-	User         *string `json:"user,omitempty"`
+	CreatedTime *string  `json:"createdTime,omitempty"`
+	Description *string  `json:"description,omitempty"`
+	DisplayName *string  `json:"displayName,omitempty"`
+	Domains     []string `json:"domains,omitempty"`
+	IsEnabled   *bool    `json:"isEnabled,omitempty"`
+	// Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL.
+	Name                 *string  `json:"name,omitempty"`
+	Owner                *string  `json:"owner,omitempty"`
+	Roles                []string `json:"roles,omitempty"`
+	Teams                []string `json:"teams,omitempty"`
+	Users                []string `json:"users,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamInput IamInput
 
 // NewIamInput instantiates a new IamInput object
 // This constructor will assign default values to properties that have it defined,
@@ -50,70 +50,6 @@ func NewIamInput() *IamInput {
 func NewIamInputWithDefaults() *IamInput {
 	this := IamInput{}
 	return &this
-}
-
-// GetAction returns the Action field value if set, zero value otherwise.
-func (o *IamInput) GetAction() string {
-	if o == nil || IsNil(o.Action) {
-		var ret string
-		return ret
-	}
-	return *o.Action
-}
-
-// GetActionOk returns a tuple with the Action field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamInput) GetActionOk() (*string, bool) {
-	if o == nil || IsNil(o.Action) {
-		return nil, false
-	}
-	return o.Action, true
-}
-
-// HasAction returns a boolean if a field has been set.
-func (o *IamInput) HasAction() bool {
-	if o != nil && !IsNil(o.Action) {
-		return true
-	}
-
-	return false
-}
-
-// SetAction gets a reference to the given string and assigns it to the Action field.
-func (o *IamInput) SetAction(v string) {
-	o.Action = &v
-}
-
-// GetClientIp returns the ClientIp field value if set, zero value otherwise.
-func (o *IamInput) GetClientIp() string {
-	if o == nil || IsNil(o.ClientIp) {
-		var ret string
-		return ret
-	}
-	return *o.ClientIp
-}
-
-// GetClientIpOk returns a tuple with the ClientIp field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamInput) GetClientIpOk() (*string, bool) {
-	if o == nil || IsNil(o.ClientIp) {
-		return nil, false
-	}
-	return o.ClientIp, true
-}
-
-// HasClientIp returns a boolean if a field has been set.
-func (o *IamInput) HasClientIp() bool {
-	if o != nil && !IsNil(o.ClientIp) {
-		return true
-	}
-
-	return false
-}
-
-// SetClientIp gets a reference to the given string and assigns it to the ClientIp field.
-func (o *IamInput) SetClientIp(v string) {
-	o.ClientIp = &v
 }
 
 // GetCreatedTime returns the CreatedTime field value if set, zero value otherwise.
@@ -148,100 +84,132 @@ func (o *IamInput) SetCreatedTime(v string) {
 	o.CreatedTime = &v
 }
 
-// GetIsTriggered returns the IsTriggered field value if set, zero value otherwise.
-func (o *IamInput) GetIsTriggered() bool {
-	if o == nil || IsNil(o.IsTriggered) {
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *IamInput) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamInput) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *IamInput) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *IamInput) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+func (o *IamInput) GetDisplayName() string {
+	if o == nil || IsNil(o.DisplayName) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayName
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamInput) GetDisplayNameOk() (*string, bool) {
+	if o == nil || IsNil(o.DisplayName) {
+		return nil, false
+	}
+	return o.DisplayName, true
+}
+
+// HasDisplayName returns a boolean if a field has been set.
+func (o *IamInput) HasDisplayName() bool {
+	if o != nil && !IsNil(o.DisplayName) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+func (o *IamInput) SetDisplayName(v string) {
+	o.DisplayName = &v
+}
+
+// GetDomains returns the Domains field value if set, zero value otherwise.
+func (o *IamInput) GetDomains() []string {
+	if o == nil || IsNil(o.Domains) {
+		var ret []string
+		return ret
+	}
+	return o.Domains
+}
+
+// GetDomainsOk returns a tuple with the Domains field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamInput) GetDomainsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Domains) {
+		return nil, false
+	}
+	return o.Domains, true
+}
+
+// HasDomains returns a boolean if a field has been set.
+func (o *IamInput) HasDomains() bool {
+	if o != nil && !IsNil(o.Domains) {
+		return true
+	}
+
+	return false
+}
+
+// SetDomains gets a reference to the given []string and assigns it to the Domains field.
+func (o *IamInput) SetDomains(v []string) {
+	o.Domains = v
+}
+
+// GetIsEnabled returns the IsEnabled field value if set, zero value otherwise.
+func (o *IamInput) GetIsEnabled() bool {
+	if o == nil || IsNil(o.IsEnabled) {
 		var ret bool
 		return ret
 	}
-	return *o.IsTriggered
+	return *o.IsEnabled
 }
 
-// GetIsTriggeredOk returns a tuple with the IsTriggered field value if set, nil otherwise
+// GetIsEnabledOk returns a tuple with the IsEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamInput) GetIsTriggeredOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsTriggered) {
+func (o *IamInput) GetIsEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsEnabled) {
 		return nil, false
 	}
-	return o.IsTriggered, true
+	return o.IsEnabled, true
 }
 
-// HasIsTriggered returns a boolean if a field has been set.
-func (o *IamInput) HasIsTriggered() bool {
-	if o != nil && !IsNil(o.IsTriggered) {
+// HasIsEnabled returns a boolean if a field has been set.
+func (o *IamInput) HasIsEnabled() bool {
+	if o != nil && !IsNil(o.IsEnabled) {
 		return true
 	}
 
 	return false
 }
 
-// SetIsTriggered gets a reference to the given bool and assigns it to the IsTriggered field.
-func (o *IamInput) SetIsTriggered(v bool) {
-	o.IsTriggered = &v
-}
-
-// GetLanguage returns the Language field value if set, zero value otherwise.
-func (o *IamInput) GetLanguage() string {
-	if o == nil || IsNil(o.Language) {
-		var ret string
-		return ret
-	}
-	return *o.Language
-}
-
-// GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamInput) GetLanguageOk() (*string, bool) {
-	if o == nil || IsNil(o.Language) {
-		return nil, false
-	}
-	return o.Language, true
-}
-
-// HasLanguage returns a boolean if a field has been set.
-func (o *IamInput) HasLanguage() bool {
-	if o != nil && !IsNil(o.Language) {
-		return true
-	}
-
-	return false
-}
-
-// SetLanguage gets a reference to the given string and assigns it to the Language field.
-func (o *IamInput) SetLanguage(v string) {
-	o.Language = &v
-}
-
-// GetMethod returns the Method field value if set, zero value otherwise.
-func (o *IamInput) GetMethod() string {
-	if o == nil || IsNil(o.Method) {
-		var ret string
-		return ret
-	}
-	return *o.Method
-}
-
-// GetMethodOk returns a tuple with the Method field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamInput) GetMethodOk() (*string, bool) {
-	if o == nil || IsNil(o.Method) {
-		return nil, false
-	}
-	return o.Method, true
-}
-
-// HasMethod returns a boolean if a field has been set.
-func (o *IamInput) HasMethod() bool {
-	if o != nil && !IsNil(o.Method) {
-		return true
-	}
-
-	return false
-}
-
-// SetMethod gets a reference to the given string and assigns it to the Method field.
-func (o *IamInput) SetMethod(v string) {
-	o.Method = &v
+// SetIsEnabled gets a reference to the given bool and assigns it to the IsEnabled field.
+func (o *IamInput) SetIsEnabled(v bool) {
+	o.IsEnabled = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -276,70 +244,6 @@ func (o *IamInput) SetName(v string) {
 	o.Name = &v
 }
 
-// GetObject returns the Object field value if set, zero value otherwise.
-func (o *IamInput) GetObject() string {
-	if o == nil || IsNil(o.Object) {
-		var ret string
-		return ret
-	}
-	return *o.Object
-}
-
-// GetObjectOk returns a tuple with the Object field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamInput) GetObjectOk() (*string, bool) {
-	if o == nil || IsNil(o.Object) {
-		return nil, false
-	}
-	return o.Object, true
-}
-
-// HasObject returns a boolean if a field has been set.
-func (o *IamInput) HasObject() bool {
-	if o != nil && !IsNil(o.Object) {
-		return true
-	}
-
-	return false
-}
-
-// SetObject gets a reference to the given string and assigns it to the Object field.
-func (o *IamInput) SetObject(v string) {
-	o.Object = &v
-}
-
-// GetOrganization returns the Organization field value if set, zero value otherwise.
-func (o *IamInput) GetOrganization() string {
-	if o == nil || IsNil(o.Organization) {
-		var ret string
-		return ret
-	}
-	return *o.Organization
-}
-
-// GetOrganizationOk returns a tuple with the Organization field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamInput) GetOrganizationOk() (*string, bool) {
-	if o == nil || IsNil(o.Organization) {
-		return nil, false
-	}
-	return o.Organization, true
-}
-
-// HasOrganization returns a boolean if a field has been set.
-func (o *IamInput) HasOrganization() bool {
-	if o != nil && !IsNil(o.Organization) {
-		return true
-	}
-
-	return false
-}
-
-// SetOrganization gets a reference to the given string and assigns it to the Organization field.
-func (o *IamInput) SetOrganization(v string) {
-	o.Organization = &v
-}
-
 // GetOwner returns the Owner field value if set, zero value otherwise.
 func (o *IamInput) GetOwner() string {
 	if o == nil || IsNil(o.Owner) {
@@ -372,132 +276,100 @@ func (o *IamInput) SetOwner(v string) {
 	o.Owner = &v
 }
 
-// GetRequestUri returns the RequestUri field value if set, zero value otherwise.
-func (o *IamInput) GetRequestUri() string {
-	if o == nil || IsNil(o.RequestUri) {
-		var ret string
+// GetRoles returns the Roles field value if set, zero value otherwise.
+func (o *IamInput) GetRoles() []string {
+	if o == nil || IsNil(o.Roles) {
+		var ret []string
 		return ret
 	}
-	return *o.RequestUri
+	return o.Roles
 }
 
-// GetRequestUriOk returns a tuple with the RequestUri field value if set, nil otherwise
+// GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamInput) GetRequestUriOk() (*string, bool) {
-	if o == nil || IsNil(o.RequestUri) {
+func (o *IamInput) GetRolesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Roles) {
 		return nil, false
 	}
-	return o.RequestUri, true
+	return o.Roles, true
 }
 
-// HasRequestUri returns a boolean if a field has been set.
-func (o *IamInput) HasRequestUri() bool {
-	if o != nil && !IsNil(o.RequestUri) {
+// HasRoles returns a boolean if a field has been set.
+func (o *IamInput) HasRoles() bool {
+	if o != nil && !IsNil(o.Roles) {
 		return true
 	}
 
 	return false
 }
 
-// SetRequestUri gets a reference to the given string and assigns it to the RequestUri field.
-func (o *IamInput) SetRequestUri(v string) {
-	o.RequestUri = &v
+// SetRoles gets a reference to the given []string and assigns it to the Roles field.
+func (o *IamInput) SetRoles(v []string) {
+	o.Roles = v
 }
 
-// GetResponse returns the Response field value if set, zero value otherwise.
-func (o *IamInput) GetResponse() string {
-	if o == nil || IsNil(o.Response) {
-		var ret string
+// GetTeams returns the Teams field value if set, zero value otherwise.
+func (o *IamInput) GetTeams() []string {
+	if o == nil || IsNil(o.Teams) {
+		var ret []string
 		return ret
 	}
-	return *o.Response
+	return o.Teams
 }
 
-// GetResponseOk returns a tuple with the Response field value if set, nil otherwise
+// GetTeamsOk returns a tuple with the Teams field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamInput) GetResponseOk() (*string, bool) {
-	if o == nil || IsNil(o.Response) {
+func (o *IamInput) GetTeamsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Teams) {
 		return nil, false
 	}
-	return o.Response, true
+	return o.Teams, true
 }
 
-// HasResponse returns a boolean if a field has been set.
-func (o *IamInput) HasResponse() bool {
-	if o != nil && !IsNil(o.Response) {
+// HasTeams returns a boolean if a field has been set.
+func (o *IamInput) HasTeams() bool {
+	if o != nil && !IsNil(o.Teams) {
 		return true
 	}
 
 	return false
 }
 
-// SetResponse gets a reference to the given string and assigns it to the Response field.
-func (o *IamInput) SetResponse(v string) {
-	o.Response = &v
+// SetTeams gets a reference to the given []string and assigns it to the Teams field.
+func (o *IamInput) SetTeams(v []string) {
+	o.Teams = v
 }
 
-// GetStatusCode returns the StatusCode field value if set, zero value otherwise.
-func (o *IamInput) GetStatusCode() int64 {
-	if o == nil || IsNil(o.StatusCode) {
-		var ret int64
+// GetUsers returns the Users field value if set, zero value otherwise.
+func (o *IamInput) GetUsers() []string {
+	if o == nil || IsNil(o.Users) {
+		var ret []string
 		return ret
 	}
-	return *o.StatusCode
+	return o.Users
 }
 
-// GetStatusCodeOk returns a tuple with the StatusCode field value if set, nil otherwise
+// GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamInput) GetStatusCodeOk() (*int64, bool) {
-	if o == nil || IsNil(o.StatusCode) {
+func (o *IamInput) GetUsersOk() ([]string, bool) {
+	if o == nil || IsNil(o.Users) {
 		return nil, false
 	}
-	return o.StatusCode, true
+	return o.Users, true
 }
 
-// HasStatusCode returns a boolean if a field has been set.
-func (o *IamInput) HasStatusCode() bool {
-	if o != nil && !IsNil(o.StatusCode) {
+// HasUsers returns a boolean if a field has been set.
+func (o *IamInput) HasUsers() bool {
+	if o != nil && !IsNil(o.Users) {
 		return true
 	}
 
 	return false
 }
 
-// SetStatusCode gets a reference to the given int64 and assigns it to the StatusCode field.
-func (o *IamInput) SetStatusCode(v int64) {
-	o.StatusCode = &v
-}
-
-// GetUser returns the User field value if set, zero value otherwise.
-func (o *IamInput) GetUser() string {
-	if o == nil || IsNil(o.User) {
-		var ret string
-		return ret
-	}
-	return *o.User
-}
-
-// GetUserOk returns a tuple with the User field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamInput) GetUserOk() (*string, bool) {
-	if o == nil || IsNil(o.User) {
-		return nil, false
-	}
-	return o.User, true
-}
-
-// HasUser returns a boolean if a field has been set.
-func (o *IamInput) HasUser() bool {
-	if o != nil && !IsNil(o.User) {
-		return true
-	}
-
-	return false
-}
-
-// SetUser gets a reference to the given string and assigns it to the User field.
-func (o *IamInput) SetUser(v string) {
-	o.User = &v
+// SetUsers gets a reference to the given []string and assigns it to the Users field.
+func (o *IamInput) SetUsers(v []string) {
+	o.Users = v
 }
 
 func (o IamInput) MarshalJSON() ([]byte, error) {
@@ -510,49 +382,72 @@ func (o IamInput) MarshalJSON() ([]byte, error) {
 
 func (o IamInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Action) {
-		toSerialize["action"] = o.Action
-	}
-	if !IsNil(o.ClientIp) {
-		toSerialize["clientIp"] = o.ClientIp
-	}
 	if !IsNil(o.CreatedTime) {
 		toSerialize["createdTime"] = o.CreatedTime
 	}
-	if !IsNil(o.IsTriggered) {
-		toSerialize["isTriggered"] = o.IsTriggered
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
 	}
-	if !IsNil(o.Language) {
-		toSerialize["language"] = o.Language
+	if !IsNil(o.DisplayName) {
+		toSerialize["displayName"] = o.DisplayName
 	}
-	if !IsNil(o.Method) {
-		toSerialize["method"] = o.Method
+	if !IsNil(o.Domains) {
+		toSerialize["domains"] = o.Domains
+	}
+	if !IsNil(o.IsEnabled) {
+		toSerialize["isEnabled"] = o.IsEnabled
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if !IsNil(o.Object) {
-		toSerialize["object"] = o.Object
-	}
-	if !IsNil(o.Organization) {
-		toSerialize["organization"] = o.Organization
-	}
 	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
-	if !IsNil(o.RequestUri) {
-		toSerialize["requestUri"] = o.RequestUri
+	if !IsNil(o.Roles) {
+		toSerialize["roles"] = o.Roles
 	}
-	if !IsNil(o.Response) {
-		toSerialize["response"] = o.Response
+	if !IsNil(o.Teams) {
+		toSerialize["teams"] = o.Teams
 	}
-	if !IsNil(o.StatusCode) {
-		toSerialize["statusCode"] = o.StatusCode
+	if !IsNil(o.Users) {
+		toSerialize["users"] = o.Users
 	}
-	if !IsNil(o.User) {
-		toSerialize["user"] = o.User
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
+
 	return toSerialize, nil
+}
+
+func (o *IamInput) UnmarshalJSON(data []byte) (err error) {
+	varIamInput := _IamInput{}
+
+	err = json.Unmarshal(data, &varIamInput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamInput(varIamInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "domains")
+		delete(additionalProperties, "isEnabled")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "roles")
+		delete(additionalProperties, "teams")
+		delete(additionalProperties, "users")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamInput struct {

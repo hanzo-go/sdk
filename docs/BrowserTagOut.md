@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Events** | Pointer to **map[string]string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Platform** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
@@ -26,6 +27,31 @@ will change when the set of required properties is changed
 NewBrowserTagOutWithDefaults instantiates a new BrowserTagOut object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetEvents
+
+`func (o *BrowserTagOut) GetEvents() map[string]string`
+
+GetEvents returns the Events field if non-nil, zero value otherwise.
+
+### GetEventsOk
+
+`func (o *BrowserTagOut) GetEventsOk() (*map[string]string, bool)`
+
+GetEventsOk returns a tuple with the Events field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEvents
+
+`func (o *BrowserTagOut) SetEvents(v map[string]string)`
+
+SetEvents sets Events field to given value.
+
+### HasEvents
+
+`func (o *BrowserTagOut) HasEvents() bool`
+
+HasEvents returns a boolean if a field has been set.
 
 ### GetId
 

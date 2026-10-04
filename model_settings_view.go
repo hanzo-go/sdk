@@ -27,8 +27,11 @@ type SettingsView struct {
 	// SecretKeys names the secret fields that ARE set. Their VALUES live only in KMS and are never returned here — the console renders a mask.
 	SecretKeys []string `json:"secretKeys,omitempty"`
 	// UpdatedAt is when this configuration was last written, RFC 3339 UTC. Empty when nothing has been saved.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	UpdatedAt            *string `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SettingsView SettingsView
 
 // NewSettingsView instantiates a new SettingsView object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o SettingsView) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SettingsView) UnmarshalJSON(data []byte) (err error) {
+	varSettingsView := _SettingsView{}
+
+	err = json.Unmarshal(data, &varSettingsView)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SettingsView(varSettingsView)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "product")
+		delete(additionalProperties, "secretKeys")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSettingsView struct {

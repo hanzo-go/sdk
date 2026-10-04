@@ -19,14 +19,17 @@ var _ MappedNullable = &O11yO11yRuleHistoryQueryIn{}
 
 // O11yO11yRuleHistoryQueryIn struct for O11yO11yRuleHistoryQueryIn
 type O11yO11yRuleHistoryQueryIn struct {
-	End     *int64         `json:"end,omitempty"`
-	Filters *O11yFilterSet `json:"filters,omitempty"`
-	Limit   *int64         `json:"limit,omitempty"`
-	Offset  *int64         `json:"offset,omitempty"`
-	Order   *string        `json:"order,omitempty"`
-	Start   *int64         `json:"start,omitempty"`
-	State   *string        `json:"state,omitempty"`
+	End                  *int64         `json:"end,omitempty"`
+	Filters              *O11yFilterSet `json:"filters,omitempty"`
+	Limit                *int64         `json:"limit,omitempty"`
+	Offset               *int64         `json:"offset,omitempty"`
+	Order                *string        `json:"order,omitempty"`
+	Start                *int64         `json:"start,omitempty"`
+	State                *string        `json:"state,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yRuleHistoryQueryIn O11yO11yRuleHistoryQueryIn
 
 // NewO11yO11yRuleHistoryQueryIn instantiates a new O11yO11yRuleHistoryQueryIn object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o O11yO11yRuleHistoryQueryIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yRuleHistoryQueryIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yRuleHistoryQueryIn := _O11yO11yRuleHistoryQueryIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yRuleHistoryQueryIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yRuleHistoryQueryIn(varO11yO11yRuleHistoryQueryIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "filters")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "order")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "state")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yRuleHistoryQueryIn struct {

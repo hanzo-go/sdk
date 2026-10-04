@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yLogAggregateOut{}
 // O11yO11yLogAggregateOut struct for O11yO11yLogAggregateOut
 type O11yO11yLogAggregateOut struct {
 	// Items are the buckets, keyed by bucket timestamp.
-	Items map[string]O11yO11yLogAggregateBucket `json:"items,omitempty"`
+	Items                map[string]O11yO11yLogAggregateBucket `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogAggregateOut O11yO11yLogAggregateOut
 
 // NewO11yO11yLogAggregateOut instantiates a new O11yO11yLogAggregateOut object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yLogAggregateOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogAggregateOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogAggregateOut := _O11yO11yLogAggregateOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogAggregateOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogAggregateOut(varO11yO11yLogAggregateOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogAggregateOut struct {

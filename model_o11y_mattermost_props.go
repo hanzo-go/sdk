@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yMattermostProps{}
 
 // O11yMattermostProps struct for O11yMattermostProps
 type O11yMattermostProps struct {
-	Card *string `json:"card,omitempty"`
+	Card                 *string `json:"card,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yMattermostProps O11yMattermostProps
 
 // NewO11yMattermostProps instantiates a new O11yMattermostProps object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yMattermostProps) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Card) {
 		toSerialize["card"] = o.Card
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yMattermostProps) UnmarshalJSON(data []byte) (err error) {
+	varO11yMattermostProps := _O11yMattermostProps{}
+
+	err = json.Unmarshal(data, &varO11yMattermostProps)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yMattermostProps(varO11yMattermostProps)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "card")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yMattermostProps struct {

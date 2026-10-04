@@ -21,9 +21,12 @@ var _ MappedNullable = &O11yO11yDashboardViewUpdateIn{}
 type O11yO11yDashboardViewUpdateIn struct {
 	Data *O11yO11yDashboardViewData `json:"data,omitempty"`
 	// ID is the saved view id from the path.
-	Id   *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardViewUpdateIn O11yO11yDashboardViewUpdateIn
 
 // NewO11yO11yDashboardViewUpdateIn instantiates a new O11yO11yDashboardViewUpdateIn object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o O11yO11yDashboardViewUpdateIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardViewUpdateIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardViewUpdateIn := _O11yO11yDashboardViewUpdateIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardViewUpdateIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardViewUpdateIn(varO11yO11yDashboardViewUpdateIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardViewUpdateIn struct {

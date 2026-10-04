@@ -26,8 +26,11 @@ type O11yO11yQueryRange struct {
 	// Type is the result kind; time_series here.
 	Type *string `json:"type,omitempty"`
 	// Warning carries a non-fatal warning, when the query raised one.
-	Warning *O11yO11yQueryWarning `json:"warning,omitempty"`
+	Warning              *O11yO11yQueryWarning `json:"warning,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueryRange O11yO11yQueryRange
 
 // NewO11yO11yQueryRange instantiates a new O11yO11yQueryRange object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yQueryRange) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Warning) {
 		toSerialize["warning"] = o.Warning
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueryRange) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueryRange := _O11yO11yQueryRange{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueryRange)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueryRange(varO11yO11yQueryRange)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "warning")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueryRange struct {

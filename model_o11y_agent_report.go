@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yAgentReport{}
 
 // O11yAgentReport struct for O11yAgentReport
 type O11yAgentReport struct {
-	Data            map[string]map[string]interface{} `json:"data,omitempty"`
-	TimestampMillis *int64                            `json:"timestampMillis,omitempty"`
+	Data                 map[string]interface{} `json:"data,omitempty"`
+	TimestampMillis      *int64                 `json:"timestampMillis,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAgentReport O11yAgentReport
 
 // NewO11yAgentReport instantiates a new O11yAgentReport object
 // This constructor will assign default values to properties that have it defined,
@@ -41,9 +44,9 @@ func NewO11yAgentReportWithDefaults() *O11yAgentReport {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *O11yAgentReport) GetData() map[string]map[string]interface{} {
+func (o *O11yAgentReport) GetData() map[string]interface{} {
 	if o == nil || IsNil(o.Data) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Data
@@ -51,9 +54,9 @@ func (o *O11yAgentReport) GetData() map[string]map[string]interface{} {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yAgentReport) GetDataOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yAgentReport) GetDataOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Data) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Data, true
 }
@@ -67,8 +70,8 @@ func (o *O11yAgentReport) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given map[string]map[string]interface{} and assigns it to the Data field.
-func (o *O11yAgentReport) SetData(v map[string]map[string]interface{}) {
+// SetData gets a reference to the given map[string]interface{} and assigns it to the Data field.
+func (o *O11yAgentReport) SetData(v map[string]interface{}) {
 	o.Data = v
 }
 
@@ -120,7 +123,34 @@ func (o O11yAgentReport) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TimestampMillis) {
 		toSerialize["timestampMillis"] = o.TimestampMillis
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAgentReport) UnmarshalJSON(data []byte) (err error) {
+	varO11yAgentReport := _O11yAgentReport{}
+
+	err = json.Unmarshal(data, &varO11yAgentReport)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAgentReport(varO11yAgentReport)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "timestampMillis")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAgentReport struct {

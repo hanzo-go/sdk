@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -131,7 +131,7 @@ Other parameters are passed through a pointer to a apiEngineModelsRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -140,7 +140,7 @@ Other parameters are passed through a pointer to a apiEngineModelsRequest struct
 
 ## EngineStatus
 
-> EngineStatus EngineStatus(ctx).Execute()
+> EngineEngineStatus EngineStatus(ctx).Execute()
 
 Whether the serving runtime is reachable, and which build it runs
 
@@ -167,7 +167,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EngineAPI.EngineStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `EngineStatus`: EngineStatus
+	// response from `EngineStatus`: EngineEngineStatus
 	fmt.Fprintf(os.Stdout, "Response from `EngineAPI.EngineStatus`: %v\n", resp)
 }
 ```
@@ -183,7 +183,7 @@ Other parameters are passed through a pointer to a apiEngineStatusRequest struct
 
 ### Return type
 
-[**EngineStatus**](EngineStatus.md)
+[**EngineEngineStatus**](EngineEngineStatus.md)
 
 ### Authorization
 
@@ -192,7 +192,7 @@ Other parameters are passed through a pointer to a apiEngineStatusRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -253,7 +253,7 @@ Other parameters are passed through a pointer to a apiEngineSystemRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -19,9 +19,12 @@ var _ MappedNullable = &IamCertsListOutput{}
 
 // IamCertsListOutput struct for IamCertsListOutput
 type IamCertsListOutput struct {
-	Certs []IamCert `json:"certs,omitempty"`
-	Total *int64    `json:"total,omitempty"`
+	Certs                []IamCert `json:"certs,omitempty"`
+	Total                *int64    `json:"total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamCertsListOutput IamCertsListOutput
 
 // NewIamCertsListOutput instantiates a new IamCertsListOutput object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o IamCertsListOutput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamCertsListOutput) UnmarshalJSON(data []byte) (err error) {
+	varIamCertsListOutput := _IamCertsListOutput{}
+
+	err = json.Unmarshal(data, &varIamCertsListOutput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamCertsListOutput(varIamCertsListOutput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "certs")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamCertsListOutput struct {

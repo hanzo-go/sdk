@@ -19,12 +19,15 @@ var _ MappedNullable = &O11yWebexConfig{}
 
 // O11yWebexConfig struct for O11yWebexConfig
 type O11yWebexConfig struct {
-	NotifierConfig *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
-	ApiUrl         interface{}           `json:"api_url,omitempty"`
-	HttpConfig     *O11yHTTPClientConfig `json:"http_config,omitempty"`
-	Message        *string               `json:"message,omitempty"`
-	RoomId         *string               `json:"room_id,omitempty"`
+	NotifierConfig       *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
+	ApiUrl               interface{}           `json:"api_url,omitempty"`
+	HttpConfig           *O11yHTTPClientConfig `json:"http_config,omitempty"`
+	Message              *string               `json:"message,omitempty"`
+	RoomId               *string               `json:"room_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yWebexConfig O11yWebexConfig
 
 // NewO11yWebexConfig instantiates a new O11yWebexConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o O11yWebexConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RoomId) {
 		toSerialize["room_id"] = o.RoomId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yWebexConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yWebexConfig := _O11yWebexConfig{}
+
+	err = json.Unmarshal(data, &varO11yWebexConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yWebexConfig(varO11yWebexConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "api_url")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "room_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yWebexConfig struct {

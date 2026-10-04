@@ -19,11 +19,14 @@ var _ MappedNullable = &MCPResponse{}
 
 // MCPResponse struct for MCPResponse
 type MCPResponse struct {
-	Error   *MCPError              `json:"error,omitempty"`
-	Id      interface{}            `json:"id,omitempty"`
-	Jsonrpc *string                `json:"jsonrpc,omitempty"`
-	Result  map[string]interface{} `json:"result,omitempty"`
+	Error                *MCPError              `json:"error,omitempty"`
+	Id                   interface{}            `json:"id,omitempty"`
+	Jsonrpc              *string                `json:"jsonrpc,omitempty"`
+	Result               map[string]interface{} `json:"result,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MCPResponse MCPResponse
 
 // NewMCPResponse instantiates a new MCPResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o MCPResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Result) {
 		toSerialize["result"] = o.Result
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MCPResponse) UnmarshalJSON(data []byte) (err error) {
+	varMCPResponse := _MCPResponse{}
+
+	err = json.Unmarshal(data, &varMCPResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MCPResponse(varMCPResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "error")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "jsonrpc")
+		delete(additionalProperties, "result")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMCPResponse struct {

@@ -22,8 +22,11 @@ type O11yO11yMetricStats struct {
 	// Metrics are the counted metrics.
 	Metrics []O11yO11yMetricStat `json:"metrics,omitempty"`
 	// Total is how many metrics matched, across all pages.
-	Total *int32 `json:"total,omitempty"`
+	Total                *int32 `json:"total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricStats O11yO11yMetricStats
 
 // NewO11yO11yMetricStats instantiates a new O11yO11yMetricStats object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yMetricStats) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricStats) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricStats := _O11yO11yMetricStats{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricStats(varO11yO11yMetricStats)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "metrics")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricStats struct {

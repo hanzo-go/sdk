@@ -19,18 +19,21 @@ var _ MappedNullable = &AiProviderUsage{}
 
 // AiProviderUsage struct for AiProviderUsage
 type AiProviderUsage struct {
-	Available *bool                        `json:"available,omitempty"`
-	ByModel   []AiProviderUsageModelSpend  `json:"byModel,omitempty"`
-	Connected *bool                        `json:"connected,omitempty"`
-	Currency  *string                      `json:"currency,omitempty"`
-	End       *string                      `json:"end,omitempty"`
-	Interval  *string                      `json:"interval,omitempty"`
-	Note      *string                      `json:"note,omitempty"`
-	Provider  *string                      `json:"provider,omitempty"`
-	Series    []AiProviderUsageSeriesPoint `json:"series,omitempty"`
-	Start     *string                      `json:"start,omitempty"`
-	Totals    *AiProviderUsageTotals       `json:"totals,omitempty"`
+	Available            *bool                        `json:"available,omitempty"`
+	ByModel              []AiProviderUsageModelSpend  `json:"byModel,omitempty"`
+	Connected            *bool                        `json:"connected,omitempty"`
+	Currency             *string                      `json:"currency,omitempty"`
+	End                  *string                      `json:"end,omitempty"`
+	Interval             *string                      `json:"interval,omitempty"`
+	Note                 *string                      `json:"note,omitempty"`
+	Provider             *string                      `json:"provider,omitempty"`
+	Series               []AiProviderUsageSeriesPoint `json:"series,omitempty"`
+	Start                *string                      `json:"start,omitempty"`
+	Totals               *AiProviderUsageTotals       `json:"totals,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiProviderUsage AiProviderUsage
 
 // NewAiProviderUsage instantiates a new AiProviderUsage object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o AiProviderUsage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Totals) {
 		toSerialize["totals"] = o.Totals
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiProviderUsage) UnmarshalJSON(data []byte) (err error) {
+	varAiProviderUsage := _AiProviderUsage{}
+
+	err = json.Unmarshal(data, &varAiProviderUsage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiProviderUsage(varAiProviderUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "available")
+		delete(additionalProperties, "byModel")
+		delete(additionalProperties, "connected")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "interval")
+		delete(additionalProperties, "note")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "series")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "totals")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiProviderUsage struct {

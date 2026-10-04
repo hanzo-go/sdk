@@ -19,10 +19,13 @@ var _ MappedNullable = &ModelToolCall{}
 
 // ModelToolCall struct for ModelToolCall
 type ModelToolCall struct {
-	Arguments *string `json:"arguments,omitempty"`
-	Content   *string `json:"content,omitempty"`
-	Name      *string `json:"name,omitempty"`
+	Arguments            *string `json:"arguments,omitempty"`
+	Content              *string `json:"content,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ModelToolCall ModelToolCall
 
 // NewModelToolCall instantiates a new ModelToolCall object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o ModelToolCall) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ModelToolCall) UnmarshalJSON(data []byte) (err error) {
+	varModelToolCall := _ModelToolCall{}
+
+	err = json.Unmarshal(data, &varModelToolCall)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ModelToolCall(varModelToolCall)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "arguments")
+		delete(additionalProperties, "content")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableModelToolCall struct {

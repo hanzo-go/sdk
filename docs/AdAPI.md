@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 ## GetAdCampaigns
 
-> CampaignList GetAdCampaigns(ctx).Status(status).Limit(limit).Execute()
+> AdCampaignList GetAdCampaigns(ctx).Status(status).Limit(limit).Execute()
 
 Returns the caller org's ad campaigns, most recently updated first, optionally narrowed to one lifecycle status.
 
@@ -113,7 +113,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AdAPI.GetAdCampaigns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAdCampaigns`: CampaignList
+	// response from `GetAdCampaigns`: AdCampaignList
 	fmt.Fprintf(os.Stdout, "Response from `AdAPI.GetAdCampaigns`: %v\n", resp)
 }
 ```
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CampaignList**](CampaignList.md)
+[**AdCampaignList**](AdCampaignList.md)
 
 ### Authorization
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ## GetAdCampaignsById
 
-> AdCampaign GetAdCampaignsById(ctx, id).Execute()
+> AdAdCampaign GetAdCampaignsById(ctx, id).Execute()
 
 Returns one of the caller org's campaigns.
 
@@ -180,7 +180,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AdAPI.GetAdCampaignsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAdCampaignsById`: AdCampaign
+	// response from `GetAdCampaignsById`: AdAdCampaign
 	fmt.Fprintf(os.Stdout, "Response from `AdAPI.GetAdCampaignsById`: %v\n", resp)
 }
 ```
@@ -204,7 +204,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AdCampaign**](AdCampaign.md)
+[**AdAdCampaign**](AdAdCampaign.md)
 
 ### Authorization
 
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
 
 ## GetAdSummary
 
-> AdSummary GetAdSummary(ctx).Execute()
+> AdAdSummary GetAdSummary(ctx).Execute()
 
 Rolls the caller org's ad campaigns up into four numbers: how many campaigns exist, how many are active, and the summed budget and spend across all of them.
 
@@ -249,7 +249,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AdAPI.GetAdSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAdSummary`: AdSummary
+	// response from `GetAdSummary`: AdAdSummary
 	fmt.Fprintf(os.Stdout, "Response from `AdAPI.GetAdSummary`: %v\n", resp)
 }
 ```
@@ -265,7 +265,7 @@ Other parameters are passed through a pointer to a apiGetAdSummaryRequest struct
 
 ### Return type
 
-[**AdSummary**](AdSummary.md)
+[**AdAdSummary**](AdAdSummary.md)
 
 ### Authorization
 
@@ -274,7 +274,7 @@ Other parameters are passed through a pointer to a apiGetAdSummaryRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -283,7 +283,7 @@ Other parameters are passed through a pointer to a apiGetAdSummaryRequest struct
 
 ## PostAdCampaigns
 
-> AdCampaign PostAdCampaigns(ctx).CampaignInput(campaignInput).Execute()
+> AdAdCampaign PostAdCampaigns(ctx).AdCampaignInput(adCampaignInput).Execute()
 
 Registers a new ad campaign for the caller's org and answers 201 with the stored row.
 
@@ -302,16 +302,16 @@ import (
 )
 
 func main() {
-	campaignInput := *openapiclient.NewCampaignInput() // CampaignInput | 
+	adCampaignInput := *openapiclient.NewAdCampaignInput() // AdCampaignInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AdAPI.PostAdCampaigns(context.Background()).CampaignInput(campaignInput).Execute()
+	resp, r, err := apiClient.AdAPI.PostAdCampaigns(context.Background()).AdCampaignInput(adCampaignInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AdAPI.PostAdCampaigns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAdCampaigns`: AdCampaign
+	// response from `PostAdCampaigns`: AdAdCampaign
 	fmt.Fprintf(os.Stdout, "Response from `AdAPI.PostAdCampaigns`: %v\n", resp)
 }
 ```
@@ -327,11 +327,11 @@ Other parameters are passed through a pointer to a apiPostAdCampaignsRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **campaignInput** | [**CampaignInput**](CampaignInput.md) |  | 
+ **adCampaignInput** | [**AdCampaignInput**](AdCampaignInput.md) |  | 
 
 ### Return type
 
-[**AdCampaign**](AdCampaign.md)
+[**AdAdCampaign**](AdAdCampaign.md)
 
 ### Authorization
 
@@ -340,7 +340,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -417,7 +417,7 @@ Name | Type | Description  | Notes
 
 ## PutAdCampaignsById
 
-> AdCampaign PutAdCampaignsById(ctx, id).UpdateCampaignIn(updateCampaignIn).Execute()
+> AdAdCampaign PutAdCampaignsById(ctx, id).AdUpdateCampaignIn(adUpdateCampaignIn).Execute()
 
 Replaces the user-owned fields of one of the caller org's campaigns and answers the stored row.
 
@@ -437,16 +437,16 @@ import (
 
 func main() {
 	id := "camp_2f9c1d" // string | 
-	updateCampaignIn := *openapiclient.NewUpdateCampaignIn() // UpdateCampaignIn | 
+	adUpdateCampaignIn := *openapiclient.NewAdUpdateCampaignIn() // AdUpdateCampaignIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AdAPI.PutAdCampaignsById(context.Background(), id).UpdateCampaignIn(updateCampaignIn).Execute()
+	resp, r, err := apiClient.AdAPI.PutAdCampaignsById(context.Background(), id).AdUpdateCampaignIn(adUpdateCampaignIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AdAPI.PutAdCampaignsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutAdCampaignsById`: AdCampaign
+	// response from `PutAdCampaignsById`: AdAdCampaign
 	fmt.Fprintf(os.Stdout, "Response from `AdAPI.PutAdCampaignsById`: %v\n", resp)
 }
 ```
@@ -467,11 +467,11 @@ Other parameters are passed through a pointer to a apiPutAdCampaignsByIdRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **updateCampaignIn** | [**UpdateCampaignIn**](UpdateCampaignIn.md) |  | 
+ **adUpdateCampaignIn** | [**AdUpdateCampaignIn**](AdUpdateCampaignIn.md) |  | 
 
 ### Return type
 
-[**AdCampaign**](AdCampaign.md)
+[**AdAdCampaign**](AdAdCampaign.md)
 
 ### Authorization
 
@@ -480,7 +480,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

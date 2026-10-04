@@ -83,7 +83,7 @@ func (a *FlowAPIService) DeleteFlowWorkflowsByWorkflowExecute(r FlowAPIDeleteFlo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -112,6 +112,14 @@ func (a *FlowAPIService) DeleteFlowWorkflowsByWorkflowExecute(r FlowAPIDeleteFlo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -144,9 +152,9 @@ func (r FlowAPIGetFlowRunsRequest) Execute() (interface{}, *http.Response, error
 }
 
 /*
-GetFlowRuns Runs reads one workflow's recorded runs: every component build with its result, keyed by component.
+GetFlowRuns Reads one workflow's recorded runs: every component build with its result, keyed by component.
 
-Runs reads one workflow's recorded runs: every component build with its
+Reads one workflow's recorded runs: every component build with its
 result, keyed by component. Ownership is verified first — run records never
 cross the org boundary.
 
@@ -195,7 +203,7 @@ func (a *FlowAPIService) GetFlowRunsExecute(r FlowAPIGetFlowRunsRequest) (interf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -224,6 +232,14 @@ func (a *FlowAPIService) GetFlowRunsExecute(r FlowAPIGetFlowRunsRequest) (interf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,14 +260,14 @@ type FlowAPIGetFlowStatusRequest struct {
 	ApiService *FlowAPIService
 }
 
-func (r FlowAPIGetFlowStatusRequest) Execute() (*FlowStatus, *http.Response, error) {
+func (r FlowAPIGetFlowStatusRequest) Execute() (*FlowFlowStatus, *http.Response, error) {
 	return r.ApiService.GetFlowStatusExecute(r)
 }
 
 /*
-GetFlowStatus Status reports whether the flow service is reachable and which version it runs.
+GetFlowStatus Reports whether the flow service is reachable and which version it runs.
 
-Status reports whether the flow service is reachable and which version it
+Reports whether the flow service is reachable and which version it
 runs. It is the product's own /health and /v1/version composed — an honest
 lens for "is the workflow plane up", never a fabricated ok.
 
@@ -267,13 +283,13 @@ func (a *FlowAPIService) GetFlowStatus(ctx context.Context) FlowAPIGetFlowStatus
 
 // Execute executes the request
 //
-//	@return FlowStatus
-func (a *FlowAPIService) GetFlowStatusExecute(r FlowAPIGetFlowStatusRequest) (*FlowStatus, *http.Response, error) {
+//	@return FlowFlowStatus
+func (a *FlowAPIService) GetFlowStatusExecute(r FlowAPIGetFlowStatusRequest) (*FlowFlowStatus, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FlowStatus
+		localVarReturnValue *FlowFlowStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowAPIService.GetFlowStatus")
@@ -297,7 +313,7 @@ func (a *FlowAPIService) GetFlowStatusExecute(r FlowAPIGetFlowStatusRequest) (*F
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -326,6 +342,14 @@ func (a *FlowAPIService) GetFlowStatusExecute(r FlowAPIGetFlowStatusRequest) (*F
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -365,9 +389,9 @@ func (r FlowAPIGetFlowWorkflowsRequest) Execute() (interface{}, *http.Response, 
 }
 
 /*
-GetFlowWorkflows Workflows lists the caller's workflows, paged.
+GetFlowWorkflows Lists the caller's workflows, paged.
 
-Workflows lists the caller's workflows, paged. The list is scoped
+Lists the caller's workflows, paged. The list is scoped
 server-side to the org's project — the page can only ever hold the caller's
 own workflows.
 
@@ -419,7 +443,7 @@ func (a *FlowAPIService) GetFlowWorkflowsExecute(r FlowAPIGetFlowWorkflowsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -448,6 +472,14 @@ func (a *FlowAPIService) GetFlowWorkflowsExecute(r FlowAPIGetFlowWorkflowsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -474,9 +506,9 @@ func (r FlowAPIGetFlowWorkflowsByWorkflowRequest) Execute() (interface{}, *http.
 }
 
 /*
-GetFlowWorkflowsByWorkflow Workflow reads one of the caller's workflows — the full record, graph included.
+GetFlowWorkflowsByWorkflow Reads one of the caller's workflows — the full record, graph included.
 
-Workflow reads one of the caller's workflows — the full record, graph
+Reads one of the caller's workflows — the full record, graph
 included. A workflow outside the caller's org answers 404, indistinguishable
 from one that does not exist.
 
@@ -525,7 +557,7 @@ func (a *FlowAPIService) GetFlowWorkflowsByWorkflowExecute(r FlowAPIGetFlowWorkf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -554,6 +586,14 @@ func (a *FlowAPIService) GetFlowWorkflowsByWorkflowExecute(r FlowAPIGetFlowWorkf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -570,14 +610,14 @@ func (a *FlowAPIService) GetFlowWorkflowsByWorkflowExecute(r FlowAPIGetFlowWorkf
 }
 
 type FlowAPIPatchFlowWorkflowsByWorkflowRequest struct {
-	ctx        context.Context
-	ApiService *FlowAPIService
-	workflow   string
-	flowUpdate *FlowUpdate
+	ctx            context.Context
+	ApiService     *FlowAPIService
+	workflow       string
+	flowFlowUpdate *FlowFlowUpdate
 }
 
-func (r FlowAPIPatchFlowWorkflowsByWorkflowRequest) FlowUpdate(flowUpdate FlowUpdate) FlowAPIPatchFlowWorkflowsByWorkflowRequest {
-	r.flowUpdate = &flowUpdate
+func (r FlowAPIPatchFlowWorkflowsByWorkflowRequest) FlowFlowUpdate(flowFlowUpdate FlowFlowUpdate) FlowAPIPatchFlowWorkflowsByWorkflowRequest {
+	r.flowFlowUpdate = &flowFlowUpdate
 	return r
 }
 
@@ -626,8 +666,8 @@ func (a *FlowAPIService) PatchFlowWorkflowsByWorkflowExecute(r FlowAPIPatchFlowW
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.flowUpdate == nil {
-		return localVarReturnValue, nil, reportError("flowUpdate is required and must be specified")
+	if r.flowFlowUpdate == nil {
+		return localVarReturnValue, nil, reportError("flowFlowUpdate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -640,7 +680,7 @@ func (a *FlowAPIService) PatchFlowWorkflowsByWorkflowExecute(r FlowAPIPatchFlowW
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -648,7 +688,7 @@ func (a *FlowAPIService) PatchFlowWorkflowsByWorkflowExecute(r FlowAPIPatchFlowW
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.flowUpdate
+	localVarPostBody = r.flowFlowUpdate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -671,6 +711,14 @@ func (a *FlowAPIService) PatchFlowWorkflowsByWorkflowExecute(r FlowAPIPatchFlowW
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -687,13 +735,13 @@ func (a *FlowAPIService) PatchFlowWorkflowsByWorkflowExecute(r FlowAPIPatchFlowW
 }
 
 type FlowAPIPostFlowRunsRequest struct {
-	ctx        context.Context
-	ApiService *FlowAPIService
-	flowRun    *FlowRun
+	ctx         context.Context
+	ApiService  *FlowAPIService
+	flowFlowRun *FlowFlowRun
 }
 
-func (r FlowAPIPostFlowRunsRequest) FlowRun(flowRun FlowRun) FlowAPIPostFlowRunsRequest {
-	r.flowRun = &flowRun
+func (r FlowAPIPostFlowRunsRequest) FlowFlowRun(flowFlowRun FlowFlowRun) FlowAPIPostFlowRunsRequest {
+	r.flowFlowRun = &flowFlowRun
 	return r
 }
 
@@ -702,9 +750,9 @@ func (r FlowAPIPostFlowRunsRequest) Execute() (interface{}, *http.Response, erro
 }
 
 /*
-PostFlowRuns Run executes one of the caller's workflows synchronously: the graph runs in the flow service and the response carries the run's session and outputs.
+PostFlowRuns Executes one of the caller's workflows synchronously: the graph runs in the flow service and the response carries the run's session and outputs.
 
-Run executes one of the caller's workflows synchronously: the graph runs in
+Executes one of the caller's workflows synchronously: the graph runs in
 the flow service and the response carries the run's session and outputs. A
 graph whose components fail reports the product's own error. Runs are
 bounded by the product's five-minute sync ceiling.
@@ -740,8 +788,8 @@ func (a *FlowAPIService) PostFlowRunsExecute(r FlowAPIPostFlowRunsRequest) (inte
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.flowRun == nil {
-		return localVarReturnValue, nil, reportError("flowRun is required and must be specified")
+	if r.flowFlowRun == nil {
+		return localVarReturnValue, nil, reportError("flowFlowRun is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -754,7 +802,7 @@ func (a *FlowAPIService) PostFlowRunsExecute(r FlowAPIPostFlowRunsRequest) (inte
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -762,7 +810,7 @@ func (a *FlowAPIService) PostFlowRunsExecute(r FlowAPIPostFlowRunsRequest) (inte
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.flowRun
+	localVarPostBody = r.flowFlowRun
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -785,6 +833,14 @@ func (a *FlowAPIService) PostFlowRunsExecute(r FlowAPIPostFlowRunsRequest) (inte
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -801,13 +857,13 @@ func (a *FlowAPIService) PostFlowRunsExecute(r FlowAPIPostFlowRunsRequest) (inte
 }
 
 type FlowAPIPostFlowWorkflowsRequest struct {
-	ctx        context.Context
-	ApiService *FlowAPIService
-	flowCreate *FlowCreate
+	ctx            context.Context
+	ApiService     *FlowAPIService
+	flowFlowCreate *FlowFlowCreate
 }
 
-func (r FlowAPIPostFlowWorkflowsRequest) FlowCreate(flowCreate FlowCreate) FlowAPIPostFlowWorkflowsRequest {
-	r.flowCreate = &flowCreate
+func (r FlowAPIPostFlowWorkflowsRequest) FlowFlowCreate(flowFlowCreate FlowFlowCreate) FlowAPIPostFlowWorkflowsRequest {
+	r.flowFlowCreate = &flowFlowCreate
 	return r
 }
 
@@ -853,8 +909,8 @@ func (a *FlowAPIService) PostFlowWorkflowsExecute(r FlowAPIPostFlowWorkflowsRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.flowCreate == nil {
-		return localVarReturnValue, nil, reportError("flowCreate is required and must be specified")
+	if r.flowFlowCreate == nil {
+		return localVarReturnValue, nil, reportError("flowFlowCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -867,7 +923,7 @@ func (a *FlowAPIService) PostFlowWorkflowsExecute(r FlowAPIPostFlowWorkflowsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -875,7 +931,7 @@ func (a *FlowAPIService) PostFlowWorkflowsExecute(r FlowAPIPostFlowWorkflowsRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.flowCreate
+	localVarPostBody = r.flowFlowCreate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -898,6 +954,14 @@ func (a *FlowAPIService) PostFlowWorkflowsExecute(r FlowAPIPostFlowWorkflowsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

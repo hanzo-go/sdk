@@ -19,9 +19,12 @@ var _ MappedNullable = &OpenaiCompletionTokensDetails{}
 
 // OpenaiCompletionTokensDetails struct for OpenaiCompletionTokensDetails
 type OpenaiCompletionTokensDetails struct {
-	AudioTokens     *int32 `json:"audio_tokens,omitempty"`
-	ReasoningTokens *int32 `json:"reasoning_tokens,omitempty"`
+	AudioTokens          *int32 `json:"audio_tokens,omitempty"`
+	ReasoningTokens      *int32 `json:"reasoning_tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiCompletionTokensDetails OpenaiCompletionTokensDetails
 
 // NewOpenaiCompletionTokensDetails instantiates a new OpenaiCompletionTokensDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o OpenaiCompletionTokensDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ReasoningTokens) {
 		toSerialize["reasoning_tokens"] = o.ReasoningTokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiCompletionTokensDetails) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiCompletionTokensDetails := _OpenaiCompletionTokensDetails{}
+
+	err = json.Unmarshal(data, &varOpenaiCompletionTokensDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiCompletionTokensDetails(varOpenaiCompletionTokensDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "audio_tokens")
+		delete(additionalProperties, "reasoning_tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiCompletionTokensDetails struct {

@@ -19,16 +19,19 @@ var _ MappedNullable = &Patch{}
 
 // Patch struct for Patch
 type Patch struct {
-	Category       *string `json:"category,omitempty"`
-	ExpectedStatus *string `json:"expectedStatus,omitempty"`
-	InstallTime    *string `json:"installTime,omitempty"`
-	Message        *string `json:"message,omitempty"`
-	Name           *string `json:"name,omitempty"`
-	Size           *string `json:"size,omitempty"`
-	Status         *string `json:"status,omitempty"`
-	Title          *string `json:"title,omitempty"`
-	Url            *string `json:"url,omitempty"`
+	Category             *string `json:"category,omitempty"`
+	ExpectedStatus       *string `json:"expectedStatus,omitempty"`
+	InstallTime          *string `json:"installTime,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Size                 *string `json:"size,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	Title                *string `json:"title,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Patch Patch
 
 // NewPatch instantiates a new Patch object
 // This constructor will assign default values to properties that have it defined,
@@ -372,7 +375,41 @@ func (o Patch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Patch) UnmarshalJSON(data []byte) (err error) {
+	varPatch := _Patch{}
+
+	err = json.Unmarshal(data, &varPatch)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Patch(varPatch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "expectedStatus")
+		delete(additionalProperties, "installTime")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "size")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePatch struct {

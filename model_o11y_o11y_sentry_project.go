@@ -22,8 +22,6 @@ var _ MappedNullable = &O11yO11ySentryProject{}
 type O11yO11ySentryProject struct {
 	// CreatedAt is when the project was created.
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
-	// DSN is the project's freshly-derived ingest DSN.
-	Dsn *string `json:"dsn,omitempty"`
 	// ID is the project id.
 	Id *string `json:"id,omitempty"`
 	// Name is the project's display name.
@@ -35,8 +33,11 @@ type O11yO11ySentryProject struct {
 	// Status is the project's lifecycle state: active or disabled.
 	Status *string `json:"status,omitempty"`
 	// UpdatedAt is when the project last changed.
-	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11ySentryProject O11yO11ySentryProject
 
 // NewO11yO11ySentryProject instantiates a new O11yO11ySentryProject object
 // This constructor will assign default values to properties that have it defined,
@@ -85,38 +86,6 @@ func (o *O11yO11ySentryProject) HasCreatedAt() bool {
 // SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
 func (o *O11yO11ySentryProject) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
-}
-
-// GetDsn returns the Dsn field value if set, zero value otherwise.
-func (o *O11yO11ySentryProject) GetDsn() string {
-	if o == nil || IsNil(o.Dsn) {
-		var ret string
-		return ret
-	}
-	return *o.Dsn
-}
-
-// GetDsnOk returns a tuple with the Dsn field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11yO11ySentryProject) GetDsnOk() (*string, bool) {
-	if o == nil || IsNil(o.Dsn) {
-		return nil, false
-	}
-	return o.Dsn, true
-}
-
-// HasDsn returns a boolean if a field has been set.
-func (o *O11yO11ySentryProject) HasDsn() bool {
-	if o != nil && !IsNil(o.Dsn) {
-		return true
-	}
-
-	return false
-}
-
-// SetDsn gets a reference to the given string and assigns it to the Dsn field.
-func (o *O11yO11ySentryProject) SetDsn(v string) {
-	o.Dsn = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -324,9 +293,6 @@ func (o O11yO11ySentryProject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	if !IsNil(o.Dsn) {
-		toSerialize["dsn"] = o.Dsn
-	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -345,7 +311,39 @@ func (o O11yO11ySentryProject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11ySentryProject) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11ySentryProject := _O11yO11ySentryProject{}
+
+	err = json.Unmarshal(data, &varO11yO11ySentryProject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11ySentryProject(varO11yO11ySentryProject)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "platform")
+		delete(additionalProperties, "slug")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11ySentryProject struct {

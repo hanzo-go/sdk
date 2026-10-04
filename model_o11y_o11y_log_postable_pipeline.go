@@ -34,8 +34,11 @@ type O11yO11yLogPostablePipeline struct {
 	// Name is the pipeline's display name.
 	Name *string `json:"name,omitempty"`
 	// OrderID is the pipeline's 1-based position in the set.
-	OrderId *int64 `json:"orderId,omitempty"`
+	OrderId              *int64 `json:"orderId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogPostablePipeline O11yO11yLogPostablePipeline
 
 // NewO11yO11yLogPostablePipeline instantiates a new O11yO11yLogPostablePipeline object
 // This constructor will assign default values to properties that have it defined,
@@ -344,7 +347,40 @@ func (o O11yO11yLogPostablePipeline) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OrderId) {
 		toSerialize["orderId"] = o.OrderId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogPostablePipeline) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogPostablePipeline := _O11yO11yLogPostablePipeline{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogPostablePipeline)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogPostablePipeline(varO11yO11yLogPostablePipeline)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alias")
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "orderId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogPostablePipeline struct {

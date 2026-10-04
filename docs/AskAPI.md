@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ## ResearchWeb
 
-> Report ResearchWeb(ctx).WebQuestion(webQuestion).Execute()
+> AskReport ResearchWeb(ctx).AskWebQuestion(askWebQuestion).Execute()
 
 Research a question on the live web and answer it with sources cited
 
@@ -94,16 +94,16 @@ import (
 )
 
 func main() {
-	webQuestion := *openapiclient.NewWebQuestion() // WebQuestion | 
+	askWebQuestion := *openapiclient.NewAskWebQuestion() // AskWebQuestion | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AskAPI.ResearchWeb(context.Background()).WebQuestion(webQuestion).Execute()
+	resp, r, err := apiClient.AskAPI.ResearchWeb(context.Background()).AskWebQuestion(askWebQuestion).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AskAPI.ResearchWeb``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ResearchWeb`: Report
+	// response from `ResearchWeb`: AskReport
 	fmt.Fprintf(os.Stdout, "Response from `AskAPI.ResearchWeb`: %v\n", resp)
 }
 ```
@@ -119,11 +119,11 @@ Other parameters are passed through a pointer to a apiResearchWebRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **webQuestion** | [**WebQuestion**](WebQuestion.md) |  | 
+ **askWebQuestion** | [**AskWebQuestion**](AskWebQuestion.md) |  | 
 
 ### Return type
 
-[**Report**](Report.md)
+[**AskReport**](AskReport.md)
 
 ### Authorization
 
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

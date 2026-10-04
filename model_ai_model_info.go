@@ -19,20 +19,30 @@ var _ MappedNullable = &AiModelInfo{}
 
 // AiModelInfo struct for AiModelInfo
 type AiModelInfo struct {
-	Access          *AiModelAccessInfo  `json:"access,omitempty"`
-	ContextWindow   *int32              `json:"context_window,omitempty"`
-	Created         *int32              `json:"created,omitempty"`
-	Id              *string             `json:"id,omitempty"`
-	MaxOutputTokens *int32              `json:"max_output_tokens,omitempty"`
-	Object          *string             `json:"object,omitempty"`
-	Outputs         []string            `json:"outputs,omitempty"`
-	OwnedBy         *string             `json:"owned_by,omitempty"`
-	Premium         *bool               `json:"premium,omitempty"`
-	Pricing         *AiModelPricingInfo `json:"pricing,omitempty"`
-	Provider        *string             `json:"provider,omitempty"`
-	SupportsTools   *bool               `json:"supports_tools,omitempty"`
-	SupportsVision  *bool               `json:"supports_vision,omitempty"`
+	Access               *AiModelAccessInfo  `json:"access,omitempty"`
+	CanonicalSlug        *string             `json:"canonical_slug,omitempty"`
+	Class                *string             `json:"class,omitempty"`
+	ContextWindow        *int32              `json:"context_window,omitempty"`
+	Created              *int32              `json:"created,omitempty"`
+	Description          *string             `json:"description,omitempty"`
+	Family               *string             `json:"family,omitempty"`
+	Id                   *string             `json:"id,omitempty"`
+	Inputs               []string            `json:"inputs,omitempty"`
+	MaxOutputTokens      *int32              `json:"max_output_tokens,omitempty"`
+	Name                 *string             `json:"name,omitempty"`
+	Object               *string             `json:"object,omitempty"`
+	Outputs              []string            `json:"outputs,omitempty"`
+	OwnedBy              *string             `json:"owned_by,omitempty"`
+	Premium              *bool               `json:"premium,omitempty"`
+	Pricing              *AiModelPricingInfo `json:"pricing,omitempty"`
+	Provider             *string             `json:"provider,omitempty"`
+	SupportsReasoning    *bool               `json:"supports_reasoning,omitempty"`
+	SupportsTools        *bool               `json:"supports_tools,omitempty"`
+	SupportsVision       *bool               `json:"supports_vision,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiModelInfo AiModelInfo
 
 // NewAiModelInfo instantiates a new AiModelInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -81,6 +91,70 @@ func (o *AiModelInfo) HasAccess() bool {
 // SetAccess gets a reference to the given AiModelAccessInfo and assigns it to the Access field.
 func (o *AiModelInfo) SetAccess(v AiModelAccessInfo) {
 	o.Access = &v
+}
+
+// GetCanonicalSlug returns the CanonicalSlug field value if set, zero value otherwise.
+func (o *AiModelInfo) GetCanonicalSlug() string {
+	if o == nil || IsNil(o.CanonicalSlug) {
+		var ret string
+		return ret
+	}
+	return *o.CanonicalSlug
+}
+
+// GetCanonicalSlugOk returns a tuple with the CanonicalSlug field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelInfo) GetCanonicalSlugOk() (*string, bool) {
+	if o == nil || IsNil(o.CanonicalSlug) {
+		return nil, false
+	}
+	return o.CanonicalSlug, true
+}
+
+// HasCanonicalSlug returns a boolean if a field has been set.
+func (o *AiModelInfo) HasCanonicalSlug() bool {
+	if o != nil && !IsNil(o.CanonicalSlug) {
+		return true
+	}
+
+	return false
+}
+
+// SetCanonicalSlug gets a reference to the given string and assigns it to the CanonicalSlug field.
+func (o *AiModelInfo) SetCanonicalSlug(v string) {
+	o.CanonicalSlug = &v
+}
+
+// GetClass returns the Class field value if set, zero value otherwise.
+func (o *AiModelInfo) GetClass() string {
+	if o == nil || IsNil(o.Class) {
+		var ret string
+		return ret
+	}
+	return *o.Class
+}
+
+// GetClassOk returns a tuple with the Class field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelInfo) GetClassOk() (*string, bool) {
+	if o == nil || IsNil(o.Class) {
+		return nil, false
+	}
+	return o.Class, true
+}
+
+// HasClass returns a boolean if a field has been set.
+func (o *AiModelInfo) HasClass() bool {
+	if o != nil && !IsNil(o.Class) {
+		return true
+	}
+
+	return false
+}
+
+// SetClass gets a reference to the given string and assigns it to the Class field.
+func (o *AiModelInfo) SetClass(v string) {
+	o.Class = &v
 }
 
 // GetContextWindow returns the ContextWindow field value if set, zero value otherwise.
@@ -147,6 +221,70 @@ func (o *AiModelInfo) SetCreated(v int32) {
 	o.Created = &v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *AiModelInfo) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelInfo) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *AiModelInfo) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *AiModelInfo) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetFamily returns the Family field value if set, zero value otherwise.
+func (o *AiModelInfo) GetFamily() string {
+	if o == nil || IsNil(o.Family) {
+		var ret string
+		return ret
+	}
+	return *o.Family
+}
+
+// GetFamilyOk returns a tuple with the Family field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelInfo) GetFamilyOk() (*string, bool) {
+	if o == nil || IsNil(o.Family) {
+		return nil, false
+	}
+	return o.Family, true
+}
+
+// HasFamily returns a boolean if a field has been set.
+func (o *AiModelInfo) HasFamily() bool {
+	if o != nil && !IsNil(o.Family) {
+		return true
+	}
+
+	return false
+}
+
+// SetFamily gets a reference to the given string and assigns it to the Family field.
+func (o *AiModelInfo) SetFamily(v string) {
+	o.Family = &v
+}
+
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AiModelInfo) GetId() string {
 	if o == nil || IsNil(o.Id) {
@@ -179,6 +317,38 @@ func (o *AiModelInfo) SetId(v string) {
 	o.Id = &v
 }
 
+// GetInputs returns the Inputs field value if set, zero value otherwise.
+func (o *AiModelInfo) GetInputs() []string {
+	if o == nil || IsNil(o.Inputs) {
+		var ret []string
+		return ret
+	}
+	return o.Inputs
+}
+
+// GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelInfo) GetInputsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Inputs) {
+		return nil, false
+	}
+	return o.Inputs, true
+}
+
+// HasInputs returns a boolean if a field has been set.
+func (o *AiModelInfo) HasInputs() bool {
+	if o != nil && !IsNil(o.Inputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetInputs gets a reference to the given []string and assigns it to the Inputs field.
+func (o *AiModelInfo) SetInputs(v []string) {
+	o.Inputs = v
+}
+
 // GetMaxOutputTokens returns the MaxOutputTokens field value if set, zero value otherwise.
 func (o *AiModelInfo) GetMaxOutputTokens() int32 {
 	if o == nil || IsNil(o.MaxOutputTokens) {
@@ -209,6 +379,38 @@ func (o *AiModelInfo) HasMaxOutputTokens() bool {
 // SetMaxOutputTokens gets a reference to the given int32 and assigns it to the MaxOutputTokens field.
 func (o *AiModelInfo) SetMaxOutputTokens(v int32) {
 	o.MaxOutputTokens = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *AiModelInfo) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelInfo) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *AiModelInfo) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *AiModelInfo) SetName(v string) {
+	o.Name = &v
 }
 
 // GetObject returns the Object field value if set, zero value otherwise.
@@ -403,6 +605,38 @@ func (o *AiModelInfo) SetProvider(v string) {
 	o.Provider = &v
 }
 
+// GetSupportsReasoning returns the SupportsReasoning field value if set, zero value otherwise.
+func (o *AiModelInfo) GetSupportsReasoning() bool {
+	if o == nil || IsNil(o.SupportsReasoning) {
+		var ret bool
+		return ret
+	}
+	return *o.SupportsReasoning
+}
+
+// GetSupportsReasoningOk returns a tuple with the SupportsReasoning field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiModelInfo) GetSupportsReasoningOk() (*bool, bool) {
+	if o == nil || IsNil(o.SupportsReasoning) {
+		return nil, false
+	}
+	return o.SupportsReasoning, true
+}
+
+// HasSupportsReasoning returns a boolean if a field has been set.
+func (o *AiModelInfo) HasSupportsReasoning() bool {
+	if o != nil && !IsNil(o.SupportsReasoning) {
+		return true
+	}
+
+	return false
+}
+
+// SetSupportsReasoning gets a reference to the given bool and assigns it to the SupportsReasoning field.
+func (o *AiModelInfo) SetSupportsReasoning(v bool) {
+	o.SupportsReasoning = &v
+}
+
 // GetSupportsTools returns the SupportsTools field value if set, zero value otherwise.
 func (o *AiModelInfo) GetSupportsTools() bool {
 	if o == nil || IsNil(o.SupportsTools) {
@@ -480,17 +714,35 @@ func (o AiModelInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Access) {
 		toSerialize["access"] = o.Access
 	}
+	if !IsNil(o.CanonicalSlug) {
+		toSerialize["canonical_slug"] = o.CanonicalSlug
+	}
+	if !IsNil(o.Class) {
+		toSerialize["class"] = o.Class
+	}
 	if !IsNil(o.ContextWindow) {
 		toSerialize["context_window"] = o.ContextWindow
 	}
 	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Family) {
+		toSerialize["family"] = o.Family
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
+	if !IsNil(o.Inputs) {
+		toSerialize["inputs"] = o.Inputs
+	}
 	if !IsNil(o.MaxOutputTokens) {
 		toSerialize["max_output_tokens"] = o.MaxOutputTokens
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
 	}
 	if !IsNil(o.Object) {
 		toSerialize["object"] = o.Object
@@ -510,13 +762,61 @@ func (o AiModelInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
+	if !IsNil(o.SupportsReasoning) {
+		toSerialize["supports_reasoning"] = o.SupportsReasoning
+	}
 	if !IsNil(o.SupportsTools) {
 		toSerialize["supports_tools"] = o.SupportsTools
 	}
 	if !IsNil(o.SupportsVision) {
 		toSerialize["supports_vision"] = o.SupportsVision
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiModelInfo) UnmarshalJSON(data []byte) (err error) {
+	varAiModelInfo := _AiModelInfo{}
+
+	err = json.Unmarshal(data, &varAiModelInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiModelInfo(varAiModelInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "access")
+		delete(additionalProperties, "canonical_slug")
+		delete(additionalProperties, "class")
+		delete(additionalProperties, "context_window")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "family")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "inputs")
+		delete(additionalProperties, "max_output_tokens")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "object")
+		delete(additionalProperties, "outputs")
+		delete(additionalProperties, "owned_by")
+		delete(additionalProperties, "premium")
+		delete(additionalProperties, "pricing")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "supports_reasoning")
+		delete(additionalProperties, "supports_tools")
+		delete(additionalProperties, "supports_vision")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiModelInfo struct {

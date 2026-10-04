@@ -22,8 +22,11 @@ type O11yO11yFieldCatalogOut struct {
 	// Interesting are fields seen in the data that could be selected.
 	Interesting []O11yO11yTelemetryField `json:"interesting,omitempty"`
 	// Selected are the fields materialized as their own columns.
-	Selected []O11yO11yTelemetryField `json:"selected,omitempty"`
+	Selected             []O11yO11yTelemetryField `json:"selected,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFieldCatalogOut O11yO11yFieldCatalogOut
 
 // NewO11yO11yFieldCatalogOut instantiates a new O11yO11yFieldCatalogOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yFieldCatalogOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Selected) {
 		toSerialize["selected"] = o.Selected
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFieldCatalogOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFieldCatalogOut := _O11yO11yFieldCatalogOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yFieldCatalogOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFieldCatalogOut(varO11yO11yFieldCatalogOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "interesting")
+		delete(additionalProperties, "selected")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFieldCatalogOut struct {

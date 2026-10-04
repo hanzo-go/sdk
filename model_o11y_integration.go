@@ -19,19 +19,22 @@ var _ MappedNullable = &O11yIntegration{}
 
 // O11yIntegration struct for O11yIntegration
 type O11yIntegration struct {
-	Assets          *O11yIntegrationAssets           `json:"assets,omitempty"`
-	Author          *O11yIntegrationAuthor           `json:"author,omitempty"`
-	Categories      []string                         `json:"categories,omitempty"`
-	Configuration   []O11yIntegrationConfigStep      `json:"configuration,omitempty"`
-	ConnectionTests *O11yIntegrationConnectionTests  `json:"connection_tests,omitempty"`
-	DataCollected   *O11yDataCollectedForIntegration `json:"data_collected,omitempty"`
-	Description     *string                          `json:"description,omitempty"`
-	Icon            *string                          `json:"icon,omitempty"`
-	Id              *string                          `json:"id,omitempty"`
-	Installation    *O11yInstalledIntegration        `json:"installation,omitempty"`
-	Overview        *string                          `json:"overview,omitempty"`
-	Title           *string                          `json:"title,omitempty"`
+	Assets               *O11yIntegrationAssets           `json:"assets,omitempty"`
+	Author               *O11yIntegrationAuthor           `json:"author,omitempty"`
+	Categories           []string                         `json:"categories,omitempty"`
+	Configuration        []O11yIntegrationConfigStep      `json:"configuration,omitempty"`
+	ConnectionTests      *O11yIntegrationConnectionTests  `json:"connection_tests,omitempty"`
+	DataCollected        *O11yDataCollectedForIntegration `json:"data_collected,omitempty"`
+	Description          *string                          `json:"description,omitempty"`
+	Icon                 *string                          `json:"icon,omitempty"`
+	Id                   *string                          `json:"id,omitempty"`
+	Installation         *O11yInstalledIntegration        `json:"installation,omitempty"`
+	Overview             *string                          `json:"overview,omitempty"`
+	Title                *string                          `json:"title,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yIntegration O11yIntegration
 
 // NewO11yIntegration instantiates a new O11yIntegration object
 // This constructor will assign default values to properties that have it defined,
@@ -480,7 +483,44 @@ func (o O11yIntegration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yIntegration) UnmarshalJSON(data []byte) (err error) {
+	varO11yIntegration := _O11yIntegration{}
+
+	err = json.Unmarshal(data, &varO11yIntegration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yIntegration(varO11yIntegration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "assets")
+		delete(additionalProperties, "author")
+		delete(additionalProperties, "categories")
+		delete(additionalProperties, "configuration")
+		delete(additionalProperties, "connection_tests")
+		delete(additionalProperties, "data_collected")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "icon")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "installation")
+		delete(additionalProperties, "overview")
+		delete(additionalProperties, "title")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yIntegration struct {

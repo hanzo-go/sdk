@@ -92,7 +92,7 @@ func (a *SpaceAPIService) DeleteSpaceBySpaceDrivesByDriveExecute(r SpaceAPIDelet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -121,6 +121,14 @@ func (a *SpaceAPIService) DeleteSpaceBySpaceDrivesByDriveExecute(r SpaceAPIDelet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -133,7 +141,7 @@ type SpaceAPIGetSpaceBySpaceDrivesRequest struct {
 	space      string
 }
 
-func (r SpaceAPIGetSpaceBySpaceDrivesRequest) Execute() (*DriveList, *http.Response, error) {
+func (r SpaceAPIGetSpaceBySpaceDrivesRequest) Execute() (*SpaceDriveList, *http.Response, error) {
 	return r.ApiService.GetSpaceBySpaceDrivesExecute(r)
 }
 
@@ -165,13 +173,13 @@ func (a *SpaceAPIService) GetSpaceBySpaceDrives(ctx context.Context, space strin
 
 // Execute executes the request
 //
-//	@return DriveList
-func (a *SpaceAPIService) GetSpaceBySpaceDrivesExecute(r SpaceAPIGetSpaceBySpaceDrivesRequest) (*DriveList, *http.Response, error) {
+//	@return SpaceDriveList
+func (a *SpaceAPIService) GetSpaceBySpaceDrivesExecute(r SpaceAPIGetSpaceBySpaceDrivesRequest) (*SpaceDriveList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DriveList
+		localVarReturnValue *SpaceDriveList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SpaceAPIService.GetSpaceBySpaceDrives")
@@ -196,7 +204,7 @@ func (a *SpaceAPIService) GetSpaceBySpaceDrivesExecute(r SpaceAPIGetSpaceBySpace
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -225,6 +233,14 @@ func (a *SpaceAPIService) GetSpaceBySpaceDrivesExecute(r SpaceAPIGetSpaceBySpace
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -259,7 +275,7 @@ func (r SpaceAPIGetSpaceBySpaceDrivesByDriveFilesRequest) Recursive(recursive st
 	return r
 }
 
-func (r SpaceAPIGetSpaceBySpaceDrivesByDriveFilesRequest) Execute() (*FileList, *http.Response, error) {
+func (r SpaceAPIGetSpaceBySpaceDrivesByDriveFilesRequest) Execute() (*SpaceFileList, *http.Response, error) {
 	return r.ApiService.GetSpaceBySpaceDrivesByDriveFilesExecute(r)
 }
 
@@ -293,13 +309,13 @@ func (a *SpaceAPIService) GetSpaceBySpaceDrivesByDriveFiles(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return FileList
-func (a *SpaceAPIService) GetSpaceBySpaceDrivesByDriveFilesExecute(r SpaceAPIGetSpaceBySpaceDrivesByDriveFilesRequest) (*FileList, *http.Response, error) {
+//	@return SpaceFileList
+func (a *SpaceAPIService) GetSpaceBySpaceDrivesByDriveFilesExecute(r SpaceAPIGetSpaceBySpaceDrivesByDriveFilesRequest) (*SpaceFileList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FileList
+		localVarReturnValue *SpaceFileList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SpaceAPIService.GetSpaceBySpaceDrivesByDriveFiles")
@@ -331,7 +347,7 @@ func (a *SpaceAPIService) GetSpaceBySpaceDrivesByDriveFilesExecute(r SpaceAPIGet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -360,6 +376,14 @@ func (a *SpaceAPIService) GetSpaceBySpaceDrivesByDriveFilesExecute(r SpaceAPIGet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -380,14 +404,14 @@ type SpaceAPIGetSpaceHealthRequest struct {
 	ApiService *SpaceAPIService
 }
 
-func (r SpaceAPIGetSpaceHealthRequest) Execute() (*SpaceHealth, *http.Response, error) {
+func (r SpaceAPIGetSpaceHealthRequest) Execute() (*SpaceSpaceHealth, *http.Response, error) {
 	return r.ApiService.GetSpaceHealthExecute(r)
 }
 
 /*
-GetSpaceHealth Health reports whether this deployment can serve spaces, drives and files.
+GetSpaceHealth Reports whether this deployment can serve spaces, drives and files.
 
-Health reports whether this deployment can serve spaces, drives and files.
+Reports whether this deployment can serve spaces, drives and files.
 
 It is a REAL probe rather than a constant: 200 when object-store credentials
 are present, so the store is reachable in principle, and 503 with the reason
@@ -407,13 +431,13 @@ func (a *SpaceAPIService) GetSpaceHealth(ctx context.Context) SpaceAPIGetSpaceHe
 
 // Execute executes the request
 //
-//	@return SpaceHealth
-func (a *SpaceAPIService) GetSpaceHealthExecute(r SpaceAPIGetSpaceHealthRequest) (*SpaceHealth, *http.Response, error) {
+//	@return SpaceSpaceHealth
+func (a *SpaceAPIService) GetSpaceHealthExecute(r SpaceAPIGetSpaceHealthRequest) (*SpaceSpaceHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SpaceHealth
+		localVarReturnValue *SpaceSpaceHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SpaceAPIService.GetSpaceHealth")
@@ -437,7 +461,7 @@ func (a *SpaceAPIService) GetSpaceHealthExecute(r SpaceAPIGetSpaceHealthRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -467,7 +491,7 @@ func (a *SpaceAPIService) GetSpaceHealthExecute(r SpaceAPIGetSpaceHealthRequest)
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
-			var v SpaceHealth
+			var v SpaceSpaceHealth
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -475,7 +499,16 @@ func (a *SpaceAPIService) GetSpaceHealthExecute(r SpaceAPIGetSpaceHealthRequest)
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -496,7 +529,7 @@ type SpaceAPIGetSpaceSpacesRequest struct {
 	ApiService *SpaceAPIService
 }
 
-func (r SpaceAPIGetSpaceSpacesRequest) Execute() (*SpaceList, *http.Response, error) {
+func (r SpaceAPIGetSpaceSpacesRequest) Execute() (*SpaceSpaceList, *http.Response, error) {
 	return r.ApiService.GetSpaceSpacesExecute(r)
 }
 
@@ -526,13 +559,13 @@ func (a *SpaceAPIService) GetSpaceSpaces(ctx context.Context) SpaceAPIGetSpaceSp
 
 // Execute executes the request
 //
-//	@return SpaceList
-func (a *SpaceAPIService) GetSpaceSpacesExecute(r SpaceAPIGetSpaceSpacesRequest) (*SpaceList, *http.Response, error) {
+//	@return SpaceSpaceList
+func (a *SpaceAPIService) GetSpaceSpacesExecute(r SpaceAPIGetSpaceSpacesRequest) (*SpaceSpaceList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SpaceList
+		localVarReturnValue *SpaceSpaceList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SpaceAPIService.GetSpaceSpaces")
@@ -556,7 +589,7 @@ func (a *SpaceAPIService) GetSpaceSpacesExecute(r SpaceAPIGetSpaceSpacesRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -585,6 +618,14 @@ func (a *SpaceAPIService) GetSpaceSpacesExecute(r SpaceAPIGetSpaceSpacesRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -601,18 +642,18 @@ func (a *SpaceAPIService) GetSpaceSpacesExecute(r SpaceAPIGetSpaceSpacesRequest)
 }
 
 type SpaceAPIPostSpaceBySpaceDrivesRequest struct {
-	ctx        context.Context
-	ApiService *SpaceAPIService
-	space      string
-	driveIn    *DriveIn
+	ctx          context.Context
+	ApiService   *SpaceAPIService
+	space        string
+	spaceDriveIn *SpaceDriveIn
 }
 
-func (r SpaceAPIPostSpaceBySpaceDrivesRequest) DriveIn(driveIn DriveIn) SpaceAPIPostSpaceBySpaceDrivesRequest {
-	r.driveIn = &driveIn
+func (r SpaceAPIPostSpaceBySpaceDrivesRequest) SpaceDriveIn(spaceDriveIn SpaceDriveIn) SpaceAPIPostSpaceBySpaceDrivesRequest {
+	r.spaceDriveIn = &spaceDriveIn
 	return r
 }
 
-func (r SpaceAPIPostSpaceBySpaceDrivesRequest) Execute() (*DriveItem, *http.Response, error) {
+func (r SpaceAPIPostSpaceBySpaceDrivesRequest) Execute() (*SpaceDriveItem, *http.Response, error) {
 	return r.ApiService.PostSpaceBySpaceDrivesExecute(r)
 }
 
@@ -643,13 +684,13 @@ func (a *SpaceAPIService) PostSpaceBySpaceDrives(ctx context.Context, space stri
 
 // Execute executes the request
 //
-//	@return DriveItem
-func (a *SpaceAPIService) PostSpaceBySpaceDrivesExecute(r SpaceAPIPostSpaceBySpaceDrivesRequest) (*DriveItem, *http.Response, error) {
+//	@return SpaceDriveItem
+func (a *SpaceAPIService) PostSpaceBySpaceDrivesExecute(r SpaceAPIPostSpaceBySpaceDrivesRequest) (*SpaceDriveItem, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DriveItem
+		localVarReturnValue *SpaceDriveItem
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SpaceAPIService.PostSpaceBySpaceDrives")
@@ -663,8 +704,8 @@ func (a *SpaceAPIService) PostSpaceBySpaceDrivesExecute(r SpaceAPIPostSpaceBySpa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.driveIn == nil {
-		return localVarReturnValue, nil, reportError("driveIn is required and must be specified")
+	if r.spaceDriveIn == nil {
+		return localVarReturnValue, nil, reportError("spaceDriveIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -677,7 +718,7 @@ func (a *SpaceAPIService) PostSpaceBySpaceDrivesExecute(r SpaceAPIPostSpaceBySpa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -685,7 +726,7 @@ func (a *SpaceAPIService) PostSpaceBySpaceDrivesExecute(r SpaceAPIPostSpaceBySpa
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.driveIn
+	localVarPostBody = r.spaceDriveIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -708,6 +749,14 @@ func (a *SpaceAPIService) PostSpaceBySpaceDrivesExecute(r SpaceAPIPostSpaceBySpa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -724,17 +773,17 @@ func (a *SpaceAPIService) PostSpaceBySpaceDrivesExecute(r SpaceAPIPostSpaceBySpa
 }
 
 type SpaceAPIPostSpaceSpacesRequest struct {
-	ctx        context.Context
-	ApiService *SpaceAPIService
-	spaceIn    *SpaceIn
+	ctx          context.Context
+	ApiService   *SpaceAPIService
+	spaceSpaceIn *SpaceSpaceIn
 }
 
-func (r SpaceAPIPostSpaceSpacesRequest) SpaceIn(spaceIn SpaceIn) SpaceAPIPostSpaceSpacesRequest {
-	r.spaceIn = &spaceIn
+func (r SpaceAPIPostSpaceSpacesRequest) SpaceSpaceIn(spaceSpaceIn SpaceSpaceIn) SpaceAPIPostSpaceSpacesRequest {
+	r.spaceSpaceIn = &spaceSpaceIn
 	return r
 }
 
-func (r SpaceAPIPostSpaceSpacesRequest) Execute() (*SpaceItem, *http.Response, error) {
+func (r SpaceAPIPostSpaceSpacesRequest) Execute() (*SpaceSpaceItem, *http.Response, error) {
 	return r.ApiService.PostSpaceSpacesExecute(r)
 }
 
@@ -763,13 +812,13 @@ func (a *SpaceAPIService) PostSpaceSpaces(ctx context.Context) SpaceAPIPostSpace
 
 // Execute executes the request
 //
-//	@return SpaceItem
-func (a *SpaceAPIService) PostSpaceSpacesExecute(r SpaceAPIPostSpaceSpacesRequest) (*SpaceItem, *http.Response, error) {
+//	@return SpaceSpaceItem
+func (a *SpaceAPIService) PostSpaceSpacesExecute(r SpaceAPIPostSpaceSpacesRequest) (*SpaceSpaceItem, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SpaceItem
+		localVarReturnValue *SpaceSpaceItem
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SpaceAPIService.PostSpaceSpaces")
@@ -782,8 +831,8 @@ func (a *SpaceAPIService) PostSpaceSpacesExecute(r SpaceAPIPostSpaceSpacesReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.spaceIn == nil {
-		return localVarReturnValue, nil, reportError("spaceIn is required and must be specified")
+	if r.spaceSpaceIn == nil {
+		return localVarReturnValue, nil, reportError("spaceSpaceIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -796,7 +845,7 @@ func (a *SpaceAPIService) PostSpaceSpacesExecute(r SpaceAPIPostSpaceSpacesReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -804,7 +853,7 @@ func (a *SpaceAPIService) PostSpaceSpacesExecute(r SpaceAPIPostSpaceSpacesReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.spaceIn
+	localVarPostBody = r.spaceSpaceIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -827,6 +876,14 @@ func (a *SpaceAPIService) PostSpaceSpacesExecute(r SpaceAPIPostSpaceSpacesReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

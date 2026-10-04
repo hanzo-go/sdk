@@ -26,7 +26,7 @@ type TreasuryAPIGetTreasuryRequest struct {
 	ApiService *TreasuryAPIService
 }
 
-func (r TreasuryAPIGetTreasuryRequest) Execute() (*TreasuryReport, *http.Response, error) {
+func (r TreasuryAPIGetTreasuryRequest) Execute() (*TreasuryTreasuryReport, *http.Response, error) {
 	return r.ApiService.GetTreasuryExecute(r)
 }
 
@@ -51,13 +51,13 @@ func (a *TreasuryAPIService) GetTreasury(ctx context.Context) TreasuryAPIGetTrea
 
 // Execute executes the request
 //
-//	@return TreasuryReport
-func (a *TreasuryAPIService) GetTreasuryExecute(r TreasuryAPIGetTreasuryRequest) (*TreasuryReport, *http.Response, error) {
+//	@return TreasuryTreasuryReport
+func (a *TreasuryAPIService) GetTreasuryExecute(r TreasuryAPIGetTreasuryRequest) (*TreasuryTreasuryReport, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TreasuryReport
+		localVarReturnValue *TreasuryTreasuryReport
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TreasuryAPIService.GetTreasury")
@@ -81,7 +81,7 @@ func (a *TreasuryAPIService) GetTreasuryExecute(r TreasuryAPIGetTreasuryRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -110,6 +110,14 @@ func (a *TreasuryAPIService) GetTreasuryExecute(r TreasuryAPIGetTreasuryRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -144,7 +152,7 @@ func (r TreasuryAPIGetTreasuryAccountsRequest) Org(org string) TreasuryAPIGetTre
 	return r
 }
 
-func (r TreasuryAPIGetTreasuryAccountsRequest) Execute() (*AccountsOut, *http.Response, error) {
+func (r TreasuryAPIGetTreasuryAccountsRequest) Execute() (*TreasuryAccountsOut, *http.Response, error) {
 	return r.ApiService.GetTreasuryAccountsExecute(r)
 }
 
@@ -171,13 +179,13 @@ func (a *TreasuryAPIService) GetTreasuryAccounts(ctx context.Context) TreasuryAP
 
 // Execute executes the request
 //
-//	@return AccountsOut
-func (a *TreasuryAPIService) GetTreasuryAccountsExecute(r TreasuryAPIGetTreasuryAccountsRequest) (*AccountsOut, *http.Response, error) {
+//	@return TreasuryAccountsOut
+func (a *TreasuryAPIService) GetTreasuryAccountsExecute(r TreasuryAPIGetTreasuryAccountsRequest) (*TreasuryAccountsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccountsOut
+		localVarReturnValue *TreasuryAccountsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TreasuryAPIService.GetTreasuryAccounts")
@@ -207,7 +215,7 @@ func (a *TreasuryAPIService) GetTreasuryAccountsExecute(r TreasuryAPIGetTreasury
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -236,6 +244,14 @@ func (a *TreasuryAPIService) GetTreasuryAccountsExecute(r TreasuryAPIGetTreasury
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -19,15 +19,18 @@ var _ MappedNullable = &AiHistoryDay{}
 
 // AiHistoryDay struct for AiHistoryDay
 type AiHistoryDay struct {
-	ByTask              map[string]int32 `json:"by_task,omitempty"`
-	CostSavedIndex      *float32         `json:"cost_saved_index,omitempty"`
-	CumulativeCostSaved *float32         `json:"cumulative_cost_saved,omitempty"`
-	Date                *string          `json:"date,omitempty"`
-	Events              *int32           `json:"events,omitempty"`
-	LearnedShare        *float32         `json:"learned_share,omitempty"`
-	RewardRate          *float32         `json:"reward_rate,omitempty"`
-	RewardedEvents      *int32           `json:"rewarded_events,omitempty"`
+	ByTask               map[string]int32 `json:"by_task,omitempty"`
+	CostSavedIndex       *float32         `json:"cost_saved_index,omitempty"`
+	CumulativeCostSaved  *float32         `json:"cumulative_cost_saved,omitempty"`
+	Date                 *string          `json:"date,omitempty"`
+	Events               *int32           `json:"events,omitempty"`
+	LearnedShare         *float32         `json:"learned_share,omitempty"`
+	RewardRate           *float32         `json:"reward_rate,omitempty"`
+	RewardedEvents       *int32           `json:"rewarded_events,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiHistoryDay AiHistoryDay
 
 // NewAiHistoryDay instantiates a new AiHistoryDay object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o AiHistoryDay) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RewardedEvents) {
 		toSerialize["rewarded_events"] = o.RewardedEvents
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiHistoryDay) UnmarshalJSON(data []byte) (err error) {
+	varAiHistoryDay := _AiHistoryDay{}
+
+	err = json.Unmarshal(data, &varAiHistoryDay)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiHistoryDay(varAiHistoryDay)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "by_task")
+		delete(additionalProperties, "cost_saved_index")
+		delete(additionalProperties, "cumulative_cost_saved")
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "learned_share")
+		delete(additionalProperties, "reward_rate")
+		delete(additionalProperties, "rewarded_events")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiHistoryDay struct {

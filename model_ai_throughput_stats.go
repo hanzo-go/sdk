@@ -19,9 +19,12 @@ var _ MappedNullable = &AiThroughputStats{}
 
 // AiThroughputStats struct for AiThroughputStats
 type AiThroughputStats struct {
-	PerHour     []int32 `json:"per_hour,omitempty"`
-	TotalWindow *int32  `json:"total_window,omitempty"`
+	PerHour              []int32 `json:"per_hour,omitempty"`
+	TotalWindow          *int32  `json:"total_window,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiThroughputStats AiThroughputStats
 
 // NewAiThroughputStats instantiates a new AiThroughputStats object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o AiThroughputStats) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalWindow) {
 		toSerialize["total_window"] = o.TotalWindow
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiThroughputStats) UnmarshalJSON(data []byte) (err error) {
+	varAiThroughputStats := _AiThroughputStats{}
+
+	err = json.Unmarshal(data, &varAiThroughputStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiThroughputStats(varAiThroughputStats)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "per_hour")
+		delete(additionalProperties, "total_window")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiThroughputStats struct {

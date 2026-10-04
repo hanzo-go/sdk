@@ -19,33 +19,34 @@ var _ MappedNullable = &BillingInvoice{}
 
 // BillingInvoice struct for BillingInvoice
 type BillingInvoice struct {
-	AmountDue     *int64  `json:"amountDue,omitempty"`
-	AmountPaid    *int64  `json:"amountPaid,omitempty"`
-	AttemptCount  *int64  `json:"attemptCount,omitempty"`
-	CreatedAt     *string `json:"createdAt,omitempty"`
-	CreditApplied *int64  `json:"creditApplied,omitempty"`
-	Currency      *string `json:"currency,omitempty"`
+	// AmountDueCents is what remains collectible.
+	AmountDueCents *int64 `json:"amountDueCents,omitempty"`
+	// AmountPaidCents is what has been collected so far.
+	AmountPaidCents *int64 `json:"amountPaidCents,omitempty"`
+	// CreatedAt is when the draft was raised, RFC3339.
+	CreatedAt *string `json:"createdAt,omitempty"`
+	// Currency is the ISO 4217 code.
+	Currency *string `json:"currency,omitempty"`
+	// CustomerEmail is where it is sent.
 	CustomerEmail *string `json:"customerEmail,omitempty"`
-	Discount      *int64  `json:"discount,omitempty"`
-	DueDate       *string `json:"dueDate,omitempty"`
-	Id            *string `json:"id,omitempty"`
-	// LineItems carries no omitempty and is never allocated empty, because the wire it reproduces sends `null` for an invoice with no lines. An empty array there would be a different answer to \"were there lines\".
-	LineItems      []InvoiceLineItem `json:"lineItems,omitempty"`
-	Number         *int64            `json:"number,omitempty"`
-	NumberStr      *string           `json:"numberStr,omitempty"`
-	PaidAt         *string           `json:"paidAt,omitempty"`
-	PaymentMethod  *string           `json:"paymentMethod,omitempty"`
-	PaymentRef     *string           `json:"paymentRef,omitempty"`
-	PeriodEnd      *string           `json:"periodEnd,omitempty"`
-	PeriodStart    *string           `json:"periodStart,omitempty"`
-	Status         *string           `json:"status,omitempty"`
-	SubscriptionId *string           `json:"subscriptionId,omitempty"`
-	Subtotal       *int64            `json:"subtotal,omitempty"`
-	Tax            *int64            `json:"tax,omitempty"`
-	UpdatedAt      *string           `json:"updatedAt,omitempty"`
-	UserId         *string           `json:"userId,omitempty"`
-	VoidedAt       *string           `json:"voidedAt,omitempty"`
+	// ID is the invoice id — what the issue, collect and void ops address.
+	Id *string `json:"id,omitempty"`
+	// Lines are the charges on the invoice.
+	Lines []BillingInvoiceLine `json:"lines,omitempty"`
+	// Number is the human-facing invoice number, e.g. \"INV-0042\". A draft has none; issuing assigns it.
+	Number *string `json:"number,omitempty"`
+	// PaymentRef is the processor reference for the collection, once paid.
+	PaymentRef *string `json:"paymentRef,omitempty"`
+	// Status is draft, open, paid, void or uncollectible. A draft is not collectible; issuing moves it to open.
+	Status *string `json:"status,omitempty"`
+	// SubtotalCents is the sum of the lines.
+	SubtotalCents *int64 `json:"subtotalCents,omitempty"`
+	// UserID is the customer billed.
+	UserId               *string `json:"userId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BillingInvoice BillingInvoice
 
 // NewBillingInvoice instantiates a new BillingInvoice object
 // This constructor will assign default values to properties that have it defined,
@@ -64,100 +65,68 @@ func NewBillingInvoiceWithDefaults() *BillingInvoice {
 	return &this
 }
 
-// GetAmountDue returns the AmountDue field value if set, zero value otherwise.
-func (o *BillingInvoice) GetAmountDue() int64 {
-	if o == nil || IsNil(o.AmountDue) {
+// GetAmountDueCents returns the AmountDueCents field value if set, zero value otherwise.
+func (o *BillingInvoice) GetAmountDueCents() int64 {
+	if o == nil || IsNil(o.AmountDueCents) {
 		var ret int64
 		return ret
 	}
-	return *o.AmountDue
+	return *o.AmountDueCents
 }
 
-// GetAmountDueOk returns a tuple with the AmountDue field value if set, nil otherwise
+// GetAmountDueCentsOk returns a tuple with the AmountDueCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetAmountDueOk() (*int64, bool) {
-	if o == nil || IsNil(o.AmountDue) {
+func (o *BillingInvoice) GetAmountDueCentsOk() (*int64, bool) {
+	if o == nil || IsNil(o.AmountDueCents) {
 		return nil, false
 	}
-	return o.AmountDue, true
+	return o.AmountDueCents, true
 }
 
-// HasAmountDue returns a boolean if a field has been set.
-func (o *BillingInvoice) HasAmountDue() bool {
-	if o != nil && !IsNil(o.AmountDue) {
+// HasAmountDueCents returns a boolean if a field has been set.
+func (o *BillingInvoice) HasAmountDueCents() bool {
+	if o != nil && !IsNil(o.AmountDueCents) {
 		return true
 	}
 
 	return false
 }
 
-// SetAmountDue gets a reference to the given int64 and assigns it to the AmountDue field.
-func (o *BillingInvoice) SetAmountDue(v int64) {
-	o.AmountDue = &v
+// SetAmountDueCents gets a reference to the given int64 and assigns it to the AmountDueCents field.
+func (o *BillingInvoice) SetAmountDueCents(v int64) {
+	o.AmountDueCents = &v
 }
 
-// GetAmountPaid returns the AmountPaid field value if set, zero value otherwise.
-func (o *BillingInvoice) GetAmountPaid() int64 {
-	if o == nil || IsNil(o.AmountPaid) {
+// GetAmountPaidCents returns the AmountPaidCents field value if set, zero value otherwise.
+func (o *BillingInvoice) GetAmountPaidCents() int64 {
+	if o == nil || IsNil(o.AmountPaidCents) {
 		var ret int64
 		return ret
 	}
-	return *o.AmountPaid
+	return *o.AmountPaidCents
 }
 
-// GetAmountPaidOk returns a tuple with the AmountPaid field value if set, nil otherwise
+// GetAmountPaidCentsOk returns a tuple with the AmountPaidCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetAmountPaidOk() (*int64, bool) {
-	if o == nil || IsNil(o.AmountPaid) {
+func (o *BillingInvoice) GetAmountPaidCentsOk() (*int64, bool) {
+	if o == nil || IsNil(o.AmountPaidCents) {
 		return nil, false
 	}
-	return o.AmountPaid, true
+	return o.AmountPaidCents, true
 }
 
-// HasAmountPaid returns a boolean if a field has been set.
-func (o *BillingInvoice) HasAmountPaid() bool {
-	if o != nil && !IsNil(o.AmountPaid) {
+// HasAmountPaidCents returns a boolean if a field has been set.
+func (o *BillingInvoice) HasAmountPaidCents() bool {
+	if o != nil && !IsNil(o.AmountPaidCents) {
 		return true
 	}
 
 	return false
 }
 
-// SetAmountPaid gets a reference to the given int64 and assigns it to the AmountPaid field.
-func (o *BillingInvoice) SetAmountPaid(v int64) {
-	o.AmountPaid = &v
-}
-
-// GetAttemptCount returns the AttemptCount field value if set, zero value otherwise.
-func (o *BillingInvoice) GetAttemptCount() int64 {
-	if o == nil || IsNil(o.AttemptCount) {
-		var ret int64
-		return ret
-	}
-	return *o.AttemptCount
-}
-
-// GetAttemptCountOk returns a tuple with the AttemptCount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetAttemptCountOk() (*int64, bool) {
-	if o == nil || IsNil(o.AttemptCount) {
-		return nil, false
-	}
-	return o.AttemptCount, true
-}
-
-// HasAttemptCount returns a boolean if a field has been set.
-func (o *BillingInvoice) HasAttemptCount() bool {
-	if o != nil && !IsNil(o.AttemptCount) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttemptCount gets a reference to the given int64 and assigns it to the AttemptCount field.
-func (o *BillingInvoice) SetAttemptCount(v int64) {
-	o.AttemptCount = &v
+// SetAmountPaidCents gets a reference to the given int64 and assigns it to the AmountPaidCents field.
+func (o *BillingInvoice) SetAmountPaidCents(v int64) {
+	o.AmountPaidCents = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -190,38 +159,6 @@ func (o *BillingInvoice) HasCreatedAt() bool {
 // SetCreatedAt gets a reference to the given string and assigns it to the CreatedAt field.
 func (o *BillingInvoice) SetCreatedAt(v string) {
 	o.CreatedAt = &v
-}
-
-// GetCreditApplied returns the CreditApplied field value if set, zero value otherwise.
-func (o *BillingInvoice) GetCreditApplied() int64 {
-	if o == nil || IsNil(o.CreditApplied) {
-		var ret int64
-		return ret
-	}
-	return *o.CreditApplied
-}
-
-// GetCreditAppliedOk returns a tuple with the CreditApplied field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetCreditAppliedOk() (*int64, bool) {
-	if o == nil || IsNil(o.CreditApplied) {
-		return nil, false
-	}
-	return o.CreditApplied, true
-}
-
-// HasCreditApplied returns a boolean if a field has been set.
-func (o *BillingInvoice) HasCreditApplied() bool {
-	if o != nil && !IsNil(o.CreditApplied) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreditApplied gets a reference to the given int64 and assigns it to the CreditApplied field.
-func (o *BillingInvoice) SetCreditApplied(v int64) {
-	o.CreditApplied = &v
 }
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
@@ -288,70 +225,6 @@ func (o *BillingInvoice) SetCustomerEmail(v string) {
 	o.CustomerEmail = &v
 }
 
-// GetDiscount returns the Discount field value if set, zero value otherwise.
-func (o *BillingInvoice) GetDiscount() int64 {
-	if o == nil || IsNil(o.Discount) {
-		var ret int64
-		return ret
-	}
-	return *o.Discount
-}
-
-// GetDiscountOk returns a tuple with the Discount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetDiscountOk() (*int64, bool) {
-	if o == nil || IsNil(o.Discount) {
-		return nil, false
-	}
-	return o.Discount, true
-}
-
-// HasDiscount returns a boolean if a field has been set.
-func (o *BillingInvoice) HasDiscount() bool {
-	if o != nil && !IsNil(o.Discount) {
-		return true
-	}
-
-	return false
-}
-
-// SetDiscount gets a reference to the given int64 and assigns it to the Discount field.
-func (o *BillingInvoice) SetDiscount(v int64) {
-	o.Discount = &v
-}
-
-// GetDueDate returns the DueDate field value if set, zero value otherwise.
-func (o *BillingInvoice) GetDueDate() string {
-	if o == nil || IsNil(o.DueDate) {
-		var ret string
-		return ret
-	}
-	return *o.DueDate
-}
-
-// GetDueDateOk returns a tuple with the DueDate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetDueDateOk() (*string, bool) {
-	if o == nil || IsNil(o.DueDate) {
-		return nil, false
-	}
-	return o.DueDate, true
-}
-
-// HasDueDate returns a boolean if a field has been set.
-func (o *BillingInvoice) HasDueDate() bool {
-	if o != nil && !IsNil(o.DueDate) {
-		return true
-	}
-
-	return false
-}
-
-// SetDueDate gets a reference to the given string and assigns it to the DueDate field.
-func (o *BillingInvoice) SetDueDate(v string) {
-	o.DueDate = &v
-}
-
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *BillingInvoice) GetId() string {
 	if o == nil || IsNil(o.Id) {
@@ -384,42 +257,42 @@ func (o *BillingInvoice) SetId(v string) {
 	o.Id = &v
 }
 
-// GetLineItems returns the LineItems field value if set, zero value otherwise.
-func (o *BillingInvoice) GetLineItems() []InvoiceLineItem {
-	if o == nil || IsNil(o.LineItems) {
-		var ret []InvoiceLineItem
+// GetLines returns the Lines field value if set, zero value otherwise.
+func (o *BillingInvoice) GetLines() []BillingInvoiceLine {
+	if o == nil || IsNil(o.Lines) {
+		var ret []BillingInvoiceLine
 		return ret
 	}
-	return o.LineItems
+	return o.Lines
 }
 
-// GetLineItemsOk returns a tuple with the LineItems field value if set, nil otherwise
+// GetLinesOk returns a tuple with the Lines field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetLineItemsOk() ([]InvoiceLineItem, bool) {
-	if o == nil || IsNil(o.LineItems) {
+func (o *BillingInvoice) GetLinesOk() ([]BillingInvoiceLine, bool) {
+	if o == nil || IsNil(o.Lines) {
 		return nil, false
 	}
-	return o.LineItems, true
+	return o.Lines, true
 }
 
-// HasLineItems returns a boolean if a field has been set.
-func (o *BillingInvoice) HasLineItems() bool {
-	if o != nil && !IsNil(o.LineItems) {
+// HasLines returns a boolean if a field has been set.
+func (o *BillingInvoice) HasLines() bool {
+	if o != nil && !IsNil(o.Lines) {
 		return true
 	}
 
 	return false
 }
 
-// SetLineItems gets a reference to the given []InvoiceLineItem and assigns it to the LineItems field.
-func (o *BillingInvoice) SetLineItems(v []InvoiceLineItem) {
-	o.LineItems = v
+// SetLines gets a reference to the given []BillingInvoiceLine and assigns it to the Lines field.
+func (o *BillingInvoice) SetLines(v []BillingInvoiceLine) {
+	o.Lines = v
 }
 
 // GetNumber returns the Number field value if set, zero value otherwise.
-func (o *BillingInvoice) GetNumber() int64 {
+func (o *BillingInvoice) GetNumber() string {
 	if o == nil || IsNil(o.Number) {
-		var ret int64
+		var ret string
 		return ret
 	}
 	return *o.Number
@@ -427,7 +300,7 @@ func (o *BillingInvoice) GetNumber() int64 {
 
 // GetNumberOk returns a tuple with the Number field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetNumberOk() (*int64, bool) {
+func (o *BillingInvoice) GetNumberOk() (*string, bool) {
 	if o == nil || IsNil(o.Number) {
 		return nil, false
 	}
@@ -443,105 +316,9 @@ func (o *BillingInvoice) HasNumber() bool {
 	return false
 }
 
-// SetNumber gets a reference to the given int64 and assigns it to the Number field.
-func (o *BillingInvoice) SetNumber(v int64) {
+// SetNumber gets a reference to the given string and assigns it to the Number field.
+func (o *BillingInvoice) SetNumber(v string) {
 	o.Number = &v
-}
-
-// GetNumberStr returns the NumberStr field value if set, zero value otherwise.
-func (o *BillingInvoice) GetNumberStr() string {
-	if o == nil || IsNil(o.NumberStr) {
-		var ret string
-		return ret
-	}
-	return *o.NumberStr
-}
-
-// GetNumberStrOk returns a tuple with the NumberStr field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetNumberStrOk() (*string, bool) {
-	if o == nil || IsNil(o.NumberStr) {
-		return nil, false
-	}
-	return o.NumberStr, true
-}
-
-// HasNumberStr returns a boolean if a field has been set.
-func (o *BillingInvoice) HasNumberStr() bool {
-	if o != nil && !IsNil(o.NumberStr) {
-		return true
-	}
-
-	return false
-}
-
-// SetNumberStr gets a reference to the given string and assigns it to the NumberStr field.
-func (o *BillingInvoice) SetNumberStr(v string) {
-	o.NumberStr = &v
-}
-
-// GetPaidAt returns the PaidAt field value if set, zero value otherwise.
-func (o *BillingInvoice) GetPaidAt() string {
-	if o == nil || IsNil(o.PaidAt) {
-		var ret string
-		return ret
-	}
-	return *o.PaidAt
-}
-
-// GetPaidAtOk returns a tuple with the PaidAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetPaidAtOk() (*string, bool) {
-	if o == nil || IsNil(o.PaidAt) {
-		return nil, false
-	}
-	return o.PaidAt, true
-}
-
-// HasPaidAt returns a boolean if a field has been set.
-func (o *BillingInvoice) HasPaidAt() bool {
-	if o != nil && !IsNil(o.PaidAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetPaidAt gets a reference to the given string and assigns it to the PaidAt field.
-func (o *BillingInvoice) SetPaidAt(v string) {
-	o.PaidAt = &v
-}
-
-// GetPaymentMethod returns the PaymentMethod field value if set, zero value otherwise.
-func (o *BillingInvoice) GetPaymentMethod() string {
-	if o == nil || IsNil(o.PaymentMethod) {
-		var ret string
-		return ret
-	}
-	return *o.PaymentMethod
-}
-
-// GetPaymentMethodOk returns a tuple with the PaymentMethod field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetPaymentMethodOk() (*string, bool) {
-	if o == nil || IsNil(o.PaymentMethod) {
-		return nil, false
-	}
-	return o.PaymentMethod, true
-}
-
-// HasPaymentMethod returns a boolean if a field has been set.
-func (o *BillingInvoice) HasPaymentMethod() bool {
-	if o != nil && !IsNil(o.PaymentMethod) {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentMethod gets a reference to the given string and assigns it to the PaymentMethod field.
-func (o *BillingInvoice) SetPaymentMethod(v string) {
-	o.PaymentMethod = &v
 }
 
 // GetPaymentRef returns the PaymentRef field value if set, zero value otherwise.
@@ -576,70 +353,6 @@ func (o *BillingInvoice) SetPaymentRef(v string) {
 	o.PaymentRef = &v
 }
 
-// GetPeriodEnd returns the PeriodEnd field value if set, zero value otherwise.
-func (o *BillingInvoice) GetPeriodEnd() string {
-	if o == nil || IsNil(o.PeriodEnd) {
-		var ret string
-		return ret
-	}
-	return *o.PeriodEnd
-}
-
-// GetPeriodEndOk returns a tuple with the PeriodEnd field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetPeriodEndOk() (*string, bool) {
-	if o == nil || IsNil(o.PeriodEnd) {
-		return nil, false
-	}
-	return o.PeriodEnd, true
-}
-
-// HasPeriodEnd returns a boolean if a field has been set.
-func (o *BillingInvoice) HasPeriodEnd() bool {
-	if o != nil && !IsNil(o.PeriodEnd) {
-		return true
-	}
-
-	return false
-}
-
-// SetPeriodEnd gets a reference to the given string and assigns it to the PeriodEnd field.
-func (o *BillingInvoice) SetPeriodEnd(v string) {
-	o.PeriodEnd = &v
-}
-
-// GetPeriodStart returns the PeriodStart field value if set, zero value otherwise.
-func (o *BillingInvoice) GetPeriodStart() string {
-	if o == nil || IsNil(o.PeriodStart) {
-		var ret string
-		return ret
-	}
-	return *o.PeriodStart
-}
-
-// GetPeriodStartOk returns a tuple with the PeriodStart field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetPeriodStartOk() (*string, bool) {
-	if o == nil || IsNil(o.PeriodStart) {
-		return nil, false
-	}
-	return o.PeriodStart, true
-}
-
-// HasPeriodStart returns a boolean if a field has been set.
-func (o *BillingInvoice) HasPeriodStart() bool {
-	if o != nil && !IsNil(o.PeriodStart) {
-		return true
-	}
-
-	return false
-}
-
-// SetPeriodStart gets a reference to the given string and assigns it to the PeriodStart field.
-func (o *BillingInvoice) SetPeriodStart(v string) {
-	o.PeriodStart = &v
-}
-
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *BillingInvoice) GetStatus() string {
 	if o == nil || IsNil(o.Status) {
@@ -672,132 +385,36 @@ func (o *BillingInvoice) SetStatus(v string) {
 	o.Status = &v
 }
 
-// GetSubscriptionId returns the SubscriptionId field value if set, zero value otherwise.
-func (o *BillingInvoice) GetSubscriptionId() string {
-	if o == nil || IsNil(o.SubscriptionId) {
-		var ret string
-		return ret
-	}
-	return *o.SubscriptionId
-}
-
-// GetSubscriptionIdOk returns a tuple with the SubscriptionId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetSubscriptionIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SubscriptionId) {
-		return nil, false
-	}
-	return o.SubscriptionId, true
-}
-
-// HasSubscriptionId returns a boolean if a field has been set.
-func (o *BillingInvoice) HasSubscriptionId() bool {
-	if o != nil && !IsNil(o.SubscriptionId) {
-		return true
-	}
-
-	return false
-}
-
-// SetSubscriptionId gets a reference to the given string and assigns it to the SubscriptionId field.
-func (o *BillingInvoice) SetSubscriptionId(v string) {
-	o.SubscriptionId = &v
-}
-
-// GetSubtotal returns the Subtotal field value if set, zero value otherwise.
-func (o *BillingInvoice) GetSubtotal() int64 {
-	if o == nil || IsNil(o.Subtotal) {
+// GetSubtotalCents returns the SubtotalCents field value if set, zero value otherwise.
+func (o *BillingInvoice) GetSubtotalCents() int64 {
+	if o == nil || IsNil(o.SubtotalCents) {
 		var ret int64
 		return ret
 	}
-	return *o.Subtotal
+	return *o.SubtotalCents
 }
 
-// GetSubtotalOk returns a tuple with the Subtotal field value if set, nil otherwise
+// GetSubtotalCentsOk returns a tuple with the SubtotalCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetSubtotalOk() (*int64, bool) {
-	if o == nil || IsNil(o.Subtotal) {
+func (o *BillingInvoice) GetSubtotalCentsOk() (*int64, bool) {
+	if o == nil || IsNil(o.SubtotalCents) {
 		return nil, false
 	}
-	return o.Subtotal, true
+	return o.SubtotalCents, true
 }
 
-// HasSubtotal returns a boolean if a field has been set.
-func (o *BillingInvoice) HasSubtotal() bool {
-	if o != nil && !IsNil(o.Subtotal) {
+// HasSubtotalCents returns a boolean if a field has been set.
+func (o *BillingInvoice) HasSubtotalCents() bool {
+	if o != nil && !IsNil(o.SubtotalCents) {
 		return true
 	}
 
 	return false
 }
 
-// SetSubtotal gets a reference to the given int64 and assigns it to the Subtotal field.
-func (o *BillingInvoice) SetSubtotal(v int64) {
-	o.Subtotal = &v
-}
-
-// GetTax returns the Tax field value if set, zero value otherwise.
-func (o *BillingInvoice) GetTax() int64 {
-	if o == nil || IsNil(o.Tax) {
-		var ret int64
-		return ret
-	}
-	return *o.Tax
-}
-
-// GetTaxOk returns a tuple with the Tax field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetTaxOk() (*int64, bool) {
-	if o == nil || IsNil(o.Tax) {
-		return nil, false
-	}
-	return o.Tax, true
-}
-
-// HasTax returns a boolean if a field has been set.
-func (o *BillingInvoice) HasTax() bool {
-	if o != nil && !IsNil(o.Tax) {
-		return true
-	}
-
-	return false
-}
-
-// SetTax gets a reference to the given int64 and assigns it to the Tax field.
-func (o *BillingInvoice) SetTax(v int64) {
-	o.Tax = &v
-}
-
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *BillingInvoice) GetUpdatedAt() string {
-	if o == nil || IsNil(o.UpdatedAt) {
-		var ret string
-		return ret
-	}
-	return *o.UpdatedAt
-}
-
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetUpdatedAtOk() (*string, bool) {
-	if o == nil || IsNil(o.UpdatedAt) {
-		return nil, false
-	}
-	return o.UpdatedAt, true
-}
-
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *BillingInvoice) HasUpdatedAt() bool {
-	if o != nil && !IsNil(o.UpdatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
-func (o *BillingInvoice) SetUpdatedAt(v string) {
-	o.UpdatedAt = &v
+// SetSubtotalCents gets a reference to the given int64 and assigns it to the SubtotalCents field.
+func (o *BillingInvoice) SetSubtotalCents(v int64) {
+	o.SubtotalCents = &v
 }
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
@@ -832,38 +449,6 @@ func (o *BillingInvoice) SetUserId(v string) {
 	o.UserId = &v
 }
 
-// GetVoidedAt returns the VoidedAt field value if set, zero value otherwise.
-func (o *BillingInvoice) GetVoidedAt() string {
-	if o == nil || IsNil(o.VoidedAt) {
-		var ret string
-		return ret
-	}
-	return *o.VoidedAt
-}
-
-// GetVoidedAtOk returns a tuple with the VoidedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingInvoice) GetVoidedAtOk() (*string, bool) {
-	if o == nil || IsNil(o.VoidedAt) {
-		return nil, false
-	}
-	return o.VoidedAt, true
-}
-
-// HasVoidedAt returns a boolean if a field has been set.
-func (o *BillingInvoice) HasVoidedAt() bool {
-	if o != nil && !IsNil(o.VoidedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetVoidedAt gets a reference to the given string and assigns it to the VoidedAt field.
-func (o *BillingInvoice) SetVoidedAt(v string) {
-	o.VoidedAt = &v
-}
-
 func (o BillingInvoice) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -874,20 +459,14 @@ func (o BillingInvoice) MarshalJSON() ([]byte, error) {
 
 func (o BillingInvoice) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AmountDue) {
-		toSerialize["amountDue"] = o.AmountDue
+	if !IsNil(o.AmountDueCents) {
+		toSerialize["amountDueCents"] = o.AmountDueCents
 	}
-	if !IsNil(o.AmountPaid) {
-		toSerialize["amountPaid"] = o.AmountPaid
-	}
-	if !IsNil(o.AttemptCount) {
-		toSerialize["attemptCount"] = o.AttemptCount
+	if !IsNil(o.AmountPaidCents) {
+		toSerialize["amountPaidCents"] = o.AmountPaidCents
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if !IsNil(o.CreditApplied) {
-		toSerialize["creditApplied"] = o.CreditApplied
 	}
 	if !IsNil(o.Currency) {
 		toSerialize["currency"] = o.Currency
@@ -895,61 +474,65 @@ func (o BillingInvoice) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CustomerEmail) {
 		toSerialize["customerEmail"] = o.CustomerEmail
 	}
-	if !IsNil(o.Discount) {
-		toSerialize["discount"] = o.Discount
-	}
-	if !IsNil(o.DueDate) {
-		toSerialize["dueDate"] = o.DueDate
-	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !IsNil(o.LineItems) {
-		toSerialize["lineItems"] = o.LineItems
+	if !IsNil(o.Lines) {
+		toSerialize["lines"] = o.Lines
 	}
 	if !IsNil(o.Number) {
 		toSerialize["number"] = o.Number
 	}
-	if !IsNil(o.NumberStr) {
-		toSerialize["numberStr"] = o.NumberStr
-	}
-	if !IsNil(o.PaidAt) {
-		toSerialize["paidAt"] = o.PaidAt
-	}
-	if !IsNil(o.PaymentMethod) {
-		toSerialize["paymentMethod"] = o.PaymentMethod
-	}
 	if !IsNil(o.PaymentRef) {
 		toSerialize["paymentRef"] = o.PaymentRef
-	}
-	if !IsNil(o.PeriodEnd) {
-		toSerialize["periodEnd"] = o.PeriodEnd
-	}
-	if !IsNil(o.PeriodStart) {
-		toSerialize["periodStart"] = o.PeriodStart
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !IsNil(o.SubscriptionId) {
-		toSerialize["subscriptionId"] = o.SubscriptionId
-	}
-	if !IsNil(o.Subtotal) {
-		toSerialize["subtotal"] = o.Subtotal
-	}
-	if !IsNil(o.Tax) {
-		toSerialize["tax"] = o.Tax
-	}
-	if !IsNil(o.UpdatedAt) {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	if !IsNil(o.SubtotalCents) {
+		toSerialize["subtotalCents"] = o.SubtotalCents
 	}
 	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
-	if !IsNil(o.VoidedAt) {
-		toSerialize["voidedAt"] = o.VoidedAt
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
+
 	return toSerialize, nil
+}
+
+func (o *BillingInvoice) UnmarshalJSON(data []byte) (err error) {
+	varBillingInvoice := _BillingInvoice{}
+
+	err = json.Unmarshal(data, &varBillingInvoice)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BillingInvoice(varBillingInvoice)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "amountDueCents")
+		delete(additionalProperties, "amountPaidCents")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "customerEmail")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "lines")
+		delete(additionalProperties, "number")
+		delete(additionalProperties, "paymentRef")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "subtotalCents")
+		delete(additionalProperties, "userId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBillingInvoice struct {

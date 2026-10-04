@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Query** | **string** | Query is the variable query to evaluate. Required. | 
-**Variables** | Pointer to **map[string]map[string]interface{}** | Variables are the current values of the other dashboard variables, for queries that reference them. | [optional] 
+**Variables** | Pointer to **map[string]interface{}** | Variables are the current values of the other dashboard variables, for queries that reference them. | [optional] 
 
 ## Methods
 
@@ -48,20 +48,20 @@ SetQuery sets Query field to given value.
 
 ### GetVariables
 
-`func (o *O11yO11yDashboardVarsIn) GetVariables() map[string]map[string]interface{}`
+`func (o *O11yO11yDashboardVarsIn) GetVariables() map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *O11yO11yDashboardVarsIn) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yO11yDashboardVarsIn) GetVariablesOk() (*map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *O11yO11yDashboardVarsIn) SetVariables(v map[string]map[string]interface{})`
+`func (o *O11yO11yDashboardVarsIn) SetVariables(v map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 

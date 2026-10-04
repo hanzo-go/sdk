@@ -19,11 +19,14 @@ var _ MappedNullable = &O11ySpanMapperSource{}
 
 // O11ySpanMapperSource struct for O11ySpanMapperSource
 type O11ySpanMapperSource struct {
-	Context   interface{} `json:"context,omitempty"`
-	Key       *string     `json:"key,omitempty"`
-	Operation interface{} `json:"operation,omitempty"`
-	Priority  *int64      `json:"priority,omitempty"`
+	Context              interface{} `json:"context,omitempty"`
+	Key                  *string     `json:"key,omitempty"`
+	Operation            interface{} `json:"operation,omitempty"`
+	Priority             *int64      `json:"priority,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySpanMapperSource O11ySpanMapperSource
 
 // NewO11ySpanMapperSource instantiates a new O11ySpanMapperSource object
 // This constructor will assign default values to properties that have it defined,
@@ -194,7 +197,36 @@ func (o O11ySpanMapperSource) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Priority) {
 		toSerialize["priority"] = o.Priority
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySpanMapperSource) UnmarshalJSON(data []byte) (err error) {
+	varO11ySpanMapperSource := _O11ySpanMapperSource{}
+
+	err = json.Unmarshal(data, &varO11ySpanMapperSource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySpanMapperSource(varO11ySpanMapperSource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "context")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "operation")
+		delete(additionalProperties, "priority")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySpanMapperSource struct {

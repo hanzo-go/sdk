@@ -28,7 +28,7 @@ type CaptableAPIDeleteCaptableConvertiblesByIdRequest struct {
 	id         string
 }
 
-func (r CaptableAPIDeleteCaptableConvertiblesByIdRequest) Execute() (*CaptableDeleted, *http.Response, error) {
+func (r CaptableAPIDeleteCaptableConvertiblesByIdRequest) Execute() (*CaptableCaptableDeleted, *http.Response, error) {
 	return r.ApiService.DeleteCaptableConvertiblesByIdExecute(r)
 }
 
@@ -53,13 +53,13 @@ func (a *CaptableAPIService) DeleteCaptableConvertiblesById(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return CaptableDeleted
-func (a *CaptableAPIService) DeleteCaptableConvertiblesByIdExecute(r CaptableAPIDeleteCaptableConvertiblesByIdRequest) (*CaptableDeleted, *http.Response, error) {
+//	@return CaptableCaptableDeleted
+func (a *CaptableAPIService) DeleteCaptableConvertiblesByIdExecute(r CaptableAPIDeleteCaptableConvertiblesByIdRequest) (*CaptableCaptableDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableDeleted
+		localVarReturnValue *CaptableCaptableDeleted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.DeleteCaptableConvertiblesById")
@@ -84,7 +84,7 @@ func (a *CaptableAPIService) DeleteCaptableConvertiblesByIdExecute(r CaptableAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -113,6 +113,14 @@ func (a *CaptableAPIService) DeleteCaptableConvertiblesByIdExecute(r CaptableAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -134,7 +142,7 @@ type CaptableAPIDeleteCaptableOptionsByIdRequest struct {
 	id         string
 }
 
-func (r CaptableAPIDeleteCaptableOptionsByIdRequest) Execute() (*CaptableDeleted, *http.Response, error) {
+func (r CaptableAPIDeleteCaptableOptionsByIdRequest) Execute() (*CaptableCaptableDeleted, *http.Response, error) {
 	return r.ApiService.DeleteCaptableOptionsByIdExecute(r)
 }
 
@@ -159,13 +167,13 @@ func (a *CaptableAPIService) DeleteCaptableOptionsById(ctx context.Context, id s
 
 // Execute executes the request
 //
-//	@return CaptableDeleted
-func (a *CaptableAPIService) DeleteCaptableOptionsByIdExecute(r CaptableAPIDeleteCaptableOptionsByIdRequest) (*CaptableDeleted, *http.Response, error) {
+//	@return CaptableCaptableDeleted
+func (a *CaptableAPIService) DeleteCaptableOptionsByIdExecute(r CaptableAPIDeleteCaptableOptionsByIdRequest) (*CaptableCaptableDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableDeleted
+		localVarReturnValue *CaptableCaptableDeleted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.DeleteCaptableOptionsById")
@@ -190,7 +198,7 @@ func (a *CaptableAPIService) DeleteCaptableOptionsByIdExecute(r CaptableAPIDelet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -219,6 +227,14 @@ func (a *CaptableAPIService) DeleteCaptableOptionsByIdExecute(r CaptableAPIDelet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -240,7 +256,7 @@ type CaptableAPIDeleteCaptableSafesByIdRequest struct {
 	id         string
 }
 
-func (r CaptableAPIDeleteCaptableSafesByIdRequest) Execute() (*CaptableDeleted, *http.Response, error) {
+func (r CaptableAPIDeleteCaptableSafesByIdRequest) Execute() (*CaptableCaptableDeleted, *http.Response, error) {
 	return r.ApiService.DeleteCaptableSafesByIdExecute(r)
 }
 
@@ -265,13 +281,13 @@ func (a *CaptableAPIService) DeleteCaptableSafesById(ctx context.Context, id str
 
 // Execute executes the request
 //
-//	@return CaptableDeleted
-func (a *CaptableAPIService) DeleteCaptableSafesByIdExecute(r CaptableAPIDeleteCaptableSafesByIdRequest) (*CaptableDeleted, *http.Response, error) {
+//	@return CaptableCaptableDeleted
+func (a *CaptableAPIService) DeleteCaptableSafesByIdExecute(r CaptableAPIDeleteCaptableSafesByIdRequest) (*CaptableCaptableDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableDeleted
+		localVarReturnValue *CaptableCaptableDeleted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.DeleteCaptableSafesById")
@@ -296,7 +312,7 @@ func (a *CaptableAPIService) DeleteCaptableSafesByIdExecute(r CaptableAPIDeleteC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -325,6 +341,14 @@ func (a *CaptableAPIService) DeleteCaptableSafesByIdExecute(r CaptableAPIDeleteC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -346,7 +370,7 @@ type CaptableAPIDeleteCaptableSharesByIdRequest struct {
 	id         string
 }
 
-func (r CaptableAPIDeleteCaptableSharesByIdRequest) Execute() (*CaptableDeleted, *http.Response, error) {
+func (r CaptableAPIDeleteCaptableSharesByIdRequest) Execute() (*CaptableCaptableDeleted, *http.Response, error) {
 	return r.ApiService.DeleteCaptableSharesByIdExecute(r)
 }
 
@@ -371,13 +395,13 @@ func (a *CaptableAPIService) DeleteCaptableSharesById(ctx context.Context, id st
 
 // Execute executes the request
 //
-//	@return CaptableDeleted
-func (a *CaptableAPIService) DeleteCaptableSharesByIdExecute(r CaptableAPIDeleteCaptableSharesByIdRequest) (*CaptableDeleted, *http.Response, error) {
+//	@return CaptableCaptableDeleted
+func (a *CaptableAPIService) DeleteCaptableSharesByIdExecute(r CaptableAPIDeleteCaptableSharesByIdRequest) (*CaptableCaptableDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableDeleted
+		localVarReturnValue *CaptableCaptableDeleted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.DeleteCaptableSharesById")
@@ -402,7 +426,7 @@ func (a *CaptableAPIService) DeleteCaptableSharesByIdExecute(r CaptableAPIDelete
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -431,6 +455,14 @@ func (a *CaptableAPIService) DeleteCaptableSharesByIdExecute(r CaptableAPIDelete
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -452,7 +484,7 @@ type CaptableAPIDeleteCaptableStakeholdersByIdRequest struct {
 	id         string
 }
 
-func (r CaptableAPIDeleteCaptableStakeholdersByIdRequest) Execute() (*CaptableDeleted, *http.Response, error) {
+func (r CaptableAPIDeleteCaptableStakeholdersByIdRequest) Execute() (*CaptableCaptableDeleted, *http.Response, error) {
 	return r.ApiService.DeleteCaptableStakeholdersByIdExecute(r)
 }
 
@@ -478,13 +510,13 @@ func (a *CaptableAPIService) DeleteCaptableStakeholdersById(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return CaptableDeleted
-func (a *CaptableAPIService) DeleteCaptableStakeholdersByIdExecute(r CaptableAPIDeleteCaptableStakeholdersByIdRequest) (*CaptableDeleted, *http.Response, error) {
+//	@return CaptableCaptableDeleted
+func (a *CaptableAPIService) DeleteCaptableStakeholdersByIdExecute(r CaptableAPIDeleteCaptableStakeholdersByIdRequest) (*CaptableCaptableDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableDeleted
+		localVarReturnValue *CaptableCaptableDeleted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.DeleteCaptableStakeholdersById")
@@ -509,7 +541,7 @@ func (a *CaptableAPIService) DeleteCaptableStakeholdersByIdExecute(r CaptableAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -538,6 +570,14 @@ func (a *CaptableAPIService) DeleteCaptableStakeholdersByIdExecute(r CaptableAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -558,7 +598,7 @@ type CaptableAPIGetCaptableClassesRequest struct {
 	ApiService *CaptableAPIService
 }
 
-func (r CaptableAPIGetCaptableClassesRequest) Execute() ([]CaptableShareClass, *http.Response, error) {
+func (r CaptableAPIGetCaptableClassesRequest) Execute() ([]CaptableCaptableShareClass, *http.Response, error) {
 	return r.ApiService.GetCaptableClassesExecute(r)
 }
 
@@ -581,13 +621,13 @@ func (a *CaptableAPIService) GetCaptableClasses(ctx context.Context) CaptableAPI
 
 // Execute executes the request
 //
-//	@return []CaptableShareClass
-func (a *CaptableAPIService) GetCaptableClassesExecute(r CaptableAPIGetCaptableClassesRequest) ([]CaptableShareClass, *http.Response, error) {
+//	@return []CaptableCaptableShareClass
+func (a *CaptableAPIService) GetCaptableClassesExecute(r CaptableAPIGetCaptableClassesRequest) ([]CaptableCaptableShareClass, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []CaptableShareClass
+		localVarReturnValue []CaptableCaptableShareClass
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.GetCaptableClasses")
@@ -611,7 +651,7 @@ func (a *CaptableAPIService) GetCaptableClassesExecute(r CaptableAPIGetCaptableC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -640,6 +680,14 @@ func (a *CaptableAPIService) GetCaptableClassesExecute(r CaptableAPIGetCaptableC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -660,7 +708,7 @@ type CaptableAPIGetCaptableCompanyRequest struct {
 	ApiService *CaptableAPIService
 }
 
-func (r CaptableAPIGetCaptableCompanyRequest) Execute() (*CaptableCompany, *http.Response, error) {
+func (r CaptableAPIGetCaptableCompanyRequest) Execute() (*CaptableCaptableCompany, *http.Response, error) {
 	return r.ApiService.GetCaptableCompanyExecute(r)
 }
 
@@ -683,13 +731,13 @@ func (a *CaptableAPIService) GetCaptableCompany(ctx context.Context) CaptableAPI
 
 // Execute executes the request
 //
-//	@return CaptableCompany
-func (a *CaptableAPIService) GetCaptableCompanyExecute(r CaptableAPIGetCaptableCompanyRequest) (*CaptableCompany, *http.Response, error) {
+//	@return CaptableCaptableCompany
+func (a *CaptableAPIService) GetCaptableCompanyExecute(r CaptableAPIGetCaptableCompanyRequest) (*CaptableCaptableCompany, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableCompany
+		localVarReturnValue *CaptableCaptableCompany
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.GetCaptableCompany")
@@ -713,7 +761,7 @@ func (a *CaptableAPIService) GetCaptableCompanyExecute(r CaptableAPIGetCaptableC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -742,6 +790,14 @@ func (a *CaptableAPIService) GetCaptableCompanyExecute(r CaptableAPIGetCaptableC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -762,7 +818,7 @@ type CaptableAPIGetCaptableConvertiblesRequest struct {
 	ApiService *CaptableAPIService
 }
 
-func (r CaptableAPIGetCaptableConvertiblesRequest) Execute() (*CaptableNotes, *http.Response, error) {
+func (r CaptableAPIGetCaptableConvertiblesRequest) Execute() (*CaptableCaptableNotes, *http.Response, error) {
 	return r.ApiService.GetCaptableConvertiblesExecute(r)
 }
 
@@ -785,13 +841,13 @@ func (a *CaptableAPIService) GetCaptableConvertibles(ctx context.Context) Captab
 
 // Execute executes the request
 //
-//	@return CaptableNotes
-func (a *CaptableAPIService) GetCaptableConvertiblesExecute(r CaptableAPIGetCaptableConvertiblesRequest) (*CaptableNotes, *http.Response, error) {
+//	@return CaptableCaptableNotes
+func (a *CaptableAPIService) GetCaptableConvertiblesExecute(r CaptableAPIGetCaptableConvertiblesRequest) (*CaptableCaptableNotes, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableNotes
+		localVarReturnValue *CaptableCaptableNotes
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.GetCaptableConvertibles")
@@ -815,7 +871,7 @@ func (a *CaptableAPIService) GetCaptableConvertiblesExecute(r CaptableAPIGetCapt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -844,6 +900,14 @@ func (a *CaptableAPIService) GetCaptableConvertiblesExecute(r CaptableAPIGetCapt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -864,7 +928,7 @@ type CaptableAPIGetCaptableInvestmentsRequest struct {
 	ApiService *CaptableAPIService
 }
 
-func (r CaptableAPIGetCaptableInvestmentsRequest) Execute() (*CaptableInvestments, *http.Response, error) {
+func (r CaptableAPIGetCaptableInvestmentsRequest) Execute() (*CaptableCaptableInvestments, *http.Response, error) {
 	return r.ApiService.GetCaptableInvestmentsExecute(r)
 }
 
@@ -887,13 +951,13 @@ func (a *CaptableAPIService) GetCaptableInvestments(ctx context.Context) Captabl
 
 // Execute executes the request
 //
-//	@return CaptableInvestments
-func (a *CaptableAPIService) GetCaptableInvestmentsExecute(r CaptableAPIGetCaptableInvestmentsRequest) (*CaptableInvestments, *http.Response, error) {
+//	@return CaptableCaptableInvestments
+func (a *CaptableAPIService) GetCaptableInvestmentsExecute(r CaptableAPIGetCaptableInvestmentsRequest) (*CaptableCaptableInvestments, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableInvestments
+		localVarReturnValue *CaptableCaptableInvestments
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.GetCaptableInvestments")
@@ -917,7 +981,7 @@ func (a *CaptableAPIService) GetCaptableInvestmentsExecute(r CaptableAPIGetCapta
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -946,6 +1010,14 @@ func (a *CaptableAPIService) GetCaptableInvestmentsExecute(r CaptableAPIGetCapta
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -966,7 +1038,7 @@ type CaptableAPIGetCaptableOptionsRequest struct {
 	ApiService *CaptableAPIService
 }
 
-func (r CaptableAPIGetCaptableOptionsRequest) Execute() (*CaptableOptions, *http.Response, error) {
+func (r CaptableAPIGetCaptableOptionsRequest) Execute() (*CaptableCaptableOptions, *http.Response, error) {
 	return r.ApiService.GetCaptableOptionsExecute(r)
 }
 
@@ -989,13 +1061,13 @@ func (a *CaptableAPIService) GetCaptableOptions(ctx context.Context) CaptableAPI
 
 // Execute executes the request
 //
-//	@return CaptableOptions
-func (a *CaptableAPIService) GetCaptableOptionsExecute(r CaptableAPIGetCaptableOptionsRequest) (*CaptableOptions, *http.Response, error) {
+//	@return CaptableCaptableOptions
+func (a *CaptableAPIService) GetCaptableOptionsExecute(r CaptableAPIGetCaptableOptionsRequest) (*CaptableCaptableOptions, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableOptions
+		localVarReturnValue *CaptableCaptableOptions
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.GetCaptableOptions")
@@ -1019,7 +1091,7 @@ func (a *CaptableAPIService) GetCaptableOptionsExecute(r CaptableAPIGetCaptableO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1048,6 +1120,14 @@ func (a *CaptableAPIService) GetCaptableOptionsExecute(r CaptableAPIGetCaptableO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1068,7 +1148,7 @@ type CaptableAPIGetCaptablePlansRequest struct {
 	ApiService *CaptableAPIService
 }
 
-func (r CaptableAPIGetCaptablePlansRequest) Execute() (*CaptableEquityPlans, *http.Response, error) {
+func (r CaptableAPIGetCaptablePlansRequest) Execute() (*CaptableCaptableEquityPlans, *http.Response, error) {
 	return r.ApiService.GetCaptablePlansExecute(r)
 }
 
@@ -1091,13 +1171,13 @@ func (a *CaptableAPIService) GetCaptablePlans(ctx context.Context) CaptableAPIGe
 
 // Execute executes the request
 //
-//	@return CaptableEquityPlans
-func (a *CaptableAPIService) GetCaptablePlansExecute(r CaptableAPIGetCaptablePlansRequest) (*CaptableEquityPlans, *http.Response, error) {
+//	@return CaptableCaptableEquityPlans
+func (a *CaptableAPIService) GetCaptablePlansExecute(r CaptableAPIGetCaptablePlansRequest) (*CaptableCaptableEquityPlans, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableEquityPlans
+		localVarReturnValue *CaptableCaptableEquityPlans
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.GetCaptablePlans")
@@ -1121,7 +1201,7 @@ func (a *CaptableAPIService) GetCaptablePlansExecute(r CaptableAPIGetCaptablePla
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1150,6 +1230,14 @@ func (a *CaptableAPIService) GetCaptablePlansExecute(r CaptableAPIGetCaptablePla
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1170,7 +1258,7 @@ type CaptableAPIGetCaptableRoundsRequest struct {
 	ApiService *CaptableAPIService
 }
 
-func (r CaptableAPIGetCaptableRoundsRequest) Execute() (*CaptableRounds, *http.Response, error) {
+func (r CaptableAPIGetCaptableRoundsRequest) Execute() (*CaptableCaptableRounds, *http.Response, error) {
 	return r.ApiService.GetCaptableRoundsExecute(r)
 }
 
@@ -1193,13 +1281,13 @@ func (a *CaptableAPIService) GetCaptableRounds(ctx context.Context) CaptableAPIG
 
 // Execute executes the request
 //
-//	@return CaptableRounds
-func (a *CaptableAPIService) GetCaptableRoundsExecute(r CaptableAPIGetCaptableRoundsRequest) (*CaptableRounds, *http.Response, error) {
+//	@return CaptableCaptableRounds
+func (a *CaptableAPIService) GetCaptableRoundsExecute(r CaptableAPIGetCaptableRoundsRequest) (*CaptableCaptableRounds, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableRounds
+		localVarReturnValue *CaptableCaptableRounds
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.GetCaptableRounds")
@@ -1223,7 +1311,7 @@ func (a *CaptableAPIService) GetCaptableRoundsExecute(r CaptableAPIGetCaptableRo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1252,6 +1340,14 @@ func (a *CaptableAPIService) GetCaptableRoundsExecute(r CaptableAPIGetCaptableRo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1273,7 +1369,7 @@ type CaptableAPIGetCaptableRoundsByIdRequest struct {
 	id         string
 }
 
-func (r CaptableAPIGetCaptableRoundsByIdRequest) Execute() (*CaptableRoundDetail, *http.Response, error) {
+func (r CaptableAPIGetCaptableRoundsByIdRequest) Execute() (*CaptableCaptableRoundDetail, *http.Response, error) {
 	return r.ApiService.GetCaptableRoundsByIdExecute(r)
 }
 
@@ -1299,13 +1395,13 @@ func (a *CaptableAPIService) GetCaptableRoundsById(ctx context.Context, id strin
 
 // Execute executes the request
 //
-//	@return CaptableRoundDetail
-func (a *CaptableAPIService) GetCaptableRoundsByIdExecute(r CaptableAPIGetCaptableRoundsByIdRequest) (*CaptableRoundDetail, *http.Response, error) {
+//	@return CaptableCaptableRoundDetail
+func (a *CaptableAPIService) GetCaptableRoundsByIdExecute(r CaptableAPIGetCaptableRoundsByIdRequest) (*CaptableCaptableRoundDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableRoundDetail
+		localVarReturnValue *CaptableCaptableRoundDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.GetCaptableRoundsById")
@@ -1330,7 +1426,7 @@ func (a *CaptableAPIService) GetCaptableRoundsByIdExecute(r CaptableAPIGetCaptab
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1359,6 +1455,14 @@ func (a *CaptableAPIService) GetCaptableRoundsByIdExecute(r CaptableAPIGetCaptab
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1379,7 +1483,7 @@ type CaptableAPIGetCaptableSafesRequest struct {
 	ApiService *CaptableAPIService
 }
 
-func (r CaptableAPIGetCaptableSafesRequest) Execute() (*CaptableSafes, *http.Response, error) {
+func (r CaptableAPIGetCaptableSafesRequest) Execute() (*CaptableCaptableSafes, *http.Response, error) {
 	return r.ApiService.GetCaptableSafesExecute(r)
 }
 
@@ -1402,13 +1506,13 @@ func (a *CaptableAPIService) GetCaptableSafes(ctx context.Context) CaptableAPIGe
 
 // Execute executes the request
 //
-//	@return CaptableSafes
-func (a *CaptableAPIService) GetCaptableSafesExecute(r CaptableAPIGetCaptableSafesRequest) (*CaptableSafes, *http.Response, error) {
+//	@return CaptableCaptableSafes
+func (a *CaptableAPIService) GetCaptableSafesExecute(r CaptableAPIGetCaptableSafesRequest) (*CaptableCaptableSafes, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableSafes
+		localVarReturnValue *CaptableCaptableSafes
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.GetCaptableSafes")
@@ -1432,7 +1536,7 @@ func (a *CaptableAPIService) GetCaptableSafesExecute(r CaptableAPIGetCaptableSaf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1461,6 +1565,14 @@ func (a *CaptableAPIService) GetCaptableSafesExecute(r CaptableAPIGetCaptableSaf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1481,7 +1593,7 @@ type CaptableAPIGetCaptableSharesRequest struct {
 	ApiService *CaptableAPIService
 }
 
-func (r CaptableAPIGetCaptableSharesRequest) Execute() (*CaptableShares, *http.Response, error) {
+func (r CaptableAPIGetCaptableSharesRequest) Execute() (*CaptableCaptableShares, *http.Response, error) {
 	return r.ApiService.GetCaptableSharesExecute(r)
 }
 
@@ -1504,13 +1616,13 @@ func (a *CaptableAPIService) GetCaptableShares(ctx context.Context) CaptableAPIG
 
 // Execute executes the request
 //
-//	@return CaptableShares
-func (a *CaptableAPIService) GetCaptableSharesExecute(r CaptableAPIGetCaptableSharesRequest) (*CaptableShares, *http.Response, error) {
+//	@return CaptableCaptableShares
+func (a *CaptableAPIService) GetCaptableSharesExecute(r CaptableAPIGetCaptableSharesRequest) (*CaptableCaptableShares, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableShares
+		localVarReturnValue *CaptableCaptableShares
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.GetCaptableShares")
@@ -1534,7 +1646,7 @@ func (a *CaptableAPIService) GetCaptableSharesExecute(r CaptableAPIGetCaptableSh
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1563,6 +1675,14 @@ func (a *CaptableAPIService) GetCaptableSharesExecute(r CaptableAPIGetCaptableSh
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1583,7 +1703,7 @@ type CaptableAPIGetCaptableStakeholdersRequest struct {
 	ApiService *CaptableAPIService
 }
 
-func (r CaptableAPIGetCaptableStakeholdersRequest) Execute() ([]CaptableStakeholder, *http.Response, error) {
+func (r CaptableAPIGetCaptableStakeholdersRequest) Execute() ([]CaptableCaptableStakeholder, *http.Response, error) {
 	return r.ApiService.GetCaptableStakeholdersExecute(r)
 }
 
@@ -1606,13 +1726,13 @@ func (a *CaptableAPIService) GetCaptableStakeholders(ctx context.Context) Captab
 
 // Execute executes the request
 //
-//	@return []CaptableStakeholder
-func (a *CaptableAPIService) GetCaptableStakeholdersExecute(r CaptableAPIGetCaptableStakeholdersRequest) ([]CaptableStakeholder, *http.Response, error) {
+//	@return []CaptableCaptableStakeholder
+func (a *CaptableAPIService) GetCaptableStakeholdersExecute(r CaptableAPIGetCaptableStakeholdersRequest) ([]CaptableCaptableStakeholder, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []CaptableStakeholder
+		localVarReturnValue []CaptableCaptableStakeholder
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.GetCaptableStakeholders")
@@ -1636,7 +1756,7 @@ func (a *CaptableAPIService) GetCaptableStakeholdersExecute(r CaptableAPIGetCapt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1665,6 +1785,14 @@ func (a *CaptableAPIService) GetCaptableStakeholdersExecute(r CaptableAPIGetCapt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1685,7 +1813,7 @@ type CaptableAPIGetCaptableSummaryRequest struct {
 	ApiService *CaptableAPIService
 }
 
-func (r CaptableAPIGetCaptableSummaryRequest) Execute() (*CaptableSummary, *http.Response, error) {
+func (r CaptableAPIGetCaptableSummaryRequest) Execute() (*CaptableCaptableSummary, *http.Response, error) {
 	return r.ApiService.GetCaptableSummaryExecute(r)
 }
 
@@ -1712,13 +1840,13 @@ func (a *CaptableAPIService) GetCaptableSummary(ctx context.Context) CaptableAPI
 
 // Execute executes the request
 //
-//	@return CaptableSummary
-func (a *CaptableAPIService) GetCaptableSummaryExecute(r CaptableAPIGetCaptableSummaryRequest) (*CaptableSummary, *http.Response, error) {
+//	@return CaptableCaptableSummary
+func (a *CaptableAPIService) GetCaptableSummaryExecute(r CaptableAPIGetCaptableSummaryRequest) (*CaptableCaptableSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableSummary
+		localVarReturnValue *CaptableCaptableSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.GetCaptableSummary")
@@ -1742,7 +1870,7 @@ func (a *CaptableAPIService) GetCaptableSummaryExecute(r CaptableAPIGetCaptableS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1771,6 +1899,14 @@ func (a *CaptableAPIService) GetCaptableSummaryExecute(r CaptableAPIGetCaptableS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1787,18 +1923,18 @@ func (a *CaptableAPIService) GetCaptableSummaryExecute(r CaptableAPIGetCaptableS
 }
 
 type CaptableAPIPatchCaptableClassesByIdRequest struct {
-	ctx                     context.Context
-	ApiService              *CaptableAPIService
-	id                      string
-	captableShareClassAmend *CaptableShareClassAmend
+	ctx                             context.Context
+	ApiService                      *CaptableAPIService
+	id                              string
+	captableCaptableShareClassAmend *CaptableCaptableShareClassAmend
 }
 
-func (r CaptableAPIPatchCaptableClassesByIdRequest) CaptableShareClassAmend(captableShareClassAmend CaptableShareClassAmend) CaptableAPIPatchCaptableClassesByIdRequest {
-	r.captableShareClassAmend = &captableShareClassAmend
+func (r CaptableAPIPatchCaptableClassesByIdRequest) CaptableCaptableShareClassAmend(captableCaptableShareClassAmend CaptableCaptableShareClassAmend) CaptableAPIPatchCaptableClassesByIdRequest {
+	r.captableCaptableShareClassAmend = &captableCaptableShareClassAmend
 	return r
 }
 
-func (r CaptableAPIPatchCaptableClassesByIdRequest) Execute() (*CaptableUpdated, *http.Response, error) {
+func (r CaptableAPIPatchCaptableClassesByIdRequest) Execute() (*CaptableCaptableUpdated, *http.Response, error) {
 	return r.ApiService.PatchCaptableClassesByIdExecute(r)
 }
 
@@ -1827,13 +1963,13 @@ func (a *CaptableAPIService) PatchCaptableClassesById(ctx context.Context, id st
 
 // Execute executes the request
 //
-//	@return CaptableUpdated
-func (a *CaptableAPIService) PatchCaptableClassesByIdExecute(r CaptableAPIPatchCaptableClassesByIdRequest) (*CaptableUpdated, *http.Response, error) {
+//	@return CaptableCaptableUpdated
+func (a *CaptableAPIService) PatchCaptableClassesByIdExecute(r CaptableAPIPatchCaptableClassesByIdRequest) (*CaptableCaptableUpdated, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableUpdated
+		localVarReturnValue *CaptableCaptableUpdated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PatchCaptableClassesById")
@@ -1847,8 +1983,8 @@ func (a *CaptableAPIService) PatchCaptableClassesByIdExecute(r CaptableAPIPatchC
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableShareClassAmend == nil {
-		return localVarReturnValue, nil, reportError("captableShareClassAmend is required and must be specified")
+	if r.captableCaptableShareClassAmend == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableShareClassAmend is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1861,7 +1997,7 @@ func (a *CaptableAPIService) PatchCaptableClassesByIdExecute(r CaptableAPIPatchC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1869,7 +2005,7 @@ func (a *CaptableAPIService) PatchCaptableClassesByIdExecute(r CaptableAPIPatchC
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableShareClassAmend
+	localVarPostBody = r.captableCaptableShareClassAmend
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1892,6 +2028,14 @@ func (a *CaptableAPIService) PatchCaptableClassesByIdExecute(r CaptableAPIPatchC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1908,18 +2052,18 @@ func (a *CaptableAPIService) PatchCaptableClassesByIdExecute(r CaptableAPIPatchC
 }
 
 type CaptableAPIPatchCaptableStakeholdersByIdRequest struct {
-	ctx                      context.Context
-	ApiService               *CaptableAPIService
-	id                       string
-	captableStakeholderPatch *CaptableStakeholderPatch
+	ctx                              context.Context
+	ApiService                       *CaptableAPIService
+	id                               string
+	captableCaptableStakeholderPatch *CaptableCaptableStakeholderPatch
 }
 
-func (r CaptableAPIPatchCaptableStakeholdersByIdRequest) CaptableStakeholderPatch(captableStakeholderPatch CaptableStakeholderPatch) CaptableAPIPatchCaptableStakeholdersByIdRequest {
-	r.captableStakeholderPatch = &captableStakeholderPatch
+func (r CaptableAPIPatchCaptableStakeholdersByIdRequest) CaptableCaptableStakeholderPatch(captableCaptableStakeholderPatch CaptableCaptableStakeholderPatch) CaptableAPIPatchCaptableStakeholdersByIdRequest {
+	r.captableCaptableStakeholderPatch = &captableCaptableStakeholderPatch
 	return r
 }
 
-func (r CaptableAPIPatchCaptableStakeholdersByIdRequest) Execute() (*CaptableUpdated, *http.Response, error) {
+func (r CaptableAPIPatchCaptableStakeholdersByIdRequest) Execute() (*CaptableCaptableUpdated, *http.Response, error) {
 	return r.ApiService.PatchCaptableStakeholdersByIdExecute(r)
 }
 
@@ -1949,13 +2093,13 @@ func (a *CaptableAPIService) PatchCaptableStakeholdersById(ctx context.Context, 
 
 // Execute executes the request
 //
-//	@return CaptableUpdated
-func (a *CaptableAPIService) PatchCaptableStakeholdersByIdExecute(r CaptableAPIPatchCaptableStakeholdersByIdRequest) (*CaptableUpdated, *http.Response, error) {
+//	@return CaptableCaptableUpdated
+func (a *CaptableAPIService) PatchCaptableStakeholdersByIdExecute(r CaptableAPIPatchCaptableStakeholdersByIdRequest) (*CaptableCaptableUpdated, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableUpdated
+		localVarReturnValue *CaptableCaptableUpdated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PatchCaptableStakeholdersById")
@@ -1969,8 +2113,8 @@ func (a *CaptableAPIService) PatchCaptableStakeholdersByIdExecute(r CaptableAPIP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableStakeholderPatch == nil {
-		return localVarReturnValue, nil, reportError("captableStakeholderPatch is required and must be specified")
+	if r.captableCaptableStakeholderPatch == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableStakeholderPatch is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1983,7 +2127,7 @@ func (a *CaptableAPIService) PatchCaptableStakeholdersByIdExecute(r CaptableAPIP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1991,7 +2135,7 @@ func (a *CaptableAPIService) PatchCaptableStakeholdersByIdExecute(r CaptableAPIP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableStakeholderPatch
+	localVarPostBody = r.captableCaptableStakeholderPatch
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2014,6 +2158,14 @@ func (a *CaptableAPIService) PatchCaptableStakeholdersByIdExecute(r CaptableAPIP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2030,17 +2182,17 @@ func (a *CaptableAPIService) PatchCaptableStakeholdersByIdExecute(r CaptableAPIP
 }
 
 type CaptableAPIPostCaptableClassesRequest struct {
-	ctx                  context.Context
-	ApiService           *CaptableAPIService
-	captableShareClassIn *CaptableShareClassIn
+	ctx                          context.Context
+	ApiService                   *CaptableAPIService
+	captableCaptableShareClassIn *CaptableCaptableShareClassIn
 }
 
-func (r CaptableAPIPostCaptableClassesRequest) CaptableShareClassIn(captableShareClassIn CaptableShareClassIn) CaptableAPIPostCaptableClassesRequest {
-	r.captableShareClassIn = &captableShareClassIn
+func (r CaptableAPIPostCaptableClassesRequest) CaptableCaptableShareClassIn(captableCaptableShareClassIn CaptableCaptableShareClassIn) CaptableAPIPostCaptableClassesRequest {
+	r.captableCaptableShareClassIn = &captableCaptableShareClassIn
 	return r
 }
 
-func (r CaptableAPIPostCaptableClassesRequest) Execute() (*CaptableCreated, *http.Response, error) {
+func (r CaptableAPIPostCaptableClassesRequest) Execute() (*CaptableCaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptableClassesExecute(r)
 }
 
@@ -2066,13 +2218,13 @@ func (a *CaptableAPIService) PostCaptableClasses(ctx context.Context) CaptableAP
 
 // Execute executes the request
 //
-//	@return CaptableCreated
-func (a *CaptableAPIService) PostCaptableClassesExecute(r CaptableAPIPostCaptableClassesRequest) (*CaptableCreated, *http.Response, error) {
+//	@return CaptableCaptableCreated
+func (a *CaptableAPIService) PostCaptableClassesExecute(r CaptableAPIPostCaptableClassesRequest) (*CaptableCaptableCreated, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableCreated
+		localVarReturnValue *CaptableCaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableClasses")
@@ -2085,8 +2237,8 @@ func (a *CaptableAPIService) PostCaptableClassesExecute(r CaptableAPIPostCaptabl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableShareClassIn == nil {
-		return localVarReturnValue, nil, reportError("captableShareClassIn is required and must be specified")
+	if r.captableCaptableShareClassIn == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableShareClassIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2099,7 +2251,7 @@ func (a *CaptableAPIService) PostCaptableClassesExecute(r CaptableAPIPostCaptabl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2107,7 +2259,7 @@ func (a *CaptableAPIService) PostCaptableClassesExecute(r CaptableAPIPostCaptabl
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableShareClassIn
+	localVarPostBody = r.captableCaptableShareClassIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2130,6 +2282,14 @@ func (a *CaptableAPIService) PostCaptableClassesExecute(r CaptableAPIPostCaptabl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2146,17 +2306,17 @@ func (a *CaptableAPIService) PostCaptableClassesExecute(r CaptableAPIPostCaptabl
 }
 
 type CaptableAPIPostCaptableConvertiblesRequest struct {
-	ctx                   context.Context
-	ApiService            *CaptableAPIService
-	captableConvertibleIn *CaptableConvertibleIn
+	ctx                           context.Context
+	ApiService                    *CaptableAPIService
+	captableCaptableConvertibleIn *CaptableCaptableConvertibleIn
 }
 
-func (r CaptableAPIPostCaptableConvertiblesRequest) CaptableConvertibleIn(captableConvertibleIn CaptableConvertibleIn) CaptableAPIPostCaptableConvertiblesRequest {
-	r.captableConvertibleIn = &captableConvertibleIn
+func (r CaptableAPIPostCaptableConvertiblesRequest) CaptableCaptableConvertibleIn(captableCaptableConvertibleIn CaptableCaptableConvertibleIn) CaptableAPIPostCaptableConvertiblesRequest {
+	r.captableCaptableConvertibleIn = &captableCaptableConvertibleIn
 	return r
 }
 
-func (r CaptableAPIPostCaptableConvertiblesRequest) Execute() (*CaptableCreated, *http.Response, error) {
+func (r CaptableAPIPostCaptableConvertiblesRequest) Execute() (*CaptableCaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptableConvertiblesExecute(r)
 }
 
@@ -2177,13 +2337,13 @@ func (a *CaptableAPIService) PostCaptableConvertibles(ctx context.Context) Capta
 
 // Execute executes the request
 //
-//	@return CaptableCreated
-func (a *CaptableAPIService) PostCaptableConvertiblesExecute(r CaptableAPIPostCaptableConvertiblesRequest) (*CaptableCreated, *http.Response, error) {
+//	@return CaptableCaptableCreated
+func (a *CaptableAPIService) PostCaptableConvertiblesExecute(r CaptableAPIPostCaptableConvertiblesRequest) (*CaptableCaptableCreated, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableCreated
+		localVarReturnValue *CaptableCaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableConvertibles")
@@ -2196,8 +2356,8 @@ func (a *CaptableAPIService) PostCaptableConvertiblesExecute(r CaptableAPIPostCa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableConvertibleIn == nil {
-		return localVarReturnValue, nil, reportError("captableConvertibleIn is required and must be specified")
+	if r.captableCaptableConvertibleIn == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableConvertibleIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2210,7 +2370,7 @@ func (a *CaptableAPIService) PostCaptableConvertiblesExecute(r CaptableAPIPostCa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2218,7 +2378,7 @@ func (a *CaptableAPIService) PostCaptableConvertiblesExecute(r CaptableAPIPostCa
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableConvertibleIn
+	localVarPostBody = r.captableCaptableConvertibleIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2241,6 +2401,14 @@ func (a *CaptableAPIService) PostCaptableConvertiblesExecute(r CaptableAPIPostCa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2257,17 +2425,17 @@ func (a *CaptableAPIService) PostCaptableConvertiblesExecute(r CaptableAPIPostCa
 }
 
 type CaptableAPIPostCaptableOptionsRequest struct {
-	ctx              context.Context
-	ApiService       *CaptableAPIService
-	captableOptionIn *CaptableOptionIn
+	ctx                      context.Context
+	ApiService               *CaptableAPIService
+	captableCaptableOptionIn *CaptableCaptableOptionIn
 }
 
-func (r CaptableAPIPostCaptableOptionsRequest) CaptableOptionIn(captableOptionIn CaptableOptionIn) CaptableAPIPostCaptableOptionsRequest {
-	r.captableOptionIn = &captableOptionIn
+func (r CaptableAPIPostCaptableOptionsRequest) CaptableCaptableOptionIn(captableCaptableOptionIn CaptableCaptableOptionIn) CaptableAPIPostCaptableOptionsRequest {
+	r.captableCaptableOptionIn = &captableCaptableOptionIn
 	return r
 }
 
-func (r CaptableAPIPostCaptableOptionsRequest) Execute() (*CaptableCreated, *http.Response, error) {
+func (r CaptableAPIPostCaptableOptionsRequest) Execute() (*CaptableCaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptableOptionsExecute(r)
 }
 
@@ -2288,13 +2456,13 @@ func (a *CaptableAPIService) PostCaptableOptions(ctx context.Context) CaptableAP
 
 // Execute executes the request
 //
-//	@return CaptableCreated
-func (a *CaptableAPIService) PostCaptableOptionsExecute(r CaptableAPIPostCaptableOptionsRequest) (*CaptableCreated, *http.Response, error) {
+//	@return CaptableCaptableCreated
+func (a *CaptableAPIService) PostCaptableOptionsExecute(r CaptableAPIPostCaptableOptionsRequest) (*CaptableCaptableCreated, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableCreated
+		localVarReturnValue *CaptableCaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableOptions")
@@ -2307,8 +2475,8 @@ func (a *CaptableAPIService) PostCaptableOptionsExecute(r CaptableAPIPostCaptabl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableOptionIn == nil {
-		return localVarReturnValue, nil, reportError("captableOptionIn is required and must be specified")
+	if r.captableCaptableOptionIn == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableOptionIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2321,7 +2489,7 @@ func (a *CaptableAPIService) PostCaptableOptionsExecute(r CaptableAPIPostCaptabl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2329,7 +2497,7 @@ func (a *CaptableAPIService) PostCaptableOptionsExecute(r CaptableAPIPostCaptabl
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableOptionIn
+	localVarPostBody = r.captableCaptableOptionIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2352,6 +2520,14 @@ func (a *CaptableAPIService) PostCaptableOptionsExecute(r CaptableAPIPostCaptabl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2368,17 +2544,17 @@ func (a *CaptableAPIService) PostCaptableOptionsExecute(r CaptableAPIPostCaptabl
 }
 
 type CaptableAPIPostCaptablePlansRequest struct {
-	ctx                  context.Context
-	ApiService           *CaptableAPIService
-	captableEquityPlanIn *CaptableEquityPlanIn
+	ctx                          context.Context
+	ApiService                   *CaptableAPIService
+	captableCaptableEquityPlanIn *CaptableCaptableEquityPlanIn
 }
 
-func (r CaptableAPIPostCaptablePlansRequest) CaptableEquityPlanIn(captableEquityPlanIn CaptableEquityPlanIn) CaptableAPIPostCaptablePlansRequest {
-	r.captableEquityPlanIn = &captableEquityPlanIn
+func (r CaptableAPIPostCaptablePlansRequest) CaptableCaptableEquityPlanIn(captableCaptableEquityPlanIn CaptableCaptableEquityPlanIn) CaptableAPIPostCaptablePlansRequest {
+	r.captableCaptableEquityPlanIn = &captableCaptableEquityPlanIn
 	return r
 }
 
-func (r CaptableAPIPostCaptablePlansRequest) Execute() (*CaptableCreated, *http.Response, error) {
+func (r CaptableAPIPostCaptablePlansRequest) Execute() (*CaptableCaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptablePlansExecute(r)
 }
 
@@ -2399,13 +2575,13 @@ func (a *CaptableAPIService) PostCaptablePlans(ctx context.Context) CaptableAPIP
 
 // Execute executes the request
 //
-//	@return CaptableCreated
-func (a *CaptableAPIService) PostCaptablePlansExecute(r CaptableAPIPostCaptablePlansRequest) (*CaptableCreated, *http.Response, error) {
+//	@return CaptableCaptableCreated
+func (a *CaptableAPIService) PostCaptablePlansExecute(r CaptableAPIPostCaptablePlansRequest) (*CaptableCaptableCreated, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableCreated
+		localVarReturnValue *CaptableCaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptablePlans")
@@ -2418,8 +2594,8 @@ func (a *CaptableAPIService) PostCaptablePlansExecute(r CaptableAPIPostCaptableP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableEquityPlanIn == nil {
-		return localVarReturnValue, nil, reportError("captableEquityPlanIn is required and must be specified")
+	if r.captableCaptableEquityPlanIn == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableEquityPlanIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2432,7 +2608,7 @@ func (a *CaptableAPIService) PostCaptablePlansExecute(r CaptableAPIPostCaptableP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2440,7 +2616,7 @@ func (a *CaptableAPIService) PostCaptablePlansExecute(r CaptableAPIPostCaptableP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableEquityPlanIn
+	localVarPostBody = r.captableCaptableEquityPlanIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2463,6 +2639,14 @@ func (a *CaptableAPIService) PostCaptablePlansExecute(r CaptableAPIPostCaptableP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2479,17 +2663,17 @@ func (a *CaptableAPIService) PostCaptablePlansExecute(r CaptableAPIPostCaptableP
 }
 
 type CaptableAPIPostCaptableRoundsRequest struct {
-	ctx             context.Context
-	ApiService      *CaptableAPIService
-	captableRoundIn *CaptableRoundIn
+	ctx                     context.Context
+	ApiService              *CaptableAPIService
+	captableCaptableRoundIn *CaptableCaptableRoundIn
 }
 
-func (r CaptableAPIPostCaptableRoundsRequest) CaptableRoundIn(captableRoundIn CaptableRoundIn) CaptableAPIPostCaptableRoundsRequest {
-	r.captableRoundIn = &captableRoundIn
+func (r CaptableAPIPostCaptableRoundsRequest) CaptableCaptableRoundIn(captableCaptableRoundIn CaptableCaptableRoundIn) CaptableAPIPostCaptableRoundsRequest {
+	r.captableCaptableRoundIn = &captableCaptableRoundIn
 	return r
 }
 
-func (r CaptableAPIPostCaptableRoundsRequest) Execute() (*CaptableCreated, *http.Response, error) {
+func (r CaptableAPIPostCaptableRoundsRequest) Execute() (*CaptableCaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptableRoundsExecute(r)
 }
 
@@ -2512,13 +2696,13 @@ func (a *CaptableAPIService) PostCaptableRounds(ctx context.Context) CaptableAPI
 
 // Execute executes the request
 //
-//	@return CaptableCreated
-func (a *CaptableAPIService) PostCaptableRoundsExecute(r CaptableAPIPostCaptableRoundsRequest) (*CaptableCreated, *http.Response, error) {
+//	@return CaptableCaptableCreated
+func (a *CaptableAPIService) PostCaptableRoundsExecute(r CaptableAPIPostCaptableRoundsRequest) (*CaptableCaptableCreated, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableCreated
+		localVarReturnValue *CaptableCaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableRounds")
@@ -2531,8 +2715,8 @@ func (a *CaptableAPIService) PostCaptableRoundsExecute(r CaptableAPIPostCaptable
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableRoundIn == nil {
-		return localVarReturnValue, nil, reportError("captableRoundIn is required and must be specified")
+	if r.captableCaptableRoundIn == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableRoundIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2545,7 +2729,7 @@ func (a *CaptableAPIService) PostCaptableRoundsExecute(r CaptableAPIPostCaptable
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2553,7 +2737,7 @@ func (a *CaptableAPIService) PostCaptableRoundsExecute(r CaptableAPIPostCaptable
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableRoundIn
+	localVarPostBody = r.captableCaptableRoundIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2576,6 +2760,14 @@ func (a *CaptableAPIService) PostCaptableRoundsExecute(r CaptableAPIPostCaptable
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2592,18 +2784,18 @@ func (a *CaptableAPIService) PostCaptableRoundsExecute(r CaptableAPIPostCaptable
 }
 
 type CaptableAPIPostCaptableRoundsByIdCloseRequest struct {
-	ctx                       context.Context
-	ApiService                *CaptableAPIService
-	id                        string
-	captableRoundCloseRequest *CaptableRoundCloseRequest
+	ctx                               context.Context
+	ApiService                        *CaptableAPIService
+	id                                string
+	captableCaptableRoundCloseRequest *CaptableCaptableRoundCloseRequest
 }
 
-func (r CaptableAPIPostCaptableRoundsByIdCloseRequest) CaptableRoundCloseRequest(captableRoundCloseRequest CaptableRoundCloseRequest) CaptableAPIPostCaptableRoundsByIdCloseRequest {
-	r.captableRoundCloseRequest = &captableRoundCloseRequest
+func (r CaptableAPIPostCaptableRoundsByIdCloseRequest) CaptableCaptableRoundCloseRequest(captableCaptableRoundCloseRequest CaptableCaptableRoundCloseRequest) CaptableAPIPostCaptableRoundsByIdCloseRequest {
+	r.captableCaptableRoundCloseRequest = &captableCaptableRoundCloseRequest
 	return r
 }
 
-func (r CaptableAPIPostCaptableRoundsByIdCloseRequest) Execute() (*CaptableUpdated, *http.Response, error) {
+func (r CaptableAPIPostCaptableRoundsByIdCloseRequest) Execute() (*CaptableCaptableUpdated, *http.Response, error) {
 	return r.ApiService.PostCaptableRoundsByIdCloseExecute(r)
 }
 
@@ -2629,13 +2821,13 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdClose(ctx context.Context, id
 
 // Execute executes the request
 //
-//	@return CaptableUpdated
-func (a *CaptableAPIService) PostCaptableRoundsByIdCloseExecute(r CaptableAPIPostCaptableRoundsByIdCloseRequest) (*CaptableUpdated, *http.Response, error) {
+//	@return CaptableCaptableUpdated
+func (a *CaptableAPIService) PostCaptableRoundsByIdCloseExecute(r CaptableAPIPostCaptableRoundsByIdCloseRequest) (*CaptableCaptableUpdated, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableUpdated
+		localVarReturnValue *CaptableCaptableUpdated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableRoundsByIdClose")
@@ -2649,8 +2841,8 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdCloseExecute(r CaptableAPIPos
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableRoundCloseRequest == nil {
-		return localVarReturnValue, nil, reportError("captableRoundCloseRequest is required and must be specified")
+	if r.captableCaptableRoundCloseRequest == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableRoundCloseRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2663,7 +2855,7 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdCloseExecute(r CaptableAPIPos
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2671,7 +2863,7 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdCloseExecute(r CaptableAPIPos
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableRoundCloseRequest
+	localVarPostBody = r.captableCaptableRoundCloseRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2694,6 +2886,14 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdCloseExecute(r CaptableAPIPos
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2710,18 +2910,18 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdCloseExecute(r CaptableAPIPos
 }
 
 type CaptableAPIPostCaptableRoundsByIdInvestmentsRequest struct {
-	ctx                  context.Context
-	ApiService           *CaptableAPIService
-	id                   string
-	captableInvestmentIn *CaptableInvestmentIn
+	ctx                          context.Context
+	ApiService                   *CaptableAPIService
+	id                           string
+	captableCaptableInvestmentIn *CaptableCaptableInvestmentIn
 }
 
-func (r CaptableAPIPostCaptableRoundsByIdInvestmentsRequest) CaptableInvestmentIn(captableInvestmentIn CaptableInvestmentIn) CaptableAPIPostCaptableRoundsByIdInvestmentsRequest {
-	r.captableInvestmentIn = &captableInvestmentIn
+func (r CaptableAPIPostCaptableRoundsByIdInvestmentsRequest) CaptableCaptableInvestmentIn(captableCaptableInvestmentIn CaptableCaptableInvestmentIn) CaptableAPIPostCaptableRoundsByIdInvestmentsRequest {
+	r.captableCaptableInvestmentIn = &captableCaptableInvestmentIn
 	return r
 }
 
-func (r CaptableAPIPostCaptableRoundsByIdInvestmentsRequest) Execute() (*CaptableInvested, *http.Response, error) {
+func (r CaptableAPIPostCaptableRoundsByIdInvestmentsRequest) Execute() (*CaptableCaptableInvested, *http.Response, error) {
 	return r.ApiService.PostCaptableRoundsByIdInvestmentsExecute(r)
 }
 
@@ -2748,13 +2948,13 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdInvestments(ctx context.Conte
 
 // Execute executes the request
 //
-//	@return CaptableInvested
-func (a *CaptableAPIService) PostCaptableRoundsByIdInvestmentsExecute(r CaptableAPIPostCaptableRoundsByIdInvestmentsRequest) (*CaptableInvested, *http.Response, error) {
+//	@return CaptableCaptableInvested
+func (a *CaptableAPIService) PostCaptableRoundsByIdInvestmentsExecute(r CaptableAPIPostCaptableRoundsByIdInvestmentsRequest) (*CaptableCaptableInvested, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableInvested
+		localVarReturnValue *CaptableCaptableInvested
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableRoundsByIdInvestments")
@@ -2768,8 +2968,8 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdInvestmentsExecute(r Captable
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableInvestmentIn == nil {
-		return localVarReturnValue, nil, reportError("captableInvestmentIn is required and must be specified")
+	if r.captableCaptableInvestmentIn == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableInvestmentIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2782,7 +2982,7 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdInvestmentsExecute(r Captable
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2790,7 +2990,7 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdInvestmentsExecute(r Captable
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableInvestmentIn
+	localVarPostBody = r.captableCaptableInvestmentIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2813,6 +3013,14 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdInvestmentsExecute(r Captable
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2829,17 +3037,17 @@ func (a *CaptableAPIService) PostCaptableRoundsByIdInvestmentsExecute(r Captable
 }
 
 type CaptableAPIPostCaptableSafesRequest struct {
-	ctx            context.Context
-	ApiService     *CaptableAPIService
-	captableSafeIn *CaptableSafeIn
+	ctx                    context.Context
+	ApiService             *CaptableAPIService
+	captableCaptableSafeIn *CaptableCaptableSafeIn
 }
 
-func (r CaptableAPIPostCaptableSafesRequest) CaptableSafeIn(captableSafeIn CaptableSafeIn) CaptableAPIPostCaptableSafesRequest {
-	r.captableSafeIn = &captableSafeIn
+func (r CaptableAPIPostCaptableSafesRequest) CaptableCaptableSafeIn(captableCaptableSafeIn CaptableCaptableSafeIn) CaptableAPIPostCaptableSafesRequest {
+	r.captableCaptableSafeIn = &captableCaptableSafeIn
 	return r
 }
 
-func (r CaptableAPIPostCaptableSafesRequest) Execute() (*CaptableCreated, *http.Response, error) {
+func (r CaptableAPIPostCaptableSafesRequest) Execute() (*CaptableCaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptableSafesExecute(r)
 }
 
@@ -2860,13 +3068,13 @@ func (a *CaptableAPIService) PostCaptableSafes(ctx context.Context) CaptableAPIP
 
 // Execute executes the request
 //
-//	@return CaptableCreated
-func (a *CaptableAPIService) PostCaptableSafesExecute(r CaptableAPIPostCaptableSafesRequest) (*CaptableCreated, *http.Response, error) {
+//	@return CaptableCaptableCreated
+func (a *CaptableAPIService) PostCaptableSafesExecute(r CaptableAPIPostCaptableSafesRequest) (*CaptableCaptableCreated, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableCreated
+		localVarReturnValue *CaptableCaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableSafes")
@@ -2879,8 +3087,8 @@ func (a *CaptableAPIService) PostCaptableSafesExecute(r CaptableAPIPostCaptableS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableSafeIn == nil {
-		return localVarReturnValue, nil, reportError("captableSafeIn is required and must be specified")
+	if r.captableCaptableSafeIn == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableSafeIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2893,7 +3101,7 @@ func (a *CaptableAPIService) PostCaptableSafesExecute(r CaptableAPIPostCaptableS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2901,7 +3109,7 @@ func (a *CaptableAPIService) PostCaptableSafesExecute(r CaptableAPIPostCaptableS
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableSafeIn
+	localVarPostBody = r.captableCaptableSafeIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2924,6 +3132,14 @@ func (a *CaptableAPIService) PostCaptableSafesExecute(r CaptableAPIPostCaptableS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2940,17 +3156,17 @@ func (a *CaptableAPIService) PostCaptableSafesExecute(r CaptableAPIPostCaptableS
 }
 
 type CaptableAPIPostCaptableSharesRequest struct {
-	ctx             context.Context
-	ApiService      *CaptableAPIService
-	captableShareIn *CaptableShareIn
+	ctx                     context.Context
+	ApiService              *CaptableAPIService
+	captableCaptableShareIn *CaptableCaptableShareIn
 }
 
-func (r CaptableAPIPostCaptableSharesRequest) CaptableShareIn(captableShareIn CaptableShareIn) CaptableAPIPostCaptableSharesRequest {
-	r.captableShareIn = &captableShareIn
+func (r CaptableAPIPostCaptableSharesRequest) CaptableCaptableShareIn(captableCaptableShareIn CaptableCaptableShareIn) CaptableAPIPostCaptableSharesRequest {
+	r.captableCaptableShareIn = &captableCaptableShareIn
 	return r
 }
 
-func (r CaptableAPIPostCaptableSharesRequest) Execute() (*CaptableCreated, *http.Response, error) {
+func (r CaptableAPIPostCaptableSharesRequest) Execute() (*CaptableCaptableCreated, *http.Response, error) {
 	return r.ApiService.PostCaptableSharesExecute(r)
 }
 
@@ -2976,13 +3192,13 @@ func (a *CaptableAPIService) PostCaptableShares(ctx context.Context) CaptableAPI
 
 // Execute executes the request
 //
-//	@return CaptableCreated
-func (a *CaptableAPIService) PostCaptableSharesExecute(r CaptableAPIPostCaptableSharesRequest) (*CaptableCreated, *http.Response, error) {
+//	@return CaptableCaptableCreated
+func (a *CaptableAPIService) PostCaptableSharesExecute(r CaptableAPIPostCaptableSharesRequest) (*CaptableCaptableCreated, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableCreated
+		localVarReturnValue *CaptableCaptableCreated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableShares")
@@ -2995,8 +3211,8 @@ func (a *CaptableAPIService) PostCaptableSharesExecute(r CaptableAPIPostCaptable
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableShareIn == nil {
-		return localVarReturnValue, nil, reportError("captableShareIn is required and must be specified")
+	if r.captableCaptableShareIn == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableShareIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3009,7 +3225,7 @@ func (a *CaptableAPIService) PostCaptableSharesExecute(r CaptableAPIPostCaptable
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3017,7 +3233,7 @@ func (a *CaptableAPIService) PostCaptableSharesExecute(r CaptableAPIPostCaptable
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableShareIn
+	localVarPostBody = r.captableCaptableShareIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3040,6 +3256,14 @@ func (a *CaptableAPIService) PostCaptableSharesExecute(r CaptableAPIPostCaptable
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3056,17 +3280,17 @@ func (a *CaptableAPIService) PostCaptableSharesExecute(r CaptableAPIPostCaptable
 }
 
 type CaptableAPIPostCaptableSharesTransferRequest struct {
-	ctx                   context.Context
-	ApiService            *CaptableAPIService
-	captableShareTransfer *CaptableShareTransfer
+	ctx                           context.Context
+	ApiService                    *CaptableAPIService
+	captableCaptableShareTransfer *CaptableCaptableShareTransfer
 }
 
-func (r CaptableAPIPostCaptableSharesTransferRequest) CaptableShareTransfer(captableShareTransfer CaptableShareTransfer) CaptableAPIPostCaptableSharesTransferRequest {
-	r.captableShareTransfer = &captableShareTransfer
+func (r CaptableAPIPostCaptableSharesTransferRequest) CaptableCaptableShareTransfer(captableCaptableShareTransfer CaptableCaptableShareTransfer) CaptableAPIPostCaptableSharesTransferRequest {
+	r.captableCaptableShareTransfer = &captableCaptableShareTransfer
 	return r
 }
 
-func (r CaptableAPIPostCaptableSharesTransferRequest) Execute() (*CaptableTransferred, *http.Response, error) {
+func (r CaptableAPIPostCaptableSharesTransferRequest) Execute() (*CaptableCaptableTransferred, *http.Response, error) {
 	return r.ApiService.PostCaptableSharesTransferExecute(r)
 }
 
@@ -3097,13 +3321,13 @@ func (a *CaptableAPIService) PostCaptableSharesTransfer(ctx context.Context) Cap
 
 // Execute executes the request
 //
-//	@return CaptableTransferred
-func (a *CaptableAPIService) PostCaptableSharesTransferExecute(r CaptableAPIPostCaptableSharesTransferRequest) (*CaptableTransferred, *http.Response, error) {
+//	@return CaptableCaptableTransferred
+func (a *CaptableAPIService) PostCaptableSharesTransferExecute(r CaptableAPIPostCaptableSharesTransferRequest) (*CaptableCaptableTransferred, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableTransferred
+		localVarReturnValue *CaptableCaptableTransferred
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PostCaptableSharesTransfer")
@@ -3116,8 +3340,8 @@ func (a *CaptableAPIService) PostCaptableSharesTransferExecute(r CaptableAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableShareTransfer == nil {
-		return localVarReturnValue, nil, reportError("captableShareTransfer is required and must be specified")
+	if r.captableCaptableShareTransfer == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableShareTransfer is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3130,7 +3354,7 @@ func (a *CaptableAPIService) PostCaptableSharesTransferExecute(r CaptableAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3138,7 +3362,7 @@ func (a *CaptableAPIService) PostCaptableSharesTransferExecute(r CaptableAPIPost
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableShareTransfer
+	localVarPostBody = r.captableCaptableShareTransfer
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3161,6 +3385,14 @@ func (a *CaptableAPIService) PostCaptableSharesTransferExecute(r CaptableAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3269,17 +3501,17 @@ func (a *CaptableAPIService) PostCaptableStakeholdersExecute(r CaptableAPIPostCa
 }
 
 type CaptableAPIPutCaptableCompanyRequest struct {
-	ctx                   context.Context
-	ApiService            *CaptableAPIService
-	captableCompanyUpdate *CaptableCompanyUpdate
+	ctx                           context.Context
+	ApiService                    *CaptableAPIService
+	captableCaptableCompanyUpdate *CaptableCaptableCompanyUpdate
 }
 
-func (r CaptableAPIPutCaptableCompanyRequest) CaptableCompanyUpdate(captableCompanyUpdate CaptableCompanyUpdate) CaptableAPIPutCaptableCompanyRequest {
-	r.captableCompanyUpdate = &captableCompanyUpdate
+func (r CaptableAPIPutCaptableCompanyRequest) CaptableCaptableCompanyUpdate(captableCaptableCompanyUpdate CaptableCaptableCompanyUpdate) CaptableAPIPutCaptableCompanyRequest {
+	r.captableCaptableCompanyUpdate = &captableCaptableCompanyUpdate
 	return r
 }
 
-func (r CaptableAPIPutCaptableCompanyRequest) Execute() (*CaptableUpdated, *http.Response, error) {
+func (r CaptableAPIPutCaptableCompanyRequest) Execute() (*CaptableCaptableUpdated, *http.Response, error) {
 	return r.ApiService.PutCaptableCompanyExecute(r)
 }
 
@@ -3304,13 +3536,13 @@ func (a *CaptableAPIService) PutCaptableCompany(ctx context.Context) CaptableAPI
 
 // Execute executes the request
 //
-//	@return CaptableUpdated
-func (a *CaptableAPIService) PutCaptableCompanyExecute(r CaptableAPIPutCaptableCompanyRequest) (*CaptableUpdated, *http.Response, error) {
+//	@return CaptableCaptableUpdated
+func (a *CaptableAPIService) PutCaptableCompanyExecute(r CaptableAPIPutCaptableCompanyRequest) (*CaptableCaptableUpdated, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CaptableUpdated
+		localVarReturnValue *CaptableCaptableUpdated
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CaptableAPIService.PutCaptableCompany")
@@ -3323,8 +3555,8 @@ func (a *CaptableAPIService) PutCaptableCompanyExecute(r CaptableAPIPutCaptableC
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.captableCompanyUpdate == nil {
-		return localVarReturnValue, nil, reportError("captableCompanyUpdate is required and must be specified")
+	if r.captableCaptableCompanyUpdate == nil {
+		return localVarReturnValue, nil, reportError("captableCaptableCompanyUpdate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3337,7 +3569,7 @@ func (a *CaptableAPIService) PutCaptableCompanyExecute(r CaptableAPIPutCaptableC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3345,7 +3577,7 @@ func (a *CaptableAPIService) PutCaptableCompanyExecute(r CaptableAPIPutCaptableC
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.captableCompanyUpdate
+	localVarPostBody = r.captableCaptableCompanyUpdate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3368,6 +3600,14 @@ func (a *CaptableAPIService) PutCaptableCompanyExecute(r CaptableAPIPutCaptableC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

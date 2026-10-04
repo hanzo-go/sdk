@@ -19,15 +19,14 @@ var _ MappedNullable = &DestinationField{}
 
 // DestinationField struct for DestinationField
 type DestinationField struct {
-	// a sample value of the right shape (\"G-XXXXXXX\"), when one helps
-	Example *string `json:"example,omitempty"`
-	// the camelCase key on both the connect body and the stored config
-	Key *string `json:"key,omitempty"`
-	// human label for the console card's input
-	Label *string `json:"label,omitempty"`
-	// when true, a connect that leaves it empty is refused 400
-	Required *bool `json:"required,omitempty"`
+	Example              *string `json:"example,omitempty"`
+	Key                  *string `json:"key,omitempty"`
+	Label                *string `json:"label,omitempty"`
+	Required             *bool   `json:"required,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DestinationField DestinationField
 
 // NewDestinationField instantiates a new DestinationField object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +195,36 @@ func (o DestinationField) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DestinationField) UnmarshalJSON(data []byte) (err error) {
+	varDestinationField := _DestinationField{}
+
+	err = json.Unmarshal(data, &varDestinationField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DestinationField(varDestinationField)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "example")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "required")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDestinationField struct {

@@ -26,7 +26,7 @@ type CiAPIGetCiFleetRequest struct {
 	ApiService *CiAPIService
 }
 
-func (r CiAPIGetCiFleetRequest) Execute() (*Pipelines, *http.Response, error) {
+func (r CiAPIGetCiFleetRequest) Execute() (*CiPipelines, *http.Response, error) {
 	return r.ApiService.GetCiFleetExecute(r)
 }
 
@@ -51,13 +51,13 @@ func (a *CiAPIService) GetCiFleet(ctx context.Context) CiAPIGetCiFleetRequest {
 
 // Execute executes the request
 //
-//	@return Pipelines
-func (a *CiAPIService) GetCiFleetExecute(r CiAPIGetCiFleetRequest) (*Pipelines, *http.Response, error) {
+//	@return CiPipelines
+func (a *CiAPIService) GetCiFleetExecute(r CiAPIGetCiFleetRequest) (*CiPipelines, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Pipelines
+		localVarReturnValue *CiPipelines
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CiAPIService.GetCiFleet")
@@ -81,7 +81,7 @@ func (a *CiAPIService) GetCiFleetExecute(r CiAPIGetCiFleetRequest) (*Pipelines, 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -110,6 +110,14 @@ func (a *CiAPIService) GetCiFleetExecute(r CiAPIGetCiFleetRequest) (*Pipelines, 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -130,7 +138,7 @@ type CiAPIGetCiRunsRequest struct {
 	ApiService *CiAPIService
 }
 
-func (r CiAPIGetCiRunsRequest) Execute() (*Executions, *http.Response, error) {
+func (r CiAPIGetCiRunsRequest) Execute() (*CiExecutions, *http.Response, error) {
 	return r.ApiService.GetCiRunsExecute(r)
 }
 
@@ -154,13 +162,13 @@ func (a *CiAPIService) GetCiRuns(ctx context.Context) CiAPIGetCiRunsRequest {
 
 // Execute executes the request
 //
-//	@return Executions
-func (a *CiAPIService) GetCiRunsExecute(r CiAPIGetCiRunsRequest) (*Executions, *http.Response, error) {
+//	@return CiExecutions
+func (a *CiAPIService) GetCiRunsExecute(r CiAPIGetCiRunsRequest) (*CiExecutions, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Executions
+		localVarReturnValue *CiExecutions
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CiAPIService.GetCiRuns")
@@ -184,7 +192,7 @@ func (a *CiAPIService) GetCiRunsExecute(r CiAPIGetCiRunsRequest) (*Executions, *
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -213,6 +221,14 @@ func (a *CiAPIService) GetCiRunsExecute(r CiAPIGetCiRunsRequest) (*Executions, *
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

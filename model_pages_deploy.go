@@ -19,8 +19,11 @@ var _ MappedNullable = &PagesDeploy{}
 
 // PagesDeploy struct for PagesDeploy
 type PagesDeploy struct {
-	Branch *string `json:"branch,omitempty"`
+	Branch               *string `json:"branch,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PagesDeploy PagesDeploy
 
 // NewPagesDeploy instantiates a new PagesDeploy object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o PagesDeploy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Branch) {
 		toSerialize["branch"] = o.Branch
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PagesDeploy) UnmarshalJSON(data []byte) (err error) {
+	varPagesDeploy := _PagesDeploy{}
+
+	err = json.Unmarshal(data, &varPagesDeploy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PagesDeploy(varPagesDeploy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "branch")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePagesDeploy struct {

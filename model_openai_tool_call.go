@@ -19,11 +19,14 @@ var _ MappedNullable = &OpenaiToolCall{}
 
 // OpenaiToolCall struct for OpenaiToolCall
 type OpenaiToolCall struct {
-	Function *OpenaiFunctionCall `json:"function,omitempty"`
-	Id       *string             `json:"id,omitempty"`
-	Index    *int32              `json:"index,omitempty"`
-	Type     *string             `json:"type,omitempty"`
+	Function             *OpenaiFunctionCall `json:"function,omitempty"`
+	Id                   *string             `json:"id,omitempty"`
+	Index                *int32              `json:"index,omitempty"`
+	Type                 *string             `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiToolCall OpenaiToolCall
 
 // NewOpenaiToolCall instantiates a new OpenaiToolCall object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o OpenaiToolCall) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiToolCall) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiToolCall := _OpenaiToolCall{}
+
+	err = json.Unmarshal(data, &varOpenaiToolCall)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiToolCall(varOpenaiToolCall)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "function")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "index")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiToolCall struct {

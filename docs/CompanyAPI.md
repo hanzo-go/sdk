@@ -4,12 +4,12 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCompany**](CompanyAPI.md#GetCompany) | **Get** /v1/company | Get returns the caller org&#39;s formation and the stages reachable from it, or 404 when the org has not begun one.
+[**GetCompany**](CompanyAPI.md#GetCompany) | **Get** /v1/company | Returns the caller org&#39;s formation and the stages reachable from it, or 404 when the org has not begun one.
 [**GetCompanyRegister**](CompanyAPI.md#GetCompanyRegister) | **Get** /v1/company/register | Returns the platform&#39;s whole formation register, newest activity first — every org&#39;s formation, not the caller&#39;s.
 [**GetCompanyRegisterSummary**](CompanyAPI.md#GetCompanyRegisterSummary) | **Get** /v1/company/register/summary | Counts the platform&#39;s formations by stage — the register&#39;s shape in one read, so a queue that is growing is visible as a number rather than inferred by paging the list.
 [**GetCompanyReview**](CompanyAPI.md#GetCompanyReview) | **Get** /v1/company/review | Reports the founders whose KYC is not yet settled, oldest formation first, so the queue drains in the order founders have been waiting.
-[**PostCompany**](CompanyAPI.md#PostCompany) | **Post** /v1/company | Begin starts the org&#39;s one formation and returns it with the stages reachable from it.
-[**PostCompanyAdvance**](CompanyAPI.md#PostCompanyAdvance) | **Post** /v1/company/advance | Advance runs the ONE guarded transition of the formation machine.
+[**PostCompany**](CompanyAPI.md#PostCompany) | **Post** /v1/company | Starts the org&#39;s one formation and returns it with the stages reachable from it.
+[**PostCompanyAdvance**](CompanyAPI.md#PostCompanyAdvance) | **Post** /v1/company/advance | Runs the ONE guarded transition of the formation machine.
 [**PostCompanyDocuments**](CompanyAPI.md#PostCompanyDocuments) | **Post** /v1/company/documents | Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing client.
 [**PostCompanyEin**](CompanyAPI.md#PostCompanyEin) | **Post** /v1/company/ein | Opens the EIN application and answers what it owes.
 [**PostCompanyEsign**](CompanyAPI.md#PostCompanyEsign) | **Post** /v1/company/esign | Sends the generated formation documents for signature by every founder and records the provider&#39;s reference on the formation.
@@ -21,11 +21,10 @@ Method | HTTP request | Description
 [**PostCompanyGenesis**](CompanyAPI.md#PostCompanyGenesis) | **Post** /v1/company/genesis | Seeds the canonical cap table with the founding allocation (stakeholders, a common share class, issued shares) and anchors the deterministic equity-genesis root on-chain.
 [**PostCompanyImportCaptable**](CompanyAPI.md#PostCompanyImportCaptable) | **Post** /v1/company/import/captable | Reads an existing company&#39;s cap table from a Google Sheet and adds its stakeholders to the canonical cap table.
 [**PostCompanyImportDocuments**](CompanyAPI.md#PostCompanyImportDocuments) | **Post** /v1/company/import/documents | Ingests an existing company&#39;s corporate documents from a Google Drive folder into the org&#39;s data room.
-[**PostCompanyKyc**](CompanyAPI.md#PostCompanyKyc) | **Post** /v1/company/kyc | StartKYC opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
-[**PostCompanyKycDecision**](CompanyAPI.md#PostCompanyKycDecision) | **Post** /v1/company/kyc/decision | DecideKYC records a privileged reviewer&#39;s MANUAL decision on a founder&#39;s KYC — the human-in-the-loop path, and the ONLY route to a pass when no real provider is wired.
+[**PostCompanyKyc**](CompanyAPI.md#PostCompanyKyc) | **Post** /v1/company/kyc | Opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
 [**PostCompanyKycRefresh**](CompanyAPI.md#PostCompanyKycRefresh) | **Post** /v1/company/kyc/refresh | RefreshKYC reconciles each pending founder&#39;s KYC with the WIRED provider — the PULL path to a provider-reported terminal status.
 [**PostCompanyPayment**](CompanyAPI.md#PostCompanyPayment) | **Post** /v1/company/payment | Charges the caller&#39;s own org the one-time Hanzo Company formation fee.
-[**PostCompanySkip**](CompanyAPI.md#PostCompanySkip) | **Post** /v1/company/skip | Skip marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
+[**PostCompanySkip**](CompanyAPI.md#PostCompanySkip) | **Post** /v1/company/skip | Marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
 [**PostCompanyTariff**](CompanyAPI.md#PostCompanyTariff) | **Post** /v1/company/tariff | Itemises what a formation costs before anyone commits to it.
 [**PutCompanyStructure**](CompanyAPI.md#PutCompanyStructure) | **Put** /v1/company/structure | Records the entity kind, the state of formation and the proposed name.
 
@@ -33,9 +32,9 @@ Method | HTTP request | Description
 
 ## GetCompany
 
-> FormationView GetCompany(ctx).Execute()
+> CompanyFormationView GetCompany(ctx).Execute()
 
-Get returns the caller org's formation and the stages reachable from it, or 404 when the org has not begun one.
+Returns the caller org's formation and the stages reachable from it, or 404 when the org has not begun one.
 
 
 
@@ -60,7 +59,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.GetCompany``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCompany`: FormationView
+	// response from `GetCompany`: CompanyFormationView
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.GetCompany`: %v\n", resp)
 }
 ```
@@ -76,7 +75,7 @@ Other parameters are passed through a pointer to a apiGetCompanyRequest struct v
 
 ### Return type
 
-[**FormationView**](FormationView.md)
+[**CompanyFormationView**](CompanyFormationView.md)
 
 ### Authorization
 
@@ -85,7 +84,7 @@ Other parameters are passed through a pointer to a apiGetCompanyRequest struct v
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -94,7 +93,7 @@ Other parameters are passed through a pointer to a apiGetCompanyRequest struct v
 
 ## GetCompanyRegister
 
-> RegisterPage GetCompanyRegister(ctx).Stage(stage).Structure(structure).Limit(limit).Offset(offset).Execute()
+> CompanyRegisterPage GetCompanyRegister(ctx).Stage(stage).Structure(structure).Limit(limit).Offset(offset).Execute()
 
 Returns the platform's whole formation register, newest activity first — every org's formation, not the caller's.
 
@@ -125,7 +124,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.GetCompanyRegister``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCompanyRegister`: RegisterPage
+	// response from `GetCompanyRegister`: CompanyRegisterPage
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.GetCompanyRegister`: %v\n", resp)
 }
 ```
@@ -148,7 +147,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RegisterPage**](RegisterPage.md)
+[**CompanyRegisterPage**](CompanyRegisterPage.md)
 
 ### Authorization
 
@@ -157,7 +156,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -166,7 +165,7 @@ Name | Type | Description  | Notes
 
 ## GetCompanyRegisterSummary
 
-> RegisterCounts GetCompanyRegisterSummary(ctx).Execute()
+> CompanyRegisterCounts GetCompanyRegisterSummary(ctx).Execute()
 
 Counts the platform's formations by stage — the register's shape in one read, so a queue that is growing is visible as a number rather than inferred by paging the list.
 
@@ -193,7 +192,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.GetCompanyRegisterSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCompanyRegisterSummary`: RegisterCounts
+	// response from `GetCompanyRegisterSummary`: CompanyRegisterCounts
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.GetCompanyRegisterSummary`: %v\n", resp)
 }
 ```
@@ -209,7 +208,7 @@ Other parameters are passed through a pointer to a apiGetCompanyRegisterSummaryR
 
 ### Return type
 
-[**RegisterCounts**](RegisterCounts.md)
+[**CompanyRegisterCounts**](CompanyRegisterCounts.md)
 
 ### Authorization
 
@@ -218,7 +217,7 @@ Other parameters are passed through a pointer to a apiGetCompanyRegisterSummaryR
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -227,7 +226,7 @@ Other parameters are passed through a pointer to a apiGetCompanyRegisterSummaryR
 
 ## GetCompanyReview
 
-> ReviewQueue GetCompanyReview(ctx).Limit(limit).Execute()
+> CompanyReviewQueue GetCompanyReview(ctx).Limit(limit).Execute()
 
 Reports the founders whose KYC is not yet settled, oldest formation first, so the queue drains in the order founders have been waiting.
 
@@ -255,7 +254,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.GetCompanyReview``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCompanyReview`: ReviewQueue
+	// response from `GetCompanyReview`: CompanyReviewQueue
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.GetCompanyReview`: %v\n", resp)
 }
 ```
@@ -275,7 +274,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ReviewQueue**](ReviewQueue.md)
+[**CompanyReviewQueue**](CompanyReviewQueue.md)
 
 ### Authorization
 
@@ -284,7 +283,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -293,9 +292,9 @@ Name | Type | Description  | Notes
 
 ## PostCompany
 
-> FormationView PostCompany(ctx).BeginIn(beginIn).Execute()
+> CompanyFormationView PostCompany(ctx).CompanyBeginIn(companyBeginIn).Execute()
 
-Begin starts the org's one formation and returns it with the stages reachable from it.
+Starts the org's one formation and returns it with the stages reachable from it.
 
 
 
@@ -312,16 +311,16 @@ import (
 )
 
 func main() {
-	beginIn := *openapiclient.NewBeginIn() // BeginIn | 
+	companyBeginIn := *openapiclient.NewCompanyBeginIn() // CompanyBeginIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.PostCompany(context.Background()).BeginIn(beginIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompany(context.Background()).CompanyBeginIn(companyBeginIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompany``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompany`: FormationView
+	// response from `PostCompany`: CompanyFormationView
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompany`: %v\n", resp)
 }
 ```
@@ -337,11 +336,11 @@ Other parameters are passed through a pointer to a apiPostCompanyRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **beginIn** | [**BeginIn**](BeginIn.md) |  | 
+ **companyBeginIn** | [**CompanyBeginIn**](CompanyBeginIn.md) |  | 
 
 ### Return type
 
-[**FormationView**](FormationView.md)
+[**CompanyFormationView**](CompanyFormationView.md)
 
 ### Authorization
 
@@ -350,7 +349,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -359,9 +358,9 @@ Name | Type | Description  | Notes
 
 ## PostCompanyAdvance
 
-> FormationView PostCompanyAdvance(ctx).AdvanceIn(advanceIn).Execute()
+> CompanyFormationView PostCompanyAdvance(ctx).CompanyAdvanceIn(companyAdvanceIn).Execute()
 
-Advance runs the ONE guarded transition of the formation machine.
+Runs the ONE guarded transition of the formation machine.
 
 
 
@@ -378,16 +377,16 @@ import (
 )
 
 func main() {
-	advanceIn := *openapiclient.NewAdvanceIn() // AdvanceIn | 
+	companyAdvanceIn := *openapiclient.NewCompanyAdvanceIn() // CompanyAdvanceIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.PostCompanyAdvance(context.Background()).AdvanceIn(advanceIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyAdvance(context.Background()).CompanyAdvanceIn(companyAdvanceIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyAdvance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyAdvance`: FormationView
+	// response from `PostCompanyAdvance`: CompanyFormationView
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyAdvance`: %v\n", resp)
 }
 ```
@@ -403,11 +402,11 @@ Other parameters are passed through a pointer to a apiPostCompanyAdvanceRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **advanceIn** | [**AdvanceIn**](AdvanceIn.md) |  | 
+ **companyAdvanceIn** | [**CompanyAdvanceIn**](CompanyAdvanceIn.md) |  | 
 
 ### Return type
 
-[**FormationView**](FormationView.md)
+[**CompanyFormationView**](CompanyFormationView.md)
 
 ### Authorization
 
@@ -416,7 +415,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -425,7 +424,7 @@ Name | Type | Description  | Notes
 
 ## PostCompanyDocuments
 
-> FormationView PostCompanyDocuments(ctx).Execute()
+> CompanyFormationView PostCompanyDocuments(ctx).Execute()
 
 Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing client.
 
@@ -452,7 +451,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyDocuments`: FormationView
+	// response from `PostCompanyDocuments`: CompanyFormationView
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyDocuments`: %v\n", resp)
 }
 ```
@@ -468,7 +467,7 @@ Other parameters are passed through a pointer to a apiPostCompanyDocumentsReques
 
 ### Return type
 
-[**FormationView**](FormationView.md)
+[**CompanyFormationView**](CompanyFormationView.md)
 
 ### Authorization
 
@@ -477,7 +476,7 @@ Other parameters are passed through a pointer to a apiPostCompanyDocumentsReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -486,7 +485,7 @@ Other parameters are passed through a pointer to a apiPostCompanyDocumentsReques
 
 ## PostCompanyEin
 
-> EIN PostCompanyEin(ctx).EinIn(einIn).Execute()
+> CompanyEIN PostCompanyEin(ctx).CompanyEinIn(companyEinIn).Execute()
 
 Opens the EIN application and answers what it owes.
 
@@ -505,16 +504,16 @@ import (
 )
 
 func main() {
-	einIn := *openapiclient.NewEinIn() // EinIn | 
+	companyEinIn := *openapiclient.NewCompanyEinIn() // CompanyEinIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.PostCompanyEin(context.Background()).EinIn(einIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyEin(context.Background()).CompanyEinIn(companyEinIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyEin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyEin`: EIN
+	// response from `PostCompanyEin`: CompanyEIN
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyEin`: %v\n", resp)
 }
 ```
@@ -530,11 +529,11 @@ Other parameters are passed through a pointer to a apiPostCompanyEinRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **einIn** | [**EinIn**](EinIn.md) |  | 
+ **companyEinIn** | [**CompanyEinIn**](CompanyEinIn.md) |  | 
 
 ### Return type
 
-[**EIN**](EIN.md)
+[**CompanyEIN**](CompanyEIN.md)
 
 ### Authorization
 
@@ -543,7 +542,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -552,7 +551,7 @@ Name | Type | Description  | Notes
 
 ## PostCompanyEsign
 
-> EsignOut PostCompanyEsign(ctx).Execute()
+> CompanyEsignOut PostCompanyEsign(ctx).Execute()
 
 Sends the generated formation documents for signature by every founder and records the provider's reference on the formation.
 
@@ -579,7 +578,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyEsign``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyEsign`: EsignOut
+	// response from `PostCompanyEsign`: CompanyEsignOut
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyEsign`: %v\n", resp)
 }
 ```
@@ -595,7 +594,7 @@ Other parameters are passed through a pointer to a apiPostCompanyEsignRequest st
 
 ### Return type
 
-[**EsignOut**](EsignOut.md)
+[**CompanyEsignOut**](CompanyEsignOut.md)
 
 ### Authorization
 
@@ -604,7 +603,7 @@ Other parameters are passed through a pointer to a apiPostCompanyEsignRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -613,7 +612,7 @@ Other parameters are passed through a pointer to a apiPostCompanyEsignRequest st
 
 ## PostCompanyEsignComplete
 
-> FormationView PostCompanyEsignComplete(ctx).EsignCompleteIn(esignCompleteIn).Execute()
+> CompanyFormationView PostCompanyEsignComplete(ctx).CompanyEsignCompleteIn(companyEsignCompleteIn).Execute()
 
 Records whether the formation documents have been signed.
 
@@ -632,16 +631,16 @@ import (
 )
 
 func main() {
-	esignCompleteIn := *openapiclient.NewEsignCompleteIn() // EsignCompleteIn | 
+	companyEsignCompleteIn := *openapiclient.NewCompanyEsignCompleteIn() // CompanyEsignCompleteIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.PostCompanyEsignComplete(context.Background()).EsignCompleteIn(esignCompleteIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyEsignComplete(context.Background()).CompanyEsignCompleteIn(companyEsignCompleteIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyEsignComplete``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyEsignComplete`: FormationView
+	// response from `PostCompanyEsignComplete`: CompanyFormationView
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyEsignComplete`: %v\n", resp)
 }
 ```
@@ -657,11 +656,11 @@ Other parameters are passed through a pointer to a apiPostCompanyEsignCompleteRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **esignCompleteIn** | [**EsignCompleteIn**](EsignCompleteIn.md) |  | 
+ **companyEsignCompleteIn** | [**CompanyEsignCompleteIn**](CompanyEsignCompleteIn.md) |  | 
 
 ### Return type
 
-[**FormationView**](FormationView.md)
+[**CompanyFormationView**](CompanyFormationView.md)
 
 ### Authorization
 
@@ -670,7 +669,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -679,7 +678,7 @@ Name | Type | Description  | Notes
 
 ## PostCompanyFounders
 
-> FormationView PostCompanyFounders(ctx).FoundersIn(foundersIn).Execute()
+> CompanyFormationView PostCompanyFounders(ctx).CompanyFoundersIn(companyFoundersIn).Execute()
 
 Replaces the formation's founders.
 
@@ -698,16 +697,16 @@ import (
 )
 
 func main() {
-	foundersIn := *openapiclient.NewFoundersIn() // FoundersIn | 
+	companyFoundersIn := *openapiclient.NewCompanyFoundersIn() // CompanyFoundersIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.PostCompanyFounders(context.Background()).FoundersIn(foundersIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyFounders(context.Background()).CompanyFoundersIn(companyFoundersIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyFounders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyFounders`: FormationView
+	// response from `PostCompanyFounders`: CompanyFormationView
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyFounders`: %v\n", resp)
 }
 ```
@@ -723,11 +722,11 @@ Other parameters are passed through a pointer to a apiPostCompanyFoundersRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **foundersIn** | [**FoundersIn**](FoundersIn.md) |  | 
+ **companyFoundersIn** | [**CompanyFoundersIn**](CompanyFoundersIn.md) |  | 
 
 ### Return type
 
-[**FormationView**](FormationView.md)
+[**CompanyFormationView**](CompanyFormationView.md)
 
 ### Authorization
 
@@ -736,7 +735,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -811,7 +810,7 @@ Name | Type | Description  | Notes
 
 ## PostCompanyFundraiseRound
 
-> RoundOut PostCompanyFundraiseRound(ctx).RoundInput(roundInput).Execute()
+> CompanyRoundOut PostCompanyFundraiseRound(ctx).CompanyRoundInput(companyRoundInput).Execute()
 
 Records a fundraising round on the org's canonical cap table.
 
@@ -830,16 +829,16 @@ import (
 )
 
 func main() {
-	roundInput := *openapiclient.NewRoundInput() // RoundInput | 
+	companyRoundInput := *openapiclient.NewCompanyRoundInput() // CompanyRoundInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.PostCompanyFundraiseRound(context.Background()).RoundInput(roundInput).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyFundraiseRound(context.Background()).CompanyRoundInput(companyRoundInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyFundraiseRound``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyFundraiseRound`: RoundOut
+	// response from `PostCompanyFundraiseRound`: CompanyRoundOut
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyFundraiseRound`: %v\n", resp)
 }
 ```
@@ -855,11 +854,11 @@ Other parameters are passed through a pointer to a apiPostCompanyFundraiseRoundR
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **roundInput** | [**RoundInput**](RoundInput.md) |  | 
+ **companyRoundInput** | [**CompanyRoundInput**](CompanyRoundInput.md) |  | 
 
 ### Return type
 
-[**RoundOut**](RoundOut.md)
+[**CompanyRoundOut**](CompanyRoundOut.md)
 
 ### Authorization
 
@@ -868,7 +867,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -877,7 +876,7 @@ Name | Type | Description  | Notes
 
 ## PostCompanyFundraiseSafe
 
-> SafeOut PostCompanyFundraiseSafe(ctx).SafeIn(safeIn).Execute()
+> CompanySafeOut PostCompanyFundraiseSafe(ctx).CompanySafeIn(companySafeIn).Execute()
 
 Raises an e-signature request over documents already in the org's data room — a SAFE, a convertible note, or any other fundraising paper.
 
@@ -896,16 +895,16 @@ import (
 )
 
 func main() {
-	safeIn := *openapiclient.NewSafeIn() // SafeIn | 
+	companySafeIn := *openapiclient.NewCompanySafeIn() // CompanySafeIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.PostCompanyFundraiseSafe(context.Background()).SafeIn(safeIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyFundraiseSafe(context.Background()).CompanySafeIn(companySafeIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyFundraiseSafe``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyFundraiseSafe`: SafeOut
+	// response from `PostCompanyFundraiseSafe`: CompanySafeOut
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyFundraiseSafe`: %v\n", resp)
 }
 ```
@@ -921,11 +920,11 @@ Other parameters are passed through a pointer to a apiPostCompanyFundraiseSafeRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **safeIn** | [**SafeIn**](SafeIn.md) |  | 
+ **companySafeIn** | [**CompanySafeIn**](CompanySafeIn.md) |  | 
 
 ### Return type
 
-[**SafeOut**](SafeOut.md)
+[**CompanySafeOut**](CompanySafeOut.md)
 
 ### Authorization
 
@@ -934,7 +933,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -943,7 +942,7 @@ Name | Type | Description  | Notes
 
 ## PostCompanyGenesis
 
-> FormationView PostCompanyGenesis(ctx).Execute()
+> CompanyFormationView PostCompanyGenesis(ctx).Execute()
 
 Seeds the canonical cap table with the founding allocation (stakeholders, a common share class, issued shares) and anchors the deterministic equity-genesis root on-chain.
 
@@ -970,7 +969,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyGenesis``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyGenesis`: FormationView
+	// response from `PostCompanyGenesis`: CompanyFormationView
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyGenesis`: %v\n", resp)
 }
 ```
@@ -986,7 +985,7 @@ Other parameters are passed through a pointer to a apiPostCompanyGenesisRequest 
 
 ### Return type
 
-[**FormationView**](FormationView.md)
+[**CompanyFormationView**](CompanyFormationView.md)
 
 ### Authorization
 
@@ -995,7 +994,7 @@ Other parameters are passed through a pointer to a apiPostCompanyGenesisRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1004,7 +1003,7 @@ Other parameters are passed through a pointer to a apiPostCompanyGenesisRequest 
 
 ## PostCompanyImportCaptable
 
-> ImportCapTableOut PostCompanyImportCaptable(ctx).ImportCapTableIn(importCapTableIn).Execute()
+> CompanyImportCapTableOut PostCompanyImportCaptable(ctx).CompanyImportCapTableIn(companyImportCapTableIn).Execute()
 
 Reads an existing company's cap table from a Google Sheet and adds its stakeholders to the canonical cap table.
 
@@ -1023,16 +1022,16 @@ import (
 )
 
 func main() {
-	importCapTableIn := *openapiclient.NewImportCapTableIn() // ImportCapTableIn | 
+	companyImportCapTableIn := *openapiclient.NewCompanyImportCapTableIn() // CompanyImportCapTableIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.PostCompanyImportCaptable(context.Background()).ImportCapTableIn(importCapTableIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyImportCaptable(context.Background()).CompanyImportCapTableIn(companyImportCapTableIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyImportCaptable``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyImportCaptable`: ImportCapTableOut
+	// response from `PostCompanyImportCaptable`: CompanyImportCapTableOut
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyImportCaptable`: %v\n", resp)
 }
 ```
@@ -1048,11 +1047,11 @@ Other parameters are passed through a pointer to a apiPostCompanyImportCaptableR
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **importCapTableIn** | [**ImportCapTableIn**](ImportCapTableIn.md) |  | 
+ **companyImportCapTableIn** | [**CompanyImportCapTableIn**](CompanyImportCapTableIn.md) |  | 
 
 ### Return type
 
-[**ImportCapTableOut**](ImportCapTableOut.md)
+[**CompanyImportCapTableOut**](CompanyImportCapTableOut.md)
 
 ### Authorization
 
@@ -1061,7 +1060,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1070,7 +1069,7 @@ Name | Type | Description  | Notes
 
 ## PostCompanyImportDocuments
 
-> ImportDocumentsOut PostCompanyImportDocuments(ctx).ImportDocumentsIn(importDocumentsIn).Execute()
+> CompanyImportDocumentsOut PostCompanyImportDocuments(ctx).CompanyImportDocumentsIn(companyImportDocumentsIn).Execute()
 
 Ingests an existing company's corporate documents from a Google Drive folder into the org's data room.
 
@@ -1089,16 +1088,16 @@ import (
 )
 
 func main() {
-	importDocumentsIn := *openapiclient.NewImportDocumentsIn() // ImportDocumentsIn | 
+	companyImportDocumentsIn := *openapiclient.NewCompanyImportDocumentsIn() // CompanyImportDocumentsIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.PostCompanyImportDocuments(context.Background()).ImportDocumentsIn(importDocumentsIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyImportDocuments(context.Background()).CompanyImportDocumentsIn(companyImportDocumentsIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyImportDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyImportDocuments`: ImportDocumentsOut
+	// response from `PostCompanyImportDocuments`: CompanyImportDocumentsOut
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyImportDocuments`: %v\n", resp)
 }
 ```
@@ -1114,11 +1113,11 @@ Other parameters are passed through a pointer to a apiPostCompanyImportDocuments
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **importDocumentsIn** | [**ImportDocumentsIn**](ImportDocumentsIn.md) |  | 
+ **companyImportDocumentsIn** | [**CompanyImportDocumentsIn**](CompanyImportDocumentsIn.md) |  | 
 
 ### Return type
 
-[**ImportDocumentsOut**](ImportDocumentsOut.md)
+[**CompanyImportDocumentsOut**](CompanyImportDocumentsOut.md)
 
 ### Authorization
 
@@ -1127,7 +1126,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1136,9 +1135,9 @@ Name | Type | Description  | Notes
 
 ## PostCompanyKyc
 
-> KycStartOut PostCompanyKyc(ctx).Execute()
+> CompanyKycStartOut PostCompanyKyc(ctx).Execute()
 
-StartKYC opens an identity-verification session for every founder with the wired provider and records each session's reference on the formation.
+Opens an identity-verification session for every founder with the wired provider and records each session's reference on the formation.
 
 
 
@@ -1163,7 +1162,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyKyc``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyKyc`: KycStartOut
+	// response from `PostCompanyKyc`: CompanyKycStartOut
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyKyc`: %v\n", resp)
 }
 ```
@@ -1179,7 +1178,7 @@ Other parameters are passed through a pointer to a apiPostCompanyKycRequest stru
 
 ### Return type
 
-[**KycStartOut**](KycStartOut.md)
+[**CompanyKycStartOut**](CompanyKycStartOut.md)
 
 ### Authorization
 
@@ -1188,73 +1187,7 @@ Other parameters are passed through a pointer to a apiPostCompanyKycRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostCompanyKycDecision
-
-> FormationView PostCompanyKycDecision(ctx).DecisionIn(decisionIn).Execute()
-
-DecideKYC records a privileged reviewer's MANUAL decision on a founder's KYC — the human-in-the-loop path, and the ONLY route to a pass when no real provider is wired.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	decisionIn := *openapiclient.NewDecisionIn() // DecisionIn | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.PostCompanyKycDecision(context.Background()).DecisionIn(decisionIn).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyKycDecision``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostCompanyKycDecision`: FormationView
-	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyKycDecision`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostCompanyKycDecisionRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **decisionIn** | [**DecisionIn**](DecisionIn.md) |  | 
-
-### Return type
-
-[**FormationView**](FormationView.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1263,7 +1196,7 @@ Name | Type | Description  | Notes
 
 ## PostCompanyKycRefresh
 
-> KycRefreshOut PostCompanyKycRefresh(ctx).Execute()
+> CompanyKycRefreshOut PostCompanyKycRefresh(ctx).Execute()
 
 RefreshKYC reconciles each pending founder's KYC with the WIRED provider — the PULL path to a provider-reported terminal status.
 
@@ -1290,7 +1223,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyKycRefresh``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyKycRefresh`: KycRefreshOut
+	// response from `PostCompanyKycRefresh`: CompanyKycRefreshOut
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyKycRefresh`: %v\n", resp)
 }
 ```
@@ -1306,7 +1239,7 @@ Other parameters are passed through a pointer to a apiPostCompanyKycRefreshReque
 
 ### Return type
 
-[**KycRefreshOut**](KycRefreshOut.md)
+[**CompanyKycRefreshOut**](CompanyKycRefreshOut.md)
 
 ### Authorization
 
@@ -1315,7 +1248,7 @@ Other parameters are passed through a pointer to a apiPostCompanyKycRefreshReque
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1324,7 +1257,7 @@ Other parameters are passed through a pointer to a apiPostCompanyKycRefreshReque
 
 ## PostCompanyPayment
 
-> FormationView PostCompanyPayment(ctx).Execute()
+> CompanyFormationView PostCompanyPayment(ctx).Execute()
 
 Charges the caller's own org the one-time Hanzo Company formation fee.
 
@@ -1351,7 +1284,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyPayment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyPayment`: FormationView
+	// response from `PostCompanyPayment`: CompanyFormationView
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyPayment`: %v\n", resp)
 }
 ```
@@ -1367,7 +1300,7 @@ Other parameters are passed through a pointer to a apiPostCompanyPaymentRequest 
 
 ### Return type
 
-[**FormationView**](FormationView.md)
+[**CompanyFormationView**](CompanyFormationView.md)
 
 ### Authorization
 
@@ -1376,7 +1309,7 @@ Other parameters are passed through a pointer to a apiPostCompanyPaymentRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1385,9 +1318,9 @@ Other parameters are passed through a pointer to a apiPostCompanyPaymentRequest 
 
 ## PostCompanySkip
 
-> FormationView PostCompanySkip(ctx).Execute()
+> CompanyFormationView PostCompanySkip(ctx).Execute()
 
-Skip marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
+Marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
 
 
 
@@ -1412,7 +1345,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanySkip``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanySkip`: FormationView
+	// response from `PostCompanySkip`: CompanyFormationView
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanySkip`: %v\n", resp)
 }
 ```
@@ -1428,7 +1361,7 @@ Other parameters are passed through a pointer to a apiPostCompanySkipRequest str
 
 ### Return type
 
-[**FormationView**](FormationView.md)
+[**CompanyFormationView**](CompanyFormationView.md)
 
 ### Authorization
 
@@ -1437,7 +1370,7 @@ Other parameters are passed through a pointer to a apiPostCompanySkipRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1446,7 +1379,7 @@ Other parameters are passed through a pointer to a apiPostCompanySkipRequest str
 
 ## PostCompanyTariff
 
-> Tariff PostCompanyTariff(ctx).TariffIn(tariffIn).Execute()
+> CompanyTariff PostCompanyTariff(ctx).CompanyTariffIn(companyTariffIn).Execute()
 
 Itemises what a formation costs before anyone commits to it.
 
@@ -1465,16 +1398,16 @@ import (
 )
 
 func main() {
-	tariffIn := *openapiclient.NewTariffIn() // TariffIn | 
+	companyTariffIn := *openapiclient.NewCompanyTariffIn() // CompanyTariffIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.PostCompanyTariff(context.Background()).TariffIn(tariffIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PostCompanyTariff(context.Background()).CompanyTariffIn(companyTariffIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PostCompanyTariff``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCompanyTariff`: Tariff
+	// response from `PostCompanyTariff`: CompanyTariff
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PostCompanyTariff`: %v\n", resp)
 }
 ```
@@ -1490,11 +1423,11 @@ Other parameters are passed through a pointer to a apiPostCompanyTariffRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tariffIn** | [**TariffIn**](TariffIn.md) |  | 
+ **companyTariffIn** | [**CompanyTariffIn**](CompanyTariffIn.md) |  | 
 
 ### Return type
 
-[**Tariff**](Tariff.md)
+[**CompanyTariff**](CompanyTariff.md)
 
 ### Authorization
 
@@ -1503,7 +1436,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1512,7 +1445,7 @@ Name | Type | Description  | Notes
 
 ## PutCompanyStructure
 
-> FormationView PutCompanyStructure(ctx).StructureIn(structureIn).Execute()
+> CompanyFormationView PutCompanyStructure(ctx).CompanyStructureIn(companyStructureIn).Execute()
 
 Records the entity kind, the state of formation and the proposed name.
 
@@ -1531,16 +1464,16 @@ import (
 )
 
 func main() {
-	structureIn := *openapiclient.NewStructureIn() // StructureIn | 
+	companyStructureIn := *openapiclient.NewCompanyStructureIn() // CompanyStructureIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CompanyAPI.PutCompanyStructure(context.Background()).StructureIn(structureIn).Execute()
+	resp, r, err := apiClient.CompanyAPI.PutCompanyStructure(context.Background()).CompanyStructureIn(companyStructureIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CompanyAPI.PutCompanyStructure``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutCompanyStructure`: FormationView
+	// response from `PutCompanyStructure`: CompanyFormationView
 	fmt.Fprintf(os.Stdout, "Response from `CompanyAPI.PutCompanyStructure`: %v\n", resp)
 }
 ```
@@ -1556,11 +1489,11 @@ Other parameters are passed through a pointer to a apiPutCompanyStructureRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **structureIn** | [**StructureIn**](StructureIn.md) |  | 
+ **companyStructureIn** | [**CompanyStructureIn**](CompanyStructureIn.md) |  | 
 
 ### Return type
 
-[**FormationView**](FormationView.md)
+[**CompanyFormationView**](CompanyFormationView.md)
 
 ### Authorization
 
@@ -1569,7 +1502,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

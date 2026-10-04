@@ -22,10 +22,12 @@ type O11yO11yFilterItem struct {
 	// Key is the attribute tested.
 	Key *O11yO11yAttributeKey `json:"key,omitempty"`
 	// Operator is the comparison, e.g. =, !=, in, contains.
-	Op *string `json:"op,omitempty"`
-	// Value is what it is tested against; its type follows the attribute's.
-	Value map[string]interface{} `json:"value,omitempty"`
+	Op                   *string     `json:"op,omitempty"`
+	Value                interface{} `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFilterItem O11yO11yFilterItem
 
 // NewO11yO11yFilterItem instantiates a new O11yO11yFilterItem object
 // This constructor will assign default values to properties that have it defined,
@@ -108,10 +110,10 @@ func (o *O11yO11yFilterItem) SetOp(v string) {
 	o.Op = &v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *O11yO11yFilterItem) GetValue() map[string]interface{} {
-	if o == nil || IsNil(o.Value) {
-		var ret map[string]interface{}
+// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *O11yO11yFilterItem) GetValue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Value
@@ -119,11 +121,12 @@ func (o *O11yO11yFilterItem) GetValue() map[string]interface{} {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yFilterItem) GetValueOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *O11yO11yFilterItem) GetValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Value) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
@@ -135,8 +138,8 @@ func (o *O11yO11yFilterItem) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
-func (o *O11yO11yFilterItem) SetValue(v map[string]interface{}) {
+// SetValue gets a reference to the given interface{} and assigns it to the Value field.
+func (o *O11yO11yFilterItem) SetValue(v interface{}) {
 	o.Value = v
 }
 
@@ -156,10 +159,38 @@ func (o O11yO11yFilterItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Op) {
 		toSerialize["op"] = o.Op
 	}
-	if !IsNil(o.Value) {
+	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFilterItem) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFilterItem := _O11yO11yFilterItem{}
+
+	err = json.Unmarshal(data, &varO11yO11yFilterItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFilterItem(varO11yO11yFilterItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "op")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFilterItem struct {

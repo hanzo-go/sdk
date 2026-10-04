@@ -19,11 +19,14 @@ var _ MappedNullable = &O11yTelemetryFieldValues{}
 
 // O11yTelemetryFieldValues struct for O11yTelemetryFieldValues
 type O11yTelemetryFieldValues struct {
-	BoolValues    []bool    `json:"boolValues,omitempty"`
-	NumberValues  []float64 `json:"numberValues,omitempty"`
-	RelatedValues []string  `json:"relatedValues,omitempty"`
-	StringValues  []string  `json:"stringValues,omitempty"`
+	BoolValues           []bool    `json:"boolValues,omitempty"`
+	NumberValues         []float64 `json:"numberValues,omitempty"`
+	RelatedValues        []string  `json:"relatedValues,omitempty"`
+	StringValues         []string  `json:"stringValues,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yTelemetryFieldValues O11yTelemetryFieldValues
 
 // NewO11yTelemetryFieldValues instantiates a new O11yTelemetryFieldValues object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11yTelemetryFieldValues) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StringValues) {
 		toSerialize["stringValues"] = o.StringValues
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yTelemetryFieldValues) UnmarshalJSON(data []byte) (err error) {
+	varO11yTelemetryFieldValues := _O11yTelemetryFieldValues{}
+
+	err = json.Unmarshal(data, &varO11yTelemetryFieldValues)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yTelemetryFieldValues(varO11yTelemetryFieldValues)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "boolValues")
+		delete(additionalProperties, "numberValues")
+		delete(additionalProperties, "relatedValues")
+		delete(additionalProperties, "stringValues")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yTelemetryFieldValues struct {

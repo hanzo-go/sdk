@@ -19,17 +19,20 @@ var _ MappedNullable = &AiRetrainMeta{}
 
 // AiRetrainMeta struct for AiRetrainMeta
 type AiRetrainMeta struct {
-	Events      *int32   `json:"events,omitempty"`
-	GateBase    *float32 `json:"gate_base,omitempty"`
-	GateKind    *string  `json:"gate_kind,omitempty"`
-	GateMetric  *string  `json:"gate_metric,omitempty"`
-	GatePassed  *bool    `json:"gate_passed,omitempty"`
-	GateValue   *float32 `json:"gate_value,omitempty"`
-	Note        *string  `json:"note,omitempty"`
-	Published   *bool    `json:"published,omitempty"`
-	TrainedTime *string  `json:"trained_time,omitempty"`
-	Version     *string  `json:"version,omitempty"`
+	Events               *int32   `json:"events,omitempty"`
+	GateBase             *float32 `json:"gate_base,omitempty"`
+	GateKind             *string  `json:"gate_kind,omitempty"`
+	GateMetric           *string  `json:"gate_metric,omitempty"`
+	GatePassed           *bool    `json:"gate_passed,omitempty"`
+	GateValue            *float32 `json:"gate_value,omitempty"`
+	Note                 *string  `json:"note,omitempty"`
+	Published            *bool    `json:"published,omitempty"`
+	TrainedTime          *string  `json:"trained_time,omitempty"`
+	Version              *string  `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiRetrainMeta AiRetrainMeta
 
 // NewAiRetrainMeta instantiates a new AiRetrainMeta object
 // This constructor will assign default values to properties that have it defined,
@@ -408,7 +411,42 @@ func (o AiRetrainMeta) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiRetrainMeta) UnmarshalJSON(data []byte) (err error) {
+	varAiRetrainMeta := _AiRetrainMeta{}
+
+	err = json.Unmarshal(data, &varAiRetrainMeta)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiRetrainMeta(varAiRetrainMeta)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "gate_base")
+		delete(additionalProperties, "gate_kind")
+		delete(additionalProperties, "gate_metric")
+		delete(additionalProperties, "gate_passed")
+		delete(additionalProperties, "gate_value")
+		delete(additionalProperties, "note")
+		delete(additionalProperties, "published")
+		delete(additionalProperties, "trained_time")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiRetrainMeta struct {

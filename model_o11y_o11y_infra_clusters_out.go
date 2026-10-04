@@ -22,8 +22,11 @@ type O11yO11yInfraClustersOut struct {
 	// Data holds the rows.
 	Data *O11yClusters `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yInfraClustersOut O11yO11yInfraClustersOut
 
 // NewO11yO11yInfraClustersOut instantiates a new O11yO11yInfraClustersOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yInfraClustersOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yInfraClustersOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yInfraClustersOut := _O11yO11yInfraClustersOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yInfraClustersOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yInfraClustersOut(varO11yO11yInfraClustersOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yInfraClustersOut struct {

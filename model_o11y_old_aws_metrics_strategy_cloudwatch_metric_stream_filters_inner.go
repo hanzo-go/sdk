@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersIn
 
 // O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner struct for O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner
 type O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner struct {
-	MetricNames []string `json:"MetricNames,omitempty"`
-	Namespace   *string  `json:"Namespace,omitempty"`
+	MetricNames          []string `json:"MetricNames,omitempty"`
+	Namespace            *string  `json:"Namespace,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner
 
 // NewO11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner instantiates a new O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner) ToMap() (ma
 	if !IsNil(o.Namespace) {
 		toSerialize["Namespace"] = o.Namespace
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner) UnmarshalJSON(data []byte) (err error) {
+	varO11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner := _O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner{}
+
+	err = json.Unmarshal(data, &varO11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner(varO11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "MetricNames")
+		delete(additionalProperties, "Namespace")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner struct {

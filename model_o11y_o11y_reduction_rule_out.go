@@ -22,8 +22,11 @@ type O11yO11yReductionRuleOut struct {
 	// Data holds the rule.
 	Data *O11yO11yReductionRule `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yReductionRuleOut O11yO11yReductionRuleOut
 
 // NewO11yO11yReductionRuleOut instantiates a new O11yO11yReductionRuleOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yReductionRuleOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yReductionRuleOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yReductionRuleOut := _O11yO11yReductionRuleOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yReductionRuleOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yReductionRuleOut(varO11yO11yReductionRuleOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yReductionRuleOut struct {

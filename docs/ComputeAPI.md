@@ -13,8 +13,8 @@ Method | HTTP request | Description
 [**DeleteMachine**](ComputeAPI.md#DeleteMachine) | **Delete** /v1/compute/machines/{id} | Terminates one of the caller org&#39;s machines.
 [**DeleteNodePool**](ComputeAPI.md#DeleteNodePool) | **Delete** /v1/compute/clusters/{clusterId}/pools/{poolId} | Removes a node pool from one of the caller org&#39;s clusters.
 [**DetachCluster**](ComputeAPI.md#DetachCluster) | **Delete** /v1/compute/clusters/{id} | Removes a BYO cluster from the caller org&#39;s fleet.
-[**GetComputeRegions**](ComputeAPI.md#GetComputeRegions) | **Get** /v1/compute/regions | Regions lists the regions a machine can be launched in.
-[**GetComputeSizes**](ComputeAPI.md#GetComputeSizes) | **Get** /v1/compute/sizes | Sizes lists the machine sizes available to launch, with their specifications.
+[**GetComputeRegions**](ComputeAPI.md#GetComputeRegions) | **Get** /v1/compute/regions | Lists the regions a machine can be launched in.
+[**GetComputeSizes**](ComputeAPI.md#GetComputeSizes) | **Get** /v1/compute/sizes | Lists the machine sizes available to launch, with their specifications.
 [**GetKubernetesCluster**](ComputeAPI.md#GetKubernetesCluster) | **Get** /v1/compute/k8s/clusters/{id} | Returns one cluster&#39;s detail: node pools + worker nodes.
 [**GetMachine**](ComputeAPI.md#GetMachine) | **Get** /v1/compute/machines/{id} | Returns one of the caller org&#39;s machines by its org-scoped name.
 [**GetMachineAgent**](ComputeAPI.md#GetMachineAgent) | **Get** /v1/compute/machines/{id}/agent | Returns the agent binding of one of the caller org&#39;s machines, or 404 when the machine runs no bot runtime.
@@ -39,7 +39,7 @@ Method | HTTP request | Description
 
 ## AttachCluster
 
-> ClusterView AttachCluster(ctx).ClusterAttach(clusterAttach).Execute()
+> ComputeClusterView AttachCluster(ctx).ComputeClusterAttach(computeClusterAttach).Execute()
 
 Attaches a BYO cluster to the caller's org — the kubeconfig is validated, KMS-sealed and added to the fleet — and answers 201 with the cluster as it now appears on GET /v1/compute/clusters.
 
@@ -58,16 +58,16 @@ import (
 )
 
 func main() {
-	clusterAttach := *openapiclient.NewClusterAttach() // ClusterAttach | 
+	computeClusterAttach := *openapiclient.NewComputeClusterAttach() // ComputeClusterAttach | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComputeAPI.AttachCluster(context.Background()).ClusterAttach(clusterAttach).Execute()
+	resp, r, err := apiClient.ComputeAPI.AttachCluster(context.Background()).ComputeClusterAttach(computeClusterAttach).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.AttachCluster``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `AttachCluster`: ClusterView
+	// response from `AttachCluster`: ComputeClusterView
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.AttachCluster`: %v\n", resp)
 }
 ```
@@ -83,11 +83,11 @@ Other parameters are passed through a pointer to a apiAttachClusterRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clusterAttach** | [**ClusterAttach**](ClusterAttach.md) |  | 
+ **computeClusterAttach** | [**ComputeClusterAttach**](ComputeClusterAttach.md) |  | 
 
 ### Return type
 
-[**ClusterView**](ClusterView.md)
+[**ComputeClusterView**](ComputeClusterView.md)
 
 ### Authorization
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 ## BindMachineAgent
 
-> AgentBinding BindMachineAgent(ctx, id).BindAgentReq(bindAgentReq).Execute()
+> ComputeAgentBinding BindMachineAgent(ctx, id).ComputeBindAgentReq(computeBindAgentReq).Execute()
 
 Binds a cloud Agent to one of the caller org's machines: the machine is recorded as running that Agent's @hanzo/bot runtime.
 
@@ -125,16 +125,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the machine to bind, from the URL path.
-	bindAgentReq := *openapiclient.NewBindAgentReq() // BindAgentReq | 
+	computeBindAgentReq := *openapiclient.NewComputeBindAgentReq() // ComputeBindAgentReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComputeAPI.BindMachineAgent(context.Background(), id).BindAgentReq(bindAgentReq).Execute()
+	resp, r, err := apiClient.ComputeAPI.BindMachineAgent(context.Background(), id).ComputeBindAgentReq(computeBindAgentReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.BindMachineAgent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `BindMachineAgent`: AgentBinding
+	// response from `BindMachineAgent`: ComputeAgentBinding
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.BindMachineAgent`: %v\n", resp)
 }
 ```
@@ -155,11 +155,11 @@ Other parameters are passed through a pointer to a apiBindMachineAgentRequest st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **bindAgentReq** | [**BindAgentReq**](BindAgentReq.md) |  | 
+ **computeBindAgentReq** | [**ComputeBindAgentReq**](ComputeBindAgentReq.md) |  | 
 
 ### Return type
 
-[**AgentBinding**](AgentBinding.md)
+[**ComputeAgentBinding**](ComputeAgentBinding.md)
 
 ### Authorization
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 
 ## CancelFleetJob
 
-> JobCanceled CancelFleetJob(ctx, id).JobCancel(jobCancel).Execute()
+> ComputeJobCanceled CancelFleetJob(ctx, id).ComputeJobCancel(computeJobCancel).Execute()
 
 Cancels a queued or running render in the caller's org.
 
@@ -197,16 +197,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the job (activity) id, from the URL path.
-	jobCancel := *openapiclient.NewJobCancel() // JobCancel | 
+	computeJobCancel := *openapiclient.NewComputeJobCancel() // ComputeJobCancel | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComputeAPI.CancelFleetJob(context.Background(), id).JobCancel(jobCancel).Execute()
+	resp, r, err := apiClient.ComputeAPI.CancelFleetJob(context.Background(), id).ComputeJobCancel(computeJobCancel).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.CancelFleetJob``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CancelFleetJob`: JobCanceled
+	// response from `CancelFleetJob`: ComputeJobCanceled
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.CancelFleetJob`: %v\n", resp)
 }
 ```
@@ -227,11 +227,11 @@ Other parameters are passed through a pointer to a apiCancelFleetJobRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **jobCancel** | [**JobCancel**](JobCancel.md) |  | 
+ **computeJobCancel** | [**ComputeJobCancel**](ComputeJobCancel.md) |  | 
 
 ### Return type
 
-[**JobCanceled**](JobCanceled.md)
+[**ComputeJobCanceled**](ComputeJobCanceled.md)
 
 ### Authorization
 
@@ -240,7 +240,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -249,7 +249,7 @@ Name | Type | Description  | Notes
 
 ## CreateKubernetesCluster
 
-> ClusterView CreateKubernetesCluster(ctx).CreateClusterReq(createClusterReq).Execute()
+> ComputeClusterView CreateKubernetesCluster(ctx).ComputeCreateClusterReq(computeCreateClusterReq).Execute()
 
 Provisions a DOKS cluster for the caller's org and answers 201.
 
@@ -268,16 +268,16 @@ import (
 )
 
 func main() {
-	createClusterReq := *openapiclient.NewCreateClusterReq() // CreateClusterReq | 
+	computeCreateClusterReq := *openapiclient.NewComputeCreateClusterReq() // ComputeCreateClusterReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComputeAPI.CreateKubernetesCluster(context.Background()).CreateClusterReq(createClusterReq).Execute()
+	resp, r, err := apiClient.ComputeAPI.CreateKubernetesCluster(context.Background()).ComputeCreateClusterReq(computeCreateClusterReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.CreateKubernetesCluster``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateKubernetesCluster`: ClusterView
+	// response from `CreateKubernetesCluster`: ComputeClusterView
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.CreateKubernetesCluster`: %v\n", resp)
 }
 ```
@@ -293,11 +293,11 @@ Other parameters are passed through a pointer to a apiCreateKubernetesClusterReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createClusterReq** | [**CreateClusterReq**](CreateClusterReq.md) |  | 
+ **computeCreateClusterReq** | [**ComputeCreateClusterReq**](ComputeCreateClusterReq.md) |  | 
 
 ### Return type
 
-[**ClusterView**](ClusterView.md)
+[**ComputeClusterView**](ComputeClusterView.md)
 
 ### Authorization
 
@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -315,7 +315,7 @@ Name | Type | Description  | Notes
 
 ## CreateNodePool
 
-> NodePoolView CreateNodePool(ctx, clusterId).PoolCreate(poolCreate).Execute()
+> ComputeNodePoolView CreateNodePool(ctx, clusterId).ComputePoolCreate(computePoolCreate).Execute()
 
 Adds a node pool to one of the caller org's clusters and answers 201 with the created pool.
 
@@ -335,16 +335,16 @@ import (
 
 func main() {
 	clusterId := "clusterId_example" // string | ClusterID is the cluster to add the pool to, from the URL path.
-	poolCreate := *openapiclient.NewPoolCreate() // PoolCreate | 
+	computePoolCreate := *openapiclient.NewComputePoolCreate() // ComputePoolCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComputeAPI.CreateNodePool(context.Background(), clusterId).PoolCreate(poolCreate).Execute()
+	resp, r, err := apiClient.ComputeAPI.CreateNodePool(context.Background(), clusterId).ComputePoolCreate(computePoolCreate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.CreateNodePool``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateNodePool`: NodePoolView
+	// response from `CreateNodePool`: ComputeNodePoolView
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.CreateNodePool`: %v\n", resp)
 }
 ```
@@ -365,11 +365,11 @@ Other parameters are passed through a pointer to a apiCreateNodePoolRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **poolCreate** | [**PoolCreate**](PoolCreate.md) |  | 
+ **computePoolCreate** | [**ComputePoolCreate**](ComputePoolCreate.md) |  | 
 
 ### Return type
 
-[**NodePoolView**](NodePoolView.md)
+[**ComputeNodePoolView**](ComputeNodePoolView.md)
 
 ### Authorization
 
@@ -378,7 +378,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -446,7 +446,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -514,7 +514,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -587,7 +587,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -596,7 +596,7 @@ Name | Type | Description  | Notes
 
 ## DetachCluster
 
-> ClusterDetached DetachCluster(ctx, id).Execute()
+> ComputeClusterDetached DetachCluster(ctx, id).Execute()
 
 Removes a BYO cluster from the caller org's fleet.
 
@@ -624,7 +624,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.DetachCluster``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DetachCluster`: ClusterDetached
+	// response from `DetachCluster`: ComputeClusterDetached
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.DetachCluster`: %v\n", resp)
 }
 ```
@@ -648,7 +648,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ClusterDetached**](ClusterDetached.md)
+[**ComputeClusterDetached**](ComputeClusterDetached.md)
 
 ### Authorization
 
@@ -657,7 +657,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -668,7 +668,7 @@ Name | Type | Description  | Notes
 
 > interface{} GetComputeRegions(ctx).Execute()
 
-Regions lists the regions a machine can be launched in.
+Lists the regions a machine can be launched in.
 
 
 
@@ -718,7 +718,7 @@ Other parameters are passed through a pointer to a apiGetComputeRegionsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -729,7 +729,7 @@ Other parameters are passed through a pointer to a apiGetComputeRegionsRequest s
 
 > interface{} GetComputeSizes(ctx).Execute()
 
-Sizes lists the machine sizes available to launch, with their specifications.
+Lists the machine sizes available to launch, with their specifications.
 
 
 
@@ -779,7 +779,7 @@ Other parameters are passed through a pointer to a apiGetComputeSizesRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -788,7 +788,7 @@ Other parameters are passed through a pointer to a apiGetComputeSizesRequest str
 
 ## GetKubernetesCluster
 
-> ClusterDetailView GetKubernetesCluster(ctx, id).Execute()
+> ComputeClusterDetailView GetKubernetesCluster(ctx, id).Execute()
 
 Returns one cluster's detail: node pools + worker nodes.
 
@@ -816,7 +816,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.GetKubernetesCluster``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetKubernetesCluster`: ClusterDetailView
+	// response from `GetKubernetesCluster`: ComputeClusterDetailView
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.GetKubernetesCluster`: %v\n", resp)
 }
 ```
@@ -840,7 +840,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ClusterDetailView**](ClusterDetailView.md)
+[**ComputeClusterDetailView**](ComputeClusterDetailView.md)
 
 ### Authorization
 
@@ -849,7 +849,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -858,7 +858,7 @@ Name | Type | Description  | Notes
 
 ## GetMachine
 
-> MachineView GetMachine(ctx, id).Execute()
+> ComputeMachineView GetMachine(ctx, id).Execute()
 
 Returns one of the caller org's machines by its org-scoped name.
 
@@ -886,7 +886,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.GetMachine``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMachine`: MachineView
+	// response from `GetMachine`: ComputeMachineView
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.GetMachine`: %v\n", resp)
 }
 ```
@@ -910,7 +910,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MachineView**](MachineView.md)
+[**ComputeMachineView**](ComputeMachineView.md)
 
 ### Authorization
 
@@ -919,7 +919,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -928,7 +928,7 @@ Name | Type | Description  | Notes
 
 ## GetMachineAgent
 
-> AgentBinding GetMachineAgent(ctx, id).Execute()
+> ComputeAgentBinding GetMachineAgent(ctx, id).Execute()
 
 Returns the agent binding of one of the caller org's machines, or 404 when the machine runs no bot runtime.
 
@@ -956,7 +956,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.GetMachineAgent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMachineAgent`: AgentBinding
+	// response from `GetMachineAgent`: ComputeAgentBinding
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.GetMachineAgent`: %v\n", resp)
 }
 ```
@@ -980,7 +980,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AgentBinding**](AgentBinding.md)
+[**ComputeAgentBinding**](ComputeAgentBinding.md)
 
 ### Authorization
 
@@ -989,7 +989,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -998,7 +998,7 @@ Name | Type | Description  | Notes
 
 ## ListClusters
 
-> ClusterList ListClusters(ctx).Execute()
+> ComputeClusterList ListClusters(ctx).Execute()
 
 Returns the caller org's clusters from both sources: the managed clusters projected from Visor's node pools, and the BYO clusters attached to the caller's project.
 
@@ -1025,7 +1025,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ListClusters``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListClusters`: ClusterList
+	// response from `ListClusters`: ComputeClusterList
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ListClusters`: %v\n", resp)
 }
 ```
@@ -1041,7 +1041,7 @@ Other parameters are passed through a pointer to a apiListClustersRequest struct
 
 ### Return type
 
-[**ClusterList**](ClusterList.md)
+[**ComputeClusterList**](ComputeClusterList.md)
 
 ### Authorization
 
@@ -1050,7 +1050,7 @@ Other parameters are passed through a pointer to a apiListClustersRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1059,7 +1059,7 @@ Other parameters are passed through a pointer to a apiListClustersRequest struct
 
 ## ListFleet
 
-> FleetBoard ListFleet(ctx).Execute()
+> ComputeFleetBoard ListFleet(ctx).Execute()
 
 Returns every compute unit the caller's org has, from every source, each carrying its latest utilization: agent run-targets, the BYO machines that dialed in, attached BYO clusters and Visor-provisioned machines.
 
@@ -1086,7 +1086,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ListFleet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListFleet`: FleetBoard
+	// response from `ListFleet`: ComputeFleetBoard
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ListFleet`: %v\n", resp)
 }
 ```
@@ -1102,7 +1102,7 @@ Other parameters are passed through a pointer to a apiListFleetRequest struct vi
 
 ### Return type
 
-[**FleetBoard**](FleetBoard.md)
+[**ComputeFleetBoard**](ComputeFleetBoard.md)
 
 ### Authorization
 
@@ -1111,7 +1111,7 @@ Other parameters are passed through a pointer to a apiListFleetRequest struct vi
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1120,7 +1120,7 @@ Other parameters are passed through a pointer to a apiListFleetRequest struct vi
 
 ## ListFleetJobs
 
-> JobList ListFleetJobs(ctx).Gpu(gpu).Status(status).Execute()
+> ComputeJobList ListFleetJobs(ctx).Gpu(gpu).Status(status).Execute()
 
 Returns the caller org's gpu-jobs render queue, each row tagged with the GPU it targets (empty = the shared any-GPU lane) and the node claiming it, optionally narrowed to one GPU's queue and/or one status.
 
@@ -1149,7 +1149,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ListFleetJobs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListFleetJobs`: JobList
+	// response from `ListFleetJobs`: ComputeJobList
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ListFleetJobs`: %v\n", resp)
 }
 ```
@@ -1170,7 +1170,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JobList**](JobList.md)
+[**ComputeJobList**](ComputeJobList.md)
 
 ### Authorization
 
@@ -1179,7 +1179,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1188,7 +1188,7 @@ Name | Type | Description  | Notes
 
 ## ListFleetSamples
 
-> SampleList ListFleetSamples(ctx).Unit(unit).Source(source).Range_(range_).Execute()
+> ComputeSampleList ListFleetSamples(ctx).Unit(unit).Source(source).Range_(range_).Execute()
 
 Returns the caller org's utilization series, oldest first.
 
@@ -1218,7 +1218,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ListFleetSamples``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListFleetSamples`: SampleList
+	// response from `ListFleetSamples`: ComputeSampleList
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ListFleetSamples`: %v\n", resp)
 }
 ```
@@ -1240,7 +1240,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SampleList**](SampleList.md)
+[**ComputeSampleList**](ComputeSampleList.md)
 
 ### Authorization
 
@@ -1249,7 +1249,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1258,7 +1258,7 @@ Name | Type | Description  | Notes
 
 ## ListFleetWorkers
 
-> WorkerList ListFleetWorkers(ctx).Execute()
+> ComputeWorkerList ListFleetWorkers(ctx).Execute()
 
 Returns the caller org's BYO machines — the ones that dialed in via `hanzo link` — with everything each host reported about itself.
 
@@ -1285,7 +1285,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ListFleetWorkers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListFleetWorkers`: WorkerList
+	// response from `ListFleetWorkers`: ComputeWorkerList
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ListFleetWorkers`: %v\n", resp)
 }
 ```
@@ -1301,7 +1301,7 @@ Other parameters are passed through a pointer to a apiListFleetWorkersRequest st
 
 ### Return type
 
-[**WorkerList**](WorkerList.md)
+[**ComputeWorkerList**](ComputeWorkerList.md)
 
 ### Authorization
 
@@ -1310,7 +1310,7 @@ Other parameters are passed through a pointer to a apiListFleetWorkersRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1319,7 +1319,7 @@ Other parameters are passed through a pointer to a apiListFleetWorkersRequest st
 
 ## ListGpuAlerts
 
-> GpuAlertList ListGpuAlerts(ctx).Execute()
+> ComputeGpuAlertList ListGpuAlerts(ctx).Execute()
 
 Is an HONEST empty surface: Visor exposes no GPU alert inventory, so this returns [] rather than fabricating alerts.
 
@@ -1346,7 +1346,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ListGpuAlerts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListGpuAlerts`: GpuAlertList
+	// response from `ListGpuAlerts`: ComputeGpuAlertList
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ListGpuAlerts`: %v\n", resp)
 }
 ```
@@ -1362,7 +1362,7 @@ Other parameters are passed through a pointer to a apiListGpuAlertsRequest struc
 
 ### Return type
 
-[**GpuAlertList**](GpuAlertList.md)
+[**ComputeGpuAlertList**](ComputeGpuAlertList.md)
 
 ### Authorization
 
@@ -1371,7 +1371,7 @@ Other parameters are passed through a pointer to a apiListGpuAlertsRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1380,7 +1380,7 @@ Other parameters are passed through a pointer to a apiListGpuAlertsRequest struc
 
 ## ListGpus
 
-> GpuList ListGpus(ctx).Execute()
+> ComputeGpuList ListGpus(ctx).Execute()
 
 Returns one row per physical accelerator the caller's org has, derived from its real GPU machines (the size slug says how many cards a node holds) and from the accelerators BYO workers report through nvidia-smi.
 
@@ -1407,7 +1407,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ListGpus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListGpus`: GpuList
+	// response from `ListGpus`: ComputeGpuList
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ListGpus`: %v\n", resp)
 }
 ```
@@ -1423,7 +1423,7 @@ Other parameters are passed through a pointer to a apiListGpusRequest struct via
 
 ### Return type
 
-[**GpuList**](GpuList.md)
+[**ComputeGpuList**](ComputeGpuList.md)
 
 ### Authorization
 
@@ -1432,7 +1432,7 @@ Other parameters are passed through a pointer to a apiListGpusRequest struct via
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1441,7 +1441,7 @@ Other parameters are passed through a pointer to a apiListGpusRequest struct via
 
 ## ListKubernetesClusters
 
-> ClusterList ListKubernetesClusters(ctx).Execute()
+> ComputeClusterList ListKubernetesClusters(ctx).Execute()
 
 Lists the org's DOKS clusters (Visor, house account) folded with the org's BYO clusters — ONE fleet cluster view under the unified k8s noun.
 
@@ -1468,7 +1468,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ListKubernetesClusters``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListKubernetesClusters`: ClusterList
+	// response from `ListKubernetesClusters`: ComputeClusterList
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ListKubernetesClusters`: %v\n", resp)
 }
 ```
@@ -1484,7 +1484,7 @@ Other parameters are passed through a pointer to a apiListKubernetesClustersRequ
 
 ### Return type
 
-[**ClusterList**](ClusterList.md)
+[**ComputeClusterList**](ComputeClusterList.md)
 
 ### Authorization
 
@@ -1493,7 +1493,7 @@ Other parameters are passed through a pointer to a apiListKubernetesClustersRequ
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1502,7 +1502,7 @@ Other parameters are passed through a pointer to a apiListKubernetesClustersRequ
 
 ## ListKubernetesNodes
 
-> NodeList ListKubernetesNodes(ctx).Execute()
+> ComputeNodeList ListKubernetesNodes(ctx).Execute()
 
 Returns every DOKS worker node in the org's clusters as a machine — the SAME set the fleet folds in (managedMachines), exposed directly under the k8s noun.
 
@@ -1529,7 +1529,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ListKubernetesNodes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListKubernetesNodes`: NodeList
+	// response from `ListKubernetesNodes`: ComputeNodeList
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ListKubernetesNodes`: %v\n", resp)
 }
 ```
@@ -1545,7 +1545,7 @@ Other parameters are passed through a pointer to a apiListKubernetesNodesRequest
 
 ### Return type
 
-[**NodeList**](NodeList.md)
+[**ComputeNodeList**](ComputeNodeList.md)
 
 ### Authorization
 
@@ -1554,7 +1554,7 @@ Other parameters are passed through a pointer to a apiListKubernetesNodesRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1563,7 +1563,7 @@ Other parameters are passed through a pointer to a apiListKubernetesNodesRequest
 
 ## ListMachineAgents
 
-> BindingList ListMachineAgents(ctx).Execute()
+> ComputeBindingList ListMachineAgents(ctx).Execute()
 
 Returns every agent↔machine binding in the caller's org — which machines are running which cloud Agent, with vm's own reconciled status.
 
@@ -1590,7 +1590,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ListMachineAgents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListMachineAgents`: BindingList
+	// response from `ListMachineAgents`: ComputeBindingList
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ListMachineAgents`: %v\n", resp)
 }
 ```
@@ -1606,7 +1606,7 @@ Other parameters are passed through a pointer to a apiListMachineAgentsRequest s
 
 ### Return type
 
-[**BindingList**](BindingList.md)
+[**ComputeBindingList**](ComputeBindingList.md)
 
 ### Authorization
 
@@ -1615,7 +1615,7 @@ Other parameters are passed through a pointer to a apiListMachineAgentsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1624,7 +1624,7 @@ Other parameters are passed through a pointer to a apiListMachineAgentsRequest s
 
 ## ListMachines
 
-> MachineList ListMachines(ctx).Kind(kind).Execute()
+> ComputeMachineList ListMachines(ctx).Kind(kind).Execute()
 
 Returns every machine the caller's org has — Visor's registry, the live DigitalOcean droplets and the DOKS worker nodes (deduped into one union), plus the BYO machines that dialed in via `hanzo link` (provider \"byo\").
 
@@ -1652,7 +1652,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ListMachines``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListMachines`: MachineList
+	// response from `ListMachines`: ComputeMachineList
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ListMachines`: %v\n", resp)
 }
 ```
@@ -1672,7 +1672,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MachineList**](MachineList.md)
+[**ComputeMachineList**](ComputeMachineList.md)
 
 ### Authorization
 
@@ -1681,7 +1681,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1820,7 +1820,7 @@ Name | Type | Description  | Notes
 
 ## RecordFleetSample
 
-> SampleAccepted RecordFleetSample(ctx).SampleIngest(sampleIngest).Execute()
+> ComputeSampleAccepted RecordFleetSample(ctx).ComputeSampleIngest(computeSampleIngest).Execute()
 
 Records a BYO worker's live GPU utilization into the SAME series the fleet board overlays.
 
@@ -1839,16 +1839,16 @@ import (
 )
 
 func main() {
-	sampleIngest := *openapiclient.NewSampleIngest() // SampleIngest | 
+	computeSampleIngest := *openapiclient.NewComputeSampleIngest() // ComputeSampleIngest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComputeAPI.RecordFleetSample(context.Background()).SampleIngest(sampleIngest).Execute()
+	resp, r, err := apiClient.ComputeAPI.RecordFleetSample(context.Background()).ComputeSampleIngest(computeSampleIngest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.RecordFleetSample``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RecordFleetSample`: SampleAccepted
+	// response from `RecordFleetSample`: ComputeSampleAccepted
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.RecordFleetSample`: %v\n", resp)
 }
 ```
@@ -1864,11 +1864,11 @@ Other parameters are passed through a pointer to a apiRecordFleetSampleRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sampleIngest** | [**SampleIngest**](SampleIngest.md) |  | 
+ **computeSampleIngest** | [**ComputeSampleIngest**](ComputeSampleIngest.md) |  | 
 
 ### Return type
 
-[**SampleAccepted**](SampleAccepted.md)
+[**ComputeSampleAccepted**](ComputeSampleAccepted.md)
 
 ### Authorization
 
@@ -1877,7 +1877,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1886,7 +1886,7 @@ Name | Type | Description  | Notes
 
 ## ScaleNodePool
 
-> NodePoolView ScaleNodePool(ctx, clusterId, poolId).PoolScale(poolScale).Execute()
+> ComputeNodePoolView ScaleNodePool(ctx, clusterId, poolId).ComputePoolScale(computePoolScale).Execute()
 
 Resizes a node pool to an absolute node count and returns the pool as Visor reports it after the change.
 
@@ -1907,16 +1907,16 @@ import (
 func main() {
 	clusterId := "clusterId_example" // string | ClusterID is the cluster holding the pool, from the URL path.
 	poolId := "poolId_example" // string | PoolID is the pool to resize, from the URL path — the `poolId` a cluster read reports for it. Required.
-	poolScale := *openapiclient.NewPoolScale() // PoolScale | 
+	computePoolScale := *openapiclient.NewComputePoolScale() // ComputePoolScale | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComputeAPI.ScaleNodePool(context.Background(), clusterId, poolId).PoolScale(poolScale).Execute()
+	resp, r, err := apiClient.ComputeAPI.ScaleNodePool(context.Background(), clusterId, poolId).ComputePoolScale(computePoolScale).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComputeAPI.ScaleNodePool``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ScaleNodePool`: NodePoolView
+	// response from `ScaleNodePool`: ComputeNodePoolView
 	fmt.Fprintf(os.Stdout, "Response from `ComputeAPI.ScaleNodePool`: %v\n", resp)
 }
 ```
@@ -1939,11 +1939,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **poolScale** | [**PoolScale**](PoolScale.md) |  | 
+ **computePoolScale** | [**ComputePoolScale**](ComputePoolScale.md) |  | 
 
 ### Return type
 
-[**NodePoolView**](NodePoolView.md)
+[**ComputeNodePoolView**](ComputeNodePoolView.md)
 
 ### Authorization
 
@@ -1952,7 +1952,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2020,7 +2020,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

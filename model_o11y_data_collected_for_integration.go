@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yDataCollectedForIntegration{}
 
 // O11yDataCollectedForIntegration struct for O11yDataCollectedForIntegration
 type O11yDataCollectedForIntegration struct {
-	Logs    []O11yIntegrationsCollectedLogAttribute `json:"logs,omitempty"`
-	Metrics []O11yIntegrationsCollectedMetric       `json:"metrics,omitempty"`
+	Logs                 []O11yCollectedLogAttribute `json:"logs,omitempty"`
+	Metrics              []O11yCollectedMetric       `json:"metrics,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yDataCollectedForIntegration O11yDataCollectedForIntegration
 
 // NewO11yDataCollectedForIntegration instantiates a new O11yDataCollectedForIntegration object
 // This constructor will assign default values to properties that have it defined,
@@ -41,9 +44,9 @@ func NewO11yDataCollectedForIntegrationWithDefaults() *O11yDataCollectedForInteg
 }
 
 // GetLogs returns the Logs field value if set, zero value otherwise.
-func (o *O11yDataCollectedForIntegration) GetLogs() []O11yIntegrationsCollectedLogAttribute {
+func (o *O11yDataCollectedForIntegration) GetLogs() []O11yCollectedLogAttribute {
 	if o == nil || IsNil(o.Logs) {
-		var ret []O11yIntegrationsCollectedLogAttribute
+		var ret []O11yCollectedLogAttribute
 		return ret
 	}
 	return o.Logs
@@ -51,7 +54,7 @@ func (o *O11yDataCollectedForIntegration) GetLogs() []O11yIntegrationsCollectedL
 
 // GetLogsOk returns a tuple with the Logs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDataCollectedForIntegration) GetLogsOk() ([]O11yIntegrationsCollectedLogAttribute, bool) {
+func (o *O11yDataCollectedForIntegration) GetLogsOk() ([]O11yCollectedLogAttribute, bool) {
 	if o == nil || IsNil(o.Logs) {
 		return nil, false
 	}
@@ -67,15 +70,15 @@ func (o *O11yDataCollectedForIntegration) HasLogs() bool {
 	return false
 }
 
-// SetLogs gets a reference to the given []O11yIntegrationsCollectedLogAttribute and assigns it to the Logs field.
-func (o *O11yDataCollectedForIntegration) SetLogs(v []O11yIntegrationsCollectedLogAttribute) {
+// SetLogs gets a reference to the given []O11yCollectedLogAttribute and assigns it to the Logs field.
+func (o *O11yDataCollectedForIntegration) SetLogs(v []O11yCollectedLogAttribute) {
 	o.Logs = v
 }
 
 // GetMetrics returns the Metrics field value if set, zero value otherwise.
-func (o *O11yDataCollectedForIntegration) GetMetrics() []O11yIntegrationsCollectedMetric {
+func (o *O11yDataCollectedForIntegration) GetMetrics() []O11yCollectedMetric {
 	if o == nil || IsNil(o.Metrics) {
-		var ret []O11yIntegrationsCollectedMetric
+		var ret []O11yCollectedMetric
 		return ret
 	}
 	return o.Metrics
@@ -83,7 +86,7 @@ func (o *O11yDataCollectedForIntegration) GetMetrics() []O11yIntegrationsCollect
 
 // GetMetricsOk returns a tuple with the Metrics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yDataCollectedForIntegration) GetMetricsOk() ([]O11yIntegrationsCollectedMetric, bool) {
+func (o *O11yDataCollectedForIntegration) GetMetricsOk() ([]O11yCollectedMetric, bool) {
 	if o == nil || IsNil(o.Metrics) {
 		return nil, false
 	}
@@ -99,8 +102,8 @@ func (o *O11yDataCollectedForIntegration) HasMetrics() bool {
 	return false
 }
 
-// SetMetrics gets a reference to the given []O11yIntegrationsCollectedMetric and assigns it to the Metrics field.
-func (o *O11yDataCollectedForIntegration) SetMetrics(v []O11yIntegrationsCollectedMetric) {
+// SetMetrics gets a reference to the given []O11yCollectedMetric and assigns it to the Metrics field.
+func (o *O11yDataCollectedForIntegration) SetMetrics(v []O11yCollectedMetric) {
 	o.Metrics = v
 }
 
@@ -120,7 +123,34 @@ func (o O11yDataCollectedForIntegration) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.Metrics) {
 		toSerialize["metrics"] = o.Metrics
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yDataCollectedForIntegration) UnmarshalJSON(data []byte) (err error) {
+	varO11yDataCollectedForIntegration := _O11yDataCollectedForIntegration{}
+
+	err = json.Unmarshal(data, &varO11yDataCollectedForIntegration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yDataCollectedForIntegration(varO11yDataCollectedForIntegration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "logs")
+		delete(additionalProperties, "metrics")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yDataCollectedForIntegration struct {

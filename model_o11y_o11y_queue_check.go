@@ -24,8 +24,11 @@ type O11yO11yQueueCheck struct {
 	// Message says what is missing when the check fails; empty on a pass. Its wire key is error_message.
 	ErrorMessage *string `json:"error_message,omitempty"`
 	// Status is \"1\" when the telemetry is present, \"0\" when it is not.
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueueCheck O11yO11yQueueCheck
 
 // NewO11yO11yQueueCheck instantiates a new O11yO11yQueueCheck object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yQueueCheck) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueueCheck) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueueCheck := _O11yO11yQueueCheck{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueueCheck)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueueCheck(varO11yO11yQueueCheck)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attribute")
+		delete(additionalProperties, "error_message")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueueCheck struct {

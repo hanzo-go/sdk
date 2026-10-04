@@ -19,9 +19,12 @@ var _ MappedNullable = &OpenaiSelfHarm{}
 
 // OpenaiSelfHarm struct for OpenaiSelfHarm
 type OpenaiSelfHarm struct {
-	Filtered *bool   `json:"filtered,omitempty"`
-	Severity *string `json:"severity,omitempty"`
+	Filtered             *bool   `json:"filtered,omitempty"`
+	Severity             *string `json:"severity,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiSelfHarm OpenaiSelfHarm
 
 // NewOpenaiSelfHarm instantiates a new OpenaiSelfHarm object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o OpenaiSelfHarm) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Severity) {
 		toSerialize["severity"] = o.Severity
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiSelfHarm) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiSelfHarm := _OpenaiSelfHarm{}
+
+	err = json.Unmarshal(data, &varOpenaiSelfHarm)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiSelfHarm(varOpenaiSelfHarm)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "filtered")
+		delete(additionalProperties, "severity")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiSelfHarm struct {

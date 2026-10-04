@@ -28,8 +28,11 @@ type O11yO11yReductionStats struct {
 	// RetainedSamples is how many of them were kept.
 	RetainedSamples *int32 `json:"retainedSamples,omitempty"`
 	// RetainedSeries is how many of them were kept.
-	RetainedSeries *int32 `json:"retainedSeries,omitempty"`
+	RetainedSeries       *int32 `json:"retainedSeries,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yReductionStats O11yO11yReductionStats
 
 // NewO11yO11yReductionStats instantiates a new O11yO11yReductionStats object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yReductionStats) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RetainedSeries) {
 		toSerialize["retainedSeries"] = o.RetainedSeries
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yReductionStats) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yReductionStats := _O11yO11yReductionStats{}
+
+	err = json.Unmarshal(data, &varO11yO11yReductionStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yReductionStats(varO11yO11yReductionStats)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "estimatedMonthlySavingsUsd")
+		delete(additionalProperties, "ingestedSamples")
+		delete(additionalProperties, "ingestedSeries")
+		delete(additionalProperties, "retainedSamples")
+		delete(additionalProperties, "retainedSeries")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yReductionStats struct {

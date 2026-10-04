@@ -19,12 +19,15 @@ var _ MappedNullable = &ModelSearchResult{}
 
 // ModelSearchResult struct for ModelSearchResult
 type ModelSearchResult struct {
-	Icon     *string `json:"icon,omitempty"`
-	Index    *int32  `json:"index,omitempty"`
-	SiteName *string `json:"site_name,omitempty"`
-	Title    *string `json:"title,omitempty"`
-	Url      *string `json:"url,omitempty"`
+	Icon                 *string `json:"icon,omitempty"`
+	Index                *int32  `json:"index,omitempty"`
+	SiteName             *string `json:"site_name,omitempty"`
+	Title                *string `json:"title,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ModelSearchResult ModelSearchResult
 
 // NewModelSearchResult instantiates a new ModelSearchResult object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o ModelSearchResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ModelSearchResult) UnmarshalJSON(data []byte) (err error) {
+	varModelSearchResult := _ModelSearchResult{}
+
+	err = json.Unmarshal(data, &varModelSearchResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ModelSearchResult(varModelSearchResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "icon")
+		delete(additionalProperties, "index")
+		delete(additionalProperties, "site_name")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableModelSearchResult struct {

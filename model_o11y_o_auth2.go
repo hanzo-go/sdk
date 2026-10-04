@@ -23,10 +23,10 @@ type O11yOAuth2 struct {
 	// Audience optionally specifies the intended audience of the request.  If empty, the value of TokenURL is used as the intended audience. Only used if GrantType is set to \"urn:ietf:params:oauth:grant-type:jwt-bearer\".
 	Audience *string `json:"audience,omitempty"`
 	// Claims is a map of claims to be added to the JWT token. Only used if GrantType is set to \"urn:ietf:params:oauth:grant-type:jwt-bearer\".
-	Claims                   map[string]map[string]interface{} `json:"claims,omitempty"`
-	ClientCertificateKey     interface{}                       `json:"client_certificate_key,omitempty"`
-	ClientCertificateKeyFile *string                           `json:"client_certificate_key_file,omitempty"`
-	ClientCertificateKeyId   *string                           `json:"client_certificate_key_id,omitempty"`
+	Claims                   map[string]interface{} `json:"claims,omitempty"`
+	ClientCertificateKey     interface{}            `json:"client_certificate_key,omitempty"`
+	ClientCertificateKeyFile *string                `json:"client_certificate_key_file,omitempty"`
+	ClientCertificateKeyId   *string                `json:"client_certificate_key_id,omitempty"`
 	// ClientCertificateKeyRef is the name of the secret within the secret manager to use as the client secret.
 	ClientCertificateKeyRef *string     `json:"client_certificate_key_ref,omitempty"`
 	ClientId                *string     `json:"client_id,omitempty"`
@@ -45,9 +45,12 @@ type O11yOAuth2 struct {
 	ProxyUrl             interface{}              `json:"proxy_url,omitempty"`
 	Scopes               []string                 `json:"scopes,omitempty"`
 	// SignatureAlgorithm is the RSA algorithm used to sign JWT token. Only used if GrantType is set to \"urn:ietf:params:oauth:grant-type:jwt-bearer\". Default value is RS256 and valid values RS256, RS384, RS512
-	SignatureAlgorithm *string `json:"signature_algorithm,omitempty"`
-	TokenUrl           *string `json:"token_url,omitempty"`
+	SignatureAlgorithm   *string `json:"signature_algorithm,omitempty"`
+	TokenUrl             *string `json:"token_url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yOAuth2 O11yOAuth2
 
 // NewO11yOAuth2 instantiates a new O11yOAuth2 object
 // This constructor will assign default values to properties that have it defined,
@@ -131,9 +134,9 @@ func (o *O11yOAuth2) SetAudience(v string) {
 }
 
 // GetClaims returns the Claims field value if set, zero value otherwise.
-func (o *O11yOAuth2) GetClaims() map[string]map[string]interface{} {
+func (o *O11yOAuth2) GetClaims() map[string]interface{} {
 	if o == nil || IsNil(o.Claims) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Claims
@@ -141,9 +144,9 @@ func (o *O11yOAuth2) GetClaims() map[string]map[string]interface{} {
 
 // GetClaimsOk returns a tuple with the Claims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yOAuth2) GetClaimsOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yOAuth2) GetClaimsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Claims) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Claims, true
 }
@@ -157,8 +160,8 @@ func (o *O11yOAuth2) HasClaims() bool {
 	return false
 }
 
-// SetClaims gets a reference to the given map[string]map[string]interface{} and assigns it to the Claims field.
-func (o *O11yOAuth2) SetClaims(v map[string]map[string]interface{}) {
+// SetClaims gets a reference to the given map[string]interface{} and assigns it to the Claims field.
+func (o *O11yOAuth2) SetClaims(v map[string]interface{}) {
 	o.Claims = v
 }
 
@@ -814,7 +817,53 @@ func (o O11yOAuth2) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TokenUrl) {
 		toSerialize["token_url"] = o.TokenUrl
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yOAuth2) UnmarshalJSON(data []byte) (err error) {
+	varO11yOAuth2 := _O11yOAuth2{}
+
+	err = json.Unmarshal(data, &varO11yOAuth2)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yOAuth2(varO11yOAuth2)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "TLSConfig")
+		delete(additionalProperties, "audience")
+		delete(additionalProperties, "claims")
+		delete(additionalProperties, "client_certificate_key")
+		delete(additionalProperties, "client_certificate_key_file")
+		delete(additionalProperties, "client_certificate_key_id")
+		delete(additionalProperties, "client_certificate_key_ref")
+		delete(additionalProperties, "client_id")
+		delete(additionalProperties, "client_secret")
+		delete(additionalProperties, "client_secret_file")
+		delete(additionalProperties, "client_secret_ref")
+		delete(additionalProperties, "endpoint_params")
+		delete(additionalProperties, "grant_type")
+		delete(additionalProperties, "iss")
+		delete(additionalProperties, "no_proxy")
+		delete(additionalProperties, "proxy_connect_header")
+		delete(additionalProperties, "proxy_from_environment")
+		delete(additionalProperties, "proxy_url")
+		delete(additionalProperties, "scopes")
+		delete(additionalProperties, "signature_algorithm")
+		delete(additionalProperties, "token_url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yOAuth2 struct {

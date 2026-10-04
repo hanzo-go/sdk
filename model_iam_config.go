@@ -28,7 +28,10 @@ type IamConfig struct {
 	Patch                 *IamToggle  `json:"patch,omitempty"`
 	Schemas               []string    `json:"schemas,omitempty"`
 	Sort                  *IamToggle  `json:"sort,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
+
+type _IamConfig IamConfig
 
 // NewIamConfig instantiates a new IamConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -372,7 +375,41 @@ func (o IamConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Sort) {
 		toSerialize["sort"] = o.Sort
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamConfig) UnmarshalJSON(data []byte) (err error) {
+	varIamConfig := _IamConfig{}
+
+	err = json.Unmarshal(data, &varIamConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamConfig(varIamConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "authenticationSchemes")
+		delete(additionalProperties, "bulk")
+		delete(additionalProperties, "changePassword")
+		delete(additionalProperties, "documentationUri")
+		delete(additionalProperties, "etag")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "patch")
+		delete(additionalProperties, "schemas")
+		delete(additionalProperties, "sort")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamConfig struct {

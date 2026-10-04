@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AttributeMap** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**AttributeMap** | Pointer to **map[string]interface{}** |  | [optional] 
 **IsError** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **TimeUnixNano** | Pointer to **int32** |  | [optional] 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAttributeMap
 
-`func (o *O11yEvent) GetAttributeMap() map[string]map[string]interface{}`
+`func (o *O11yEvent) GetAttributeMap() map[string]interface{}`
 
 GetAttributeMap returns the AttributeMap field if non-nil, zero value otherwise.
 
 ### GetAttributeMapOk
 
-`func (o *O11yEvent) GetAttributeMapOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yEvent) GetAttributeMapOk() (*map[string]interface{}, bool)`
 
 GetAttributeMapOk returns a tuple with the AttributeMap field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttributeMap
 
-`func (o *O11yEvent) SetAttributeMap(v map[string]map[string]interface{})`
+`func (o *O11yEvent) SetAttributeMap(v map[string]interface{})`
 
 SetAttributeMap sets AttributeMap field to given value.
 

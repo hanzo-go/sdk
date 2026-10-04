@@ -38,8 +38,11 @@ type O11yO11yDependency struct {
 	// P99 is the 99th-percentile call duration, in nanoseconds.
 	P99 *float64 `json:"p99,omitempty"`
 	// Parent is the calling service.
-	Parent *string `json:"parent,omitempty"`
+	Parent               *string `json:"parent,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDependency O11yO11yDependency
 
 // NewO11yO11yDependency instantiates a new O11yO11yDependency object
 // This constructor will assign default values to properties that have it defined,
@@ -418,7 +421,42 @@ func (o O11yO11yDependency) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Parent) {
 		toSerialize["parent"] = o.Parent
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDependency) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDependency := _O11yO11yDependency{}
+
+	err = json.Unmarshal(data, &varO11yO11yDependency)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDependency(varO11yO11yDependency)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "callCount")
+		delete(additionalProperties, "callRate")
+		delete(additionalProperties, "child")
+		delete(additionalProperties, "errorRate")
+		delete(additionalProperties, "p50")
+		delete(additionalProperties, "p75")
+		delete(additionalProperties, "p90")
+		delete(additionalProperties, "p95")
+		delete(additionalProperties, "p99")
+		delete(additionalProperties, "parent")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDependency struct {

@@ -27,7 +27,10 @@ type O11yStats struct {
 	PastTriggersSeries             *O11ySeries `json:"pastTriggersSeries,omitempty"`
 	TotalCurrentTriggers           *int32      `json:"totalCurrentTriggers,omitempty"`
 	TotalPastTriggers              *int32      `json:"totalPastTriggers,omitempty"`
+	AdditionalProperties           map[string]interface{}
 }
+
+type _O11yStats O11yStats
 
 // NewO11yStats instantiates a new O11yStats object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o O11yStats) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalPastTriggers) {
 		toSerialize["totalPastTriggers"] = o.TotalPastTriggers
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yStats) UnmarshalJSON(data []byte) (err error) {
+	varO11yStats := _O11yStats{}
+
+	err = json.Unmarshal(data, &varO11yStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yStats(varO11yStats)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "currentAvgResolutionTime")
+		delete(additionalProperties, "currentAvgResolutionTimeSeries")
+		delete(additionalProperties, "currentTriggersSeries")
+		delete(additionalProperties, "pastAvgResolutionTime")
+		delete(additionalProperties, "pastAvgResolutionTimeSeries")
+		delete(additionalProperties, "pastTriggersSeries")
+		delete(additionalProperties, "totalCurrentTriggers")
+		delete(additionalProperties, "totalPastTriggers")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yStats struct {

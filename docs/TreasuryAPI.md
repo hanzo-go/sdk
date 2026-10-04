@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetTreasury
 
-> TreasuryReport GetTreasury(ctx).Execute()
+> TreasuryTreasuryReport GetTreasury(ctx).Execute()
 
 Returns the reserve fund's health and the current revenue-share policy for any validated caller.
 
@@ -38,7 +38,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TreasuryAPI.GetTreasury``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTreasury`: TreasuryReport
+	// response from `GetTreasury`: TreasuryTreasuryReport
 	fmt.Fprintf(os.Stdout, "Response from `TreasuryAPI.GetTreasury`: %v\n", resp)
 }
 ```
@@ -54,7 +54,7 @@ Other parameters are passed through a pointer to a apiGetTreasuryRequest struct 
 
 ### Return type
 
-[**TreasuryReport**](TreasuryReport.md)
+[**TreasuryTreasuryReport**](TreasuryTreasuryReport.md)
 
 ### Authorization
 
@@ -63,7 +63,7 @@ Other parameters are passed through a pointer to a apiGetTreasuryRequest struct 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -72,7 +72,7 @@ Other parameters are passed through a pointer to a apiGetTreasuryRequest struct 
 
 ## GetTreasuryAccounts
 
-> AccountsOut GetTreasuryAccounts(ctx).Scope(scope).Org(org).Execute()
+> TreasuryAccountsOut GetTreasuryAccounts(ctx).Scope(scope).Org(org).Execute()
 
 Returns the ledger accounts the caller may see, with their balances.
 
@@ -101,7 +101,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TreasuryAPI.GetTreasuryAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTreasuryAccounts`: AccountsOut
+	// response from `GetTreasuryAccounts`: TreasuryAccountsOut
 	fmt.Fprintf(os.Stdout, "Response from `TreasuryAPI.GetTreasuryAccounts`: %v\n", resp)
 }
 ```
@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountsOut**](AccountsOut.md)
+[**TreasuryAccountsOut**](TreasuryAccountsOut.md)
 
 ### Authorization
 
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

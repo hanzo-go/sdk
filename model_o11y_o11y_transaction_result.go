@@ -24,8 +24,11 @@ type O11yO11yTransactionResult struct {
 	// Object is the resource it would act on.
 	Object *O11yO11yObject `json:"object,omitempty"`
 	// Relation is the verb that was asked about.
-	Relation *string `json:"relation,omitempty"`
+	Relation             *string `json:"relation,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTransactionResult O11yO11yTransactionResult
 
 // NewO11yO11yTransactionResult instantiates a new O11yO11yTransactionResult object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yTransactionResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Relation) {
 		toSerialize["relation"] = o.Relation
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTransactionResult) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTransactionResult := _O11yO11yTransactionResult{}
+
+	err = json.Unmarshal(data, &varO11yO11yTransactionResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTransactionResult(varO11yO11yTransactionResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "authorized")
+		delete(additionalProperties, "object")
+		delete(additionalProperties, "relation")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTransactionResult struct {

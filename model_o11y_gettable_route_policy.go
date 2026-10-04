@@ -20,18 +20,21 @@ var _ MappedNullable = &O11yGettableRoutePolicy{}
 
 // O11yGettableRoutePolicy struct for O11yGettableRoutePolicy
 type O11yGettableRoutePolicy struct {
-	Channels    []string    `json:"channels,omitempty"`
-	CreatedAt   *time.Time  `json:"createdAt,omitempty"`
-	CreatedBy   *string     `json:"createdBy,omitempty"`
-	Description *string     `json:"description,omitempty"`
-	Expression  *string     `json:"expression,omitempty"`
-	Id          *string     `json:"id,omitempty"`
-	Kind        interface{} `json:"kind,omitempty"`
-	Name        *string     `json:"name,omitempty"`
-	Tags        []string    `json:"tags,omitempty"`
-	UpdatedAt   *time.Time  `json:"updatedAt,omitempty"`
-	UpdatedBy   *string     `json:"updatedBy,omitempty"`
+	Channels             []string    `json:"channels,omitempty"`
+	CreatedAt            *time.Time  `json:"createdAt,omitempty"`
+	CreatedBy            *string     `json:"createdBy,omitempty"`
+	Description          *string     `json:"description,omitempty"`
+	Expression           *string     `json:"expression,omitempty"`
+	Id                   *string     `json:"id,omitempty"`
+	Kind                 interface{} `json:"kind,omitempty"`
+	Name                 *string     `json:"name,omitempty"`
+	Tags                 []string    `json:"tags,omitempty"`
+	UpdatedAt            *time.Time  `json:"updatedAt,omitempty"`
+	UpdatedBy            *string     `json:"updatedBy,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableRoutePolicy O11yGettableRoutePolicy
 
 // NewO11yGettableRoutePolicy instantiates a new O11yGettableRoutePolicy object
 // This constructor will assign default values to properties that have it defined,
@@ -446,7 +449,43 @@ func (o O11yGettableRoutePolicy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedBy) {
 		toSerialize["updatedBy"] = o.UpdatedBy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableRoutePolicy) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableRoutePolicy := _O11yGettableRoutePolicy{}
+
+	err = json.Unmarshal(data, &varO11yGettableRoutePolicy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableRoutePolicy(varO11yGettableRoutePolicy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "channels")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "expression")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "kind")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedBy")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableRoutePolicy struct {

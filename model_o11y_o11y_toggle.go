@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yToggle{}
 // O11yO11yToggle struct for O11yO11yToggle
 type O11yO11yToggle struct {
 	// Enabled says whether the feature is on.
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled              *bool `json:"enabled,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yToggle O11yO11yToggle
 
 // NewO11yO11yToggle instantiates a new O11yO11yToggle object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yToggle) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yToggle) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yToggle := _O11yO11yToggle{}
+
+	err = json.Unmarshal(data, &varO11yO11yToggle)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yToggle(varO11yO11yToggle)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yToggle struct {

@@ -32,7 +32,10 @@ type O11yFilterAttributeValueRequest struct {
 	SearchText                 *string          `json:"searchText,omitempty"`
 	StartTimeMillis            *int64           `json:"startTimeMillis,omitempty"`
 	TagType                    *string          `json:"tagType,omitempty"`
+	AdditionalProperties       map[string]interface{}
 }
+
+type _O11yFilterAttributeValueRequest O11yFilterAttributeValueRequest
 
 // NewO11yFilterAttributeValueRequest instantiates a new O11yFilterAttributeValueRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -516,7 +519,45 @@ func (o O11yFilterAttributeValueRequest) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.TagType) {
 		toSerialize["tagType"] = o.TagType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yFilterAttributeValueRequest) UnmarshalJSON(data []byte) (err error) {
+	varO11yFilterAttributeValueRequest := _O11yFilterAttributeValueRequest{}
+
+	err = json.Unmarshal(data, &varO11yFilterAttributeValueRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yFilterAttributeValueRequest(varO11yFilterAttributeValueRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aggregateAttribute")
+		delete(additionalProperties, "aggregateOperator")
+		delete(additionalProperties, "dataSource")
+		delete(additionalProperties, "endTimeMillis")
+		delete(additionalProperties, "existingFilterItems")
+		delete(additionalProperties, "filterAttributeKey")
+		delete(additionalProperties, "filterAttributeKeyDataType")
+		delete(additionalProperties, "includeRelated")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "metricNames")
+		delete(additionalProperties, "searchText")
+		delete(additionalProperties, "startTimeMillis")
+		delete(additionalProperties, "tagType")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yFilterAttributeValueRequest struct {

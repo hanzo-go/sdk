@@ -22,6 +22,117 @@ import (
 // AiAPIService AiAPI service
 type AiAPIService service
 
+type AiAPIAiLimitsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIAiLimitsRequest) Execute() (*AiLimits, *http.Response, error) {
+	return r.ApiService.AiLimitsExecute(r)
+}
+
+/*
+AiLimits Reads the caller's plan usage: for each class of model the plan includes, the share used of the billing period and of its short window, who pays for the next request, and whether the caller is in limited mode and why; the share used of the session and the day; and the ways on.
+
+Reads the caller's plan usage: for each class of model the plan includes, the
+share used of the billing period and of its short window, who pays for the next
+request, and whether the caller is in limited mode and why; the share used of the
+session and the day; and the ways on. Shares only, never amounts.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIAiLimitsRequest
+*/
+func (a *AiAPIService) AiLimits(ctx context.Context) AiAPIAiLimitsRequest {
+	return AiAPIAiLimitsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AiLimits
+func (a *AiAPIService) AiLimitsExecute(r AiAPIAiLimitsRequest) (*AiLimits, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AiLimits
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.AiLimits")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/limits"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type AiAPIAiMCPToolsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -39,9 +150,9 @@ func (r AiAPIAiMCPToolsRequest) Execute() (*AiMCPSurface, *http.Response, error)
 }
 
 /*
-AiMCPTools Tools reports what THIS PROCESS's MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+AiMCPTools Reports what THIS PROCESS's MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
 
-Tools reports what THIS PROCESS's MCP server carries: how many tools its own
+Reports what THIS PROCESS's MCP server carries: how many tools its own
 registry projects, optionally their names, and which subsystems this process
 composed. It is the answer to "is this MCP server up and does it have anything
 behind it" — a question a status code cannot answer, since an empty server and
@@ -94,7 +205,7 @@ func (a *AiAPIService) AiMCPToolsExecute(r AiAPIAiMCPToolsRequest) (*AiMCPSurfac
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -123,6 +234,136 @@ func (a *AiAPIService) AiMCPToolsExecute(r AiAPIAiMCPToolsRequest) (*AiMCPSurfac
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIAiSetLimitsRequest struct {
+	ctx         context.Context
+	ApiService  *AiAPIService
+	aiLimitsSet *AiLimitsSet
+}
+
+func (r AiAPIAiSetLimitsRequest) AiLimitsSet(aiLimitsSet AiLimitsSet) AiAPIAiSetLimitsRequest {
+	r.aiLimitsSet = &aiLimitsSet
+	return r
+}
+
+func (r AiAPIAiSetLimitsRequest) Execute() (*AiLimits, *http.Response, error) {
+	return r.ApiService.AiSetLimitsExecute(r)
+}
+
+/*
+AiSetLimits Sets the payer's choice to keep using a model on credits once the plan's included usage of it is spent.
+
+Sets the payer's choice to keep using a model on credits once the plan's included
+usage of it is spent. A pooled org wallet is its org admin's to set; a person's own
+wallet is theirs. Every change is on the audit trail, before and after; no trail,
+no change. Answers the limits as they read after it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIAiSetLimitsRequest
+*/
+func (a *AiAPIService) AiSetLimits(ctx context.Context) AiAPIAiSetLimitsRequest {
+	return AiAPIAiSetLimitsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AiLimits
+func (a *AiAPIService) AiSetLimitsExecute(r AiAPIAiSetLimitsRequest) (*AiLimits, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AiLimits
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.AiSetLimits")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/limits"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.aiLimitsSet == nil {
+		return localVarReturnValue, nil, reportError("aiLimitsSet is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.aiLimitsSet
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1335,11 +1576,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -1457,11 +1697,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -1903,11 +2142,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -2123,11 +2361,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -2245,11 +2482,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -2367,11 +2603,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -2489,11 +2724,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -3874,6 +4108,285 @@ func (a *AiAPIService) DeleteAiWorkflowsByOwnerByNameExecute(r AiAPIDeleteAiWork
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIDeleteAudioTranscriptByIdRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	id         string
+}
+
+func (r AiAPIDeleteAudioTranscriptByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAudioTranscriptByIdExecute(r)
+}
+
+/*
+DeleteAudioTranscriptById Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+
+Serves the growing transcript over HTTP: POST opens one, POST to
+its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+The one implementation is zapTranscriptHandler below; this binds it to
+api.hanzo.ai through the in-process gateway bridge, as the router nouns are.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return AiAPIDeleteAudioTranscriptByIdRequest
+*/
+func (a *AiAPIService) DeleteAudioTranscriptById(ctx context.Context, id string) AiAPIDeleteAudioTranscriptByIdRequest {
+	return AiAPIDeleteAudioTranscriptByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) DeleteAudioTranscriptByIdExecute(r AiAPIDeleteAudioTranscriptByIdRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.DeleteAudioTranscriptById")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/audio/transcript/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGet3dByIdRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	id         string
+}
+
+func (r AiAPIGet3dByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.Get3dByIdExecute(r)
+}
+
+/*
+Get3dById Implements GET /v1/3d/:id (Retrieve 3D status).
+
+Implements GET /v1/3d/:id (Retrieve 3D status).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return AiAPIGet3dByIdRequest
+*/
+func (a *AiAPIService) Get3dById(ctx context.Context, id string) AiAPIGet3dByIdRequest {
+	return AiAPIGet3dByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) Get3dByIdExecute(r AiAPIGet3dByIdRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.Get3dById")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/3d/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIGet3dByIdContentRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	id         string
+}
+
+func (r AiAPIGet3dByIdContentRequest) Execute() (*http.Response, error) {
+	return r.ApiService.Get3dByIdContentExecute(r)
+}
+
+/*
+Get3dByIdContent Implements GET /v1/3d/:id/content (Download 3D splat/glb content).
+
+Implements GET /v1/3d/:id/content (Download 3D splat/glb content).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return AiAPIGet3dByIdContentRequest
+*/
+func (a *AiAPIService) Get3dByIdContent(ctx context.Context, id string) AiAPIGet3dByIdContentRequest {
+	return AiAPIGet3dByIdContentRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) Get3dByIdContentExecute(r AiAPIGet3dByIdContentRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.Get3dByIdContent")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/3d/{id}/content"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type AiAPIGetAiAccountRequest struct {
@@ -8688,11 +9201,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -8810,11 +9322,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -10051,11 +10562,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -10093,6 +10603,107 @@ func (a *AiAPIService) GetAiRouterArtifactMetaExecute(r AiAPIGetAiRouterArtifact
 	}
 
 	localVarPath := localBasePath + "/v1/ai/router/artifact-meta"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIGetAiRouterCatalogRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIGetAiRouterCatalogRequest) Execute() (*GetAiRouterCatalog200Response, *http.Response, error) {
+	return r.ApiService.GetAiRouterCatalogExecute(r)
+}
+
+/*
+GetAiRouterCatalog Lists the Zen and Enso routing catalogs: what each serves, its accounts and model health, and its version history.
+
+Lists the Zen and Enso routing catalogs: what each serves, its
+accounts and model health, and its version history. SuperAdmin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIGetAiRouterCatalogRequest
+*/
+func (a *AiAPIService) GetAiRouterCatalog(ctx context.Context) AiAPIGetAiRouterCatalogRequest {
+	return AiAPIGetAiRouterCatalogRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GetAiRouterCatalog200Response
+func (a *AiAPIService) GetAiRouterCatalogExecute(r AiAPIGetAiRouterCatalogRequest) (*GetAiRouterCatalog200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetAiRouterCatalog200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.GetAiRouterCatalog")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/catalog"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -10271,11 +10882,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -10609,11 +11219,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -10731,11 +11340,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -10853,11 +11461,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -15053,27 +15660,18 @@ Returns the list of available models from the routing table.
 PUBLIC BY DESIGN, AND IT DOES NOT AUTHENTICATE — that is the whole contract, so it
 is stated here rather than left to be inferred. The catalogue is the same for
 everyone (listAvailableModels takes no principal), docs.hanzo.ai fetches it from
-the browser, and every policy layer around it already says so out loud: the authz
-filter lists "models" as public, filter_balance refuses to gate it (a 402 here was
-a console-wide outage), the rate limiter excludes it, and cloud's spend.Reachable
-carries /v1/models/ as "the model catalog the shell reads for discovery".
+the browser, and every policy layer around it says so: the authz filter lists
+"models" as public, filter_balance does not gate it, the rate limiter excludes it,
+and cloud's spend.Reachable carries /v1/models/ as "the model catalog the shell
+reads for discovery".
 
 SO THE Authorization HEADER IS NOT AN ADMISSION CHECK HERE. It is read for ONE
 thing — annotating gated SKUs with the caller's own access standing — and
 annotation degrades to nothing when there is no verified principal.
 
-It used to hold a "require authentication" gate that authenticated nobody: it
-rejected an ABSENT credential and a MALFORMED one, then accepted any string that
-merely looked like a key. `Bearer sk-` followed by 36 zeroes returned 200 in
-production; so did a JWT three days expired. It was a shape check wearing an auth
-check's clothes, and its cost was diagnostic: /v1/models is the natural "is my auth
-working?" probe, and answering 200 to a dead credential sent people debugging the
-wrong system. A public endpoint must not appear to validate. Either check the
-credential or ignore it — this one ignores it, deliberately and visibly.
-
-Removing that gate discloses nothing new: the catalogue was already reachable by
-anyone willing to type three characters, so there is no confidentiality delta, only
-an honesty one.
+A credential that is presented is verified, never merely shape-checked: a caller
+using /v1/models to ask "is my key working?" gets an honest answer, because a key
+that does not verify annotates nothing rather than reading as accepted.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return AiAPIGetModelsRequest
@@ -15582,6 +16180,12 @@ type AiAPIPatchAiArticlesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiArticlesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiArticlesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiArticlesByOwnerByNameRequest) Execute() (*PostAiArticles200Response, *http.Response, error) {
@@ -15630,9 +16234,12 @@ func (a *AiAPIService) PatchAiArticlesByOwnerByNameExecute(r AiAPIPatchAiArticle
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -15648,6 +16255,8 @@ func (a *AiAPIService) PatchAiArticlesByOwnerByNameExecute(r AiAPIPatchAiArticle
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -15690,6 +16299,12 @@ type AiAPIPatchAiAssetsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiAssetsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiAssetsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiAssetsByOwnerByNameRequest) Execute() (*PostAiAssets200Response, *http.Response, error) {
@@ -15738,9 +16353,12 @@ func (a *AiAPIService) PatchAiAssetsByOwnerByNameExecute(r AiAPIPatchAiAssetsByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -15756,6 +16374,8 @@ func (a *AiAPIService) PatchAiAssetsByOwnerByNameExecute(r AiAPIPatchAiAssetsByO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -15798,6 +16418,12 @@ type AiAPIPatchAiChatsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiChatsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiChatsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiChatsByOwnerByNameRequest) Execute() (*PostAiChats200Response, *http.Response, error) {
@@ -15846,9 +16472,12 @@ func (a *AiAPIService) PatchAiChatsByOwnerByNameExecute(r AiAPIPatchAiChatsByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -15864,6 +16493,8 @@ func (a *AiAPIService) PatchAiChatsByOwnerByNameExecute(r AiAPIPatchAiChatsByOwn
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -15906,6 +16537,12 @@ type AiAPIPatchAiDeploymentsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiDeploymentsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiDeploymentsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiDeploymentsByOwnerByNameRequest) Execute() (*PostAiDeployments200Response, *http.Response, error) {
@@ -15954,9 +16591,12 @@ func (a *AiAPIService) PatchAiDeploymentsByOwnerByNameExecute(r AiAPIPatchAiDepl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -15972,6 +16612,8 @@ func (a *AiAPIService) PatchAiDeploymentsByOwnerByNameExecute(r AiAPIPatchAiDepl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -16014,6 +16656,12 @@ type AiAPIPatchAiFilesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiFilesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiFilesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiFilesByOwnerByNameRequest) Execute() (*PostAiFiles200Response, *http.Response, error) {
@@ -16062,9 +16710,12 @@ func (a *AiAPIService) PatchAiFilesByOwnerByNameExecute(r AiAPIPatchAiFilesByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16080,6 +16731,8 @@ func (a *AiAPIService) PatchAiFilesByOwnerByNameExecute(r AiAPIPatchAiFilesByOwn
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -16122,6 +16775,12 @@ type AiAPIPatchAiFormsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiFormsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiFormsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiFormsByOwnerByNameRequest) Execute() (*PostAiForms200Response, *http.Response, error) {
@@ -16170,9 +16829,12 @@ func (a *AiAPIService) PatchAiFormsByOwnerByNameExecute(r AiAPIPatchAiFormsByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16188,6 +16850,8 @@ func (a *AiAPIService) PatchAiFormsByOwnerByNameExecute(r AiAPIPatchAiFormsByOwn
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -16230,6 +16894,12 @@ type AiAPIPatchAiGraphsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiGraphsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiGraphsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiGraphsByOwnerByNameRequest) Execute() (*PostAiGraphs200Response, *http.Response, error) {
@@ -16278,9 +16948,12 @@ func (a *AiAPIService) PatchAiGraphsByOwnerByNameExecute(r AiAPIPatchAiGraphsByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16296,6 +16969,8 @@ func (a *AiAPIService) PatchAiGraphsByOwnerByNameExecute(r AiAPIPatchAiGraphsByO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -16338,6 +17013,12 @@ type AiAPIPatchAiMessagesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiMessagesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiMessagesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiMessagesByOwnerByNameRequest) Execute() (*PostAiMessages200Response, *http.Response, error) {
@@ -16386,9 +17067,12 @@ func (a *AiAPIService) PatchAiMessagesByOwnerByNameExecute(r AiAPIPatchAiMessage
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16404,6 +17088,8 @@ func (a *AiAPIService) PatchAiMessagesByOwnerByNameExecute(r AiAPIPatchAiMessage
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -16446,6 +17132,12 @@ type AiAPIPatchAiNodesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiNodesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiNodesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiNodesByOwnerByNameRequest) Execute() (*PostAiNodes200Response, *http.Response, error) {
@@ -16494,9 +17186,12 @@ func (a *AiAPIService) PatchAiNodesByOwnerByNameExecute(r AiAPIPatchAiNodesByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16512,6 +17207,8 @@ func (a *AiAPIService) PatchAiNodesByOwnerByNameExecute(r AiAPIPatchAiNodesByOwn
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -16570,11 +17267,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -16692,11 +17388,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -16796,6 +17491,12 @@ func (a *AiAPIService) PatchAiOrgSettingsListExecute(r AiAPIPatchAiOrgSettingsLi
 type AiAPIPatchAiPreferencesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiPreferencesRequest) Body(body map[string]interface{}) AiAPIPatchAiPreferencesRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiPreferencesRequest) Execute() (*Envelope, *http.Response, error) {
@@ -16836,9 +17537,12 @@ func (a *AiAPIService) PatchAiPreferencesExecute(r AiAPIPatchAiPreferencesReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16854,6 +17558,8 @@ func (a *AiAPIService) PatchAiPreferencesExecute(r AiAPIPatchAiPreferencesReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -16896,6 +17602,12 @@ type AiAPIPatchAiProvidersByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiProvidersByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiProvidersByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiProvidersByOwnerByNameRequest) Execute() (*PostAiProviders200Response, *http.Response, error) {
@@ -16944,9 +17656,12 @@ func (a *AiAPIService) PatchAiProvidersByOwnerByNameExecute(r AiAPIPatchAiProvid
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -16962,6 +17677,8 @@ func (a *AiAPIService) PatchAiProvidersByOwnerByNameExecute(r AiAPIPatchAiProvid
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -17004,6 +17721,12 @@ type AiAPIPatchAiRecordsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiRecordsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiRecordsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiRecordsByOwnerByNameRequest) Execute() (*PostAiRecords200Response, *http.Response, error) {
@@ -17052,9 +17775,12 @@ func (a *AiAPIService) PatchAiRecordsByOwnerByNameExecute(r AiAPIPatchAiRecordsB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -17070,6 +17796,8 @@ func (a *AiAPIService) PatchAiRecordsByOwnerByNameExecute(r AiAPIPatchAiRecordsB
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -17112,6 +17840,12 @@ type AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiRemoteConnectionsByOwnerByNameRequest) Execute() (*PostAiRemoteConnections200Response, *http.Response, error) {
@@ -17160,9 +17894,12 @@ func (a *AiAPIService) PatchAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPatch
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -17178,6 +17915,8 @@ func (a *AiAPIService) PatchAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPatch
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -17236,11 +17975,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -17358,11 +18096,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -17480,11 +18217,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -17602,11 +18338,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -17724,11 +18459,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -17830,6 +18564,12 @@ type AiAPIPatchAiRoutesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiRoutesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiRoutesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiRoutesByOwnerByNameRequest) Execute() (*PostAiRoutes200Response, *http.Response, error) {
@@ -17878,9 +18618,12 @@ func (a *AiAPIService) PatchAiRoutesByOwnerByNameExecute(r AiAPIPatchAiRoutesByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -17896,6 +18639,8 @@ func (a *AiAPIService) PatchAiRoutesByOwnerByNameExecute(r AiAPIPatchAiRoutesByO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -17938,6 +18683,12 @@ type AiAPIPatchAiScalesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiScalesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiScalesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiScalesByOwnerByNameRequest) Execute() (*PostAiScales200Response, *http.Response, error) {
@@ -17986,9 +18737,12 @@ func (a *AiAPIService) PatchAiScalesByOwnerByNameExecute(r AiAPIPatchAiScalesByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18004,6 +18758,8 @@ func (a *AiAPIService) PatchAiScalesByOwnerByNameExecute(r AiAPIPatchAiScalesByO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -18046,6 +18802,12 @@ type AiAPIPatchAiScansByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiScansByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiScansByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiScansByOwnerByNameRequest) Execute() (*PostAiScans200Response, *http.Response, error) {
@@ -18094,9 +18856,12 @@ func (a *AiAPIService) PatchAiScansByOwnerByNameExecute(r AiAPIPatchAiScansByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18112,6 +18877,8 @@ func (a *AiAPIService) PatchAiScansByOwnerByNameExecute(r AiAPIPatchAiScansByOwn
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -18154,6 +18921,12 @@ type AiAPIPatchAiSigninSessionsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiSigninSessionsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiSigninSessionsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiSigninSessionsByOwnerByNameRequest) Execute() (*PostAiSigninSessions200Response, *http.Response, error) {
@@ -18202,9 +18975,12 @@ func (a *AiAPIService) PatchAiSigninSessionsByOwnerByNameExecute(r AiAPIPatchAiS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18220,6 +18996,8 @@ func (a *AiAPIService) PatchAiSigninSessionsByOwnerByNameExecute(r AiAPIPatchAiS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -18262,6 +19040,12 @@ type AiAPIPatchAiStoresByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiStoresByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiStoresByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiStoresByOwnerByNameRequest) Execute() (*PostAiStores200Response, *http.Response, error) {
@@ -18310,9 +19094,12 @@ func (a *AiAPIService) PatchAiStoresByOwnerByNameExecute(r AiAPIPatchAiStoresByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18328,6 +19115,8 @@ func (a *AiAPIService) PatchAiStoresByOwnerByNameExecute(r AiAPIPatchAiStoresByO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -18370,6 +19159,12 @@ type AiAPIPatchAiTasksByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiTasksByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiTasksByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiTasksByOwnerByNameRequest) Execute() (*PostAiTasks200Response, *http.Response, error) {
@@ -18418,9 +19213,12 @@ func (a *AiAPIService) PatchAiTasksByOwnerByNameExecute(r AiAPIPatchAiTasksByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18436,6 +19234,8 @@ func (a *AiAPIService) PatchAiTasksByOwnerByNameExecute(r AiAPIPatchAiTasksByOwn
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -18478,6 +19278,12 @@ type AiAPIPatchAiTemplatesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiTemplatesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiTemplatesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiTemplatesByOwnerByNameRequest) Execute() (*PostAiTemplates200Response, *http.Response, error) {
@@ -18526,9 +19332,12 @@ func (a *AiAPIService) PatchAiTemplatesByOwnerByNameExecute(r AiAPIPatchAiTempla
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18544,6 +19353,8 @@ func (a *AiAPIService) PatchAiTemplatesByOwnerByNameExecute(r AiAPIPatchAiTempla
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -18584,6 +19395,12 @@ func (a *AiAPIService) PatchAiTemplatesByOwnerByNameExecute(r AiAPIPatchAiTempla
 type AiAPIPatchAiTrainingContributionRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiTrainingContributionRequest) Body(body map[string]interface{}) AiAPIPatchAiTrainingContributionRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiTrainingContributionRequest) Execute() (*Envelope, *http.Response, error) {
@@ -18624,9 +19441,12 @@ func (a *AiAPIService) PatchAiTrainingContributionExecute(r AiAPIPatchAiTraining
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18642,6 +19462,8 @@ func (a *AiAPIService) PatchAiTrainingContributionExecute(r AiAPIPatchAiTraining
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -18684,6 +19506,12 @@ type AiAPIPatchAiTreeFilesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiTreeFilesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiTreeFilesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiTreeFilesByOwnerByNameRequest) Execute() (*PostAiTreeFiles200Response, *http.Response, error) {
@@ -18732,9 +19560,12 @@ func (a *AiAPIService) PatchAiTreeFilesByOwnerByNameExecute(r AiAPIPatchAiTreeFi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18750,6 +19581,8 @@ func (a *AiAPIService) PatchAiTreeFilesByOwnerByNameExecute(r AiAPIPatchAiTreeFi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -18792,6 +19625,12 @@ type AiAPIPatchAiVectorsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiVectorsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiVectorsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiVectorsByOwnerByNameRequest) Execute() (*PostAiVectors200Response, *http.Response, error) {
@@ -18840,9 +19679,12 @@ func (a *AiAPIService) PatchAiVectorsByOwnerByNameExecute(r AiAPIPatchAiVectorsB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18858,6 +19700,8 @@ func (a *AiAPIService) PatchAiVectorsByOwnerByNameExecute(r AiAPIPatchAiVectorsB
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -18900,6 +19744,12 @@ type AiAPIPatchAiVideosByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiVideosByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiVideosByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiVideosByOwnerByNameRequest) Execute() (*PostAiVideos200Response, *http.Response, error) {
@@ -18948,9 +19798,12 @@ func (a *AiAPIService) PatchAiVideosByOwnerByNameExecute(r AiAPIPatchAiVideosByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -18966,6 +19819,8 @@ func (a *AiAPIService) PatchAiVideosByOwnerByNameExecute(r AiAPIPatchAiVideosByO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -19008,6 +19863,12 @@ type AiAPIPatchAiWorkflowsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPatchAiWorkflowsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPatchAiWorkflowsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPatchAiWorkflowsByOwnerByNameRequest) Execute() (*PostAiWorkflows200Response, *http.Response, error) {
@@ -19056,9 +19917,12 @@ func (a *AiAPIService) PatchAiWorkflowsByOwnerByNameExecute(r AiAPIPatchAiWorkfl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19074,6 +19938,8 @@ func (a *AiAPIService) PatchAiWorkflowsByOwnerByNameExecute(r AiAPIPatchAiWorkfl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -19111,9 +19977,103 @@ func (a *AiAPIService) PatchAiWorkflowsByOwnerByNameExecute(r AiAPIPatchAiWorkfl
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type AiAPIPost3dGenerationsRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPost3dGenerationsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.Post3dGenerationsExecute(r)
+}
+
+/*
+Post3dGenerations Implements POST /v1/3d/generations (Text/Image to 3D & Gaussian Splats).
+
+Implements POST /v1/3d/generations (Text/Image to 3D & Gaussian Splats).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPost3dGenerationsRequest
+*/
+func (a *AiAPIService) Post3dGenerations(ctx context.Context) AiAPIPost3dGenerationsRequest {
+	return AiAPIPost3dGenerationsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) Post3dGenerationsExecute(r AiAPIPost3dGenerationsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.Post3dGenerations")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/3d/generations"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIPostAiArticlesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiArticlesRequest) Body(body map[string]interface{}) AiAPIPostAiArticlesRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiArticlesRequest) Execute() (*PostAiArticles200Response, *http.Response, error) {
@@ -19156,9 +20116,12 @@ func (a *AiAPIService) PostAiArticlesExecute(r AiAPIPostAiArticlesRequest) (*Pos
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19174,6 +20137,8 @@ func (a *AiAPIService) PostAiArticlesExecute(r AiAPIPostAiArticlesRequest) (*Pos
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -19214,6 +20179,12 @@ func (a *AiAPIService) PostAiArticlesExecute(r AiAPIPostAiArticlesRequest) (*Pos
 type AiAPIPostAiAssetsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiAssetsRequest) Body(body map[string]interface{}) AiAPIPostAiAssetsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiAssetsRequest) Execute() (*PostAiAssets200Response, *http.Response, error) {
@@ -19256,9 +20227,12 @@ func (a *AiAPIService) PostAiAssetsExecute(r AiAPIPostAiAssetsRequest) (*PostAiA
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19274,6 +20248,8 @@ func (a *AiAPIService) PostAiAssetsExecute(r AiAPIPostAiAssetsRequest) (*PostAiA
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -19316,6 +20292,12 @@ type AiAPIPostAiAssetsByOwnerByNameScanRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiAssetsByOwnerByNameScanRequest) Body(body map[string]interface{}) AiAPIPostAiAssetsByOwnerByNameScanRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiAssetsByOwnerByNameScanRequest) Execute() (*Envelope, *http.Response, error) {
@@ -19362,9 +20344,12 @@ func (a *AiAPIService) PostAiAssetsByOwnerByNameScanExecute(r AiAPIPostAiAssetsB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19380,6 +20365,8 @@ func (a *AiAPIService) PostAiAssetsByOwnerByNameScanExecute(r AiAPIPostAiAssetsB
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -19420,6 +20407,12 @@ func (a *AiAPIService) PostAiAssetsByOwnerByNameScanExecute(r AiAPIPostAiAssetsB
 type AiAPIPostAiAssetsScanRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiAssetsScanRequest) Body(body map[string]interface{}) AiAPIPostAiAssetsScanRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiAssetsScanRequest) Execute() (*Envelope, *http.Response, error) {
@@ -19460,9 +20453,12 @@ func (a *AiAPIService) PostAiAssetsScanExecute(r AiAPIPostAiAssetsScanRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19478,6 +20474,8 @@ func (a *AiAPIService) PostAiAssetsScanExecute(r AiAPIPostAiAssetsScanRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -19518,6 +20516,12 @@ func (a *AiAPIService) PostAiAssetsScanExecute(r AiAPIPostAiAssetsScanRequest) (
 type AiAPIPostAiChatsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiChatsRequest) Body(body map[string]interface{}) AiAPIPostAiChatsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiChatsRequest) Execute() (*PostAiChats200Response, *http.Response, error) {
@@ -19560,9 +20564,12 @@ func (a *AiAPIService) PostAiChatsExecute(r AiAPIPostAiChatsRequest) (*PostAiCha
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19578,6 +20585,8 @@ func (a *AiAPIService) PostAiChatsExecute(r AiAPIPostAiChatsRequest) (*PostAiCha
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -19826,6 +20835,12 @@ func (a *AiAPIService) PostAiConnectionsByProviderExecute(r AiAPIPostAiConnectio
 type AiAPIPostAiDeploymentsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiDeploymentsRequest) Body(body map[string]interface{}) AiAPIPostAiDeploymentsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiDeploymentsRequest) Execute() (*PostAiDeployments200Response, *http.Response, error) {
@@ -19868,9 +20883,12 @@ func (a *AiAPIService) PostAiDeploymentsExecute(r AiAPIPostAiDeploymentsRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19886,6 +20904,8 @@ func (a *AiAPIService) PostAiDeploymentsExecute(r AiAPIPostAiDeploymentsRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -19928,6 +20948,12 @@ type AiAPIPostAiDeploymentsByOwnerByNameDeployRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiDeploymentsByOwnerByNameDeployRequest) Body(body map[string]interface{}) AiAPIPostAiDeploymentsByOwnerByNameDeployRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiDeploymentsByOwnerByNameDeployRequest) Execute() (*Envelope, *http.Response, error) {
@@ -19974,9 +21000,12 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameDeployExecute(r AiAPIPostAi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -19992,6 +21021,8 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameDeployExecute(r AiAPIPostAi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -20034,6 +21065,12 @@ type AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest) Body(body map[string]interface{}) AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiDeploymentsByOwnerByNameUndeployRequest) Execute() (*Envelope, *http.Response, error) {
@@ -20080,9 +21117,12 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameUndeployExecute(r AiAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20098,6 +21138,8 @@ func (a *AiAPIService) PostAiDeploymentsByOwnerByNameUndeployExecute(r AiAPIPost
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -20244,6 +21286,12 @@ func (a *AiAPIService) PostAiFeedbackExecute(r AiAPIPostAiFeedbackRequest) (*Pos
 type AiAPIPostAiFilesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiFilesRequest) Body(body map[string]interface{}) AiAPIPostAiFilesRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiFilesRequest) Execute() (*PostAiFiles200Response, *http.Response, error) {
@@ -20286,9 +21334,12 @@ func (a *AiAPIService) PostAiFilesExecute(r AiAPIPostAiFilesRequest) (*PostAiFil
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20304,6 +21355,8 @@ func (a *AiAPIService) PostAiFilesExecute(r AiAPIPostAiFilesRequest) (*PostAiFil
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -20344,6 +21397,12 @@ func (a *AiAPIService) PostAiFilesExecute(r AiAPIPostAiFilesRequest) (*PostAiFil
 type AiAPIPostAiFilesActivateRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiFilesActivateRequest) Body(body map[string]interface{}) AiAPIPostAiFilesActivateRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiFilesActivateRequest) Execute() (*Envelope, *http.Response, error) {
@@ -20384,9 +21443,12 @@ func (a *AiAPIService) PostAiFilesActivateExecute(r AiAPIPostAiFilesActivateRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20402,6 +21464,8 @@ func (a *AiAPIService) PostAiFilesActivateExecute(r AiAPIPostAiFilesActivateRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -20444,6 +21508,12 @@ type AiAPIPostAiFilesByOwnerByNameVectorsRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiFilesByOwnerByNameVectorsRequest) Body(body map[string]interface{}) AiAPIPostAiFilesByOwnerByNameVectorsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiFilesByOwnerByNameVectorsRequest) Execute() (*Envelope, *http.Response, error) {
@@ -20490,9 +21560,12 @@ func (a *AiAPIService) PostAiFilesByOwnerByNameVectorsExecute(r AiAPIPostAiFiles
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20508,6 +21581,8 @@ func (a *AiAPIService) PostAiFilesByOwnerByNameVectorsExecute(r AiAPIPostAiFiles
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -20548,6 +21623,12 @@ func (a *AiAPIService) PostAiFilesByOwnerByNameVectorsExecute(r AiAPIPostAiFiles
 type AiAPIPostAiFilesUploadRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiFilesUploadRequest) Body(body map[string]interface{}) AiAPIPostAiFilesUploadRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiFilesUploadRequest) Execute() (*Envelope, *http.Response, error) {
@@ -20588,9 +21669,12 @@ func (a *AiAPIService) PostAiFilesUploadExecute(r AiAPIPostAiFilesUploadRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -20606,6 +21690,8 @@ func (a *AiAPIService) PostAiFilesUploadExecute(r AiAPIPostAiFilesUploadRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -20950,6 +22036,12 @@ func (a *AiAPIService) PostAiFinetuneJobsExecute(r AiAPIPostAiFinetuneJobsReques
 type AiAPIPostAiFormsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiFormsRequest) Body(body map[string]interface{}) AiAPIPostAiFormsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiFormsRequest) Execute() (*PostAiForms200Response, *http.Response, error) {
@@ -20992,9 +22084,12 @@ func (a *AiAPIService) PostAiFormsExecute(r AiAPIPostAiFormsRequest) (*PostAiFor
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21010,6 +22105,8 @@ func (a *AiAPIService) PostAiFormsExecute(r AiAPIPostAiFormsRequest) (*PostAiFor
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -21050,6 +22147,12 @@ func (a *AiAPIService) PostAiFormsExecute(r AiAPIPostAiFormsRequest) (*PostAiFor
 type AiAPIPostAiGraphsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiGraphsRequest) Body(body map[string]interface{}) AiAPIPostAiGraphsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiGraphsRequest) Execute() (*PostAiGraphs200Response, *http.Response, error) {
@@ -21092,9 +22195,12 @@ func (a *AiAPIService) PostAiGraphsExecute(r AiAPIPostAiGraphsRequest) (*PostAiG
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21110,6 +22216,8 @@ func (a *AiAPIService) PostAiGraphsExecute(r AiAPIPostAiGraphsRequest) (*PostAiG
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -21450,6 +22558,12 @@ func (a *AiAPIService) PostAiMemoryUpdateExecute(r AiAPIPostAiMemoryUpdateReques
 type AiAPIPostAiMessagesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiMessagesRequest) Body(body map[string]interface{}) AiAPIPostAiMessagesRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiMessagesRequest) Execute() (*PostAiMessages200Response, *http.Response, error) {
@@ -21492,9 +22606,12 @@ func (a *AiAPIService) PostAiMessagesExecute(r AiAPIPostAiMessagesRequest) (*Pos
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21510,6 +22627,8 @@ func (a *AiAPIService) PostAiMessagesExecute(r AiAPIPostAiMessagesRequest) (*Pos
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -21550,6 +22669,12 @@ func (a *AiAPIService) PostAiMessagesExecute(r AiAPIPostAiMessagesRequest) (*Pos
 type AiAPIPostAiNodesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiNodesRequest) Body(body map[string]interface{}) AiAPIPostAiNodesRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiNodesRequest) Execute() (*PostAiNodes200Response, *http.Response, error) {
@@ -21592,9 +22717,12 @@ func (a *AiAPIService) PostAiNodesExecute(r AiAPIPostAiNodesRequest) (*PostAiNod
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21610,6 +22738,8 @@ func (a *AiAPIService) PostAiNodesExecute(r AiAPIPostAiNodesRequest) (*PostAiNod
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -21652,6 +22782,12 @@ type AiAPIPostAiNodesByOwnerByNameTunnelRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiNodesByOwnerByNameTunnelRequest) Body(body map[string]interface{}) AiAPIPostAiNodesByOwnerByNameTunnelRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiNodesByOwnerByNameTunnelRequest) Execute() (*Envelope, *http.Response, error) {
@@ -21698,9 +22834,12 @@ func (a *AiAPIService) PostAiNodesByOwnerByNameTunnelExecute(r AiAPIPostAiNodesB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -21716,6 +22855,8 @@ func (a *AiAPIService) PostAiNodesByOwnerByNameTunnelExecute(r AiAPIPostAiNodesB
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -21774,11 +22915,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -21896,11 +23036,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -22000,6 +23139,12 @@ func (a *AiAPIService) PostAiOrgSettingsListExecute(r AiAPIPostAiOrgSettingsList
 type AiAPIPostAiProvidersRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiProvidersRequest) Body(body map[string]interface{}) AiAPIPostAiProvidersRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiProvidersRequest) Execute() (*PostAiProviders200Response, *http.Response, error) {
@@ -22042,9 +23187,12 @@ func (a *AiAPIService) PostAiProvidersExecute(r AiAPIPostAiProvidersRequest) (*P
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -22060,6 +23208,8 @@ func (a *AiAPIService) PostAiProvidersExecute(r AiAPIPostAiProvidersRequest) (*P
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -22100,6 +23250,12 @@ func (a *AiAPIService) PostAiProvidersExecute(r AiAPIPostAiProvidersRequest) (*P
 type AiAPIPostAiProvidersMcpToolsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiProvidersMcpToolsRequest) Body(body map[string]interface{}) AiAPIPostAiProvidersMcpToolsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiProvidersMcpToolsRequest) Execute() (*Envelope, *http.Response, error) {
@@ -22140,9 +23296,12 @@ func (a *AiAPIService) PostAiProvidersMcpToolsExecute(r AiAPIPostAiProvidersMcpT
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -22158,6 +23317,8 @@ func (a *AiAPIService) PostAiProvidersMcpToolsExecute(r AiAPIPostAiProvidersMcpT
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -22714,6 +23875,12 @@ func (a *AiAPIService) PostAiRagQueryMultipleExecute(r AiAPIPostAiRagQueryMultip
 type AiAPIPostAiRecordsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiRecordsRequest) Body(body map[string]interface{}) AiAPIPostAiRecordsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiRecordsRequest) Execute() (*PostAiRecords200Response, *http.Response, error) {
@@ -22756,9 +23923,12 @@ func (a *AiAPIService) PostAiRecordsExecute(r AiAPIPostAiRecordsRequest) (*PostA
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -22774,6 +23944,8 @@ func (a *AiAPIService) PostAiRecordsExecute(r AiAPIPostAiRecordsRequest) (*PostA
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -22814,6 +23986,12 @@ func (a *AiAPIService) PostAiRecordsExecute(r AiAPIPostAiRecordsRequest) (*PostA
 type AiAPIPostAiRecordsBatchRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiRecordsBatchRequest) Body(body map[string]interface{}) AiAPIPostAiRecordsBatchRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiRecordsBatchRequest) Execute() (*Envelope, *http.Response, error) {
@@ -22854,9 +24032,12 @@ func (a *AiAPIService) PostAiRecordsBatchExecute(r AiAPIPostAiRecordsBatchReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -22872,6 +24053,8 @@ func (a *AiAPIService) PostAiRecordsBatchExecute(r AiAPIPostAiRecordsBatchReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -22912,6 +24095,12 @@ func (a *AiAPIService) PostAiRecordsBatchExecute(r AiAPIPostAiRecordsBatchReques
 type AiAPIPostAiRecordsCommitRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiRecordsCommitRequest) Body(body map[string]interface{}) AiAPIPostAiRecordsCommitRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiRecordsCommitRequest) Execute() (*Envelope, *http.Response, error) {
@@ -22952,9 +24141,12 @@ func (a *AiAPIService) PostAiRecordsCommitExecute(r AiAPIPostAiRecordsCommitRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -22970,6 +24162,8 @@ func (a *AiAPIService) PostAiRecordsCommitExecute(r AiAPIPostAiRecordsCommitRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -23010,6 +24204,12 @@ func (a *AiAPIService) PostAiRecordsCommitExecute(r AiAPIPostAiRecordsCommitRequ
 type AiAPIPostAiRecordsCommitSecondRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiRecordsCommitSecondRequest) Body(body map[string]interface{}) AiAPIPostAiRecordsCommitSecondRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiRecordsCommitSecondRequest) Execute() (*Envelope, *http.Response, error) {
@@ -23050,9 +24250,12 @@ func (a *AiAPIService) PostAiRecordsCommitSecondExecute(r AiAPIPostAiRecordsComm
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -23068,6 +24271,8 @@ func (a *AiAPIService) PostAiRecordsCommitSecondExecute(r AiAPIPostAiRecordsComm
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -23108,6 +24313,12 @@ func (a *AiAPIService) PostAiRecordsCommitSecondExecute(r AiAPIPostAiRecordsComm
 type AiAPIPostAiRemoteConnectionsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiRemoteConnectionsRequest) Body(body map[string]interface{}) AiAPIPostAiRemoteConnectionsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiRemoteConnectionsRequest) Execute() (*PostAiRemoteConnections200Response, *http.Response, error) {
@@ -23150,9 +24361,12 @@ func (a *AiAPIService) PostAiRemoteConnectionsExecute(r AiAPIPostAiRemoteConnect
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -23168,6 +24382,8 @@ func (a *AiAPIService) PostAiRemoteConnectionsExecute(r AiAPIPostAiRemoteConnect
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -23210,6 +24426,12 @@ type AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest) Body(body map[string]interface{}) AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiRemoteConnectionsByOwnerByNameStartRequest) Execute() (*Envelope, *http.Response, error) {
@@ -23256,9 +24478,12 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStartExecute(r AiAPIP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -23274,6 +24499,8 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStartExecute(r AiAPIP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -23316,6 +24543,12 @@ type AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest) Body(body map[string]interface{}) AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiRemoteConnectionsByOwnerByNameStopRequest) Execute() (*Envelope, *http.Response, error) {
@@ -23362,9 +24595,12 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStopExecute(r AiAPIPo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -23380,6 +24616,8 @@ func (a *AiAPIService) PostAiRemoteConnectionsByOwnerByNameStopExecute(r AiAPIPo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -23438,11 +24676,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -23539,6 +24776,342 @@ func (a *AiAPIService) PostAiRouterArtifactMetaExecute(r AiAPIPostAiRouterArtifa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type AiAPIPostAiRouterCatalogProposeRequest struct {
+	ctx           context.Context
+	ApiService    *AiAPIService
+	aiRoutingEdit *AiRoutingEdit
+}
+
+func (r AiAPIPostAiRouterCatalogProposeRequest) AiRoutingEdit(aiRoutingEdit AiRoutingEdit) AiAPIPostAiRouterCatalogProposeRequest {
+	r.aiRoutingEdit = &aiRoutingEdit
+	return r
+}
+
+func (r AiAPIPostAiRouterCatalogProposeRequest) Execute() (*PostAiRouterCatalogPropose200Response, *http.Response, error) {
+	return r.ApiService.PostAiRouterCatalogProposeExecute(r)
+}
+
+/*
+PostAiRouterCatalogPropose Answers the diff an edited catalog would apply to a family, and the version it would be made from.
+
+Answers the diff an edited catalog would apply to a family,
+and the version it would be made from. Nothing is applied. SuperAdmin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRouterCatalogProposeRequest
+*/
+func (a *AiAPIService) PostAiRouterCatalogPropose(ctx context.Context) AiAPIPostAiRouterCatalogProposeRequest {
+	return AiAPIPostAiRouterCatalogProposeRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PostAiRouterCatalogPropose200Response
+func (a *AiAPIService) PostAiRouterCatalogProposeExecute(r AiAPIPostAiRouterCatalogProposeRequest) (*PostAiRouterCatalogPropose200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PostAiRouterCatalogPropose200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRouterCatalogPropose")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/catalog/propose"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.aiRoutingEdit == nil {
+		return localVarReturnValue, nil, reportError("aiRoutingEdit is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.aiRoutingEdit
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiRouterCatalogRollbackRequest struct {
+	ctx           context.Context
+	ApiService    *AiAPIService
+	aiRoutingEdit *AiRoutingEdit
+}
+
+func (r AiAPIPostAiRouterCatalogRollbackRequest) AiRoutingEdit(aiRoutingEdit AiRoutingEdit) AiAPIPostAiRouterCatalogRollbackRequest {
+	r.aiRoutingEdit = &aiRoutingEdit
+	return r
+}
+
+func (r AiAPIPostAiRouterCatalogRollbackRequest) Execute() (*PutAiRouterCatalog200Response, *http.Response, error) {
+	return r.ApiService.PostAiRouterCatalogRollbackExecute(r)
+}
+
+/*
+PostAiRouterCatalogRollback Applies an earlier version of a family's catalog again, as a new version.
+
+Applies an earlier version of a family's catalog again, as
+a new version. SuperAdmin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRouterCatalogRollbackRequest
+*/
+func (a *AiAPIService) PostAiRouterCatalogRollback(ctx context.Context) AiAPIPostAiRouterCatalogRollbackRequest {
+	return AiAPIPostAiRouterCatalogRollbackRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PutAiRouterCatalog200Response
+func (a *AiAPIService) PostAiRouterCatalogRollbackExecute(r AiAPIPostAiRouterCatalogRollbackRequest) (*PutAiRouterCatalog200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PutAiRouterCatalog200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRouterCatalogRollback")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/catalog/rollback"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.aiRoutingEdit == nil {
+		return localVarReturnValue, nil, reportError("aiRoutingEdit is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.aiRoutingEdit
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIPostAiRouterCatalogTestRequest struct {
+	ctx           context.Context
+	ApiService    *AiAPIService
+	aiRoutingEdit *AiRoutingEdit
+}
+
+func (r AiAPIPostAiRouterCatalogTestRequest) AiRoutingEdit(aiRoutingEdit AiRoutingEdit) AiAPIPostAiRouterCatalogTestRequest {
+	r.aiRoutingEdit = &aiRoutingEdit
+	return r
+}
+
+func (r AiAPIPostAiRouterCatalogTestRequest) Execute() (*PostAiRouterCatalogTest200Response, *http.Response, error) {
+	return r.ApiService.PostAiRouterCatalogTestExecute(r)
+}
+
+/*
+PostAiRouterCatalogTest Sends one short turn to a SKU through its family and answers which upstream wrote it and how long it took.
+
+Sends one short turn to a SKU through its family and answers
+which upstream wrote it and how long it took. SuperAdmin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAiRouterCatalogTestRequest
+*/
+func (a *AiAPIService) PostAiRouterCatalogTest(ctx context.Context) AiAPIPostAiRouterCatalogTestRequest {
+	return AiAPIPostAiRouterCatalogTestRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PostAiRouterCatalogTest200Response
+func (a *AiAPIService) PostAiRouterCatalogTestExecute(r AiAPIPostAiRouterCatalogTestRequest) (*PostAiRouterCatalogTest200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PostAiRouterCatalogTest200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAiRouterCatalogTest")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/catalog/test"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.aiRoutingEdit == nil {
+		return localVarReturnValue, nil, reportError("aiRoutingEdit is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.aiRoutingEdit
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type AiAPIPostAiRouterDefaultsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -23560,11 +25133,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -23682,11 +25254,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -23804,11 +25375,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -23926,11 +25496,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -24030,6 +25599,12 @@ func (a *AiAPIService) PostAiRouterRewardsExecute(r AiAPIPostAiRouterRewardsRequ
 type AiAPIPostAiRoutesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiRoutesRequest) Body(body map[string]interface{}) AiAPIPostAiRoutesRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiRoutesRequest) Execute() (*PostAiRoutes200Response, *http.Response, error) {
@@ -24072,9 +25647,12 @@ func (a *AiAPIService) PostAiRoutesExecute(r AiAPIPostAiRoutesRequest) (*PostAiR
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -24090,6 +25668,8 @@ func (a *AiAPIService) PostAiRoutesExecute(r AiAPIPostAiRoutesRequest) (*PostAiR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -24130,6 +25710,12 @@ func (a *AiAPIService) PostAiRoutesExecute(r AiAPIPostAiRoutesRequest) (*PostAiR
 type AiAPIPostAiScalesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiScalesRequest) Body(body map[string]interface{}) AiAPIPostAiScalesRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiScalesRequest) Execute() (*PostAiScales200Response, *http.Response, error) {
@@ -24172,9 +25758,12 @@ func (a *AiAPIService) PostAiScalesExecute(r AiAPIPostAiScalesRequest) (*PostAiS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -24190,6 +25779,8 @@ func (a *AiAPIService) PostAiScalesExecute(r AiAPIPostAiScalesRequest) (*PostAiS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -24230,6 +25821,12 @@ func (a *AiAPIService) PostAiScalesExecute(r AiAPIPostAiScalesRequest) (*PostAiS
 type AiAPIPostAiScansRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiScansRequest) Body(body map[string]interface{}) AiAPIPostAiScansRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiScansRequest) Execute() (*PostAiScans200Response, *http.Response, error) {
@@ -24272,9 +25869,12 @@ func (a *AiAPIService) PostAiScansExecute(r AiAPIPostAiScansRequest) (*PostAiSca
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -24290,6 +25890,8 @@ func (a *AiAPIService) PostAiScansExecute(r AiAPIPostAiScansRequest) (*PostAiSca
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -24330,6 +25932,12 @@ func (a *AiAPIService) PostAiScansExecute(r AiAPIPostAiScansRequest) (*PostAiSca
 type AiAPIPostAiSigninRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiSigninRequest) Body(body map[string]interface{}) AiAPIPostAiSigninRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiSigninRequest) Execute() (*Envelope, *http.Response, error) {
@@ -24370,9 +25978,12 @@ func (a *AiAPIService) PostAiSigninExecute(r AiAPIPostAiSigninRequest) (*Envelop
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -24388,6 +25999,8 @@ func (a *AiAPIService) PostAiSigninExecute(r AiAPIPostAiSigninRequest) (*Envelop
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -24428,6 +26041,12 @@ func (a *AiAPIService) PostAiSigninExecute(r AiAPIPostAiSigninRequest) (*Envelop
 type AiAPIPostAiSigninSessionsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiSigninSessionsRequest) Body(body map[string]interface{}) AiAPIPostAiSigninSessionsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiSigninSessionsRequest) Execute() (*PostAiSigninSessions200Response, *http.Response, error) {
@@ -24470,9 +26089,12 @@ func (a *AiAPIService) PostAiSigninSessionsExecute(r AiAPIPostAiSigninSessionsRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -24488,6 +26110,8 @@ func (a *AiAPIService) PostAiSigninSessionsExecute(r AiAPIPostAiSigninSessionsRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -24528,6 +26152,12 @@ func (a *AiAPIService) PostAiSigninSessionsExecute(r AiAPIPostAiSigninSessionsRe
 type AiAPIPostAiSignoutRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiSignoutRequest) Body(body map[string]interface{}) AiAPIPostAiSignoutRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiSignoutRequest) Execute() (*Envelope, *http.Response, error) {
@@ -24568,9 +26198,12 @@ func (a *AiAPIService) PostAiSignoutExecute(r AiAPIPostAiSignoutRequest) (*Envel
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -24586,6 +26219,8 @@ func (a *AiAPIService) PostAiSignoutExecute(r AiAPIPostAiSignoutRequest) (*Envel
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -24626,6 +26261,12 @@ func (a *AiAPIService) PostAiSignoutExecute(r AiAPIPostAiSignoutRequest) (*Envel
 type AiAPIPostAiStoresRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiStoresRequest) Body(body map[string]interface{}) AiAPIPostAiStoresRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiStoresRequest) Execute() (*PostAiStores200Response, *http.Response, error) {
@@ -24668,9 +26309,12 @@ func (a *AiAPIService) PostAiStoresExecute(r AiAPIPostAiStoresRequest) (*PostAiS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -24686,6 +26330,8 @@ func (a *AiAPIService) PostAiStoresExecute(r AiAPIPostAiStoresRequest) (*PostAiS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -24728,6 +26374,12 @@ type AiAPIPostAiStoresByOwnerByNameVectorsRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiStoresByOwnerByNameVectorsRequest) Body(body map[string]interface{}) AiAPIPostAiStoresByOwnerByNameVectorsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiStoresByOwnerByNameVectorsRequest) Execute() (*Envelope, *http.Response, error) {
@@ -24774,9 +26426,12 @@ func (a *AiAPIService) PostAiStoresByOwnerByNameVectorsExecute(r AiAPIPostAiStor
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -24792,6 +26447,8 @@ func (a *AiAPIService) PostAiStoresByOwnerByNameVectorsExecute(r AiAPIPostAiStor
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -24832,6 +26489,12 @@ func (a *AiAPIService) PostAiStoresByOwnerByNameVectorsExecute(r AiAPIPostAiStor
 type AiAPIPostAiTasksRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiTasksRequest) Body(body map[string]interface{}) AiAPIPostAiTasksRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiTasksRequest) Execute() (*PostAiTasks200Response, *http.Response, error) {
@@ -24874,9 +26537,12 @@ func (a *AiAPIService) PostAiTasksExecute(r AiAPIPostAiTasksRequest) (*PostAiTas
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -24892,6 +26558,8 @@ func (a *AiAPIService) PostAiTasksExecute(r AiAPIPostAiTasksRequest) (*PostAiTas
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -24934,6 +26602,12 @@ type AiAPIPostAiTasksByOwnerByNameAnalyzeRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiTasksByOwnerByNameAnalyzeRequest) Body(body map[string]interface{}) AiAPIPostAiTasksByOwnerByNameAnalyzeRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiTasksByOwnerByNameAnalyzeRequest) Execute() (*Envelope, *http.Response, error) {
@@ -24980,9 +26654,12 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameAnalyzeExecute(r AiAPIPostAiTasks
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -24998,6 +26675,8 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameAnalyzeExecute(r AiAPIPostAiTasks
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -25040,6 +26719,12 @@ type AiAPIPostAiTasksByOwnerByNameDocumentRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiTasksByOwnerByNameDocumentRequest) Body(body map[string]interface{}) AiAPIPostAiTasksByOwnerByNameDocumentRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiTasksByOwnerByNameDocumentRequest) Execute() (*Envelope, *http.Response, error) {
@@ -25086,9 +26771,12 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameDocumentExecute(r AiAPIPostAiTask
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -25104,6 +26792,8 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameDocumentExecute(r AiAPIPostAiTask
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -25144,6 +26834,12 @@ func (a *AiAPIService) PostAiTasksByOwnerByNameDocumentExecute(r AiAPIPostAiTask
 type AiAPIPostAiTemplatesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiTemplatesRequest) Body(body map[string]interface{}) AiAPIPostAiTemplatesRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiTemplatesRequest) Execute() (*PostAiTemplates200Response, *http.Response, error) {
@@ -25186,9 +26882,12 @@ func (a *AiAPIService) PostAiTemplatesExecute(r AiAPIPostAiTemplatesRequest) (*P
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -25204,6 +26903,8 @@ func (a *AiAPIService) PostAiTemplatesExecute(r AiAPIPostAiTemplatesRequest) (*P
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -25244,6 +26945,12 @@ func (a *AiAPIService) PostAiTemplatesExecute(r AiAPIPostAiTemplatesRequest) (*P
 type AiAPIPostAiTreeFilesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiTreeFilesRequest) Body(body map[string]interface{}) AiAPIPostAiTreeFilesRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiTreeFilesRequest) Execute() (*PostAiTreeFiles200Response, *http.Response, error) {
@@ -25286,9 +26993,12 @@ func (a *AiAPIService) PostAiTreeFilesExecute(r AiAPIPostAiTreeFilesRequest) (*P
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -25304,6 +27014,8 @@ func (a *AiAPIService) PostAiTreeFilesExecute(r AiAPIPostAiTreeFilesRequest) (*P
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -25344,6 +27056,12 @@ func (a *AiAPIService) PostAiTreeFilesExecute(r AiAPIPostAiTreeFilesRequest) (*P
 type AiAPIPostAiVectorsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiVectorsRequest) Body(body map[string]interface{}) AiAPIPostAiVectorsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiVectorsRequest) Execute() (*PostAiVectors200Response, *http.Response, error) {
@@ -25386,9 +27104,12 @@ func (a *AiAPIService) PostAiVectorsExecute(r AiAPIPostAiVectorsRequest) (*PostA
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -25404,6 +27125,8 @@ func (a *AiAPIService) PostAiVectorsExecute(r AiAPIPostAiVectorsRequest) (*PostA
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -25444,6 +27167,12 @@ func (a *AiAPIService) PostAiVectorsExecute(r AiAPIPostAiVectorsRequest) (*PostA
 type AiAPIPostAiVideosRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiVideosRequest) Body(body map[string]interface{}) AiAPIPostAiVideosRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiVideosRequest) Execute() (*PostAiVideos200Response, *http.Response, error) {
@@ -25486,9 +27215,12 @@ func (a *AiAPIService) PostAiVideosExecute(r AiAPIPostAiVideosRequest) (*PostAiV
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -25504,6 +27236,8 @@ func (a *AiAPIService) PostAiVideosExecute(r AiAPIPostAiVideosRequest) (*PostAiV
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -25544,6 +27278,12 @@ func (a *AiAPIService) PostAiVideosExecute(r AiAPIPostAiVideosRequest) (*PostAiV
 type AiAPIPostAiVideosUploadRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiVideosUploadRequest) Body(body map[string]interface{}) AiAPIPostAiVideosUploadRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiVideosUploadRequest) Execute() (*Envelope, *http.Response, error) {
@@ -25584,9 +27324,12 @@ func (a *AiAPIService) PostAiVideosUploadExecute(r AiAPIPostAiVideosUploadReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -25602,6 +27345,8 @@ func (a *AiAPIService) PostAiVideosUploadExecute(r AiAPIPostAiVideosUploadReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -25642,6 +27387,12 @@ func (a *AiAPIService) PostAiVideosUploadExecute(r AiAPIPostAiVideosUploadReques
 type AiAPIPostAiWorkflowsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPostAiWorkflowsRequest) Body(body map[string]interface{}) AiAPIPostAiWorkflowsRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPostAiWorkflowsRequest) Execute() (*PostAiWorkflows200Response, *http.Response, error) {
@@ -25684,9 +27435,12 @@ func (a *AiAPIService) PostAiWorkflowsExecute(r AiAPIPostAiWorkflowsRequest) (*P
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -25702,6 +27456,8 @@ func (a *AiAPIService) PostAiWorkflowsExecute(r AiAPIPostAiWorkflowsRequest) (*P
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -26014,6 +27770,192 @@ func (a *AiAPIService) PostAudioSpeechExecute(r AiAPIPostAudioSpeechRequest) (*h
 	return localVarHTTPResponse, nil
 }
 
+type AiAPIPostAudioTranscriptRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAudioTranscriptRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAudioTranscriptExecute(r)
+}
+
+/*
+PostAudioTranscript Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+
+Serves the growing transcript over HTTP: POST opens one, POST to
+its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+The one implementation is zapTranscriptHandler below; this binds it to
+api.hanzo.ai through the in-process gateway bridge, as the router nouns are.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAudioTranscriptRequest
+*/
+func (a *AiAPIService) PostAudioTranscript(ctx context.Context) AiAPIPostAudioTranscriptRequest {
+	return AiAPIPostAudioTranscriptRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAudioTranscriptExecute(r AiAPIPostAudioTranscriptRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAudioTranscript")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/audio/transcript"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type AiAPIPostAudioTranscriptByIdRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+	id         string
+}
+
+func (r AiAPIPostAudioTranscriptByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostAudioTranscriptByIdExecute(r)
+}
+
+/*
+PostAudioTranscriptById Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+
+Serves the growing transcript over HTTP: POST opens one, POST to
+its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+The one implementation is zapTranscriptHandler below; this binds it to
+api.hanzo.ai through the in-process gateway bridge, as the router nouns are.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return AiAPIPostAudioTranscriptByIdRequest
+*/
+func (a *AiAPIService) PostAudioTranscriptById(ctx context.Context, id string) AiAPIPostAudioTranscriptByIdRequest {
+	return AiAPIPostAudioTranscriptByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *AiAPIService) PostAudioTranscriptByIdExecute(r AiAPIPostAudioTranscriptByIdRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAudioTranscriptById")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/audio/transcript/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type AiAPIPostAudioTranscriptionsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -26062,6 +28004,107 @@ func (a *AiAPIService) PostAudioTranscriptionsExecute(r AiAPIPostAudioTranscript
 	}
 
 	localVarPath := localBasePath + "/v1/audio/transcriptions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AiAPIPostAudioTranscriptionsPublicRequest struct {
+	ctx        context.Context
+	ApiService *AiAPIService
+}
+
+func (r AiAPIPostAudioTranscriptionsPublicRequest) Execute() (*OpenaiAudioResponse, *http.Response, error) {
+	return r.ApiService.PostAudioTranscriptionsPublicExecute(r)
+}
+
+/*
+PostAudioTranscriptionsPublic Transcribes up to a minute of audio for a caller with no account, on Hanzo's own transcriber, within a daily allowance per visitor.
+
+Transcribes up to a minute of audio for a caller with no
+account, on Hanzo's own transcriber, within a daily allowance per visitor.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostAudioTranscriptionsPublicRequest
+*/
+func (a *AiAPIService) PostAudioTranscriptionsPublic(ctx context.Context) AiAPIPostAudioTranscriptionsPublicRequest {
+	return AiAPIPostAudioTranscriptionsPublicRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return OpenaiAudioResponse
+func (a *AiAPIService) PostAudioTranscriptionsPublicExecute(r AiAPIPostAudioTranscriptionsPublicRequest) (*OpenaiAudioResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *OpenaiAudioResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostAudioTranscriptionsPublic")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/audio/transcriptions/public"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -26213,8 +28256,14 @@ func (a *AiAPIService) PostAudioVoiceExecute(r AiAPIPostAudioVoiceRequest) (*htt
 }
 
 type AiAPIPostChatRequest struct {
-	ctx        context.Context
-	ApiService *AiAPIService
+	ctx                         context.Context
+	ApiService                  *AiAPIService
+	openaiChatCompletionRequest *OpenaiChatCompletionRequest
+}
+
+func (r AiAPIPostChatRequest) OpenaiChatCompletionRequest(openaiChatCompletionRequest OpenaiChatCompletionRequest) AiAPIPostChatRequest {
+	r.openaiChatCompletionRequest = &openaiChatCompletionRequest
+	return r
 }
 
 func (r AiAPIPostChatRequest) Execute() (*OpenaiChatCompletionResponse, *http.Response, error) {
@@ -26257,9 +28306,12 @@ func (a *AiAPIService) PostChatExecute(r AiAPIPostChatRequest) (*OpenaiChatCompl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.openaiChatCompletionRequest == nil {
+		return localVarReturnValue, nil, reportError("openaiChatCompletionRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -26275,6 +28327,8 @@ func (a *AiAPIService) PostChatExecute(r AiAPIPostChatRequest) (*OpenaiChatCompl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.openaiChatCompletionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -26313,8 +28367,14 @@ func (a *AiAPIService) PostChatExecute(r AiAPIPostChatRequest) (*OpenaiChatCompl
 }
 
 type AiAPIPostChatCompletionsRequest struct {
-	ctx        context.Context
-	ApiService *AiAPIService
+	ctx                         context.Context
+	ApiService                  *AiAPIService
+	openaiChatCompletionRequest *OpenaiChatCompletionRequest
+}
+
+func (r AiAPIPostChatCompletionsRequest) OpenaiChatCompletionRequest(openaiChatCompletionRequest OpenaiChatCompletionRequest) AiAPIPostChatCompletionsRequest {
+	r.openaiChatCompletionRequest = &openaiChatCompletionRequest
+	return r
 }
 
 func (r AiAPIPostChatCompletionsRequest) Execute() (*OpenaiChatCompletionResponse, *http.Response, error) {
@@ -26357,9 +28417,12 @@ func (a *AiAPIService) PostChatCompletionsExecute(r AiAPIPostChatCompletionsRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.openaiChatCompletionRequest == nil {
+		return localVarReturnValue, nil, reportError("openaiChatCompletionRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -26375,6 +28438,8 @@ func (a *AiAPIService) PostChatCompletionsExecute(r AiAPIPostChatCompletionsRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.openaiChatCompletionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -26413,8 +28478,14 @@ func (a *AiAPIService) PostChatCompletionsExecute(r AiAPIPostChatCompletionsRequ
 }
 
 type AiAPIPostChatPublicRequest struct {
-	ctx        context.Context
-	ApiService *AiAPIService
+	ctx                         context.Context
+	ApiService                  *AiAPIService
+	openaiChatCompletionRequest *OpenaiChatCompletionRequest
+}
+
+func (r AiAPIPostChatPublicRequest) OpenaiChatCompletionRequest(openaiChatCompletionRequest OpenaiChatCompletionRequest) AiAPIPostChatPublicRequest {
+	r.openaiChatCompletionRequest = &openaiChatCompletionRequest
+	return r
 }
 
 func (r AiAPIPostChatPublicRequest) Execute() (*OpenaiChatCompletionResponse, *http.Response, error) {
@@ -26457,9 +28528,12 @@ func (a *AiAPIService) PostChatPublicExecute(r AiAPIPostChatPublicRequest) (*Ope
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.openaiChatCompletionRequest == nil {
+		return localVarReturnValue, nil, reportError("openaiChatCompletionRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -26475,6 +28549,8 @@ func (a *AiAPIService) PostChatPublicExecute(r AiAPIPostChatPublicRequest) (*Ope
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.openaiChatCompletionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -26513,8 +28589,14 @@ func (a *AiAPIService) PostChatPublicExecute(r AiAPIPostChatPublicRequest) (*Ope
 }
 
 type AiAPIPostCompletionsRequest struct {
-	ctx        context.Context
-	ApiService *AiAPIService
+	ctx                         context.Context
+	ApiService                  *AiAPIService
+	openaiChatCompletionRequest *OpenaiChatCompletionRequest
+}
+
+func (r AiAPIPostCompletionsRequest) OpenaiChatCompletionRequest(openaiChatCompletionRequest OpenaiChatCompletionRequest) AiAPIPostCompletionsRequest {
+	r.openaiChatCompletionRequest = &openaiChatCompletionRequest
+	return r
 }
 
 func (r AiAPIPostCompletionsRequest) Execute() (*OpenaiChatCompletionResponse, *http.Response, error) {
@@ -26557,9 +28639,12 @@ func (a *AiAPIService) PostCompletionsExecute(r AiAPIPostCompletionsRequest) (*O
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.openaiChatCompletionRequest == nil {
+		return localVarReturnValue, nil, reportError("openaiChatCompletionRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -26575,6 +28660,8 @@ func (a *AiAPIService) PostCompletionsExecute(r AiAPIPostCompletionsRequest) (*O
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.openaiChatCompletionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -26612,9 +28699,258 @@ func (a *AiAPIService) PostCompletionsExecute(r AiAPIPostCompletionsRequest) (*O
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type AiAPIPostDecisionsRequest struct {
+	ctx                context.Context
+	ApiService         *AiAPIService
+	aiDecisionsRequest *AiDecisionsRequest
+}
+
+func (r AiAPIPostDecisionsRequest) AiDecisionsRequest(aiDecisionsRequest AiDecisionsRequest) AiAPIPostDecisionsRequest {
+	r.aiDecisionsRequest = &aiDecisionsRequest
+	return r
+}
+
+func (r AiAPIPostDecisionsRequest) Execute() (*AiDecisionsResponse, *http.Response, error) {
+	return r.ApiService.PostDecisionsExecute(r)
+}
+
+/*
+PostDecisions Implements POST /v1/decisions (the Decisions API).
+
+Implements POST /v1/decisions (the Decisions API).
+
+Body: {"model": "kai", "state": "..."|{...}|[...], "questions": {"<name>":
+{"type": "choice"|"noul"|"score", "instructions": ..., "criteria": ...}}}.
+model is kai, Kai's versioned id kai-<12 hex of the weights' sha256> — priced as
+kai and sent as asked — or Jev by OpenRouter's vendor ids, typesafe/jev-1.13 and
+~typesafe/jev-latest, which reach Jev itself and bill at Jev's list price. No Jev
+id is ever answered by Kai: a bare one, such as jev-latest, is an unknown model.
+model is required; state and questions are required unless the request names a
+handle, which carries neither. instructions is optional and any JSON. A choice
+names at least 2 labels and a score at least 1 level, bounded by the token
+budget rather than a count; questions holds 1 to 100.
+
+observe holds the state under an id, and a later request naming that id as its
+handle decides over it again. An id is 1 to 128 characters of A-Z, a-z, 0-9, '.',
+'_' and '-'. A handle belongs to the org that observed it: no other org's request
+can name it.
+
+Response: {"id","model","provider","answers":{"<name>":{"type",...}},
+"usage":{"input_tokens","output_tokens"},"routing","state_hash","latency_ms"}.
+usage.input_tokens is the billed count — the request's text counted once, the
+state once and each question's instructions and options once; a decision over a
+handle bills the state once, when it was observed.
+
+The body may be sent gzip, deflate, br or zstd encoded; decoded, it is bounded as
+sent.
+
+Refusals are {"error":{"code","message"}}: 400 malformed JSON or unknown model,
+401 no valid credential, 402 insufficient balance, 403 a key kind that may not
+call this (pk-), 415 any other Content-Encoding, 422 an invalid question or handle
+id, a state beyond the checkpoint's reach (code state_too_long) or a body past 16
+MiB (code request_too_long), 429 rate limited or queue full, 502 the service
+failed, 503 the model is known and not served, 529 overloaded. 402, 429 and 529
+carry Retry-After and Retry-After-Ms, and every answer carries X-Request-Id.
+Billed on the answer's input tokens at the model's price.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPostDecisionsRequest
+*/
+func (a *AiAPIService) PostDecisions(ctx context.Context) AiAPIPostDecisionsRequest {
+	return AiAPIPostDecisionsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AiDecisionsResponse
+func (a *AiAPIService) PostDecisionsExecute(r AiAPIPostDecisionsRequest) (*AiDecisionsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AiDecisionsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PostDecisions")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/decisions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.aiDecisionsRequest == nil {
+		return localVarReturnValue, nil, reportError("aiDecisionsRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.aiDecisionsRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v AiDecisionsRefused
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v AiDecisionsRefused
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 402 {
+			var v AiDecisionsRefused
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v AiDecisionsRefused
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v AiDecisionsRefused
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v AiDecisionsRefused
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 502 {
+			var v AiDecisionsRefused
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v AiDecisionsRefused
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 529 {
+			var v AiDecisionsRefused
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type AiAPIPostEmbeddingsRequest struct {
-	ctx        context.Context
-	ApiService *AiAPIService
+	ctx                    context.Context
+	ApiService             *AiAPIService
+	openaiEmbeddingRequest *OpenaiEmbeddingRequest
+}
+
+func (r AiAPIPostEmbeddingsRequest) OpenaiEmbeddingRequest(openaiEmbeddingRequest OpenaiEmbeddingRequest) AiAPIPostEmbeddingsRequest {
+	r.openaiEmbeddingRequest = &openaiEmbeddingRequest
+	return r
 }
 
 func (r AiAPIPostEmbeddingsRequest) Execute() (*OpenaiEmbeddingResponse, *http.Response, error) {
@@ -26662,9 +28998,12 @@ func (a *AiAPIService) PostEmbeddingsExecute(r AiAPIPostEmbeddingsRequest) (*Ope
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.openaiEmbeddingRequest == nil {
+		return localVarReturnValue, nil, reportError("openaiEmbeddingRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -26680,6 +29019,8 @@ func (a *AiAPIService) PostEmbeddingsExecute(r AiAPIPostEmbeddingsRequest) (*Ope
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.openaiEmbeddingRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -26827,8 +29168,14 @@ func (a *AiAPIService) PostImagesGenerationsExecute(r AiAPIPostImagesGenerations
 }
 
 type AiAPIPostMessagesRequest struct {
-	ctx        context.Context
-	ApiService *AiAPIService
+	ctx                context.Context
+	ApiService         *AiAPIService
+	aiAnthropicRequest *AiAnthropicRequest
+}
+
+func (r AiAPIPostMessagesRequest) AiAnthropicRequest(aiAnthropicRequest AiAnthropicRequest) AiAPIPostMessagesRequest {
+	r.aiAnthropicRequest = &aiAnthropicRequest
+	return r
 }
 
 func (r AiAPIPostMessagesRequest) Execute() (*AiAnthropicResponse, *http.Response, error) {
@@ -26871,9 +29218,12 @@ func (a *AiAPIService) PostMessagesExecute(r AiAPIPostMessagesRequest) (*AiAnthr
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.aiAnthropicRequest == nil {
+		return localVarReturnValue, nil, reportError("aiAnthropicRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -26889,6 +29239,8 @@ func (a *AiAPIService) PostMessagesExecute(r AiAPIPostMessagesRequest) (*AiAnthr
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.aiAnthropicRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -27466,6 +29818,12 @@ type AiAPIPutAiArticlesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiArticlesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiArticlesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiArticlesByOwnerByNameRequest) Execute() (*PostAiArticles200Response, *http.Response, error) {
@@ -27514,9 +29872,12 @@ func (a *AiAPIService) PutAiArticlesByOwnerByNameExecute(r AiAPIPutAiArticlesByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -27532,6 +29893,8 @@ func (a *AiAPIService) PutAiArticlesByOwnerByNameExecute(r AiAPIPutAiArticlesByO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -27574,6 +29937,12 @@ type AiAPIPutAiAssetsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiAssetsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiAssetsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiAssetsByOwnerByNameRequest) Execute() (*PostAiAssets200Response, *http.Response, error) {
@@ -27622,9 +29991,12 @@ func (a *AiAPIService) PutAiAssetsByOwnerByNameExecute(r AiAPIPutAiAssetsByOwner
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -27640,6 +30012,8 @@ func (a *AiAPIService) PutAiAssetsByOwnerByNameExecute(r AiAPIPutAiAssetsByOwner
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -27682,6 +30056,12 @@ type AiAPIPutAiChatsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiChatsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiChatsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiChatsByOwnerByNameRequest) Execute() (*PostAiChats200Response, *http.Response, error) {
@@ -27730,9 +30110,12 @@ func (a *AiAPIService) PutAiChatsByOwnerByNameExecute(r AiAPIPutAiChatsByOwnerBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -27748,6 +30131,8 @@ func (a *AiAPIService) PutAiChatsByOwnerByNameExecute(r AiAPIPutAiChatsByOwnerBy
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -27790,6 +30175,12 @@ type AiAPIPutAiDeploymentsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiDeploymentsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiDeploymentsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiDeploymentsByOwnerByNameRequest) Execute() (*PostAiDeployments200Response, *http.Response, error) {
@@ -27838,9 +30229,12 @@ func (a *AiAPIService) PutAiDeploymentsByOwnerByNameExecute(r AiAPIPutAiDeployme
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -27856,6 +30250,8 @@ func (a *AiAPIService) PutAiDeploymentsByOwnerByNameExecute(r AiAPIPutAiDeployme
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -27898,6 +30294,12 @@ type AiAPIPutAiFilesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiFilesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiFilesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiFilesByOwnerByNameRequest) Execute() (*PostAiFiles200Response, *http.Response, error) {
@@ -27946,9 +30348,12 @@ func (a *AiAPIService) PutAiFilesByOwnerByNameExecute(r AiAPIPutAiFilesByOwnerBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -27964,6 +30369,8 @@ func (a *AiAPIService) PutAiFilesByOwnerByNameExecute(r AiAPIPutAiFilesByOwnerBy
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -28006,6 +30413,12 @@ type AiAPIPutAiFormsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiFormsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiFormsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiFormsByOwnerByNameRequest) Execute() (*PostAiForms200Response, *http.Response, error) {
@@ -28054,9 +30467,12 @@ func (a *AiAPIService) PutAiFormsByOwnerByNameExecute(r AiAPIPutAiFormsByOwnerBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -28072,6 +30488,8 @@ func (a *AiAPIService) PutAiFormsByOwnerByNameExecute(r AiAPIPutAiFormsByOwnerBy
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -28114,6 +30532,12 @@ type AiAPIPutAiGraphsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiGraphsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiGraphsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiGraphsByOwnerByNameRequest) Execute() (*PostAiGraphs200Response, *http.Response, error) {
@@ -28162,9 +30586,12 @@ func (a *AiAPIService) PutAiGraphsByOwnerByNameExecute(r AiAPIPutAiGraphsByOwner
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -28180,6 +30607,8 @@ func (a *AiAPIService) PutAiGraphsByOwnerByNameExecute(r AiAPIPutAiGraphsByOwner
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -28222,6 +30651,12 @@ type AiAPIPutAiMessagesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiMessagesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiMessagesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiMessagesByOwnerByNameRequest) Execute() (*PostAiMessages200Response, *http.Response, error) {
@@ -28270,9 +30705,12 @@ func (a *AiAPIService) PutAiMessagesByOwnerByNameExecute(r AiAPIPutAiMessagesByO
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -28288,6 +30726,8 @@ func (a *AiAPIService) PutAiMessagesByOwnerByNameExecute(r AiAPIPutAiMessagesByO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -28330,6 +30770,12 @@ type AiAPIPutAiNodesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiNodesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiNodesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiNodesByOwnerByNameRequest) Execute() (*PostAiNodes200Response, *http.Response, error) {
@@ -28378,9 +30824,12 @@ func (a *AiAPIService) PutAiNodesByOwnerByNameExecute(r AiAPIPutAiNodesByOwnerBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -28396,6 +30845,8 @@ func (a *AiAPIService) PutAiNodesByOwnerByNameExecute(r AiAPIPutAiNodesByOwnerBy
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -28454,11 +30905,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -28576,11 +31026,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -28680,6 +31129,12 @@ func (a *AiAPIService) PutAiOrgSettingsListExecute(r AiAPIPutAiOrgSettingsListRe
 type AiAPIPutAiPreferencesRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiPreferencesRequest) Body(body map[string]interface{}) AiAPIPutAiPreferencesRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiPreferencesRequest) Execute() (*Envelope, *http.Response, error) {
@@ -28720,9 +31175,12 @@ func (a *AiAPIService) PutAiPreferencesExecute(r AiAPIPutAiPreferencesRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -28738,6 +31196,8 @@ func (a *AiAPIService) PutAiPreferencesExecute(r AiAPIPutAiPreferencesRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -28780,6 +31240,12 @@ type AiAPIPutAiProvidersByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiProvidersByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiProvidersByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiProvidersByOwnerByNameRequest) Execute() (*PostAiProviders200Response, *http.Response, error) {
@@ -28828,9 +31294,12 @@ func (a *AiAPIService) PutAiProvidersByOwnerByNameExecute(r AiAPIPutAiProvidersB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -28846,6 +31315,8 @@ func (a *AiAPIService) PutAiProvidersByOwnerByNameExecute(r AiAPIPutAiProvidersB
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -28888,6 +31359,12 @@ type AiAPIPutAiRecordsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiRecordsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiRecordsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiRecordsByOwnerByNameRequest) Execute() (*PostAiRecords200Response, *http.Response, error) {
@@ -28936,9 +31413,12 @@ func (a *AiAPIService) PutAiRecordsByOwnerByNameExecute(r AiAPIPutAiRecordsByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -28954,6 +31434,8 @@ func (a *AiAPIService) PutAiRecordsByOwnerByNameExecute(r AiAPIPutAiRecordsByOwn
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -28996,6 +31478,12 @@ type AiAPIPutAiRemoteConnectionsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiRemoteConnectionsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiRemoteConnectionsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiRemoteConnectionsByOwnerByNameRequest) Execute() (*PostAiRemoteConnections200Response, *http.Response, error) {
@@ -29044,9 +31532,12 @@ func (a *AiAPIService) PutAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPutAiRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -29062,6 +31553,8 @@ func (a *AiAPIService) PutAiRemoteConnectionsByOwnerByNameExecute(r AiAPIPutAiRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -29120,11 +31613,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -29221,6 +31713,118 @@ func (a *AiAPIService) PutAiRouterArtifactMetaExecute(r AiAPIPutAiRouterArtifact
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type AiAPIPutAiRouterCatalogRequest struct {
+	ctx           context.Context
+	ApiService    *AiAPIService
+	aiRoutingEdit *AiRoutingEdit
+}
+
+func (r AiAPIPutAiRouterCatalogRequest) AiRoutingEdit(aiRoutingEdit AiRoutingEdit) AiAPIPutAiRouterCatalogRequest {
+	r.aiRoutingEdit = &aiRoutingEdit
+	return r
+}
+
+func (r AiAPIPutAiRouterCatalogRequest) Execute() (*PutAiRouterCatalog200Response, *http.Response, error) {
+	return r.ApiService.PutAiRouterCatalogExecute(r)
+}
+
+/*
+PutAiRouterCatalog Applies an edited catalog to one family, made from its newest version, and records the new version.
+
+Applies an edited catalog to one family, made from its newest
+version, and records the new version. SuperAdmin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return AiAPIPutAiRouterCatalogRequest
+*/
+func (a *AiAPIService) PutAiRouterCatalog(ctx context.Context) AiAPIPutAiRouterCatalogRequest {
+	return AiAPIPutAiRouterCatalogRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PutAiRouterCatalog200Response
+func (a *AiAPIService) PutAiRouterCatalogExecute(r AiAPIPutAiRouterCatalogRequest) (*PutAiRouterCatalog200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PutAiRouterCatalog200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AiAPIService.PutAiRouterCatalog")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/ai/router/catalog"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.aiRoutingEdit == nil {
+		return localVarReturnValue, nil, reportError("aiRoutingEdit is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.aiRoutingEdit
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type AiAPIPutAiRouterDefaultsRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
@@ -29242,11 +31846,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -29364,11 +31967,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -29486,11 +32088,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -29608,11 +32209,10 @@ handler is the ONE and ONLY implementation of these routes; this is purely the
 api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the
 split-brain the router refactor removed stays removed.
 
-Why a bridge and not a twin controller method: every other migrated route
-(get-records, get-connections, …) carries BOTH a controller method and a
-ZAP handler — the exact dual-impl drift that silently NULLed customer router
-settings (the update-router-policy data-wipe). Routing these nouns through the
-ZAP handler over one adapter keeps a single source of truth.
+Why a bridge and not a twin controller method: one handler serves both
+transports, so the HTTP route and the ZAP message read and write router settings
+through the same code and cannot come to disagree about them. Routing these nouns
+through the ZAP handler over one adapter keeps a single source of truth.
 
 Identity is the request's own Bearer credential (Authorization header), which
 the native handlers resolve exactly as the gateway does — every caller
@@ -29714,6 +32314,12 @@ type AiAPIPutAiRoutesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiRoutesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiRoutesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiRoutesByOwnerByNameRequest) Execute() (*PostAiRoutes200Response, *http.Response, error) {
@@ -29762,9 +32368,12 @@ func (a *AiAPIService) PutAiRoutesByOwnerByNameExecute(r AiAPIPutAiRoutesByOwner
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -29780,6 +32389,8 @@ func (a *AiAPIService) PutAiRoutesByOwnerByNameExecute(r AiAPIPutAiRoutesByOwner
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -29822,6 +32433,12 @@ type AiAPIPutAiScalesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiScalesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiScalesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiScalesByOwnerByNameRequest) Execute() (*PostAiScales200Response, *http.Response, error) {
@@ -29870,9 +32487,12 @@ func (a *AiAPIService) PutAiScalesByOwnerByNameExecute(r AiAPIPutAiScalesByOwner
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -29888,6 +32508,8 @@ func (a *AiAPIService) PutAiScalesByOwnerByNameExecute(r AiAPIPutAiScalesByOwner
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -29930,6 +32552,12 @@ type AiAPIPutAiScansByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiScansByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiScansByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiScansByOwnerByNameRequest) Execute() (*PostAiScans200Response, *http.Response, error) {
@@ -29978,9 +32606,12 @@ func (a *AiAPIService) PutAiScansByOwnerByNameExecute(r AiAPIPutAiScansByOwnerBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -29996,6 +32627,8 @@ func (a *AiAPIService) PutAiScansByOwnerByNameExecute(r AiAPIPutAiScansByOwnerBy
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -30038,6 +32671,12 @@ type AiAPIPutAiSigninSessionsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiSigninSessionsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiSigninSessionsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiSigninSessionsByOwnerByNameRequest) Execute() (*PostAiSigninSessions200Response, *http.Response, error) {
@@ -30086,9 +32725,12 @@ func (a *AiAPIService) PutAiSigninSessionsByOwnerByNameExecute(r AiAPIPutAiSigni
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -30104,6 +32746,8 @@ func (a *AiAPIService) PutAiSigninSessionsByOwnerByNameExecute(r AiAPIPutAiSigni
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -30146,6 +32790,12 @@ type AiAPIPutAiStoresByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiStoresByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiStoresByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiStoresByOwnerByNameRequest) Execute() (*PostAiStores200Response, *http.Response, error) {
@@ -30194,9 +32844,12 @@ func (a *AiAPIService) PutAiStoresByOwnerByNameExecute(r AiAPIPutAiStoresByOwner
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -30212,6 +32865,8 @@ func (a *AiAPIService) PutAiStoresByOwnerByNameExecute(r AiAPIPutAiStoresByOwner
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -30254,6 +32909,12 @@ type AiAPIPutAiTasksByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiTasksByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiTasksByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiTasksByOwnerByNameRequest) Execute() (*PostAiTasks200Response, *http.Response, error) {
@@ -30302,9 +32963,12 @@ func (a *AiAPIService) PutAiTasksByOwnerByNameExecute(r AiAPIPutAiTasksByOwnerBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -30320,6 +32984,8 @@ func (a *AiAPIService) PutAiTasksByOwnerByNameExecute(r AiAPIPutAiTasksByOwnerBy
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -30362,6 +33028,12 @@ type AiAPIPutAiTemplatesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiTemplatesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiTemplatesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiTemplatesByOwnerByNameRequest) Execute() (*PostAiTemplates200Response, *http.Response, error) {
@@ -30410,9 +33082,12 @@ func (a *AiAPIService) PutAiTemplatesByOwnerByNameExecute(r AiAPIPutAiTemplatesB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -30428,6 +33103,8 @@ func (a *AiAPIService) PutAiTemplatesByOwnerByNameExecute(r AiAPIPutAiTemplatesB
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -30468,6 +33145,12 @@ func (a *AiAPIService) PutAiTemplatesByOwnerByNameExecute(r AiAPIPutAiTemplatesB
 type AiAPIPutAiTrainingContributionRequest struct {
 	ctx        context.Context
 	ApiService *AiAPIService
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiTrainingContributionRequest) Body(body map[string]interface{}) AiAPIPutAiTrainingContributionRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiTrainingContributionRequest) Execute() (*Envelope, *http.Response, error) {
@@ -30508,9 +33191,12 @@ func (a *AiAPIService) PutAiTrainingContributionExecute(r AiAPIPutAiTrainingCont
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -30526,6 +33212,8 @@ func (a *AiAPIService) PutAiTrainingContributionExecute(r AiAPIPutAiTrainingCont
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -30568,6 +33256,12 @@ type AiAPIPutAiTreeFilesByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiTreeFilesByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiTreeFilesByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiTreeFilesByOwnerByNameRequest) Execute() (*PostAiTreeFiles200Response, *http.Response, error) {
@@ -30616,9 +33310,12 @@ func (a *AiAPIService) PutAiTreeFilesByOwnerByNameExecute(r AiAPIPutAiTreeFilesB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -30634,6 +33331,8 @@ func (a *AiAPIService) PutAiTreeFilesByOwnerByNameExecute(r AiAPIPutAiTreeFilesB
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -30676,6 +33375,12 @@ type AiAPIPutAiVectorsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiVectorsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiVectorsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiVectorsByOwnerByNameRequest) Execute() (*PostAiVectors200Response, *http.Response, error) {
@@ -30724,9 +33429,12 @@ func (a *AiAPIService) PutAiVectorsByOwnerByNameExecute(r AiAPIPutAiVectorsByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -30742,6 +33450,8 @@ func (a *AiAPIService) PutAiVectorsByOwnerByNameExecute(r AiAPIPutAiVectorsByOwn
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -30784,6 +33494,12 @@ type AiAPIPutAiVideosByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiVideosByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiVideosByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiVideosByOwnerByNameRequest) Execute() (*PostAiVideos200Response, *http.Response, error) {
@@ -30832,9 +33548,12 @@ func (a *AiAPIService) PutAiVideosByOwnerByNameExecute(r AiAPIPutAiVideosByOwner
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -30850,6 +33569,8 @@ func (a *AiAPIService) PutAiVideosByOwnerByNameExecute(r AiAPIPutAiVideosByOwner
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -30892,6 +33613,12 @@ type AiAPIPutAiWorkflowsByOwnerByNameRequest struct {
 	ApiService *AiAPIService
 	owner      string
 	name       string
+	body       *map[string]interface{}
+}
+
+func (r AiAPIPutAiWorkflowsByOwnerByNameRequest) Body(body map[string]interface{}) AiAPIPutAiWorkflowsByOwnerByNameRequest {
+	r.body = &body
+	return r
 }
 
 func (r AiAPIPutAiWorkflowsByOwnerByNameRequest) Execute() (*PostAiWorkflows200Response, *http.Response, error) {
@@ -30940,9 +33667,12 @@ func (a *AiAPIService) PutAiWorkflowsByOwnerByNameExecute(r AiAPIPutAiWorkflowsB
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -30958,6 +33688,8 @@ func (a *AiAPIService) PutAiWorkflowsByOwnerByNameExecute(r AiAPIPutAiWorkflowsB
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

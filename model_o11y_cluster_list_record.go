@@ -19,13 +19,16 @@ var _ MappedNullable = &O11yClusterListRecord{}
 
 // O11yClusterListRecord struct for O11yClusterListRecord
 type O11yClusterListRecord struct {
-	ClusterUID        *string           `json:"clusterUID,omitempty"`
-	CpuAllocatable    *float64          `json:"cpuAllocatable,omitempty"`
-	CpuUsage          *float64          `json:"cpuUsage,omitempty"`
-	MemoryAllocatable *float64          `json:"memoryAllocatable,omitempty"`
-	MemoryUsage       *float64          `json:"memoryUsage,omitempty"`
-	Meta              map[string]string `json:"meta,omitempty"`
+	ClusterUID           *string           `json:"clusterUID,omitempty"`
+	CpuAllocatable       *float64          `json:"cpuAllocatable,omitempty"`
+	CpuUsage             *float64          `json:"cpuUsage,omitempty"`
+	MemoryAllocatable    *float64          `json:"memoryAllocatable,omitempty"`
+	MemoryUsage          *float64          `json:"memoryUsage,omitempty"`
+	Meta                 map[string]string `json:"meta,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yClusterListRecord O11yClusterListRecord
 
 // NewO11yClusterListRecord instantiates a new O11yClusterListRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o O11yClusterListRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Meta) {
 		toSerialize["meta"] = o.Meta
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yClusterListRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yClusterListRecord := _O11yClusterListRecord{}
+
+	err = json.Unmarshal(data, &varO11yClusterListRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yClusterListRecord(varO11yClusterListRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "clusterUID")
+		delete(additionalProperties, "cpuAllocatable")
+		delete(additionalProperties, "cpuUsage")
+		delete(additionalProperties, "memoryAllocatable")
+		delete(additionalProperties, "memoryUsage")
+		delete(additionalProperties, "meta")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yClusterListRecord struct {

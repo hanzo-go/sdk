@@ -24,8 +24,11 @@ type O11yO11yLLMPricingCacheCosts struct {
 	// Read is the cost per unit of cache-read tokens.
 	Read *float64 `json:"read,omitempty"`
 	// Write is the cost per unit of cache-write tokens.
-	Write *float64 `json:"write,omitempty"`
+	Write                *float64 `json:"write,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMPricingCacheCosts O11yO11yLLMPricingCacheCosts
 
 // NewO11yO11yLLMPricingCacheCosts instantiates a new O11yO11yLLMPricingCacheCosts object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yLLMPricingCacheCosts) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Write) {
 		toSerialize["write"] = o.Write
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMPricingCacheCosts) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMPricingCacheCosts := _O11yO11yLLMPricingCacheCosts{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMPricingCacheCosts)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMPricingCacheCosts(varO11yO11yLLMPricingCacheCosts)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "mode")
+		delete(additionalProperties, "read")
+		delete(additionalProperties, "write")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMPricingCacheCosts struct {

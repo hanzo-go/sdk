@@ -19,18 +19,21 @@ var _ MappedNullable = &O11yStatefulSetListRecord{}
 
 // O11yStatefulSetListRecord struct for O11yStatefulSetListRecord
 type O11yStatefulSetListRecord struct {
-	AvailablePods   *int64            `json:"availablePods,omitempty"`
-	CpuLimit        *float64          `json:"cpuLimit,omitempty"`
-	CpuRequest      *float64          `json:"cpuRequest,omitempty"`
-	CpuUsage        *float64          `json:"cpuUsage,omitempty"`
-	DesiredPods     *int64            `json:"desiredPods,omitempty"`
-	MemoryLimit     *float64          `json:"memoryLimit,omitempty"`
-	MemoryRequest   *float64          `json:"memoryRequest,omitempty"`
-	MemoryUsage     *float64          `json:"memoryUsage,omitempty"`
-	Meta            map[string]string `json:"meta,omitempty"`
-	Restarts        *int64            `json:"restarts,omitempty"`
-	StatefulSetName *string           `json:"statefulSetName,omitempty"`
+	AvailablePods        *int64            `json:"availablePods,omitempty"`
+	CpuLimit             *float64          `json:"cpuLimit,omitempty"`
+	CpuRequest           *float64          `json:"cpuRequest,omitempty"`
+	CpuUsage             *float64          `json:"cpuUsage,omitempty"`
+	DesiredPods          *int64            `json:"desiredPods,omitempty"`
+	MemoryLimit          *float64          `json:"memoryLimit,omitempty"`
+	MemoryRequest        *float64          `json:"memoryRequest,omitempty"`
+	MemoryUsage          *float64          `json:"memoryUsage,omitempty"`
+	Meta                 map[string]string `json:"meta,omitempty"`
+	Restarts             *int64            `json:"restarts,omitempty"`
+	StatefulSetName      *string           `json:"statefulSetName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yStatefulSetListRecord O11yStatefulSetListRecord
 
 // NewO11yStatefulSetListRecord instantiates a new O11yStatefulSetListRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o O11yStatefulSetListRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StatefulSetName) {
 		toSerialize["statefulSetName"] = o.StatefulSetName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yStatefulSetListRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yStatefulSetListRecord := _O11yStatefulSetListRecord{}
+
+	err = json.Unmarshal(data, &varO11yStatefulSetListRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yStatefulSetListRecord(varO11yStatefulSetListRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "availablePods")
+		delete(additionalProperties, "cpuLimit")
+		delete(additionalProperties, "cpuRequest")
+		delete(additionalProperties, "cpuUsage")
+		delete(additionalProperties, "desiredPods")
+		delete(additionalProperties, "memoryLimit")
+		delete(additionalProperties, "memoryRequest")
+		delete(additionalProperties, "memoryUsage")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "restarts")
+		delete(additionalProperties, "statefulSetName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yStatefulSetListRecord struct {

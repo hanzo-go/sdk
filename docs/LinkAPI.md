@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 ## DeleteLinkById
 
-> RevokeResp DeleteLinkById(ctx, id).Execute()
+> LinkRevokeResp DeleteLinkById(ctx, id).Execute()
 
 Logs out one account and stops the sessions it was running.
 
@@ -48,7 +48,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LinkAPI.DeleteLinkById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteLinkById`: RevokeResp
+	// response from `DeleteLinkById`: LinkRevokeResp
 	fmt.Fprintf(os.Stdout, "Response from `LinkAPI.DeleteLinkById`: %v\n", resp)
 }
 ```
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RevokeResp**](RevokeResp.md)
+[**LinkRevokeResp**](LinkRevokeResp.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 ## GetLink
 
-> LinkList GetLink(ctx).Execute()
+> LinkLinkList GetLink(ctx).Execute()
 
 Lists your linked accounts and the devices they sit on.
 
@@ -117,7 +117,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LinkAPI.GetLink``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLink`: LinkList
+	// response from `GetLink`: LinkLinkList
 	fmt.Fprintf(os.Stdout, "Response from `LinkAPI.GetLink`: %v\n", resp)
 }
 ```
@@ -133,7 +133,7 @@ Other parameters are passed through a pointer to a apiGetLinkRequest struct via 
 
 ### Return type
 
-[**LinkList**](LinkList.md)
+[**LinkLinkList**](LinkLinkList.md)
 
 ### Authorization
 
@@ -142,7 +142,7 @@ Other parameters are passed through a pointer to a apiGetLinkRequest struct via 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -151,7 +151,7 @@ Other parameters are passed through a pointer to a apiGetLinkRequest struct via 
 
 ## GetLinkById
 
-> LinkView GetLinkById(ctx, id).Execute()
+> LinkLinkView GetLinkById(ctx, id).Execute()
 
 Reads one linked account.
 
@@ -179,7 +179,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LinkAPI.GetLinkById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLinkById`: LinkView
+	// response from `GetLinkById`: LinkLinkView
 	fmt.Fprintf(os.Stdout, "Response from `LinkAPI.GetLinkById`: %v\n", resp)
 }
 ```
@@ -203,7 +203,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**LinkView**](LinkView.md)
+[**LinkLinkView**](LinkLinkView.md)
 
 ### Authorization
 
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ## GetLinkDevicesByMachine
 
-> DeviceView GetLinkDevicesByMachine(ctx, machine).Execute()
+> LinkDeviceView GetLinkDevicesByMachine(ctx, machine).Execute()
 
 Shows one machine: its accounts, usage and live sessions.
 
@@ -249,7 +249,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LinkAPI.GetLinkDevicesByMachine``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLinkDevicesByMachine`: DeviceView
+	// response from `GetLinkDevicesByMachine`: LinkDeviceView
 	fmt.Fprintf(os.Stdout, "Response from `LinkAPI.GetLinkDevicesByMachine`: %v\n", resp)
 }
 ```
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceView**](DeviceView.md)
+[**LinkDeviceView**](LinkDeviceView.md)
 
 ### Authorization
 
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 ## GetLinkRoute
 
-> RoutePlan GetLinkRoute(ctx).Execute()
+> LinkRoutePlan GetLinkRoute(ctx).Execute()
 
 Gets the failover order across your linked accounts.
 
@@ -318,7 +318,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LinkAPI.GetLinkRoute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLinkRoute`: RoutePlan
+	// response from `GetLinkRoute`: LinkRoutePlan
 	fmt.Fprintf(os.Stdout, "Response from `LinkAPI.GetLinkRoute`: %v\n", resp)
 }
 ```
@@ -334,7 +334,7 @@ Other parameters are passed through a pointer to a apiGetLinkRouteRequest struct
 
 ### Return type
 
-[**RoutePlan**](RoutePlan.md)
+[**LinkRoutePlan**](LinkRoutePlan.md)
 
 ### Authorization
 
@@ -343,7 +343,7 @@ Other parameters are passed through a pointer to a apiGetLinkRouteRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -352,7 +352,7 @@ Other parameters are passed through a pointer to a apiGetLinkRouteRequest struct
 
 ## GetLinkUsage
 
-> BoardResp GetLinkUsage(ctx).Provider(provider).Account(account).Window(window).Range_(range_).Execute()
+> LinkBoardResp GetLinkUsage(ctx).Provider(provider).Account(account).Window(window).Range_(range_).Execute()
 
 Shows one provider account's own usage dashboard.
 
@@ -383,7 +383,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LinkAPI.GetLinkUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLinkUsage`: BoardResp
+	// response from `GetLinkUsage`: LinkBoardResp
 	fmt.Fprintf(os.Stdout, "Response from `LinkAPI.GetLinkUsage`: %v\n", resp)
 }
 ```
@@ -406,7 +406,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BoardResp**](BoardResp.md)
+[**LinkBoardResp**](LinkBoardResp.md)
 
 ### Authorization
 
@@ -415,7 +415,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -424,7 +424,7 @@ Name | Type | Description  | Notes
 
 ## GetLinkUsageAccounts
 
-> AccountsUsage GetLinkUsageAccounts(ctx).Execute()
+> LinkAccountsUsage GetLinkUsageAccounts(ctx).Execute()
 
 Breaks down what the gateway routed through each of your accounts.
 
@@ -451,7 +451,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LinkAPI.GetLinkUsageAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLinkUsageAccounts`: AccountsUsage
+	// response from `GetLinkUsageAccounts`: LinkAccountsUsage
 	fmt.Fprintf(os.Stdout, "Response from `LinkAPI.GetLinkUsageAccounts`: %v\n", resp)
 }
 ```
@@ -467,7 +467,7 @@ Other parameters are passed through a pointer to a apiGetLinkUsageAccountsReques
 
 ### Return type
 
-[**AccountsUsage**](AccountsUsage.md)
+[**LinkAccountsUsage**](LinkAccountsUsage.md)
 
 ### Authorization
 
@@ -476,7 +476,7 @@ Other parameters are passed through a pointer to a apiGetLinkUsageAccountsReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -485,7 +485,7 @@ Other parameters are passed through a pointer to a apiGetLinkUsageAccountsReques
 
 ## GetLinkUsageSummary
 
-> SummaryResp GetLinkUsageSummary(ctx).Range_(range_).Execute()
+> LinkSummaryResp GetLinkUsageSummary(ctx).Range_(range_).Execute()
 
 Shows plan consumption and Hanzo spend side by side.
 
@@ -513,7 +513,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LinkAPI.GetLinkUsageSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLinkUsageSummary`: SummaryResp
+	// response from `GetLinkUsageSummary`: LinkSummaryResp
 	fmt.Fprintf(os.Stdout, "Response from `LinkAPI.GetLinkUsageSummary`: %v\n", resp)
 }
 ```
@@ -533,7 +533,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SummaryResp**](SummaryResp.md)
+[**LinkSummaryResp**](LinkSummaryResp.md)
 
 ### Authorization
 
@@ -542,7 +542,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -551,7 +551,7 @@ Name | Type | Description  | Notes
 
 ## PostLink
 
-> LinkView PostLink(ctx).EnrollReq(enrollReq).Execute()
+> LinkLinkView PostLink(ctx).LinkEnrollReq(linkEnrollReq).Execute()
 
 Registers a signed-in AI provider account on a machine.
 
@@ -570,16 +570,16 @@ import (
 )
 
 func main() {
-	enrollReq := *openapiclient.NewEnrollReq() // EnrollReq | 
+	linkEnrollReq := *openapiclient.NewLinkEnrollReq() // LinkEnrollReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LinkAPI.PostLink(context.Background()).EnrollReq(enrollReq).Execute()
+	resp, r, err := apiClient.LinkAPI.PostLink(context.Background()).LinkEnrollReq(linkEnrollReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LinkAPI.PostLink``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostLink`: LinkView
+	// response from `PostLink`: LinkLinkView
 	fmt.Fprintf(os.Stdout, "Response from `LinkAPI.PostLink`: %v\n", resp)
 }
 ```
@@ -595,11 +595,11 @@ Other parameters are passed through a pointer to a apiPostLinkRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **enrollReq** | [**EnrollReq**](EnrollReq.md) |  | 
+ **linkEnrollReq** | [**LinkEnrollReq**](LinkEnrollReq.md) |  | 
 
 ### Return type
 
-[**LinkView**](LinkView.md)
+[**LinkLinkView**](LinkLinkView.md)
 
 ### Authorization
 
@@ -608,7 +608,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -617,7 +617,7 @@ Name | Type | Description  | Notes
 
 ## PostLinkDevicesByMachineRevoke
 
-> RevokeResp PostLinkDevicesByMachineRevoke(ctx, machine).Execute()
+> LinkRevokeResp PostLinkDevicesByMachineRevoke(ctx, machine).Execute()
 
 Logs out every account on one machine and stops its sessions.
 
@@ -645,7 +645,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LinkAPI.PostLinkDevicesByMachineRevoke``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostLinkDevicesByMachineRevoke`: RevokeResp
+	// response from `PostLinkDevicesByMachineRevoke`: LinkRevokeResp
 	fmt.Fprintf(os.Stdout, "Response from `LinkAPI.PostLinkDevicesByMachineRevoke`: %v\n", resp)
 }
 ```
@@ -669,7 +669,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RevokeResp**](RevokeResp.md)
+[**LinkRevokeResp**](LinkRevokeResp.md)
 
 ### Authorization
 
@@ -678,7 +678,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -687,7 +687,7 @@ Name | Type | Description  | Notes
 
 ## PostLinkUsage
 
-> IngestResp PostLinkUsage(ctx).IngestReq(ingestReq).Execute()
+> LinkIngestResp PostLinkUsage(ctx).LinkIngestReq(linkIngestReq).Execute()
 
 Reports usage samples from the device collector.
 
@@ -706,16 +706,16 @@ import (
 )
 
 func main() {
-	ingestReq := *openapiclient.NewIngestReq() // IngestReq | 
+	linkIngestReq := *openapiclient.NewLinkIngestReq() // LinkIngestReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LinkAPI.PostLinkUsage(context.Background()).IngestReq(ingestReq).Execute()
+	resp, r, err := apiClient.LinkAPI.PostLinkUsage(context.Background()).LinkIngestReq(linkIngestReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LinkAPI.PostLinkUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostLinkUsage`: IngestResp
+	// response from `PostLinkUsage`: LinkIngestResp
 	fmt.Fprintf(os.Stdout, "Response from `LinkAPI.PostLinkUsage`: %v\n", resp)
 }
 ```
@@ -731,11 +731,11 @@ Other parameters are passed through a pointer to a apiPostLinkUsageRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ingestReq** | [**IngestReq**](IngestReq.md) |  | 
+ **linkIngestReq** | [**LinkIngestReq**](LinkIngestReq.md) |  | 
 
 ### Return type
 
-[**IngestResp**](IngestResp.md)
+[**LinkIngestResp**](LinkIngestResp.md)
 
 ### Authorization
 
@@ -744,7 +744,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

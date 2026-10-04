@@ -19,17 +19,20 @@ var _ MappedNullable = &O11yGettableRuleStateHistory{}
 
 // O11yGettableRuleStateHistory struct for O11yGettableRuleStateHistory
 type O11yGettableRuleStateHistory struct {
-	Fingerprint         *int32      `json:"fingerprint,omitempty"`
-	Labels              []O11yLabel `json:"labels,omitempty"`
-	OverallState        interface{} `json:"overallState,omitempty"`
-	OverallStateChanged *bool       `json:"overallStateChanged,omitempty"`
-	RuleId              *string     `json:"ruleId,omitempty"`
-	RuleName            *string     `json:"ruleName,omitempty"`
-	State               interface{} `json:"state,omitempty"`
-	StateChanged        *bool       `json:"stateChanged,omitempty"`
-	UnixMilli           *int64      `json:"unixMilli,omitempty"`
-	Value               *float64    `json:"value,omitempty"`
+	Fingerprint          *int32      `json:"fingerprint,omitempty"`
+	Labels               []O11yLabel `json:"labels,omitempty"`
+	OverallState         interface{} `json:"overallState,omitempty"`
+	OverallStateChanged  *bool       `json:"overallStateChanged,omitempty"`
+	RuleId               *string     `json:"ruleId,omitempty"`
+	RuleName             *string     `json:"ruleName,omitempty"`
+	State                interface{} `json:"state,omitempty"`
+	StateChanged         *bool       `json:"stateChanged,omitempty"`
+	UnixMilli            *int64      `json:"unixMilli,omitempty"`
+	Value                *float64    `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableRuleStateHistory O11yGettableRuleStateHistory
 
 // NewO11yGettableRuleStateHistory instantiates a new O11yGettableRuleStateHistory object
 // This constructor will assign default values to properties that have it defined,
@@ -410,7 +413,42 @@ func (o O11yGettableRuleStateHistory) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableRuleStateHistory) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableRuleStateHistory := _O11yGettableRuleStateHistory{}
+
+	err = json.Unmarshal(data, &varO11yGettableRuleStateHistory)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableRuleStateHistory(varO11yGettableRuleStateHistory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fingerprint")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "overallState")
+		delete(additionalProperties, "overallStateChanged")
+		delete(additionalProperties, "ruleId")
+		delete(additionalProperties, "ruleName")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "stateChanged")
+		delete(additionalProperties, "unixMilli")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableRuleStateHistory struct {

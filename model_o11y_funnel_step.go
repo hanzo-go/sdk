@@ -27,11 +27,14 @@ type O11yFunnelStep struct {
 	LatencyPointer *string        `json:"latency_pointer,omitempty"`
 	LatencyType    *string        `json:"latency_type,omitempty"`
 	// step name
-	Name        *string `json:"name,omitempty"`
-	ServiceName *string `json:"service_name,omitempty"`
-	SpanName    *string `json:"span_name,omitempty"`
-	StepOrder   *int64  `json:"step_order,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	ServiceName          *string `json:"service_name,omitempty"`
+	SpanName             *string `json:"span_name,omitempty"`
+	StepOrder            *int64  `json:"step_order,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yFunnelStep O11yFunnelStep
 
 // NewO11yFunnelStep instantiates a new O11yFunnelStep object
 // This constructor will assign default values to properties that have it defined,
@@ -411,7 +414,42 @@ func (o O11yFunnelStep) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StepOrder) {
 		toSerialize["step_order"] = o.StepOrder
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yFunnelStep) UnmarshalJSON(data []byte) (err error) {
+	varO11yFunnelStep := _O11yFunnelStep{}
+
+	err = json.Unmarshal(data, &varO11yFunnelStep)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yFunnelStep(varO11yFunnelStep)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "filters")
+		delete(additionalProperties, "has_errors")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "latency_pointer")
+		delete(additionalProperties, "latency_type")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "service_name")
+		delete(additionalProperties, "span_name")
+		delete(additionalProperties, "step_order")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yFunnelStep struct {

@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yMattermostField{}
 
 // O11yMattermostField struct for O11yMattermostField
 type O11yMattermostField struct {
-	Short *bool   `json:"short,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Short                *bool   `json:"short,omitempty"`
+	Title                *string `json:"title,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yMattermostField O11yMattermostField
 
 // NewO11yMattermostField instantiates a new O11yMattermostField object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yMattermostField) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yMattermostField) UnmarshalJSON(data []byte) (err error) {
+	varO11yMattermostField := _O11yMattermostField{}
+
+	err = json.Unmarshal(data, &varO11yMattermostField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yMattermostField(varO11yMattermostField)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "short")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yMattermostField struct {

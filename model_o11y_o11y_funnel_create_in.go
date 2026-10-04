@@ -22,8 +22,11 @@ type O11yO11yFunnelCreateIn struct {
 	// Name is the funnel's name.
 	FunnelName *string `json:"funnel_name,omitempty"`
 	// Timestamp is when the funnel was created, as a millisecond epoch. Zero takes the runtime's own clock.
-	Timestamp *int64 `json:"timestamp,omitempty"`
+	Timestamp            *int64 `json:"timestamp,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFunnelCreateIn O11yO11yFunnelCreateIn
 
 // NewO11yO11yFunnelCreateIn instantiates a new O11yO11yFunnelCreateIn object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yFunnelCreateIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Timestamp) {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFunnelCreateIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFunnelCreateIn := _O11yO11yFunnelCreateIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yFunnelCreateIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFunnelCreateIn(varO11yO11yFunnelCreateIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "funnel_name")
+		delete(additionalProperties, "timestamp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFunnelCreateIn struct {

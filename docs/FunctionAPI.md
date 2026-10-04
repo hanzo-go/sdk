@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 ## GetFunction
 
-> FnList GetFunction(ctx).Execute()
+> FunctionFnList GetFunction(ctx).Execute()
 
 Is every serverless function the caller's org has published, each with its real 7-day rollup.
 
@@ -115,7 +115,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionAPI.GetFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFunction`: FnList
+	// response from `GetFunction`: FunctionFnList
 	fmt.Fprintf(os.Stdout, "Response from `FunctionAPI.GetFunction`: %v\n", resp)
 }
 ```
@@ -131,7 +131,7 @@ Other parameters are passed through a pointer to a apiGetFunctionRequest struct 
 
 ### Return type
 
-[**FnList**](FnList.md)
+[**FunctionFnList**](FunctionFnList.md)
 
 ### Authorization
 
@@ -140,7 +140,7 @@ Other parameters are passed through a pointer to a apiGetFunctionRequest struct 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -149,7 +149,7 @@ Other parameters are passed through a pointer to a apiGetFunctionRequest struct 
 
 ## GetFunctionByName
 
-> FunctionDetail GetFunctionByName(ctx, name).Execute()
+> FunctionFunctionDetail GetFunctionByName(ctx, name).Execute()
 
 Is one function with everything a detail page needs in one round-trip: its definition, its 7-day rollup, its trigger, its twenty most recent invocations and the NAMES of the secrets it mounts.
 
@@ -177,7 +177,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionAPI.GetFunctionByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFunctionByName`: FunctionDetail
+	// response from `GetFunctionByName`: FunctionFunctionDetail
 	fmt.Fprintf(os.Stdout, "Response from `FunctionAPI.GetFunctionByName`: %v\n", resp)
 }
 ```
@@ -201,7 +201,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FunctionDetail**](FunctionDetail.md)
+[**FunctionFunctionDetail**](FunctionFunctionDetail.md)
 
 ### Authorization
 
@@ -210,7 +210,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ## GetFunctionByNameInvocations
 
-> InvocationList GetFunctionByNameInvocations(ctx, name).Limit(limit).Execute()
+> FunctionInvocationList GetFunctionByNameInvocations(ctx, name).Limit(limit).Execute()
 
 Is one function's past runs, newest first — each with its status, HTTP code, method, time and duration.
 
@@ -248,7 +248,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionAPI.GetFunctionByNameInvocations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFunctionByNameInvocations`: InvocationList
+	// response from `GetFunctionByNameInvocations`: FunctionInvocationList
 	fmt.Fprintf(os.Stdout, "Response from `FunctionAPI.GetFunctionByNameInvocations`: %v\n", resp)
 }
 ```
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InvocationList**](InvocationList.md)
+[**FunctionInvocationList**](FunctionInvocationList.md)
 
 ### Authorization
 
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 ## GetFunctionByNameLogs
 
-> LogLines GetFunctionByNameLogs(ctx, name).Execute()
+> FunctionLogLines GetFunctionByNameLogs(ctx, name).Execute()
 
 Is the output of a function's most recent run — its error text when that run failed, else what it printed.
 
@@ -319,7 +319,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionAPI.GetFunctionByNameLogs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFunctionByNameLogs`: LogLines
+	// response from `GetFunctionByNameLogs`: FunctionLogLines
 	fmt.Fprintf(os.Stdout, "Response from `FunctionAPI.GetFunctionByNameLogs`: %v\n", resp)
 }
 ```
@@ -343,7 +343,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**LogLines**](LogLines.md)
+[**FunctionLogLines**](FunctionLogLines.md)
 
 ### Authorization
 
@@ -352,7 +352,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ## GetFunctionDeployments
 
-> FnList GetFunctionDeployments(ctx).Execute()
+> FunctionFnList GetFunctionDeployments(ctx).Execute()
 
 Is what is live right now — each function's current record IS its live deployment, so this is the deployment inventory.
 
@@ -388,7 +388,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionAPI.GetFunctionDeployments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFunctionDeployments`: FnList
+	// response from `GetFunctionDeployments`: FunctionFnList
 	fmt.Fprintf(os.Stdout, "Response from `FunctionAPI.GetFunctionDeployments`: %v\n", resp)
 }
 ```
@@ -404,7 +404,7 @@ Other parameters are passed through a pointer to a apiGetFunctionDeploymentsRequ
 
 ### Return type
 
-[**FnList**](FnList.md)
+[**FunctionFnList**](FunctionFnList.md)
 
 ### Authorization
 
@@ -413,7 +413,7 @@ Other parameters are passed through a pointer to a apiGetFunctionDeploymentsRequ
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -422,7 +422,7 @@ Other parameters are passed through a pointer to a apiGetFunctionDeploymentsRequ
 
 ## GetFunctionMetrics
 
-> Usage GetFunctionMetrics(ctx).Range_(range_).Execute()
+> FunctionUsage GetFunctionMetrics(ctx).Range_(range_).Execute()
 
 Is the org's serverless dashboard over a window: a per-function invocation costLine and how those invocations ended.
 
@@ -450,7 +450,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionAPI.GetFunctionMetrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFunctionMetrics`: Usage
+	// response from `GetFunctionMetrics`: FunctionUsage
 	fmt.Fprintf(os.Stdout, "Response from `FunctionAPI.GetFunctionMetrics`: %v\n", resp)
 }
 ```
@@ -470,7 +470,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Usage**](Usage.md)
+[**FunctionUsage**](FunctionUsage.md)
 
 ### Authorization
 
@@ -479,7 +479,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -488,7 +488,7 @@ Name | Type | Description  | Notes
 
 ## GetFunctionSecrets
 
-> SecretList GetFunctionSecrets(ctx).Execute()
+> FunctionSecretList GetFunctionSecrets(ctx).Execute()
 
 Is the NAMES of the secrets the caller org's functions mount.
 
@@ -515,7 +515,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionAPI.GetFunctionSecrets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFunctionSecrets`: SecretList
+	// response from `GetFunctionSecrets`: FunctionSecretList
 	fmt.Fprintf(os.Stdout, "Response from `FunctionAPI.GetFunctionSecrets`: %v\n", resp)
 }
 ```
@@ -531,7 +531,7 @@ Other parameters are passed through a pointer to a apiGetFunctionSecretsRequest 
 
 ### Return type
 
-[**SecretList**](SecretList.md)
+[**FunctionSecretList**](FunctionSecretList.md)
 
 ### Authorization
 
@@ -540,7 +540,7 @@ Other parameters are passed through a pointer to a apiGetFunctionSecretsRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -549,7 +549,7 @@ Other parameters are passed through a pointer to a apiGetFunctionSecretsRequest 
 
 ## GetFunctionTriggers
 
-> TriggerList GetFunctionTriggers(ctx).Execute()
+> FunctionTriggerList GetFunctionTriggers(ctx).Execute()
 
 Is what calls the caller org's functions — one row per function.
 
@@ -576,7 +576,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionAPI.GetFunctionTriggers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFunctionTriggers`: TriggerList
+	// response from `GetFunctionTriggers`: FunctionTriggerList
 	fmt.Fprintf(os.Stdout, "Response from `FunctionAPI.GetFunctionTriggers`: %v\n", resp)
 }
 ```
@@ -592,7 +592,7 @@ Other parameters are passed through a pointer to a apiGetFunctionTriggersRequest
 
 ### Return type
 
-[**TriggerList**](TriggerList.md)
+[**FunctionTriggerList**](FunctionTriggerList.md)
 
 ### Authorization
 
@@ -601,7 +601,7 @@ Other parameters are passed through a pointer to a apiGetFunctionTriggersRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -610,7 +610,7 @@ Other parameters are passed through a pointer to a apiGetFunctionTriggersRequest
 
 ## PostFunction
 
-> FunctionView PostFunction(ctx).Definition(definition).Execute()
+> FunctionFunctionView PostFunction(ctx).FunctionDefinition(functionDefinition).Execute()
 
 Publishes a serverless function under the caller's org and answers 201 with it.
 
@@ -629,16 +629,16 @@ import (
 )
 
 func main() {
-	definition := *openapiclient.NewDefinition("Name_example") // Definition | 
+	functionDefinition := *openapiclient.NewFunctionDefinition("Name_example") // FunctionDefinition | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionAPI.PostFunction(context.Background()).Definition(definition).Execute()
+	resp, r, err := apiClient.FunctionAPI.PostFunction(context.Background()).FunctionDefinition(functionDefinition).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionAPI.PostFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostFunction`: FunctionView
+	// response from `PostFunction`: FunctionFunctionView
 	fmt.Fprintf(os.Stdout, "Response from `FunctionAPI.PostFunction`: %v\n", resp)
 }
 ```
@@ -654,11 +654,11 @@ Other parameters are passed through a pointer to a apiPostFunctionRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **definition** | [**Definition**](Definition.md) |  | 
+ **functionDefinition** | [**FunctionDefinition**](FunctionDefinition.md) |  | 
 
 ### Return type
 
-[**FunctionView**](FunctionView.md)
+[**FunctionFunctionView**](FunctionFunctionView.md)
 
 ### Authorization
 
@@ -667,7 +667,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -676,7 +676,7 @@ Name | Type | Description  | Notes
 
 ## PostFunctionByNameInvoke
 
-> InvocationView PostFunctionByNameInvoke(ctx, name).InvokeReq(invokeReq).Execute()
+> FunctionInvocationView PostFunctionByNameInvoke(ctx, name).FunctionInvokeReq(functionInvokeReq).Execute()
 
 Runs a function and records a REAL invocation.
 
@@ -696,16 +696,16 @@ import (
 
 func main() {
 	name := "name_example" // string | 
-	invokeReq := *openapiclient.NewInvokeReq() // InvokeReq | 
+	functionInvokeReq := *openapiclient.NewFunctionInvokeReq() // FunctionInvokeReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionAPI.PostFunctionByNameInvoke(context.Background(), name).InvokeReq(invokeReq).Execute()
+	resp, r, err := apiClient.FunctionAPI.PostFunctionByNameInvoke(context.Background(), name).FunctionInvokeReq(functionInvokeReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionAPI.PostFunctionByNameInvoke``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostFunctionByNameInvoke`: InvocationView
+	// response from `PostFunctionByNameInvoke`: FunctionInvocationView
 	fmt.Fprintf(os.Stdout, "Response from `FunctionAPI.PostFunctionByNameInvoke`: %v\n", resp)
 }
 ```
@@ -726,11 +726,11 @@ Other parameters are passed through a pointer to a apiPostFunctionByNameInvokeRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **invokeReq** | [**InvokeReq**](InvokeReq.md) |  | 
+ **functionInvokeReq** | [**FunctionInvokeReq**](FunctionInvokeReq.md) |  | 
 
 ### Return type
 
-[**InvocationView**](InvocationView.md)
+[**FunctionInvocationView**](FunctionInvocationView.md)
 
 ### Authorization
 
@@ -739,7 +739,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

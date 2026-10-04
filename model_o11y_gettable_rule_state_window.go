@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yGettableRuleStateWindow{}
 
 // O11yGettableRuleStateWindow struct for O11yGettableRuleStateWindow
 type O11yGettableRuleStateWindow struct {
-	End   *int64      `json:"end,omitempty"`
-	Start *int64      `json:"start,omitempty"`
-	State interface{} `json:"state,omitempty"`
+	End                  *int64      `json:"end,omitempty"`
+	Start                *int64      `json:"start,omitempty"`
+	State                interface{} `json:"state,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableRuleStateWindow O11yGettableRuleStateWindow
 
 // NewO11yGettableRuleStateWindow instantiates a new O11yGettableRuleStateWindow object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o O11yGettableRuleStateWindow) ToMap() (map[string]interface{}, error) {
 	if o.State != nil {
 		toSerialize["state"] = o.State
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableRuleStateWindow) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableRuleStateWindow := _O11yGettableRuleStateWindow{}
+
+	err = json.Unmarshal(data, &varO11yGettableRuleStateWindow)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableRuleStateWindow(varO11yGettableRuleStateWindow)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "state")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableRuleStateWindow struct {

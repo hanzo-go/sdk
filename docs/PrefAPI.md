@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetPref
 
-> PrefsView GetPref(ctx).Execute()
+> PrefPrefsView GetPref(ctx).Execute()
 
 Returns the signed-in caller's OWN preference document — the theme, density and pinned nav that follow them across every Hanzo surface.
 
@@ -38,7 +38,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PrefAPI.GetPref``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPref`: PrefsView
+	// response from `GetPref`: PrefPrefsView
 	fmt.Fprintf(os.Stdout, "Response from `PrefAPI.GetPref`: %v\n", resp)
 }
 ```
@@ -54,7 +54,7 @@ Other parameters are passed through a pointer to a apiGetPrefRequest struct via 
 
 ### Return type
 
-[**PrefsView**](PrefsView.md)
+[**PrefPrefsView**](PrefPrefsView.md)
 
 ### Authorization
 
@@ -63,7 +63,7 @@ Other parameters are passed through a pointer to a apiGetPrefRequest struct via 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

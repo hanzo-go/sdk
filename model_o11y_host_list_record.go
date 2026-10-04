@@ -19,15 +19,18 @@ var _ MappedNullable = &O11yHostListRecord{}
 
 // O11yHostListRecord struct for O11yHostListRecord
 type O11yHostListRecord struct {
-	Active   *bool             `json:"active,omitempty"`
-	Cpu      *float64          `json:"cpu,omitempty"`
-	HostName *string           `json:"hostName,omitempty"`
-	Load15   *float64          `json:"load15,omitempty"`
-	Memory   *float64          `json:"memory,omitempty"`
-	Meta     map[string]string `json:"meta,omitempty"`
-	Os       *string           `json:"os,omitempty"`
-	Wait     *float64          `json:"wait,omitempty"`
+	Active               *bool             `json:"active,omitempty"`
+	Cpu                  *float64          `json:"cpu,omitempty"`
+	HostName             *string           `json:"hostName,omitempty"`
+	Load15               *float64          `json:"load15,omitempty"`
+	Memory               *float64          `json:"memory,omitempty"`
+	Meta                 map[string]string `json:"meta,omitempty"`
+	Os                   *string           `json:"os,omitempty"`
+	Wait                 *float64          `json:"wait,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yHostListRecord O11yHostListRecord
 
 // NewO11yHostListRecord instantiates a new O11yHostListRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o O11yHostListRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Wait) {
 		toSerialize["wait"] = o.Wait
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yHostListRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yHostListRecord := _O11yHostListRecord{}
+
+	err = json.Unmarshal(data, &varO11yHostListRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yHostListRecord(varO11yHostListRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "active")
+		delete(additionalProperties, "cpu")
+		delete(additionalProperties, "hostName")
+		delete(additionalProperties, "load15")
+		delete(additionalProperties, "memory")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "os")
+		delete(additionalProperties, "wait")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yHostListRecord struct {

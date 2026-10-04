@@ -26,10 +26,13 @@ type O11yIncidentioConfig struct {
 	// MaxAlerts is the maximum number of alerts to be sent per incident.io message. Alerts exceeding this threshold will be truncated. Setting this to 0 allows an unlimited number of alerts. Note that if the payload exceeds incident.io's size limits, you will receive a 429 response and alerts will not be ingested.
 	MaxAlerts *int32 `json:"max_alerts,omitempty"`
 	// Timeout is the maximum time allowed to invoke incident.io. Setting this to 0 does not impose a timeout.
-	Timeout *int64      `json:"timeout,omitempty"`
-	Url     interface{} `json:"url,omitempty"`
-	UrlFile *string     `json:"url_file,omitempty"`
+	Timeout              *int64      `json:"timeout,omitempty"`
+	Url                  interface{} `json:"url,omitempty"`
+	UrlFile              *string     `json:"url_file,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yIncidentioConfig O11yIncidentioConfig
 
 // NewO11yIncidentioConfig instantiates a new O11yIncidentioConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -340,7 +343,40 @@ func (o O11yIncidentioConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UrlFile) {
 		toSerialize["url_file"] = o.UrlFile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yIncidentioConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yIncidentioConfig := _O11yIncidentioConfig{}
+
+	err = json.Unmarshal(data, &varO11yIncidentioConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yIncidentioConfig(varO11yIncidentioConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "alert_source_token")
+		delete(additionalProperties, "alert_source_token_file")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "max_alerts")
+		delete(additionalProperties, "timeout")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "url_file")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yIncidentioConfig struct {

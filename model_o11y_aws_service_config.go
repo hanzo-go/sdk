@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yAWSServiceConfig{}
 
 // O11yAWSServiceConfig struct for O11yAWSServiceConfig
 type O11yAWSServiceConfig struct {
-	Logs    *O11yAWSServiceLogsConfig    `json:"logs,omitempty"`
-	Metrics *O11yAWSServiceMetricsConfig `json:"metrics,omitempty"`
+	Logs                 *O11yAWSServiceLogsConfig    `json:"logs,omitempty"`
+	Metrics              *O11yAWSServiceMetricsConfig `json:"metrics,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAWSServiceConfig O11yAWSServiceConfig
 
 // NewO11yAWSServiceConfig instantiates a new O11yAWSServiceConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yAWSServiceConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metrics) {
 		toSerialize["metrics"] = o.Metrics
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAWSServiceConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yAWSServiceConfig := _O11yAWSServiceConfig{}
+
+	err = json.Unmarshal(data, &varO11yAWSServiceConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAWSServiceConfig(varO11yAWSServiceConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "logs")
+		delete(additionalProperties, "metrics")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAWSServiceConfig struct {

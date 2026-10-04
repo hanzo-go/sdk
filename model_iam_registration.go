@@ -36,7 +36,10 @@ type IamRegistration struct {
 	Public               *bool    `json:"public,omitempty"`
 	RedirectUris         []string `json:"redirectUris,omitempty"`
 	RefreshExpireInHours *float64 `json:"refreshExpireInHours,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamRegistration IamRegistration
 
 // NewIamRegistration instantiates a new IamRegistration object
 // This constructor will assign default values to properties that have it defined,
@@ -520,7 +523,45 @@ func (o IamRegistration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RefreshExpireInHours) {
 		toSerialize["refreshExpireInHours"] = o.RefreshExpireInHours
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamRegistration) UnmarshalJSON(data []byte) (err error) {
+	varIamRegistration := _IamRegistration{}
+
+	err = json.Unmarshal(data, &varIamRegistration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamRegistration(varIamRegistration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cert")
+		delete(additionalProperties, "clientId")
+		delete(additionalProperties, "clientSecret")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "enableCodeSignin")
+		delete(additionalProperties, "expireInHours")
+		delete(additionalProperties, "grantTypes")
+		delete(additionalProperties, "isShared")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "public")
+		delete(additionalProperties, "redirectUris")
+		delete(additionalProperties, "refreshExpireInHours")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamRegistration struct {

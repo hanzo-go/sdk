@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Columns** | Pointer to **[]string** | Columns names the fields each row carries, in row order. | [optional] 
 **EndTimestampMillis** | Pointer to **int32** | EndTimestampMillis is when it closes. | [optional] 
-**Events** | Pointer to **[][]map[string]interface{}** | Events are the rows, each positionally matching Columns. | [optional] 
+**Events** | Pointer to **[][]interface{}** | Events are the rows, each positionally matching Columns. | [optional] 
 **IsSubTree** | Pointer to **bool** | IsSubTree says the window is a subtree of the trace rather than the whole of it. | [optional] 
 **StartTimestampMillis** | Pointer to **int32** | StartTimestampMillis is when the window opens. | [optional] 
 
@@ -81,20 +81,20 @@ HasEndTimestampMillis returns a boolean if a field has been set.
 
 ### GetEvents
 
-`func (o *O11yO11yTraceSpanWindow) GetEvents() [][]map[string]interface{}`
+`func (o *O11yO11yTraceSpanWindow) GetEvents() [][]interface{}`
 
 GetEvents returns the Events field if non-nil, zero value otherwise.
 
 ### GetEventsOk
 
-`func (o *O11yO11yTraceSpanWindow) GetEventsOk() (*[][]map[string]interface{}, bool)`
+`func (o *O11yO11yTraceSpanWindow) GetEventsOk() (*[][]interface{}, bool)`
 
 GetEventsOk returns a tuple with the Events field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEvents
 
-`func (o *O11yO11yTraceSpanWindow) SetEvents(v [][]map[string]interface{})`
+`func (o *O11yO11yTraceSpanWindow) SetEvents(v [][]interface{})`
 
 SetEvents sets Events field to given value.
 

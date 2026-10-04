@@ -22,8 +22,11 @@ type O11yO11yDashboardViewPostable struct {
 	// Data is the listing state the view captures.
 	Data *O11yO11yDashboardViewData `json:"data,omitempty"`
 	// Name is the saved view's name; at most 32 characters, no surrounding space.
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardViewPostable O11yO11yDashboardViewPostable
 
 // NewO11yO11yDashboardViewPostable instantiates a new O11yO11yDashboardViewPostable object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yDashboardViewPostable) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardViewPostable) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardViewPostable := _O11yO11yDashboardViewPostable{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardViewPostable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardViewPostable(varO11yO11yDashboardViewPostable)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardViewPostable struct {

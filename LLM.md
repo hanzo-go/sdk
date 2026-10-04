@@ -66,20 +66,14 @@ say `{.: .}` and the second driver this repo carried is gone.
 
 ## One client, at the module root
 
-The repo root `*.go` **is** the client, `package hanzoai` — 2656 generated files
-beside four hand-written ones. There is no second surface: the hand-shipped
+The repo root `*.go` **is** the client, `package hanzoai` — 3054 generated files
+beside the hand-written ones below. There is no second surface: the hand-shipped
 client that predated it and the parallel `cloud/` subpackage are both gone.
 
-**The shape, measured against the locked document.** 1814 paths carry 2479
-operations, and 191 distinct tags plus the 50 untagged operations make 192
-services. The client emits one method per (operation, tag) placement, and there
-are 2502 of those: 23 operations are tagged both `iam` and `compat` and so
-appear under `IamAPI` and `CompatAPI` both. That leaves **2477 distinct method
-names, not 2477 operations** — a count of names undercounts the surface twice
-over, because two more pairs collide across services on their own
-(`GitAPI`/`GitWebhookAPI` both have `PostGitWebhook`, `IamAPI`/`O11yAPI` both
-have `DeleteSession`, from four different operationIds). Every one of the 2479
-operations is reachable.
+**The shape, measured against the locked document** (8.5.623). 1771 paths carry
+2450 operations, every one under exactly one tag, so 124 services and 2450
+methods. 2449 distinct names: `GetProvider` is on two services from two
+operationIds. Every operation is reachable.
 
 Hand-written, and safe from regeneration:
 
@@ -184,7 +178,7 @@ reads it again.
 
 ## Acting as a subject
 
-`client.As(subject)` returns the same client — the same 2502 methods — scoped to
+`client.As(subject)` returns the same client — the same 2450 methods — scoped to
 one tenant subject. It mints a subject-bound token from IAM's act grant, caches
 it to expiry and re-mints once on a 401, so no method takes a user id: the
 credential is the scope, and a caller cannot pass the wrong one.
@@ -328,15 +322,9 @@ and, per flow, the operationIds to call in order. It is the manifest that makes
 both follow it — do not pick a different operation here without changing it
 there first.
 
-**All six ship.** `chat` is `POST /v1/chat/completions`, which the document
-states as an address with no request body and no responses, so the generated
-method carries no prompt and hands back the raw `*http.Response` — the same
-shape `money` already reads. That is an example, not a blocker: it calls the
-operation the document declares and prints what the route answered, which is
-what java-sdk and kotlin-sdk do with the same untyped operation. What it must
-not do is hand-roll the missing request body, because a request invented inside
-a generated client is the second authority these SDKs exist to remove. Probed
-without a key, the route answers 401 rather than 404, so it is mounted.
+**All six ship.** `chat` is `POST /v1/chat/completions`, which the document now
+types both ways: `OpenaiChatCompletionRequest` in, `OpenaiChatCompletionResponse`
+out.
 
 `hello` is `get_keys` (`GET /v1/keys`), chosen by probing rather than by reading:
 it answers 403 with no key and with a bogus one while `/v1/keys-zzq9` answers

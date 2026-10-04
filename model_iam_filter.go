@@ -19,9 +19,12 @@ var _ MappedNullable = &IamFilter{}
 
 // IamFilter struct for IamFilter
 type IamFilter struct {
-	MaxResults *int64 `json:"maxResults,omitempty"`
-	Supported  *bool  `json:"supported,omitempty"`
+	MaxResults           *int64 `json:"maxResults,omitempty"`
+	Supported            *bool  `json:"supported,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamFilter IamFilter
 
 // NewIamFilter instantiates a new IamFilter object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o IamFilter) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Supported) {
 		toSerialize["supported"] = o.Supported
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamFilter) UnmarshalJSON(data []byte) (err error) {
+	varIamFilter := _IamFilter{}
+
+	err = json.Unmarshal(data, &varIamFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamFilter(varIamFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "maxResults")
+		delete(additionalProperties, "supported")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamFilter struct {

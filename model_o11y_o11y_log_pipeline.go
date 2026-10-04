@@ -43,8 +43,11 @@ type O11yO11yLogPipeline struct {
 	// UpdatedAt is when the pipeline last changed.
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	// UpdatedBy is the id of who last changed it.
-	UpdatedBy *string `json:"updatedBy,omitempty"`
+	UpdatedBy            *string `json:"updatedBy,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogPipeline O11yO11yLogPipeline
 
 // NewO11yO11yLogPipeline instantiates a new O11yO11yLogPipeline object
 // This constructor will assign default values to properties that have it defined,
@@ -493,7 +496,44 @@ func (o O11yO11yLogPipeline) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedBy) {
 		toSerialize["updatedBy"] = o.UpdatedBy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogPipeline) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogPipeline := _O11yO11yLogPipeline{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogPipeline)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogPipeline(varO11yO11yLogPipeline)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alias")
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "orderId")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedBy")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogPipeline struct {

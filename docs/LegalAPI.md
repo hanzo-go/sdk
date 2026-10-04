@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 ## GetLegalDocuments
 
-> DocumentPage GetLegalDocuments(ctx).Limit(limit).Execute()
+> LegalDocumentPage GetLegalDocuments(ctx).Limit(limit).Execute()
 
 Returns the org's generated documents, newest first, WITHOUT their rendered content — fetch one document to read its body.
 
@@ -48,7 +48,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.GetLegalDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLegalDocuments`: DocumentPage
+	// response from `GetLegalDocuments`: LegalDocumentPage
 	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.GetLegalDocuments`: %v\n", resp)
 }
 ```
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocumentPage**](DocumentPage.md)
+[**LegalDocumentPage**](LegalDocumentPage.md)
 
 ### Authorization
 
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## GetLegalDocumentsById
 
-> DocumentReply GetLegalDocumentsById(ctx, id).Execute()
+> LegalDocumentReply GetLegalDocumentsById(ctx, id).Execute()
 
 Returns one of the org's documents WITH its rendered body.
 
@@ -114,7 +114,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.GetLegalDocumentsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLegalDocumentsById`: DocumentReply
+	// response from `GetLegalDocumentsById`: LegalDocumentReply
 	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.GetLegalDocumentsById`: %v\n", resp)
 }
 ```
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocumentReply**](DocumentReply.md)
+[**LegalDocumentReply**](LegalDocumentReply.md)
 
 ### Authorization
 
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 
 ## GetLegalFilings
 
-> FilingPage GetLegalFilings(ctx).Limit(limit).Execute()
+> LegalFilingPage GetLegalFilings(ctx).Limit(limit).Execute()
 
 Returns the org's filing records, newest first — which documents were filed where, through which provider, and what the filing's honest status is.
 
@@ -184,7 +184,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.GetLegalFilings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLegalFilings`: FilingPage
+	// response from `GetLegalFilings`: LegalFilingPage
 	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.GetLegalFilings`: %v\n", resp)
 }
 ```
@@ -204,7 +204,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FilingPage**](FilingPage.md)
+[**LegalFilingPage**](LegalFilingPage.md)
 
 ### Authorization
 
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
 
 ## GetLegalHealth
 
-> LegalHealth GetLegalHealth(ctx).Execute()
+> LegalLegalHealth GetLegalHealth(ctx).Execute()
 
 Reports that the legal subsystem is serving and how many built-in templates its catalog carries.
 
@@ -249,7 +249,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.GetLegalHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLegalHealth`: LegalHealth
+	// response from `GetLegalHealth`: LegalLegalHealth
 	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.GetLegalHealth`: %v\n", resp)
 }
 ```
@@ -265,7 +265,7 @@ Other parameters are passed through a pointer to a apiGetLegalHealthRequest stru
 
 ### Return type
 
-[**LegalHealth**](LegalHealth.md)
+[**LegalLegalHealth**](LegalLegalHealth.md)
 
 ### Authorization
 
@@ -274,7 +274,7 @@ Other parameters are passed through a pointer to a apiGetLegalHealthRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -283,7 +283,7 @@ Other parameters are passed through a pointer to a apiGetLegalHealthRequest stru
 
 ## GetLegalTemplates
 
-> TemplateCatalog GetLegalTemplates(ctx).Execute()
+> LegalTemplateCatalog GetLegalTemplates(ctx).Execute()
 
 Returns the org's effective template catalog: every built-in template, with any the org has overridden replaced by its own latest version.
 
@@ -310,7 +310,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.GetLegalTemplates``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLegalTemplates`: TemplateCatalog
+	// response from `GetLegalTemplates`: LegalTemplateCatalog
 	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.GetLegalTemplates`: %v\n", resp)
 }
 ```
@@ -326,7 +326,7 @@ Other parameters are passed through a pointer to a apiGetLegalTemplatesRequest s
 
 ### Return type
 
-[**TemplateCatalog**](TemplateCatalog.md)
+[**LegalTemplateCatalog**](LegalTemplateCatalog.md)
 
 ### Authorization
 
@@ -335,7 +335,7 @@ Other parameters are passed through a pointer to a apiGetLegalTemplatesRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -344,7 +344,7 @@ Other parameters are passed through a pointer to a apiGetLegalTemplatesRequest s
 
 ## GetLegalTemplatesById
 
-> TemplateReply GetLegalTemplatesById(ctx, id).Execute()
+> LegalTemplateReply GetLegalTemplatesById(ctx, id).Execute()
 
 Returns one template resolved for the caller's org — the org's own override if it has saved one, else the built-in — with its full text/template body and its declared merge fields.
 
@@ -372,7 +372,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.GetLegalTemplatesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLegalTemplatesById`: TemplateReply
+	// response from `GetLegalTemplatesById`: LegalTemplateReply
 	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.GetLegalTemplatesById`: %v\n", resp)
 }
 ```
@@ -396,7 +396,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TemplateReply**](TemplateReply.md)
+[**LegalTemplateReply**](LegalTemplateReply.md)
 
 ### Authorization
 
@@ -405,7 +405,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -414,7 +414,7 @@ Name | Type | Description  | Notes
 
 ## PostLegalDocuments
 
-> DocumentReply PostLegalDocuments(ctx).GenerateRequest(generateRequest).Execute()
+> LegalDocumentReply PostLegalDocuments(ctx).LegalGenerateRequest(legalGenerateRequest).Execute()
 
 Renders a document from a template and the caller's own merge data, seals it in the org's store, and returns it with its rendered body.
 
@@ -433,16 +433,16 @@ import (
 )
 
 func main() {
-	generateRequest := *openapiclient.NewGenerateRequest() // GenerateRequest | 
+	legalGenerateRequest := *openapiclient.NewLegalGenerateRequest() // LegalGenerateRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.PostLegalDocuments(context.Background()).GenerateRequest(generateRequest).Execute()
+	resp, r, err := apiClient.LegalAPI.PostLegalDocuments(context.Background()).LegalGenerateRequest(legalGenerateRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.PostLegalDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostLegalDocuments`: DocumentReply
+	// response from `PostLegalDocuments`: LegalDocumentReply
 	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.PostLegalDocuments`: %v\n", resp)
 }
 ```
@@ -458,11 +458,11 @@ Other parameters are passed through a pointer to a apiPostLegalDocumentsRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **generateRequest** | [**GenerateRequest**](GenerateRequest.md) |  | 
+ **legalGenerateRequest** | [**LegalGenerateRequest**](LegalGenerateRequest.md) |  | 
 
 ### Return type
 
-[**DocumentReply**](DocumentReply.md)
+[**LegalDocumentReply**](LegalDocumentReply.md)
 
 ### Authorization
 
@@ -471,7 +471,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -480,7 +480,7 @@ Name | Type | Description  | Notes
 
 ## PostLegalDocumentsByIdSign
 
-> SignReply PostLegalDocumentsByIdSign(ctx, id).SignRequest(signRequest).Execute()
+> LegalSignReply PostLegalDocumentsByIdSign(ctx, id).LegalSignRequest(legalSignRequest).Execute()
 
 Opens an e-signature request over one document and moves it to out_for_signature, returning the provider's reference for the request.
 
@@ -500,16 +500,16 @@ import (
 
 func main() {
 	id := "doc_1f…" // string | ID is the document to send for signature, from the path.
-	signRequest := *openapiclient.NewSignRequest() // SignRequest | 
+	legalSignRequest := *openapiclient.NewLegalSignRequest() // LegalSignRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.PostLegalDocumentsByIdSign(context.Background(), id).SignRequest(signRequest).Execute()
+	resp, r, err := apiClient.LegalAPI.PostLegalDocumentsByIdSign(context.Background(), id).LegalSignRequest(legalSignRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.PostLegalDocumentsByIdSign``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostLegalDocumentsByIdSign`: SignReply
+	// response from `PostLegalDocumentsByIdSign`: LegalSignReply
 	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.PostLegalDocumentsByIdSign`: %v\n", resp)
 }
 ```
@@ -530,11 +530,11 @@ Other parameters are passed through a pointer to a apiPostLegalDocumentsByIdSign
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **signRequest** | [**SignRequest**](SignRequest.md) |  | 
+ **legalSignRequest** | [**LegalSignRequest**](LegalSignRequest.md) |  | 
 
 ### Return type
 
-[**SignReply**](SignReply.md)
+[**LegalSignReply**](LegalSignReply.md)
 
 ### Authorization
 
@@ -543,7 +543,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -620,7 +620,7 @@ Name | Type | Description  | Notes
 
 ## PostLegalFilings
 
-> FilingReply PostLegalFilings(ctx).FilingRequest(filingRequest).Execute()
+> LegalFilingReply PostLegalFilings(ctx).LegalFilingRequest(legalFilingRequest).Execute()
 
 Records a filing of one or more of the org's documents with a state or agency, and returns the tracking record.
 
@@ -639,16 +639,16 @@ import (
 )
 
 func main() {
-	filingRequest := *openapiclient.NewFilingRequest() // FilingRequest | 
+	legalFilingRequest := *openapiclient.NewLegalFilingRequest() // LegalFilingRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.PostLegalFilings(context.Background()).FilingRequest(filingRequest).Execute()
+	resp, r, err := apiClient.LegalAPI.PostLegalFilings(context.Background()).LegalFilingRequest(legalFilingRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.PostLegalFilings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostLegalFilings`: FilingReply
+	// response from `PostLegalFilings`: LegalFilingReply
 	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.PostLegalFilings`: %v\n", resp)
 }
 ```
@@ -664,11 +664,11 @@ Other parameters are passed through a pointer to a apiPostLegalFilingsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filingRequest** | [**FilingRequest**](FilingRequest.md) |  | 
+ **legalFilingRequest** | [**LegalFilingRequest**](LegalFilingRequest.md) |  | 
 
 ### Return type
 
-[**FilingReply**](FilingReply.md)
+[**LegalFilingReply**](LegalFilingReply.md)
 
 ### Authorization
 
@@ -677,7 +677,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -686,7 +686,7 @@ Name | Type | Description  | Notes
 
 ## PutLegalTemplatesById
 
-> TemplateReply PutLegalTemplatesById(ctx, id).TemplateOverride(templateOverride).Execute()
+> LegalTemplateReply PutLegalTemplatesById(ctx, id).LegalTemplateOverride(legalTemplateOverride).Execute()
 
 Saves the org's own version of a template — a custom NDA, a house MSA — and returns it with its new version number.
 
@@ -706,16 +706,16 @@ import (
 
 func main() {
 	id := "nda" // string | ID is the template to override, from the path. Overriding a built-in id inherits that built-in's category, title and counsel-review posture.
-	templateOverride := *openapiclient.NewTemplateOverride() // TemplateOverride | 
+	legalTemplateOverride := *openapiclient.NewLegalTemplateOverride() // LegalTemplateOverride | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LegalAPI.PutLegalTemplatesById(context.Background(), id).TemplateOverride(templateOverride).Execute()
+	resp, r, err := apiClient.LegalAPI.PutLegalTemplatesById(context.Background(), id).LegalTemplateOverride(legalTemplateOverride).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LegalAPI.PutLegalTemplatesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutLegalTemplatesById`: TemplateReply
+	// response from `PutLegalTemplatesById`: LegalTemplateReply
 	fmt.Fprintf(os.Stdout, "Response from `LegalAPI.PutLegalTemplatesById`: %v\n", resp)
 }
 ```
@@ -736,11 +736,11 @@ Other parameters are passed through a pointer to a apiPutLegalTemplatesByIdReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **templateOverride** | [**TemplateOverride**](TemplateOverride.md) |  | 
+ **legalTemplateOverride** | [**LegalTemplateOverride**](LegalTemplateOverride.md) |  | 
 
 ### Return type
 
-[**TemplateReply**](TemplateReply.md)
+[**LegalTemplateReply**](LegalTemplateReply.md)
 
 ### Authorization
 
@@ -749,7 +749,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

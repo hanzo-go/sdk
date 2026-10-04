@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to **map[string]map[string]interface{}** | Data are the statistics, keyed by the reporter&#39;s own counter names. | [optional] 
+**Data** | Pointer to **map[string]interface{}** | Data are the statistics, keyed by the reporter&#39;s own counter names. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;success\&quot;. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetData
 
-`func (o *O11yO11yOrgStatsOut) GetData() map[string]map[string]interface{}`
+`func (o *O11yO11yOrgStatsOut) GetData() map[string]interface{}`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *O11yO11yOrgStatsOut) GetDataOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yO11yOrgStatsOut) GetDataOk() (*map[string]interface{}, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *O11yO11yOrgStatsOut) SetData(v map[string]map[string]interface{})`
+`func (o *O11yO11yOrgStatsOut) SetData(v map[string]interface{})`
 
 SetData sets Data field to given value.
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BoolAttributeValues** | Pointer to **[]bool** |  | [optional] 
-**NumberAttributeValues** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**NumberAttributeValues** | Pointer to **[]interface{}** |  | [optional] 
 **RelatedValues** | Pointer to [**O11yFilterAttributeValueResponse**](O11yFilterAttributeValueResponse.md) |  | [optional] 
 **StringAttributeValues** | Pointer to **[]string** |  | [optional] 
 
@@ -55,20 +55,20 @@ HasBoolAttributeValues returns a boolean if a field has been set.
 
 ### GetNumberAttributeValues
 
-`func (o *O11yFilterAttributeValueResponse) GetNumberAttributeValues() []map[string]interface{}`
+`func (o *O11yFilterAttributeValueResponse) GetNumberAttributeValues() []interface{}`
 
 GetNumberAttributeValues returns the NumberAttributeValues field if non-nil, zero value otherwise.
 
 ### GetNumberAttributeValuesOk
 
-`func (o *O11yFilterAttributeValueResponse) GetNumberAttributeValuesOk() (*[]map[string]interface{}, bool)`
+`func (o *O11yFilterAttributeValueResponse) GetNumberAttributeValuesOk() (*[]interface{}, bool)`
 
 GetNumberAttributeValuesOk returns a tuple with the NumberAttributeValues field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumberAttributeValues
 
-`func (o *O11yFilterAttributeValueResponse) SetNumberAttributeValues(v []map[string]interface{})`
+`func (o *O11yFilterAttributeValueResponse) SetNumberAttributeValues(v []interface{})`
 
 SetNumberAttributeValues sets NumberAttributeValues field to given value.
 

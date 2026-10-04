@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Logs** | Pointer to [**[]O11yCollectedLogAttribute**](O11yCollectedLogAttribute.md) |  | [optional] 
-**Metrics** | Pointer to [**[]O11yCollectedMetric**](O11yCollectedMetric.md) |  | [optional] 
+**Logs** | Pointer to [**[]O11yCloudintegrationtypesCollectedLogAttribute**](O11yCloudintegrationtypesCollectedLogAttribute.md) |  | [optional] 
+**Metrics** | Pointer to [**[]O11yCloudintegrationtypesCollectedMetric**](O11yCloudintegrationtypesCollectedMetric.md) |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLogs
 
-`func (o *O11yDataCollected) GetLogs() []O11yCollectedLogAttribute`
+`func (o *O11yDataCollected) GetLogs() []O11yCloudintegrationtypesCollectedLogAttribute`
 
 GetLogs returns the Logs field if non-nil, zero value otherwise.
 
 ### GetLogsOk
 
-`func (o *O11yDataCollected) GetLogsOk() (*[]O11yCollectedLogAttribute, bool)`
+`func (o *O11yDataCollected) GetLogsOk() (*[]O11yCloudintegrationtypesCollectedLogAttribute, bool)`
 
 GetLogsOk returns a tuple with the Logs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLogs
 
-`func (o *O11yDataCollected) SetLogs(v []O11yCollectedLogAttribute)`
+`func (o *O11yDataCollected) SetLogs(v []O11yCloudintegrationtypesCollectedLogAttribute)`
 
 SetLogs sets Logs field to given value.
 
@@ -53,20 +53,20 @@ HasLogs returns a boolean if a field has been set.
 
 ### GetMetrics
 
-`func (o *O11yDataCollected) GetMetrics() []O11yCollectedMetric`
+`func (o *O11yDataCollected) GetMetrics() []O11yCloudintegrationtypesCollectedMetric`
 
 GetMetrics returns the Metrics field if non-nil, zero value otherwise.
 
 ### GetMetricsOk
 
-`func (o *O11yDataCollected) GetMetricsOk() (*[]O11yCollectedMetric, bool)`
+`func (o *O11yDataCollected) GetMetricsOk() (*[]O11yCloudintegrationtypesCollectedMetric, bool)`
 
 GetMetricsOk returns a tuple with the Metrics field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetrics
 
-`func (o *O11yDataCollected) SetMetrics(v []O11yCollectedMetric)`
+`func (o *O11yDataCollected) SetMetrics(v []O11yCloudintegrationtypesCollectedMetric)`
 
 SetMetrics sets Metrics field to given value.
 

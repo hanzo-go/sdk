@@ -18,7 +18,7 @@ Method | HTTP request | Description
 [**GetPricingFeatured**](PricingAPI.md#GetPricingFeatured) | **Get** /v1/pricing/featured | Returns the models the catalog highlights, filtered to what the caller&#39;s org may see.
 [**GetPricingFree**](PricingAPI.md#GetPricingFree) | **Get** /v1/pricing/free | Returns the models that cost nothing to call, filtered to what the caller&#39;s org may see.
 [**GetPricingGpu**](PricingAPI.md#GetPricingGpu) | **Get** /v1/pricing/gpu | ListGPUTiers returns the rentable GPU configurations, each with its accelerator count and model, VRAM, vCPU, host memory and hourly price.
-[**GetPricingHealth**](PricingAPI.md#GetPricingHealth) | **Get** /v1/pricing/health | Health reports that the pricing subsystem is mounted and serving.
+[**GetPricingHealth**](PricingAPI.md#GetPricingHealth) | **Get** /v1/pricing/health | Reports that the pricing subsystem is mounted and serving.
 [**GetPricingIam**](PricingAPI.md#GetPricingIam) | **Get** /v1/pricing/iam | ListIAMPlans returns the identity plans — the Hanzo IAM tiers, each with its monthly and annual price, monthly-active-user allowance and feature list.
 [**GetPricingModelByName**](PricingAPI.md#GetPricingModelByName) | **Get** /v1/pricing/model/{name} | Returns one model&#39;s catalog entry — its pricing, context window and capabilities as the pricing source records them.
 [**GetPricingModels**](PricingAPI.md#GetPricingModels) | **Get** /v1/pricing/models | Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller&#39;s org may see.
@@ -28,16 +28,16 @@ Method | HTTP request | Description
 [**GetPricingServices**](PricingAPI.md#GetPricingServices) | **Get** /v1/pricing/services | Returns the managed-service rate cards — Search, Crawl, Vector, Console and Managed Services — each with its own tiers, and some with usage rates or a comparison table.
 [**GetPricingSubscriptions**](PricingAPI.md#GetPricingSubscriptions) | **Get** /v1/pricing/subscriptions | Returns the API subscription plans — the account-level tiers a customer subscribes to, each with its monthly and annual price, included credit, rate limits and feature list.
 [**GetPricingSummary**](PricingAPI.md#GetPricingSummary) | **Get** /v1/pricing/summary | Returns the catalog&#39;s headline statistics — model counts by family and the provider directory.
-[**GetPricingTools**](PricingAPI.md#GetPricingTools) | **Get** /v1/pricing/tools | Returns the per-use tool prices — web search, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
+[**GetPricingTariff**](PricingAPI.md#GetPricingTariff) | **Get** /v1/pricing/tariff | Returns the platform&#39;s rate card: what a bill is made of, what each part costs, and the completion windows a request may ask for.
+[**GetPricingTools**](PricingAPI.md#GetPricingTools) | **Get** /v1/pricing/tools | Returns the per-use tool prices — web search, web fetch, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
 [**PostPricingEnablementOptin**](PricingAPI.md#PostPricingEnablementOptin) | **Post** /v1/pricing/enablement/optin | Opts the caller&#39;s OWN org into a beta item.
 [**PostPricingEnablementOptout**](PricingAPI.md#PostPricingEnablementOptout) | **Post** /v1/pricing/enablement/optout | Removes the caller&#39;s OWN org from a beta item&#39;s grant list, the reverse of OptIntoBeta and idempotent.
-[**PostPricingSync**](PricingAPI.md#PostPricingSync) | **Post** /v1/pricing/sync | Refreshes the third-party section of the catalog from its upstream listings and returns the time the refreshed catalog was stamped with.
 
 
 
 ## GetPricing
 
-> map[string]map[string]interface{} GetPricing(ctx).Execute()
+> map[string]interface{} GetPricing(ctx).Execute()
 
 Returns the whole pricing catalog in one document: Zen and third-party models, providers, model families, the free-model list, plan and infrastructure pricing.
 
@@ -64,7 +64,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricing``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricing`: map[string]map[string]interface{}
+	// response from `GetPricing`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricing`: %v\n", resp)
 }
 ```
@@ -80,7 +80,7 @@ Other parameters are passed through a pointer to a apiGetPricingRequest struct v
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -89,7 +89,7 @@ Other parameters are passed through a pointer to a apiGetPricingRequest struct v
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -98,7 +98,7 @@ Other parameters are passed through a pointer to a apiGetPricingRequest struct v
 
 ## GetPricingBase
 
-> PricingPlanList GetPricingBase(ctx).Execute()
+> PricingPricingPlanList GetPricingBase(ctx).Execute()
 
 Returns the Hanzo Base plans — the managed-instance tiers, each with its monthly and annual price, storage and request allowances and feature list.
 
@@ -125,7 +125,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingBase``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingBase`: PricingPlanList
+	// response from `GetPricingBase`: PricingPricingPlanList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingBase`: %v\n", resp)
 }
 ```
@@ -141,7 +141,7 @@ Other parameters are passed through a pointer to a apiGetPricingBaseRequest stru
 
 ### Return type
 
-[**PricingPlanList**](PricingPlanList.md)
+[**PricingPricingPlanList**](PricingPricingPlanList.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Other parameters are passed through a pointer to a apiGetPricingBaseRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -159,7 +159,7 @@ Other parameters are passed through a pointer to a apiGetPricingBaseRequest stru
 
 ## GetPricingBlockchain
 
-> PricingPlanList GetPricingBlockchain(ctx).Execute()
+> PricingPricingPlanList GetPricingBlockchain(ctx).Execute()
 
 Returns the blockchain access plans — the RPC and node tiers, each with its monthly price, compute-unit allowance and feature list.
 
@@ -186,7 +186,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingBlockchain``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingBlockchain`: PricingPlanList
+	// response from `GetPricingBlockchain`: PricingPricingPlanList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingBlockchain`: %v\n", resp)
 }
 ```
@@ -202,7 +202,7 @@ Other parameters are passed through a pointer to a apiGetPricingBlockchainReques
 
 ### Return type
 
-[**PricingPlanList**](PricingPlanList.md)
+[**PricingPricingPlanList**](PricingPricingPlanList.md)
 
 ### Authorization
 
@@ -211,7 +211,7 @@ Other parameters are passed through a pointer to a apiGetPricingBlockchainReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -220,7 +220,7 @@ Other parameters are passed through a pointer to a apiGetPricingBlockchainReques
 
 ## GetPricingCloud
 
-> map[string]map[string]interface{} GetPricingCloud(ctx).Execute()
+> map[string]interface{} GetPricingCloud(ctx).Execute()
 
 Returns the public cloud section of the catalog in one document: its instance plans, its regions and its block-storage prices.
 
@@ -247,7 +247,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingCloud``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingCloud`: map[string]map[string]interface{}
+	// response from `GetPricingCloud`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingCloud`: %v\n", resp)
 }
 ```
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudRequest str
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -272,7 +272,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudRequest str
 
 ## GetPricingCloudPlans
 
-> PricingPlanList GetPricingCloudPlans(ctx).Execute()
+> PricingPricingPlanList GetPricingCloudPlans(ctx).Execute()
 
 Returns just the cloud instance plans — each with its vCPU, memory, disk, CPU type, VM allowance, feature list and monthly and hourly price.
 
@@ -308,7 +308,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingCloudPlans``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingCloudPlans`: PricingPlanList
+	// response from `GetPricingCloudPlans`: PricingPricingPlanList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingCloudPlans`: %v\n", resp)
 }
 ```
@@ -324,7 +324,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudPlansReques
 
 ### Return type
 
-[**PricingPlanList**](PricingPlanList.md)
+[**PricingPricingPlanList**](PricingPricingPlanList.md)
 
 ### Authorization
 
@@ -333,7 +333,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudPlansReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -342,7 +342,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudPlansReques
 
 ## GetPricingCloudRegions
 
-> PricingRegionList GetPricingCloudRegions(ctx).Execute()
+> PricingPricingRegionList GetPricingCloudRegions(ctx).Execute()
 
 Returns the regions a cloud instance can be placed in, each with its id, display name and physical location.
 
@@ -369,7 +369,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingCloudRegions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingCloudRegions`: PricingRegionList
+	// response from `GetPricingCloudRegions`: PricingPricingRegionList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingCloudRegions`: %v\n", resp)
 }
 ```
@@ -385,7 +385,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudRegionsRequ
 
 ### Return type
 
-[**PricingRegionList**](PricingRegionList.md)
+[**PricingPricingRegionList**](PricingPricingRegionList.md)
 
 ### Authorization
 
@@ -394,7 +394,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudRegionsRequ
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -403,7 +403,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudRegionsRequ
 
 ## GetPricingCloudStorage
 
-> map[string]map[string]interface{} GetPricingCloudStorage(ctx).Execute()
+> map[string]interface{} GetPricingCloudStorage(ctx).Execute()
 
 Returns the block-storage prices of the cloud section: the per-GB monthly rate and the volume size bounds a caller may ask for.
 
@@ -430,7 +430,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingCloudStorage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingCloudStorage`: map[string]map[string]interface{}
+	// response from `GetPricingCloudStorage`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingCloudStorage`: %v\n", resp)
 }
 ```
@@ -446,7 +446,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudStorageRequ
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -455,7 +455,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudStorageRequ
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -464,7 +464,7 @@ Other parameters are passed through a pointer to a apiGetPricingCloudStorageRequ
 
 ## GetPricingCompute
 
-> map[string]map[string]interface{} GetPricingCompute(ctx).Execute()
+> map[string]interface{} GetPricingCompute(ctx).Execute()
 
 Returns the compute section of the catalog: the cloud provider and region the prices are quoted for, the monthly markup applied to them, the full instance-size tier list and the named presets.
 
@@ -491,7 +491,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingCompute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingCompute`: map[string]map[string]interface{}
+	// response from `GetPricingCompute`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingCompute`: %v\n", resp)
 }
 ```
@@ -507,7 +507,7 @@ Other parameters are passed through a pointer to a apiGetPricingComputeRequest s
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -516,7 +516,7 @@ Other parameters are passed through a pointer to a apiGetPricingComputeRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -525,7 +525,7 @@ Other parameters are passed through a pointer to a apiGetPricingComputeRequest s
 
 ## GetPricingComputePresets
 
-> PricingPresetList GetPricingComputePresets(ctx).Execute()
+> PricingPricingPresetList GetPricingComputePresets(ctx).Execute()
 
 Returns just the named compute sizes — the short, human-labelled list (\"Starter\", \"Pro\") a size picker renders, each carrying its provider slug, vCPU, memory, disk and price.
 
@@ -552,7 +552,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingComputePresets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingComputePresets`: PricingPresetList
+	// response from `GetPricingComputePresets`: PricingPricingPresetList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingComputePresets`: %v\n", resp)
 }
 ```
@@ -568,7 +568,7 @@ Other parameters are passed through a pointer to a apiGetPricingComputePresetsRe
 
 ### Return type
 
-[**PricingPresetList**](PricingPresetList.md)
+[**PricingPricingPresetList**](PricingPricingPresetList.md)
 
 ### Authorization
 
@@ -577,7 +577,7 @@ Other parameters are passed through a pointer to a apiGetPricingComputePresetsRe
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -586,7 +586,7 @@ Other parameters are passed through a pointer to a apiGetPricingComputePresetsRe
 
 ## GetPricingDatastore
 
-> map[string]map[string]interface{} GetPricingDatastore(ctx).Execute()
+> map[string]interface{} GetPricingDatastore(ctx).Execute()
 
 Returns the Hanzo Datastore rate card: the tier list, the per-GB storage and egress usage rates, the annual discount and the trial.
 
@@ -613,7 +613,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingDatastore``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingDatastore`: map[string]map[string]interface{}
+	// response from `GetPricingDatastore`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingDatastore`: %v\n", resp)
 }
 ```
@@ -629,7 +629,7 @@ Other parameters are passed through a pointer to a apiGetPricingDatastoreRequest
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -638,7 +638,7 @@ Other parameters are passed through a pointer to a apiGetPricingDatastoreRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -647,7 +647,7 @@ Other parameters are passed through a pointer to a apiGetPricingDatastoreRequest
 
 ## GetPricingEnablement
 
-> EnablementBoard GetPricingEnablement(ctx).Execute()
+> PricingEnablementBoard GetPricingEnablement(ctx).Execute()
 
 Returns what the caller's org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in.
 
@@ -674,7 +674,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingEnablement``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingEnablement`: EnablementBoard
+	// response from `GetPricingEnablement`: PricingEnablementBoard
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingEnablement`: %v\n", resp)
 }
 ```
@@ -690,7 +690,7 @@ Other parameters are passed through a pointer to a apiGetPricingEnablementReques
 
 ### Return type
 
-[**EnablementBoard**](EnablementBoard.md)
+[**PricingEnablementBoard**](PricingEnablementBoard.md)
 
 ### Authorization
 
@@ -699,7 +699,7 @@ Other parameters are passed through a pointer to a apiGetPricingEnablementReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -708,7 +708,7 @@ Other parameters are passed through a pointer to a apiGetPricingEnablementReques
 
 ## GetPricingFeatured
 
-> PricingModelList GetPricingFeatured(ctx).Execute()
+> PricingPricingModelList GetPricingFeatured(ctx).Execute()
 
 Returns the models the catalog highlights, filtered to what the caller's org may see.
 
@@ -735,7 +735,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingFeatured``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingFeatured`: PricingModelList
+	// response from `GetPricingFeatured`: PricingPricingModelList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingFeatured`: %v\n", resp)
 }
 ```
@@ -751,7 +751,7 @@ Other parameters are passed through a pointer to a apiGetPricingFeaturedRequest 
 
 ### Return type
 
-[**PricingModelList**](PricingModelList.md)
+[**PricingPricingModelList**](PricingPricingModelList.md)
 
 ### Authorization
 
@@ -760,7 +760,7 @@ Other parameters are passed through a pointer to a apiGetPricingFeaturedRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -769,7 +769,7 @@ Other parameters are passed through a pointer to a apiGetPricingFeaturedRequest 
 
 ## GetPricingFree
 
-> PricingModelList GetPricingFree(ctx).Execute()
+> PricingPricingModelList GetPricingFree(ctx).Execute()
 
 Returns the models that cost nothing to call, filtered to what the caller's org may see.
 
@@ -796,7 +796,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingFree``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingFree`: PricingModelList
+	// response from `GetPricingFree`: PricingPricingModelList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingFree`: %v\n", resp)
 }
 ```
@@ -812,7 +812,7 @@ Other parameters are passed through a pointer to a apiGetPricingFreeRequest stru
 
 ### Return type
 
-[**PricingModelList**](PricingModelList.md)
+[**PricingPricingModelList**](PricingPricingModelList.md)
 
 ### Authorization
 
@@ -821,7 +821,7 @@ Other parameters are passed through a pointer to a apiGetPricingFreeRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -830,7 +830,7 @@ Other parameters are passed through a pointer to a apiGetPricingFreeRequest stru
 
 ## GetPricingGpu
 
-> PricingTierList GetPricingGpu(ctx).Execute()
+> PricingPricingTierList GetPricingGpu(ctx).Execute()
 
 ListGPUTiers returns the rentable GPU configurations, each with its accelerator count and model, VRAM, vCPU, host memory and hourly price.
 
@@ -857,7 +857,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingGpu``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingGpu`: PricingTierList
+	// response from `GetPricingGpu`: PricingPricingTierList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingGpu`: %v\n", resp)
 }
 ```
@@ -873,7 +873,7 @@ Other parameters are passed through a pointer to a apiGetPricingGpuRequest struc
 
 ### Return type
 
-[**PricingTierList**](PricingTierList.md)
+[**PricingPricingTierList**](PricingPricingTierList.md)
 
 ### Authorization
 
@@ -882,7 +882,7 @@ Other parameters are passed through a pointer to a apiGetPricingGpuRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -891,9 +891,9 @@ Other parameters are passed through a pointer to a apiGetPricingGpuRequest struc
 
 ## GetPricingHealth
 
-> PricingHealth GetPricingHealth(ctx).Execute()
+> PricingPricingHealth GetPricingHealth(ctx).Execute()
 
-Health reports that the pricing subsystem is mounted and serving.
+Reports that the pricing subsystem is mounted and serving.
 
 
 
@@ -918,7 +918,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingHealth`: PricingHealth
+	// response from `GetPricingHealth`: PricingPricingHealth
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingHealth`: %v\n", resp)
 }
 ```
@@ -934,7 +934,7 @@ Other parameters are passed through a pointer to a apiGetPricingHealthRequest st
 
 ### Return type
 
-[**PricingHealth**](PricingHealth.md)
+[**PricingPricingHealth**](PricingPricingHealth.md)
 
 ### Authorization
 
@@ -943,7 +943,7 @@ Other parameters are passed through a pointer to a apiGetPricingHealthRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -952,7 +952,7 @@ Other parameters are passed through a pointer to a apiGetPricingHealthRequest st
 
 ## GetPricingIam
 
-> PricingPlanList GetPricingIam(ctx).Execute()
+> PricingPricingPlanList GetPricingIam(ctx).Execute()
 
 ListIAMPlans returns the identity plans — the Hanzo IAM tiers, each with its monthly and annual price, monthly-active-user allowance and feature list.
 
@@ -979,7 +979,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingIam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingIam`: PricingPlanList
+	// response from `GetPricingIam`: PricingPricingPlanList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingIam`: %v\n", resp)
 }
 ```
@@ -995,7 +995,7 @@ Other parameters are passed through a pointer to a apiGetPricingIamRequest struc
 
 ### Return type
 
-[**PricingPlanList**](PricingPlanList.md)
+[**PricingPricingPlanList**](PricingPricingPlanList.md)
 
 ### Authorization
 
@@ -1004,7 +1004,7 @@ Other parameters are passed through a pointer to a apiGetPricingIamRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1013,7 +1013,7 @@ Other parameters are passed through a pointer to a apiGetPricingIamRequest struc
 
 ## GetPricingModelByName
 
-> map[string]map[string]interface{} GetPricingModelByName(ctx, name).Execute()
+> map[string]interface{} GetPricingModelByName(ctx, name).Execute()
 
 Returns one model's catalog entry — its pricing, context window and capabilities as the pricing source records them.
 
@@ -1041,7 +1041,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingModelByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingModelByName`: map[string]map[string]interface{}
+	// response from `GetPricingModelByName`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingModelByName`: %v\n", resp)
 }
 ```
@@ -1065,7 +1065,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -1074,7 +1074,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1083,7 +1083,7 @@ Name | Type | Description  | Notes
 
 ## GetPricingModels
 
-> PricingModelList GetPricingModels(ctx).Execute()
+> PricingPricingModelList GetPricingModels(ctx).Execute()
 
 Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller's org may see.
 
@@ -1110,7 +1110,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingModels`: PricingModelList
+	// response from `GetPricingModels`: PricingPricingModelList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingModels`: %v\n", resp)
 }
 ```
@@ -1126,7 +1126,7 @@ Other parameters are passed through a pointer to a apiGetPricingModelsRequest st
 
 ### Return type
 
-[**PricingModelList**](PricingModelList.md)
+[**PricingPricingModelList**](PricingPricingModelList.md)
 
 ### Authorization
 
@@ -1135,7 +1135,7 @@ Other parameters are passed through a pointer to a apiGetPricingModelsRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1144,7 +1144,7 @@ Other parameters are passed through a pointer to a apiGetPricingModelsRequest st
 
 ## GetPricingPaas
 
-> PricingPlanList GetPricingPaas(ctx).Execute()
+> PricingPricingPlanList GetPricingPaas(ctx).Execute()
 
 ListPaaSPlans returns the application-hosting plans — the deploy-and-host tiers, each with its monthly and annual price, app and memory allowances and feature list.
 
@@ -1171,7 +1171,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingPaas``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingPaas`: PricingPlanList
+	// response from `GetPricingPaas`: PricingPricingPlanList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingPaas`: %v\n", resp)
 }
 ```
@@ -1187,7 +1187,7 @@ Other parameters are passed through a pointer to a apiGetPricingPaasRequest stru
 
 ### Return type
 
-[**PricingPlanList**](PricingPlanList.md)
+[**PricingPricingPlanList**](PricingPricingPlanList.md)
 
 ### Authorization
 
@@ -1196,7 +1196,7 @@ Other parameters are passed through a pointer to a apiGetPricingPaasRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1205,7 +1205,7 @@ Other parameters are passed through a pointer to a apiGetPricingPaasRequest stru
 
 ## GetPricingPolicy
 
-> map[string]map[string]interface{} GetPricingPolicy(ctx).Execute()
+> map[string]interface{} GetPricingPolicy(ctx).Execute()
 
 Returns the pricing policy document: the revenue-sharing terms (the idle-resale share and the open-source share, each with its percentage and who is eligible) and the commitments Hanzo makes about how it bills — no hidden fees, no egress charges, no surprise bills.
 
@@ -1232,7 +1232,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingPolicy`: map[string]map[string]interface{}
+	// response from `GetPricingPolicy`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingPolicy`: %v\n", resp)
 }
 ```
@@ -1248,7 +1248,7 @@ Other parameters are passed through a pointer to a apiGetPricingPolicyRequest st
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -1257,7 +1257,7 @@ Other parameters are passed through a pointer to a apiGetPricingPolicyRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1266,7 +1266,7 @@ Other parameters are passed through a pointer to a apiGetPricingPolicyRequest st
 
 ## GetPricingProviders
 
-> PricingProviderList GetPricingProviders(ctx).Execute()
+> PricingPricingProviderList GetPricingProviders(ctx).Execute()
 
 Returns the model providers the catalog knows, each with its info object, filtered to what the caller's org may see.
 
@@ -1293,7 +1293,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingProviders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingProviders`: PricingProviderList
+	// response from `GetPricingProviders`: PricingPricingProviderList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingProviders`: %v\n", resp)
 }
 ```
@@ -1309,7 +1309,7 @@ Other parameters are passed through a pointer to a apiGetPricingProvidersRequest
 
 ### Return type
 
-[**PricingProviderList**](PricingProviderList.md)
+[**PricingPricingProviderList**](PricingPricingProviderList.md)
 
 ### Authorization
 
@@ -1318,7 +1318,7 @@ Other parameters are passed through a pointer to a apiGetPricingProvidersRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1327,7 +1327,7 @@ Other parameters are passed through a pointer to a apiGetPricingProvidersRequest
 
 ## GetPricingServices
 
-> map[string]map[string]interface{} GetPricingServices(ctx).Execute()
+> map[string]interface{} GetPricingServices(ctx).Execute()
 
 Returns the managed-service rate cards — Search, Crawl, Vector, Console and Managed Services — each with its own tiers, and some with usage rates or a comparison table.
 
@@ -1354,7 +1354,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingServices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingServices`: map[string]map[string]interface{}
+	// response from `GetPricingServices`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingServices`: %v\n", resp)
 }
 ```
@@ -1370,7 +1370,7 @@ Other parameters are passed through a pointer to a apiGetPricingServicesRequest 
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -1379,7 +1379,7 @@ Other parameters are passed through a pointer to a apiGetPricingServicesRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1388,7 +1388,7 @@ Other parameters are passed through a pointer to a apiGetPricingServicesRequest 
 
 ## GetPricingSubscriptions
 
-> PricingPlanList GetPricingSubscriptions(ctx).Execute()
+> PricingPricingPlanList GetPricingSubscriptions(ctx).Execute()
 
 Returns the API subscription plans — the account-level tiers a customer subscribes to, each with its monthly and annual price, included credit, rate limits and feature list.
 
@@ -1415,7 +1415,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingSubscriptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingSubscriptions`: PricingPlanList
+	// response from `GetPricingSubscriptions`: PricingPricingPlanList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingSubscriptions`: %v\n", resp)
 }
 ```
@@ -1431,7 +1431,7 @@ Other parameters are passed through a pointer to a apiGetPricingSubscriptionsReq
 
 ### Return type
 
-[**PricingPlanList**](PricingPlanList.md)
+[**PricingPricingPlanList**](PricingPricingPlanList.md)
 
 ### Authorization
 
@@ -1440,7 +1440,7 @@ Other parameters are passed through a pointer to a apiGetPricingSubscriptionsReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1449,7 +1449,7 @@ Other parameters are passed through a pointer to a apiGetPricingSubscriptionsReq
 
 ## GetPricingSummary
 
-> map[string]map[string]interface{} GetPricingSummary(ctx).Execute()
+> map[string]interface{} GetPricingSummary(ctx).Execute()
 
 Returns the catalog's headline statistics — model counts by family and the provider directory.
 
@@ -1476,7 +1476,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingSummary`: map[string]map[string]interface{}
+	// response from `GetPricingSummary`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingSummary`: %v\n", resp)
 }
 ```
@@ -1492,7 +1492,7 @@ Other parameters are passed through a pointer to a apiGetPricingSummaryRequest s
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -1501,7 +1501,68 @@ Other parameters are passed through a pointer to a apiGetPricingSummaryRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetPricingTariff
+
+> PricingCard GetPricingTariff(ctx).Execute()
+
+Returns the platform's rate card: what a bill is made of, what each part costs, and the completion windows a request may ask for.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PricingAPI.GetPricingTariff(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingTariff``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPricingTariff`: PricingCard
+	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingTariff`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPricingTariffRequest struct via the builder pattern
+
+
+### Return type
+
+[**PricingCard**](PricingCard.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1510,9 +1571,9 @@ Other parameters are passed through a pointer to a apiGetPricingSummaryRequest s
 
 ## GetPricingTools
 
-> PricingToolList GetPricingTools(ctx).Execute()
+> PricingPricingToolList GetPricingTools(ctx).Execute()
 
-Returns the per-use tool prices — web search, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
+Returns the per-use tool prices — web search, web fetch, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
 
 
 
@@ -1537,7 +1598,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.GetPricingTools``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPricingTools`: PricingToolList
+	// response from `GetPricingTools`: PricingPricingToolList
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.GetPricingTools`: %v\n", resp)
 }
 ```
@@ -1553,7 +1614,7 @@ Other parameters are passed through a pointer to a apiGetPricingToolsRequest str
 
 ### Return type
 
-[**PricingToolList**](PricingToolList.md)
+[**PricingPricingToolList**](PricingPricingToolList.md)
 
 ### Authorization
 
@@ -1562,7 +1623,7 @@ Other parameters are passed through a pointer to a apiGetPricingToolsRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1571,7 +1632,7 @@ Other parameters are passed through a pointer to a apiGetPricingToolsRequest str
 
 ## PostPricingEnablementOptin
 
-> UserEnablementItem PostPricingEnablementOptin(ctx).EnablementOptRef(enablementOptRef).Execute()
+> PricingUserEnablementItem PostPricingEnablementOptin(ctx).PricingEnablementOptRef(pricingEnablementOptRef).Execute()
 
 Opts the caller's OWN org into a beta item.
 
@@ -1590,16 +1651,16 @@ import (
 )
 
 func main() {
-	enablementOptRef := *openapiclient.NewEnablementOptRef() // EnablementOptRef | 
+	pricingEnablementOptRef := *openapiclient.NewPricingEnablementOptRef() // PricingEnablementOptRef | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.PostPricingEnablementOptin(context.Background()).EnablementOptRef(enablementOptRef).Execute()
+	resp, r, err := apiClient.PricingAPI.PostPricingEnablementOptin(context.Background()).PricingEnablementOptRef(pricingEnablementOptRef).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.PostPricingEnablementOptin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPricingEnablementOptin`: UserEnablementItem
+	// response from `PostPricingEnablementOptin`: PricingUserEnablementItem
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.PostPricingEnablementOptin`: %v\n", resp)
 }
 ```
@@ -1615,11 +1676,11 @@ Other parameters are passed through a pointer to a apiPostPricingEnablementOptin
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **enablementOptRef** | [**EnablementOptRef**](EnablementOptRef.md) |  | 
+ **pricingEnablementOptRef** | [**PricingEnablementOptRef**](PricingEnablementOptRef.md) |  | 
 
 ### Return type
 
-[**UserEnablementItem**](UserEnablementItem.md)
+[**PricingUserEnablementItem**](PricingUserEnablementItem.md)
 
 ### Authorization
 
@@ -1628,7 +1689,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1637,7 +1698,7 @@ Name | Type | Description  | Notes
 
 ## PostPricingEnablementOptout
 
-> UserEnablementItem PostPricingEnablementOptout(ctx).EnablementOptRef(enablementOptRef).Execute()
+> PricingUserEnablementItem PostPricingEnablementOptout(ctx).PricingEnablementOptRef(pricingEnablementOptRef).Execute()
 
 Removes the caller's OWN org from a beta item's grant list, the reverse of OptIntoBeta and idempotent.
 
@@ -1656,16 +1717,16 @@ import (
 )
 
 func main() {
-	enablementOptRef := *openapiclient.NewEnablementOptRef() // EnablementOptRef | 
+	pricingEnablementOptRef := *openapiclient.NewPricingEnablementOptRef() // PricingEnablementOptRef | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.PostPricingEnablementOptout(context.Background()).EnablementOptRef(enablementOptRef).Execute()
+	resp, r, err := apiClient.PricingAPI.PostPricingEnablementOptout(context.Background()).PricingEnablementOptRef(pricingEnablementOptRef).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.PostPricingEnablementOptout``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostPricingEnablementOptout`: UserEnablementItem
+	// response from `PostPricingEnablementOptout`: PricingUserEnablementItem
 	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.PostPricingEnablementOptout`: %v\n", resp)
 }
 ```
@@ -1681,11 +1742,11 @@ Other parameters are passed through a pointer to a apiPostPricingEnablementOptou
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **enablementOptRef** | [**EnablementOptRef**](EnablementOptRef.md) |  | 
+ **pricingEnablementOptRef** | [**PricingEnablementOptRef**](PricingEnablementOptRef.md) |  | 
 
 ### Return type
 
-[**UserEnablementItem**](UserEnablementItem.md)
+[**PricingUserEnablementItem**](PricingUserEnablementItem.md)
 
 ### Authorization
 
@@ -1694,68 +1755,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostPricingSync
-
-> PricingSyncOut PostPricingSync(ctx).Execute()
-
-Refreshes the third-party section of the catalog from its upstream listings and returns the time the refreshed catalog was stamped with.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PricingAPI.PostPricingSync(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PricingAPI.PostPricingSync``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostPricingSync`: PricingSyncOut
-	fmt.Fprintf(os.Stdout, "Response from `PricingAPI.PostPricingSync`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostPricingSyncRequest struct via the builder pattern
-
-
-### Return type
-
-[**PricingSyncOut**](PricingSyncOut.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

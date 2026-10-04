@@ -19,12 +19,15 @@ var _ MappedNullable = &ServicePort{}
 
 // ServicePort struct for ServicePort
 type ServicePort struct {
-	Name     *string `json:"name,omitempty"`
-	NodePort *int32  `json:"nodePort,omitempty"`
-	Port     *int32  `json:"port,omitempty"`
-	Protocol *string `json:"protocol,omitempty"`
-	Url      *string `json:"url,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	NodePort             *int32  `json:"nodePort,omitempty"`
+	Port                 *int32  `json:"port,omitempty"`
+	Protocol             *string `json:"protocol,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServicePort ServicePort
 
 // NewServicePort instantiates a new ServicePort object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o ServicePort) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ServicePort) UnmarshalJSON(data []byte) (err error) {
+	varServicePort := _ServicePort{}
+
+	err = json.Unmarshal(data, &varServicePort)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServicePort(varServicePort)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "nodePort")
+		delete(additionalProperties, "port")
+		delete(additionalProperties, "protocol")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServicePort struct {

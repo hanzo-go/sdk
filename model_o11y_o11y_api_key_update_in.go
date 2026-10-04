@@ -22,8 +22,11 @@ type O11yO11yAPIKeyUpdateIn struct {
 	// ExpiresAt is when the key stops working, as a unix timestamp in seconds. Zero means it never expires; a past timestamp is refused.
 	ExpiresAt *int32 `json:"expiresAt,omitempty"`
 	// Name is the key's new name, under the same rules it was created with. Required.
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yAPIKeyUpdateIn O11yO11yAPIKeyUpdateIn
 
 // NewO11yO11yAPIKeyUpdateIn instantiates a new O11yO11yAPIKeyUpdateIn object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yAPIKeyUpdateIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yAPIKeyUpdateIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yAPIKeyUpdateIn := _O11yO11yAPIKeyUpdateIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yAPIKeyUpdateIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yAPIKeyUpdateIn(varO11yO11yAPIKeyUpdateIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "expiresAt")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yAPIKeyUpdateIn struct {

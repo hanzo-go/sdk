@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yAWSMetricsCollectionStrategy{}
 // O11yAWSMetricsCollectionStrategy struct for O11yAWSMetricsCollectionStrategy
 type O11yAWSMetricsCollectionStrategy struct {
 	// to be used as https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-metricstream.html#cfn-cloudwatch-metricstream-includefilters
-	StreamFilters []O11yAWSCloudWatchMetricStreamFilter `json:"streamFilters,omitempty"`
+	StreamFilters        []O11yAWSCloudWatchMetricStreamFilter `json:"streamFilters,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAWSMetricsCollectionStrategy O11yAWSMetricsCollectionStrategy
 
 // NewO11yAWSMetricsCollectionStrategy instantiates a new O11yAWSMetricsCollectionStrategy object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yAWSMetricsCollectionStrategy) ToMap() (map[string]interface{}, error
 	if !IsNil(o.StreamFilters) {
 		toSerialize["streamFilters"] = o.StreamFilters
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAWSMetricsCollectionStrategy) UnmarshalJSON(data []byte) (err error) {
+	varO11yAWSMetricsCollectionStrategy := _O11yAWSMetricsCollectionStrategy{}
+
+	err = json.Unmarshal(data, &varO11yAWSMetricsCollectionStrategy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAWSMetricsCollectionStrategy(varO11yAWSMetricsCollectionStrategy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "streamFilters")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAWSMetricsCollectionStrategy struct {

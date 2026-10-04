@@ -19,13 +19,16 @@ var _ MappedNullable = &AiResponsesTool{}
 
 // AiResponsesTool struct for AiResponsesTool
 type AiResponsesTool struct {
-	Description *string `json:"description,omitempty"`
-	Format      *string `json:"format,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Parameters  *string `json:"parameters,omitempty"`
-	Strict      *bool   `json:"strict,omitempty"`
-	Type        *string `json:"type,omitempty"`
+	Description          *string     `json:"description,omitempty"`
+	Format               interface{} `json:"format,omitempty"`
+	Name                 *string     `json:"name,omitempty"`
+	Parameters           interface{} `json:"parameters,omitempty"`
+	Strict               *bool       `json:"strict,omitempty"`
+	Type                 *string     `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiResponsesTool AiResponsesTool
 
 // NewAiResponsesTool instantiates a new AiResponsesTool object
 // This constructor will assign default values to properties that have it defined,
@@ -76,22 +79,23 @@ func (o *AiResponsesTool) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetFormat returns the Format field value if set, zero value otherwise.
-func (o *AiResponsesTool) GetFormat() string {
-	if o == nil || IsNil(o.Format) {
-		var ret string
+// GetFormat returns the Format field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AiResponsesTool) GetFormat() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
-	return *o.Format
+	return o.Format
 }
 
 // GetFormatOk returns a tuple with the Format field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiResponsesTool) GetFormatOk() (*string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AiResponsesTool) GetFormatOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Format) {
 		return nil, false
 	}
-	return o.Format, true
+	return &o.Format, true
 }
 
 // HasFormat returns a boolean if a field has been set.
@@ -103,9 +107,9 @@ func (o *AiResponsesTool) HasFormat() bool {
 	return false
 }
 
-// SetFormat gets a reference to the given string and assigns it to the Format field.
-func (o *AiResponsesTool) SetFormat(v string) {
-	o.Format = &v
+// SetFormat gets a reference to the given interface{} and assigns it to the Format field.
+func (o *AiResponsesTool) SetFormat(v interface{}) {
+	o.Format = v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -140,22 +144,23 @@ func (o *AiResponsesTool) SetName(v string) {
 	o.Name = &v
 }
 
-// GetParameters returns the Parameters field value if set, zero value otherwise.
-func (o *AiResponsesTool) GetParameters() string {
-	if o == nil || IsNil(o.Parameters) {
-		var ret string
+// GetParameters returns the Parameters field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AiResponsesTool) GetParameters() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
-	return *o.Parameters
+	return o.Parameters
 }
 
 // GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiResponsesTool) GetParametersOk() (*string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AiResponsesTool) GetParametersOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Parameters) {
 		return nil, false
 	}
-	return o.Parameters, true
+	return &o.Parameters, true
 }
 
 // HasParameters returns a boolean if a field has been set.
@@ -167,9 +172,9 @@ func (o *AiResponsesTool) HasParameters() bool {
 	return false
 }
 
-// SetParameters gets a reference to the given string and assigns it to the Parameters field.
-func (o *AiResponsesTool) SetParameters(v string) {
-	o.Parameters = &v
+// SetParameters gets a reference to the given interface{} and assigns it to the Parameters field.
+func (o *AiResponsesTool) SetParameters(v interface{}) {
+	o.Parameters = v
 }
 
 // GetStrict returns the Strict field value if set, zero value otherwise.
@@ -249,13 +254,13 @@ func (o AiResponsesTool) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !IsNil(o.Format) {
+	if o.Format != nil {
 		toSerialize["format"] = o.Format
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if !IsNil(o.Parameters) {
+	if o.Parameters != nil {
 		toSerialize["parameters"] = o.Parameters
 	}
 	if !IsNil(o.Strict) {
@@ -264,7 +269,38 @@ func (o AiResponsesTool) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiResponsesTool) UnmarshalJSON(data []byte) (err error) {
+	varAiResponsesTool := _AiResponsesTool{}
+
+	err = json.Unmarshal(data, &varAiResponsesTool)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiResponsesTool(varAiResponsesTool)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "format")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "parameters")
+		delete(additionalProperties, "strict")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiResponsesTool struct {

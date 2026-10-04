@@ -19,10 +19,13 @@ var _ MappedNullable = &TrafficTotals{}
 
 // TrafficTotals struct for TrafficTotals
 type TrafficTotals struct {
-	Rpm60m       *float32              `json:"rpm_60m,omitempty"`
-	Rps1m        *float32              `json:"rps_1m,omitempty"`
-	TopCountries []TrafficCountryCount `json:"top_countries,omitempty"`
+	Rpm60m               *float32              `json:"rpm_60m,omitempty"`
+	Rps1m                *float32              `json:"rps_1m,omitempty"`
+	TopCountries         []TrafficCountryCount `json:"top_countries,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TrafficTotals TrafficTotals
 
 // NewTrafficTotals instantiates a new TrafficTotals object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o TrafficTotals) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TopCountries) {
 		toSerialize["top_countries"] = o.TopCountries
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TrafficTotals) UnmarshalJSON(data []byte) (err error) {
+	varTrafficTotals := _TrafficTotals{}
+
+	err = json.Unmarshal(data, &varTrafficTotals)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TrafficTotals(varTrafficTotals)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "rpm_60m")
+		delete(additionalProperties, "rps_1m")
+		delete(additionalProperties, "top_countries")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTrafficTotals struct {

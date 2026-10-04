@@ -11,18 +11,18 @@ Method | HTTP request | Description
 [**GetToolActivation**](ToolAPI.md#GetToolActivation) | **Get** /v1/tool/activation | Reports which tools are switched on for the caller&#39;s org and project.
 [**GetToolCatalog**](ToolAPI.md#GetToolCatalog) | **Get** /v1/tool/catalog | Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
 [**GetToolCatalogById**](ToolAPI.md#GetToolCatalogById) | **Get** /v1/tool/catalog/{id} | Returns one catalog entry in full: the publisher&#39;s description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
+[**GetToolKit**](ToolAPI.md#GetToolKit) | **Get** /v1/tool/kit | Answers the caller&#39;s kit: what their coding runs carry of the org&#39;s tool plane.
 [**GetToolMcpServers**](ToolAPI.md#GetToolMcpServers) | **Get** /v1/tool/mcp/servers | Lists the external MCP servers the caller&#39;s org has registered.
 [**GetToolPlugins**](ToolAPI.md#GetToolPlugins) | **Get** /v1/tool/plugins | Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
 [**GetToolPluginsAuthored**](ToolAPI.md#GetToolPluginsAuthored) | **Get** /v1/tool/plugins/authored | Lists the plugins the caller&#39;s org BUILT, newest first, each with the TypeScript as authored.
 [**GetToolSkills**](ToolAPI.md#GetToolSkills) | **Get** /v1/tool/skills | Lists the skills the caller&#39;s org can reach — the brand&#39;s embedded catalogue plus the org&#39;s own authored ones — with each one&#39;s activation flag.
 [**GetToolSkillsAuthored**](ToolAPI.md#GetToolSkillsAuthored) | **Get** /v1/tool/skills/authored | Lists the caller org&#39;s OWN skills with their SKILL.md bodies.
-[**PatchToolCatalogById**](ToolAPI.md#PatchToolCatalogById) | **Patch** /v1/tool/catalog/{id} | Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
 [**PostToolCall**](ToolAPI.md#PostToolCall) | **Post** /v1/tool/call | Runs one of the caller&#39;s activated tools and answers with its output.
-[**PostToolCatalogSync**](ToolAPI.md#PostToolCatalogSync) | **Post** /v1/tool/catalog/sync | Pulls the public MCP registry into our canonical copy and reports what changed.
 [**PostToolMcpServers**](ToolAPI.md#PostToolMcpServers) | **Post** /v1/tool/mcp/servers | Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP server.
 [**PostToolPluginsBuild**](ToolAPI.md#PostToolPluginsBuild) | **Post** /v1/tool/plugins/build | Builds and stores one plugin for the caller&#39;s org.
 [**PostToolSkills**](ToolAPI.md#PostToolSkills) | **Post** /v1/tool/skills | Adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
 [**PutToolActivation**](ToolAPI.md#PutToolActivation) | **Put** /v1/tool/activation | Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
+[**PutToolKit**](ToolAPI.md#PutToolKit) | **Put** /v1/tool/kit | Mutes and unmutes names of the org&#39;s kit for the caller&#39;s own runs, and answers the caller&#39;s kit after.
 
 
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 
 ## DeleteToolPluginsAuthoredById
 
-> PluginDeleted DeleteToolPluginsAuthoredById(ctx, id).Execute()
+> ToolPluginDeleted DeleteToolPluginsAuthoredById(ctx, id).Execute()
 
 Removes one of the caller org's built plugins, so the runtime can no longer load it.
 
@@ -124,7 +124,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.DeleteToolPluginsAuthoredById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteToolPluginsAuthoredById`: PluginDeleted
+	// response from `DeleteToolPluginsAuthoredById`: ToolPluginDeleted
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.DeleteToolPluginsAuthoredById`: %v\n", resp)
 }
 ```
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PluginDeleted**](PluginDeleted.md)
+[**ToolPluginDeleted**](ToolPluginDeleted.md)
 
 ### Authorization
 
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -166,7 +166,7 @@ Name | Type | Description  | Notes
 
 ## DeleteToolSkillsById
 
-> SkillDeleted DeleteToolSkillsById(ctx, id).Execute()
+> ToolSkillDeleted DeleteToolSkillsById(ctx, id).Execute()
 
 Removes one of the caller org's authored skills.
 
@@ -194,7 +194,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.DeleteToolSkillsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteToolSkillsById`: SkillDeleted
+	// response from `DeleteToolSkillsById`: ToolSkillDeleted
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.DeleteToolSkillsById`: %v\n", resp)
 }
 ```
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SkillDeleted**](SkillDeleted.md)
+[**ToolSkillDeleted**](ToolSkillDeleted.md)
 
 ### Authorization
 
@@ -227,7 +227,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -236,7 +236,7 @@ Name | Type | Description  | Notes
 
 ## GetTool
 
-> ToolList GetTool(ctx).Source(source).Activated(activated).Execute()
+> ToolToolList GetTool(ctx).Source(source).Activated(activated).Execute()
 
 Lists every tool the caller's org and project can reach, from every source, each flagged with whether it is activated.
 
@@ -265,7 +265,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetTool``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTool`: ToolList
+	// response from `GetTool`: ToolToolList
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetTool`: %v\n", resp)
 }
 ```
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ToolList**](ToolList.md)
+[**ToolToolList**](ToolToolList.md)
 
 ### Authorization
 
@@ -295,7 +295,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -304,7 +304,7 @@ Name | Type | Description  | Notes
 
 ## GetToolActivation
 
-> ActivationSet GetToolActivation(ctx).Execute()
+> ToolActivationSet GetToolActivation(ctx).Execute()
 
 Reports which tools are switched on for the caller's org and project.
 
@@ -331,7 +331,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolActivation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolActivation`: ActivationSet
+	// response from `GetToolActivation`: ToolActivationSet
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolActivation`: %v\n", resp)
 }
 ```
@@ -347,7 +347,7 @@ Other parameters are passed through a pointer to a apiGetToolActivationRequest s
 
 ### Return type
 
-[**ActivationSet**](ActivationSet.md)
+[**ToolActivationSet**](ToolActivationSet.md)
 
 ### Authorization
 
@@ -356,7 +356,7 @@ Other parameters are passed through a pointer to a apiGetToolActivationRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -365,7 +365,7 @@ Other parameters are passed through a pointer to a apiGetToolActivationRequest s
 
 ## GetToolCatalog
 
-> McpCatalog GetToolCatalog(ctx).Q(q).Featured(featured).Official(official).Limit(limit).Offset(offset).Execute()
+> ToolMcpCatalog GetToolCatalog(ctx).Q(q).Featured(featured).Official(official).Limit(limit).Offset(offset).Execute()
 
 Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
 
@@ -397,7 +397,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolCatalog``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolCatalog`: McpCatalog
+	// response from `GetToolCatalog`: ToolMcpCatalog
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolCatalog`: %v\n", resp)
 }
 ```
@@ -421,16 +421,16 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**McpCatalog**](McpCatalog.md)
+[**ToolMcpCatalog**](ToolMcpCatalog.md)
 
 ### Authorization
 
-[bearer](../README.md#bearer)
+No authorization required
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -439,7 +439,7 @@ Name | Type | Description  | Notes
 
 ## GetToolCatalogById
 
-> MCPListing GetToolCatalogById(ctx, id).Execute()
+> ToolMCPListing GetToolCatalogById(ctx, id).Execute()
 
 Returns one catalog entry in full: the publisher's description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
 
@@ -467,7 +467,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolCatalogById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolCatalogById`: MCPListing
+	// response from `GetToolCatalogById`: ToolMCPListing
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolCatalogById`: %v\n", resp)
 }
 ```
@@ -491,7 +491,68 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MCPListing**](MCPListing.md)
+[**ToolMCPListing**](ToolMCPListing.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetToolKit
+
+> ToolKit GetToolKit(ctx).Execute()
+
+Answers the caller's kit: what their coding runs carry of the org's tool plane.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ToolAPI.GetToolKit(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolKit``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetToolKit`: ToolKit
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolKit`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetToolKitRequest struct via the builder pattern
+
+
+### Return type
+
+[**ToolKit**](ToolKit.md)
 
 ### Authorization
 
@@ -500,7 +561,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -509,7 +570,7 @@ Name | Type | Description  | Notes
 
 ## GetToolMcpServers
 
-> McpServerList GetToolMcpServers(ctx).Execute()
+> ToolMcpServerList GetToolMcpServers(ctx).Execute()
 
 Lists the external MCP servers the caller's org has registered.
 
@@ -536,7 +597,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolMcpServers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolMcpServers`: McpServerList
+	// response from `GetToolMcpServers`: ToolMcpServerList
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolMcpServers`: %v\n", resp)
 }
 ```
@@ -552,7 +613,7 @@ Other parameters are passed through a pointer to a apiGetToolMcpServersRequest s
 
 ### Return type
 
-[**McpServerList**](McpServerList.md)
+[**ToolMcpServerList**](ToolMcpServerList.md)
 
 ### Authorization
 
@@ -561,7 +622,7 @@ Other parameters are passed through a pointer to a apiGetToolMcpServersRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -570,7 +631,7 @@ Other parameters are passed through a pointer to a apiGetToolMcpServersRequest s
 
 ## GetToolPlugins
 
-> PluginMountList GetToolPlugins(ctx).All(all).Execute()
+> ToolPluginMountList GetToolPlugins(ctx).All(all).Execute()
 
 Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
 
@@ -598,7 +659,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolPlugins``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolPlugins`: PluginMountList
+	// response from `GetToolPlugins`: ToolPluginMountList
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolPlugins`: %v\n", resp)
 }
 ```
@@ -618,7 +679,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PluginMountList**](PluginMountList.md)
+[**ToolPluginMountList**](ToolPluginMountList.md)
 
 ### Authorization
 
@@ -627,7 +688,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -636,7 +697,7 @@ Name | Type | Description  | Notes
 
 ## GetToolPluginsAuthored
 
-> AuthoredPluginList GetToolPluginsAuthored(ctx).Execute()
+> ToolAuthoredPluginList GetToolPluginsAuthored(ctx).Execute()
 
 Lists the plugins the caller's org BUILT, newest first, each with the TypeScript as authored.
 
@@ -663,7 +724,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolPluginsAuthored``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolPluginsAuthored`: AuthoredPluginList
+	// response from `GetToolPluginsAuthored`: ToolAuthoredPluginList
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolPluginsAuthored`: %v\n", resp)
 }
 ```
@@ -679,7 +740,7 @@ Other parameters are passed through a pointer to a apiGetToolPluginsAuthoredRequ
 
 ### Return type
 
-[**AuthoredPluginList**](AuthoredPluginList.md)
+[**ToolAuthoredPluginList**](ToolAuthoredPluginList.md)
 
 ### Authorization
 
@@ -688,7 +749,7 @@ Other parameters are passed through a pointer to a apiGetToolPluginsAuthoredRequ
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -697,7 +758,7 @@ Other parameters are passed through a pointer to a apiGetToolPluginsAuthoredRequ
 
 ## GetToolSkills
 
-> SourceToolList GetToolSkills(ctx).Activated(activated).Execute()
+> ToolSourceToolList GetToolSkills(ctx).Activated(activated).Execute()
 
 Lists the skills the caller's org can reach — the brand's embedded catalogue plus the org's own authored ones — with each one's activation flag.
 
@@ -725,7 +786,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolSkills``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolSkills`: SourceToolList
+	// response from `GetToolSkills`: ToolSourceToolList
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolSkills`: %v\n", resp)
 }
 ```
@@ -745,7 +806,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SourceToolList**](SourceToolList.md)
+[**ToolSourceToolList**](ToolSourceToolList.md)
 
 ### Authorization
 
@@ -754,7 +815,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -763,7 +824,7 @@ Name | Type | Description  | Notes
 
 ## GetToolSkillsAuthored
 
-> AuthoredSkillList GetToolSkillsAuthored(ctx).Execute()
+> ToolAuthoredSkillList GetToolSkillsAuthored(ctx).Execute()
 
 Lists the caller org's OWN skills with their SKILL.md bodies.
 
@@ -790,7 +851,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.GetToolSkillsAuthored``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetToolSkillsAuthored`: AuthoredSkillList
+	// response from `GetToolSkillsAuthored`: ToolAuthoredSkillList
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.GetToolSkillsAuthored`: %v\n", resp)
 }
 ```
@@ -806,7 +867,7 @@ Other parameters are passed through a pointer to a apiGetToolSkillsAuthoredReque
 
 ### Return type
 
-[**AuthoredSkillList**](AuthoredSkillList.md)
+[**ToolAuthoredSkillList**](ToolAuthoredSkillList.md)
 
 ### Authorization
 
@@ -815,79 +876,7 @@ Other parameters are passed through a pointer to a apiGetToolSkillsAuthoredReque
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PatchToolCatalogById
-
-> MCPListing PatchToolCatalogById(ctx, id).CurateReq(curateReq).Execute()
-
-Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "id_example" // string | ID is the listing to curate, from the path.
-	curateReq := *openapiclient.NewCurateReq() // CurateReq | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolAPI.PatchToolCatalogById(context.Background(), id).CurateReq(curateReq).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PatchToolCatalogById``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PatchToolCatalogById`: MCPListing
-	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PatchToolCatalogById`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the listing to curate, from the path. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPatchToolCatalogByIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **curateReq** | [**CurateReq**](CurateReq.md) |  | 
-
-### Return type
-
-[**MCPListing**](MCPListing.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -896,7 +885,7 @@ Name | Type | Description  | Notes
 
 ## PostToolCall
 
-> ToolResult PostToolCall(ctx).ToolCall(toolCall).Execute()
+> ToolToolResult PostToolCall(ctx).ToolToolCall(toolToolCall).Execute()
 
 Runs one of the caller's activated tools and answers with its output.
 
@@ -915,16 +904,16 @@ import (
 )
 
 func main() {
-	toolCall := *openapiclient.NewToolCall() // ToolCall | 
+	toolToolCall := *openapiclient.NewToolToolCall() // ToolToolCall | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolAPI.PostToolCall(context.Background()).ToolCall(toolCall).Execute()
+	resp, r, err := apiClient.ToolAPI.PostToolCall(context.Background()).ToolToolCall(toolToolCall).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PostToolCall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostToolCall`: ToolResult
+	// response from `PostToolCall`: ToolToolResult
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PostToolCall`: %v\n", resp)
 }
 ```
@@ -940,11 +929,11 @@ Other parameters are passed through a pointer to a apiPostToolCallRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **toolCall** | [**ToolCall**](ToolCall.md) |  | 
+ **toolToolCall** | [**ToolToolCall**](ToolToolCall.md) |  | 
 
 ### Return type
 
-[**ToolResult**](ToolResult.md)
+[**ToolToolResult**](ToolToolResult.md)
 
 ### Authorization
 
@@ -953,68 +942,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostToolCatalogSync
-
-> McpCatalogSync PostToolCatalogSync(ctx).Execute()
-
-Pulls the public MCP registry into our canonical copy and reports what changed.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolAPI.PostToolCatalogSync(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PostToolCatalogSync``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostToolCatalogSync`: McpCatalogSync
-	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PostToolCatalogSync`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostToolCatalogSyncRequest struct via the builder pattern
-
-
-### Return type
-
-[**McpCatalogSync**](McpCatalogSync.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1023,7 +951,7 @@ Other parameters are passed through a pointer to a apiPostToolCatalogSyncRequest
 
 ## PostToolMcpServers
 
-> MCPServer PostToolMcpServers(ctx).CreateServerReq(createServerReq).Execute()
+> ToolMCPServer PostToolMcpServers(ctx).ToolCreateServerReq(toolCreateServerReq).Execute()
 
 Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP server.
 
@@ -1042,16 +970,16 @@ import (
 )
 
 func main() {
-	createServerReq := *openapiclient.NewCreateServerReq() // CreateServerReq | 
+	toolCreateServerReq := *openapiclient.NewToolCreateServerReq() // ToolCreateServerReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolAPI.PostToolMcpServers(context.Background()).CreateServerReq(createServerReq).Execute()
+	resp, r, err := apiClient.ToolAPI.PostToolMcpServers(context.Background()).ToolCreateServerReq(toolCreateServerReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PostToolMcpServers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostToolMcpServers`: MCPServer
+	// response from `PostToolMcpServers`: ToolMCPServer
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PostToolMcpServers`: %v\n", resp)
 }
 ```
@@ -1067,11 +995,11 @@ Other parameters are passed through a pointer to a apiPostToolMcpServersRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createServerReq** | [**CreateServerReq**](CreateServerReq.md) |  | 
+ **toolCreateServerReq** | [**ToolCreateServerReq**](ToolCreateServerReq.md) |  | 
 
 ### Return type
 
-[**MCPServer**](MCPServer.md)
+[**ToolMCPServer**](ToolMCPServer.md)
 
 ### Authorization
 
@@ -1080,7 +1008,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1089,7 +1017,7 @@ Name | Type | Description  | Notes
 
 ## PostToolPluginsBuild
 
-> BuildOut PostToolPluginsBuild(ctx).BuildRequest(buildRequest).Execute()
+> ToolBuildOut PostToolPluginsBuild(ctx).ToolBuildRequest(toolBuildRequest).Execute()
 
 Builds and stores one plugin for the caller's org.
 
@@ -1108,16 +1036,16 @@ import (
 )
 
 func main() {
-	buildRequest := *openapiclient.NewBuildRequest() // BuildRequest | 
+	toolBuildRequest := *openapiclient.NewToolBuildRequest() // ToolBuildRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolAPI.PostToolPluginsBuild(context.Background()).BuildRequest(buildRequest).Execute()
+	resp, r, err := apiClient.ToolAPI.PostToolPluginsBuild(context.Background()).ToolBuildRequest(toolBuildRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PostToolPluginsBuild``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostToolPluginsBuild`: BuildOut
+	// response from `PostToolPluginsBuild`: ToolBuildOut
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PostToolPluginsBuild`: %v\n", resp)
 }
 ```
@@ -1133,11 +1061,11 @@ Other parameters are passed through a pointer to a apiPostToolPluginsBuildReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buildRequest** | [**BuildRequest**](BuildRequest.md) |  | 
+ **toolBuildRequest** | [**ToolBuildRequest**](ToolBuildRequest.md) |  | 
 
 ### Return type
 
-[**BuildOut**](BuildOut.md)
+[**ToolBuildOut**](ToolBuildOut.md)
 
 ### Authorization
 
@@ -1146,7 +1074,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1155,7 +1083,7 @@ Name | Type | Description  | Notes
 
 ## PostToolSkills
 
-> SkillWritten PostToolSkills(ctx).SkillIn(skillIn).Execute()
+> ToolSkillWritten PostToolSkills(ctx).ToolSkillIn(toolSkillIn).Execute()
 
 Adds or revises one of the caller org's own skills, and answers 201 with the stored record.
 
@@ -1174,16 +1102,16 @@ import (
 )
 
 func main() {
-	skillIn := *openapiclient.NewSkillIn() // SkillIn | 
+	toolSkillIn := *openapiclient.NewToolSkillIn() // ToolSkillIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolAPI.PostToolSkills(context.Background()).SkillIn(skillIn).Execute()
+	resp, r, err := apiClient.ToolAPI.PostToolSkills(context.Background()).ToolSkillIn(toolSkillIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PostToolSkills``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostToolSkills`: SkillWritten
+	// response from `PostToolSkills`: ToolSkillWritten
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PostToolSkills`: %v\n", resp)
 }
 ```
@@ -1199,11 +1127,11 @@ Other parameters are passed through a pointer to a apiPostToolSkillsRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **skillIn** | [**SkillIn**](SkillIn.md) |  | 
+ **toolSkillIn** | [**ToolSkillIn**](ToolSkillIn.md) |  | 
 
 ### Return type
 
-[**SkillWritten**](SkillWritten.md)
+[**ToolSkillWritten**](ToolSkillWritten.md)
 
 ### Authorization
 
@@ -1212,7 +1140,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1221,7 +1149,7 @@ Name | Type | Description  | Notes
 
 ## PutToolActivation
 
-> ActivationSet PutToolActivation(ctx).ActivationReq(activationReq).Execute()
+> ToolActivationSet PutToolActivation(ctx).ToolActivationReq(toolActivationReq).Execute()
 
 Switches tools on and off for the caller's org and project, and answers with the resulting activated set.
 
@@ -1240,16 +1168,16 @@ import (
 )
 
 func main() {
-	activationReq := *openapiclient.NewActivationReq() // ActivationReq | 
+	toolActivationReq := *openapiclient.NewToolActivationReq() // ToolActivationReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ToolAPI.PutToolActivation(context.Background()).ActivationReq(activationReq).Execute()
+	resp, r, err := apiClient.ToolAPI.PutToolActivation(context.Background()).ToolActivationReq(toolActivationReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PutToolActivation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutToolActivation`: ActivationSet
+	// response from `PutToolActivation`: ToolActivationSet
 	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PutToolActivation`: %v\n", resp)
 }
 ```
@@ -1265,11 +1193,11 @@ Other parameters are passed through a pointer to a apiPutToolActivationRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **activationReq** | [**ActivationReq**](ActivationReq.md) |  | 
+ **toolActivationReq** | [**ToolActivationReq**](ToolActivationReq.md) |  | 
 
 ### Return type
 
-[**ActivationSet**](ActivationSet.md)
+[**ToolActivationSet**](ToolActivationSet.md)
 
 ### Authorization
 
@@ -1278,7 +1206,73 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutToolKit
+
+> ToolKit PutToolKit(ctx).ToolMuteReq(toolMuteReq).Execute()
+
+Mutes and unmutes names of the org's kit for the caller's own runs, and answers the caller's kit after.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	toolMuteReq := *openapiclient.NewToolMuteReq() // ToolMuteReq | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ToolAPI.PutToolKit(context.Background()).ToolMuteReq(toolMuteReq).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ToolAPI.PutToolKit``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutToolKit`: ToolKit
+	fmt.Fprintf(os.Stdout, "Response from `ToolAPI.PutToolKit`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutToolKitRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **toolMuteReq** | [**ToolMuteReq**](ToolMuteReq.md) |  | 
+
+### Return type
+
+[**ToolKit**](ToolKit.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

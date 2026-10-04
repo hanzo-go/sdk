@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 
 ## GetFrameworkByDoctype
 
-> DocumentList GetFrameworkByDoctype(ctx, doctype).Filters(filters).Fields(fields).OrderBy(orderBy).Limit(limit).Execute()
+> FrameworkDocumentList GetFrameworkByDoctype(ctx, doctype).Filters(filters).Fields(fields).OrderBy(orderBy).Limit(limit).Execute()
 
 Returns the caller org's documents of one DocType, filtered, ordered and projected by the query.
 
@@ -196,7 +196,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkByDoctype``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFrameworkByDoctype`: DocumentList
+	// response from `GetFrameworkByDoctype`: FrameworkDocumentList
 	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkByDoctype`: %v\n", resp)
 }
 ```
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocumentList**](DocumentList.md)
+[**FrameworkDocumentList**](FrameworkDocumentList.md)
 
 ### Authorization
 
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -242,7 +242,7 @@ Name | Type | Description  | Notes
 
 ## GetFrameworkByDoctypeByName
 
-> map[string]map[string]interface{} GetFrameworkByDoctypeByName(ctx, doctype, name).Execute()
+> map[string]interface{} GetFrameworkByDoctypeByName(ctx, doctype, name).Execute()
 
 Returns one document by name, with Password fields redacted.
 
@@ -271,7 +271,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkByDoctypeByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFrameworkByDoctypeByName`: map[string]map[string]interface{}
+	// response from `GetFrameworkByDoctypeByName`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkByDoctypeByName`: %v\n", resp)
 }
 ```
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -315,7 +315,7 @@ Name | Type | Description  | Notes
 
 ## GetFrameworkDoctypes
 
-> DocTypeList GetFrameworkDoctypes(ctx).Execute()
+> FrameworkDocTypeList GetFrameworkDoctypes(ctx).Execute()
 
 Returns every DocType defined in the caller's org.
 
@@ -342,7 +342,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkDoctypes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFrameworkDoctypes`: DocTypeList
+	// response from `GetFrameworkDoctypes`: FrameworkDocTypeList
 	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkDoctypes`: %v\n", resp)
 }
 ```
@@ -358,7 +358,7 @@ Other parameters are passed through a pointer to a apiGetFrameworkDoctypesReques
 
 ### Return type
 
-[**DocTypeList**](DocTypeList.md)
+[**FrameworkDocTypeList**](FrameworkDocTypeList.md)
 
 ### Authorization
 
@@ -367,7 +367,7 @@ Other parameters are passed through a pointer to a apiGetFrameworkDoctypesReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -376,7 +376,7 @@ Other parameters are passed through a pointer to a apiGetFrameworkDoctypesReques
 
 ## GetFrameworkDoctypesByName
 
-> DocType GetFrameworkDoctypesByName(ctx, name).Execute()
+> FrameworkDocType GetFrameworkDoctypesByName(ctx, name).Execute()
 
 Returns one DocType definition — its fields, naming rule, permissions and lifecycle flags.
 
@@ -404,7 +404,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkDoctypesByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFrameworkDoctypesByName`: DocType
+	// response from `GetFrameworkDoctypesByName`: FrameworkDocType
 	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkDoctypesByName`: %v\n", resp)
 }
 ```
@@ -428,7 +428,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocType**](DocType.md)
+[**FrameworkDocType**](FrameworkDocType.md)
 
 ### Authorization
 
@@ -437,7 +437,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -446,7 +446,7 @@ Name | Type | Description  | Notes
 
 ## GetFrameworkModules
 
-> ModuleList GetFrameworkModules(ctx).Execute()
+> FrameworkModuleList GetFrameworkModules(ctx).Execute()
 
 Returns every app lane compiled into this deployment and the DocTypes each one installs.
 
@@ -473,7 +473,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkModules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFrameworkModules`: ModuleList
+	// response from `GetFrameworkModules`: FrameworkModuleList
 	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkModules`: %v\n", resp)
 }
 ```
@@ -489,7 +489,7 @@ Other parameters are passed through a pointer to a apiGetFrameworkModulesRequest
 
 ### Return type
 
-[**ModuleList**](ModuleList.md)
+[**FrameworkModuleList**](FrameworkModuleList.md)
 
 ### Authorization
 
@@ -498,7 +498,7 @@ Other parameters are passed through a pointer to a apiGetFrameworkModulesRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -507,7 +507,7 @@ Other parameters are passed through a pointer to a apiGetFrameworkModulesRequest
 
 ## GetFrameworkModulesByModule
 
-> ModuleState GetFrameworkModulesByModule(ctx, module).Execute()
+> FrameworkModuleState GetFrameworkModulesByModule(ctx, module).Execute()
 
 Returns one app lane's install state for the caller's org: the DocTypes the lane declares, and which of them already exist in the org.
 
@@ -535,7 +535,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkModulesByModule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFrameworkModulesByModule`: ModuleState
+	// response from `GetFrameworkModulesByModule`: FrameworkModuleState
 	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkModulesByModule`: %v\n", resp)
 }
 ```
@@ -559,7 +559,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModuleState**](ModuleState.md)
+[**FrameworkModuleState**](FrameworkModuleState.md)
 
 ### Authorization
 
@@ -568,7 +568,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -577,7 +577,7 @@ Name | Type | Description  | Notes
 
 ## GetFrameworkSummary
 
-> SummaryView GetFrameworkSummary(ctx).Execute()
+> FrameworkSummaryView GetFrameworkSummary(ctx).Execute()
 
 Reports how much of the DocType surface the caller's org uses: how many DocTypes it has defined, and how many documents exist across them.
 
@@ -604,7 +604,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.GetFrameworkSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFrameworkSummary`: SummaryView
+	// response from `GetFrameworkSummary`: FrameworkSummaryView
 	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.GetFrameworkSummary`: %v\n", resp)
 }
 ```
@@ -620,7 +620,7 @@ Other parameters are passed through a pointer to a apiGetFrameworkSummaryRequest
 
 ### Return type
 
-[**SummaryView**](SummaryView.md)
+[**FrameworkSummaryView**](FrameworkSummaryView.md)
 
 ### Authorization
 
@@ -629,7 +629,7 @@ Other parameters are passed through a pointer to a apiGetFrameworkSummaryRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -706,7 +706,7 @@ Name | Type | Description  | Notes
 
 ## PostFrameworkByDoctypeByNameCancel
 
-> map[string]map[string]interface{} PostFrameworkByDoctypeByNameCancel(ctx, doctype, name).Execute()
+> map[string]interface{} PostFrameworkByDoctypeByNameCancel(ctx, doctype, name).Execute()
 
 Moves a submitted document to cancelled (docstatus 1 → 2) after its on_cancel hooks agree.
 
@@ -735,7 +735,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PostFrameworkByDoctypeByNameCancel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostFrameworkByDoctypeByNameCancel`: map[string]map[string]interface{}
+	// response from `PostFrameworkByDoctypeByNameCancel`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.PostFrameworkByDoctypeByNameCancel`: %v\n", resp)
 }
 ```
@@ -761,7 +761,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -770,7 +770,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -779,7 +779,7 @@ Name | Type | Description  | Notes
 
 ## PostFrameworkByDoctypeByNameSubmit
 
-> map[string]map[string]interface{} PostFrameworkByDoctypeByNameSubmit(ctx, doctype, name).Execute()
+> map[string]interface{} PostFrameworkByDoctypeByNameSubmit(ctx, doctype, name).Execute()
 
 Moves a draft to submitted (docstatus 0 → 1) after its on_submit hooks agree.
 
@@ -808,7 +808,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PostFrameworkByDoctypeByNameSubmit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostFrameworkByDoctypeByNameSubmit`: map[string]map[string]interface{}
+	// response from `PostFrameworkByDoctypeByNameSubmit`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.PostFrameworkByDoctypeByNameSubmit`: %v\n", resp)
 }
 ```
@@ -834,7 +834,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -843,7 +843,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -852,7 +852,7 @@ Name | Type | Description  | Notes
 
 ## PostFrameworkDoctypes
 
-> DocType PostFrameworkDoctypes(ctx).DocType(docType).Execute()
+> FrameworkDocType PostFrameworkDoctypes(ctx).FrameworkDocType(frameworkDocType).Execute()
 
 Defines a DocType in the caller's org: the metadata that gives a document surface its fields, its naming rule, whether it has a submit/cancel lifecycle, and which role may do what to it.
 
@@ -871,16 +871,16 @@ import (
 )
 
 func main() {
-	docType := *openapiclient.NewDocType() // DocType | 
+	frameworkDocType := *openapiclient.NewFrameworkDocType() // FrameworkDocType | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.PostFrameworkDoctypes(context.Background()).DocType(docType).Execute()
+	resp, r, err := apiClient.FrameworkAPI.PostFrameworkDoctypes(context.Background()).FrameworkDocType(frameworkDocType).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PostFrameworkDoctypes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostFrameworkDoctypes`: DocType
+	// response from `PostFrameworkDoctypes`: FrameworkDocType
 	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.PostFrameworkDoctypes`: %v\n", resp)
 }
 ```
@@ -896,11 +896,11 @@ Other parameters are passed through a pointer to a apiPostFrameworkDoctypesReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **docType** | [**DocType**](DocType.md) |  | 
+ **frameworkDocType** | [**FrameworkDocType**](FrameworkDocType.md) |  | 
 
 ### Return type
 
-[**DocType**](DocType.md)
+[**FrameworkDocType**](FrameworkDocType.md)
 
 ### Authorization
 
@@ -909,7 +909,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -918,7 +918,7 @@ Name | Type | Description  | Notes
 
 ## PostFrameworkModulesByModuleInstall
 
-> Install PostFrameworkModulesByModuleInstall(ctx, module).Execute()
+> FrameworkInstall PostFrameworkModulesByModuleInstall(ctx, module).Execute()
 
 Creates an app lane's DocTypes in the caller's org.
 
@@ -946,7 +946,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PostFrameworkModulesByModuleInstall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostFrameworkModulesByModuleInstall`: Install
+	// response from `PostFrameworkModulesByModuleInstall`: FrameworkInstall
 	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.PostFrameworkModulesByModuleInstall`: %v\n", resp)
 }
 ```
@@ -970,7 +970,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Install**](Install.md)
+[**FrameworkInstall**](FrameworkInstall.md)
 
 ### Authorization
 
@@ -979,7 +979,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1059,7 +1059,7 @@ Name | Type | Description  | Notes
 
 ## PutFrameworkDoctypesByName
 
-> DocType PutFrameworkDoctypesByName(ctx, name).DocType(docType).Execute()
+> FrameworkDocType PutFrameworkDoctypesByName(ctx, name).FrameworkDocType(frameworkDocType).Execute()
 
 Replaces a DocType definition wholesale (PUT semantics): the stored definition becomes the body.
 
@@ -1079,16 +1079,16 @@ import (
 
 func main() {
 	name := "Projects.Task" // string | 
-	docType := *openapiclient.NewDocType() // DocType | 
+	frameworkDocType := *openapiclient.NewFrameworkDocType() // FrameworkDocType | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FrameworkAPI.PutFrameworkDoctypesByName(context.Background(), name).DocType(docType).Execute()
+	resp, r, err := apiClient.FrameworkAPI.PutFrameworkDoctypesByName(context.Background(), name).FrameworkDocType(frameworkDocType).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrameworkAPI.PutFrameworkDoctypesByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutFrameworkDoctypesByName`: DocType
+	// response from `PutFrameworkDoctypesByName`: FrameworkDocType
 	fmt.Fprintf(os.Stdout, "Response from `FrameworkAPI.PutFrameworkDoctypesByName`: %v\n", resp)
 }
 ```
@@ -1109,11 +1109,11 @@ Other parameters are passed through a pointer to a apiPutFrameworkDoctypesByName
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **docType** | [**DocType**](DocType.md) |  | 
+ **frameworkDocType** | [**FrameworkDocType**](FrameworkDocType.md) |  | 
 
 ### Return type
 
-[**DocType**](DocType.md)
+[**FrameworkDocType**](FrameworkDocType.md)
 
 ### Authorization
 
@@ -1122,7 +1122,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

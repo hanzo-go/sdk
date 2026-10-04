@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yUninstallIntegrationRequest{}
 
 // O11yUninstallIntegrationRequest struct for O11yUninstallIntegrationRequest
 type O11yUninstallIntegrationRequest struct {
-	IntegrationId *string `json:"integration_id,omitempty"`
+	IntegrationId        *string `json:"integration_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yUninstallIntegrationRequest O11yUninstallIntegrationRequest
 
 // NewO11yUninstallIntegrationRequest instantiates a new O11yUninstallIntegrationRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yUninstallIntegrationRequest) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.IntegrationId) {
 		toSerialize["integration_id"] = o.IntegrationId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yUninstallIntegrationRequest) UnmarshalJSON(data []byte) (err error) {
+	varO11yUninstallIntegrationRequest := _O11yUninstallIntegrationRequest{}
+
+	err = json.Unmarshal(data, &varO11yUninstallIntegrationRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yUninstallIntegrationRequest(varO11yUninstallIntegrationRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "integration_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yUninstallIntegrationRequest struct {

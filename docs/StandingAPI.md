@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## PostStandingUpkeep
 
-> Upkeep PostStandingUpkeep(ctx).UpkeepIn(upkeepIn).Execute()
+> StandingUpkeep PostStandingUpkeep(ctx).StandingUpkeepIn(standingUpkeepIn).Execute()
 
 Reports what keeping this entity costs every year, itemised.
 
@@ -29,16 +29,16 @@ import (
 )
 
 func main() {
-	upkeepIn := *openapiclient.NewUpkeepIn() // UpkeepIn | 
+	standingUpkeepIn := *openapiclient.NewStandingUpkeepIn() // StandingUpkeepIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StandingAPI.PostStandingUpkeep(context.Background()).UpkeepIn(upkeepIn).Execute()
+	resp, r, err := apiClient.StandingAPI.PostStandingUpkeep(context.Background()).StandingUpkeepIn(standingUpkeepIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StandingAPI.PostStandingUpkeep``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostStandingUpkeep`: Upkeep
+	// response from `PostStandingUpkeep`: StandingUpkeep
 	fmt.Fprintf(os.Stdout, "Response from `StandingAPI.PostStandingUpkeep`: %v\n", resp)
 }
 ```
@@ -54,11 +54,11 @@ Other parameters are passed through a pointer to a apiPostStandingUpkeepRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **upkeepIn** | [**UpkeepIn**](UpkeepIn.md) |  | 
+ **standingUpkeepIn** | [**StandingUpkeepIn**](StandingUpkeepIn.md) |  | 
 
 ### Return type
 
-[**Upkeep**](Upkeep.md)
+[**StandingUpkeep**](StandingUpkeep.md)
 
 ### Authorization
 
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -25,13 +25,16 @@ type IamSession struct {
 	CreatedTime *string    `json:"createdTime,omitempty"`
 	Deleted     *bool      `json:"deleted,omitempty"`
 	// ExclusiveSignin is a transient control flag (v1 xorm:\"-\"): a caller sets it on a create to collapse SessionId down to the single incoming cookie instead of appending. It is never stored — a persisted session always carries it false, so orm:\"-\" keeps it off the column backends and omitempty keeps it out of the SQLite JSON blob.
-	ExclusiveSignin *bool      `json:"exclusiveSignin,omitempty"`
-	Id              *string    `json:"id,omitempty"`
-	Name            *string    `json:"name,omitempty"`
-	Owner           *string    `json:"owner,omitempty"`
-	SessionId       []string   `json:"sessionId,omitempty"`
-	UpdatedAt       *time.Time `json:"updatedAt,omitempty"`
+	ExclusiveSignin      *bool      `json:"exclusiveSignin,omitempty"`
+	Id                   *string    `json:"id,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	Owner                *string    `json:"owner,omitempty"`
+	SessionId            []string   `json:"sessionId,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamSession IamSession
 
 // NewIamSession instantiates a new IamSession object
 // This constructor will assign default values to properties that have it defined,
@@ -410,7 +413,42 @@ func (o IamSession) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamSession) UnmarshalJSON(data []byte) (err error) {
+	varIamSession := _IamSession{}
+
+	err = json.Unmarshal(data, &varIamSession)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamSession(varIamSession)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "application")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "exclusiveSignin")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "sessionId")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamSession struct {

@@ -20,15 +20,18 @@ var _ MappedNullable = &O11yUser{}
 
 // O11yUser struct for O11yUser
 type O11yUser struct {
-	CreatedAt   *time.Time  `json:"createdAt,omitempty"`
-	DisplayName *string     `json:"displayName,omitempty"`
-	Email       interface{} `json:"email,omitempty"`
-	Id          interface{} `json:"id,omitempty"`
-	IsRoot      *bool       `json:"isRoot,omitempty"`
-	OrgId       interface{} `json:"orgId,omitempty"`
-	Status      interface{} `json:"status,omitempty"`
-	UpdatedAt   *time.Time  `json:"updatedAt,omitempty"`
+	CreatedAt            *time.Time  `json:"createdAt,omitempty"`
+	DisplayName          *string     `json:"displayName,omitempty"`
+	Email                interface{} `json:"email,omitempty"`
+	Id                   interface{} `json:"id,omitempty"`
+	IsRoot               *bool       `json:"isRoot,omitempty"`
+	OrgId                interface{} `json:"orgId,omitempty"`
+	Status               interface{} `json:"status,omitempty"`
+	UpdatedAt            *time.Time  `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yUser O11yUser
 
 // NewO11yUser instantiates a new O11yUser object
 // This constructor will assign default values to properties that have it defined,
@@ -341,7 +344,40 @@ func (o O11yUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yUser) UnmarshalJSON(data []byte) (err error) {
+	varO11yUser := _O11yUser{}
+
+	err = json.Unmarshal(data, &varO11yUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yUser(varO11yUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "isRoot")
+		delete(additionalProperties, "orgId")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yUser struct {

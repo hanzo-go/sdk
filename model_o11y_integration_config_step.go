@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yIntegrationConfigStep{}
 
 // O11yIntegrationConfigStep struct for O11yIntegrationConfigStep
 type O11yIntegrationConfigStep struct {
-	Instructions *string `json:"instructions,omitempty"`
-	Title        *string `json:"title,omitempty"`
+	Instructions         *string `json:"instructions,omitempty"`
+	Title                *string `json:"title,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yIntegrationConfigStep O11yIntegrationConfigStep
 
 // NewO11yIntegrationConfigStep instantiates a new O11yIntegrationConfigStep object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yIntegrationConfigStep) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yIntegrationConfigStep) UnmarshalJSON(data []byte) (err error) {
+	varO11yIntegrationConfigStep := _O11yIntegrationConfigStep{}
+
+	err = json.Unmarshal(data, &varO11yIntegrationConfigStep)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yIntegrationConfigStep(varO11yIntegrationConfigStep)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "instructions")
+		delete(additionalProperties, "title")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yIntegrationConfigStep struct {

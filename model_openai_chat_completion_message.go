@@ -19,16 +19,19 @@ var _ MappedNullable = &OpenaiChatCompletionMessage{}
 
 // OpenaiChatCompletionMessage struct for OpenaiChatCompletionMessage
 type OpenaiChatCompletionMessage struct {
-	MultiContent     []OpenaiChatMessagePart `json:"MultiContent,omitempty"`
-	Content          *string                 `json:"content,omitempty"`
-	FunctionCall     *OpenaiFunctionCall     `json:"function_call,omitempty"`
-	Name             *string                 `json:"name,omitempty"`
-	ReasoningContent *string                 `json:"reasoning_content,omitempty"`
-	Refusal          *string                 `json:"refusal,omitempty"`
-	Role             *string                 `json:"role,omitempty"`
-	ToolCallId       *string                 `json:"tool_call_id,omitempty"`
-	ToolCalls        []OpenaiToolCall        `json:"tool_calls,omitempty"`
+	MultiContent         []OpenaiChatMessagePart `json:"MultiContent,omitempty"`
+	Content              *string                 `json:"content,omitempty"`
+	FunctionCall         *OpenaiFunctionCall     `json:"function_call,omitempty"`
+	Name                 *string                 `json:"name,omitempty"`
+	ReasoningContent     *string                 `json:"reasoning_content,omitempty"`
+	Refusal              *string                 `json:"refusal,omitempty"`
+	Role                 *string                 `json:"role,omitempty"`
+	ToolCallId           *string                 `json:"tool_call_id,omitempty"`
+	ToolCalls            []OpenaiToolCall        `json:"tool_calls,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiChatCompletionMessage OpenaiChatCompletionMessage
 
 // NewOpenaiChatCompletionMessage instantiates a new OpenaiChatCompletionMessage object
 // This constructor will assign default values to properties that have it defined,
@@ -372,7 +375,41 @@ func (o OpenaiChatCompletionMessage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ToolCalls) {
 		toSerialize["tool_calls"] = o.ToolCalls
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiChatCompletionMessage) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiChatCompletionMessage := _OpenaiChatCompletionMessage{}
+
+	err = json.Unmarshal(data, &varOpenaiChatCompletionMessage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiChatCompletionMessage(varOpenaiChatCompletionMessage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "MultiContent")
+		delete(additionalProperties, "content")
+		delete(additionalProperties, "function_call")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "reasoning_content")
+		delete(additionalProperties, "refusal")
+		delete(additionalProperties, "role")
+		delete(additionalProperties, "tool_call_id")
+		delete(additionalProperties, "tool_calls")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiChatCompletionMessage struct {

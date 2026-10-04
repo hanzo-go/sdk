@@ -20,20 +20,23 @@ var _ MappedNullable = &IamTeam{}
 
 // IamTeam struct for IamTeam
 type IamTeam struct {
-	CreatedAt    *time.Time `json:"createdAt,omitempty"`
-	CreatedTime  *string    `json:"createdTime,omitempty"`
-	Deleted      *bool      `json:"deleted,omitempty"`
-	Description  *string    `json:"description,omitempty"`
-	DisplayName  *string    `json:"displayName,omitempty"`
-	Id           *string    `json:"id,omitempty"`
-	IsEnabled    *bool      `json:"isEnabled,omitempty"`
-	Name         *string    `json:"name,omitempty"`
-	Organization *string    `json:"organization,omitempty"`
-	Owner        *string    `json:"owner,omitempty"`
-	Parent       *string    `json:"parent,omitempty"`
-	UpdatedAt    *time.Time `json:"updatedAt,omitempty"`
-	Users        []string   `json:"users,omitempty"`
+	CreatedAt            *time.Time `json:"createdAt,omitempty"`
+	CreatedTime          *string    `json:"createdTime,omitempty"`
+	Deleted              *bool      `json:"deleted,omitempty"`
+	Description          *string    `json:"description,omitempty"`
+	DisplayName          *string    `json:"displayName,omitempty"`
+	Id                   *string    `json:"id,omitempty"`
+	IsEnabled            *bool      `json:"isEnabled,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	Organization         *string    `json:"organization,omitempty"`
+	Owner                *string    `json:"owner,omitempty"`
+	Parent               *string    `json:"parent,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	Users                []string   `json:"users,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamTeam IamTeam
 
 // NewIamTeam instantiates a new IamTeam object
 // This constructor will assign default values to properties that have it defined,
@@ -517,7 +520,45 @@ func (o IamTeam) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamTeam) UnmarshalJSON(data []byte) (err error) {
+	varIamTeam := _IamTeam{}
+
+	err = json.Unmarshal(data, &varIamTeam)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamTeam(varIamTeam)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "isEnabled")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "parent")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "users")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamTeam struct {

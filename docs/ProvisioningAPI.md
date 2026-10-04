@@ -5,32 +5,32 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteProvisioningDatastoreByName**](ProvisioningAPI.md#DeleteProvisioningDatastoreByName) | **Delete** /v1/provisioning/datastore/{name} | Deprovisions one Hanzo Datastore warehouse.
-[**DeleteProvisioningDocdbByName**](ProvisioningAPI.md#DeleteProvisioningDocdbByName) | **Delete** /v1/provisioning/docdb/{name} | DropDocDB deprovisions one Hanzo DocDB database.
-[**DeleteProvisioningKvByName**](ProvisioningAPI.md#DeleteProvisioningKvByName) | **Delete** /v1/provisioning/kv/{name} | DropKV deprovisions one Hanzo KV store.
+[**DeleteProvisioningDocdbByName**](ProvisioningAPI.md#DeleteProvisioningDocdbByName) | **Delete** /v1/provisioning/docdb/{name} | Deprovisions one Hanzo DocDB database.
+[**DeleteProvisioningKvByName**](ProvisioningAPI.md#DeleteProvisioningKvByName) | **Delete** /v1/provisioning/kv/{name} | Deprovisions one Hanzo KV store.
 [**DeleteProvisioningS3ByName**](ProvisioningAPI.md#DeleteProvisioningS3ByName) | **Delete** /v1/provisioning/s3/{name} | Deletes one bucket from the shared object store and removes its metadata row.
 [**DeleteProvisioningSearchByName**](ProvisioningAPI.md#DeleteProvisioningSearchByName) | **Delete** /v1/provisioning/search/{name} | Deletes one search index from the shared backend and removes its metadata row.
-[**DeleteProvisioningSqlByName**](ProvisioningAPI.md#DeleteProvisioningSqlByName) | **Delete** /v1/provisioning/sql/{name} | DropSQL deprovisions one Hanzo SQL database.
+[**DeleteProvisioningSqlByName**](ProvisioningAPI.md#DeleteProvisioningSqlByName) | **Delete** /v1/provisioning/sql/{name} | Deprovisions one Hanzo SQL database.
 [**DeleteProvisioningVectorByName**](ProvisioningAPI.md#DeleteProvisioningVectorByName) | **Delete** /v1/provisioning/vector/{name} | Deletes one vector collection from the shared backend and removes its metadata row.
 [**GetProvisioningDatastore**](ProvisioningAPI.md#GetProvisioningDatastore) | **Get** /v1/provisioning/datastore | Lists the caller org&#39;s Hanzo Datastore warehouses.
 [**GetProvisioningDatastoreByName**](ProvisioningAPI.md#GetProvisioningDatastoreByName) | **Get** /v1/provisioning/datastore/{name} | Returns one Hanzo Datastore warehouse&#39;s metadata.
-[**GetProvisioningDocdb**](ProvisioningAPI.md#GetProvisioningDocdb) | **Get** /v1/provisioning/docdb | ListDocDB lists the caller org&#39;s Hanzo DocDB document databases.
-[**GetProvisioningDocdbByName**](ProvisioningAPI.md#GetProvisioningDocdbByName) | **Get** /v1/provisioning/docdb/{name} | GetDocDB returns one Hanzo DocDB database&#39;s metadata.
-[**GetProvisioningKv**](ProvisioningAPI.md#GetProvisioningKv) | **Get** /v1/provisioning/kv | ListKV lists the caller org&#39;s Hanzo KV stores.
-[**GetProvisioningKvByName**](ProvisioningAPI.md#GetProvisioningKvByName) | **Get** /v1/provisioning/kv/{name} | GetKV returns one Hanzo KV store&#39;s metadata.
+[**GetProvisioningDocdb**](ProvisioningAPI.md#GetProvisioningDocdb) | **Get** /v1/provisioning/docdb | Lists the caller org&#39;s Hanzo DocDB document databases.
+[**GetProvisioningDocdbByName**](ProvisioningAPI.md#GetProvisioningDocdbByName) | **Get** /v1/provisioning/docdb/{name} | Returns one Hanzo DocDB database&#39;s metadata.
+[**GetProvisioningKv**](ProvisioningAPI.md#GetProvisioningKv) | **Get** /v1/provisioning/kv | Lists the caller org&#39;s Hanzo KV stores.
+[**GetProvisioningKvByName**](ProvisioningAPI.md#GetProvisioningKvByName) | **Get** /v1/provisioning/kv/{name} | Returns one Hanzo KV store&#39;s metadata.
 [**GetProvisioningS3**](ProvisioningAPI.md#GetProvisioningS3) | **Get** /v1/provisioning/s3 | Lists the caller org&#39;s object-storage buckets.
 [**GetProvisioningS3ByName**](ProvisioningAPI.md#GetProvisioningS3ByName) | **Get** /v1/provisioning/s3/{name} | Returns one bucket&#39;s metadata.
 [**GetProvisioningSearch**](ProvisioningAPI.md#GetProvisioningSearch) | **Get** /v1/provisioning/search | Lists the caller org&#39;s search indexes.
 [**GetProvisioningSearchByName**](ProvisioningAPI.md#GetProvisioningSearchByName) | **Get** /v1/provisioning/search/{name} | Returns one search index&#39;s metadata.
-[**GetProvisioningSql**](ProvisioningAPI.md#GetProvisioningSql) | **Get** /v1/provisioning/sql | ListSQL lists the caller org&#39;s Hanzo SQL databases.
-[**GetProvisioningSqlByName**](ProvisioningAPI.md#GetProvisioningSqlByName) | **Get** /v1/provisioning/sql/{name} | GetSQL returns one Hanzo SQL database&#39;s metadata.
+[**GetProvisioningSql**](ProvisioningAPI.md#GetProvisioningSql) | **Get** /v1/provisioning/sql | Lists the caller org&#39;s Hanzo SQL databases.
+[**GetProvisioningSqlByName**](ProvisioningAPI.md#GetProvisioningSqlByName) | **Get** /v1/provisioning/sql/{name} | Returns one Hanzo SQL database&#39;s metadata.
 [**GetProvisioningVector**](ProvisioningAPI.md#GetProvisioningVector) | **Get** /v1/provisioning/vector | Lists the caller org&#39;s vector collections.
 [**GetProvisioningVectorByName**](ProvisioningAPI.md#GetProvisioningVectorByName) | **Get** /v1/provisioning/vector/{name} | Returns one vector collection&#39;s metadata.
 [**PostProvisioningDatastore**](ProvisioningAPI.md#PostProvisioningDatastore) | **Post** /v1/provisioning/datastore | Launches your org&#39;s OWN Hanzo Datastore instance and answers with its &#x60;datastore://&#x60; connection string.
-[**PostProvisioningDocdb**](ProvisioningAPI.md#PostProvisioningDocdb) | **Post** /v1/provisioning/docdb | CreateDocDB launches your org&#39;s OWN document-database instance and answers with its &#x60;mongodb://&#x60; connection string.
-[**PostProvisioningKv**](ProvisioningAPI.md#PostProvisioningKv) | **Post** /v1/provisioning/kv | CreateKV launches your org&#39;s OWN key-value instance and answers with its &#x60;kv://&#x60; connection string.
+[**PostProvisioningDocdb**](ProvisioningAPI.md#PostProvisioningDocdb) | **Post** /v1/provisioning/docdb | Launches your org&#39;s OWN document-database instance and answers with its &#x60;mongodb://&#x60; connection string.
+[**PostProvisioningKv**](ProvisioningAPI.md#PostProvisioningKv) | **Post** /v1/provisioning/kv | Launches your org&#39;s OWN key-value instance and answers with its &#x60;kv://&#x60; connection string.
 [**PostProvisioningS3**](ProvisioningAPI.md#PostProvisioningS3) | **Post** /v1/provisioning/s3 | Creates an S3-compatible bucket inside the already-running shared object store and answers with the endpoint that reaches it.
 [**PostProvisioningSearch**](ProvisioningAPI.md#PostProvisioningSearch) | **Post** /v1/provisioning/search | Creates a search index inside the already-running shared search backend and answers with the endpoint that reaches it.
-[**PostProvisioningSql**](ProvisioningAPI.md#PostProvisioningSql) | **Post** /v1/provisioning/sql | CreateSQL launches your org&#39;s OWN PostgreSQL instance and answers with its &#x60;postgres://&#x60; connection string.
+[**PostProvisioningSql**](ProvisioningAPI.md#PostProvisioningSql) | **Post** /v1/provisioning/sql | Launches your org&#39;s OWN PostgreSQL instance and answers with its &#x60;postgres://&#x60; connection string.
 [**PostProvisioningVector**](ProvisioningAPI.md#PostProvisioningVector) | **Post** /v1/provisioning/vector | Creates a vector collection inside the already-running shared vector backend and answers with the endpoint that reaches it.
 
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 
 > DeleteProvisioningDocdbByName(ctx, name).Execute()
 
-DropDocDB deprovisions one Hanzo DocDB database.
+Deprovisions one Hanzo DocDB database.
 
 
 
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -175,7 +175,7 @@ Name | Type | Description  | Notes
 
 > DeleteProvisioningKvByName(ctx, name).Execute()
 
-DropKV deprovisions one Hanzo KV store.
+Deprovisions one Hanzo KV store.
 
 
 
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -300,7 +300,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -368,7 +368,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -379,7 +379,7 @@ Name | Type | Description  | Notes
 
 > DeleteProvisioningSqlByName(ctx, name).Execute()
 
-DropSQL deprovisions one Hanzo SQL database.
+Deprovisions one Hanzo SQL database.
 
 
 
@@ -436,7 +436,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -504,7 +504,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -513,7 +513,7 @@ Name | Type | Description  | Notes
 
 ## GetProvisioningDatastore
 
-> []ProvisionedSummary GetProvisioningDatastore(ctx).Execute()
+> []ProvisioningProvisionedSummary GetProvisioningDatastore(ctx).Execute()
 
 Lists the caller org's Hanzo Datastore warehouses.
 
@@ -540,7 +540,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningDatastore``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningDatastore`: []ProvisionedSummary
+	// response from `GetProvisioningDatastore`: []ProvisioningProvisionedSummary
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningDatastore`: %v\n", resp)
 }
 ```
@@ -556,7 +556,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningDatastoreRe
 
 ### Return type
 
-[**[]ProvisionedSummary**](ProvisionedSummary.md)
+[**[]ProvisioningProvisionedSummary**](ProvisioningProvisionedSummary.md)
 
 ### Authorization
 
@@ -565,7 +565,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningDatastoreRe
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -574,7 +574,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningDatastoreRe
 
 ## GetProvisioningDatastoreByName
 
-> ProvisionedResource GetProvisioningDatastoreByName(ctx, name).Execute()
+> ProvisioningProvisionedResource GetProvisioningDatastoreByName(ctx, name).Execute()
 
 Returns one Hanzo Datastore warehouse's metadata.
 
@@ -602,7 +602,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningDatastoreByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningDatastoreByName`: ProvisionedResource
+	// response from `GetProvisioningDatastoreByName`: ProvisioningProvisionedResource
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningDatastoreByName`: %v\n", resp)
 }
 ```
@@ -626,7 +626,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProvisionedResource**](ProvisionedResource.md)
+[**ProvisioningProvisionedResource**](ProvisioningProvisionedResource.md)
 
 ### Authorization
 
@@ -635,7 +635,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -644,9 +644,9 @@ Name | Type | Description  | Notes
 
 ## GetProvisioningDocdb
 
-> []ProvisionedSummary GetProvisioningDocdb(ctx).Execute()
+> []ProvisioningProvisionedSummary GetProvisioningDocdb(ctx).Execute()
 
-ListDocDB lists the caller org's Hanzo DocDB document databases.
+Lists the caller org's Hanzo DocDB document databases.
 
 
 
@@ -671,7 +671,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningDocdb``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningDocdb`: []ProvisionedSummary
+	// response from `GetProvisioningDocdb`: []ProvisioningProvisionedSummary
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningDocdb`: %v\n", resp)
 }
 ```
@@ -687,7 +687,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningDocdbReques
 
 ### Return type
 
-[**[]ProvisionedSummary**](ProvisionedSummary.md)
+[**[]ProvisioningProvisionedSummary**](ProvisioningProvisionedSummary.md)
 
 ### Authorization
 
@@ -696,7 +696,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningDocdbReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -705,9 +705,9 @@ Other parameters are passed through a pointer to a apiGetProvisioningDocdbReques
 
 ## GetProvisioningDocdbByName
 
-> ProvisionedResource GetProvisioningDocdbByName(ctx, name).Execute()
+> ProvisioningProvisionedResource GetProvisioningDocdbByName(ctx, name).Execute()
 
-GetDocDB returns one Hanzo DocDB database's metadata.
+Returns one Hanzo DocDB database's metadata.
 
 
 
@@ -733,7 +733,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningDocdbByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningDocdbByName`: ProvisionedResource
+	// response from `GetProvisioningDocdbByName`: ProvisioningProvisionedResource
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningDocdbByName`: %v\n", resp)
 }
 ```
@@ -757,7 +757,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProvisionedResource**](ProvisionedResource.md)
+[**ProvisioningProvisionedResource**](ProvisioningProvisionedResource.md)
 
 ### Authorization
 
@@ -766,7 +766,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -775,9 +775,9 @@ Name | Type | Description  | Notes
 
 ## GetProvisioningKv
 
-> []ProvisionedSummary GetProvisioningKv(ctx).Execute()
+> []ProvisioningProvisionedSummary GetProvisioningKv(ctx).Execute()
 
-ListKV lists the caller org's Hanzo KV stores.
+Lists the caller org's Hanzo KV stores.
 
 
 
@@ -802,7 +802,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningKv``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningKv`: []ProvisionedSummary
+	// response from `GetProvisioningKv`: []ProvisioningProvisionedSummary
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningKv`: %v\n", resp)
 }
 ```
@@ -818,7 +818,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningKvRequest s
 
 ### Return type
 
-[**[]ProvisionedSummary**](ProvisionedSummary.md)
+[**[]ProvisioningProvisionedSummary**](ProvisioningProvisionedSummary.md)
 
 ### Authorization
 
@@ -827,7 +827,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningKvRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -836,9 +836,9 @@ Other parameters are passed through a pointer to a apiGetProvisioningKvRequest s
 
 ## GetProvisioningKvByName
 
-> ProvisionedResource GetProvisioningKvByName(ctx, name).Execute()
+> ProvisioningProvisionedResource GetProvisioningKvByName(ctx, name).Execute()
 
-GetKV returns one Hanzo KV store's metadata.
+Returns one Hanzo KV store's metadata.
 
 
 
@@ -864,7 +864,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningKvByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningKvByName`: ProvisionedResource
+	// response from `GetProvisioningKvByName`: ProvisioningProvisionedResource
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningKvByName`: %v\n", resp)
 }
 ```
@@ -888,7 +888,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProvisionedResource**](ProvisionedResource.md)
+[**ProvisioningProvisionedResource**](ProvisioningProvisionedResource.md)
 
 ### Authorization
 
@@ -897,7 +897,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -906,7 +906,7 @@ Name | Type | Description  | Notes
 
 ## GetProvisioningS3
 
-> []ProvisionedSummary GetProvisioningS3(ctx).Execute()
+> []ProvisioningProvisionedSummary GetProvisioningS3(ctx).Execute()
 
 Lists the caller org's object-storage buckets.
 
@@ -933,7 +933,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningS3``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningS3`: []ProvisionedSummary
+	// response from `GetProvisioningS3`: []ProvisioningProvisionedSummary
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningS3`: %v\n", resp)
 }
 ```
@@ -949,7 +949,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningS3Request s
 
 ### Return type
 
-[**[]ProvisionedSummary**](ProvisionedSummary.md)
+[**[]ProvisioningProvisionedSummary**](ProvisioningProvisionedSummary.md)
 
 ### Authorization
 
@@ -958,7 +958,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningS3Request s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -967,7 +967,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningS3Request s
 
 ## GetProvisioningS3ByName
 
-> ProvisionedResource GetProvisioningS3ByName(ctx, name).Execute()
+> ProvisioningProvisionedResource GetProvisioningS3ByName(ctx, name).Execute()
 
 Returns one bucket's metadata.
 
@@ -995,7 +995,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningS3ByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningS3ByName`: ProvisionedResource
+	// response from `GetProvisioningS3ByName`: ProvisioningProvisionedResource
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningS3ByName`: %v\n", resp)
 }
 ```
@@ -1019,7 +1019,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProvisionedResource**](ProvisionedResource.md)
+[**ProvisioningProvisionedResource**](ProvisioningProvisionedResource.md)
 
 ### Authorization
 
@@ -1028,7 +1028,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1037,7 +1037,7 @@ Name | Type | Description  | Notes
 
 ## GetProvisioningSearch
 
-> []ProvisionedSummary GetProvisioningSearch(ctx).Execute()
+> []ProvisioningProvisionedSummary GetProvisioningSearch(ctx).Execute()
 
 Lists the caller org's search indexes.
 
@@ -1064,7 +1064,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningSearch`: []ProvisionedSummary
+	// response from `GetProvisioningSearch`: []ProvisioningProvisionedSummary
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningSearch`: %v\n", resp)
 }
 ```
@@ -1080,7 +1080,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningSearchReque
 
 ### Return type
 
-[**[]ProvisionedSummary**](ProvisionedSummary.md)
+[**[]ProvisioningProvisionedSummary**](ProvisioningProvisionedSummary.md)
 
 ### Authorization
 
@@ -1089,7 +1089,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningSearchReque
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1098,7 +1098,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningSearchReque
 
 ## GetProvisioningSearchByName
 
-> ProvisionedResource GetProvisioningSearchByName(ctx, name).Execute()
+> ProvisioningProvisionedResource GetProvisioningSearchByName(ctx, name).Execute()
 
 Returns one search index's metadata.
 
@@ -1126,7 +1126,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningSearchByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningSearchByName`: ProvisionedResource
+	// response from `GetProvisioningSearchByName`: ProvisioningProvisionedResource
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningSearchByName`: %v\n", resp)
 }
 ```
@@ -1150,7 +1150,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProvisionedResource**](ProvisionedResource.md)
+[**ProvisioningProvisionedResource**](ProvisioningProvisionedResource.md)
 
 ### Authorization
 
@@ -1159,7 +1159,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1168,9 +1168,9 @@ Name | Type | Description  | Notes
 
 ## GetProvisioningSql
 
-> []ProvisionedSummary GetProvisioningSql(ctx).Execute()
+> []ProvisioningProvisionedSummary GetProvisioningSql(ctx).Execute()
 
-ListSQL lists the caller org's Hanzo SQL databases.
+Lists the caller org's Hanzo SQL databases.
 
 
 
@@ -1195,7 +1195,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningSql``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningSql`: []ProvisionedSummary
+	// response from `GetProvisioningSql`: []ProvisioningProvisionedSummary
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningSql`: %v\n", resp)
 }
 ```
@@ -1211,7 +1211,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningSqlRequest 
 
 ### Return type
 
-[**[]ProvisionedSummary**](ProvisionedSummary.md)
+[**[]ProvisioningProvisionedSummary**](ProvisioningProvisionedSummary.md)
 
 ### Authorization
 
@@ -1220,7 +1220,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningSqlRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1229,9 +1229,9 @@ Other parameters are passed through a pointer to a apiGetProvisioningSqlRequest 
 
 ## GetProvisioningSqlByName
 
-> ProvisionedResource GetProvisioningSqlByName(ctx, name).Execute()
+> ProvisioningProvisionedResource GetProvisioningSqlByName(ctx, name).Execute()
 
-GetSQL returns one Hanzo SQL database's metadata.
+Returns one Hanzo SQL database's metadata.
 
 
 
@@ -1257,7 +1257,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningSqlByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningSqlByName`: ProvisionedResource
+	// response from `GetProvisioningSqlByName`: ProvisioningProvisionedResource
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningSqlByName`: %v\n", resp)
 }
 ```
@@ -1281,7 +1281,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProvisionedResource**](ProvisionedResource.md)
+[**ProvisioningProvisionedResource**](ProvisioningProvisionedResource.md)
 
 ### Authorization
 
@@ -1290,7 +1290,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1299,7 +1299,7 @@ Name | Type | Description  | Notes
 
 ## GetProvisioningVector
 
-> []ProvisionedSummary GetProvisioningVector(ctx).Execute()
+> []ProvisioningProvisionedSummary GetProvisioningVector(ctx).Execute()
 
 Lists the caller org's vector collections.
 
@@ -1326,7 +1326,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningVector``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningVector`: []ProvisionedSummary
+	// response from `GetProvisioningVector`: []ProvisioningProvisionedSummary
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningVector`: %v\n", resp)
 }
 ```
@@ -1342,7 +1342,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningVectorReque
 
 ### Return type
 
-[**[]ProvisionedSummary**](ProvisionedSummary.md)
+[**[]ProvisioningProvisionedSummary**](ProvisioningProvisionedSummary.md)
 
 ### Authorization
 
@@ -1351,7 +1351,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningVectorReque
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1360,7 +1360,7 @@ Other parameters are passed through a pointer to a apiGetProvisioningVectorReque
 
 ## GetProvisioningVectorByName
 
-> ProvisionedResource GetProvisioningVectorByName(ctx, name).Execute()
+> ProvisioningProvisionedResource GetProvisioningVectorByName(ctx, name).Execute()
 
 Returns one vector collection's metadata.
 
@@ -1388,7 +1388,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.GetProvisioningVectorByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetProvisioningVectorByName`: ProvisionedResource
+	// response from `GetProvisioningVectorByName`: ProvisioningProvisionedResource
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.GetProvisioningVectorByName`: %v\n", resp)
 }
 ```
@@ -1412,7 +1412,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProvisionedResource**](ProvisionedResource.md)
+[**ProvisioningProvisionedResource**](ProvisioningProvisionedResource.md)
 
 ### Authorization
 
@@ -1421,7 +1421,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1430,7 +1430,7 @@ Name | Type | Description  | Notes
 
 ## PostProvisioningDatastore
 
-> ProvisionResult PostProvisioningDatastore(ctx).ProvisionRequest(provisionRequest).Execute()
+> ProvisioningProvisionResult PostProvisioningDatastore(ctx).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 
 Launches your org's OWN Hanzo Datastore instance and answers with its `datastore://` connection string.
 
@@ -1449,16 +1449,16 @@ import (
 )
 
 func main() {
-	provisionRequest := *openapiclient.NewProvisionRequest() // ProvisionRequest | 
+	provisioningProvisionRequest := *openapiclient.NewProvisioningProvisionRequest() // ProvisioningProvisionRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningDatastore(context.Background()).ProvisionRequest(provisionRequest).Execute()
+	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningDatastore(context.Background()).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.PostProvisioningDatastore``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProvisioningDatastore`: ProvisionResult
+	// response from `PostProvisioningDatastore`: ProvisioningProvisionResult
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.PostProvisioningDatastore`: %v\n", resp)
 }
 ```
@@ -1474,11 +1474,11 @@ Other parameters are passed through a pointer to a apiPostProvisioningDatastoreR
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **provisionRequest** | [**ProvisionRequest**](ProvisionRequest.md) |  | 
+ **provisioningProvisionRequest** | [**ProvisioningProvisionRequest**](ProvisioningProvisionRequest.md) |  | 
 
 ### Return type
 
-[**ProvisionResult**](ProvisionResult.md)
+[**ProvisioningProvisionResult**](ProvisioningProvisionResult.md)
 
 ### Authorization
 
@@ -1487,7 +1487,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1496,9 +1496,9 @@ Name | Type | Description  | Notes
 
 ## PostProvisioningDocdb
 
-> ProvisionResult PostProvisioningDocdb(ctx).ProvisionRequest(provisionRequest).Execute()
+> ProvisioningProvisionResult PostProvisioningDocdb(ctx).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 
-CreateDocDB launches your org's OWN document-database instance and answers with its `mongodb://` connection string.
+Launches your org's OWN document-database instance and answers with its `mongodb://` connection string.
 
 
 
@@ -1515,16 +1515,16 @@ import (
 )
 
 func main() {
-	provisionRequest := *openapiclient.NewProvisionRequest() // ProvisionRequest | 
+	provisioningProvisionRequest := *openapiclient.NewProvisioningProvisionRequest() // ProvisioningProvisionRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningDocdb(context.Background()).ProvisionRequest(provisionRequest).Execute()
+	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningDocdb(context.Background()).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.PostProvisioningDocdb``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProvisioningDocdb`: ProvisionResult
+	// response from `PostProvisioningDocdb`: ProvisioningProvisionResult
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.PostProvisioningDocdb`: %v\n", resp)
 }
 ```
@@ -1540,11 +1540,11 @@ Other parameters are passed through a pointer to a apiPostProvisioningDocdbReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **provisionRequest** | [**ProvisionRequest**](ProvisionRequest.md) |  | 
+ **provisioningProvisionRequest** | [**ProvisioningProvisionRequest**](ProvisioningProvisionRequest.md) |  | 
 
 ### Return type
 
-[**ProvisionResult**](ProvisionResult.md)
+[**ProvisioningProvisionResult**](ProvisioningProvisionResult.md)
 
 ### Authorization
 
@@ -1553,7 +1553,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1562,9 +1562,9 @@ Name | Type | Description  | Notes
 
 ## PostProvisioningKv
 
-> ProvisionResult PostProvisioningKv(ctx).ProvisionRequest(provisionRequest).Execute()
+> ProvisioningProvisionResult PostProvisioningKv(ctx).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 
-CreateKV launches your org's OWN key-value instance and answers with its `kv://` connection string.
+Launches your org's OWN key-value instance and answers with its `kv://` connection string.
 
 
 
@@ -1581,16 +1581,16 @@ import (
 )
 
 func main() {
-	provisionRequest := *openapiclient.NewProvisionRequest() // ProvisionRequest | 
+	provisioningProvisionRequest := *openapiclient.NewProvisioningProvisionRequest() // ProvisioningProvisionRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningKv(context.Background()).ProvisionRequest(provisionRequest).Execute()
+	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningKv(context.Background()).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.PostProvisioningKv``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProvisioningKv`: ProvisionResult
+	// response from `PostProvisioningKv`: ProvisioningProvisionResult
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.PostProvisioningKv`: %v\n", resp)
 }
 ```
@@ -1606,11 +1606,11 @@ Other parameters are passed through a pointer to a apiPostProvisioningKvRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **provisionRequest** | [**ProvisionRequest**](ProvisionRequest.md) |  | 
+ **provisioningProvisionRequest** | [**ProvisioningProvisionRequest**](ProvisioningProvisionRequest.md) |  | 
 
 ### Return type
 
-[**ProvisionResult**](ProvisionResult.md)
+[**ProvisioningProvisionResult**](ProvisioningProvisionResult.md)
 
 ### Authorization
 
@@ -1619,7 +1619,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1628,7 +1628,7 @@ Name | Type | Description  | Notes
 
 ## PostProvisioningS3
 
-> ProvisionResult PostProvisioningS3(ctx).ProvisionRequest(provisionRequest).Execute()
+> ProvisioningProvisionResult PostProvisioningS3(ctx).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 
 Creates an S3-compatible bucket inside the already-running shared object store and answers with the endpoint that reaches it.
 
@@ -1647,16 +1647,16 @@ import (
 )
 
 func main() {
-	provisionRequest := *openapiclient.NewProvisionRequest() // ProvisionRequest | 
+	provisioningProvisionRequest := *openapiclient.NewProvisioningProvisionRequest() // ProvisioningProvisionRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningS3(context.Background()).ProvisionRequest(provisionRequest).Execute()
+	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningS3(context.Background()).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.PostProvisioningS3``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProvisioningS3`: ProvisionResult
+	// response from `PostProvisioningS3`: ProvisioningProvisionResult
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.PostProvisioningS3`: %v\n", resp)
 }
 ```
@@ -1672,11 +1672,11 @@ Other parameters are passed through a pointer to a apiPostProvisioningS3Request 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **provisionRequest** | [**ProvisionRequest**](ProvisionRequest.md) |  | 
+ **provisioningProvisionRequest** | [**ProvisioningProvisionRequest**](ProvisioningProvisionRequest.md) |  | 
 
 ### Return type
 
-[**ProvisionResult**](ProvisionResult.md)
+[**ProvisioningProvisionResult**](ProvisioningProvisionResult.md)
 
 ### Authorization
 
@@ -1685,7 +1685,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1694,7 +1694,7 @@ Name | Type | Description  | Notes
 
 ## PostProvisioningSearch
 
-> ProvisionResult PostProvisioningSearch(ctx).ProvisionRequest(provisionRequest).Execute()
+> ProvisioningProvisionResult PostProvisioningSearch(ctx).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 
 Creates a search index inside the already-running shared search backend and answers with the endpoint that reaches it.
 
@@ -1713,16 +1713,16 @@ import (
 )
 
 func main() {
-	provisionRequest := *openapiclient.NewProvisionRequest() // ProvisionRequest | 
+	provisioningProvisionRequest := *openapiclient.NewProvisioningProvisionRequest() // ProvisioningProvisionRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningSearch(context.Background()).ProvisionRequest(provisionRequest).Execute()
+	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningSearch(context.Background()).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.PostProvisioningSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProvisioningSearch`: ProvisionResult
+	// response from `PostProvisioningSearch`: ProvisioningProvisionResult
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.PostProvisioningSearch`: %v\n", resp)
 }
 ```
@@ -1738,11 +1738,11 @@ Other parameters are passed through a pointer to a apiPostProvisioningSearchRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **provisionRequest** | [**ProvisionRequest**](ProvisionRequest.md) |  | 
+ **provisioningProvisionRequest** | [**ProvisioningProvisionRequest**](ProvisioningProvisionRequest.md) |  | 
 
 ### Return type
 
-[**ProvisionResult**](ProvisionResult.md)
+[**ProvisioningProvisionResult**](ProvisioningProvisionResult.md)
 
 ### Authorization
 
@@ -1751,7 +1751,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1760,9 +1760,9 @@ Name | Type | Description  | Notes
 
 ## PostProvisioningSql
 
-> ProvisionResult PostProvisioningSql(ctx).ProvisionRequest(provisionRequest).Execute()
+> ProvisioningProvisionResult PostProvisioningSql(ctx).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 
-CreateSQL launches your org's OWN PostgreSQL instance and answers with its `postgres://` connection string.
+Launches your org's OWN PostgreSQL instance and answers with its `postgres://` connection string.
 
 
 
@@ -1779,16 +1779,16 @@ import (
 )
 
 func main() {
-	provisionRequest := *openapiclient.NewProvisionRequest() // ProvisionRequest | 
+	provisioningProvisionRequest := *openapiclient.NewProvisioningProvisionRequest() // ProvisioningProvisionRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningSql(context.Background()).ProvisionRequest(provisionRequest).Execute()
+	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningSql(context.Background()).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.PostProvisioningSql``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProvisioningSql`: ProvisionResult
+	// response from `PostProvisioningSql`: ProvisioningProvisionResult
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.PostProvisioningSql`: %v\n", resp)
 }
 ```
@@ -1804,11 +1804,11 @@ Other parameters are passed through a pointer to a apiPostProvisioningSqlRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **provisionRequest** | [**ProvisionRequest**](ProvisionRequest.md) |  | 
+ **provisioningProvisionRequest** | [**ProvisioningProvisionRequest**](ProvisioningProvisionRequest.md) |  | 
 
 ### Return type
 
-[**ProvisionResult**](ProvisionResult.md)
+[**ProvisioningProvisionResult**](ProvisioningProvisionResult.md)
 
 ### Authorization
 
@@ -1817,7 +1817,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1826,7 +1826,7 @@ Name | Type | Description  | Notes
 
 ## PostProvisioningVector
 
-> ProvisionResult PostProvisioningVector(ctx).ProvisionRequest(provisionRequest).Execute()
+> ProvisioningProvisionResult PostProvisioningVector(ctx).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 
 Creates a vector collection inside the already-running shared vector backend and answers with the endpoint that reaches it.
 
@@ -1845,16 +1845,16 @@ import (
 )
 
 func main() {
-	provisionRequest := *openapiclient.NewProvisionRequest() // ProvisionRequest | 
+	provisioningProvisionRequest := *openapiclient.NewProvisioningProvisionRequest() // ProvisioningProvisionRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningVector(context.Background()).ProvisionRequest(provisionRequest).Execute()
+	resp, r, err := apiClient.ProvisioningAPI.PostProvisioningVector(context.Background()).ProvisioningProvisionRequest(provisioningProvisionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProvisioningAPI.PostProvisioningVector``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostProvisioningVector`: ProvisionResult
+	// response from `PostProvisioningVector`: ProvisioningProvisionResult
 	fmt.Fprintf(os.Stdout, "Response from `ProvisioningAPI.PostProvisioningVector`: %v\n", resp)
 }
 ```
@@ -1870,11 +1870,11 @@ Other parameters are passed through a pointer to a apiPostProvisioningVectorRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **provisionRequest** | [**ProvisionRequest**](ProvisionRequest.md) |  | 
+ **provisioningProvisionRequest** | [**ProvisioningProvisionRequest**](ProvisioningProvisionRequest.md) |  | 
 
 ### Return type
 
-[**ProvisionResult**](ProvisionResult.md)
+[**ProvisioningProvisionResult**](ProvisioningProvisionResult.md)
 
 ### Authorization
 
@@ -1883,7 +1883,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

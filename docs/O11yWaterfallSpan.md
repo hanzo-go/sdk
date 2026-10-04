@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attributes** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**DbName** | Pointer to **string** | Calculated fields https://o11y.io/docs/traces-management/guides/derived-fields-spans | [optional] 
+**Attributes** | Pointer to **map[string]interface{}** |  | [optional] 
+**DbName** | Pointer to **string** | Calculated fields, derived from the span&#39;s attributes. | [optional] 
 **DbOperation** | Pointer to **string** |  | [optional] 
 **DurationNano** | Pointer to **int32** |  | [optional] 
 **Events** | Pointer to [**[]O11yEvent**](O11yEvent.md) |  | [optional] 
@@ -55,20 +55,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAttributes
 
-`func (o *O11yWaterfallSpan) GetAttributes() map[string]map[string]interface{}`
+`func (o *O11yWaterfallSpan) GetAttributes() map[string]interface{}`
 
 GetAttributes returns the Attributes field if non-nil, zero value otherwise.
 
 ### GetAttributesOk
 
-`func (o *O11yWaterfallSpan) GetAttributesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yWaterfallSpan) GetAttributesOk() (*map[string]interface{}, bool)`
 
 GetAttributesOk returns a tuple with the Attributes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttributes
 
-`func (o *O11yWaterfallSpan) SetAttributes(v map[string]map[string]interface{})`
+`func (o *O11yWaterfallSpan) SetAttributes(v map[string]interface{})`
 
 SetAttributes sets Attributes field to given value.
 

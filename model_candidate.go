@@ -19,9 +19,12 @@ var _ MappedNullable = &Candidate{}
 
 // Candidate struct for Candidate
 type Candidate struct {
-	IsHit *bool   `json:"isHit,omitempty"`
-	Text  *string `json:"text,omitempty"`
+	IsHit                *bool   `json:"isHit,omitempty"`
+	Text                 *string `json:"text,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Candidate Candidate
 
 // NewCandidate instantiates a new Candidate object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o Candidate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Text) {
 		toSerialize["text"] = o.Text
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Candidate) UnmarshalJSON(data []byte) (err error) {
+	varCandidate := _Candidate{}
+
+	err = json.Unmarshal(data, &varCandidate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Candidate(varCandidate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "isHit")
+		delete(additionalProperties, "text")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCandidate struct {

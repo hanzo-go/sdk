@@ -19,8 +19,11 @@ var _ MappedNullable = &IamToggle{}
 
 // IamToggle struct for IamToggle
 type IamToggle struct {
-	Supported *bool `json:"supported,omitempty"`
+	Supported            *bool `json:"supported,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamToggle IamToggle
 
 // NewIamToggle instantiates a new IamToggle object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o IamToggle) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Supported) {
 		toSerialize["supported"] = o.Supported
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamToggle) UnmarshalJSON(data []byte) (err error) {
+	varIamToggle := _IamToggle{}
+
+	err = json.Unmarshal(data, &varIamToggle)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamToggle(varIamToggle)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "supported")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamToggle struct {

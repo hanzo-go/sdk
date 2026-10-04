@@ -84,7 +84,7 @@ func (a *CampaignAPIService) DeleteCampaignByIdExecute(r CampaignAPIDeleteCampai
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -113,6 +113,14 @@ func (a *CampaignAPIService) DeleteCampaignByIdExecute(r CampaignAPIDeleteCampai
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -126,7 +134,7 @@ type CampaignAPIDeleteCampaignByIdChannelsByKindRequest struct {
 	kind       string
 }
 
-func (r CampaignAPIDeleteCampaignByIdChannelsByKindRequest) Execute() (*CampaignRecord, *http.Response, error) {
+func (r CampaignAPIDeleteCampaignByIdChannelsByKindRequest) Execute() (*CampaignCampaignRecord, *http.Response, error) {
 	return r.ApiService.DeleteCampaignByIdChannelsByKindExecute(r)
 }
 
@@ -156,13 +164,13 @@ func (a *CampaignAPIService) DeleteCampaignByIdChannelsByKind(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return CampaignRecord
-func (a *CampaignAPIService) DeleteCampaignByIdChannelsByKindExecute(r CampaignAPIDeleteCampaignByIdChannelsByKindRequest) (*CampaignRecord, *http.Response, error) {
+//	@return CampaignCampaignRecord
+func (a *CampaignAPIService) DeleteCampaignByIdChannelsByKindExecute(r CampaignAPIDeleteCampaignByIdChannelsByKindRequest) (*CampaignCampaignRecord, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CampaignRecord
+		localVarReturnValue *CampaignCampaignRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CampaignAPIService.DeleteCampaignByIdChannelsByKind")
@@ -188,7 +196,7 @@ func (a *CampaignAPIService) DeleteCampaignByIdChannelsByKindExecute(r CampaignA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -217,6 +225,14 @@ func (a *CampaignAPIService) DeleteCampaignByIdChannelsByKindExecute(r CampaignA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -251,7 +267,7 @@ func (r CampaignAPIGetCampaignRequest) Limit(limit int64) CampaignAPIGetCampaign
 	return r
 }
 
-func (r CampaignAPIGetCampaignRequest) Execute() (*CampaignPage, *http.Response, error) {
+func (r CampaignAPIGetCampaignRequest) Execute() (*CampaignCampaignPage, *http.Response, error) {
 	return r.ApiService.GetCampaignExecute(r)
 }
 
@@ -277,13 +293,13 @@ func (a *CampaignAPIService) GetCampaign(ctx context.Context) CampaignAPIGetCamp
 
 // Execute executes the request
 //
-//	@return CampaignPage
-func (a *CampaignAPIService) GetCampaignExecute(r CampaignAPIGetCampaignRequest) (*CampaignPage, *http.Response, error) {
+//	@return CampaignCampaignPage
+func (a *CampaignAPIService) GetCampaignExecute(r CampaignAPIGetCampaignRequest) (*CampaignCampaignPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CampaignPage
+		localVarReturnValue *CampaignCampaignPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CampaignAPIService.GetCampaign")
@@ -313,7 +329,7 @@ func (a *CampaignAPIService) GetCampaignExecute(r CampaignAPIGetCampaignRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -342,6 +358,14 @@ func (a *CampaignAPIService) GetCampaignExecute(r CampaignAPIGetCampaignRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -363,7 +387,7 @@ type CampaignAPIGetCampaignByIdRequest struct {
 	id         string
 }
 
-func (r CampaignAPIGetCampaignByIdRequest) Execute() (*CampaignRecord, *http.Response, error) {
+func (r CampaignAPIGetCampaignByIdRequest) Execute() (*CampaignCampaignRecord, *http.Response, error) {
 	return r.ApiService.GetCampaignByIdExecute(r)
 }
 
@@ -388,13 +412,13 @@ func (a *CampaignAPIService) GetCampaignById(ctx context.Context, id string) Cam
 
 // Execute executes the request
 //
-//	@return CampaignRecord
-func (a *CampaignAPIService) GetCampaignByIdExecute(r CampaignAPIGetCampaignByIdRequest) (*CampaignRecord, *http.Response, error) {
+//	@return CampaignCampaignRecord
+func (a *CampaignAPIService) GetCampaignByIdExecute(r CampaignAPIGetCampaignByIdRequest) (*CampaignCampaignRecord, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CampaignRecord
+		localVarReturnValue *CampaignCampaignRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CampaignAPIService.GetCampaignById")
@@ -419,7 +443,7 @@ func (a *CampaignAPIService) GetCampaignByIdExecute(r CampaignAPIGetCampaignById
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -448,6 +472,14 @@ func (a *CampaignAPIService) GetCampaignByIdExecute(r CampaignAPIGetCampaignById
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -490,7 +522,7 @@ func (r CampaignAPIGetCampaignByIdMetricsRequest) End(end string) CampaignAPIGet
 	return r
 }
 
-func (r CampaignAPIGetCampaignByIdMetricsRequest) Execute() (*CampaignResults, *http.Response, error) {
+func (r CampaignAPIGetCampaignByIdMetricsRequest) Execute() (*CampaignCampaignResults, *http.Response, error) {
 	return r.ApiService.GetCampaignByIdMetricsExecute(r)
 }
 
@@ -523,13 +555,13 @@ func (a *CampaignAPIService) GetCampaignByIdMetrics(ctx context.Context, id stri
 
 // Execute executes the request
 //
-//	@return CampaignResults
-func (a *CampaignAPIService) GetCampaignByIdMetricsExecute(r CampaignAPIGetCampaignByIdMetricsRequest) (*CampaignResults, *http.Response, error) {
+//	@return CampaignCampaignResults
+func (a *CampaignAPIService) GetCampaignByIdMetricsExecute(r CampaignAPIGetCampaignByIdMetricsRequest) (*CampaignCampaignResults, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CampaignResults
+		localVarReturnValue *CampaignCampaignResults
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CampaignAPIService.GetCampaignByIdMetrics")
@@ -563,7 +595,7 @@ func (a *CampaignAPIService) GetCampaignByIdMetricsExecute(r CampaignAPIGetCampa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -592,6 +624,14 @@ func (a *CampaignAPIService) GetCampaignByIdMetricsExecute(r CampaignAPIGetCampa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -612,7 +652,7 @@ type CampaignAPIGetCampaignSummaryRequest struct {
 	ApiService *CampaignAPIService
 }
 
-func (r CampaignAPIGetCampaignSummaryRequest) Execute() (*CampaignSummary, *http.Response, error) {
+func (r CampaignAPIGetCampaignSummaryRequest) Execute() (*CampaignCampaignSummary, *http.Response, error) {
 	return r.ApiService.GetCampaignSummaryExecute(r)
 }
 
@@ -639,13 +679,13 @@ func (a *CampaignAPIService) GetCampaignSummary(ctx context.Context) CampaignAPI
 
 // Execute executes the request
 //
-//	@return CampaignSummary
-func (a *CampaignAPIService) GetCampaignSummaryExecute(r CampaignAPIGetCampaignSummaryRequest) (*CampaignSummary, *http.Response, error) {
+//	@return CampaignCampaignSummary
+func (a *CampaignAPIService) GetCampaignSummaryExecute(r CampaignAPIGetCampaignSummaryRequest) (*CampaignCampaignSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CampaignSummary
+		localVarReturnValue *CampaignCampaignSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CampaignAPIService.GetCampaignSummary")
@@ -669,7 +709,7 @@ func (a *CampaignAPIService) GetCampaignSummaryExecute(r CampaignAPIGetCampaignS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -698,6 +738,14 @@ func (a *CampaignAPIService) GetCampaignSummaryExecute(r CampaignAPIGetCampaignS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -714,17 +762,17 @@ func (a *CampaignAPIService) GetCampaignSummaryExecute(r CampaignAPIGetCampaignS
 }
 
 type CampaignAPIPostCampaignRequest struct {
-	ctx           context.Context
-	ApiService    *CampaignAPIService
-	campaignWrite *CampaignWrite
+	ctx                   context.Context
+	ApiService            *CampaignAPIService
+	campaignCampaignWrite *CampaignCampaignWrite
 }
 
-func (r CampaignAPIPostCampaignRequest) CampaignWrite(campaignWrite CampaignWrite) CampaignAPIPostCampaignRequest {
-	r.campaignWrite = &campaignWrite
+func (r CampaignAPIPostCampaignRequest) CampaignCampaignWrite(campaignCampaignWrite CampaignCampaignWrite) CampaignAPIPostCampaignRequest {
+	r.campaignCampaignWrite = &campaignCampaignWrite
 	return r
 }
 
-func (r CampaignAPIPostCampaignRequest) Execute() (*CampaignRecord, *http.Response, error) {
+func (r CampaignAPIPostCampaignRequest) Execute() (*CampaignCampaignRecord, *http.Response, error) {
 	return r.ApiService.PostCampaignExecute(r)
 }
 
@@ -751,13 +799,13 @@ func (a *CampaignAPIService) PostCampaign(ctx context.Context) CampaignAPIPostCa
 
 // Execute executes the request
 //
-//	@return CampaignRecord
-func (a *CampaignAPIService) PostCampaignExecute(r CampaignAPIPostCampaignRequest) (*CampaignRecord, *http.Response, error) {
+//	@return CampaignCampaignRecord
+func (a *CampaignAPIService) PostCampaignExecute(r CampaignAPIPostCampaignRequest) (*CampaignCampaignRecord, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CampaignRecord
+		localVarReturnValue *CampaignCampaignRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CampaignAPIService.PostCampaign")
@@ -770,8 +818,8 @@ func (a *CampaignAPIService) PostCampaignExecute(r CampaignAPIPostCampaignReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.campaignWrite == nil {
-		return localVarReturnValue, nil, reportError("campaignWrite is required and must be specified")
+	if r.campaignCampaignWrite == nil {
+		return localVarReturnValue, nil, reportError("campaignCampaignWrite is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -784,7 +832,7 @@ func (a *CampaignAPIService) PostCampaignExecute(r CampaignAPIPostCampaignReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -792,7 +840,7 @@ func (a *CampaignAPIService) PostCampaignExecute(r CampaignAPIPostCampaignReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.campaignWrite
+	localVarPostBody = r.campaignCampaignWrite
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -815,6 +863,14 @@ func (a *CampaignAPIService) PostCampaignExecute(r CampaignAPIPostCampaignReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -831,18 +887,18 @@ func (a *CampaignAPIService) PostCampaignExecute(r CampaignAPIPostCampaignReques
 }
 
 type CampaignAPIPostCampaignByIdChannelsRequest struct {
-	ctx        context.Context
-	ApiService *CampaignAPIService
-	id         string
-	channelAdd *ChannelAdd
+	ctx                context.Context
+	ApiService         *CampaignAPIService
+	id                 string
+	campaignChannelAdd *CampaignChannelAdd
 }
 
-func (r CampaignAPIPostCampaignByIdChannelsRequest) ChannelAdd(channelAdd ChannelAdd) CampaignAPIPostCampaignByIdChannelsRequest {
-	r.channelAdd = &channelAdd
+func (r CampaignAPIPostCampaignByIdChannelsRequest) CampaignChannelAdd(campaignChannelAdd CampaignChannelAdd) CampaignAPIPostCampaignByIdChannelsRequest {
+	r.campaignChannelAdd = &campaignChannelAdd
 	return r
 }
 
-func (r CampaignAPIPostCampaignByIdChannelsRequest) Execute() (*CampaignRecord, *http.Response, error) {
+func (r CampaignAPIPostCampaignByIdChannelsRequest) Execute() (*CampaignCampaignRecord, *http.Response, error) {
 	return r.ApiService.PostCampaignByIdChannelsExecute(r)
 }
 
@@ -871,13 +927,13 @@ func (a *CampaignAPIService) PostCampaignByIdChannels(ctx context.Context, id st
 
 // Execute executes the request
 //
-//	@return CampaignRecord
-func (a *CampaignAPIService) PostCampaignByIdChannelsExecute(r CampaignAPIPostCampaignByIdChannelsRequest) (*CampaignRecord, *http.Response, error) {
+//	@return CampaignCampaignRecord
+func (a *CampaignAPIService) PostCampaignByIdChannelsExecute(r CampaignAPIPostCampaignByIdChannelsRequest) (*CampaignCampaignRecord, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CampaignRecord
+		localVarReturnValue *CampaignCampaignRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CampaignAPIService.PostCampaignByIdChannels")
@@ -891,8 +947,8 @@ func (a *CampaignAPIService) PostCampaignByIdChannelsExecute(r CampaignAPIPostCa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.channelAdd == nil {
-		return localVarReturnValue, nil, reportError("channelAdd is required and must be specified")
+	if r.campaignChannelAdd == nil {
+		return localVarReturnValue, nil, reportError("campaignChannelAdd is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -905,7 +961,7 @@ func (a *CampaignAPIService) PostCampaignByIdChannelsExecute(r CampaignAPIPostCa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -913,7 +969,7 @@ func (a *CampaignAPIService) PostCampaignByIdChannelsExecute(r CampaignAPIPostCa
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.channelAdd
+	localVarPostBody = r.campaignChannelAdd
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -936,6 +992,14 @@ func (a *CampaignAPIService) PostCampaignByIdChannelsExecute(r CampaignAPIPostCa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -968,7 +1032,7 @@ Pushes the campaign live on each of its channels through that channel's executor
 
 The fan-out is BEST-EFFORT PER CHANNEL, and the honest reading of the result is the rule most callers get wrong: one channel failing never aborts the others, so each channel row carries its own `live`, `failed` or `unavailable` status and detail, and a paid launch can be live while an email launch failed. The campaign itself is `live` when AT LEAST ONE channel launched and `failed` only when none did — `live` is not a claim that every channel launched. Repeating the call is safe: a channel already live is skipped, never re-launched. A campaign carrying more than one creative has its variant assigned here by the experiment client and tagged as `utm_content`.
 
-Org-scoped and fails closed: a valid bearer is required (403 without one), the campaign is read under the caller's OWN org so another tenant's id is a 404, and a campaign with no channels is a 400 — there is nothing to launch. Each executor resolves its own org's connector token from the org passed to it, so a launch can never spend through another tenant's connector.
+Org-scoped and fails closed: a valid bearer is required (401 without one), the campaign is read under the caller's OWN org so another tenant's id is a 404, and a campaign with no channels is a 400 — there is nothing to launch. Each executor resolves its own org's connector token from the org passed to it, so a launch can never spend through another tenant's connector.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -1064,7 +1128,7 @@ Pauses each live channel on its provider and answers the whole campaign, moved t
 
 Only channels that are live and carry a provider reference are touched; a channel whose executor is no longer wired is marked `unavailable` and one whose pause errored is marked `failed`, with the reason on the row. The campaign still reports `paused` in both cases, and that is deliberate rather than sloppy: no live channel remains that this process will meter, and the rows say exactly which provider was not reached so it can be settled by hand.
 
-Org-scoped and fails closed: a valid bearer is required (403 without one) and the campaign is read under the caller's OWN org, so another tenant's id is a 404.
+Org-scoped and fails closed: a valid bearer is required (401 without one) and the campaign is read under the caller's OWN org, so another tenant's id is a 404.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -1144,18 +1208,18 @@ func (a *CampaignAPIService) PostCampaignByIdPauseExecute(r CampaignAPIPostCampa
 }
 
 type CampaignAPIPutCampaignByIdRequest struct {
-	ctx            context.Context
-	ApiService     *CampaignAPIService
-	id             string
-	campaignUpdate *CampaignUpdate
+	ctx                    context.Context
+	ApiService             *CampaignAPIService
+	id                     string
+	campaignCampaignUpdate *CampaignCampaignUpdate
 }
 
-func (r CampaignAPIPutCampaignByIdRequest) CampaignUpdate(campaignUpdate CampaignUpdate) CampaignAPIPutCampaignByIdRequest {
-	r.campaignUpdate = &campaignUpdate
+func (r CampaignAPIPutCampaignByIdRequest) CampaignCampaignUpdate(campaignCampaignUpdate CampaignCampaignUpdate) CampaignAPIPutCampaignByIdRequest {
+	r.campaignCampaignUpdate = &campaignCampaignUpdate
 	return r
 }
 
-func (r CampaignAPIPutCampaignByIdRequest) Execute() (*CampaignRecord, *http.Response, error) {
+func (r CampaignAPIPutCampaignByIdRequest) Execute() (*CampaignCampaignRecord, *http.Response, error) {
 	return r.ApiService.PutCampaignByIdExecute(r)
 }
 
@@ -1184,13 +1248,13 @@ func (a *CampaignAPIService) PutCampaignById(ctx context.Context, id string) Cam
 
 // Execute executes the request
 //
-//	@return CampaignRecord
-func (a *CampaignAPIService) PutCampaignByIdExecute(r CampaignAPIPutCampaignByIdRequest) (*CampaignRecord, *http.Response, error) {
+//	@return CampaignCampaignRecord
+func (a *CampaignAPIService) PutCampaignByIdExecute(r CampaignAPIPutCampaignByIdRequest) (*CampaignCampaignRecord, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CampaignRecord
+		localVarReturnValue *CampaignCampaignRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CampaignAPIService.PutCampaignById")
@@ -1204,8 +1268,8 @@ func (a *CampaignAPIService) PutCampaignByIdExecute(r CampaignAPIPutCampaignById
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.campaignUpdate == nil {
-		return localVarReturnValue, nil, reportError("campaignUpdate is required and must be specified")
+	if r.campaignCampaignUpdate == nil {
+		return localVarReturnValue, nil, reportError("campaignCampaignUpdate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1218,7 +1282,7 @@ func (a *CampaignAPIService) PutCampaignByIdExecute(r CampaignAPIPutCampaignById
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1226,7 +1290,7 @@ func (a *CampaignAPIService) PutCampaignByIdExecute(r CampaignAPIPutCampaignById
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.campaignUpdate
+	localVarPostBody = r.campaignCampaignUpdate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1249,6 +1313,14 @@ func (a *CampaignAPIService) PutCampaignByIdExecute(r CampaignAPIPutCampaignById
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

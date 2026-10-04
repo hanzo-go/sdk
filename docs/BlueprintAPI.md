@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## GetBlueprint
 
-> BlueprintIndex GetBlueprint(ctx).Execute()
+> BlueprintBlueprintIndex GetBlueprint(ctx).Execute()
 
 Returns every deployable blueprint with its service count and estimated monthly compute cost.
 
@@ -39,7 +39,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BlueprintAPI.GetBlueprint``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBlueprint`: BlueprintIndex
+	// response from `GetBlueprint`: BlueprintBlueprintIndex
 	fmt.Fprintf(os.Stdout, "Response from `BlueprintAPI.GetBlueprint`: %v\n", resp)
 }
 ```
@@ -55,7 +55,7 @@ Other parameters are passed through a pointer to a apiGetBlueprintRequest struct
 
 ### Return type
 
-[**BlueprintIndex**](BlueprintIndex.md)
+[**BlueprintBlueprintIndex**](BlueprintBlueprintIndex.md)
 
 ### Authorization
 
@@ -64,7 +64,7 @@ Other parameters are passed through a pointer to a apiGetBlueprintRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -73,7 +73,7 @@ Other parameters are passed through a pointer to a apiGetBlueprintRequest struct
 
 ## GetBlueprintHealth
 
-> BlueprintHealth GetBlueprintHealth(ctx).Execute()
+> BlueprintBlueprintHealth GetBlueprintHealth(ctx).Execute()
 
 Reports blueprint liveness and echoes the compute rate card in force.
 
@@ -100,7 +100,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BlueprintAPI.GetBlueprintHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBlueprintHealth`: BlueprintHealth
+	// response from `GetBlueprintHealth`: BlueprintBlueprintHealth
 	fmt.Fprintf(os.Stdout, "Response from `BlueprintAPI.GetBlueprintHealth`: %v\n", resp)
 }
 ```
@@ -116,7 +116,7 @@ Other parameters are passed through a pointer to a apiGetBlueprintHealthRequest 
 
 ### Return type
 
-[**BlueprintHealth**](BlueprintHealth.md)
+[**BlueprintBlueprintHealth**](BlueprintBlueprintHealth.md)
 
 ### Authorization
 
@@ -125,7 +125,7 @@ Other parameters are passed through a pointer to a apiGetBlueprintHealthRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

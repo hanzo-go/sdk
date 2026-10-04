@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yMetricOnboarding{}
 // O11yO11yMetricOnboarding struct for O11yO11yMetricOnboarding
 type O11yO11yMetricOnboarding struct {
 	// HasMetrics is true once any non-O11y metric has been ingested.
-	HasMetrics *bool `json:"hasMetrics,omitempty"`
+	HasMetrics           *bool `json:"hasMetrics,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricOnboarding O11yO11yMetricOnboarding
 
 // NewO11yO11yMetricOnboarding instantiates a new O11yO11yMetricOnboarding object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yMetricOnboarding) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.HasMetrics) {
 		toSerialize["hasMetrics"] = o.HasMetrics
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricOnboarding) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricOnboarding := _O11yO11yMetricOnboarding{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricOnboarding)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricOnboarding(varO11yO11yMetricOnboarding)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "hasMetrics")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricOnboarding struct {

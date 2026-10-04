@@ -19,10 +19,13 @@ var _ MappedNullable = &TrafficWindow{}
 
 // TrafficWindow struct for TrafficWindow
 type TrafficWindow struct {
-	Minutes *int32  `json:"minutes,omitempty"`
-	Since   *string `json:"since,omitempty"`
-	Until   *string `json:"until,omitempty"`
+	Minutes              *int32  `json:"minutes,omitempty"`
+	Since                *string `json:"since,omitempty"`
+	Until                *string `json:"until,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TrafficWindow TrafficWindow
 
 // NewTrafficWindow instantiates a new TrafficWindow object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o TrafficWindow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Until) {
 		toSerialize["until"] = o.Until
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TrafficWindow) UnmarshalJSON(data []byte) (err error) {
+	varTrafficWindow := _TrafficWindow{}
+
+	err = json.Unmarshal(data, &varTrafficWindow)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TrafficWindow(varTrafficWindow)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "minutes")
+		delete(additionalProperties, "since")
+		delete(additionalProperties, "until")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTrafficWindow struct {

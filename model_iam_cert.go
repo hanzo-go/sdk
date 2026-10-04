@@ -20,27 +20,30 @@ var _ MappedNullable = &IamCert{}
 
 // IamCert struct for IamCert
 type IamCert struct {
-	AccessKey        *string    `json:"accessKey,omitempty"`
-	AccessSecret     *string    `json:"accessSecret,omitempty"`
-	Account          *string    `json:"account,omitempty"`
-	BitSize          *int64     `json:"bitSize,omitempty"`
-	Certificate      *string    `json:"certificate,omitempty"`
-	CreatedAt        *time.Time `json:"createdAt,omitempty"`
-	CreatedTime      *string    `json:"createdTime,omitempty"`
-	CryptoAlgorithm  *string    `json:"cryptoAlgorithm,omitempty"`
-	Deleted          *bool      `json:"deleted,omitempty"`
-	DisplayName      *string    `json:"displayName,omitempty"`
-	DomainExpireTime *string    `json:"domainExpireTime,omitempty"`
-	ExpireInYears    *int64     `json:"expireInYears,omitempty"`
-	ExpireTime       *string    `json:"expireTime,omitempty"`
-	Id               *string    `json:"id,omitempty"`
-	Name             *string    `json:"name,omitempty"`
-	Owner            *string    `json:"owner,omitempty"`
-	Provider         *string    `json:"provider,omitempty"`
-	Scope            *string    `json:"scope,omitempty"`
-	Type             *string    `json:"type,omitempty"`
-	UpdatedAt        *time.Time `json:"updatedAt,omitempty"`
+	AccessKey            *string    `json:"accessKey,omitempty"`
+	AccessSecret         *string    `json:"accessSecret,omitempty"`
+	Account              *string    `json:"account,omitempty"`
+	BitSize              *int64     `json:"bitSize,omitempty"`
+	Certificate          *string    `json:"certificate,omitempty"`
+	CreatedAt            *time.Time `json:"createdAt,omitempty"`
+	CreatedTime          *string    `json:"createdTime,omitempty"`
+	CryptoAlgorithm      *string    `json:"cryptoAlgorithm,omitempty"`
+	Deleted              *bool      `json:"deleted,omitempty"`
+	DisplayName          *string    `json:"displayName,omitempty"`
+	DomainExpireTime     *string    `json:"domainExpireTime,omitempty"`
+	ExpireInYears        *int64     `json:"expireInYears,omitempty"`
+	ExpireTime           *string    `json:"expireTime,omitempty"`
+	Id                   *string    `json:"id,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	Owner                *string    `json:"owner,omitempty"`
+	Provider             *string    `json:"provider,omitempty"`
+	Scope                *string    `json:"scope,omitempty"`
+	Type                 *string    `json:"type,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamCert IamCert
 
 // NewIamCert instantiates a new IamCert object
 // This constructor will assign default values to properties that have it defined,
@@ -769,7 +772,52 @@ func (o IamCert) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamCert) UnmarshalJSON(data []byte) (err error) {
+	varIamCert := _IamCert{}
+
+	err = json.Unmarshal(data, &varIamCert)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamCert(varIamCert)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accessKey")
+		delete(additionalProperties, "accessSecret")
+		delete(additionalProperties, "account")
+		delete(additionalProperties, "bitSize")
+		delete(additionalProperties, "certificate")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "cryptoAlgorithm")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "domainExpireTime")
+		delete(additionalProperties, "expireInYears")
+		delete(additionalProperties, "expireTime")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "scope")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamCert struct {

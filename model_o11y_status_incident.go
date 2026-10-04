@@ -34,8 +34,11 @@ type O11yStatusIncident struct {
 	// Status is always \"investigating\" — the member of the client's closed set that means detected, cause not yet established, which is exactly what an automated prober knows. Nothing here ever claims \"identified\": that would assert a diagnosis no measurement made.
 	Status *string `json:"status,omitempty"`
 	// URL points at the HUMAN status page, not back at this JSON. Every link in this document goes to the same place.
-	Url *string `json:"url,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yStatusIncident O11yStatusIncident
 
 // NewO11yStatusIncident instantiates a new O11yStatusIncident object
 // This constructor will assign default values to properties that have it defined,
@@ -344,7 +347,40 @@ func (o O11yStatusIncident) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yStatusIncident) UnmarshalJSON(data []byte) (err error) {
+	varO11yStatusIncident := _O11yStatusIncident{}
+
+	err = json.Unmarshal(data, &varO11yStatusIncident)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yStatusIncident(varO11yStatusIncident)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "affected_components")
+		delete(additionalProperties, "current_worst_impact")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "last_update_at")
+		delete(additionalProperties, "last_update_message")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yStatusIncident struct {

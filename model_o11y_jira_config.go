@@ -19,22 +19,25 @@ var _ MappedNullable = &O11yJiraConfig{}
 
 // O11yJiraConfig struct for O11yJiraConfig
 type O11yJiraConfig struct {
-	NotifierConfig    *O11yNotifierConfig               `json:"NotifierConfig,omitempty"`
-	ApiType           *string                           `json:"api_type,omitempty"`
-	ApiUrl            interface{}                       `json:"api_url,omitempty"`
-	CustomFields      map[string]map[string]interface{} `json:"custom_fields,omitempty"`
-	Description       *O11yJiraFieldConfig              `json:"description,omitempty"`
-	HttpConfig        *O11yHTTPClientConfig             `json:"http_config,omitempty"`
-	IssueType         *string                           `json:"issue_type,omitempty"`
-	Labels            []string                          `json:"labels,omitempty"`
-	Priority          *string                           `json:"priority,omitempty"`
-	Project           *string                           `json:"project,omitempty"`
-	ReopenDuration    interface{}                       `json:"reopen_duration,omitempty"`
-	ReopenTransition  *string                           `json:"reopen_transition,omitempty"`
-	ResolveTransition *string                           `json:"resolve_transition,omitempty"`
-	Summary           *O11yJiraFieldConfig              `json:"summary,omitempty"`
-	WontFixResolution *string                           `json:"wont_fix_resolution,omitempty"`
+	NotifierConfig       *O11yNotifierConfig    `json:"NotifierConfig,omitempty"`
+	ApiType              *string                `json:"api_type,omitempty"`
+	ApiUrl               interface{}            `json:"api_url,omitempty"`
+	CustomFields         map[string]interface{} `json:"custom_fields,omitempty"`
+	Description          *O11yJiraFieldConfig   `json:"description,omitempty"`
+	HttpConfig           *O11yHTTPClientConfig  `json:"http_config,omitempty"`
+	IssueType            *string                `json:"issue_type,omitempty"`
+	Labels               []string               `json:"labels,omitempty"`
+	Priority             *string                `json:"priority,omitempty"`
+	Project              *string                `json:"project,omitempty"`
+	ReopenDuration       interface{}            `json:"reopen_duration,omitempty"`
+	ReopenTransition     *string                `json:"reopen_transition,omitempty"`
+	ResolveTransition    *string                `json:"resolve_transition,omitempty"`
+	Summary              *O11yJiraFieldConfig   `json:"summary,omitempty"`
+	WontFixResolution    *string                `json:"wont_fix_resolution,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yJiraConfig O11yJiraConfig
 
 // NewO11yJiraConfig instantiates a new O11yJiraConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -151,9 +154,9 @@ func (o *O11yJiraConfig) SetApiUrl(v interface{}) {
 }
 
 // GetCustomFields returns the CustomFields field value if set, zero value otherwise.
-func (o *O11yJiraConfig) GetCustomFields() map[string]map[string]interface{} {
+func (o *O11yJiraConfig) GetCustomFields() map[string]interface{} {
 	if o == nil || IsNil(o.CustomFields) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.CustomFields
@@ -161,9 +164,9 @@ func (o *O11yJiraConfig) GetCustomFields() map[string]map[string]interface{} {
 
 // GetCustomFieldsOk returns a tuple with the CustomFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yJiraConfig) GetCustomFieldsOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yJiraConfig) GetCustomFieldsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.CustomFields) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.CustomFields, true
 }
@@ -177,8 +180,8 @@ func (o *O11yJiraConfig) HasCustomFields() bool {
 	return false
 }
 
-// SetCustomFields gets a reference to the given map[string]map[string]interface{} and assigns it to the CustomFields field.
-func (o *O11yJiraConfig) SetCustomFields(v map[string]map[string]interface{}) {
+// SetCustomFields gets a reference to the given map[string]interface{} and assigns it to the CustomFields field.
+func (o *O11yJiraConfig) SetCustomFields(v map[string]interface{}) {
 	o.CustomFields = v
 }
 
@@ -590,7 +593,47 @@ func (o O11yJiraConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WontFixResolution) {
 		toSerialize["wont_fix_resolution"] = o.WontFixResolution
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yJiraConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yJiraConfig := _O11yJiraConfig{}
+
+	err = json.Unmarshal(data, &varO11yJiraConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yJiraConfig(varO11yJiraConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "api_type")
+		delete(additionalProperties, "api_url")
+		delete(additionalProperties, "custom_fields")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "issue_type")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "priority")
+		delete(additionalProperties, "project")
+		delete(additionalProperties, "reopen_duration")
+		delete(additionalProperties, "reopen_transition")
+		delete(additionalProperties, "resolve_transition")
+		delete(additionalProperties, "summary")
+		delete(additionalProperties, "wont_fix_resolution")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yJiraConfig struct {

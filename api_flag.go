@@ -28,7 +28,7 @@ type FlagAPIDeleteFlagDefsByKeyRequest struct {
 	key        string
 }
 
-func (r FlagAPIDeleteFlagDefsByKeyRequest) Execute() (*DeletedOut, *http.Response, error) {
+func (r FlagAPIDeleteFlagDefsByKeyRequest) Execute() (*FlagDeletedOut, *http.Response, error) {
 	return r.ApiService.DeleteFlagDefsByKeyExecute(r)
 }
 
@@ -37,6 +37,8 @@ DeleteFlagDefsByKey Removes one flag definition by key and records the deletion 
 
 Removes one flag definition by key and records the
 deletion in the change log. A key the caller's store does not hold is a 404.
+A staged capability's key is a SuperAdmin's to remove, as it is to set, and
+every other key an owner's or admin's of the org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param key Key is the flag key to act on, from the path.
@@ -52,13 +54,13 @@ func (a *FlagAPIService) DeleteFlagDefsByKey(ctx context.Context, key string) Fl
 
 // Execute executes the request
 //
-//	@return DeletedOut
-func (a *FlagAPIService) DeleteFlagDefsByKeyExecute(r FlagAPIDeleteFlagDefsByKeyRequest) (*DeletedOut, *http.Response, error) {
+//	@return FlagDeletedOut
+func (a *FlagAPIService) DeleteFlagDefsByKeyExecute(r FlagAPIDeleteFlagDefsByKeyRequest) (*FlagDeletedOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeletedOut
+		localVarReturnValue *FlagDeletedOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagAPIService.DeleteFlagDefsByKey")
@@ -83,7 +85,7 @@ func (a *FlagAPIService) DeleteFlagDefsByKeyExecute(r FlagAPIDeleteFlagDefsByKey
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -112,6 +114,14 @@ func (a *FlagAPIService) DeleteFlagDefsByKeyExecute(r FlagAPIDeleteFlagDefsByKey
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -139,7 +149,7 @@ func (r FlagAPIGetFlagActivityRequest) Limit(limit int64) FlagAPIGetFlagActivity
 	return r
 }
 
-func (r FlagAPIGetFlagActivityRequest) Execute() (*ActivityOut, *http.Response, error) {
+func (r FlagAPIGetFlagActivityRequest) Execute() (*FlagActivityOut, *http.Response, error) {
 	return r.ApiService.GetFlagActivityExecute(r)
 }
 
@@ -161,13 +171,13 @@ func (a *FlagAPIService) GetFlagActivity(ctx context.Context) FlagAPIGetFlagActi
 
 // Execute executes the request
 //
-//	@return ActivityOut
-func (a *FlagAPIService) GetFlagActivityExecute(r FlagAPIGetFlagActivityRequest) (*ActivityOut, *http.Response, error) {
+//	@return FlagActivityOut
+func (a *FlagAPIService) GetFlagActivityExecute(r FlagAPIGetFlagActivityRequest) (*FlagActivityOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ActivityOut
+		localVarReturnValue *FlagActivityOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagAPIService.GetFlagActivity")
@@ -194,7 +204,7 @@ func (a *FlagAPIService) GetFlagActivityExecute(r FlagAPIGetFlagActivityRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -223,6 +233,14 @@ func (a *FlagAPIService) GetFlagActivityExecute(r FlagAPIGetFlagActivityRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -243,7 +261,7 @@ type FlagAPIGetFlagDefsRequest struct {
 	ApiService *FlagAPIService
 }
 
-func (r FlagAPIGetFlagDefsRequest) Execute() (*DefsOut, *http.Response, error) {
+func (r FlagAPIGetFlagDefsRequest) Execute() (*FlagDefsOut, *http.Response, error) {
 	return r.ApiService.GetFlagDefsExecute(r)
 }
 
@@ -265,13 +283,13 @@ func (a *FlagAPIService) GetFlagDefs(ctx context.Context) FlagAPIGetFlagDefsRequ
 
 // Execute executes the request
 //
-//	@return DefsOut
-func (a *FlagAPIService) GetFlagDefsExecute(r FlagAPIGetFlagDefsRequest) (*DefsOut, *http.Response, error) {
+//	@return FlagDefsOut
+func (a *FlagAPIService) GetFlagDefsExecute(r FlagAPIGetFlagDefsRequest) (*FlagDefsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DefsOut
+		localVarReturnValue *FlagDefsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagAPIService.GetFlagDefs")
@@ -295,7 +313,7 @@ func (a *FlagAPIService) GetFlagDefsExecute(r FlagAPIGetFlagDefsRequest) (*DefsO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -324,6 +342,14 @@ func (a *FlagAPIService) GetFlagDefsExecute(r FlagAPIGetFlagDefsRequest) (*DefsO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -345,7 +371,7 @@ type FlagAPIGetFlagDefsByKeyRequest struct {
 	key        string
 }
 
-func (r FlagAPIGetFlagDefsByKeyRequest) Execute() (*DefRow, *http.Response, error) {
+func (r FlagAPIGetFlagDefsByKeyRequest) Execute() (*FlagDefRow, *http.Response, error) {
 	return r.ApiService.GetFlagDefsByKeyExecute(r)
 }
 
@@ -369,13 +395,13 @@ func (a *FlagAPIService) GetFlagDefsByKey(ctx context.Context, key string) FlagA
 
 // Execute executes the request
 //
-//	@return DefRow
-func (a *FlagAPIService) GetFlagDefsByKeyExecute(r FlagAPIGetFlagDefsByKeyRequest) (*DefRow, *http.Response, error) {
+//	@return FlagDefRow
+func (a *FlagAPIService) GetFlagDefsByKeyExecute(r FlagAPIGetFlagDefsByKeyRequest) (*FlagDefRow, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DefRow
+		localVarReturnValue *FlagDefRow
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagAPIService.GetFlagDefsByKey")
@@ -400,7 +426,7 @@ func (a *FlagAPIService) GetFlagDefsByKeyExecute(r FlagAPIGetFlagDefsByKeyReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -429,6 +455,14 @@ func (a *FlagAPIService) GetFlagDefsByKeyExecute(r FlagAPIGetFlagDefsByKeyReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -449,14 +483,14 @@ type FlagAPIGetFlagHealthRequest struct {
 	ApiService *FlagAPIService
 }
 
-func (r FlagAPIGetFlagHealthRequest) Execute() (*HealthOut, *http.Response, error) {
+func (r FlagAPIGetFlagHealthRequest) Execute() (*FlagHealthOut, *http.Response, error) {
 	return r.ApiService.GetFlagHealthExecute(r)
 }
 
 /*
-GetFlagHealth Health reports that the flag engine is serving.
+GetFlagHealth Reports that the flag engine is serving.
 
-Health reports that the flag engine is serving. It is not gated: liveness must
+Reports that the flag engine is serving. It is not gated: liveness must
 be probe-able without a token.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -471,13 +505,13 @@ func (a *FlagAPIService) GetFlagHealth(ctx context.Context) FlagAPIGetFlagHealth
 
 // Execute executes the request
 //
-//	@return HealthOut
-func (a *FlagAPIService) GetFlagHealthExecute(r FlagAPIGetFlagHealthRequest) (*HealthOut, *http.Response, error) {
+//	@return FlagHealthOut
+func (a *FlagAPIService) GetFlagHealthExecute(r FlagAPIGetFlagHealthRequest) (*FlagHealthOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *HealthOut
+		localVarReturnValue *FlagHealthOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagAPIService.GetFlagHealth")
@@ -501,7 +535,7 @@ func (a *FlagAPIService) GetFlagHealthExecute(r FlagAPIGetFlagHealthRequest) (*H
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -530,6 +564,14 @@ func (a *FlagAPIService) GetFlagHealthExecute(r FlagAPIGetFlagHealthRequest) (*H
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -546,13 +588,13 @@ func (a *FlagAPIService) GetFlagHealthExecute(r FlagAPIGetFlagHealthRequest) (*H
 }
 
 type FlagAPIPostFlagRequest struct {
-	ctx        context.Context
-	ApiService *FlagAPIService
-	evaluateIn *EvaluateIn
+	ctx            context.Context
+	ApiService     *FlagAPIService
+	flagEvaluateIn *FlagEvaluateIn
 }
 
-func (r FlagAPIPostFlagRequest) EvaluateIn(evaluateIn EvaluateIn) FlagAPIPostFlagRequest {
-	r.evaluateIn = &evaluateIn
+func (r FlagAPIPostFlagRequest) FlagEvaluateIn(flagEvaluateIn FlagEvaluateIn) FlagAPIPostFlagRequest {
+	r.flagEvaluateIn = &flagEvaluateIn
 	return r
 }
 
@@ -561,9 +603,9 @@ func (r FlagAPIPostFlagRequest) Execute() (interface{}, *http.Response, error) {
 }
 
 /*
-PostFlag Evaluate runs the caller's flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+PostFlag Runs the caller's flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
 
-Evaluate runs the caller's flag definitions for one identity and returns the
+Runs the caller's flag definitions for one identity and returns the
 flag verdict: which flags are on (or which variant), their payloads,
 and whether any definition failed to compute. Evaluation is in-process over the
 caller's own (org, project) definitions — no network hop, no shared KV — so a
@@ -600,8 +642,8 @@ func (a *FlagAPIService) PostFlagExecute(r FlagAPIPostFlagRequest) (interface{},
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.evaluateIn == nil {
-		return localVarReturnValue, nil, reportError("evaluateIn is required and must be specified")
+	if r.flagEvaluateIn == nil {
+		return localVarReturnValue, nil, reportError("flagEvaluateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -614,7 +656,7 @@ func (a *FlagAPIService) PostFlagExecute(r FlagAPIPostFlagRequest) (interface{},
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -622,7 +664,7 @@ func (a *FlagAPIService) PostFlagExecute(r FlagAPIPostFlagRequest) (interface{},
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.evaluateIn
+	localVarPostBody = r.flagEvaluateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -645,6 +687,14 @@ func (a *FlagAPIService) PostFlagExecute(r FlagAPIPostFlagRequest) (interface{},
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -661,13 +711,13 @@ func (a *FlagAPIService) PostFlagExecute(r FlagAPIPostFlagRequest) (interface{},
 }
 
 type FlagAPIPostFlagDecideRequest struct {
-	ctx        context.Context
-	ApiService *FlagAPIService
-	evaluateIn *EvaluateIn
+	ctx            context.Context
+	ApiService     *FlagAPIService
+	flagEvaluateIn *FlagEvaluateIn
 }
 
-func (r FlagAPIPostFlagDecideRequest) EvaluateIn(evaluateIn EvaluateIn) FlagAPIPostFlagDecideRequest {
-	r.evaluateIn = &evaluateIn
+func (r FlagAPIPostFlagDecideRequest) FlagEvaluateIn(flagEvaluateIn FlagEvaluateIn) FlagAPIPostFlagDecideRequest {
+	r.flagEvaluateIn = &flagEvaluateIn
 	return r
 }
 
@@ -676,9 +726,9 @@ func (r FlagAPIPostFlagDecideRequest) Execute() (interface{}, *http.Response, er
 }
 
 /*
-PostFlagDecide Evaluate runs the caller's flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+PostFlagDecide Runs the caller's flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
 
-Evaluate runs the caller's flag definitions for one identity and returns the
+Runs the caller's flag definitions for one identity and returns the
 flag verdict: which flags are on (or which variant), their payloads,
 and whether any definition failed to compute. Evaluation is in-process over the
 caller's own (org, project) definitions — no network hop, no shared KV — so a
@@ -715,8 +765,8 @@ func (a *FlagAPIService) PostFlagDecideExecute(r FlagAPIPostFlagDecideRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.evaluateIn == nil {
-		return localVarReturnValue, nil, reportError("evaluateIn is required and must be specified")
+	if r.flagEvaluateIn == nil {
+		return localVarReturnValue, nil, reportError("flagEvaluateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -729,7 +779,7 @@ func (a *FlagAPIService) PostFlagDecideExecute(r FlagAPIPostFlagDecideRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -737,7 +787,7 @@ func (a *FlagAPIService) PostFlagDecideExecute(r FlagAPIPostFlagDecideRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.evaluateIn
+	localVarPostBody = r.flagEvaluateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -760,6 +810,14 @@ func (a *FlagAPIService) PostFlagDecideExecute(r FlagAPIPostFlagDecideRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -787,7 +845,7 @@ func (r FlagAPIPutFlagDefsByKeyRequest) Body(body interface{}) FlagAPIPutFlagDef
 	return r
 }
 
-func (r FlagAPIPutFlagDefsByKeyRequest) Execute() (*DefRow, *http.Response, error) {
+func (r FlagAPIPutFlagDefsByKeyRequest) Execute() (*FlagDefRow, *http.Response, error) {
 	return r.ApiService.PutFlagDefsByKeyExecute(r)
 }
 
@@ -799,7 +857,10 @@ returns the stored row. The BODY IS THE DEFINITION DOCUMENT — the flag-definit
 JSON object the evaluator consumes — and it is stored verbatim except that its
 "key" is forced to the key in the URL, so a document can never be filed under a
 name other than the one it was addressed by. Every write bumps the version and
-appends to the change log under the caller's identity.
+appends to the change log under the caller's identity. A key that lets an org
+into a capability that is not ga — research, machines — is a SuperAdmin's to
+set, never an org admin's, and its write is on the audit trail before it lands;
+every other key is an owner's or admin's of the org, never a member's.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param key Key is the flag key to write, from the path.
@@ -815,13 +876,13 @@ func (a *FlagAPIService) PutFlagDefsByKey(ctx context.Context, key string) FlagA
 
 // Execute executes the request
 //
-//	@return DefRow
-func (a *FlagAPIService) PutFlagDefsByKeyExecute(r FlagAPIPutFlagDefsByKeyRequest) (*DefRow, *http.Response, error) {
+//	@return FlagDefRow
+func (a *FlagAPIService) PutFlagDefsByKeyExecute(r FlagAPIPutFlagDefsByKeyRequest) (*FlagDefRow, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DefRow
+		localVarReturnValue *FlagDefRow
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlagAPIService.PutFlagDefsByKey")
@@ -849,7 +910,7 @@ func (a *FlagAPIService) PutFlagDefsByKeyExecute(r FlagAPIPutFlagDefsByKeyReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -880,6 +941,14 @@ func (a *FlagAPIService) PutFlagDefsByKeyExecute(r FlagAPIPutFlagDefsByKeyReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -19,12 +19,15 @@ var _ MappedNullable = &ResourceMetrics{}
 
 // ResourceMetrics struct for ResourceMetrics
 type ResourceMetrics struct {
-	CpuPercentage    *float32 `json:"cpuPercentage,omitempty"`
-	CpuUsage         *string  `json:"cpuUsage,omitempty"`
-	MemoryPercentage *float32 `json:"memoryPercentage,omitempty"`
-	MemoryUsage      *string  `json:"memoryUsage,omitempty"`
-	PodCount         *int32   `json:"podCount,omitempty"`
+	CpuPercentage        *float32 `json:"cpuPercentage,omitempty"`
+	CpuUsage             *string  `json:"cpuUsage,omitempty"`
+	MemoryPercentage     *float32 `json:"memoryPercentage,omitempty"`
+	MemoryUsage          *string  `json:"memoryUsage,omitempty"`
+	PodCount             *int32   `json:"podCount,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ResourceMetrics ResourceMetrics
 
 // NewResourceMetrics instantiates a new ResourceMetrics object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o ResourceMetrics) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PodCount) {
 		toSerialize["podCount"] = o.PodCount
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ResourceMetrics) UnmarshalJSON(data []byte) (err error) {
+	varResourceMetrics := _ResourceMetrics{}
+
+	err = json.Unmarshal(data, &varResourceMetrics)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResourceMetrics(varResourceMetrics)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cpuPercentage")
+		delete(additionalProperties, "cpuUsage")
+		delete(additionalProperties, "memoryPercentage")
+		delete(additionalProperties, "memoryUsage")
+		delete(additionalProperties, "podCount")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableResourceMetrics struct {

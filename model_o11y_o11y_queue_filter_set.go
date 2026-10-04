@@ -22,8 +22,11 @@ type O11yO11yQueueFilterSet struct {
 	// Items are the predicates.
 	Items []O11yO11yQueueFilterRule `json:"items,omitempty"`
 	// Op combines the items: AND or OR.
-	Op *string `json:"op,omitempty"`
+	Op                   *string `json:"op,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueueFilterSet O11yO11yQueueFilterSet
 
 // NewO11yO11yQueueFilterSet instantiates a new O11yO11yQueueFilterSet object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yQueueFilterSet) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Op) {
 		toSerialize["op"] = o.Op
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueueFilterSet) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueueFilterSet := _O11yO11yQueueFilterSet{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueueFilterSet)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueueFilterSet(varO11yO11yQueueFilterSet)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "op")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueueFilterSet struct {

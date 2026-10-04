@@ -65,6 +65,7 @@ Name | Type | Description | Notes
 **OrganizationObj** | Pointer to [**IamOrganization**](IamOrganization.md) |  | [optional] 
 **OtherDomains** | Pointer to **[]string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
+**Platform** | Pointer to **bool** | Platform marks an application the platform itself declares (init_data.json): its own consoles and apps, never one a tenant registered. The seed stamps it on every declared application at boot, and only a SuperAdmin may change it over the API. It is what lets a signed-in person act through IAM with a bearer on the platform&#39;s behalf — sending an invitation from the platform&#39;s own email account, joining an org — which a tenant&#39;s application may not do with the tokens its users hand it. | [optional] 
 **Project** | Pointer to **string** |  | [optional] 
 **Providers** | Pointer to [**[]IamProviderItem**](IamProviderItem.md) |  | [optional] 
 **RedirectUris** | Pointer to **[]string** |  | [optional] 
@@ -1638,6 +1639,31 @@ SetOwner sets Owner field to given value.
 `func (o *IamApplication) HasOwner() bool`
 
 HasOwner returns a boolean if a field has been set.
+
+### GetPlatform
+
+`func (o *IamApplication) GetPlatform() bool`
+
+GetPlatform returns the Platform field if non-nil, zero value otherwise.
+
+### GetPlatformOk
+
+`func (o *IamApplication) GetPlatformOk() (*bool, bool)`
+
+GetPlatformOk returns a tuple with the Platform field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPlatform
+
+`func (o *IamApplication) SetPlatform(v bool)`
+
+SetPlatform sets Platform field to given value.
+
+### HasPlatform
+
+`func (o *IamApplication) HasPlatform() bool`
+
+HasPlatform returns a boolean if a field has been set.
 
 ### GetProject
 

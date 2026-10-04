@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yIntegrationAck{}
 // O11yO11yIntegrationAck struct for O11yO11yIntegrationAck
 type O11yO11yIntegrationAck struct {
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yIntegrationAck O11yO11yIntegrationAck
 
 // NewO11yO11yIntegrationAck instantiates a new O11yO11yIntegrationAck object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yIntegrationAck) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yIntegrationAck) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yIntegrationAck := _O11yO11yIntegrationAck{}
+
+	err = json.Unmarshal(data, &varO11yO11yIntegrationAck)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yIntegrationAck(varO11yO11yIntegrationAck)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yIntegrationAck struct {

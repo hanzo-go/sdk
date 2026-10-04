@@ -19,22 +19,25 @@ var _ MappedNullable = &Vector{}
 
 // Vector struct for Vector
 type Vector struct {
-	CreatedTime *string   `json:"createdTime,omitempty"`
-	Currency    *string   `json:"currency,omitempty"`
-	Data        []float32 `json:"data,omitempty"`
-	Dimension   *int32    `json:"dimension,omitempty"`
-	DisplayName *string   `json:"displayName,omitempty"`
-	File        *string   `json:"file,omitempty"`
-	Index       *int32    `json:"index,omitempty"`
-	Name        *string   `json:"name,omitempty"`
-	Owner       *string   `json:"owner,omitempty"`
-	Price       *float32  `json:"price,omitempty"`
-	Provider    *string   `json:"provider,omitempty"`
-	Score       *float32  `json:"score,omitempty"`
-	Store       *string   `json:"store,omitempty"`
-	Text        *string   `json:"text,omitempty"`
-	TokenCount  *int32    `json:"tokenCount,omitempty"`
+	CreatedTime          *string   `json:"createdTime,omitempty"`
+	Currency             *string   `json:"currency,omitempty"`
+	Data                 []float32 `json:"data,omitempty"`
+	Dimension            *int32    `json:"dimension,omitempty"`
+	DisplayName          *string   `json:"displayName,omitempty"`
+	File                 *string   `json:"file,omitempty"`
+	Index                *int32    `json:"index,omitempty"`
+	Name                 *string   `json:"name,omitempty"`
+	Owner                *string   `json:"owner,omitempty"`
+	Price                *float32  `json:"price,omitempty"`
+	Provider             *string   `json:"provider,omitempty"`
+	Score                *float32  `json:"score,omitempty"`
+	Store                *string   `json:"store,omitempty"`
+	Text                 *string   `json:"text,omitempty"`
+	TokenCount           *int32    `json:"tokenCount,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Vector Vector
 
 // NewVector instantiates a new Vector object
 // This constructor will assign default values to properties that have it defined,
@@ -588,7 +591,47 @@ func (o Vector) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TokenCount) {
 		toSerialize["tokenCount"] = o.TokenCount
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Vector) UnmarshalJSON(data []byte) (err error) {
+	varVector := _Vector{}
+
+	err = json.Unmarshal(data, &varVector)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Vector(varVector)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "dimension")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "file")
+		delete(additionalProperties, "index")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "price")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "score")
+		delete(additionalProperties, "store")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "tokenCount")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableVector struct {

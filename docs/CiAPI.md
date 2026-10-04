@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetCiFleet
 
-> Pipelines GetCiFleet(ctx).Execute()
+> CiPipelines GetCiFleet(ctx).Execute()
 
 Compares what was written with what is running, one row per service along a single causal line: head, the commit on the branch; built, the image that commit produced; declared, the tag pinned in the universe repository; running, what the cluster serves.
 
@@ -38,7 +38,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CiAPI.GetCiFleet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCiFleet`: Pipelines
+	// response from `GetCiFleet`: CiPipelines
 	fmt.Fprintf(os.Stdout, "Response from `CiAPI.GetCiFleet`: %v\n", resp)
 }
 ```
@@ -54,7 +54,7 @@ Other parameters are passed through a pointer to a apiGetCiFleetRequest struct v
 
 ### Return type
 
-[**Pipelines**](Pipelines.md)
+[**CiPipelines**](CiPipelines.md)
 
 ### Authorization
 
@@ -63,7 +63,7 @@ Other parameters are passed through a pointer to a apiGetCiFleetRequest struct v
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -72,7 +72,7 @@ Other parameters are passed through a pointer to a apiGetCiFleetRequest struct v
 
 ## GetCiRuns
 
-> Executions GetCiRuns(ctx).Execute()
+> CiExecutions GetCiRuns(ctx).Execute()
 
 Lists recent builds: the repo, the branch, the commit and how each run ended, newest first.
 
@@ -99,7 +99,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CiAPI.GetCiRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCiRuns`: Executions
+	// response from `GetCiRuns`: CiExecutions
 	fmt.Fprintf(os.Stdout, "Response from `CiAPI.GetCiRuns`: %v\n", resp)
 }
 ```
@@ -115,7 +115,7 @@ Other parameters are passed through a pointer to a apiGetCiRunsRequest struct vi
 
 ### Return type
 
-[**Executions**](Executions.md)
+[**CiExecutions**](CiExecutions.md)
 
 ### Authorization
 
@@ -124,7 +124,7 @@ Other parameters are passed through a pointer to a apiGetCiRunsRequest struct vi
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

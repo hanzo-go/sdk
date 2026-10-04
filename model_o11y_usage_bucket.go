@@ -26,8 +26,11 @@ type O11yUsageBucket struct {
 	// T is the bucket start, RFC3339 in UTC.
 	T *string `json:"t,omitempty"`
 	// Tokens is how many tokens they consumed.
-	Tokens *int64 `json:"tokens,omitempty"`
+	Tokens               *int64 `json:"tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yUsageBucket O11yUsageBucket
 
 // NewO11yUsageBucket instantiates a new O11yUsageBucket object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yUsageBucket) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tokens) {
 		toSerialize["tokens"] = o.Tokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yUsageBucket) UnmarshalJSON(data []byte) (err error) {
+	varO11yUsageBucket := _O11yUsageBucket{}
+
+	err = json.Unmarshal(data, &varO11yUsageBucket)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yUsageBucket(varO11yUsageBucket)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "calls")
+		delete(additionalProperties, "costCents")
+		delete(additionalProperties, "t")
+		delete(additionalProperties, "tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yUsageBucket struct {

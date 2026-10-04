@@ -25,8 +25,11 @@ type O11yO11yUsageItem struct {
 	// Time is the bucket start.
 	Time *time.Time `json:"time,omitempty"`
 	// Timestamp is the bucket start, as epoch nanoseconds.
-	Timestamp *int32 `json:"timestamp,omitempty"`
+	Timestamp            *int32 `json:"timestamp,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yUsageItem O11yO11yUsageItem
 
 // NewO11yO11yUsageItem instantiates a new O11yO11yUsageItem object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o O11yO11yUsageItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Timestamp) {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yUsageItem) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yUsageItem := _O11yO11yUsageItem{}
+
+	err = json.Unmarshal(data, &varO11yO11yUsageItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yUsageItem(varO11yO11yUsageItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "time")
+		delete(additionalProperties, "timestamp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yUsageItem struct {

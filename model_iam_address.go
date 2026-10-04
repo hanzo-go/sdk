@@ -19,14 +19,17 @@ var _ MappedNullable = &IamAddress{}
 
 // IamAddress struct for IamAddress
 type IamAddress struct {
-	City    *string `json:"city,omitempty"`
-	Line1   *string `json:"line1,omitempty"`
-	Line2   *string `json:"line2,omitempty"`
-	Region  *string `json:"region,omitempty"`
-	State   *string `json:"state,omitempty"`
-	Tag     *string `json:"tag,omitempty"`
-	ZipCode *string `json:"zipCode,omitempty"`
+	City                 *string `json:"city,omitempty"`
+	Line1                *string `json:"line1,omitempty"`
+	Line2                *string `json:"line2,omitempty"`
+	Region               *string `json:"region,omitempty"`
+	State                *string `json:"state,omitempty"`
+	Tag                  *string `json:"tag,omitempty"`
+	ZipCode              *string `json:"zipCode,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamAddress IamAddress
 
 // NewIamAddress instantiates a new IamAddress object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o IamAddress) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ZipCode) {
 		toSerialize["zipCode"] = o.ZipCode
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamAddress) UnmarshalJSON(data []byte) (err error) {
+	varIamAddress := _IamAddress{}
+
+	err = json.Unmarshal(data, &varIamAddress)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamAddress(varIamAddress)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "city")
+		delete(additionalProperties, "line1")
+		delete(additionalProperties, "line2")
+		delete(additionalProperties, "region")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "tag")
+		delete(additionalProperties, "zipCode")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamAddress struct {

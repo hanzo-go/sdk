@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yRetentionSetOut{}
 // O11yO11yRetentionSetOut struct for O11yO11yRetentionSetOut
 type O11yO11yRetentionSetOut struct {
 	// Message says what was done.
-	Message *string `json:"message,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yRetentionSetOut O11yO11yRetentionSetOut
 
 // NewO11yO11yRetentionSetOut instantiates a new O11yO11yRetentionSetOut object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yRetentionSetOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yRetentionSetOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yRetentionSetOut := _O11yO11yRetentionSetOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yRetentionSetOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yRetentionSetOut(varO11yO11yRetentionSetOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "message")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yRetentionSetOut struct {

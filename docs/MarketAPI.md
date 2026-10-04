@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## GetMarketChains
 
-> Roster GetMarketChains(ctx).Execute()
+> MarketRoster GetMarketChains(ctx).Execute()
 
 Answers every chain this deployment can read, what is deployed on each, and what its automated market maker amounts to.
 
@@ -41,7 +41,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.GetMarketChains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketChains`: Roster
+	// response from `GetMarketChains`: MarketRoster
 	fmt.Fprintf(os.Stdout, "Response from `MarketAPI.GetMarketChains`: %v\n", resp)
 }
 ```
@@ -57,7 +57,7 @@ Other parameters are passed through a pointer to a apiGetMarketChainsRequest str
 
 ### Return type
 
-[**Roster**](Roster.md)
+[**MarketRoster**](MarketRoster.md)
 
 ### Authorization
 
@@ -66,7 +66,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -75,7 +75,7 @@ No authorization required
 
 ## GetMarketPools
 
-> Pools GetMarketPools(ctx).Chain(chain).Execute()
+> MarketPools GetMarketPools(ctx).Chain(chain).Execute()
 
 Answers the automated market makers on one chain: their two tokens, their fee tier, and what has moved through each.
 
@@ -103,7 +103,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.GetMarketPools``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketPools`: Pools
+	// response from `GetMarketPools`: MarketPools
 	fmt.Fprintf(os.Stdout, "Response from `MarketAPI.GetMarketPools`: %v\n", resp)
 }
 ```
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Pools**](Pools.md)
+[**MarketPools**](MarketPools.md)
 
 ### Authorization
 
@@ -132,7 +132,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -141,7 +141,7 @@ No authorization required
 
 ## GetMarketSurvey
 
-> Survey GetMarketSurvey(ctx).Chain(chain).Execute()
+> MarketSurvey GetMarketSurvey(ctx).Chain(chain).Execute()
 
 Answers which of the four settlement precompiles carry code on one chain.
 
@@ -169,7 +169,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.GetMarketSurvey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketSurvey`: Survey
+	// response from `GetMarketSurvey`: MarketSurvey
 	fmt.Fprintf(os.Stdout, "Response from `MarketAPI.GetMarketSurvey`: %v\n", resp)
 }
 ```
@@ -189,7 +189,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Survey**](Survey.md)
+[**MarketSurvey**](MarketSurvey.md)
 
 ### Authorization
 
@@ -198,7 +198,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -207,7 +207,7 @@ No authorization required
 
 ## GetMarketToken
 
-> History GetMarketToken(ctx).Chain(chain).At(at).Execute()
+> MarketHistory GetMarketToken(ctx).Chain(chain).At(at).Execute()
 
 Answers one token's daily history — open, high, low, close, price and volume per UTC day, oldest first.
 
@@ -236,7 +236,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.GetMarketToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketToken`: History
+	// response from `GetMarketToken`: MarketHistory
 	fmt.Fprintf(os.Stdout, "Response from `MarketAPI.GetMarketToken`: %v\n", resp)
 }
 ```
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**History**](History.md)
+[**MarketHistory**](MarketHistory.md)
 
 ### Authorization
 
@@ -266,7 +266,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -275,7 +275,7 @@ No authorization required
 
 ## GetMarketTokens
 
-> Tokens GetMarketTokens(ctx).Chain(chain).Execute()
+> MarketTokens GetMarketTokens(ctx).Chain(chain).Execute()
 
 Answers the tokens one chain's indexer has seen, with the decimals a caller needs to read any amount of one correctly.
 
@@ -303,7 +303,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.GetMarketTokens``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketTokens`: Tokens
+	// response from `GetMarketTokens`: MarketTokens
 	fmt.Fprintf(os.Stdout, "Response from `MarketAPI.GetMarketTokens`: %v\n", resp)
 }
 ```
@@ -323,7 +323,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Tokens**](Tokens.md)
+[**MarketTokens**](MarketTokens.md)
 
 ### Authorization
 
@@ -332,7 +332,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -22,8 +22,11 @@ type O11yJiraFieldConfig struct {
 	// EnableUpdate indicates whether this field should be omitted when updating an existing issue.
 	EnableUpdate *bool `json:"enable_update,omitempty"`
 	// Template is the template string used to render the field.
-	Template *string `json:"template,omitempty"`
+	Template             *string `json:"template,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yJiraFieldConfig O11yJiraFieldConfig
 
 // NewO11yJiraFieldConfig instantiates a new O11yJiraFieldConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yJiraFieldConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Template) {
 		toSerialize["template"] = o.Template
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yJiraFieldConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yJiraFieldConfig := _O11yJiraFieldConfig{}
+
+	err = json.Unmarshal(data, &varO11yJiraFieldConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yJiraFieldConfig(varO11yJiraFieldConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enable_update")
+		delete(additionalProperties, "template")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yJiraFieldConfig struct {

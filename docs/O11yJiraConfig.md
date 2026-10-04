@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **NotifierConfig** | Pointer to [**O11yNotifierConfig**](O11yNotifierConfig.md) |  | [optional] 
 **ApiType** | Pointer to **string** |  | [optional] 
 **ApiUrl** | Pointer to **interface{}** |  | [optional] 
-**CustomFields** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**CustomFields** | Pointer to **map[string]interface{}** |  | [optional] 
 **Description** | Pointer to [**O11yJiraFieldConfig**](O11yJiraFieldConfig.md) |  | [optional] 
 **HttpConfig** | Pointer to [**O11yHTTPClientConfig**](O11yHTTPClientConfig.md) |  | [optional] 
 **IssueType** | Pointer to **string** |  | [optional] 
@@ -126,20 +126,20 @@ HasApiUrl returns a boolean if a field has been set.
 UnsetApiUrl ensures that no value is present for ApiUrl, not even an explicit nil
 ### GetCustomFields
 
-`func (o *O11yJiraConfig) GetCustomFields() map[string]map[string]interface{}`
+`func (o *O11yJiraConfig) GetCustomFields() map[string]interface{}`
 
 GetCustomFields returns the CustomFields field if non-nil, zero value otherwise.
 
 ### GetCustomFieldsOk
 
-`func (o *O11yJiraConfig) GetCustomFieldsOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yJiraConfig) GetCustomFieldsOk() (*map[string]interface{}, bool)`
 
 GetCustomFieldsOk returns a tuple with the CustomFields field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCustomFields
 
-`func (o *O11yJiraConfig) SetCustomFields(v map[string]map[string]interface{})`
+`func (o *O11yJiraConfig) SetCustomFields(v map[string]interface{})`
 
 SetCustomFields sets CustomFields field to given value.
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to **map[string]interface{}** | Data is the license. | [optional] 
+**Data** | Pointer to **interface{}** |  | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;success\&quot;. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetData
 
-`func (o *O11yO11yLicenseActiveOut) GetData() map[string]interface{}`
+`func (o *O11yO11yLicenseActiveOut) GetData() interface{}`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *O11yO11yLicenseActiveOut) GetDataOk() (*map[string]interface{}, bool)`
+`func (o *O11yO11yLicenseActiveOut) GetDataOk() (*interface{}, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *O11yO11yLicenseActiveOut) SetData(v map[string]interface{})`
+`func (o *O11yO11yLicenseActiveOut) SetData(v interface{})`
 
 SetData sets Data field to given value.
 
@@ -51,6 +51,16 @@ SetData sets Data field to given value.
 
 HasData returns a boolean if a field has been set.
 
+### SetDataNil
+
+`func (o *O11yO11yLicenseActiveOut) SetDataNil(b bool)`
+
+ SetDataNil sets the value for Data to be an explicit nil
+
+### UnsetData
+`func (o *O11yO11yLicenseActiveOut) UnsetData()`
+
+UnsetData ensures that no value is present for Data, not even an explicit nil
 ### GetStatus
 
 `func (o *O11yO11yLicenseActiveOut) GetStatus() string`

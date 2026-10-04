@@ -23,15 +23,18 @@ type LicensingPubkeyView struct {
 	Alg *string `json:"alg,omitempty"`
 	// Keys is the same key as a single-entry JWKS (OKP/Ed25519), for JWKS-shaped consumers.
 	Keys []LicensingJWK `json:"keys,omitempty"`
-	// Provider names the KMS holding the private half (\"local\" | \"aws\" | ...). \"local\" means a development key — never trust it in production.
+	// Provider names where the private half lives: \"kms\" (production) or \"local\" (a development key — never trust it in production).
 	Provider *string `json:"provider,omitempty"`
 	// PublicKey is the 32-byte Ed25519 public key, standard base64. This is the form the engine embeds for offline verification.
 	PublicKey *string `json:"public_key,omitempty"`
 	// Schema is the license payload schema version this key signs.
 	Schema *int32 `json:"schema,omitempty"`
 	// TokenFormat states the wire layout so an implementer can verify a token without this service's source.
-	TokenFormat *string `json:"token_format,omitempty"`
+	TokenFormat          *string `json:"token_format,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicensingPubkeyView LicensingPubkeyView
 
 // NewLicensingPubkeyView instantiates a new LicensingPubkeyView object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o LicensingPubkeyView) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TokenFormat) {
 		toSerialize["token_format"] = o.TokenFormat
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicensingPubkeyView) UnmarshalJSON(data []byte) (err error) {
+	varLicensingPubkeyView := _LicensingPubkeyView{}
+
+	err = json.Unmarshal(data, &varLicensingPubkeyView)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicensingPubkeyView(varLicensingPubkeyView)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alg")
+		delete(additionalProperties, "keys")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "public_key")
+		delete(additionalProperties, "schema")
+		delete(additionalProperties, "token_format")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicensingPubkeyView struct {

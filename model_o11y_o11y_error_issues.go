@@ -26,8 +26,11 @@ type O11yO11yErrorIssues struct {
 	// Offset is how many were skipped.
 	Offset *int64 `json:"offset,omitempty"`
 	// Total is how many matched the filter.
-	Total *int64 `json:"total,omitempty"`
+	Total                *int64 `json:"total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yErrorIssues O11yO11yErrorIssues
 
 // NewO11yO11yErrorIssues instantiates a new O11yO11yErrorIssues object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yErrorIssues) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yErrorIssues) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yErrorIssues := _O11yO11yErrorIssues{}
+
+	err = json.Unmarshal(data, &varO11yO11yErrorIssues)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yErrorIssues(varO11yO11yErrorIssues)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yErrorIssues struct {

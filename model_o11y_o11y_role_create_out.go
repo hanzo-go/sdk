@@ -22,8 +22,11 @@ type O11yO11yRoleCreateOut struct {
 	// Data carries the new role's id.
 	Data *O11yO11yCreated `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yRoleCreateOut O11yO11yRoleCreateOut
 
 // NewO11yO11yRoleCreateOut instantiates a new O11yO11yRoleCreateOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yRoleCreateOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yRoleCreateOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yRoleCreateOut := _O11yO11yRoleCreateOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yRoleCreateOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yRoleCreateOut(varO11yO11yRoleCreateOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yRoleCreateOut struct {

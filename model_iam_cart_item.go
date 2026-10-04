@@ -19,12 +19,15 @@ var _ MappedNullable = &IamCartItem{}
 
 // IamCartItem struct for IamCartItem
 type IamCartItem struct {
-	DisplayName *string  `json:"displayName,omitempty"`
-	Name        *string  `json:"name,omitempty"`
-	Owner       *string  `json:"owner,omitempty"`
-	Price       *float64 `json:"price,omitempty"`
-	Quantity    *int64   `json:"quantity,omitempty"`
+	DisplayName          *string  `json:"displayName,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	Owner                *string  `json:"owner,omitempty"`
+	Price                *float64 `json:"price,omitempty"`
+	Quantity             *int64   `json:"quantity,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamCartItem IamCartItem
 
 // NewIamCartItem instantiates a new IamCartItem object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o IamCartItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Quantity) {
 		toSerialize["quantity"] = o.Quantity
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamCartItem) UnmarshalJSON(data []byte) (err error) {
+	varIamCartItem := _IamCartItem{}
+
+	err = json.Unmarshal(data, &varIamCartItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamCartItem(varIamCartItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "price")
+		delete(additionalProperties, "quantity")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamCartItem struct {

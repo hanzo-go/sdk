@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yLogParseFrom{}
 // O11yO11yLogParseFrom struct for O11yO11yLogParseFrom
 type O11yO11yLogParseFrom struct {
 	// ParseFrom is the field to read.
-	ParseFrom *string `json:"parse_from,omitempty"`
+	ParseFrom            *string `json:"parse_from,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogParseFrom O11yO11yLogParseFrom
 
 // NewO11yO11yLogParseFrom instantiates a new O11yO11yLogParseFrom object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yLogParseFrom) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ParseFrom) {
 		toSerialize["parse_from"] = o.ParseFrom
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogParseFrom) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogParseFrom := _O11yO11yLogParseFrom{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogParseFrom)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogParseFrom(varO11yO11yLogParseFrom)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "parse_from")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogParseFrom struct {

@@ -20,8 +20,11 @@ var _ MappedNullable = &LicensingFingerprintRequest{}
 // LicensingFingerprintRequest struct for LicensingFingerprintRequest
 type LicensingFingerprintRequest struct {
 	// Signals is the host material the client agent collected. Which fields actually participate in the binding is deliberately unspecified — send everything available and let the server decide.
-	Signals *LicensingDeviceSignals `json:"signals,omitempty"`
+	Signals              *LicensingDeviceSignals `json:"signals,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicensingFingerprintRequest LicensingFingerprintRequest
 
 // NewLicensingFingerprintRequest instantiates a new LicensingFingerprintRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o LicensingFingerprintRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Signals) {
 		toSerialize["signals"] = o.Signals
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicensingFingerprintRequest) UnmarshalJSON(data []byte) (err error) {
+	varLicensingFingerprintRequest := _LicensingFingerprintRequest{}
+
+	err = json.Unmarshal(data, &varLicensingFingerprintRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicensingFingerprintRequest(varLicensingFingerprintRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "signals")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicensingFingerprintRequest struct {

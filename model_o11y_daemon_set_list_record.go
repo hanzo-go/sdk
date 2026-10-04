@@ -19,18 +19,21 @@ var _ MappedNullable = &O11yDaemonSetListRecord{}
 
 // O11yDaemonSetListRecord struct for O11yDaemonSetListRecord
 type O11yDaemonSetListRecord struct {
-	AvailableNodes *int64            `json:"availableNodes,omitempty"`
-	CpuLimit       *float64          `json:"cpuLimit,omitempty"`
-	CpuRequest     *float64          `json:"cpuRequest,omitempty"`
-	CpuUsage       *float64          `json:"cpuUsage,omitempty"`
-	DaemonSetName  *string           `json:"daemonSetName,omitempty"`
-	DesiredNodes   *int64            `json:"desiredNodes,omitempty"`
-	MemoryLimit    *float64          `json:"memoryLimit,omitempty"`
-	MemoryRequest  *float64          `json:"memoryRequest,omitempty"`
-	MemoryUsage    *float64          `json:"memoryUsage,omitempty"`
-	Meta           map[string]string `json:"meta,omitempty"`
-	Restarts       *int64            `json:"restarts,omitempty"`
+	AvailableNodes       *int64            `json:"availableNodes,omitempty"`
+	CpuLimit             *float64          `json:"cpuLimit,omitempty"`
+	CpuRequest           *float64          `json:"cpuRequest,omitempty"`
+	CpuUsage             *float64          `json:"cpuUsage,omitempty"`
+	DaemonSetName        *string           `json:"daemonSetName,omitempty"`
+	DesiredNodes         *int64            `json:"desiredNodes,omitempty"`
+	MemoryLimit          *float64          `json:"memoryLimit,omitempty"`
+	MemoryRequest        *float64          `json:"memoryRequest,omitempty"`
+	MemoryUsage          *float64          `json:"memoryUsage,omitempty"`
+	Meta                 map[string]string `json:"meta,omitempty"`
+	Restarts             *int64            `json:"restarts,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yDaemonSetListRecord O11yDaemonSetListRecord
 
 // NewO11yDaemonSetListRecord instantiates a new O11yDaemonSetListRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o O11yDaemonSetListRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Restarts) {
 		toSerialize["restarts"] = o.Restarts
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yDaemonSetListRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yDaemonSetListRecord := _O11yDaemonSetListRecord{}
+
+	err = json.Unmarshal(data, &varO11yDaemonSetListRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yDaemonSetListRecord(varO11yDaemonSetListRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "availableNodes")
+		delete(additionalProperties, "cpuLimit")
+		delete(additionalProperties, "cpuRequest")
+		delete(additionalProperties, "cpuUsage")
+		delete(additionalProperties, "daemonSetName")
+		delete(additionalProperties, "desiredNodes")
+		delete(additionalProperties, "memoryLimit")
+		delete(additionalProperties, "memoryRequest")
+		delete(additionalProperties, "memoryUsage")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "restarts")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yDaemonSetListRecord struct {

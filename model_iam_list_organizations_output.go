@@ -19,9 +19,12 @@ var _ MappedNullable = &IamListOrganizationsOutput{}
 
 // IamListOrganizationsOutput struct for IamListOrganizationsOutput
 type IamListOrganizationsOutput struct {
-	Cursor        *string           `json:"cursor,omitempty"`
-	Organizations []IamOrganization `json:"organizations,omitempty"`
+	Cursor               *string           `json:"cursor,omitempty"`
+	Organizations        []IamOrganization `json:"organizations,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamListOrganizationsOutput IamListOrganizationsOutput
 
 // NewIamListOrganizationsOutput instantiates a new IamListOrganizationsOutput object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o IamListOrganizationsOutput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Organizations) {
 		toSerialize["organizations"] = o.Organizations
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamListOrganizationsOutput) UnmarshalJSON(data []byte) (err error) {
+	varIamListOrganizationsOutput := _IamListOrganizationsOutput{}
+
+	err = json.Unmarshal(data, &varIamListOrganizationsOutput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamListOrganizationsOutput(varIamListOrganizationsOutput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cursor")
+		delete(additionalProperties, "organizations")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamListOrganizationsOutput struct {

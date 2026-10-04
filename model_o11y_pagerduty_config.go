@@ -19,27 +19,30 @@ var _ MappedNullable = &O11yPagerdutyConfig{}
 
 // O11yPagerdutyConfig struct for O11yPagerdutyConfig
 type O11yPagerdutyConfig struct {
-	NotifierConfig *O11yNotifierConfig               `json:"NotifierConfig,omitempty"`
-	Class          *string                           `json:"class,omitempty"`
-	Client         *string                           `json:"client,omitempty"`
-	ClientUrl      *string                           `json:"client_url,omitempty"`
-	Component      *string                           `json:"component,omitempty"`
-	Description    *string                           `json:"description,omitempty"`
-	Details        map[string]map[string]interface{} `json:"details,omitempty"`
-	Group          *string                           `json:"group,omitempty"`
-	HttpConfig     *O11yHTTPClientConfig             `json:"http_config,omitempty"`
-	Images         []O11yPagerdutyImage              `json:"images,omitempty"`
-	Links          []O11yPagerdutyLink               `json:"links,omitempty"`
-	RoutingKey     interface{}                       `json:"routing_key,omitempty"`
-	RoutingKeyFile *string                           `json:"routing_key_file,omitempty"`
-	ServiceKey     interface{}                       `json:"service_key,omitempty"`
-	ServiceKeyFile *string                           `json:"service_key_file,omitempty"`
-	Severity       *string                           `json:"severity,omitempty"`
-	Source         *string                           `json:"source,omitempty"`
+	NotifierConfig *O11yNotifierConfig    `json:"NotifierConfig,omitempty"`
+	Class          *string                `json:"class,omitempty"`
+	Client         *string                `json:"client,omitempty"`
+	ClientUrl      *string                `json:"client_url,omitempty"`
+	Component      *string                `json:"component,omitempty"`
+	Description    *string                `json:"description,omitempty"`
+	Details        map[string]interface{} `json:"details,omitempty"`
+	Group          *string                `json:"group,omitempty"`
+	HttpConfig     *O11yHTTPClientConfig  `json:"http_config,omitempty"`
+	Images         []O11yPagerdutyImage   `json:"images,omitempty"`
+	Links          []O11yPagerdutyLink    `json:"links,omitempty"`
+	RoutingKey     interface{}            `json:"routing_key,omitempty"`
+	RoutingKeyFile *string                `json:"routing_key_file,omitempty"`
+	ServiceKey     interface{}            `json:"service_key,omitempty"`
+	ServiceKeyFile *string                `json:"service_key_file,omitempty"`
+	Severity       *string                `json:"severity,omitempty"`
+	Source         *string                `json:"source,omitempty"`
 	// Timeout is the maximum time allowed to invoke the pagerduty. Setting this to 0 does not impose a timeout.
-	Timeout *int64      `json:"timeout,omitempty"`
-	Url     interface{} `json:"url,omitempty"`
+	Timeout              *int64      `json:"timeout,omitempty"`
+	Url                  interface{} `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPagerdutyConfig O11yPagerdutyConfig
 
 // NewO11yPagerdutyConfig instantiates a new O11yPagerdutyConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -251,9 +254,9 @@ func (o *O11yPagerdutyConfig) SetDescription(v string) {
 }
 
 // GetDetails returns the Details field value if set, zero value otherwise.
-func (o *O11yPagerdutyConfig) GetDetails() map[string]map[string]interface{} {
+func (o *O11yPagerdutyConfig) GetDetails() map[string]interface{} {
 	if o == nil || IsNil(o.Details) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Details
@@ -261,9 +264,9 @@ func (o *O11yPagerdutyConfig) GetDetails() map[string]map[string]interface{} {
 
 // GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yPagerdutyConfig) GetDetailsOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yPagerdutyConfig) GetDetailsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Details) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Details, true
 }
@@ -277,8 +280,8 @@ func (o *O11yPagerdutyConfig) HasDetails() bool {
 	return false
 }
 
-// SetDetails gets a reference to the given map[string]map[string]interface{} and assigns it to the Details field.
-func (o *O11yPagerdutyConfig) SetDetails(v map[string]map[string]interface{}) {
+// SetDetails gets a reference to the given map[string]interface{} and assigns it to the Details field.
+func (o *O11yPagerdutyConfig) SetDetails(v map[string]interface{}) {
 	o.Details = v
 }
 
@@ -736,7 +739,51 @@ func (o O11yPagerdutyConfig) ToMap() (map[string]interface{}, error) {
 	if o.Url != nil {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPagerdutyConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yPagerdutyConfig := _O11yPagerdutyConfig{}
+
+	err = json.Unmarshal(data, &varO11yPagerdutyConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPagerdutyConfig(varO11yPagerdutyConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "class")
+		delete(additionalProperties, "client")
+		delete(additionalProperties, "client_url")
+		delete(additionalProperties, "component")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "details")
+		delete(additionalProperties, "group")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "images")
+		delete(additionalProperties, "links")
+		delete(additionalProperties, "routing_key")
+		delete(additionalProperties, "routing_key_file")
+		delete(additionalProperties, "service_key")
+		delete(additionalProperties, "service_key_file")
+		delete(additionalProperties, "severity")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "timeout")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPagerdutyConfig struct {

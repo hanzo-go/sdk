@@ -19,9 +19,12 @@ var _ MappedNullable = &CaptureResult{}
 
 // CaptureResult struct for CaptureResult
 type CaptureResult struct {
-	Accepted *int32 `json:"accepted,omitempty"`
-	Dropped  *int32 `json:"dropped,omitempty"`
+	Accepted             *int32 `json:"accepted,omitempty"`
+	Dropped              *int32 `json:"dropped,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CaptureResult CaptureResult
 
 // NewCaptureResult instantiates a new CaptureResult object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o CaptureResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Dropped) {
 		toSerialize["dropped"] = o.Dropped
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CaptureResult) UnmarshalJSON(data []byte) (err error) {
+	varCaptureResult := _CaptureResult{}
+
+	err = json.Unmarshal(data, &varCaptureResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CaptureResult(varCaptureResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accepted")
+		delete(additionalProperties, "dropped")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCaptureResult struct {

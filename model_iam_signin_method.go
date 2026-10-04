@@ -19,10 +19,13 @@ var _ MappedNullable = &IamSigninMethod{}
 
 // IamSigninMethod struct for IamSigninMethod
 type IamSigninMethod struct {
-	DisplayName *string `json:"displayName,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Rule        *string `json:"rule,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Rule                 *string `json:"rule,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamSigninMethod IamSigninMethod
 
 // NewIamSigninMethod instantiates a new IamSigninMethod object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o IamSigninMethod) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Rule) {
 		toSerialize["rule"] = o.Rule
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamSigninMethod) UnmarshalJSON(data []byte) (err error) {
+	varIamSigninMethod := _IamSigninMethod{}
+
+	err = json.Unmarshal(data, &varIamSigninMethod)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamSigninMethod(varIamSigninMethod)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "rule")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamSigninMethod struct {

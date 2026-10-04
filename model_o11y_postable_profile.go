@@ -28,7 +28,10 @@ type O11yPostableProfile struct {
 	TimelineForMigratingToO11y       *string  `json:"timeline_for_migrating_to_o11y,omitempty"`
 	UsesOtel                         *bool    `json:"uses_otel,omitempty"`
 	WhereDidYouDiscoverO11y          *string  `json:"where_did_you_discover_o11y,omitempty"`
+	AdditionalProperties             map[string]interface{}
 }
+
+type _O11yPostableProfile O11yPostableProfile
 
 // NewO11yPostableProfile instantiates a new O11yPostableProfile object
 // This constructor will assign default values to properties that have it defined,
@@ -372,7 +375,41 @@ func (o O11yPostableProfile) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WhereDidYouDiscoverO11y) {
 		toSerialize["where_did_you_discover_o11y"] = o.WhereDidYouDiscoverO11y
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPostableProfile) UnmarshalJSON(data []byte) (err error) {
+	varO11yPostableProfile := _O11yPostableProfile{}
+
+	err = json.Unmarshal(data, &varO11yPostableProfile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPostableProfile(varO11yPostableProfile)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "existing_observability_tool")
+		delete(additionalProperties, "has_existing_observability_tool")
+		delete(additionalProperties, "logs_scale_per_day_in_gb")
+		delete(additionalProperties, "number_of_hosts")
+		delete(additionalProperties, "number_of_services")
+		delete(additionalProperties, "reasons_for_interest_in_o11y")
+		delete(additionalProperties, "timeline_for_migrating_to_o11y")
+		delete(additionalProperties, "uses_otel")
+		delete(additionalProperties, "where_did_you_discover_o11y")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPostableProfile struct {

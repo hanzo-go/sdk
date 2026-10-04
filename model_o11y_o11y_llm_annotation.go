@@ -37,8 +37,11 @@ type O11yO11yLLMAnnotation struct {
 	// TraceID is the trace the annotation attaches to.
 	TraceId *string `json:"traceId,omitempty"`
 	// UpdatedAt is when the annotation last changed.
-	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMAnnotation O11yO11yLLMAnnotation
 
 // NewO11yO11yLLMAnnotation instantiates a new O11yO11yLLMAnnotation object
 // This constructor will assign default values to properties that have it defined,
@@ -382,7 +385,41 @@ func (o O11yO11yLLMAnnotation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMAnnotation) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMAnnotation := _O11yO11yLLMAnnotation{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMAnnotation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMAnnotation(varO11yO11yLLMAnnotation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "author")
+		delete(additionalProperties, "content")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "observationId")
+		delete(additionalProperties, "queue")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "traceId")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMAnnotation struct {

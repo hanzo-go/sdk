@@ -13,15 +13,15 @@ Method | HTTP request | Description
 [**GetIngressRoutesById**](IngressAPI.md#GetIngressRoutesById) | **Get** /v1/ingress/routes/{id} | Returns one of the caller org&#39;s routing rules by id.
 [**GetIngressServices**](IngressAPI.md#GetIngressServices) | **Get** /v1/ingress/services | Returns every backend pool the caller&#39;s org has configured, ordered by id.
 [**GetIngressServicesById**](IngressAPI.md#GetIngressServicesById) | **Get** /v1/ingress/services/{id} | Returns one of the caller org&#39;s backend pools by id.
-[**GetIngressStatus**](IngressAPI.md#GetIngressStatus) | **Get** /v1/ingress/status | Status reports the ingress edge&#39;s live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
-[**GetIngressTls**](IngressAPI.md#GetIngressTls) | **Get** /v1/ingress/tls | GetTLS returns the caller org&#39;s ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
+[**GetIngressStatus**](IngressAPI.md#GetIngressStatus) | **Get** /v1/ingress/status | Reports the ingress edge&#39;s live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
+[**GetIngressTls**](IngressAPI.md#GetIngressTls) | **Get** /v1/ingress/tls | Returns the caller org&#39;s ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
 [**PostIngressMiddlewares**](IngressAPI.md#PostIngressMiddlewares) | **Post** /v1/ingress/middlewares | Creates or replaces one edge transform and hot-applies it.
 [**PostIngressRoutes**](IngressAPI.md#PostIngressRoutes) | **Post** /v1/ingress/routes | Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
 [**PostIngressServices**](IngressAPI.md#PostIngressServices) | **Post** /v1/ingress/services | Creates or replaces one backend pool and hot-applies it.
 [**PutIngressMiddlewaresById**](IngressAPI.md#PutIngressMiddlewaresById) | **Put** /v1/ingress/middlewares/{id} | Creates or replaces one edge transform and hot-applies it.
 [**PutIngressRoutesById**](IngressAPI.md#PutIngressRoutesById) | **Put** /v1/ingress/routes/{id} | Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
 [**PutIngressServicesById**](IngressAPI.md#PutIngressServicesById) | **Put** /v1/ingress/services/{id} | Creates or replaces one backend pool and hot-applies it.
-[**PutIngressTls**](IngressAPI.md#PutIngressTls) | **Put** /v1/ingress/tls | PutTLS replaces the caller org&#39;s ACME intent and hot-applies what can be hot-applied.
+[**PutIngressTls**](IngressAPI.md#PutIngressTls) | **Put** /v1/ingress/tls | Replaces the caller org&#39;s ACME intent and hot-applies what can be hot-applied.
 
 
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 ## GetIngressMiddlewares
 
-> IngressMiddlewares GetIngressMiddlewares(ctx).Execute()
+> IngressIngressMiddlewares GetIngressMiddlewares(ctx).Execute()
 
 Returns every edge transform the caller's org has configured, ordered by id.
 
@@ -258,7 +258,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressMiddlewares``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIngressMiddlewares`: IngressMiddlewares
+	// response from `GetIngressMiddlewares`: IngressIngressMiddlewares
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressMiddlewares`: %v\n", resp)
 }
 ```
@@ -274,7 +274,7 @@ Other parameters are passed through a pointer to a apiGetIngressMiddlewaresReque
 
 ### Return type
 
-[**IngressMiddlewares**](IngressMiddlewares.md)
+[**IngressIngressMiddlewares**](IngressIngressMiddlewares.md)
 
 ### Authorization
 
@@ -283,7 +283,7 @@ Other parameters are passed through a pointer to a apiGetIngressMiddlewaresReque
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -292,7 +292,7 @@ Other parameters are passed through a pointer to a apiGetIngressMiddlewaresReque
 
 ## GetIngressMiddlewaresById
 
-> Middleware GetIngressMiddlewaresById(ctx, id).Execute()
+> IngressMiddleware GetIngressMiddlewaresById(ctx, id).Execute()
 
 Returns one of the caller org's edge transforms by id.
 
@@ -320,7 +320,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressMiddlewaresById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIngressMiddlewaresById`: Middleware
+	// response from `GetIngressMiddlewaresById`: IngressMiddleware
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressMiddlewaresById`: %v\n", resp)
 }
 ```
@@ -344,7 +344,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Middleware**](Middleware.md)
+[**IngressMiddleware**](IngressMiddleware.md)
 
 ### Authorization
 
@@ -353,7 +353,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -362,7 +362,7 @@ Name | Type | Description  | Notes
 
 ## GetIngressRoutes
 
-> IngressRoutes GetIngressRoutes(ctx).Execute()
+> IngressIngressRoutes GetIngressRoutes(ctx).Execute()
 
 Returns every routing rule the caller's org has configured, ordered by id.
 
@@ -389,7 +389,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressRoutes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIngressRoutes`: IngressRoutes
+	// response from `GetIngressRoutes`: IngressIngressRoutes
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressRoutes`: %v\n", resp)
 }
 ```
@@ -405,7 +405,7 @@ Other parameters are passed through a pointer to a apiGetIngressRoutesRequest st
 
 ### Return type
 
-[**IngressRoutes**](IngressRoutes.md)
+[**IngressIngressRoutes**](IngressIngressRoutes.md)
 
 ### Authorization
 
@@ -414,7 +414,7 @@ Other parameters are passed through a pointer to a apiGetIngressRoutesRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -423,7 +423,7 @@ Other parameters are passed through a pointer to a apiGetIngressRoutesRequest st
 
 ## GetIngressRoutesById
 
-> Route GetIngressRoutesById(ctx, id).Execute()
+> IngressRoute GetIngressRoutesById(ctx, id).Execute()
 
 Returns one of the caller org's routing rules by id.
 
@@ -451,7 +451,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressRoutesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIngressRoutesById`: Route
+	// response from `GetIngressRoutesById`: IngressRoute
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressRoutesById`: %v\n", resp)
 }
 ```
@@ -475,7 +475,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Route**](Route.md)
+[**IngressRoute**](IngressRoute.md)
 
 ### Authorization
 
@@ -484,7 +484,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -493,7 +493,7 @@ Name | Type | Description  | Notes
 
 ## GetIngressServices
 
-> IngressServices GetIngressServices(ctx).Execute()
+> IngressIngressServices GetIngressServices(ctx).Execute()
 
 Returns every backend pool the caller's org has configured, ordered by id.
 
@@ -520,7 +520,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressServices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIngressServices`: IngressServices
+	// response from `GetIngressServices`: IngressIngressServices
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressServices`: %v\n", resp)
 }
 ```
@@ -536,7 +536,7 @@ Other parameters are passed through a pointer to a apiGetIngressServicesRequest 
 
 ### Return type
 
-[**IngressServices**](IngressServices.md)
+[**IngressIngressServices**](IngressIngressServices.md)
 
 ### Authorization
 
@@ -545,7 +545,7 @@ Other parameters are passed through a pointer to a apiGetIngressServicesRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -554,7 +554,7 @@ Other parameters are passed through a pointer to a apiGetIngressServicesRequest 
 
 ## GetIngressServicesById
 
-> Upstream GetIngressServicesById(ctx, id).Execute()
+> IngressUpstream GetIngressServicesById(ctx, id).Execute()
 
 Returns one of the caller org's backend pools by id.
 
@@ -582,7 +582,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressServicesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIngressServicesById`: Upstream
+	// response from `GetIngressServicesById`: IngressUpstream
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressServicesById`: %v\n", resp)
 }
 ```
@@ -606,7 +606,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Upstream**](Upstream.md)
+[**IngressUpstream**](IngressUpstream.md)
 
 ### Authorization
 
@@ -615,7 +615,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -624,9 +624,9 @@ Name | Type | Description  | Notes
 
 ## GetIngressStatus
 
-> IngressStatus GetIngressStatus(ctx).Execute()
+> IngressIngressStatus GetIngressStatus(ctx).Execute()
 
-Status reports the ingress edge's live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
+Reports the ingress edge's live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
 
 
 
@@ -651,7 +651,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIngressStatus`: IngressStatus
+	// response from `GetIngressStatus`: IngressIngressStatus
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressStatus`: %v\n", resp)
 }
 ```
@@ -667,7 +667,7 @@ Other parameters are passed through a pointer to a apiGetIngressStatusRequest st
 
 ### Return type
 
-[**IngressStatus**](IngressStatus.md)
+[**IngressIngressStatus**](IngressIngressStatus.md)
 
 ### Authorization
 
@@ -676,7 +676,7 @@ Other parameters are passed through a pointer to a apiGetIngressStatusRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -685,9 +685,9 @@ Other parameters are passed through a pointer to a apiGetIngressStatusRequest st
 
 ## GetIngressTls
 
-> IngressTLS GetIngressTls(ctx).Execute()
+> IngressIngressTLS GetIngressTls(ctx).Execute()
 
-GetTLS returns the caller org's ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
+Returns the caller org's ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
 
 
 
@@ -712,7 +712,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.GetIngressTls``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIngressTls`: IngressTLS
+	// response from `GetIngressTls`: IngressIngressTLS
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.GetIngressTls`: %v\n", resp)
 }
 ```
@@ -728,7 +728,7 @@ Other parameters are passed through a pointer to a apiGetIngressTlsRequest struc
 
 ### Return type
 
-[**IngressTLS**](IngressTLS.md)
+[**IngressIngressTLS**](IngressIngressTLS.md)
 
 ### Authorization
 
@@ -737,7 +737,7 @@ Other parameters are passed through a pointer to a apiGetIngressTlsRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -746,7 +746,7 @@ Other parameters are passed through a pointer to a apiGetIngressTlsRequest struc
 
 ## PostIngressMiddlewares
 
-> Middleware PostIngressMiddlewares(ctx).Middleware(middleware).Execute()
+> IngressMiddleware PostIngressMiddlewares(ctx).IngressMiddleware(ingressMiddleware).Execute()
 
 Creates or replaces one edge transform and hot-applies it.
 
@@ -765,16 +765,16 @@ import (
 )
 
 func main() {
-	middleware := *openapiclient.NewMiddleware() // Middleware | 
+	ingressMiddleware := *openapiclient.NewIngressMiddleware() // IngressMiddleware | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.PostIngressMiddlewares(context.Background()).Middleware(middleware).Execute()
+	resp, r, err := apiClient.IngressAPI.PostIngressMiddlewares(context.Background()).IngressMiddleware(ingressMiddleware).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PostIngressMiddlewares``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostIngressMiddlewares`: Middleware
+	// response from `PostIngressMiddlewares`: IngressMiddleware
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PostIngressMiddlewares`: %v\n", resp)
 }
 ```
@@ -790,11 +790,11 @@ Other parameters are passed through a pointer to a apiPostIngressMiddlewaresRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **middleware** | [**Middleware**](Middleware.md) |  | 
+ **ingressMiddleware** | [**IngressMiddleware**](IngressMiddleware.md) |  | 
 
 ### Return type
 
-[**Middleware**](Middleware.md)
+[**IngressMiddleware**](IngressMiddleware.md)
 
 ### Authorization
 
@@ -803,7 +803,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -812,7 +812,7 @@ Name | Type | Description  | Notes
 
 ## PostIngressRoutes
 
-> Route PostIngressRoutes(ctx).Route(route).Execute()
+> IngressRoute PostIngressRoutes(ctx).IngressRoute(ingressRoute).Execute()
 
 Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
 
@@ -831,16 +831,16 @@ import (
 )
 
 func main() {
-	route := *openapiclient.NewRoute() // Route | 
+	ingressRoute := *openapiclient.NewIngressRoute() // IngressRoute | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.PostIngressRoutes(context.Background()).Route(route).Execute()
+	resp, r, err := apiClient.IngressAPI.PostIngressRoutes(context.Background()).IngressRoute(ingressRoute).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PostIngressRoutes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostIngressRoutes`: Route
+	// response from `PostIngressRoutes`: IngressRoute
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PostIngressRoutes`: %v\n", resp)
 }
 ```
@@ -856,11 +856,11 @@ Other parameters are passed through a pointer to a apiPostIngressRoutesRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **route** | [**Route**](Route.md) |  | 
+ **ingressRoute** | [**IngressRoute**](IngressRoute.md) |  | 
 
 ### Return type
 
-[**Route**](Route.md)
+[**IngressRoute**](IngressRoute.md)
 
 ### Authorization
 
@@ -869,7 +869,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -878,7 +878,7 @@ Name | Type | Description  | Notes
 
 ## PostIngressServices
 
-> Upstream PostIngressServices(ctx).Upstream(upstream).Execute()
+> IngressUpstream PostIngressServices(ctx).IngressUpstream(ingressUpstream).Execute()
 
 Creates or replaces one backend pool and hot-applies it.
 
@@ -897,16 +897,16 @@ import (
 )
 
 func main() {
-	upstream := *openapiclient.NewUpstream() // Upstream | 
+	ingressUpstream := *openapiclient.NewIngressUpstream() // IngressUpstream | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.PostIngressServices(context.Background()).Upstream(upstream).Execute()
+	resp, r, err := apiClient.IngressAPI.PostIngressServices(context.Background()).IngressUpstream(ingressUpstream).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PostIngressServices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostIngressServices`: Upstream
+	// response from `PostIngressServices`: IngressUpstream
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PostIngressServices`: %v\n", resp)
 }
 ```
@@ -922,11 +922,11 @@ Other parameters are passed through a pointer to a apiPostIngressServicesRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **upstream** | [**Upstream**](Upstream.md) |  | 
+ **ingressUpstream** | [**IngressUpstream**](IngressUpstream.md) |  | 
 
 ### Return type
 
-[**Upstream**](Upstream.md)
+[**IngressUpstream**](IngressUpstream.md)
 
 ### Authorization
 
@@ -935,7 +935,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -944,7 +944,7 @@ Name | Type | Description  | Notes
 
 ## PutIngressMiddlewaresById
 
-> Middleware PutIngressMiddlewaresById(ctx, id).Middleware(middleware).Execute()
+> IngressMiddleware PutIngressMiddlewaresById(ctx, id).IngressMiddleware(ingressMiddleware).Execute()
 
 Creates or replaces one edge transform and hot-applies it.
 
@@ -964,16 +964,16 @@ import (
 
 func main() {
 	id := "strip-api" // string | ID identifies the transform within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id.
-	middleware := *openapiclient.NewMiddleware() // Middleware | 
+	ingressMiddleware := *openapiclient.NewIngressMiddleware() // IngressMiddleware | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.PutIngressMiddlewaresById(context.Background(), id).Middleware(middleware).Execute()
+	resp, r, err := apiClient.IngressAPI.PutIngressMiddlewaresById(context.Background(), id).IngressMiddleware(ingressMiddleware).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PutIngressMiddlewaresById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutIngressMiddlewaresById`: Middleware
+	// response from `PutIngressMiddlewaresById`: IngressMiddleware
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PutIngressMiddlewaresById`: %v\n", resp)
 }
 ```
@@ -994,11 +994,11 @@ Other parameters are passed through a pointer to a apiPutIngressMiddlewaresByIdR
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **middleware** | [**Middleware**](Middleware.md) |  | 
+ **ingressMiddleware** | [**IngressMiddleware**](IngressMiddleware.md) |  | 
 
 ### Return type
 
-[**Middleware**](Middleware.md)
+[**IngressMiddleware**](IngressMiddleware.md)
 
 ### Authorization
 
@@ -1007,7 +1007,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1016,7 +1016,7 @@ Name | Type | Description  | Notes
 
 ## PutIngressRoutesById
 
-> Route PutIngressRoutesById(ctx, id).Route(route).Execute()
+> IngressRoute PutIngressRoutesById(ctx, id).IngressRoute(ingressRoute).Execute()
 
 Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
 
@@ -1036,16 +1036,16 @@ import (
 
 func main() {
 	id := "web" // string | ID identifies the route within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one.
-	route := *openapiclient.NewRoute() // Route | 
+	ingressRoute := *openapiclient.NewIngressRoute() // IngressRoute | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.PutIngressRoutesById(context.Background(), id).Route(route).Execute()
+	resp, r, err := apiClient.IngressAPI.PutIngressRoutesById(context.Background(), id).IngressRoute(ingressRoute).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PutIngressRoutesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutIngressRoutesById`: Route
+	// response from `PutIngressRoutesById`: IngressRoute
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PutIngressRoutesById`: %v\n", resp)
 }
 ```
@@ -1066,11 +1066,11 @@ Other parameters are passed through a pointer to a apiPutIngressRoutesByIdReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **route** | [**Route**](Route.md) |  | 
+ **ingressRoute** | [**IngressRoute**](IngressRoute.md) |  | 
 
 ### Return type
 
-[**Route**](Route.md)
+[**IngressRoute**](IngressRoute.md)
 
 ### Authorization
 
@@ -1079,7 +1079,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1088,7 +1088,7 @@ Name | Type | Description  | Notes
 
 ## PutIngressServicesById
 
-> Upstream PutIngressServicesById(ctx, id).Upstream(upstream).Execute()
+> IngressUpstream PutIngressServicesById(ctx, id).IngressUpstream(ingressUpstream).Execute()
 
 Creates or replaces one backend pool and hot-applies it.
 
@@ -1108,16 +1108,16 @@ import (
 
 func main() {
 	id := "app-pool" // string | ID identifies the pool within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id.
-	upstream := *openapiclient.NewUpstream() // Upstream | 
+	ingressUpstream := *openapiclient.NewIngressUpstream() // IngressUpstream | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.PutIngressServicesById(context.Background(), id).Upstream(upstream).Execute()
+	resp, r, err := apiClient.IngressAPI.PutIngressServicesById(context.Background(), id).IngressUpstream(ingressUpstream).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PutIngressServicesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutIngressServicesById`: Upstream
+	// response from `PutIngressServicesById`: IngressUpstream
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PutIngressServicesById`: %v\n", resp)
 }
 ```
@@ -1138,11 +1138,11 @@ Other parameters are passed through a pointer to a apiPutIngressServicesByIdRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **upstream** | [**Upstream**](Upstream.md) |  | 
+ **ingressUpstream** | [**IngressUpstream**](IngressUpstream.md) |  | 
 
 ### Return type
 
-[**Upstream**](Upstream.md)
+[**IngressUpstream**](IngressUpstream.md)
 
 ### Authorization
 
@@ -1151,7 +1151,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1160,9 +1160,9 @@ Name | Type | Description  | Notes
 
 ## PutIngressTls
 
-> TLSConfig PutIngressTls(ctx).TLSConfig(tLSConfig).Execute()
+> IngressTLSConfig PutIngressTls(ctx).IngressTLSConfig(ingressTLSConfig).Execute()
 
-PutTLS replaces the caller org's ACME intent and hot-applies what can be hot-applied.
+Replaces the caller org's ACME intent and hot-applies what can be hot-applied.
 
 
 
@@ -1179,16 +1179,16 @@ import (
 )
 
 func main() {
-	tLSConfig := *openapiclient.NewTLSConfig() // TLSConfig | 
+	ingressTLSConfig := *openapiclient.NewIngressTLSConfig() // IngressTLSConfig | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IngressAPI.PutIngressTls(context.Background()).TLSConfig(tLSConfig).Execute()
+	resp, r, err := apiClient.IngressAPI.PutIngressTls(context.Background()).IngressTLSConfig(ingressTLSConfig).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IngressAPI.PutIngressTls``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutIngressTls`: TLSConfig
+	// response from `PutIngressTls`: IngressTLSConfig
 	fmt.Fprintf(os.Stdout, "Response from `IngressAPI.PutIngressTls`: %v\n", resp)
 }
 ```
@@ -1204,11 +1204,11 @@ Other parameters are passed through a pointer to a apiPutIngressTlsRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tLSConfig** | [**TLSConfig**](TLSConfig.md) |  | 
+ **ingressTLSConfig** | [**IngressTLSConfig**](IngressTLSConfig.md) |  | 
 
 ### Return type
 
-[**TLSConfig**](TLSConfig.md)
+[**IngressTLSConfig**](IngressTLSConfig.md)
 
 ### Authorization
 
@@ -1217,7 +1217,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -32,8 +32,11 @@ type O11yO11yOccurrenceFrame struct {
 	// Lineno is the line number.
 	Lineno *int64 `json:"lineno,omitempty"`
 	// Module is the module the function is in.
-	Module *string `json:"module,omitempty"`
+	Module               *string `json:"module,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yOccurrenceFrame O11yO11yOccurrenceFrame
 
 // NewO11yO11yOccurrenceFrame instantiates a new O11yO11yOccurrenceFrame object
 // This constructor will assign default values to properties that have it defined,
@@ -307,7 +310,39 @@ func (o O11yO11yOccurrenceFrame) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Module) {
 		toSerialize["module"] = o.Module
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yOccurrenceFrame) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yOccurrenceFrame := _O11yO11yOccurrenceFrame{}
+
+	err = json.Unmarshal(data, &varO11yO11yOccurrenceFrame)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yOccurrenceFrame(varO11yO11yOccurrenceFrame)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "absPath")
+		delete(additionalProperties, "colno")
+		delete(additionalProperties, "filename")
+		delete(additionalProperties, "function")
+		delete(additionalProperties, "inApp")
+		delete(additionalProperties, "lineno")
+		delete(additionalProperties, "module")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yOccurrenceFrame struct {

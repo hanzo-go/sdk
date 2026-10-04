@@ -19,8 +19,11 @@ var _ MappedNullable = &OpenaiLogProbs{}
 
 // OpenaiLogProbs struct for OpenaiLogProbs
 type OpenaiLogProbs struct {
-	Content []OpenaiLogProb `json:"content,omitempty"`
+	Content              []OpenaiLogProb `json:"content,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiLogProbs OpenaiLogProbs
 
 // NewOpenaiLogProbs instantiates a new OpenaiLogProbs object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o OpenaiLogProbs) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Content) {
 		toSerialize["content"] = o.Content
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiLogProbs) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiLogProbs := _OpenaiLogProbs{}
+
+	err = json.Unmarshal(data, &varOpenaiLogProbs)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiLogProbs(varOpenaiLogProbs)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "content")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiLogProbs struct {

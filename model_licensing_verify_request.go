@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -24,7 +23,8 @@ type LicensingVerifyRequest struct {
 	// App overrides the app_id the token is expected to carry. Leave it empty and the token's own app_id is used — an online verify is informational, and it is the ENGINE that enforces the app at boot.
 	App *string `json:"app,omitempty"`
 	// Token is the license token to check.
-	Token string `json:"token"`
+	Token                string `json:"token"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _LicensingVerifyRequest LicensingVerifyRequest
@@ -117,6 +117,11 @@ func (o LicensingVerifyRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["app"] = o.App
 	}
 	toSerialize["token"] = o.Token
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -144,15 +149,21 @@ func (o *LicensingVerifyRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varLicensingVerifyRequest := _LicensingVerifyRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varLicensingVerifyRequest)
+	err = json.Unmarshal(data, &varLicensingVerifyRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = LicensingVerifyRequest(varLicensingVerifyRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "app")
+		delete(additionalProperties, "token")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

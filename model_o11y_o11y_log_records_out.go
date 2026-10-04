@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yLogRecordsOut{}
 // O11yO11yLogRecordsOut struct for O11yO11yLogRecordsOut
 type O11yO11yLogRecordsOut struct {
 	// Results are the records, newest first.
-	Results []map[string]interface{} `json:"results,omitempty"`
+	Results              []map[string]interface{} `json:"results,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogRecordsOut O11yO11yLogRecordsOut
 
 // NewO11yO11yLogRecordsOut instantiates a new O11yO11yLogRecordsOut object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yLogRecordsOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Results) {
 		toSerialize["results"] = o.Results
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogRecordsOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogRecordsOut := _O11yO11yLogRecordsOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogRecordsOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogRecordsOut(varO11yO11yLogRecordsOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "results")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogRecordsOut struct {

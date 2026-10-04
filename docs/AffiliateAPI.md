@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 ## GetAffiliate
 
-> AffiliateStanding GetAffiliate(ctx).Execute()
+> AffiliateAffiliateStanding GetAffiliate(ctx).Execute()
 
 Answers the caller org's OWN affiliate standing: status, referral code and share link, commission rate, how many orgs it has referred, and its lifetime accrued, still-pending and already-paid commission in integer cents, with its payout history.
 
@@ -46,7 +46,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AffiliateAPI.GetAffiliate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAffiliate`: AffiliateStanding
+	// response from `GetAffiliate`: AffiliateAffiliateStanding
 	fmt.Fprintf(os.Stdout, "Response from `AffiliateAPI.GetAffiliate`: %v\n", resp)
 }
 ```
@@ -62,7 +62,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateRequest struct
 
 ### Return type
 
-[**AffiliateStanding**](AffiliateStanding.md)
+[**AffiliateAffiliateStanding**](AffiliateAffiliateStanding.md)
 
 ### Authorization
 
@@ -71,7 +71,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -80,7 +80,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateRequest struct
 
 ## GetAffiliateLeaderboard
 
-> AffiliateBoard GetAffiliateLeaderboard(ctx).Execute()
+> AffiliateAffiliateBoard GetAffiliateLeaderboard(ctx).Execute()
 
 Answers the top affiliates by lifetime accrued commission, shown by OPT-IN HANDLE with aggregate figures only, plus the caller's own exact rank.
 
@@ -107,7 +107,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AffiliateAPI.GetAffiliateLeaderboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAffiliateLeaderboard`: AffiliateBoard
+	// response from `GetAffiliateLeaderboard`: AffiliateAffiliateBoard
 	fmt.Fprintf(os.Stdout, "Response from `AffiliateAPI.GetAffiliateLeaderboard`: %v\n", resp)
 }
 ```
@@ -123,7 +123,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateLeaderboardReq
 
 ### Return type
 
-[**AffiliateBoard**](AffiliateBoard.md)
+[**AffiliateAffiliateBoard**](AffiliateAffiliateBoard.md)
 
 ### Authorization
 
@@ -132,7 +132,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateLeaderboardReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -141,7 +141,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateLeaderboardReq
 
 ## GetAffiliateMe
 
-> AffiliateSelf GetAffiliateMe(ctx).Execute()
+> AffiliateAffiliateSelf GetAffiliateMe(ctx).Execute()
 
 Answers the richer self-view: the same lifetime accrued, pending and paid commission and payout history, plus the caller's downline broken out by upline LEVEL — direct, second, third — each with the rate paid at that level and how many orgs sit there.
 
@@ -168,7 +168,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AffiliateAPI.GetAffiliateMe``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAffiliateMe`: AffiliateSelf
+	// response from `GetAffiliateMe`: AffiliateAffiliateSelf
 	fmt.Fprintf(os.Stdout, "Response from `AffiliateAPI.GetAffiliateMe`: %v\n", resp)
 }
 ```
@@ -184,7 +184,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateMeRequest stru
 
 ### Return type
 
-[**AffiliateSelf**](AffiliateSelf.md)
+[**AffiliateAffiliateSelf**](AffiliateAffiliateSelf.md)
 
 ### Authorization
 
@@ -193,7 +193,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateMeRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -202,7 +202,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateMeRequest stru
 
 ## GetAffiliateMeEarnings
 
-> AffiliateEarnings GetAffiliateMeEarnings(ctx).Execute()
+> AffiliateAffiliateEarnings GetAffiliateMeEarnings(ctx).Execute()
 
 Answers the caller's own commission ledger: per period, the margin it earned against and the commission taken from that margin; and per referred org, that referral's aggregate contribution.
 
@@ -229,7 +229,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AffiliateAPI.GetAffiliateMeEarnings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAffiliateMeEarnings`: AffiliateEarnings
+	// response from `GetAffiliateMeEarnings`: AffiliateAffiliateEarnings
 	fmt.Fprintf(os.Stdout, "Response from `AffiliateAPI.GetAffiliateMeEarnings`: %v\n", resp)
 }
 ```
@@ -245,7 +245,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateMeEarningsRequ
 
 ### Return type
 
-[**AffiliateEarnings**](AffiliateEarnings.md)
+[**AffiliateAffiliateEarnings**](AffiliateAffiliateEarnings.md)
 
 ### Authorization
 
@@ -254,7 +254,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateMeEarningsRequ
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateMeEarningsRequ
 
 ## GetAffiliateMeLinks
 
-> AffiliateLinks GetAffiliateMeLinks(ctx).Execute()
+> AffiliateAffiliateLinks GetAffiliateMeLinks(ctx).Execute()
 
 Answers the caller's share links, each with its URL and its funnel: clicks tracked, signups — orgs attributed with that code — and conversions, meaning how many of those signups have actually produced commission.
 
@@ -290,7 +290,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AffiliateAPI.GetAffiliateMeLinks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAffiliateMeLinks`: AffiliateLinks
+	// response from `GetAffiliateMeLinks`: AffiliateAffiliateLinks
 	fmt.Fprintf(os.Stdout, "Response from `AffiliateAPI.GetAffiliateMeLinks`: %v\n", resp)
 }
 ```
@@ -306,7 +306,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateMeLinksRequest
 
 ### Return type
 
-[**AffiliateLinks**](AffiliateLinks.md)
+[**AffiliateAffiliateLinks**](AffiliateAffiliateLinks.md)
 
 ### Authorization
 
@@ -315,7 +315,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateMeLinksRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -324,7 +324,7 @@ Other parameters are passed through a pointer to a apiGetAffiliateMeLinksRequest
 
 ## PostAffiliateApply
 
-> Application PostAffiliateApply(ctx).ApplyRequest(applyRequest).Execute()
+> AffiliateApplication PostAffiliateApply(ctx).AffiliateApplyRequest(affiliateApplyRequest).Execute()
 
 Enrolls the caller's OWN org as an affiliate at status `applied`, optionally requesting a vanity code, and answers the record — 201 on the first apply, 200 with `created:false` afterwards.
 
@@ -343,16 +343,16 @@ import (
 )
 
 func main() {
-	applyRequest := *openapiclient.NewApplyRequest() // ApplyRequest | 
+	affiliateApplyRequest := *openapiclient.NewAffiliateApplyRequest() // AffiliateApplyRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AffiliateAPI.PostAffiliateApply(context.Background()).ApplyRequest(applyRequest).Execute()
+	resp, r, err := apiClient.AffiliateAPI.PostAffiliateApply(context.Background()).AffiliateApplyRequest(affiliateApplyRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AffiliateAPI.PostAffiliateApply``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAffiliateApply`: Application
+	// response from `PostAffiliateApply`: AffiliateApplication
 	fmt.Fprintf(os.Stdout, "Response from `AffiliateAPI.PostAffiliateApply`: %v\n", resp)
 }
 ```
@@ -368,11 +368,11 @@ Other parameters are passed through a pointer to a apiPostAffiliateApplyRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **applyRequest** | [**ApplyRequest**](ApplyRequest.md) |  | 
+ **affiliateApplyRequest** | [**AffiliateApplyRequest**](AffiliateApplyRequest.md) |  | 
 
 ### Return type
 
-[**Application**](Application.md)
+[**AffiliateApplication**](AffiliateApplication.md)
 
 ### Authorization
 
@@ -381,7 +381,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -390,7 +390,7 @@ Name | Type | Description  | Notes
 
 ## PostAffiliateAttribute
 
-> Attribution PostAffiliateAttribute(ctx).AttributeRequest(attributeRequest).Execute()
+> AffiliateAttribution PostAffiliateAttribute(ctx).AffiliateAttributeRequest(affiliateAttributeRequest).Execute()
 
 Records the first-touch edge every later commission is computed from: the caller's org was referred by the affiliate that owns this code.
 
@@ -409,16 +409,16 @@ import (
 )
 
 func main() {
-	attributeRequest := *openapiclient.NewAttributeRequest() // AttributeRequest | 
+	affiliateAttributeRequest := *openapiclient.NewAffiliateAttributeRequest() // AffiliateAttributeRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AffiliateAPI.PostAffiliateAttribute(context.Background()).AttributeRequest(attributeRequest).Execute()
+	resp, r, err := apiClient.AffiliateAPI.PostAffiliateAttribute(context.Background()).AffiliateAttributeRequest(affiliateAttributeRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AffiliateAPI.PostAffiliateAttribute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAffiliateAttribute`: Attribution
+	// response from `PostAffiliateAttribute`: AffiliateAttribution
 	fmt.Fprintf(os.Stdout, "Response from `AffiliateAPI.PostAffiliateAttribute`: %v\n", resp)
 }
 ```
@@ -434,11 +434,11 @@ Other parameters are passed through a pointer to a apiPostAffiliateAttributeRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **attributeRequest** | [**AttributeRequest**](AttributeRequest.md) |  | 
+ **affiliateAttributeRequest** | [**AffiliateAttributeRequest**](AffiliateAttributeRequest.md) |  | 
 
 ### Return type
 
-[**Attribution**](Attribution.md)
+[**AffiliateAttribution**](AffiliateAttribution.md)
 
 ### Authorization
 
@@ -447,7 +447,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -456,7 +456,7 @@ Name | Type | Description  | Notes
 
 ## PostAffiliateClick
 
-> ClickCount PostAffiliateClick(ctx).ClickRequest(clickRequest).Execute()
+> AffiliateClickCount PostAffiliateClick(ctx).AffiliateClickRequest(affiliateClickRequest).Execute()
 
 Counts a click on a share link.
 
@@ -475,16 +475,16 @@ import (
 )
 
 func main() {
-	clickRequest := *openapiclient.NewClickRequest() // ClickRequest | 
+	affiliateClickRequest := *openapiclient.NewAffiliateClickRequest() // AffiliateClickRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AffiliateAPI.PostAffiliateClick(context.Background()).ClickRequest(clickRequest).Execute()
+	resp, r, err := apiClient.AffiliateAPI.PostAffiliateClick(context.Background()).AffiliateClickRequest(affiliateClickRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AffiliateAPI.PostAffiliateClick``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAffiliateClick`: ClickCount
+	// response from `PostAffiliateClick`: AffiliateClickCount
 	fmt.Fprintf(os.Stdout, "Response from `AffiliateAPI.PostAffiliateClick`: %v\n", resp)
 }
 ```
@@ -500,11 +500,11 @@ Other parameters are passed through a pointer to a apiPostAffiliateClickRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clickRequest** | [**ClickRequest**](ClickRequest.md) |  | 
+ **affiliateClickRequest** | [**AffiliateClickRequest**](AffiliateClickRequest.md) |  | 
 
 ### Return type
 
-[**ClickCount**](ClickCount.md)
+[**AffiliateClickCount**](AffiliateClickCount.md)
 
 ### Authorization
 
@@ -513,7 +513,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -522,7 +522,7 @@ Name | Type | Description  | Notes
 
 ## PostAffiliateMeHandle
 
-> HandleSet PostAffiliateMeHandle(ctx).HandleRequest(handleRequest).Execute()
+> AffiliateHandleSet PostAffiliateMeHandle(ctx).AffiliateHandleRequest(affiliateHandleRequest).Execute()
 
 Sets the caller's public leaderboard display name, or clears it.
 
@@ -541,16 +541,16 @@ import (
 )
 
 func main() {
-	handleRequest := *openapiclient.NewHandleRequest() // HandleRequest | 
+	affiliateHandleRequest := *openapiclient.NewAffiliateHandleRequest() // AffiliateHandleRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AffiliateAPI.PostAffiliateMeHandle(context.Background()).HandleRequest(handleRequest).Execute()
+	resp, r, err := apiClient.AffiliateAPI.PostAffiliateMeHandle(context.Background()).AffiliateHandleRequest(affiliateHandleRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AffiliateAPI.PostAffiliateMeHandle``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAffiliateMeHandle`: HandleSet
+	// response from `PostAffiliateMeHandle`: AffiliateHandleSet
 	fmt.Fprintf(os.Stdout, "Response from `AffiliateAPI.PostAffiliateMeHandle`: %v\n", resp)
 }
 ```
@@ -566,11 +566,11 @@ Other parameters are passed through a pointer to a apiPostAffiliateMeHandleReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **handleRequest** | [**HandleRequest**](HandleRequest.md) |  | 
+ **affiliateHandleRequest** | [**AffiliateHandleRequest**](AffiliateHandleRequest.md) |  | 
 
 ### Return type
 
-[**HandleSet**](HandleSet.md)
+[**AffiliateHandleSet**](AffiliateHandleSet.md)
 
 ### Authorization
 
@@ -579,7 +579,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -588,7 +588,7 @@ Name | Type | Description  | Notes
 
 ## PostAffiliateMeLinks
 
-> LinkMint PostAffiliateMeLinks(ctx).CreateLinkRequest(createLinkRequest).Execute()
+> AffiliateLinkMint PostAffiliateMeLinks(ctx).AffiliateCreateLinkRequest(affiliateCreateLinkRequest).Execute()
 
 Mints a new share link for the caller's own affiliate and answers it with its full URL, 201.
 
@@ -607,16 +607,16 @@ import (
 )
 
 func main() {
-	createLinkRequest := *openapiclient.NewCreateLinkRequest() // CreateLinkRequest | 
+	affiliateCreateLinkRequest := *openapiclient.NewAffiliateCreateLinkRequest() // AffiliateCreateLinkRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AffiliateAPI.PostAffiliateMeLinks(context.Background()).CreateLinkRequest(createLinkRequest).Execute()
+	resp, r, err := apiClient.AffiliateAPI.PostAffiliateMeLinks(context.Background()).AffiliateCreateLinkRequest(affiliateCreateLinkRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AffiliateAPI.PostAffiliateMeLinks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAffiliateMeLinks`: LinkMint
+	// response from `PostAffiliateMeLinks`: AffiliateLinkMint
 	fmt.Fprintf(os.Stdout, "Response from `AffiliateAPI.PostAffiliateMeLinks`: %v\n", resp)
 }
 ```
@@ -632,11 +632,11 @@ Other parameters are passed through a pointer to a apiPostAffiliateMeLinksReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createLinkRequest** | [**CreateLinkRequest**](CreateLinkRequest.md) |  | 
+ **affiliateCreateLinkRequest** | [**AffiliateCreateLinkRequest**](AffiliateCreateLinkRequest.md) |  | 
 
 ### Return type
 
-[**LinkMint**](LinkMint.md)
+[**AffiliateLinkMint**](AffiliateLinkMint.md)
 
 ### Authorization
 
@@ -645,7 +645,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

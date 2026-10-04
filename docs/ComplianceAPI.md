@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**GetComplianceAccreditation**](ComplianceAPI.md#GetComplianceAccreditation) | **Get** /v1/compliance/accreditation | Returns the org&#39;s tracked accreditation-state records, newest first — evidence entries the org keeps, never a platform certification.
 [**GetComplianceAccreditationById**](ComplianceAPI.md#GetComplianceAccreditationById) | **Get** /v1/compliance/accreditation/{id} | Returns one tracked accreditation record.
 [**GetComplianceAudit**](ComplianceAPI.md#GetComplianceAudit) | **Get** /v1/compliance/audit | AuditRead is the compliance read of the SHARED tamper-evident audit plane — the SOC 2 posture surface (privileged actions: who started/decided what, when).
-[**GetComplianceHealth**](ComplianceAPI.md#GetComplianceHealth) | **Get** /v1/compliance/health | Health reports subsystem liveness and the wired verification provider.
+[**GetComplianceHealth**](ComplianceAPI.md#GetComplianceHealth) | **Get** /v1/compliance/health | Reports subsystem liveness and the wired verification provider.
 [**GetComplianceRecords**](ComplianceAPI.md#GetComplianceRecords) | **Get** /v1/compliance/records | ListRecords is the unified compliance-record view for the org: its verifications and accreditation records together, each provider-reported or tracked, never platform-asserted.
 [**GetComplianceStatus**](ComplianceAPI.md#GetComplianceStatus) | **Get** /v1/compliance/status | Status is the org&#39;s honest posture read: the wired provider and the per-status tally of its verifications.
 [**GetComplianceSubjects**](ComplianceAPI.md#GetComplianceSubjects) | **Get** /v1/compliance/subjects | Returns the org&#39;s subjects as PII-MINIMIZED summaries — no name or email, only whether an email is on file.
@@ -26,7 +26,7 @@ Method | HTTP request | Description
 
 ## GetComplianceAccreditation
 
-> AccList GetComplianceAccreditation(ctx).Limit(limit).Execute()
+> ComplianceAccList GetComplianceAccreditation(ctx).Limit(limit).Execute()
 
 Returns the org's tracked accreditation-state records, newest first — evidence entries the org keeps, never a platform certification.
 
@@ -54,7 +54,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.GetComplianceAccreditation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetComplianceAccreditation`: AccList
+	// response from `GetComplianceAccreditation`: ComplianceAccList
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.GetComplianceAccreditation`: %v\n", resp)
 }
 ```
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccList**](AccList.md)
+[**ComplianceAccList**](ComplianceAccList.md)
 
 ### Authorization
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 
 ## GetComplianceAccreditationById
 
-> AccView GetComplianceAccreditationById(ctx, id).Execute()
+> ComplianceAccView GetComplianceAccreditationById(ctx, id).Execute()
 
 Returns one tracked accreditation record.
 
@@ -120,7 +120,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.GetComplianceAccreditationById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetComplianceAccreditationById`: AccView
+	// response from `GetComplianceAccreditationById`: ComplianceAccView
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.GetComplianceAccreditationById`: %v\n", resp)
 }
 ```
@@ -144,7 +144,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccView**](AccView.md)
+[**ComplianceAccView**](ComplianceAccView.md)
 
 ### Authorization
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 
 ## GetComplianceAudit
 
-> AuditList GetComplianceAudit(ctx).Result(result).Execute()
+> ComplianceAuditList GetComplianceAudit(ctx).Result(result).Execute()
 
 AuditRead is the compliance read of the SHARED tamper-evident audit plane — the SOC 2 posture surface (privileged actions: who started/decided what, when).
 
@@ -190,7 +190,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.GetComplianceAudit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetComplianceAudit`: AuditList
+	// response from `GetComplianceAudit`: ComplianceAuditList
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.GetComplianceAudit`: %v\n", resp)
 }
 ```
@@ -210,7 +210,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuditList**](AuditList.md)
+[**ComplianceAuditList**](ComplianceAuditList.md)
 
 ### Authorization
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -228,9 +228,9 @@ Name | Type | Description  | Notes
 
 ## GetComplianceHealth
 
-> HealthView GetComplianceHealth(ctx).Execute()
+> ComplianceHealthView GetComplianceHealth(ctx).Execute()
 
-Health reports subsystem liveness and the wired verification provider.
+Reports subsystem liveness and the wired verification provider.
 
 
 
@@ -255,7 +255,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.GetComplianceHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetComplianceHealth`: HealthView
+	// response from `GetComplianceHealth`: ComplianceHealthView
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.GetComplianceHealth`: %v\n", resp)
 }
 ```
@@ -271,7 +271,7 @@ Other parameters are passed through a pointer to a apiGetComplianceHealthRequest
 
 ### Return type
 
-[**HealthView**](HealthView.md)
+[**ComplianceHealthView**](ComplianceHealthView.md)
 
 ### Authorization
 
@@ -280,7 +280,7 @@ Other parameters are passed through a pointer to a apiGetComplianceHealthRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -289,7 +289,7 @@ Other parameters are passed through a pointer to a apiGetComplianceHealthRequest
 
 ## GetComplianceRecords
 
-> RecordList GetComplianceRecords(ctx).Limit(limit).Execute()
+> ComplianceRecordList GetComplianceRecords(ctx).Limit(limit).Execute()
 
 ListRecords is the unified compliance-record view for the org: its verifications and accreditation records together, each provider-reported or tracked, never platform-asserted.
 
@@ -317,7 +317,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.GetComplianceRecords``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetComplianceRecords`: RecordList
+	// response from `GetComplianceRecords`: ComplianceRecordList
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.GetComplianceRecords`: %v\n", resp)
 }
 ```
@@ -337,7 +337,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RecordList**](RecordList.md)
+[**ComplianceRecordList**](ComplianceRecordList.md)
 
 ### Authorization
 
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -355,7 +355,7 @@ Name | Type | Description  | Notes
 
 ## GetComplianceStatus
 
-> StatusView GetComplianceStatus(ctx).Execute()
+> ComplianceStatusView GetComplianceStatus(ctx).Execute()
 
 Status is the org's honest posture read: the wired provider and the per-status tally of its verifications.
 
@@ -382,7 +382,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.GetComplianceStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetComplianceStatus`: StatusView
+	// response from `GetComplianceStatus`: ComplianceStatusView
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.GetComplianceStatus`: %v\n", resp)
 }
 ```
@@ -398,7 +398,7 @@ Other parameters are passed through a pointer to a apiGetComplianceStatusRequest
 
 ### Return type
 
-[**StatusView**](StatusView.md)
+[**ComplianceStatusView**](ComplianceStatusView.md)
 
 ### Authorization
 
@@ -407,7 +407,7 @@ Other parameters are passed through a pointer to a apiGetComplianceStatusRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -416,7 +416,7 @@ Other parameters are passed through a pointer to a apiGetComplianceStatusRequest
 
 ## GetComplianceSubjects
 
-> SubjectList GetComplianceSubjects(ctx).Limit(limit).Execute()
+> ComplianceSubjectList GetComplianceSubjects(ctx).Limit(limit).Execute()
 
 Returns the org's subjects as PII-MINIMIZED summaries — no name or email, only whether an email is on file.
 
@@ -444,7 +444,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.GetComplianceSubjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetComplianceSubjects`: SubjectList
+	// response from `GetComplianceSubjects`: ComplianceSubjectList
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.GetComplianceSubjects`: %v\n", resp)
 }
 ```
@@ -464,7 +464,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SubjectList**](SubjectList.md)
+[**ComplianceSubjectList**](ComplianceSubjectList.md)
 
 ### Authorization
 
@@ -473,7 +473,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -482,7 +482,7 @@ Name | Type | Description  | Notes
 
 ## GetComplianceSubjectsById
 
-> Subject GetComplianceSubjectsById(ctx, id).Execute()
+> ComplianceSubject GetComplianceSubjectsById(ctx, id).Execute()
 
 Returns one subject WITH its contact PII — the only surface that returns it, and only to the owning org.
 
@@ -510,7 +510,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.GetComplianceSubjectsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetComplianceSubjectsById`: Subject
+	// response from `GetComplianceSubjectsById`: ComplianceSubject
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.GetComplianceSubjectsById`: %v\n", resp)
 }
 ```
@@ -534,7 +534,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Subject**](Subject.md)
+[**ComplianceSubject**](ComplianceSubject.md)
 
 ### Authorization
 
@@ -543,7 +543,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -552,7 +552,7 @@ Name | Type | Description  | Notes
 
 ## GetComplianceVerifications
 
-> CheckList GetComplianceVerifications(ctx).Limit(limit).Execute()
+> ComplianceCheckList GetComplianceVerifications(ctx).Limit(limit).Execute()
 
 Returns the org's KYC/KYB verifications, newest first — opaque subject references and provider-reported statuses only, no subject PII.
 
@@ -580,7 +580,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.GetComplianceVerifications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetComplianceVerifications`: CheckList
+	// response from `GetComplianceVerifications`: ComplianceCheckList
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.GetComplianceVerifications`: %v\n", resp)
 }
 ```
@@ -600,7 +600,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CheckList**](CheckList.md)
+[**ComplianceCheckList**](ComplianceCheckList.md)
 
 ### Authorization
 
@@ -609,7 +609,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -618,7 +618,7 @@ Name | Type | Description  | Notes
 
 ## GetComplianceVerificationsById
 
-> CheckView GetComplianceVerificationsById(ctx, id).Execute()
+> ComplianceCheckView GetComplianceVerificationsById(ctx, id).Execute()
 
 Returns one verification — its opaque subject reference and provider-reported status, no subject PII.
 
@@ -646,7 +646,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.GetComplianceVerificationsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetComplianceVerificationsById`: CheckView
+	// response from `GetComplianceVerificationsById`: ComplianceCheckView
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.GetComplianceVerificationsById`: %v\n", resp)
 }
 ```
@@ -670,7 +670,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CheckView**](CheckView.md)
+[**ComplianceCheckView**](ComplianceCheckView.md)
 
 ### Authorization
 
@@ -679,7 +679,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -688,7 +688,7 @@ Name | Type | Description  | Notes
 
 ## PostComplianceAccreditation
 
-> AccView PostComplianceAccreditation(ctx).AccreditationReq(accreditationReq).Execute()
+> ComplianceAccView PostComplianceAccreditation(ctx).ComplianceAccreditationReq(complianceAccreditationReq).Execute()
 
 Records an ASSERTED accreditation state for a subject — the subject's own assertion, with no verifier.
 
@@ -707,16 +707,16 @@ import (
 )
 
 func main() {
-	accreditationReq := *openapiclient.NewAccreditationReq() // AccreditationReq | 
+	complianceAccreditationReq := *openapiclient.NewComplianceAccreditationReq() // ComplianceAccreditationReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComplianceAPI.PostComplianceAccreditation(context.Background()).AccreditationReq(accreditationReq).Execute()
+	resp, r, err := apiClient.ComplianceAPI.PostComplianceAccreditation(context.Background()).ComplianceAccreditationReq(complianceAccreditationReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.PostComplianceAccreditation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostComplianceAccreditation`: AccView
+	// response from `PostComplianceAccreditation`: ComplianceAccView
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.PostComplianceAccreditation`: %v\n", resp)
 }
 ```
@@ -732,11 +732,11 @@ Other parameters are passed through a pointer to a apiPostComplianceAccreditatio
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accreditationReq** | [**AccreditationReq**](AccreditationReq.md) |  | 
+ **complianceAccreditationReq** | [**ComplianceAccreditationReq**](ComplianceAccreditationReq.md) |  | 
 
 ### Return type
 
-[**AccView**](AccView.md)
+[**ComplianceAccView**](ComplianceAccView.md)
 
 ### Authorization
 
@@ -745,7 +745,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -754,7 +754,7 @@ Name | Type | Description  | Notes
 
 ## PostComplianceAccreditationByIdDecision
 
-> AccView PostComplianceAccreditationByIdDecision(ctx, id).AccreditationDecision(accreditationDecision).Execute()
+> ComplianceAccView PostComplianceAccreditationByIdDecision(ctx, id).ComplianceAccreditationDecision(complianceAccreditationDecision).Execute()
 
 Records an org reviewer's decision on an accreditation record — a reviewer confirmation, a provider verification the reviewer has evidence of (a CPA/attorney letter, a verifier report), a rejection, or an expiry.
 
@@ -774,16 +774,16 @@ import (
 
 func main() {
 	id := "acc_1" // string | ID is the accreditation record to decide, from the path.
-	accreditationDecision := *openapiclient.NewAccreditationDecision() // AccreditationDecision | 
+	complianceAccreditationDecision := *openapiclient.NewComplianceAccreditationDecision() // ComplianceAccreditationDecision | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComplianceAPI.PostComplianceAccreditationByIdDecision(context.Background(), id).AccreditationDecision(accreditationDecision).Execute()
+	resp, r, err := apiClient.ComplianceAPI.PostComplianceAccreditationByIdDecision(context.Background(), id).ComplianceAccreditationDecision(complianceAccreditationDecision).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.PostComplianceAccreditationByIdDecision``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostComplianceAccreditationByIdDecision`: AccView
+	// response from `PostComplianceAccreditationByIdDecision`: ComplianceAccView
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.PostComplianceAccreditationByIdDecision`: %v\n", resp)
 }
 ```
@@ -804,11 +804,11 @@ Other parameters are passed through a pointer to a apiPostComplianceAccreditatio
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **accreditationDecision** | [**AccreditationDecision**](AccreditationDecision.md) |  | 
+ **complianceAccreditationDecision** | [**ComplianceAccreditationDecision**](ComplianceAccreditationDecision.md) |  | 
 
 ### Return type
 
-[**AccView**](AccView.md)
+[**ComplianceAccView**](ComplianceAccView.md)
 
 ### Authorization
 
@@ -817,7 +817,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -826,7 +826,7 @@ Name | Type | Description  | Notes
 
 ## PostComplianceSubjects
 
-> Subject PostComplianceSubjects(ctx).SubjectReq(subjectReq).Execute()
+> ComplianceSubject PostComplianceSubjects(ctx).ComplianceSubjectReq(complianceSubjectReq).Execute()
 
 Records a party the org is verifying as part of its own onboarding/compliance — a team member, vendor, customer, or counterparty.
 
@@ -845,16 +845,16 @@ import (
 )
 
 func main() {
-	subjectReq := *openapiclient.NewSubjectReq() // SubjectReq | 
+	complianceSubjectReq := *openapiclient.NewComplianceSubjectReq() // ComplianceSubjectReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComplianceAPI.PostComplianceSubjects(context.Background()).SubjectReq(subjectReq).Execute()
+	resp, r, err := apiClient.ComplianceAPI.PostComplianceSubjects(context.Background()).ComplianceSubjectReq(complianceSubjectReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.PostComplianceSubjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostComplianceSubjects`: Subject
+	// response from `PostComplianceSubjects`: ComplianceSubject
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.PostComplianceSubjects`: %v\n", resp)
 }
 ```
@@ -870,11 +870,11 @@ Other parameters are passed through a pointer to a apiPostComplianceSubjectsRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **subjectReq** | [**SubjectReq**](SubjectReq.md) |  | 
+ **complianceSubjectReq** | [**ComplianceSubjectReq**](ComplianceSubjectReq.md) |  | 
 
 ### Return type
 
-[**Subject**](Subject.md)
+[**ComplianceSubject**](ComplianceSubject.md)
 
 ### Authorization
 
@@ -883,7 +883,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -892,7 +892,7 @@ Name | Type | Description  | Notes
 
 ## PostComplianceVerifications
 
-> CheckView PostComplianceVerifications(ctx).VerificationReq(verificationReq).Execute()
+> ComplianceCheckView PostComplianceVerifications(ctx).ComplianceVerificationReq(complianceVerificationReq).Execute()
 
 Begins a KYC/KYB verification of a subject through the wired provider — an existing subject by id, or one created inline from the request.
 
@@ -911,16 +911,16 @@ import (
 )
 
 func main() {
-	verificationReq := *openapiclient.NewVerificationReq() // VerificationReq | 
+	complianceVerificationReq := *openapiclient.NewComplianceVerificationReq() // ComplianceVerificationReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComplianceAPI.PostComplianceVerifications(context.Background()).VerificationReq(verificationReq).Execute()
+	resp, r, err := apiClient.ComplianceAPI.PostComplianceVerifications(context.Background()).ComplianceVerificationReq(complianceVerificationReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.PostComplianceVerifications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostComplianceVerifications`: CheckView
+	// response from `PostComplianceVerifications`: ComplianceCheckView
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.PostComplianceVerifications`: %v\n", resp)
 }
 ```
@@ -936,11 +936,11 @@ Other parameters are passed through a pointer to a apiPostComplianceVerification
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **verificationReq** | [**VerificationReq**](VerificationReq.md) |  | 
+ **complianceVerificationReq** | [**ComplianceVerificationReq**](ComplianceVerificationReq.md) |  | 
 
 ### Return type
 
-[**CheckView**](CheckView.md)
+[**ComplianceCheckView**](ComplianceCheckView.md)
 
 ### Authorization
 
@@ -949,7 +949,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -958,7 +958,7 @@ Name | Type | Description  | Notes
 
 ## PostComplianceVerificationsByIdDecision
 
-> CheckView PostComplianceVerificationsByIdDecision(ctx, id).VerificationDecision(verificationDecision).Execute()
+> ComplianceCheckView PostComplianceVerificationsByIdDecision(ctx, id).ComplianceVerificationDecision(complianceVerificationDecision).Execute()
 
 Records a privileged reviewer's MANUAL decision on a verification — the human-in-the-loop path, and the ONLY route to a passing status when no real provider is wired.
 
@@ -978,16 +978,16 @@ import (
 
 func main() {
 	id := "chk_1" // string | ID is the verification to decide, from the path.
-	verificationDecision := *openapiclient.NewVerificationDecision() // VerificationDecision | 
+	complianceVerificationDecision := *openapiclient.NewComplianceVerificationDecision() // ComplianceVerificationDecision | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComplianceAPI.PostComplianceVerificationsByIdDecision(context.Background(), id).VerificationDecision(verificationDecision).Execute()
+	resp, r, err := apiClient.ComplianceAPI.PostComplianceVerificationsByIdDecision(context.Background(), id).ComplianceVerificationDecision(complianceVerificationDecision).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.PostComplianceVerificationsByIdDecision``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostComplianceVerificationsByIdDecision`: CheckView
+	// response from `PostComplianceVerificationsByIdDecision`: ComplianceCheckView
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.PostComplianceVerificationsByIdDecision`: %v\n", resp)
 }
 ```
@@ -1008,11 +1008,11 @@ Other parameters are passed through a pointer to a apiPostComplianceVerification
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **verificationDecision** | [**VerificationDecision**](VerificationDecision.md) |  | 
+ **complianceVerificationDecision** | [**ComplianceVerificationDecision**](ComplianceVerificationDecision.md) |  | 
 
 ### Return type
 
-[**CheckView**](CheckView.md)
+[**ComplianceCheckView**](ComplianceCheckView.md)
 
 ### Authorization
 
@@ -1021,7 +1021,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1030,7 +1030,7 @@ Name | Type | Description  | Notes
 
 ## PostComplianceVerificationsByIdRefresh
 
-> CheckView PostComplianceVerificationsByIdRefresh(ctx, id).Execute()
+> ComplianceCheckView PostComplianceVerificationsByIdRefresh(ctx, id).Execute()
 
 Polls the wired provider for its current decision and records it, ATTRIBUTED to the provider — the internal PULL reconcile.
 
@@ -1058,7 +1058,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComplianceAPI.PostComplianceVerificationsByIdRefresh``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostComplianceVerificationsByIdRefresh`: CheckView
+	// response from `PostComplianceVerificationsByIdRefresh`: ComplianceCheckView
 	fmt.Fprintf(os.Stdout, "Response from `ComplianceAPI.PostComplianceVerificationsByIdRefresh`: %v\n", resp)
 }
 ```
@@ -1082,7 +1082,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CheckView**](CheckView.md)
+[**ComplianceCheckView**](ComplianceCheckView.md)
 
 ### Authorization
 
@@ -1091,7 +1091,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

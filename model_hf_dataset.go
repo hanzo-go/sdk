@@ -19,14 +19,17 @@ var _ MappedNullable = &HfDataset{}
 
 // HfDataset struct for HfDataset
 type HfDataset struct {
-	Downloads    *int32      `json:"downloads,omitempty"`
-	Gated        interface{} `json:"gated,omitempty"`
-	Id           *string     `json:"id,omitempty"`
-	LastModified *string     `json:"lastModified,omitempty"`
-	Likes        *int32      `json:"likes,omitempty"`
-	Private      *bool       `json:"private,omitempty"`
-	Tags         []string    `json:"tags,omitempty"`
+	Downloads            *int32      `json:"downloads,omitempty"`
+	Gated                interface{} `json:"gated,omitempty"`
+	Id                   *string     `json:"id,omitempty"`
+	LastModified         *string     `json:"lastModified,omitempty"`
+	Likes                *int32      `json:"likes,omitempty"`
+	Private              *bool       `json:"private,omitempty"`
+	Tags                 []string    `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _HfDataset HfDataset
 
 // NewHfDataset instantiates a new HfDataset object
 // This constructor will assign default values to properties that have it defined,
@@ -301,7 +304,39 @@ func (o HfDataset) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *HfDataset) UnmarshalJSON(data []byte) (err error) {
+	varHfDataset := _HfDataset{}
+
+	err = json.Unmarshal(data, &varHfDataset)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HfDataset(varHfDataset)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "downloads")
+		delete(additionalProperties, "gated")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "lastModified")
+		delete(additionalProperties, "likes")
+		delete(additionalProperties, "private")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableHfDataset struct {

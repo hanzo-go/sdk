@@ -19,18 +19,21 @@ var _ MappedNullable = &OpenaiAudioResponseSegmentsInner{}
 
 // OpenaiAudioResponseSegmentsInner struct for OpenaiAudioResponseSegmentsInner
 type OpenaiAudioResponseSegmentsInner struct {
-	AvgLogprob       *float32 `json:"avg_logprob,omitempty"`
-	CompressionRatio *float32 `json:"compression_ratio,omitempty"`
-	End              *float32 `json:"end,omitempty"`
-	Id               *int32   `json:"id,omitempty"`
-	NoSpeechProb     *float32 `json:"no_speech_prob,omitempty"`
-	Seek             *int32   `json:"seek,omitempty"`
-	Start            *float32 `json:"start,omitempty"`
-	Temperature      *float32 `json:"temperature,omitempty"`
-	Text             *string  `json:"text,omitempty"`
-	Tokens           []int32  `json:"tokens,omitempty"`
-	Transient        *bool    `json:"transient,omitempty"`
+	AvgLogprob           *float32 `json:"avg_logprob,omitempty"`
+	CompressionRatio     *float32 `json:"compression_ratio,omitempty"`
+	End                  *float32 `json:"end,omitempty"`
+	Id                   *int32   `json:"id,omitempty"`
+	NoSpeechProb         *float32 `json:"no_speech_prob,omitempty"`
+	Seek                 *int32   `json:"seek,omitempty"`
+	Start                *float32 `json:"start,omitempty"`
+	Temperature          *float32 `json:"temperature,omitempty"`
+	Text                 *string  `json:"text,omitempty"`
+	Tokens               []int32  `json:"tokens,omitempty"`
+	Transient            *bool    `json:"transient,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiAudioResponseSegmentsInner OpenaiAudioResponseSegmentsInner
 
 // NewOpenaiAudioResponseSegmentsInner instantiates a new OpenaiAudioResponseSegmentsInner object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o OpenaiAudioResponseSegmentsInner) ToMap() (map[string]interface{}, error
 	if !IsNil(o.Transient) {
 		toSerialize["transient"] = o.Transient
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiAudioResponseSegmentsInner) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiAudioResponseSegmentsInner := _OpenaiAudioResponseSegmentsInner{}
+
+	err = json.Unmarshal(data, &varOpenaiAudioResponseSegmentsInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiAudioResponseSegmentsInner(varOpenaiAudioResponseSegmentsInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "avg_logprob")
+		delete(additionalProperties, "compression_ratio")
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "no_speech_prob")
+		delete(additionalProperties, "seek")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "temperature")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "tokens")
+		delete(additionalProperties, "transient")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiAudioResponseSegmentsInner struct {

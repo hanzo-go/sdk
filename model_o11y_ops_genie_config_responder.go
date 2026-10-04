@@ -23,9 +23,12 @@ type O11yOpsGenieConfigResponder struct {
 	Id   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	// team, user, escalation, schedule etc.
-	Type     *string `json:"type,omitempty"`
-	Username *string `json:"username,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Username             *string `json:"username,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yOpsGenieConfigResponder O11yOpsGenieConfigResponder
 
 // NewO11yOpsGenieConfigResponder instantiates a new O11yOpsGenieConfigResponder object
 // This constructor will assign default values to properties that have it defined,
@@ -194,7 +197,36 @@ func (o O11yOpsGenieConfigResponder) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yOpsGenieConfigResponder) UnmarshalJSON(data []byte) (err error) {
+	varO11yOpsGenieConfigResponder := _O11yOpsGenieConfigResponder{}
+
+	err = json.Unmarshal(data, &varO11yOpsGenieConfigResponder)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yOpsGenieConfigResponder(varO11yOpsGenieConfigResponder)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yOpsGenieConfigResponder struct {

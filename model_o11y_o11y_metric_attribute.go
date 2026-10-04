@@ -24,8 +24,11 @@ type O11yO11yMetricAttribute struct {
 	// ValueCount is how many distinct values the attribute has.
 	ValueCount *int32 `json:"valueCount,omitempty"`
 	// Values are the attribute's distinct values.
-	Values []string `json:"values,omitempty"`
+	Values               []string `json:"values,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricAttribute O11yO11yMetricAttribute
 
 // NewO11yO11yMetricAttribute instantiates a new O11yO11yMetricAttribute object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yMetricAttribute) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Values) {
 		toSerialize["values"] = o.Values
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricAttribute) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricAttribute := _O11yO11yMetricAttribute{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricAttribute)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricAttribute(varO11yO11yMetricAttribute)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "valueCount")
+		delete(additionalProperties, "values")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricAttribute struct {

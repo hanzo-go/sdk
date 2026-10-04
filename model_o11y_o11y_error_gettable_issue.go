@@ -22,8 +22,11 @@ type O11yO11yErrorGettableIssue struct {
 	// Issue is the lifecycle row.
 	Issue *O11yO11yErrorIssue `json:"issue,omitempty"`
 	// LatestEvent is the most recent occurrence that landed on the issue.
-	LatestEvent *O11yO11yOccurrence `json:"latestEvent,omitempty"`
+	LatestEvent          *O11yO11yOccurrence `json:"latestEvent,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yErrorGettableIssue O11yO11yErrorGettableIssue
 
 // NewO11yO11yErrorGettableIssue instantiates a new O11yO11yErrorGettableIssue object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yErrorGettableIssue) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LatestEvent) {
 		toSerialize["latestEvent"] = o.LatestEvent
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yErrorGettableIssue) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yErrorGettableIssue := _O11yO11yErrorGettableIssue{}
+
+	err = json.Unmarshal(data, &varO11yO11yErrorGettableIssue)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yErrorGettableIssue(varO11yO11yErrorGettableIssue)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "issue")
+		delete(additionalProperties, "latestEvent")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yErrorGettableIssue struct {

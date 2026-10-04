@@ -27,7 +27,10 @@ type O11yChecks struct {
 	PresentRequiredAttributes    []O11yAttributesComponentEntry        `json:"presentRequiredAttributes,omitempty"`
 	Ready                        *bool                                 `json:"ready,omitempty"`
 	Type                         interface{}                           `json:"type,omitempty"`
+	AdditionalProperties         map[string]interface{}
 }
+
+type _O11yChecks O11yChecks
 
 // NewO11yChecks instantiates a new O11yChecks object
 // This constructor will assign default values to properties that have it defined,
@@ -337,7 +340,40 @@ func (o O11yChecks) ToMap() (map[string]interface{}, error) {
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yChecks) UnmarshalJSON(data []byte) (err error) {
+	varO11yChecks := _O11yChecks{}
+
+	err = json.Unmarshal(data, &varO11yChecks)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yChecks(varO11yChecks)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "missingDefaultEnabledMetrics")
+		delete(additionalProperties, "missingOptionalMetrics")
+		delete(additionalProperties, "missingRequiredAttributes")
+		delete(additionalProperties, "presentDefaultEnabledMetrics")
+		delete(additionalProperties, "presentOptionalMetrics")
+		delete(additionalProperties, "presentRequiredAttributes")
+		delete(additionalProperties, "ready")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yChecks struct {

@@ -19,30 +19,33 @@ var _ MappedNullable = &Connection{}
 
 // Connection struct for Connection
 type Connection struct {
-	ClientIp      *string  `json:"clientIp,omitempty"`
-	ClientIpDesc  *string  `json:"clientIpDesc,omitempty"`
-	Code          *int32   `json:"code,omitempty"`
-	CommandCount  *int32   `json:"commandCount,omitempty"`
-	ConnectionId  *string  `json:"connectionId,omitempty"`
-	CreatedTime   *string  `json:"createdTime,omitempty"`
-	Creator       *string  `json:"creator,omitempty"`
-	EndTime       *string  `json:"endTime,omitempty"`
-	Height        *int32   `json:"height,omitempty"`
-	Message       *string  `json:"message,omitempty"`
-	Mode          *string  `json:"mode,omitempty"`
-	Name          *string  `json:"name,omitempty"`
-	Node          *string  `json:"node,omitempty"`
-	Operations    []string `json:"operations,omitempty"`
-	Owner         *string  `json:"owner,omitempty"`
-	Protocol      *string  `json:"protocol,omitempty"`
-	Recording     *string  `json:"recording,omitempty"`
-	Reviewed      *bool    `json:"reviewed,omitempty"`
-	StartTime     *string  `json:"startTime,omitempty"`
-	Status        *string  `json:"status,omitempty"`
-	UserAgent     *string  `json:"userAgent,omitempty"`
-	UserAgentDesc *string  `json:"userAgentDesc,omitempty"`
-	Width         *int32   `json:"width,omitempty"`
+	ClientIp             *string  `json:"clientIp,omitempty"`
+	ClientIpDesc         *string  `json:"clientIpDesc,omitempty"`
+	Code                 *int32   `json:"code,omitempty"`
+	CommandCount         *int32   `json:"commandCount,omitempty"`
+	ConnectionId         *string  `json:"connectionId,omitempty"`
+	CreatedTime          *string  `json:"createdTime,omitempty"`
+	Creator              *string  `json:"creator,omitempty"`
+	EndTime              *string  `json:"endTime,omitempty"`
+	Height               *int32   `json:"height,omitempty"`
+	Message              *string  `json:"message,omitempty"`
+	Mode                 *string  `json:"mode,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	Node                 *string  `json:"node,omitempty"`
+	Operations           []string `json:"operations,omitempty"`
+	Owner                *string  `json:"owner,omitempty"`
+	Protocol             *string  `json:"protocol,omitempty"`
+	Recording            *string  `json:"recording,omitempty"`
+	Reviewed             *bool    `json:"reviewed,omitempty"`
+	StartTime            *string  `json:"startTime,omitempty"`
+	Status               *string  `json:"status,omitempty"`
+	UserAgent            *string  `json:"userAgent,omitempty"`
+	UserAgentDesc        *string  `json:"userAgentDesc,omitempty"`
+	Width                *int32   `json:"width,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Connection Connection
 
 // NewConnection instantiates a new Connection object
 // This constructor will assign default values to properties that have it defined,
@@ -876,7 +879,55 @@ func (o Connection) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Width) {
 		toSerialize["width"] = o.Width
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Connection) UnmarshalJSON(data []byte) (err error) {
+	varConnection := _Connection{}
+
+	err = json.Unmarshal(data, &varConnection)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Connection(varConnection)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "clientIp")
+		delete(additionalProperties, "clientIpDesc")
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "commandCount")
+		delete(additionalProperties, "connectionId")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "creator")
+		delete(additionalProperties, "endTime")
+		delete(additionalProperties, "height")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "mode")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "node")
+		delete(additionalProperties, "operations")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "protocol")
+		delete(additionalProperties, "recording")
+		delete(additionalProperties, "reviewed")
+		delete(additionalProperties, "startTime")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "userAgent")
+		delete(additionalProperties, "userAgentDesc")
+		delete(additionalProperties, "width")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableConnection struct {

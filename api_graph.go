@@ -21,29 +21,39 @@ import (
 // GraphAPIService GraphAPI service
 type GraphAPIService service
 
-type GraphAPIGraphAssertRequest struct {
-	ctx           context.Context
-	ApiService    *GraphAPIService
-	graphAssertIn *GraphAssertIn
+type GraphAPIGraphAnswerRequest struct {
+	ctx                context.Context
+	ApiService         *GraphAPIService
+	graphGraphAnswerIn *GraphGraphAnswerIn
 }
 
-func (r GraphAPIGraphAssertRequest) GraphAssertIn(graphAssertIn GraphAssertIn) GraphAPIGraphAssertRequest {
-	r.graphAssertIn = &graphAssertIn
+func (r GraphAPIGraphAnswerRequest) GraphGraphAnswerIn(graphGraphAnswerIn GraphGraphAnswerIn) GraphAPIGraphAnswerRequest {
+	r.graphGraphAnswerIn = &graphGraphAnswerIn
 	return r
 }
 
-func (r GraphAPIGraphAssertRequest) Execute() (*GraphAssertOut, *http.Response, error) {
-	return r.ApiService.GraphAssertExecute(r)
+func (r GraphAPIGraphAnswerRequest) Execute() (*GraphGraphAnswerOut, *http.Response, error) {
+	return r.ApiService.GraphAnswerExecute(r)
 }
 
 /*
-GraphAssert Assert what is true of an entity
+GraphAnswer Answers a question from the whole graph and cites the assertions it rests on.
+
+Answers a question from the whole graph and cites the assertions it
+rests on.
+
+It asks a model what each community's in-force facts say about the question,
+then asks once more for one answer from those findings. Every cited ID is
+checked to be a row of this graph, a failed model call fails the answer, and
+the calls are billed to the calling organization.
+
+Time: as_of and as_known place the graph that is read; either absent is now.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GraphAPIGraphAssertRequest
+	@return GraphAPIGraphAnswerRequest
 */
-func (a *GraphAPIService) GraphAssert(ctx context.Context) GraphAPIGraphAssertRequest {
-	return GraphAPIGraphAssertRequest{
+func (a *GraphAPIService) GraphAnswer(ctx context.Context) GraphAPIGraphAnswerRequest {
+	return GraphAPIGraphAnswerRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -51,27 +61,27 @@ func (a *GraphAPIService) GraphAssert(ctx context.Context) GraphAPIGraphAssertRe
 
 // Execute executes the request
 //
-//	@return GraphAssertOut
-func (a *GraphAPIService) GraphAssertExecute(r GraphAPIGraphAssertRequest) (*GraphAssertOut, *http.Response, error) {
+//	@return GraphGraphAnswerOut
+func (a *GraphAPIService) GraphAnswerExecute(r GraphAPIGraphAnswerRequest) (*GraphGraphAnswerOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GraphAssertOut
+		localVarReturnValue *GraphGraphAnswerOut
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphAssert")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphAnswer")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/graph"
+	localVarPath := localBasePath + "/v1/graph/answer"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.graphAssertIn == nil {
-		return localVarReturnValue, nil, reportError("graphAssertIn is required and must be specified")
+	if r.graphGraphAnswerIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphAnswerIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -84,7 +94,7 @@ func (a *GraphAPIService) GraphAssertExecute(r GraphAPIGraphAssertRequest) (*Gra
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -92,7 +102,7 @@ func (a *GraphAPIService) GraphAssertExecute(r GraphAPIGraphAssertRequest) (*Gra
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.graphAssertIn
+	localVarPostBody = r.graphGraphAnswerIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -115,6 +125,921 @@ func (a *GraphAPIService) GraphAssertExecute(r GraphAPIGraphAssertRequest) (*Gra
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GraphAPIGraphAssertRequest struct {
+	ctx                context.Context
+	ApiService         *GraphAPIService
+	graphGraphAssertIn *GraphGraphAssertIn
+}
+
+func (r GraphAPIGraphAssertRequest) GraphGraphAssertIn(graphGraphAssertIn GraphGraphAssertIn) GraphAPIGraphAssertRequest {
+	r.graphGraphAssertIn = &graphGraphAssertIn
+	return r
+}
+
+func (r GraphAPIGraphAssertRequest) Execute() (*GraphGraphAssertOut, *http.Response, error) {
+	return r.ApiService.GraphAssertExecute(r)
+}
+
+/*
+GraphAssert Records a batch of assertions and counts what became of each.
+
+Records a batch of assertions and counts what became of each.
+
+Each member is judged alone: one refusal does not discard the rest, and a
+member this plane already holds is a duplicate, not a refusal. A batch with
+nothing admitted answers 400.
+
+Time: at and until are when the statement was so, which an as_of read is
+bounded by; the server stamps knowable, the later of seen and its own clock,
+which an as_known read is bounded by. Nothing is overwritten: a correction is
+the statement filed again, and the version known latest speaks for it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGraphAssertRequest
+*/
+func (a *GraphAPIService) GraphAssert(ctx context.Context) GraphAPIGraphAssertRequest {
+	return GraphAPIGraphAssertRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GraphGraphAssertOut
+func (a *GraphAPIService) GraphAssertExecute(r GraphAPIGraphAssertRequest) (*GraphGraphAssertOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GraphGraphAssertOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphAssert")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.graphGraphAssertIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphAssertIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.graphGraphAssertIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GraphAPIGraphCommunitiesRequest struct {
+	ctx                     context.Context
+	ApiService              *GraphAPIService
+	graphGraphCommunitiesIn *GraphGraphCommunitiesIn
+}
+
+func (r GraphAPIGraphCommunitiesRequest) GraphGraphCommunitiesIn(graphGraphCommunitiesIn GraphGraphCommunitiesIn) GraphAPIGraphCommunitiesRequest {
+	r.graphGraphCommunitiesIn = &graphGraphCommunitiesIn
+	return r
+}
+
+func (r GraphAPIGraphCommunitiesRequest) Execute() (*GraphGraphCommunitiesOut, *http.Response, error) {
+	return r.ApiService.GraphCommunitiesExecute(r)
+}
+
+/*
+GraphCommunities Partitions the edge graph into sets of entities more densely connected to each other than to the rest.
+
+Partitions the edge graph into sets of entities more densely
+connected to each other than to the rest.
+
+The graph is the one a walk reads, direction dropped, and the partition is
+deterministic: the same graph at the same point numbers the same communities.
+
+Time: as_of and as_known place the graph that is partitioned; either absent is
+now.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGraphCommunitiesRequest
+*/
+func (a *GraphAPIService) GraphCommunities(ctx context.Context) GraphAPIGraphCommunitiesRequest {
+	return GraphAPIGraphCommunitiesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GraphGraphCommunitiesOut
+func (a *GraphAPIService) GraphCommunitiesExecute(r GraphAPIGraphCommunitiesRequest) (*GraphGraphCommunitiesOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GraphGraphCommunitiesOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphCommunities")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph/communities"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.graphGraphCommunitiesIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphCommunitiesIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.graphGraphCommunitiesIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GraphAPIGraphDeriveRequest struct {
+	ctx                context.Context
+	ApiService         *GraphAPIService
+	graphGraphDeriveIn *GraphGraphDeriveIn
+}
+
+func (r GraphAPIGraphDeriveRequest) GraphGraphDeriveIn(graphGraphDeriveIn GraphGraphDeriveIn) GraphAPIGraphDeriveRequest {
+	r.graphGraphDeriveIn = &graphGraphDeriveIn
+	return r
+}
+
+func (r GraphAPIGraphDeriveRequest) Execute() (*GraphGraphDeriveOut, *http.Response, error) {
+	return r.ApiService.GraphDeriveExecute(r)
+}
+
+/*
+GraphDerive Concludes what the organization's rules derive from the graph, with a proof for every conclusion: the rule, and each support as the assertion in force it rests on or as the derived atom it is.
+
+Concludes what the organization's rules derive from the graph, with a
+proof for every conclusion: the rule, and each support as the assertion in
+force it rests on or as the derived atom it is.
+
+The rules are assertions — (`rule:<name>`, `rule`, `<text>`), Datalog over
+the organization's relations, with recursion, stratified negation and the
+builtins = and != — and the graph is read the way resolve reads it, so a
+retraction, an until and a declared cardinality all apply. Nothing derived is
+stored unless an admin asks to file it. Without names assertions to derive
+without, and the answer then says what would be lost, and what gained, if
+they had never been filed.
+
+Time: as_of and as_known place the graph and the rules it is read with, as
+they place a resolve; either absent is now. Filing takes neither: a filed
+conclusion holds from the instant it was derived.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGraphDeriveRequest
+*/
+func (a *GraphAPIService) GraphDerive(ctx context.Context) GraphAPIGraphDeriveRequest {
+	return GraphAPIGraphDeriveRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GraphGraphDeriveOut
+func (a *GraphAPIService) GraphDeriveExecute(r GraphAPIGraphDeriveRequest) (*GraphGraphDeriveOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GraphGraphDeriveOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphDerive")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph/derive"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.graphGraphDeriveIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphDeriveIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.graphGraphDeriveIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GraphAPIGraphDiffRequest struct {
+	ctx              context.Context
+	ApiService       *GraphAPIService
+	graphGraphDiffIn *GraphGraphDiffIn
+}
+
+func (r GraphAPIGraphDiffRequest) GraphGraphDiffIn(graphGraphDiffIn GraphGraphDiffIn) GraphAPIGraphDiffRequest {
+	r.graphGraphDiffIn = &graphGraphDiffIn
+	return r
+}
+
+func (r GraphAPIGraphDiffRequest) Execute() (*GraphGraphDiffOut, *http.Response, error) {
+	return r.ApiService.GraphDiffExecute(r)
+}
+
+/*
+GraphDiff Reports what came into force, was superseded and was retracted between two points.
+
+Reports what came into force, was superseded and was retracted between
+two points.
+
+Each point is resolved as resolve would, never read off the rows in between.
+A version that loses the order is invisible here as it is there, and one that
+repeats what held is agreement, not change.
+
+Time: a point is an as_of and an as_known instant, from and from_known against
+to and to_known. Hold the known instants equal for what happened in the world;
+hold the valid instants equal for what the record learned. to and to_known
+default to now, from to to and from_known to to_known, and the two points must
+differ.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGraphDiffRequest
+*/
+func (a *GraphAPIService) GraphDiff(ctx context.Context) GraphAPIGraphDiffRequest {
+	return GraphAPIGraphDiffRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GraphGraphDiffOut
+func (a *GraphAPIService) GraphDiffExecute(r GraphAPIGraphDiffRequest) (*GraphGraphDiffOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GraphGraphDiffOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphDiff")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph/diff"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.graphGraphDiffIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphDiffIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.graphGraphDiffIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GraphAPIGraphEraseRequest struct {
+	ctx               context.Context
+	ApiService        *GraphAPIService
+	graphGraphEraseIn *GraphGraphEraseIn
+}
+
+func (r GraphAPIGraphEraseRequest) GraphGraphEraseIn(graphGraphEraseIn GraphGraphEraseIn) GraphAPIGraphEraseRequest {
+	r.graphGraphEraseIn = &graphGraphEraseIn
+	return r
+}
+
+func (r GraphAPIGraphEraseRequest) Execute() (*GraphGraphEraseOut, *http.Response, error) {
+	return r.ApiService.GraphEraseExecute(r)
+}
+
+/*
+GraphErase Removes every assertion that names an entity and returns a receipt.
+
+Removes every assertion that names an entity and returns a receipt.
+
+It requires an admin of the organization it acts in; platform sudo is not
+enough, so erasure is never cross-tenant. Nothing is removed while a matching
+assertion is under litigation hold (409) or where the erasure cannot be
+recorded (503). The audit trail keeps who, when, why, how many and the
+receipt's digest, never the entity, and holds it before the erasure commits.
+
+Time: erasure is the one act outside the two times. The rows go at every
+as_of and as_known, so no past read recovers them.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGraphEraseRequest
+*/
+func (a *GraphAPIService) GraphErase(ctx context.Context) GraphAPIGraphEraseRequest {
+	return GraphAPIGraphEraseRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GraphGraphEraseOut
+func (a *GraphAPIService) GraphEraseExecute(r GraphAPIGraphEraseRequest) (*GraphGraphEraseOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GraphGraphEraseOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphErase")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph/erase"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.graphGraphEraseIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphEraseIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.graphGraphEraseIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GraphAPIGraphExtractRequest struct {
+	ctx                context.Context
+	ApiService         *GraphAPIService
+	graphGraphSourceIn *GraphGraphSourceIn
+}
+
+func (r GraphAPIGraphExtractRequest) GraphGraphSourceIn(graphGraphSourceIn GraphGraphSourceIn) GraphAPIGraphExtractRequest {
+	r.graphGraphSourceIn = &graphGraphSourceIn
+	return r
+}
+
+func (r GraphAPIGraphExtractRequest) Execute() (*GraphGraphExtractOut, *http.Response, error) {
+	return r.ApiService.GraphExtractExecute(r)
+}
+
+/*
+GraphExtract Reads the relations a source states and returns them, recording nothing.
+
+Reads the relations a source states and returns them, recording
+nothing.
+
+A line `relation:: value` states one; a value written `[[key]]` names an
+entity and makes the relation an edge. The subject is the nearest heading
+above the line, or the request's subject until a heading names one.
+
+What filing would refuse is returned apart, in refused: a declaration from a
+caller who is not an admin of the organization, and what the declared schema
+refuses, checked against the store and against the types and declarations the
+document itself states that the caller may file.
+
+Time: it records nothing and takes no as_of or as_known; the schema is checked
+as of now.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGraphExtractRequest
+*/
+func (a *GraphAPIService) GraphExtract(ctx context.Context) GraphAPIGraphExtractRequest {
+	return GraphAPIGraphExtractRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GraphGraphExtractOut
+func (a *GraphAPIService) GraphExtractExecute(r GraphAPIGraphExtractRequest) (*GraphGraphExtractOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GraphGraphExtractOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphExtract")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph/extract"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.graphGraphSourceIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphSourceIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.graphGraphSourceIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GraphAPIGraphIngestRequest struct {
+	ctx                context.Context
+	ApiService         *GraphAPIService
+	graphGraphSourceIn *GraphGraphSourceIn
+}
+
+func (r GraphAPIGraphIngestRequest) GraphGraphSourceIn(graphGraphSourceIn GraphGraphSourceIn) GraphAPIGraphIngestRequest {
+	r.graphGraphSourceIn = &graphGraphSourceIn
+	return r
+}
+
+func (r GraphAPIGraphIngestRequest) Execute() (*GraphGraphAssertOut, *http.Response, error) {
+	return r.ApiService.GraphIngestExecute(r)
+}
+
+/*
+GraphIngest Reads a source and records what it states, through the same admission as assert.
+
+Reads a source and records what it states, through the same
+admission as assert.
+
+Each assertion's evidence is the section that stated it, `<source>#<section>`,
+so the same source at the same at records one set of rows however often it is
+delivered. What extract reports refused is not recorded; it is counted as
+refused, with its reason, in the order the document states it. A source
+stating no relation is refused whole.
+
+Time: at is the valid time of every assertion recorded, which an as_of read is
+bounded by; each becomes knowable at the write, so a read with an earlier
+as_known does not see it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGraphIngestRequest
+*/
+func (a *GraphAPIService) GraphIngest(ctx context.Context) GraphAPIGraphIngestRequest {
+	return GraphAPIGraphIngestRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GraphGraphAssertOut
+func (a *GraphAPIService) GraphIngestExecute(r GraphAPIGraphIngestRequest) (*GraphGraphAssertOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GraphGraphAssertOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphIngest")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph/ingest"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.graphGraphSourceIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphSourceIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.graphGraphSourceIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -131,22 +1056,31 @@ func (a *GraphAPIService) GraphAssertExecute(r GraphAPIGraphAssertRequest) (*Gra
 }
 
 type GraphAPIGraphNeighborsRequest struct {
-	ctx              context.Context
-	ApiService       *GraphAPIService
-	graphNeighborsIn *GraphNeighborsIn
+	ctx                   context.Context
+	ApiService            *GraphAPIService
+	graphGraphNeighborsIn *GraphGraphNeighborsIn
 }
 
-func (r GraphAPIGraphNeighborsRequest) GraphNeighborsIn(graphNeighborsIn GraphNeighborsIn) GraphAPIGraphNeighborsRequest {
-	r.graphNeighborsIn = &graphNeighborsIn
+func (r GraphAPIGraphNeighborsRequest) GraphGraphNeighborsIn(graphGraphNeighborsIn GraphGraphNeighborsIn) GraphAPIGraphNeighborsRequest {
+	r.graphGraphNeighborsIn = &graphGraphNeighborsIn
 	return r
 }
 
-func (r GraphAPIGraphNeighborsRequest) Execute() (*GraphNeighborsOut, *http.Response, error) {
+func (r GraphAPIGraphNeighborsRequest) Execute() (*GraphGraphNeighborsOut, *http.Response, error) {
 	return r.ApiService.GraphNeighborsExecute(r)
 }
 
 /*
-GraphNeighbors Walk the edges from a seed set, bounded
+GraphNeighbors Walks the in-force edges from a set of seeds and lists every entity reached, bounded.
+
+Walks the in-force edges from a set of seeds and lists every
+entity reached, bounded.
+
+Only the edge that holds at the point is a hop: a superseded or retracted
+edge is not, and neither is a property.
+
+Time: as_of walks the graph as it stood at that instant and as_known as this
+plane knew it then; either absent is now.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return GraphAPIGraphNeighborsRequest
@@ -160,13 +1094,13 @@ func (a *GraphAPIService) GraphNeighbors(ctx context.Context) GraphAPIGraphNeigh
 
 // Execute executes the request
 //
-//	@return GraphNeighborsOut
-func (a *GraphAPIService) GraphNeighborsExecute(r GraphAPIGraphNeighborsRequest) (*GraphNeighborsOut, *http.Response, error) {
+//	@return GraphGraphNeighborsOut
+func (a *GraphAPIService) GraphNeighborsExecute(r GraphAPIGraphNeighborsRequest) (*GraphGraphNeighborsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GraphNeighborsOut
+		localVarReturnValue *GraphGraphNeighborsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphNeighbors")
@@ -179,8 +1113,8 @@ func (a *GraphAPIService) GraphNeighborsExecute(r GraphAPIGraphNeighborsRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.graphNeighborsIn == nil {
-		return localVarReturnValue, nil, reportError("graphNeighborsIn is required and must be specified")
+	if r.graphGraphNeighborsIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphNeighborsIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -193,7 +1127,7 @@ func (a *GraphAPIService) GraphNeighborsExecute(r GraphAPIGraphNeighborsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -201,7 +1135,7 @@ func (a *GraphAPIService) GraphNeighborsExecute(r GraphAPIGraphNeighborsRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.graphNeighborsIn
+	localVarPostBody = r.graphGraphNeighborsIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -224,6 +1158,140 @@ func (a *GraphAPIService) GraphNeighborsExecute(r GraphAPIGraphNeighborsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GraphAPIGraphPathRequest struct {
+	ctx              context.Context
+	ApiService       *GraphAPIService
+	graphGraphPathIn *GraphGraphPathIn
+}
+
+func (r GraphAPIGraphPathRequest) GraphGraphPathIn(graphGraphPathIn GraphGraphPathIn) GraphAPIGraphPathRequest {
+	r.graphGraphPathIn = &graphGraphPathIn
+	return r
+}
+
+func (r GraphAPIGraphPathRequest) Execute() (*GraphGraphPathOut, *http.Response, error) {
+	return r.ApiService.GraphPathExecute(r)
+}
+
+/*
+GraphPath Finds the shortest chain of in-force edges from one entity to another.
+
+Finds the shortest chain of in-force edges from one entity to another.
+
+It is the walk behind neighbors stopped at a goal: the same bound and the same
+rule for which edge is in force. A causal chain is this op with relations
+naming the relations that mean cause, such as caused_by and influenced.
+
+Time: as_of and as_known place the graph the path is found in; either absent
+is now.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GraphAPIGraphPathRequest
+*/
+func (a *GraphAPIService) GraphPath(ctx context.Context) GraphAPIGraphPathRequest {
+	return GraphAPIGraphPathRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GraphGraphPathOut
+func (a *GraphAPIService) GraphPathExecute(r GraphAPIGraphPathRequest) (*GraphGraphPathOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GraphGraphPathOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphPath")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/graph/path"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.graphGraphPathIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphPathIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.graphGraphPathIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -246,6 +1314,7 @@ type GraphAPIGraphReadRequest struct {
 	relation   *string
 	value      *string
 	asOf       *string
+	asKnown    *string
 	limit      *int64
 }
 
@@ -261,15 +1330,21 @@ func (r GraphAPIGraphReadRequest) Relation(relation string) GraphAPIGraphReadReq
 	return r
 }
 
-// Value narrows to assertions pointing AT one value, which is how the edges into an entity are read.
+// Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. A property&#39;s scalar is matched byte for byte and an edge&#39;s value by its key, folded as every key is.
 func (r GraphAPIGraphReadRequest) Value(value string) GraphAPIGraphReadRequest {
 	r.value = &value
 	return r
 }
 
-// AsOf bounds the read to what was knowable at an instant, RFC 3339. Absent reads everything this plane holds.
+// AsOf bounds the read to statements begun by an instant of the world, RFC 3339. Absent reads every instant.
 func (r GraphAPIGraphReadRequest) AsOf(asOf string) GraphAPIGraphReadRequest {
 	r.asOf = &asOf
+	return r
+}
+
+// AsKnown bounds the read to what this plane had heard by an instant, RFC 3339. Absent reads everything it holds.
+func (r GraphAPIGraphReadRequest) AsKnown(asKnown string) GraphAPIGraphReadRequest {
+	r.asKnown = &asKnown
 	return r
 }
 
@@ -279,12 +1354,20 @@ func (r GraphAPIGraphReadRequest) Limit(limit int64) GraphAPIGraphReadRequest {
 	return r
 }
 
-func (r GraphAPIGraphReadRequest) Execute() (*GraphReadOut, *http.Response, error) {
+func (r GraphAPIGraphReadRequest) Execute() (*GraphGraphReadOut, *http.Response, error) {
 	return r.ApiService.GraphReadExecute(r)
 }
 
 /*
-GraphRead Read the assertions this organization has recorded
+GraphRead Lists the assertions recorded, every version, oldest first.
+
+Lists the assertions recorded, every version, oldest first.
+
+It resolves nothing: a superseded claim and the one that superseded it both
+appear.
+
+Time: as_of keeps statements begun by that instant of the world and as_known
+keeps what this plane had heard by then; either absent is no bound.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return GraphAPIGraphReadRequest
@@ -298,13 +1381,13 @@ func (a *GraphAPIService) GraphRead(ctx context.Context) GraphAPIGraphReadReques
 
 // Execute executes the request
 //
-//	@return GraphReadOut
-func (a *GraphAPIService) GraphReadExecute(r GraphAPIGraphReadRequest) (*GraphReadOut, *http.Response, error) {
+//	@return GraphGraphReadOut
+func (a *GraphAPIService) GraphReadExecute(r GraphAPIGraphReadRequest) (*GraphGraphReadOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GraphReadOut
+		localVarReturnValue *GraphGraphReadOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphRead")
@@ -330,6 +1413,9 @@ func (a *GraphAPIService) GraphReadExecute(r GraphAPIGraphReadRequest) (*GraphRe
 	if r.asOf != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "as_of", r.asOf, "form", "")
 	}
+	if r.asKnown != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "as_known", r.asKnown, "form", "")
+	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
@@ -343,7 +1429,7 @@ func (a *GraphAPIService) GraphReadExecute(r GraphAPIGraphReadRequest) (*GraphRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -372,6 +1458,14 @@ func (a *GraphAPIService) GraphReadExecute(r GraphAPIGraphReadRequest) (*GraphRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -388,22 +1482,32 @@ func (a *GraphAPIService) GraphReadExecute(r GraphAPIGraphReadRequest) (*GraphRe
 }
 
 type GraphAPIGraphResolveRequest struct {
-	ctx            context.Context
-	ApiService     *GraphAPIService
-	graphResolveIn *GraphResolveIn
+	ctx                 context.Context
+	ApiService          *GraphAPIService
+	graphGraphResolveIn *GraphGraphResolveIn
 }
 
-func (r GraphAPIGraphResolveRequest) GraphResolveIn(graphResolveIn GraphResolveIn) GraphAPIGraphResolveRequest {
-	r.graphResolveIn = &graphResolveIn
+func (r GraphAPIGraphResolveRequest) GraphGraphResolveIn(graphGraphResolveIn GraphGraphResolveIn) GraphAPIGraphResolveRequest {
+	r.graphGraphResolveIn = &graphGraphResolveIn
 	return r
 }
 
-func (r GraphAPIGraphResolveRequest) Execute() (*GraphResolveOut, *http.Response, error) {
+func (r GraphAPIGraphResolveRequest) Execute() (*GraphGraphResolveOut, *http.Response, error) {
 	return r.ApiService.GraphResolveExecute(r)
 }
 
 /*
-GraphResolve What is in force about an entity as of an instant, and what disagreed
+GraphResolve Answers what holds for one entity and relation at a point, winner first, with every weaker account that disagreed.
+
+Answers what holds for one entity and relation at a point, winner
+first, with every weaker account that disagreed.
+
+The winner is the holding statement begun most recently, then the strongest
+under the rule vocabulary names. A relation that holds many values answers
+each; a disagreement is reported as contested, never resolved into silence.
+
+Time: as_of is the instant of the world asked about and as_known how much this
+plane had heard; either absent is now.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return GraphAPIGraphResolveRequest
@@ -417,13 +1521,13 @@ func (a *GraphAPIService) GraphResolve(ctx context.Context) GraphAPIGraphResolve
 
 // Execute executes the request
 //
-//	@return GraphResolveOut
-func (a *GraphAPIService) GraphResolveExecute(r GraphAPIGraphResolveRequest) (*GraphResolveOut, *http.Response, error) {
+//	@return GraphGraphResolveOut
+func (a *GraphAPIService) GraphResolveExecute(r GraphAPIGraphResolveRequest) (*GraphGraphResolveOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GraphResolveOut
+		localVarReturnValue *GraphGraphResolveOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphResolve")
@@ -436,8 +1540,8 @@ func (a *GraphAPIService) GraphResolveExecute(r GraphAPIGraphResolveRequest) (*G
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.graphResolveIn == nil {
-		return localVarReturnValue, nil, reportError("graphResolveIn is required and must be specified")
+	if r.graphGraphResolveIn == nil {
+		return localVarReturnValue, nil, reportError("graphGraphResolveIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -450,7 +1554,7 @@ func (a *GraphAPIService) GraphResolveExecute(r GraphAPIGraphResolveRequest) (*G
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -458,7 +1562,7 @@ func (a *GraphAPIService) GraphResolveExecute(r GraphAPIGraphResolveRequest) (*G
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.graphResolveIn
+	localVarPostBody = r.graphGraphResolveIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -481,6 +1585,14 @@ func (a *GraphAPIService) GraphResolveExecute(r GraphAPIGraphResolveRequest) (*G
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -502,6 +1614,7 @@ type GraphAPIGraphSearchRequest struct {
 	q          *string
 	relation   *string
 	asOf       *string
+	asKnown    *string
 	limit      *int64
 }
 
@@ -517,9 +1630,15 @@ func (r GraphAPIGraphSearchRequest) Relation(relation string) GraphAPIGraphSearc
 	return r
 }
 
-// AsOf bounds the search to what was knowable at an instant, RFC 3339. Absent searches everything this plane holds.
+// AsOf bounds the search to statements begun by an instant of the world, RFC 3339. Absent searches every instant.
 func (r GraphAPIGraphSearchRequest) AsOf(asOf string) GraphAPIGraphSearchRequest {
 	r.asOf = &asOf
+	return r
+}
+
+// AsKnown bounds the search to what this plane had heard by an instant, RFC 3339. Absent searches everything it holds.
+func (r GraphAPIGraphSearchRequest) AsKnown(asKnown string) GraphAPIGraphSearchRequest {
+	r.asKnown = &asKnown
 	return r
 }
 
@@ -529,22 +1648,23 @@ func (r GraphAPIGraphSearchRequest) Limit(limit int64) GraphAPIGraphSearchReques
 	return r
 }
 
-func (r GraphAPIGraphSearchRequest) Execute() (*GraphReadOut, *http.Response, error) {
+func (r GraphAPIGraphSearchRequest) Execute() (*GraphGraphReadOut, *http.Response, error) {
 	return r.ApiService.GraphSearchExecute(r)
 }
 
 /*
-GraphSearch Find assertions by their text rather than by an entity key
+GraphSearch Finds assertions by their words, where read finds them by their keys, best match first.
 
-Finds assertions by their text where read finds them by their keys.
+Finds assertions by their words, where read finds them by their keys,
+best match first.
 
-It is the READ with one more term, not a second way to leave the store: same
-order, same ceiling, same tenancy, and searching composes with narrowing by
-relation and by instant because all of them are terms of one filter.
+Every word must match, as a prefix. The answer is ordered by bm25, which
+weighs a word by how rare it is and a row by how much of it the words are, so
+a limit keeps the best matches rather than the oldest. It resolves nothing, so
+a match may be a claim later corrected; ask resolve about what it finds.
 
-It resolves nothing. What matches is what was asserted, including claims that
-were later corrected — which is the honest answer to "where is this mentioned"
-and the reason the caller then asks resolve about what it found.
+Time: as_of and as_known bound it exactly as they bound read; either absent is
+no bound.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return GraphAPIGraphSearchRequest
@@ -558,13 +1678,13 @@ func (a *GraphAPIService) GraphSearch(ctx context.Context) GraphAPIGraphSearchRe
 
 // Execute executes the request
 //
-//	@return GraphReadOut
-func (a *GraphAPIService) GraphSearchExecute(r GraphAPIGraphSearchRequest) (*GraphReadOut, *http.Response, error) {
+//	@return GraphGraphReadOut
+func (a *GraphAPIService) GraphSearchExecute(r GraphAPIGraphSearchRequest) (*GraphGraphReadOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GraphReadOut
+		localVarReturnValue *GraphGraphReadOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphSearch")
@@ -577,15 +1697,19 @@ func (a *GraphAPIService) GraphSearchExecute(r GraphAPIGraphSearchRequest) (*Gra
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	if r.q == nil {
+		return localVarReturnValue, nil, reportError("q is required and must be specified")
 	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	if r.relation != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "relation", r.relation, "form", "")
 	}
 	if r.asOf != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "as_of", r.asOf, "form", "")
+	}
+	if r.asKnown != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "as_known", r.asKnown, "form", "")
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
@@ -600,7 +1724,7 @@ func (a *GraphAPIService) GraphSearchExecute(r GraphAPIGraphSearchRequest) (*Gra
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -629,6 +1753,14 @@ func (a *GraphAPIService) GraphSearchExecute(r GraphAPIGraphSearchRequest) (*Gra
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -649,12 +1781,17 @@ type GraphAPIGraphVocabularyRequest struct {
 	ApiService *GraphAPIService
 }
 
-func (r GraphAPIGraphVocabularyRequest) Execute() (*GraphVocabularyOut, *http.Response, error) {
+func (r GraphAPIGraphVocabularyRequest) Execute() (*GraphGraphVocabularyOut, *http.Response, error) {
 	return r.ApiService.GraphVocabularyExecute(r)
 }
 
 /*
-GraphVocabulary The relations in use, and the rule that resolves a conflict
+GraphVocabulary Lists the relations in use, the schema declared for them and the rule that settles a conflict.
+
+Lists the relations in use, the schema declared for them and the
+rule that settles a conflict.
+
+Time: it takes no as_of or as_known; the schema is the one in force now.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return GraphAPIGraphVocabularyRequest
@@ -668,13 +1805,13 @@ func (a *GraphAPIService) GraphVocabulary(ctx context.Context) GraphAPIGraphVoca
 
 // Execute executes the request
 //
-//	@return GraphVocabularyOut
-func (a *GraphAPIService) GraphVocabularyExecute(r GraphAPIGraphVocabularyRequest) (*GraphVocabularyOut, *http.Response, error) {
+//	@return GraphGraphVocabularyOut
+func (a *GraphAPIService) GraphVocabularyExecute(r GraphAPIGraphVocabularyRequest) (*GraphGraphVocabularyOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GraphVocabularyOut
+		localVarReturnValue *GraphGraphVocabularyOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GraphAPIService.GraphVocabulary")
@@ -698,7 +1835,7 @@ func (a *GraphAPIService) GraphVocabularyExecute(r GraphAPIGraphVocabularyReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -727,6 +1864,14 @@ func (a *GraphAPIService) GraphVocabularyExecute(r GraphAPIGraphVocabularyReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

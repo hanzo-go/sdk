@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## GetSecurityFindings
 
-> FindingList GetSecurityFindings(ctx).ScanId(scanId).MinSeverity(minSeverity).Limit(limit).Execute()
+> SecurityFindingList GetSecurityFindings(ctx).ScanId(scanId).MinSeverity(minSeverity).Limit(limit).Execute()
 
 Is the org's findings — rule, severity, path, line, masked preview and fingerprint — newest first, across scans or within one.
 
@@ -46,7 +46,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SecurityAPI.GetSecurityFindings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSecurityFindings`: FindingList
+	// response from `GetSecurityFindings`: SecurityFindingList
 	fmt.Fprintf(os.Stdout, "Response from `SecurityAPI.GetSecurityFindings`: %v\n", resp)
 }
 ```
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FindingList**](FindingList.md)
+[**SecurityFindingList**](SecurityFindingList.md)
 
 ### Authorization
 
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## GetSecurityFindingsById
 
-> FindingView GetSecurityFindingsById(ctx, id).Execute()
+> SecurityFindingView GetSecurityFindingsById(ctx, id).Execute()
 
 Returns a single finding: which rule fired, where (path and line), the masked preview and the SHA-256 fingerprint of the secret — the raw secret is not stored and cannot be read back.
 
@@ -114,7 +114,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SecurityAPI.GetSecurityFindingsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSecurityFindingsById`: FindingView
+	// response from `GetSecurityFindingsById`: SecurityFindingView
 	fmt.Fprintf(os.Stdout, "Response from `SecurityAPI.GetSecurityFindingsById`: %v\n", resp)
 }
 ```
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FindingView**](FindingView.md)
+[**SecurityFindingView**](SecurityFindingView.md)
 
 ### Authorization
 
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 
 ## GetSecurityHealth
 
-> Ruleset GetSecurityHealth(ctx).Execute()
+> SecurityRuleset GetSecurityHealth(ctx).Execute()
 
 Reports that the scanning subsystem is serving and how many secret-detection rules the engine holds.
 
@@ -183,7 +183,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SecurityAPI.GetSecurityHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSecurityHealth`: Ruleset
+	// response from `GetSecurityHealth`: SecurityRuleset
 	fmt.Fprintf(os.Stdout, "Response from `SecurityAPI.GetSecurityHealth`: %v\n", resp)
 }
 ```
@@ -199,7 +199,7 @@ Other parameters are passed through a pointer to a apiGetSecurityHealthRequest s
 
 ### Return type
 
-[**Ruleset**](Ruleset.md)
+[**SecurityRuleset**](SecurityRuleset.md)
 
 ### Authorization
 
@@ -208,7 +208,7 @@ Other parameters are passed through a pointer to a apiGetSecurityHealthRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -217,7 +217,7 @@ Other parameters are passed through a pointer to a apiGetSecurityHealthRequest s
 
 ## GetSecurityRules
 
-> RuleList GetSecurityRules(ctx).Execute()
+> SecurityRuleList GetSecurityRules(ctx).Execute()
 
 Is the secret-detection catalog the engine scans with.
 
@@ -244,7 +244,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SecurityAPI.GetSecurityRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSecurityRules`: RuleList
+	// response from `GetSecurityRules`: SecurityRuleList
 	fmt.Fprintf(os.Stdout, "Response from `SecurityAPI.GetSecurityRules`: %v\n", resp)
 }
 ```
@@ -260,7 +260,7 @@ Other parameters are passed through a pointer to a apiGetSecurityRulesRequest st
 
 ### Return type
 
-[**RuleList**](RuleList.md)
+[**SecurityRuleList**](SecurityRuleList.md)
 
 ### Authorization
 
@@ -269,7 +269,7 @@ Other parameters are passed through a pointer to a apiGetSecurityRulesRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -278,7 +278,7 @@ Other parameters are passed through a pointer to a apiGetSecurityRulesRequest st
 
 ## GetSecurityScans
 
-> ScanList GetSecurityScans(ctx).Limit(limit).Execute()
+> SecurityScanList GetSecurityScans(ctx).Limit(limit).Execute()
 
 Is the org's scan history, newest first, each as the same summary the submission answered — files read, findings fired, tally by severity.
 
@@ -306,7 +306,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SecurityAPI.GetSecurityScans``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSecurityScans`: ScanList
+	// response from `GetSecurityScans`: SecurityScanList
 	fmt.Fprintf(os.Stdout, "Response from `SecurityAPI.GetSecurityScans`: %v\n", resp)
 }
 ```
@@ -326,7 +326,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ScanList**](ScanList.md)
+[**SecurityScanList**](SecurityScanList.md)
 
 ### Authorization
 
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -344,7 +344,7 @@ Name | Type | Description  | Notes
 
 ## GetSecurityScansById
 
-> ScanDetail GetSecurityScansById(ctx, id).Execute()
+> SecurityScanDetail GetSecurityScansById(ctx, id).Execute()
 
 Returns one scan together with every finding on it, so the detail view is one round-trip rather than a list call per scan.
 
@@ -372,7 +372,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SecurityAPI.GetSecurityScansById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSecurityScansById`: ScanDetail
+	// response from `GetSecurityScansById`: SecurityScanDetail
 	fmt.Fprintf(os.Stdout, "Response from `SecurityAPI.GetSecurityScansById`: %v\n", resp)
 }
 ```
@@ -396,7 +396,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ScanDetail**](ScanDetail.md)
+[**SecurityScanDetail**](SecurityScanDetail.md)
 
 ### Authorization
 
@@ -405,7 +405,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -414,7 +414,7 @@ Name | Type | Description  | Notes
 
 ## PostSecurityScans
 
-> ScanView PostSecurityScans(ctx).SubmitReq(submitReq).Execute()
+> SecurityScanView PostSecurityScans(ctx).SecuritySubmitReq(securitySubmitReq).Execute()
 
 Runs the detection engine over a batch of files and answers 201 with the scan summary: how many files were read, how many findings fired, and the tally by severity.
 
@@ -433,16 +433,16 @@ import (
 )
 
 func main() {
-	submitReq := *openapiclient.NewSubmitReq([]openapiclient.Scan{*openapiclient.NewScan()}) // SubmitReq | 
+	securitySubmitReq := *openapiclient.NewSecuritySubmitReq([]openapiclient.SecurityScan{*openapiclient.NewSecurityScan()}) // SecuritySubmitReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SecurityAPI.PostSecurityScans(context.Background()).SubmitReq(submitReq).Execute()
+	resp, r, err := apiClient.SecurityAPI.PostSecurityScans(context.Background()).SecuritySubmitReq(securitySubmitReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SecurityAPI.PostSecurityScans``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostSecurityScans`: ScanView
+	// response from `PostSecurityScans`: SecurityScanView
 	fmt.Fprintf(os.Stdout, "Response from `SecurityAPI.PostSecurityScans`: %v\n", resp)
 }
 ```
@@ -458,11 +458,11 @@ Other parameters are passed through a pointer to a apiPostSecurityScansRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **submitReq** | [**SubmitReq**](SubmitReq.md) |  | 
+ **securitySubmitReq** | [**SecuritySubmitReq**](SecuritySubmitReq.md) |  | 
 
 ### Return type
 
-[**ScanView**](ScanView.md)
+[**SecurityScanView**](SecurityScanView.md)
 
 ### Authorization
 
@@ -471,7 +471,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

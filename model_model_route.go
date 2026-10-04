@@ -38,7 +38,10 @@ type ModelRoute struct {
 	Provider              *string  `json:"provider,omitempty"`
 	UpdatedTime           *string  `json:"updatedTime,omitempty"`
 	Upstream              *string  `json:"upstream,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
+
+type _ModelRoute ModelRoute
 
 // NewModelRoute instantiates a new ModelRoute object
 // This constructor will assign default values to properties that have it defined,
@@ -732,7 +735,51 @@ func (o ModelRoute) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Upstream) {
 		toSerialize["upstream"] = o.Upstream
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ModelRoute) UnmarshalJSON(data []byte) (err error) {
+	varModelRoute := _ModelRoute{}
+
+	err = json.Unmarshal(data, &varModelRoute)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ModelRoute(varModelRoute)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "costInPerMillion")
+		delete(additionalProperties, "costOutPerMillion")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "fallback1Provider")
+		delete(additionalProperties, "fallback1Upstream")
+		delete(additionalProperties, "fallback2Provider")
+		delete(additionalProperties, "fallback2Upstream")
+		delete(additionalProperties, "hidden")
+		delete(additionalProperties, "inputPricePerMillion")
+		delete(additionalProperties, "modelName")
+		delete(additionalProperties, "outputPricePerMillion")
+		delete(additionalProperties, "ownedBy")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "premium")
+		delete(additionalProperties, "priced")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "updatedTime")
+		delete(additionalProperties, "upstream")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableModelRoute struct {

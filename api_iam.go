@@ -92,7 +92,7 @@ func (a *IamAPIService) AddProviderExecute(r IamAPIAddProviderRequest) (*IamProv
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -123,6 +123,14 @@ func (a *IamAPIService) AddProviderExecute(r IamAPIAddProviderRequest) (*IamProv
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -204,7 +212,7 @@ func (a *IamAPIService) AddTokenExecute(r IamAPIAddTokenRequest) (*IamTokenResul
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -235,6 +243,14 @@ func (a *IamAPIService) AddTokenExecute(r IamAPIAddTokenRequest) (*IamTokenResul
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -316,7 +332,7 @@ func (a *IamAPIService) AddWebauthnCredentialExecute(r IamAPIAddWebauthnCredenti
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -347,6 +363,14 @@ func (a *IamAPIService) AddWebauthnCredentialExecute(r IamAPIAddWebauthnCredenti
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -429,7 +453,7 @@ func (a *IamAPIService) CreateOrganizationExecute(r IamAPICreateOrganizationRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -460,6 +484,14 @@ func (a *IamAPIService) CreateOrganizationExecute(r IamAPICreateOrganizationRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -546,7 +578,7 @@ func (a *IamAPIService) CreateSessionExecute(r IamAPICreateSessionRequest) (*Iam
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -577,6 +609,14 @@ func (a *IamAPIService) CreateSessionExecute(r IamAPICreateSessionRequest) (*Iam
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -658,7 +698,7 @@ func (a *IamAPIService) DeleteIamApplicationsByOwnerByNameExecute(r IamAPIDelete
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -687,6 +727,14 @@ func (a *IamAPIService) DeleteIamApplicationsByOwnerByNameExecute(r IamAPIDelete
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -709,7 +757,7 @@ type IamAPIDeleteIamAuditLogsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r IamAPIDeleteIamAuditLogsByOwnerByNameRequest) Execute() (*IamDeleteOutput, *http.Response, error) {
+func (r IamAPIDeleteIamAuditLogsByOwnerByNameRequest) Execute() (*IamAuditlogsDeleteOutput, *http.Response, error) {
 	return r.ApiService.DeleteIamAuditLogsByOwnerByNameExecute(r)
 }
 
@@ -735,13 +783,13 @@ func (a *IamAPIService) DeleteIamAuditLogsByOwnerByName(ctx context.Context, own
 
 // Execute executes the request
 //
-//	@return IamDeleteOutput
-func (a *IamAPIService) DeleteIamAuditLogsByOwnerByNameExecute(r IamAPIDeleteIamAuditLogsByOwnerByNameRequest) (*IamDeleteOutput, *http.Response, error) {
+//	@return IamAuditlogsDeleteOutput
+func (a *IamAPIService) DeleteIamAuditLogsByOwnerByNameExecute(r IamAPIDeleteIamAuditLogsByOwnerByNameRequest) (*IamAuditlogsDeleteOutput, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IamDeleteOutput
+		localVarReturnValue *IamAuditlogsDeleteOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.DeleteIamAuditLogsByOwnerByName")
@@ -767,7 +815,7 @@ func (a *IamAPIService) DeleteIamAuditLogsByOwnerByNameExecute(r IamAPIDeleteIam
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -796,6 +844,14 @@ func (a *IamAPIService) DeleteIamAuditLogsByOwnerByNameExecute(r IamAPIDeleteIam
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -876,7 +932,7 @@ func (a *IamAPIService) DeleteIamCertsByOwnerByNameExecute(r IamAPIDeleteIamCert
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -905,6 +961,14 @@ func (a *IamAPIService) DeleteIamCertsByOwnerByNameExecute(r IamAPIDeleteIamCert
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -985,7 +1049,7 @@ func (a *IamAPIService) DeleteIamInvitationsByOwnerByNameExecute(r IamAPIDeleteI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1014,6 +1078,14 @@ func (a *IamAPIService) DeleteIamInvitationsByOwnerByNameExecute(r IamAPIDeleteI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1036,7 +1108,7 @@ type IamAPIDeleteIamKeysByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r IamAPIDeleteIamKeysByOwnerByNameRequest) Execute() (*IamDeleteResponse, *http.Response, error) {
+func (r IamAPIDeleteIamKeysByOwnerByNameRequest) Execute() (*IamKeysDeleteResponse, *http.Response, error) {
 	return r.ApiService.DeleteIamKeysByOwnerByNameExecute(r)
 }
 
@@ -1062,13 +1134,13 @@ func (a *IamAPIService) DeleteIamKeysByOwnerByName(ctx context.Context, owner st
 
 // Execute executes the request
 //
-//	@return IamDeleteResponse
-func (a *IamAPIService) DeleteIamKeysByOwnerByNameExecute(r IamAPIDeleteIamKeysByOwnerByNameRequest) (*IamDeleteResponse, *http.Response, error) {
+//	@return IamKeysDeleteResponse
+func (a *IamAPIService) DeleteIamKeysByOwnerByNameExecute(r IamAPIDeleteIamKeysByOwnerByNameRequest) (*IamKeysDeleteResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IamDeleteResponse
+		localVarReturnValue *IamKeysDeleteResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.DeleteIamKeysByOwnerByName")
@@ -1094,7 +1166,7 @@ func (a *IamAPIService) DeleteIamKeysByOwnerByNameExecute(r IamAPIDeleteIamKeysB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1123,6 +1195,14 @@ func (a *IamAPIService) DeleteIamKeysByOwnerByNameExecute(r IamAPIDeleteIamKeysB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1240,7 +1320,7 @@ type IamAPIDeleteIamPermissionsByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r IamAPIDeleteIamPermissionsByOwnerByNameRequest) Execute() (*IamPermissionDeleteResponse, *http.Response, error) {
+func (r IamAPIDeleteIamPermissionsByOwnerByNameRequest) Execute() (*IamDeleteResponse, *http.Response, error) {
 	return r.ApiService.DeleteIamPermissionsByOwnerByNameExecute(r)
 }
 
@@ -1266,13 +1346,13 @@ func (a *IamAPIService) DeleteIamPermissionsByOwnerByName(ctx context.Context, o
 
 // Execute executes the request
 //
-//	@return IamPermissionDeleteResponse
-func (a *IamAPIService) DeleteIamPermissionsByOwnerByNameExecute(r IamAPIDeleteIamPermissionsByOwnerByNameRequest) (*IamPermissionDeleteResponse, *http.Response, error) {
+//	@return IamDeleteResponse
+func (a *IamAPIService) DeleteIamPermissionsByOwnerByNameExecute(r IamAPIDeleteIamPermissionsByOwnerByNameRequest) (*IamDeleteResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IamPermissionDeleteResponse
+		localVarReturnValue *IamDeleteResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.DeleteIamPermissionsByOwnerByName")
@@ -1298,7 +1378,7 @@ func (a *IamAPIService) DeleteIamPermissionsByOwnerByNameExecute(r IamAPIDeleteI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1327,6 +1407,14 @@ func (a *IamAPIService) DeleteIamPermissionsByOwnerByNameExecute(r IamAPIDeleteI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1408,7 +1496,7 @@ func (a *IamAPIService) DeleteIamProjectsByOwnerByNameExecute(r IamAPIDeleteIamP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1437,6 +1525,14 @@ func (a *IamAPIService) DeleteIamProjectsByOwnerByNameExecute(r IamAPIDeleteIamP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1517,7 +1613,7 @@ func (a *IamAPIService) DeleteIamRolesByOwnerByNameExecute(r IamAPIDeleteIamRole
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1546,6 +1642,14 @@ func (a *IamAPIService) DeleteIamRolesByOwnerByNameExecute(r IamAPIDeleteIamRole
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1812,7 +1916,7 @@ func (a *IamAPIService) DeleteIamTeamsByNameExecute(r IamAPIDeleteIamTeamsByName
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1841,6 +1945,14 @@ func (a *IamAPIService) DeleteIamTeamsByNameExecute(r IamAPIDeleteIamTeamsByName
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1863,7 +1975,7 @@ type IamAPIDeleteIamUsersByOwnerByNameRequest struct {
 	name       string
 }
 
-func (r IamAPIDeleteIamUsersByOwnerByNameRequest) Execute() (*IamUsersDeleteOutput, *http.Response, error) {
+func (r IamAPIDeleteIamUsersByOwnerByNameRequest) Execute() (*IamDeleteOutput, *http.Response, error) {
 	return r.ApiService.DeleteIamUsersByOwnerByNameExecute(r)
 }
 
@@ -1873,6 +1985,8 @@ DeleteIamUsersByOwnerByName Removes a person from your organization.
 Removes a person from your organization. Their sessions stop working
 immediately and the account is gone rather than suspended — to keep the record
 and only stop sign-in, update the user instead.
+
+A SuperAdmin's account is removed only by a SuperAdmin.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param owner
@@ -1890,13 +2004,13 @@ func (a *IamAPIService) DeleteIamUsersByOwnerByName(ctx context.Context, owner s
 
 // Execute executes the request
 //
-//	@return IamUsersDeleteOutput
-func (a *IamAPIService) DeleteIamUsersByOwnerByNameExecute(r IamAPIDeleteIamUsersByOwnerByNameRequest) (*IamUsersDeleteOutput, *http.Response, error) {
+//	@return IamDeleteOutput
+func (a *IamAPIService) DeleteIamUsersByOwnerByNameExecute(r IamAPIDeleteIamUsersByOwnerByNameRequest) (*IamDeleteOutput, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IamUsersDeleteOutput
+		localVarReturnValue *IamDeleteOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.DeleteIamUsersByOwnerByName")
@@ -1922,7 +2036,7 @@ func (a *IamAPIService) DeleteIamUsersByOwnerByNameExecute(r IamAPIDeleteIamUser
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1951,6 +2065,14 @@ func (a *IamAPIService) DeleteIamUsersByOwnerByNameExecute(r IamAPIDeleteIamUser
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2130,7 +2252,7 @@ func (a *IamAPIService) DeleteIamWorkspacesByOwnerByNameExecute(r IamAPIDeleteIa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2159,6 +2281,14 @@ func (a *IamAPIService) DeleteIamWorkspacesByOwnerByNameExecute(r IamAPIDeleteIa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2242,7 +2372,7 @@ func (a *IamAPIService) DeleteOrganizationExecute(r IamAPIDeleteOrganizationRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2271,6 +2401,14 @@ func (a *IamAPIService) DeleteOrganizationExecute(r IamAPIDeleteOrganizationRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2354,7 +2492,7 @@ func (a *IamAPIService) DeleteProviderExecute(r IamAPIDeleteProviderRequest) (*I
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2383,6 +2521,14 @@ func (a *IamAPIService) DeleteProviderExecute(r IamAPIDeleteProviderRequest) (*I
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2470,7 +2616,7 @@ func (a *IamAPIService) DeleteSessionExecute(r IamAPIDeleteSessionRequest) (*Iam
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2499,6 +2645,14 @@ func (a *IamAPIService) DeleteSessionExecute(r IamAPIDeleteSessionRequest) (*Iam
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2582,7 +2736,7 @@ func (a *IamAPIService) DeleteTokenExecute(r IamAPIDeleteTokenRequest) (*IamToke
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2611,6 +2765,14 @@ func (a *IamAPIService) DeleteTokenExecute(r IamAPIDeleteTokenRequest) (*IamToke
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2694,7 +2856,7 @@ func (a *IamAPIService) DeleteWebauthnCredentialExecute(r IamAPIDeleteWebauthnCr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2723,6 +2885,14 @@ func (a *IamAPIService) DeleteWebauthnCredentialExecute(r IamAPIDeleteWebauthnCr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2780,6 +2950,100 @@ func (a *IamAPIService) GetIamAccountExecute(r IamAPIGetIamAccountRequest) (*htt
 	}
 
 	localVarPath := localBasePath + "/v1/iam/account"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type IamAPIGetIamAccountsRequest struct {
+	ctx        context.Context
+	ApiService *IamAPIService
+}
+
+func (r IamAPIGetIamAccountsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetIamAccountsExecute(r)
+}
+
+/*
+GetIamAccounts Returns the people signed in on this browser, the most recent sign-in first — what the sign-in page lists when an application asks the person to choose an account.
+
+Returns the people signed in on this browser, the most recent
+sign-in first — what the sign-in page lists when an application asks the person
+to choose an account.
+
+It reads the session cookie and nothing else, so it only ever answers the
+browser holding the sessions. An account forbidden or deleted since it signed
+in is left out. A browser with nobody signed in gets an empty list.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IamAPIGetIamAccountsRequest
+*/
+func (a *IamAPIService) GetIamAccounts(ctx context.Context) IamAPIGetIamAccountsRequest {
+	return IamAPIGetIamAccountsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *IamAPIService) GetIamAccountsExecute(r IamAPIGetIamAccountsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.GetIamAccounts")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/accounts"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2898,7 +3162,7 @@ func (a *IamAPIService) GetIamApplicationsExecute(r IamAPIGetIamApplicationsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2927,6 +3191,14 @@ func (a *IamAPIService) GetIamApplicationsExecute(r IamAPIGetIamApplicationsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3007,7 +3279,7 @@ func (a *IamAPIService) GetIamApplicationsByOwnerByNameExecute(r IamAPIGetIamApp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3036,6 +3308,14 @@ func (a *IamAPIService) GetIamApplicationsByOwnerByNameExecute(r IamAPIGetIamApp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3062,7 +3342,7 @@ func (r IamAPIGetIamAuditLogsRequest) Owner(owner string) IamAPIGetIamAuditLogsR
 	return r
 }
 
-func (r IamAPIGetIamAuditLogsRequest) Execute() (*IamListOutput, *http.Response, error) {
+func (r IamAPIGetIamAuditLogsRequest) Execute() (*IamAuditlogsListOutput, *http.Response, error) {
 	return r.ApiService.GetIamAuditLogsExecute(r)
 }
 
@@ -3088,13 +3368,13 @@ func (a *IamAPIService) GetIamAuditLogs(ctx context.Context) IamAPIGetIamAuditLo
 
 // Execute executes the request
 //
-//	@return IamListOutput
-func (a *IamAPIService) GetIamAuditLogsExecute(r IamAPIGetIamAuditLogsRequest) (*IamListOutput, *http.Response, error) {
+//	@return IamAuditlogsListOutput
+func (a *IamAPIService) GetIamAuditLogsExecute(r IamAPIGetIamAuditLogsRequest) (*IamAuditlogsListOutput, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IamListOutput
+		localVarReturnValue *IamAuditlogsListOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.GetIamAuditLogs")
@@ -3121,7 +3401,7 @@ func (a *IamAPIService) GetIamAuditLogsExecute(r IamAPIGetIamAuditLogsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3150,6 +3430,14 @@ func (a *IamAPIService) GetIamAuditLogsExecute(r IamAPIGetIamAuditLogsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3230,7 +3518,7 @@ func (a *IamAPIService) GetIamAuditLogsByOwnerByNameExecute(r IamAPIGetIamAuditL
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3259,6 +3547,14 @@ func (a *IamAPIService) GetIamAuditLogsByOwnerByNameExecute(r IamAPIGetIamAuditL
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3355,7 +3651,7 @@ func (a *IamAPIService) GetIamAuthApplicationExecute(r IamAPIGetIamAuthApplicati
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3393,7 +3689,16 @@ func (a *IamAPIService) GetIamAuthApplicationExecute(r IamAPIGetIamAuthApplicati
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3480,7 +3785,7 @@ func (a *IamAPIService) GetIamAuthMethodsExecute(r IamAPIGetIamAuthMethodsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3518,7 +3823,16 @@ func (a *IamAPIService) GetIamAuthMethodsExecute(r IamAPIGetIamAuthMethodsReques
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3605,7 +3919,7 @@ func (a *IamAPIService) GetIamCertsExecute(r IamAPIGetIamCertsRequest) (*IamCert
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3634,6 +3948,14 @@ func (a *IamAPIService) GetIamCertsExecute(r IamAPIGetIamCertsRequest) (*IamCert
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3714,7 +4036,7 @@ func (a *IamAPIService) GetIamCertsByOwnerByNameExecute(r IamAPIGetIamCertsByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3743,6 +4065,14 @@ func (a *IamAPIService) GetIamCertsByOwnerByNameExecute(r IamAPIGetIamCertsByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3871,8 +4201,8 @@ Returns your organization's invitations, newest first — who has
 been asked to join, on what terms, and how many seats each invitation still
 has left.
 
-You see your own organization's invitations and no one else's; which organization that
-is comes from your credentials, not from the request.
+You see the invitations of the organization your credentials run, and no one
+else's: your own, or one you own or administer.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIGetIamInvitationsRequest
@@ -3919,7 +4249,7 @@ func (a *IamAPIService) GetIamInvitationsExecute(r IamAPIGetIamInvitationsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3948,6 +4278,14 @@ func (a *IamAPIService) GetIamInvitationsExecute(r IamAPIGetIamInvitationsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -4028,7 +4366,7 @@ func (a *IamAPIService) GetIamInvitationsByOwnerByNameExecute(r IamAPIGetIamInvi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4057,6 +4395,14 @@ func (a *IamAPIService) GetIamInvitationsByOwnerByNameExecute(r IamAPIGetIamInvi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -4083,7 +4429,7 @@ func (r IamAPIGetIamKeysRequest) Owner(owner string) IamAPIGetIamKeysRequest {
 	return r
 }
 
-func (r IamAPIGetIamKeysRequest) Execute() (*IamListResponse, *http.Response, error) {
+func (r IamAPIGetIamKeysRequest) Execute() (*IamKeysListResponse, *http.Response, error) {
 	return r.ApiService.GetIamKeysExecute(r)
 }
 
@@ -4109,13 +4455,13 @@ func (a *IamAPIService) GetIamKeys(ctx context.Context) IamAPIGetIamKeysRequest 
 
 // Execute executes the request
 //
-//	@return IamListResponse
-func (a *IamAPIService) GetIamKeysExecute(r IamAPIGetIamKeysRequest) (*IamListResponse, *http.Response, error) {
+//	@return IamKeysListResponse
+func (a *IamAPIService) GetIamKeysExecute(r IamAPIGetIamKeysRequest) (*IamKeysListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IamListResponse
+		localVarReturnValue *IamKeysListResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.GetIamKeys")
@@ -4142,7 +4488,7 @@ func (a *IamAPIService) GetIamKeysExecute(r IamAPIGetIamKeysRequest) (*IamListRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4171,6 +4517,14 @@ func (a *IamAPIService) GetIamKeysExecute(r IamAPIGetIamKeysRequest) (*IamListRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -4251,7 +4605,7 @@ func (a *IamAPIService) GetIamKeysByOwnerByNameExecute(r IamAPIGetIamKeysByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4280,6 +4634,14 @@ func (a *IamAPIService) GetIamKeysByOwnerByNameExecute(r IamAPIGetIamKeysByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -4598,11 +4960,11 @@ GetIamMemberships Answers either question about who belongs where: which organiz
 Answers either question about who belongs where: which organizations one
 person can act in, or who can act in one organization.
 
-Both are org-scoped: a non-SuperAdmin may ask about ITS OWN org's roster, or
-about a user whose home org is its own, and nothing else. The bound comes from
-the verified credential via principal.Scope, so a request parameter can never
-widen it — a membership row names who may act and spend in an org, so a
-cross-tenant read is a customer roster leak.
+Both are org-scoped: a non-SuperAdmin may read the roster of an org it belongs
+to, or the tenancy of a person whose account it administers, and nothing else.
+The bound comes from the verified credential via principal.ScopeRead, so a
+request parameter can never widen it — a membership row names who may act and
+spend in an org, so a roster read by a stranger is a customer roster leak.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIGetIamMembershipsRequest
@@ -4652,7 +5014,7 @@ func (a *IamAPIService) GetIamMembershipsExecute(r IamAPIGetIamMembershipsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4690,7 +5052,16 @@ func (a *IamAPIService) GetIamMembershipsExecute(r IamAPIGetIamMembershipsReques
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -4730,7 +5101,9 @@ pick.
 A client can say what it wants with `prompt`: `none` means answer without any
 screen at all — with the code if a session exists, with an error if not, but
 never with a page; `login` means ask for the password again even if a session
-exists; `select_account` means let the person choose which identity to use.
+exists; `select_account` means let the person choose among the accounts signed
+in on this browser, or sign in to another. `login_hint` names which of those
+accounts the request is for.
 
 It returns only to an address the application has registered. That check
 happens before anything else, so a request naming an unregistered address is
@@ -4931,10 +5304,16 @@ Three things happen here, in this order:
     days, so expiry is necessary but never sufficient.
  3. Only then is a redirect considered, and only to a REGISTERED uri.
 
-The open-redirect guard is unchanged: a redirect happens only when a VERIFIED
-id_token_hint identifies the application and that application has registered
-the target. Anything else refuses to redirect — nobody can turn your logout
-link into a redirect to a site of their choosing.
+The open-redirect guard: a redirect happens only when a VERIFIED
+id_token_hint (or client_id) identifies the application and that application
+has registered the target. Nobody can turn your logout link into a redirect to
+a site of their choosing.
+
+A GET is the end-session navigation (OIDC RP-Initiated Logout 1.0 §2), so it
+always ends on a page: the registered address when one was asked for, else
+this issuer's sign-in page for the application being signed out of. A relying
+party therefore needs no configuration to sign someone out. A POST is also how
+a program signs out, so it keeps the JSON answer unless it asks for HTML.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIGetIamOauthLogoutRequest
@@ -5113,7 +5492,7 @@ func (r IamAPIGetIamPermissionsRequest) Owner(owner string) IamAPIGetIamPermissi
 	return r
 }
 
-func (r IamAPIGetIamPermissionsRequest) Execute() (*IamPermissionListResponse, *http.Response, error) {
+func (r IamAPIGetIamPermissionsRequest) Execute() (*IamListResponse, *http.Response, error) {
 	return r.ApiService.GetIamPermissionsExecute(r)
 }
 
@@ -5135,13 +5514,13 @@ func (a *IamAPIService) GetIamPermissions(ctx context.Context) IamAPIGetIamPermi
 
 // Execute executes the request
 //
-//	@return IamPermissionListResponse
-func (a *IamAPIService) GetIamPermissionsExecute(r IamAPIGetIamPermissionsRequest) (*IamPermissionListResponse, *http.Response, error) {
+//	@return IamListResponse
+func (a *IamAPIService) GetIamPermissionsExecute(r IamAPIGetIamPermissionsRequest) (*IamListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IamPermissionListResponse
+		localVarReturnValue *IamListResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.GetIamPermissions")
@@ -5168,7 +5547,7 @@ func (a *IamAPIService) GetIamPermissionsExecute(r IamAPIGetIamPermissionsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5197,6 +5576,14 @@ func (a *IamAPIService) GetIamPermissionsExecute(r IamAPIGetIamPermissionsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -5277,7 +5664,7 @@ func (a *IamAPIService) GetIamPermissionsByOwnerByNameExecute(r IamAPIGetIamPerm
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5306,6 +5693,14 @@ func (a *IamAPIService) GetIamPermissionsByOwnerByNameExecute(r IamAPIGetIamPerm
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -5391,7 +5786,7 @@ func (a *IamAPIService) GetIamProjectsExecute(r IamAPIGetIamProjectsRequest) (*I
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5420,6 +5815,14 @@ func (a *IamAPIService) GetIamProjectsExecute(r IamAPIGetIamProjectsRequest) (*I
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -5499,7 +5902,7 @@ func (a *IamAPIService) GetIamProjectsByOwnerByNameExecute(r IamAPIGetIamProject
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5528,6 +5931,14 @@ func (a *IamAPIService) GetIamProjectsByOwnerByNameExecute(r IamAPIGetIamProject
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -5800,7 +6211,7 @@ func (a *IamAPIService) GetIamRolesExecute(r IamAPIGetIamRolesRequest) (*IamRole
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5829,6 +6240,14 @@ func (a *IamAPIService) GetIamRolesExecute(r IamAPIGetIamRolesRequest) (*IamRole
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -5908,7 +6327,7 @@ func (a *IamAPIService) GetIamRolesByOwnerByNameExecute(r IamAPIGetIamRolesByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -5937,6 +6356,14 @@ func (a *IamAPIService) GetIamRolesByOwnerByNameExecute(r IamAPIGetIamRolesByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6010,7 +6437,7 @@ func (a *IamAPIService) GetIamScimV2ResourcetypesExecute(r IamAPIGetIamScimV2Res
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6039,6 +6466,14 @@ func (a *IamAPIService) GetIamScimV2ResourcetypesExecute(r IamAPIGetIamScimV2Res
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6114,7 +6549,7 @@ func (a *IamAPIService) GetIamScimV2ResourcetypesByNameExecute(r IamAPIGetIamSci
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6152,7 +6587,16 @@ func (a *IamAPIService) GetIamScimV2ResourcetypesByNameExecute(r IamAPIGetIamSci
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6226,7 +6670,7 @@ func (a *IamAPIService) GetIamScimV2SchemasExecute(r IamAPIGetIamScimV2SchemasRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6255,6 +6699,14 @@ func (a *IamAPIService) GetIamScimV2SchemasExecute(r IamAPIGetIamScimV2SchemasRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6330,7 +6782,7 @@ func (a *IamAPIService) GetIamScimV2SchemasByIdExecute(r IamAPIGetIamScimV2Schem
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6368,7 +6820,16 @@ func (a *IamAPIService) GetIamScimV2SchemasByIdExecute(r IamAPIGetIamScimV2Schem
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6444,7 +6905,7 @@ func (a *IamAPIService) GetIamScimV2ServiceproviderconfigExecute(r IamAPIGetIamS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6473,6 +6934,14 @@ func (a *IamAPIService) GetIamScimV2ServiceproviderconfigExecute(r IamAPIGetIamS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6767,7 +7236,7 @@ func (a *IamAPIService) GetIamServiceAccountsExecute(r IamAPIGetIamServiceAccoun
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6805,7 +7274,16 @@ func (a *IamAPIService) GetIamServiceAccountsExecute(r IamAPIGetIamServiceAccoun
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6881,7 +7359,7 @@ func (a *IamAPIService) GetIamTeamsExecute(r IamAPIGetIamTeamsRequest) (*IamTeam
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -6910,6 +7388,14 @@ func (a *IamAPIService) GetIamTeamsExecute(r IamAPIGetIamTeamsRequest) (*IamTeam
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -6985,7 +7471,7 @@ func (a *IamAPIService) GetIamTeamsByNameExecute(r IamAPIGetIamTeamsByNameReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7014,6 +7500,14 @@ func (a *IamAPIService) GetIamTeamsByNameExecute(r IamAPIGetIamTeamsByNameReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -7059,7 +7553,7 @@ func (r IamAPIGetIamUsersRequest) Offset(offset int64) IamAPIGetIamUsersRequest 
 	return r
 }
 
-func (r IamAPIGetIamUsersRequest) Execute() (*IamUsersListOutput, *http.Response, error) {
+func (r IamAPIGetIamUsersRequest) Execute() (*IamListOutput, *http.Response, error) {
 	return r.ApiService.GetIamUsersExecute(r)
 }
 
@@ -7086,13 +7580,13 @@ func (a *IamAPIService) GetIamUsers(ctx context.Context) IamAPIGetIamUsersReques
 
 // Execute executes the request
 //
-//	@return IamUsersListOutput
-func (a *IamAPIService) GetIamUsersExecute(r IamAPIGetIamUsersRequest) (*IamUsersListOutput, *http.Response, error) {
+//	@return IamListOutput
+func (a *IamAPIService) GetIamUsersExecute(r IamAPIGetIamUsersRequest) (*IamListOutput, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IamUsersListOutput
+		localVarReturnValue *IamListOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.GetIamUsers")
@@ -7128,7 +7622,7 @@ func (a *IamAPIService) GetIamUsersExecute(r IamAPIGetIamUsersRequest) (*IamUser
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7157,6 +7651,14 @@ func (a *IamAPIService) GetIamUsersExecute(r IamAPIGetIamUsersRequest) (*IamUser
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -7252,7 +7754,7 @@ func (a *IamAPIService) GetIamUsersByOwnerByNameExecute(r IamAPIGetIamUsersByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -7281,6 +7783,14 @@ func (a *IamAPIService) GetIamUsersByOwnerByNameExecute(r IamAPIGetIamUsersByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8023,7 +8533,7 @@ func (a *IamAPIService) GetIamWorkspacesExecute(r IamAPIGetIamWorkspacesRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8052,6 +8562,14 @@ func (a *IamAPIService) GetIamWorkspacesExecute(r IamAPIGetIamWorkspacesRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8131,7 +8649,7 @@ func (a *IamAPIService) GetIamWorkspacesByOwnerByNameExecute(r IamAPIGetIamWorks
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8160,6 +8678,14 @@ func (a *IamAPIService) GetIamWorkspacesByOwnerByNameExecute(r IamAPIGetIamWorks
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8240,7 +8766,7 @@ func (a *IamAPIService) GetOrganizationExecute(r IamAPIGetOrganizationRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8269,6 +8795,131 @@ func (a *IamAPIService) GetOrganizationExecute(r IamAPIGetOrganizationRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IamAPIGetOrganizationTombstoneRequest struct {
+	ctx        context.Context
+	ApiService *IamAPIService
+	owner      string
+	name       string
+}
+
+func (r IamAPIGetOrganizationTombstoneRequest) Execute() (*IamTombstone, *http.Response, error) {
+	return r.ApiService.GetOrganizationTombstoneExecute(r)
+}
+
+/*
+GetOrganizationTombstone Returns what holds a deleted organization's name: when it was deleted and who founded it.
+
+Returns what holds a deleted organization's name: when it was deleted
+and who founded it. A SuperAdmin reads it before deciding to release the name.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param owner
+	@param name
+	@return IamAPIGetOrganizationTombstoneRequest
+*/
+func (a *IamAPIService) GetOrganizationTombstone(ctx context.Context, owner string, name string) IamAPIGetOrganizationTombstoneRequest {
+	return IamAPIGetOrganizationTombstoneRequest{
+		ApiService: a,
+		ctx:        ctx,
+		owner:      owner,
+		name:       name,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamTombstone
+func (a *IamAPIService) GetOrganizationTombstoneExecute(r IamAPIGetOrganizationTombstoneRequest) (*IamTombstone, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamTombstone
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.GetOrganizationTombstone")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/organizations/tombstones/{owner}/{name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"owner"+"}", url.PathEscape(parameterValueToString(r.owner, "owner")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8349,7 +9000,7 @@ func (a *IamAPIService) GetProviderExecute(r IamAPIGetProviderRequest) (*IamProv
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8378,6 +9029,14 @@ func (a *IamAPIService) GetProviderExecute(r IamAPIGetProviderRequest) (*IamProv
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8462,7 +9121,7 @@ func (a *IamAPIService) GetSessionExecute(r IamAPIGetSessionRequest) (*IamSessio
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8491,6 +9150,14 @@ func (a *IamAPIService) GetSessionExecute(r IamAPIGetSessionRequest) (*IamSessio
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8571,7 +9238,7 @@ func (a *IamAPIService) GetTokenExecute(r IamAPIGetTokenRequest) (*IamTokenResul
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8600,6 +9267,14 @@ func (a *IamAPIService) GetTokenExecute(r IamAPIGetTokenRequest) (*IamTokenResul
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8680,7 +9355,7 @@ func (a *IamAPIService) GetWebauthnCredentialExecute(r IamAPIGetWebauthnCredenti
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8709,6 +9384,14 @@ func (a *IamAPIService) GetWebauthnCredentialExecute(r IamAPIGetWebauthnCredenti
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8825,7 +9508,7 @@ func (a *IamAPIService) ListOrganizationsExecute(r IamAPIListOrganizationsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8857,6 +9540,14 @@ func (a *IamAPIService) ListOrganizationsExecute(r IamAPIListOrganizationsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -8942,7 +9633,7 @@ func (a *IamAPIService) ListProvidersExecute(r IamAPIListProvidersRequest) (*Iam
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -8971,6 +9662,14 @@ func (a *IamAPIService) ListProvidersExecute(r IamAPIListProvidersRequest) (*Iam
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9076,7 +9775,7 @@ func (a *IamAPIService) ListSessionsExecute(r IamAPIListSessionsRequest) (*IamLi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9105,6 +9804,14 @@ func (a *IamAPIService) ListSessionsExecute(r IamAPIListSessionsRequest) (*IamLi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9196,7 +9903,7 @@ func (a *IamAPIService) ListTokensExecute(r IamAPIListTokensRequest) (*IamListTo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9225,6 +9932,14 @@ func (a *IamAPIService) ListTokensExecute(r IamAPIListTokensRequest) (*IamListTo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9319,7 +10034,7 @@ func (a *IamAPIService) ListWebauthnCredentialsExecute(r IamAPIListWebauthnCrede
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9348,6 +10063,14 @@ func (a *IamAPIService) ListWebauthnCredentialsExecute(r IamAPIListWebauthnCrede
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9629,7 +10352,7 @@ func (a *IamAPIService) PostIamApplicationsExecute(r IamAPIPostIamApplicationsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9660,184 +10383,14 @@ func (a *IamAPIService) PostIamApplicationsExecute(r IamAPIPostIamApplicationsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type IamAPIPostIamAssumeRequest struct {
-	ctx           context.Context
-	ApiService    *IamAPIService
-	iamAssumeBody *IamAssumeBody
-	authorization *string
-	xForwardedFor *string
-}
-
-func (r IamAPIPostIamAssumeRequest) IamAssumeBody(iamAssumeBody IamAssumeBody) IamAPIPostIamAssumeRequest {
-	r.iamAssumeBody = &iamAssumeBody
-	return r
-}
-
-func (r IamAPIPostIamAssumeRequest) Authorization(authorization string) IamAPIPostIamAssumeRequest {
-	r.authorization = &authorization
-	return r
-}
-
-func (r IamAPIPostIamAssumeRequest) XForwardedFor(xForwardedFor string) IamAPIPostIamAssumeRequest {
-	r.xForwardedFor = &xForwardedFor
-	return r
-}
-
-func (r IamAPIPostIamAssumeRequest) Execute() (*IamAnswer, *http.Response, error) {
-	return r.ApiService.PostIamAssumeExecute(r)
-}
-
-/*
-PostIamAssume Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.
-
-Steps a platform operator into an organization: it returns their
-own access token re-scoped to that tenant, so they see what the tenant sees.
-
-The token still names the operator — stepping in is not becoming somebody
-else — and records the organization it was scoped to, so everything done with
-it is attributed to the person who did it. Only a platform operator may, and
-the attempt is recorded whether or not it succeeds.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IamAPIPostIamAssumeRequest
-*/
-func (a *IamAPIService) PostIamAssume(ctx context.Context) IamAPIPostIamAssumeRequest {
-	return IamAPIPostIamAssumeRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return IamAnswer
-func (a *IamAPIService) PostIamAssumeExecute(r IamAPIPostIamAssumeRequest) (*IamAnswer, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IamAnswer
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.PostIamAssume")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/iam/assume"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.iamAssumeBody == nil {
-		return localVarReturnValue, nil, reportError("iamAssumeBody is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.authorization != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
-	}
-	if r.xForwardedFor != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Forwarded-For", r.xForwardedFor, "simple", "")
-	}
-	// body params
-	localVarPostBody = r.iamAssumeBody
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v IamAnswer
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v IamAnswer
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v IamAnswer
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v IamAnswer
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -9854,13 +10407,13 @@ func (a *IamAPIService) PostIamAssumeExecute(r IamAPIPostIamAssumeRequest) (*Iam
 }
 
 type IamAPIPostIamAuditLogsRequest struct {
-	ctx        context.Context
-	ApiService *IamAPIService
-	iamInput   *IamInput
+	ctx               context.Context
+	ApiService        *IamAPIService
+	iamAuditlogsInput *IamAuditlogsInput
 }
 
-func (r IamAPIPostIamAuditLogsRequest) IamInput(iamInput IamInput) IamAPIPostIamAuditLogsRequest {
-	r.iamInput = &iamInput
+func (r IamAPIPostIamAuditLogsRequest) IamAuditlogsInput(iamAuditlogsInput IamAuditlogsInput) IamAPIPostIamAuditLogsRequest {
+	r.iamAuditlogsInput = &iamAuditlogsInput
 	return r
 }
 
@@ -9905,8 +10458,8 @@ func (a *IamAPIService) PostIamAuditLogsExecute(r IamAPIPostIamAuditLogsRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.iamInput == nil {
-		return localVarReturnValue, nil, reportError("iamInput is required and must be specified")
+	if r.iamAuditlogsInput == nil {
+		return localVarReturnValue, nil, reportError("iamAuditlogsInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -9919,7 +10472,7 @@ func (a *IamAPIService) PostIamAuditLogsExecute(r IamAPIPostIamAuditLogsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -9927,7 +10480,7 @@ func (a *IamAPIService) PostIamAuditLogsExecute(r IamAPIPostIamAuditLogsRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.iamInput
+	localVarPostBody = r.iamAuditlogsInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -9950,6 +10503,178 @@ func (a *IamAPIService) PostIamAuditLogsExecute(r IamAPIPostIamAuditLogsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IamAPIPostIamAuthIdentifierRequest struct {
+	ctx               context.Context
+	ApiService        *IamAPIService
+	iamIdentifierBody *IamIdentifierBody
+	cFConnectingIP    *string
+	xForwardedFor     *string
+}
+
+func (r IamAPIPostIamAuthIdentifierRequest) IamIdentifierBody(iamIdentifierBody IamIdentifierBody) IamAPIPostIamAuthIdentifierRequest {
+	r.iamIdentifierBody = &iamIdentifierBody
+	return r
+}
+
+func (r IamAPIPostIamAuthIdentifierRequest) CFConnectingIP(cFConnectingIP string) IamAPIPostIamAuthIdentifierRequest {
+	r.cFConnectingIP = &cFConnectingIP
+	return r
+}
+
+func (r IamAPIPostIamAuthIdentifierRequest) XForwardedFor(xForwardedFor string) IamAPIPostIamAuthIdentifierRequest {
+	r.xForwardedFor = &xForwardedFor
+	return r
+}
+
+func (r IamAPIPostIamAuthIdentifierRequest) Execute() (*IamAnswer, *http.Response, error) {
+	return r.ApiService.PostIamAuthIdentifierExecute(r)
+}
+
+/*
+PostIamAuthIdentifier Answers whether an account holds an email address at an application, and whether that account signs in with a password.
+
+Answers whether an account holds an email address at an
+application, and whether that account signs in with a password. Only an
+application that registers strangers answers, since its signup says as much
+already. The address is resolved exactly as sign-in resolves it, so the screen
+and the sign-in cannot disagree. A client asking faster than a person types is
+refused with 429.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IamAPIPostIamAuthIdentifierRequest
+*/
+func (a *IamAPIService) PostIamAuthIdentifier(ctx context.Context) IamAPIPostIamAuthIdentifierRequest {
+	return IamAPIPostIamAuthIdentifierRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamAnswer
+func (a *IamAPIService) PostIamAuthIdentifierExecute(r IamAPIPostIamAuthIdentifierRequest) (*IamAnswer, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamAnswer
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.PostIamAuthIdentifier")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/auth/identifier"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.iamIdentifierBody == nil {
+		return localVarReturnValue, nil, reportError("iamIdentifierBody is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.cFConnectingIP != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "CF-Connecting-IP", r.cFConnectingIP, "simple", "")
+	}
+	if r.xForwardedFor != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Forwarded-For", r.xForwardedFor, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.iamIdentifierBody
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -10039,7 +10764,7 @@ func (a *IamAPIService) PostIamCertsExecute(r IamAPIPostIamCertsRequest) (*IamCe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10070,6 +10795,14 @@ func (a *IamAPIService) PostIamCertsExecute(r IamAPIPostIamCertsRequest) (*IamCe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -10247,7 +10980,7 @@ func (a *IamAPIService) PostIamInvitationsExecute(r IamAPIPostIamInvitationsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10278,6 +11011,366 @@ func (a *IamAPIService) PostIamInvitationsExecute(r IamAPIPostIamInvitationsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IamAPIPostIamInvitationsAcceptRequest struct {
+	ctx           context.Context
+	ApiService    *IamAPIService
+	iamAcceptBody *IamAcceptBody
+	cookie        *string
+	authorization *string
+	secFetchSite  *string
+	contentType   *string
+}
+
+func (r IamAPIPostIamInvitationsAcceptRequest) IamAcceptBody(iamAcceptBody IamAcceptBody) IamAPIPostIamInvitationsAcceptRequest {
+	r.iamAcceptBody = &iamAcceptBody
+	return r
+}
+
+func (r IamAPIPostIamInvitationsAcceptRequest) Cookie(cookie string) IamAPIPostIamInvitationsAcceptRequest {
+	r.cookie = &cookie
+	return r
+}
+
+func (r IamAPIPostIamInvitationsAcceptRequest) Authorization(authorization string) IamAPIPostIamInvitationsAcceptRequest {
+	r.authorization = &authorization
+	return r
+}
+
+func (r IamAPIPostIamInvitationsAcceptRequest) SecFetchSite(secFetchSite string) IamAPIPostIamInvitationsAcceptRequest {
+	r.secFetchSite = &secFetchSite
+	return r
+}
+
+func (r IamAPIPostIamInvitationsAcceptRequest) ContentType(contentType string) IamAPIPostIamInvitationsAcceptRequest {
+	r.contentType = &contentType
+	return r
+}
+
+func (r IamAPIPostIamInvitationsAcceptRequest) Execute() (*IamAnswer, *http.Response, error) {
+	return r.ApiService.PostIamInvitationsAcceptExecute(r)
+}
+
+/*
+PostIamInvitationsAccept Joins the caller to an organization through an invitation, for a person who already has an account.
+
+Joins the caller to an organization through an invitation, for
+a person who already has an account. Signing up through the invitation is the
+other way in (signupHandler); this one spends the same seat under the same rules.
+
+Only the caller joins, as a member and never more; the request names nobody
+else. An invitation pinned to an address admits only the account holding that
+address, and only with a code IAM sent to it for this join — the account's own
+verified flag is not enough, because a tenant's identity provider can set it. An
+invitation pinned to a phone number or a username admits no other org's account
+this way. Joining an org the caller already belongs to succeeds and spends
+nothing. Every refusal is recorded, and an account refused acceptLimit times in
+acceptWindow is refused before anything is looked at.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IamAPIPostIamInvitationsAcceptRequest
+*/
+func (a *IamAPIService) PostIamInvitationsAccept(ctx context.Context) IamAPIPostIamInvitationsAcceptRequest {
+	return IamAPIPostIamInvitationsAcceptRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamAnswer
+func (a *IamAPIService) PostIamInvitationsAcceptExecute(r IamAPIPostIamInvitationsAcceptRequest) (*IamAnswer, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamAnswer
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.PostIamInvitationsAccept")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/invitations/accept"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.iamAcceptBody == nil {
+		return localVarReturnValue, nil, reportError("iamAcceptBody is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.cookie != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Cookie", r.cookie, "simple", "")
+	}
+	if r.authorization != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
+	}
+	if r.secFetchSite != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Sec-Fetch-Site", r.secFetchSite, "simple", "")
+	}
+	if r.contentType != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Content-Type", r.contentType, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.iamAcceptBody
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 502 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IamAPIPostIamInvitationsByOwnerByNameSendRequest struct {
+	ctx           context.Context
+	ApiService    *IamAPIService
+	owner         string
+	name          string
+	authorization *string
+}
+
+func (r IamAPIPostIamInvitationsByOwnerByNameSendRequest) Authorization(authorization string) IamAPIPostIamInvitationsByOwnerByNameSendRequest {
+	r.authorization = &authorization
+	return r
+}
+
+func (r IamAPIPostIamInvitationsByOwnerByNameSendRequest) Execute() (*IamSendOutput, *http.Response, error) {
+	return r.ApiService.PostIamInvitationsByOwnerByNameSendExecute(r)
+}
+
+/*
+PostIamInvitationsByOwnerByNameSend Emails an invitation to the address it is pinned to: who invited them, to which organization, and the link that joins them.
+
+Emails an invitation to the address it is pinned to: who invited them, to
+which organization, and the link that joins them.
+
+The caller chooses nothing about how it goes out. It is sent through the
+platform application the caller's access token was issued to, from that
+application's org's email account, with a link on the identity host that issued
+the token — the way the inviter came in. Only the pinned address receives it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param owner
+	@param name
+	@return IamAPIPostIamInvitationsByOwnerByNameSendRequest
+*/
+func (a *IamAPIService) PostIamInvitationsByOwnerByNameSend(ctx context.Context, owner string, name string) IamAPIPostIamInvitationsByOwnerByNameSendRequest {
+	return IamAPIPostIamInvitationsByOwnerByNameSendRequest{
+		ApiService: a,
+		ctx:        ctx,
+		owner:      owner,
+		name:       name,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamSendOutput
+func (a *IamAPIService) PostIamInvitationsByOwnerByNameSendExecute(r IamAPIPostIamInvitationsByOwnerByNameSendRequest) (*IamSendOutput, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamSendOutput
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.PostIamInvitationsByOwnerByNameSend")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/invitations/{owner}/{name}/send"
+	localVarPath = strings.Replace(localVarPath, "{"+"owner"+"}", url.PathEscape(parameterValueToString(r.owner, "owner")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.authorization != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -10318,6 +11411,10 @@ issued with the publishable half only, so there is no secret to leak.
 
 A name already used in your organization is refused rather than reissued, so
 creating twice never silently invalidates a key that is in production.
+
+A key you create is yours: it names you as its holder and speaks for you in the
+organization it is filed in. Naming anyone else as its holder is refused; a
+SuperAdmin names the person a key is for.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIPostIamKeysRequest
@@ -10364,7 +11461,7 @@ func (a *IamAPIService) PostIamKeysExecute(r IamAPIPostIamKeysRequest) (*IamKey,
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -10395,6 +11492,14 @@ func (a *IamAPIService) PostIamKeysExecute(r IamAPIPostIamKeysRequest) (*IamKey,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -11003,7 +12108,9 @@ pick.
 A client can say what it wants with `prompt`: `none` means answer without any
 screen at all — with the code if a session exists, with an error if not, but
 never with a page; `login` means ask for the password again even if a session
-exists; `select_account` means let the person choose which identity to use.
+exists; `select_account` means let the person choose among the accounts signed
+in on this browser, or sign in to another. `login_hint` names which of those
+accounts the request is for.
 
 It returns only to an address the application has registered. That check
 happens before anything else, so a request naming an unregistered address is
@@ -11496,10 +12603,16 @@ Three things happen here, in this order:
     days, so expiry is necessary but never sufficient.
  3. Only then is a redirect considered, and only to a REGISTERED uri.
 
-The open-redirect guard is unchanged: a redirect happens only when a VERIFIED
-id_token_hint identifies the application and that application has registered
-the target. Anything else refuses to redirect — nobody can turn your logout
-link into a redirect to a site of their choosing.
+The open-redirect guard: a redirect happens only when a VERIFIED
+id_token_hint (or client_id) identifies the application and that application
+has registered the target. Nobody can turn your logout link into a redirect to
+a site of their choosing.
+
+A GET is the end-session navigation (OIDC RP-Initiated Logout 1.0 §2), so it
+always ends on a page: the registered address when one was asked for, else
+this issuer's sign-in page for the application being signed out of. A relying
+party therefore needs no configuration to sign someone out. A POST is also how
+a program signs out, so it keeps the JSON answer unless it asks for HTML.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIPostIamOauthLogoutRequest
@@ -11575,6 +12688,103 @@ func (a *IamAPIService) PostIamOauthLogoutExecute(r IamAPIPostIamOauthLogoutRequ
 	return localVarHTTPResponse, nil
 }
 
+type IamAPIPostIamOauthRefreshTokenRequest struct {
+	ctx        context.Context
+	ApiService *IamAPIService
+}
+
+func (r IamAPIPostIamOauthRefreshTokenRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PostIamOauthRefreshTokenExecute(r)
+}
+
+/*
+PostIamOauthRefreshToken Exchanges what your application is holding for the tokens it needs — the one-time code from a finished sign-in, a refresh token, or your own client credentials when the caller is a program rather than a person.
+
+Exchanges what your application is holding for the tokens it
+needs — the one-time code from a finished sign-in, a refresh token, or your
+own client credentials when the caller is a program rather than a person.
+
+A refresh returns a NEW refresh token and retires the one you sent. If a
+retired one is ever presented again the whole chain is revoked, on the
+assumption that a token which came back from the dead was copied — so a stolen
+refresh token buys an attacker one use and costs them the session.
+
+Responses are never cached, by any hop.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IamAPIPostIamOauthRefreshTokenRequest
+*/
+func (a *IamAPIService) PostIamOauthRefreshToken(ctx context.Context) IamAPIPostIamOauthRefreshTokenRequest {
+	return IamAPIPostIamOauthRefreshTokenRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *IamAPIService) PostIamOauthRefreshTokenExecute(r IamAPIPostIamOauthRefreshTokenRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.PostIamOauthRefreshToken")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/oauth/refresh_token"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type IamAPIPostIamOauthRevokeRequest struct {
 	ctx        context.Context
 	ApiService *IamAPIService
@@ -11598,16 +12808,18 @@ A token that is not yours, or that never existed, answers success and does
 nothing — so the endpoint cannot be used to discover which tokens are real.
 
 PUBLIC clients revoke too, and must: sign-out is the only control a long-lived
-refresh token has. A native app or CLI is a public PKCE client and holds no
-secret, so requiring one here would leave signing out as a local delete —
+refresh token has (RFC 7009 §2.1 — a public client identifies itself with
+client_id). A browser app or CLI is a public PKCE client and holds no secret,
+and that includes the public half of a registration that keeps a secret for a
+backend path, so requiring one here would leave signing out as a local delete —
 forgetting a credential that stays spendable for the rest of its lifetime.
 
 Widening authentication does not widen authority. The caller must still POSSESS
 the token — and possession already permits USE, of which revocation is the
-strict opposite — and the row must belong to the client that presents it, so a
-public client_id buys the ability to destroy exactly what its holder could
-otherwise spend. RFC 6749 §3.2.1 is the same reading: a client with no
-credentials identifies itself with client_id.
+strict opposite — and the row must belong to the client that presents it. A
+caller that did not prove the registration's secret revokes only a grant that
+was itself established without it, so a public client_id buys the ability to
+destroy exactly what its holder could otherwise spend.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIPostIamOauthRevokeRequest
@@ -12032,7 +13244,7 @@ func (a *IamAPIService) PostIamPermissionsExecute(r IamAPIPostIamPermissionsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -12063,6 +13275,14 @@ func (a *IamAPIService) PostIamPermissionsExecute(r IamAPIPostIamPermissionsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -12235,7 +13455,7 @@ func (a *IamAPIService) PostIamProjectsExecute(r IamAPIPostIamProjectsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -12266,6 +13486,14 @@ func (a *IamAPIService) PostIamProjectsExecute(r IamAPIPostIamProjectsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -12375,166 +13603,14 @@ func (a *IamAPIService) PostIamRegistryTokenExecute(r IamAPIPostIamRegistryToken
 	return localVarHTTPResponse, nil
 }
 
-type IamAPIPostIamReleaseRequest struct {
-	ctx           context.Context
-	ApiService    *IamAPIService
-	iamAssumeBody *IamAssumeBody
-	authorization *string
-	xForwardedFor *string
-}
-
-func (r IamAPIPostIamReleaseRequest) IamAssumeBody(iamAssumeBody IamAssumeBody) IamAPIPostIamReleaseRequest {
-	r.iamAssumeBody = &iamAssumeBody
-	return r
-}
-
-func (r IamAPIPostIamReleaseRequest) Authorization(authorization string) IamAPIPostIamReleaseRequest {
-	r.authorization = &authorization
-	return r
-}
-
-func (r IamAPIPostIamReleaseRequest) XForwardedFor(xForwardedFor string) IamAPIPostIamReleaseRequest {
-	r.xForwardedFor = &xForwardedFor
-	return r
-}
-
-func (r IamAPIPostIamReleaseRequest) Execute() (*IamAnswer, *http.Response, error) {
-	return r.ApiService.PostIamReleaseExecute(r)
-}
-
-/*
-PostIamRelease Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in.
-
-Steps a platform operator back out: it returns their own access
-token with no organization assumed, which is the credential they had before
-they stepped in. Recorded like the step in.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return IamAPIPostIamReleaseRequest
-*/
-func (a *IamAPIService) PostIamRelease(ctx context.Context) IamAPIPostIamReleaseRequest {
-	return IamAPIPostIamReleaseRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return IamAnswer
-func (a *IamAPIService) PostIamReleaseExecute(r IamAPIPostIamReleaseRequest) (*IamAnswer, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *IamAnswer
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.PostIamRelease")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/iam/release"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.iamAssumeBody == nil {
-		return localVarReturnValue, nil, reportError("iamAssumeBody is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.authorization != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
-	}
-	if r.xForwardedFor != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Forwarded-For", r.xForwardedFor, "simple", "")
-	}
-	// body params
-	localVarPostBody = r.iamAssumeBody
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v IamAnswer
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v IamAnswer
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type IamAPIPostIamRolesRequest struct {
-	ctx           context.Context
-	ApiService    *IamAPIService
-	iamRolesInput *IamRolesInput
+	ctx        context.Context
+	ApiService *IamAPIService
+	iamInput   *IamInput
 }
 
-func (r IamAPIPostIamRolesRequest) IamRolesInput(iamRolesInput IamRolesInput) IamAPIPostIamRolesRequest {
-	r.iamRolesInput = &iamRolesInput
+func (r IamAPIPostIamRolesRequest) IamInput(iamInput IamInput) IamAPIPostIamRolesRequest {
+	r.iamInput = &iamInput
 	return r
 }
 
@@ -12581,8 +13657,8 @@ func (a *IamAPIService) PostIamRolesExecute(r IamAPIPostIamRolesRequest) (*IamRo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.iamRolesInput == nil {
-		return localVarReturnValue, nil, reportError("iamRolesInput is required and must be specified")
+	if r.iamInput == nil {
+		return localVarReturnValue, nil, reportError("iamInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -12595,7 +13671,7 @@ func (a *IamAPIService) PostIamRolesExecute(r IamAPIPostIamRolesRequest) (*IamRo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -12603,7 +13679,7 @@ func (a *IamAPIService) PostIamRolesExecute(r IamAPIPostIamRolesRequest) (*IamRo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.iamRolesInput
+	localVarPostBody = r.iamInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -12626,6 +13702,14 @@ func (a *IamAPIService) PostIamRolesExecute(r IamAPIPostIamRolesRequest) (*IamRo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -13172,7 +14256,7 @@ func (a *IamAPIService) PostIamTeamsExecute(r IamAPIPostIamTeamsRequest) (*IamTe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -13203,6 +14287,14 @@ func (a *IamAPIService) PostIamTeamsExecute(r IamAPIPostIamTeamsRequest) (*IamTe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -13328,10 +14420,11 @@ PostIamUnlink Disconnects one sign-in identity from an account, so that provider
 Disconnects one sign-in identity from an account, so that provider can
 no longer be used to sign in as that person. Their account and every other way
 they sign in are untouched. Two principals may do it, and
-only two: the account holder itself, and a SuperAdmin (a member of the reserved
-admin org, the one predicate). An ORG ADMIN deliberately may NOT — unlinking is
-not tenant administration, it is unpicking someone's own sign-in method, so the
-generic org-admin rule is the wrong answer here.
+only two: the account holder itself, and a SuperAdmin (schema.User.SuperAdmin,
+asked of the caller's own row). An ORG ADMIN deliberately may NOT — unlinking
+is not tenant administration, it is unpicking someone's own sign-in method, so
+the generic org-admin rule is the wrong answer here. A SuperAdmin unlinking
+someone else's method is recorded on the SuperAdmin trail.
 
 A holder unlinking itself must also be permitted by the application — the
 provider link's CanUnlink flag — so an organization that mandates federated
@@ -13485,7 +14578,7 @@ func (a *IamAPIService) PostIamUsersExecute(r IamAPIPostIamUsersRequest) (*IamUs
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -13516,6 +14609,14 @@ func (a *IamAPIService) PostIamUsersExecute(r IamAPIPostIamUsersRequest) (*IamUs
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14067,7 +15168,7 @@ func (a *IamAPIService) PostIamWorkspacesExecute(r IamAPIPostIamWorkspacesReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14098,6 +15199,14 @@ func (a *IamAPIService) PostIamWorkspacesExecute(r IamAPIPostIamWorkspacesReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14199,7 +15308,7 @@ func (a *IamAPIService) PutIamAccountExecute(r IamAPIPutIamAccountRequest) (*Iam
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14245,7 +15354,16 @@ func (a *IamAPIService) PutIamAccountExecute(r IamAPIPutIamAccountRequest) (*Iam
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14340,7 +15458,7 @@ func (a *IamAPIService) PutIamApplicationsByOwnerByNameExecute(r IamAPIPutIamApp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14371,6 +15489,14 @@ func (a *IamAPIService) PutIamApplicationsByOwnerByNameExecute(r IamAPIPutIamApp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14387,15 +15513,15 @@ func (a *IamAPIService) PutIamApplicationsByOwnerByNameExecute(r IamAPIPutIamApp
 }
 
 type IamAPIPutIamAuditLogsByOwnerByNameRequest struct {
-	ctx        context.Context
-	ApiService *IamAPIService
-	owner      string
-	name       string
-	iamInput   *IamInput
+	ctx               context.Context
+	ApiService        *IamAPIService
+	owner             string
+	name              string
+	iamAuditlogsInput *IamAuditlogsInput
 }
 
-func (r IamAPIPutIamAuditLogsByOwnerByNameRequest) IamInput(iamInput IamInput) IamAPIPutIamAuditLogsByOwnerByNameRequest {
-	r.iamInput = &iamInput
+func (r IamAPIPutIamAuditLogsByOwnerByNameRequest) IamAuditlogsInput(iamAuditlogsInput IamAuditlogsInput) IamAPIPutIamAuditLogsByOwnerByNameRequest {
+	r.iamAuditlogsInput = &iamAuditlogsInput
 	return r
 }
 
@@ -14447,8 +15573,8 @@ func (a *IamAPIService) PutIamAuditLogsByOwnerByNameExecute(r IamAPIPutIamAuditL
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.iamInput == nil {
-		return localVarReturnValue, nil, reportError("iamInput is required and must be specified")
+	if r.iamAuditlogsInput == nil {
+		return localVarReturnValue, nil, reportError("iamAuditlogsInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -14461,7 +15587,7 @@ func (a *IamAPIService) PutIamAuditLogsByOwnerByNameExecute(r IamAPIPutIamAuditL
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14469,7 +15595,7 @@ func (a *IamAPIService) PutIamAuditLogsByOwnerByNameExecute(r IamAPIPutIamAuditL
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.iamInput
+	localVarPostBody = r.iamAuditlogsInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -14492,6 +15618,14 @@ func (a *IamAPIService) PutIamAuditLogsByOwnerByNameExecute(r IamAPIPutIamAuditL
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14601,7 +15735,7 @@ func (a *IamAPIService) PutIamCertsByOwnerByNameExecute(r IamAPIPutIamCertsByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14632,6 +15766,14 @@ func (a *IamAPIService) PutIamCertsByOwnerByNameExecute(r IamAPIPutIamCertsByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14817,7 +15959,7 @@ func (a *IamAPIService) PutIamInvitationsByOwnerByNameExecute(r IamAPIPutIamInvi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14848,6 +15990,14 @@ func (a *IamAPIService) PutIamInvitationsByOwnerByNameExecute(r IamAPIPutIamInvi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -14937,7 +16087,7 @@ func (a *IamAPIService) PutIamKeysByOwnerByNameExecute(r IamAPIPutIamKeysByOwner
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -14968,6 +16118,14 @@ func (a *IamAPIService) PutIamKeysByOwnerByNameExecute(r IamAPIPutIamKeysByOwner
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15071,7 +16229,7 @@ func (a *IamAPIService) PutIamPasswordExecute(r IamAPIPutIamPasswordRequest) (*I
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15117,7 +16275,16 @@ func (a *IamAPIService) PutIamPasswordExecute(r IamAPIPutIamPasswordRequest) (*I
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15208,7 +16375,7 @@ func (a *IamAPIService) PutIamPermissionsByOwnerByNameExecute(r IamAPIPutIamPerm
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15239,6 +16406,14 @@ func (a *IamAPIService) PutIamPermissionsByOwnerByNameExecute(r IamAPIPutIamPerm
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15328,7 +16503,7 @@ func (a *IamAPIService) PutIamProjectsByOwnerByNameExecute(r IamAPIPutIamProject
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15359,6 +16534,14 @@ func (a *IamAPIService) PutIamProjectsByOwnerByNameExecute(r IamAPIPutIamProject
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15375,15 +16558,15 @@ func (a *IamAPIService) PutIamProjectsByOwnerByNameExecute(r IamAPIPutIamProject
 }
 
 type IamAPIPutIamRolesByOwnerByNameRequest struct {
-	ctx           context.Context
-	ApiService    *IamAPIService
-	owner         string
-	name          string
-	iamRolesInput *IamRolesInput
+	ctx        context.Context
+	ApiService *IamAPIService
+	owner      string
+	name       string
+	iamInput   *IamInput
 }
 
-func (r IamAPIPutIamRolesByOwnerByNameRequest) IamRolesInput(iamRolesInput IamRolesInput) IamAPIPutIamRolesByOwnerByNameRequest {
-	r.iamRolesInput = &iamRolesInput
+func (r IamAPIPutIamRolesByOwnerByNameRequest) IamInput(iamInput IamInput) IamAPIPutIamRolesByOwnerByNameRequest {
+	r.iamInput = &iamInput
 	return r
 }
 
@@ -15400,7 +16583,7 @@ change, and neither does when it was created.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param owner
-	@param name
+	@param name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL.
 	@return IamAPIPutIamRolesByOwnerByNameRequest
 */
 func (a *IamAPIService) PutIamRolesByOwnerByName(ctx context.Context, owner string, name string) IamAPIPutIamRolesByOwnerByNameRequest {
@@ -15435,8 +16618,8 @@ func (a *IamAPIService) PutIamRolesByOwnerByNameExecute(r IamAPIPutIamRolesByOwn
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.iamRolesInput == nil {
-		return localVarReturnValue, nil, reportError("iamRolesInput is required and must be specified")
+	if r.iamInput == nil {
+		return localVarReturnValue, nil, reportError("iamInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -15449,7 +16632,7 @@ func (a *IamAPIService) PutIamRolesByOwnerByNameExecute(r IamAPIPutIamRolesByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15457,7 +16640,7 @@ func (a *IamAPIService) PutIamRolesByOwnerByNameExecute(r IamAPIPutIamRolesByOwn
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.iamRolesInput
+	localVarPostBody = r.iamInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -15480,6 +16663,14 @@ func (a *IamAPIService) PutIamRolesByOwnerByNameExecute(r IamAPIPutIamRolesByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15668,7 +16859,7 @@ func (a *IamAPIService) PutIamTeamsByNameExecute(r IamAPIPutIamTeamsByNameReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15699,6 +16890,175 @@ func (a *IamAPIService) PutIamTeamsByNameExecute(r IamAPIPutIamTeamsByNameReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IamAPIPutIamTermsRequest struct {
+	ctx           context.Context
+	ApiService    *IamAPIService
+	iamTermsBody  *IamTermsBody
+	cookie        *string
+	authorization *string
+	xForwardedFor *string
+}
+
+func (r IamAPIPutIamTermsRequest) IamTermsBody(iamTermsBody IamTermsBody) IamAPIPutIamTermsRequest {
+	r.iamTermsBody = &iamTermsBody
+	return r
+}
+
+func (r IamAPIPutIamTermsRequest) Cookie(cookie string) IamAPIPutIamTermsRequest {
+	r.cookie = &cookie
+	return r
+}
+
+func (r IamAPIPutIamTermsRequest) Authorization(authorization string) IamAPIPutIamTermsRequest {
+	r.authorization = &authorization
+	return r
+}
+
+func (r IamAPIPutIamTermsRequest) XForwardedFor(xForwardedFor string) IamAPIPutIamTermsRequest {
+	r.xForwardedFor = &xForwardedFor
+	return r
+}
+
+func (r IamAPIPutIamTermsRequest) Execute() (*IamAnswer, *http.Response, error) {
+	return r.ApiService.PutIamTermsExecute(r)
+}
+
+/*
+PutIamTerms Records that the signed-in caller accepted the terms and the acceptable use policy, at the versions named.
+
+Records that the signed-in caller accepted the terms and the
+acceptable use policy, at the versions named. It is how a person who arrived by
+a social provider, whose account the callback already made, records the same
+acceptance a code sign-up records at creation. Only the caller's own row is
+reachable.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return IamAPIPutIamTermsRequest
+*/
+func (a *IamAPIService) PutIamTerms(ctx context.Context) IamAPIPutIamTermsRequest {
+	return IamAPIPutIamTermsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamAnswer
+func (a *IamAPIService) PutIamTermsExecute(r IamAPIPutIamTermsRequest) (*IamAnswer, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamAnswer
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.PutIamTerms")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/terms"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.iamTermsBody == nil {
+		return localVarReturnValue, nil, reportError("iamTermsBody is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.cookie != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Cookie", r.cookie, "simple", "")
+	}
+	if r.authorization != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
+	}
+	if r.xForwardedFor != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Forwarded-For", r.xForwardedFor, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.iamTermsBody
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v IamAnswer
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15741,6 +17101,8 @@ working.
 Who they are does not change: their organization, username and the identifier
 their existing sessions are keyed on all survive the write, so an update never
 signs anyone out.
+
+A SuperAdmin's account is changed only by a SuperAdmin.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param owner
@@ -15793,7 +17155,7 @@ func (a *IamAPIService) PutIamUsersByOwnerByNameExecute(r IamAPIPutIamUsersByOwn
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15824,6 +17186,14 @@ func (a *IamAPIService) PutIamUsersByOwnerByNameExecute(r IamAPIPutIamUsersByOwn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -15913,7 +17283,7 @@ func (a *IamAPIService) PutIamWorkspacesByOwnerByNameExecute(r IamAPIPutIamWorks
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -15944,6 +17314,134 @@ func (a *IamAPIService) PutIamWorkspacesByOwnerByNameExecute(r IamAPIPutIamWorks
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type IamAPIReleaseOrganizationNameRequest struct {
+	ctx        context.Context
+	ApiService *IamAPIService
+	owner      string
+	name       string
+}
+
+func (r IamAPIReleaseOrganizationNameRequest) Execute() (*IamReleaseOutput, *http.Response, error) {
+	return r.ApiService.ReleaseOrganizationNameExecute(r)
+}
+
+/*
+ReleaseOrganizationName Frees the name of a deleted organization so it can be founded again.
+
+Frees the name of a deleted organization so it can be founded again.
+Deleting an organization leaves its name held, because every service keys a
+tenant by that name; releasing it is a SuperAdmin's decision, recorded on the
+audit trail, and it is refused while anything IAM keeps is still keyed by the
+name. Everything else keyed by it across the estate must be purged first.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param owner
+	@param name
+	@return IamAPIReleaseOrganizationNameRequest
+*/
+func (a *IamAPIService) ReleaseOrganizationName(ctx context.Context, owner string, name string) IamAPIReleaseOrganizationNameRequest {
+	return IamAPIReleaseOrganizationNameRequest{
+		ApiService: a,
+		ctx:        ctx,
+		owner:      owner,
+		name:       name,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IamReleaseOutput
+func (a *IamAPIService) ReleaseOrganizationNameExecute(r IamAPIReleaseOrganizationNameRequest) (*IamReleaseOutput, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IamReleaseOutput
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IamAPIService.ReleaseOrganizationName")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/iam/organizations/tombstones/{owner}/{name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"owner"+"}", url.PathEscape(parameterValueToString(r.owner, "owner")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16037,7 +17535,7 @@ func (a *IamAPIService) SetOrganizationAvatarExecute(r IamAPISetOrganizationAvat
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16068,6 +17566,14 @@ func (a *IamAPIService) SetOrganizationAvatarExecute(r IamAPISetOrganizationAvat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16161,7 +17667,7 @@ func (a *IamAPIService) SetOrganizationProfileExecute(r IamAPISetOrganizationPro
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16192,6 +17698,14 @@ func (a *IamAPIService) SetOrganizationProfileExecute(r IamAPISetOrganizationPro
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16282,7 +17796,7 @@ func (a *IamAPIService) UpdateOrganizationExecute(r IamAPIUpdateOrganizationRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16313,6 +17827,14 @@ func (a *IamAPIService) UpdateOrganizationExecute(r IamAPIUpdateOrganizationRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16406,7 +17928,7 @@ func (a *IamAPIService) UpdateProviderExecute(r IamAPIUpdateProviderRequest) (*I
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16437,6 +17959,14 @@ func (a *IamAPIService) UpdateProviderExecute(r IamAPIUpdateProviderRequest) (*I
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16531,7 +18061,7 @@ func (a *IamAPIService) UpdateSessionExecute(r IamAPIUpdateSessionRequest) (*Iam
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16562,6 +18092,14 @@ func (a *IamAPIService) UpdateSessionExecute(r IamAPIUpdateSessionRequest) (*Iam
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16653,7 +18191,7 @@ func (a *IamAPIService) UpdateTokenExecute(r IamAPIUpdateTokenRequest) (*IamToke
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16684,6 +18222,14 @@ func (a *IamAPIService) UpdateTokenExecute(r IamAPIUpdateTokenRequest) (*IamToke
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16776,7 +18322,7 @@ func (a *IamAPIService) UpdateWebauthnCredentialExecute(r IamAPIUpdateWebauthnCr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16807,6 +18353,14 @@ func (a *IamAPIService) UpdateWebauthnCredentialExecute(r IamAPIUpdateWebauthnCr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -16899,7 +18453,7 @@ func (a *IamAPIService) UpsertApplicationExecute(r IamAPIUpsertApplicationReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -16955,6 +18509,17 @@ func (a *IamAPIService) UpsertApplicationExecute(r IamAPIUpsertApplicationReques
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v IamReply
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v IamReply
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -16964,7 +18529,16 @@ func (a *IamAPIService) UpsertApplicationExecute(r IamAPIUpsertApplicationReques
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -17016,6 +18590,9 @@ Passwords are hashed before they are stored. Leave the password out and their
 current one is kept, so a redeploy never locks somebody out; send the same one
 again and it is kept too, so a steady-state re-run is not a rotation.
 
+A SuperAdmin's password, email and phone are set when the account is created
+and kept on every run after.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return IamAPIUpsertUserRequest
 */
@@ -17061,7 +18638,7 @@ func (a *IamAPIService) UpsertUserExecute(r IamAPIUpsertUserRequest) (*IamReply,
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -17126,7 +18703,16 @@ func (a *IamAPIService) UpsertUserExecute(r IamAPIUpsertUserRequest) (*IamReply,
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -5,14 +5,14 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GatewayTraffic**](GatewayAPI.md#GatewayTraffic) | **Get** /v1/gateway/traffic | Report who is calling this org&#39;s API right now
-[**GetGatewayConfig**](GatewayAPI.md#GetGatewayConfig) | **Get** /v1/gateway/config | Read returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller&#39;s own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
-[**PutGatewayConfig**](GatewayAPI.md#PutGatewayConfig) | **Put** /v1/gateway/config | Write updates one policy scope and returns the policy in force after the write.
+[**GetGatewayConfig**](GatewayAPI.md#GetGatewayConfig) | **Get** /v1/gateway/config | Returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller&#39;s own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
+[**PutGatewayConfig**](GatewayAPI.md#PutGatewayConfig) | **Put** /v1/gateway/config | Updates one policy scope and returns the policy in force after the write.
 
 
 
 ## GatewayTraffic
 
-> TrafficView GatewayTraffic(ctx).Execute()
+> GatewayTrafficView GatewayTraffic(ctx).Execute()
 
 Report who is calling this org's API right now
 
@@ -39,7 +39,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GatewayAPI.GatewayTraffic``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GatewayTraffic`: TrafficView
+	// response from `GatewayTraffic`: GatewayTrafficView
 	fmt.Fprintf(os.Stdout, "Response from `GatewayAPI.GatewayTraffic`: %v\n", resp)
 }
 ```
@@ -55,7 +55,7 @@ Other parameters are passed through a pointer to a apiGatewayTrafficRequest stru
 
 ### Return type
 
-[**TrafficView**](TrafficView.md)
+[**GatewayTrafficView**](GatewayTrafficView.md)
 
 ### Authorization
 
@@ -64,7 +64,7 @@ Other parameters are passed through a pointer to a apiGatewayTrafficRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -73,9 +73,9 @@ Other parameters are passed through a pointer to a apiGatewayTrafficRequest stru
 
 ## GetGatewayConfig
 
-> Policy GetGatewayConfig(ctx).Execute()
+> GatewayPolicy GetGatewayConfig(ctx).Execute()
 
-Read returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller's own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
+Returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller's own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
 
 
 
@@ -100,7 +100,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `GatewayAPI.GetGatewayConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetGatewayConfig`: Policy
+	// response from `GetGatewayConfig`: GatewayPolicy
 	fmt.Fprintf(os.Stdout, "Response from `GatewayAPI.GetGatewayConfig`: %v\n", resp)
 }
 ```
@@ -116,7 +116,7 @@ Other parameters are passed through a pointer to a apiGetGatewayConfigRequest st
 
 ### Return type
 
-[**Policy**](Policy.md)
+[**GatewayPolicy**](GatewayPolicy.md)
 
 ### Authorization
 
@@ -125,7 +125,7 @@ Other parameters are passed through a pointer to a apiGetGatewayConfigRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -134,9 +134,9 @@ Other parameters are passed through a pointer to a apiGetGatewayConfigRequest st
 
 ## PutGatewayConfig
 
-> Policy PutGatewayConfig(ctx).Policy(policy).Execute()
+> GatewayPolicy PutGatewayConfig(ctx).GatewayPolicy(gatewayPolicy).Execute()
 
-Write updates one policy scope and returns the policy in force after the write.
+Updates one policy scope and returns the policy in force after the write.
 
 
 
@@ -153,16 +153,16 @@ import (
 )
 
 func main() {
-	policy := *openapiclient.NewPolicy() // Policy | 
+	gatewayPolicy := *openapiclient.NewGatewayPolicy() // GatewayPolicy | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GatewayAPI.PutGatewayConfig(context.Background()).Policy(policy).Execute()
+	resp, r, err := apiClient.GatewayAPI.PutGatewayConfig(context.Background()).GatewayPolicy(gatewayPolicy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GatewayAPI.PutGatewayConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutGatewayConfig`: Policy
+	// response from `PutGatewayConfig`: GatewayPolicy
 	fmt.Fprintf(os.Stdout, "Response from `GatewayAPI.PutGatewayConfig`: %v\n", resp)
 }
 ```
@@ -178,11 +178,11 @@ Other parameters are passed through a pointer to a apiPutGatewayConfigRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **policy** | [**Policy**](Policy.md) |  | 
+ **gatewayPolicy** | [**GatewayPolicy**](GatewayPolicy.md) |  | 
 
 ### Return type
 
-[**Policy**](Policy.md)
+[**GatewayPolicy**](GatewayPolicy.md)
 
 ### Authorization
 
@@ -191,7 +191,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

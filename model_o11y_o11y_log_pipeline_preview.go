@@ -22,8 +22,11 @@ type O11yO11yLogPipelinePreview struct {
 	// CollectorLogs is what the collector logged while simulating.
 	CollectorLogs []string `json:"collectorLogs,omitempty"`
 	// Logs are the sample records after the pipelines ran over them.
-	Logs []O11yO11yLogRecord `json:"logs,omitempty"`
+	Logs                 []O11yO11yLogRecord `json:"logs,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogPipelinePreview O11yO11yLogPipelinePreview
 
 // NewO11yO11yLogPipelinePreview instantiates a new O11yO11yLogPipelinePreview object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yLogPipelinePreview) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Logs) {
 		toSerialize["logs"] = o.Logs
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogPipelinePreview) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogPipelinePreview := _O11yO11yLogPipelinePreview{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogPipelinePreview)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogPipelinePreview(varO11yO11yLogPipelinePreview)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "collectorLogs")
+		delete(additionalProperties, "logs")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogPipelinePreview struct {

@@ -20,11 +20,14 @@ var _ MappedNullable = &O11yPostableAccountConfig{}
 // O11yPostableAccountConfig struct for O11yPostableAccountConfig
 type O11yPostableAccountConfig struct {
 	// as agent version is common for all providers, we can keep it at top level of this struct
-	AgentVersion *string                       `json:"AgentVersion,omitempty"`
-	Aws          *O11yAWSPostableAccountConfig `json:"aws,omitempty"`
-	Azure        *O11yAzureAccountConfig       `json:"azure,omitempty"`
-	Gcp          *O11yGCPAccountConfig         `json:"gcp,omitempty"`
+	AgentVersion         *string                       `json:"AgentVersion,omitempty"`
+	Aws                  *O11yAWSPostableAccountConfig `json:"aws,omitempty"`
+	Azure                *O11yAzureAccountConfig       `json:"azure,omitempty"`
+	Gcp                  *O11yGCPAccountConfig         `json:"gcp,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPostableAccountConfig O11yPostableAccountConfig
 
 // NewO11yPostableAccountConfig instantiates a new O11yPostableAccountConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o O11yPostableAccountConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Gcp) {
 		toSerialize["gcp"] = o.Gcp
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPostableAccountConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yPostableAccountConfig := _O11yPostableAccountConfig{}
+
+	err = json.Unmarshal(data, &varO11yPostableAccountConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPostableAccountConfig(varO11yPostableAccountConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "AgentVersion")
+		delete(additionalProperties, "aws")
+		delete(additionalProperties, "azure")
+		delete(additionalProperties, "gcp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPostableAccountConfig struct {

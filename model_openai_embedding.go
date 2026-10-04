@@ -19,10 +19,13 @@ var _ MappedNullable = &OpenaiEmbedding{}
 
 // OpenaiEmbedding struct for OpenaiEmbedding
 type OpenaiEmbedding struct {
-	Embedding []float32 `json:"embedding,omitempty"`
-	Index     *int32    `json:"index,omitempty"`
-	Object    *string   `json:"object,omitempty"`
+	Embedding            []float32 `json:"embedding,omitempty"`
+	Index                *int32    `json:"index,omitempty"`
+	Object               *string   `json:"object,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiEmbedding OpenaiEmbedding
 
 // NewOpenaiEmbedding instantiates a new OpenaiEmbedding object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o OpenaiEmbedding) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Object) {
 		toSerialize["object"] = o.Object
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiEmbedding) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiEmbedding := _OpenaiEmbedding{}
+
+	err = json.Unmarshal(data, &varOpenaiEmbedding)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiEmbedding(varOpenaiEmbedding)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "embedding")
+		delete(additionalProperties, "index")
+		delete(additionalProperties, "object")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiEmbedding struct {

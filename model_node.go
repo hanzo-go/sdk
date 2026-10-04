@@ -19,34 +19,37 @@ var _ MappedNullable = &Node{}
 
 // Node struct for Node
 type Node struct {
-	AutoQuery       *bool       `json:"autoQuery,omitempty"`
-	Category        *string     `json:"category,omitempty"`
-	CpuSize         *string     `json:"cpuSize,omitempty"`
-	CreatedTime     *string     `json:"createdTime,omitempty"`
-	Description     *string     `json:"description,omitempty"`
-	DisplayName     *string     `json:"displayName,omitempty"`
-	EnableRemoteApp *bool       `json:"enableRemoteApp,omitempty"`
-	IsPermanent     *bool       `json:"isPermanent,omitempty"`
-	Language        *string     `json:"language,omitempty"`
-	MachineName     *string     `json:"machineName,omitempty"`
-	MemSize         *string     `json:"memSize,omitempty"`
-	Name            *string     `json:"name,omitempty"`
-	Os              *string     `json:"os,omitempty"`
-	Owner           *string     `json:"owner,omitempty"`
-	Patches         []Patch     `json:"patches,omitempty"`
-	PrivateIp       *string     `json:"privateIp,omitempty"`
-	PublicIp        *string     `json:"publicIp,omitempty"`
-	RemoteApps      []RemoteApp `json:"remoteApps,omitempty"`
-	RemotePassword  *string     `json:"remotePassword,omitempty"`
-	RemotePort      *int32      `json:"remotePort,omitempty"`
-	RemoteProtocol  *string     `json:"remoteProtocol,omitempty"`
-	RemoteUsername  *string     `json:"remoteUsername,omitempty"`
-	Services        []Service   `json:"services,omitempty"`
-	Size            *string     `json:"size,omitempty"`
-	Tag             *string     `json:"tag,omitempty"`
-	Type            *string     `json:"type,omitempty"`
-	UpdatedTime     *string     `json:"updatedTime,omitempty"`
+	AutoQuery            *bool       `json:"autoQuery,omitempty"`
+	Category             *string     `json:"category,omitempty"`
+	CpuSize              *string     `json:"cpuSize,omitempty"`
+	CreatedTime          *string     `json:"createdTime,omitempty"`
+	Description          *string     `json:"description,omitempty"`
+	DisplayName          *string     `json:"displayName,omitempty"`
+	EnableRemoteApp      *bool       `json:"enableRemoteApp,omitempty"`
+	IsPermanent          *bool       `json:"isPermanent,omitempty"`
+	Language             *string     `json:"language,omitempty"`
+	MachineName          *string     `json:"machineName,omitempty"`
+	MemSize              *string     `json:"memSize,omitempty"`
+	Name                 *string     `json:"name,omitempty"`
+	Os                   *string     `json:"os,omitempty"`
+	Owner                *string     `json:"owner,omitempty"`
+	Patches              []Patch     `json:"patches,omitempty"`
+	PrivateIp            *string     `json:"privateIp,omitempty"`
+	PublicIp             *string     `json:"publicIp,omitempty"`
+	RemoteApps           []RemoteApp `json:"remoteApps,omitempty"`
+	RemotePassword       *string     `json:"remotePassword,omitempty"`
+	RemotePort           *int32      `json:"remotePort,omitempty"`
+	RemoteProtocol       *string     `json:"remoteProtocol,omitempty"`
+	RemoteUsername       *string     `json:"remoteUsername,omitempty"`
+	Services             []Service   `json:"services,omitempty"`
+	Size                 *string     `json:"size,omitempty"`
+	Tag                  *string     `json:"tag,omitempty"`
+	Type                 *string     `json:"type,omitempty"`
+	UpdatedTime          *string     `json:"updatedTime,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Node Node
 
 // NewNode instantiates a new Node object
 // This constructor will assign default values to properties that have it defined,
@@ -1020,7 +1023,59 @@ func (o Node) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedTime) {
 		toSerialize["updatedTime"] = o.UpdatedTime
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Node) UnmarshalJSON(data []byte) (err error) {
+	varNode := _Node{}
+
+	err = json.Unmarshal(data, &varNode)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Node(varNode)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "autoQuery")
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "cpuSize")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "enableRemoteApp")
+		delete(additionalProperties, "isPermanent")
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "machineName")
+		delete(additionalProperties, "memSize")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "os")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "patches")
+		delete(additionalProperties, "privateIp")
+		delete(additionalProperties, "publicIp")
+		delete(additionalProperties, "remoteApps")
+		delete(additionalProperties, "remotePassword")
+		delete(additionalProperties, "remotePort")
+		delete(additionalProperties, "remoteProtocol")
+		delete(additionalProperties, "remoteUsername")
+		delete(additionalProperties, "services")
+		delete(additionalProperties, "size")
+		delete(additionalProperties, "tag")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updatedTime")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNode struct {

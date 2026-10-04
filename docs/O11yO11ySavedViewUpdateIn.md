@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Category** | Pointer to **string** |  | [optional] 
-**CompositeQuery** | Pointer to [**O11yCompositeQuery**](O11yCompositeQuery.md) |  | [optional] 
+**CompositeQuery** | Pointer to [**O11yV3CompositeQuery**](O11yV3CompositeQuery.md) |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **CreatedBy** | Pointer to **string** |  | [optional] 
 **ExtraData** | Pointer to **string** |  | [optional] 
@@ -63,20 +63,20 @@ HasCategory returns a boolean if a field has been set.
 
 ### GetCompositeQuery
 
-`func (o *O11yO11ySavedViewUpdateIn) GetCompositeQuery() O11yCompositeQuery`
+`func (o *O11yO11ySavedViewUpdateIn) GetCompositeQuery() O11yV3CompositeQuery`
 
 GetCompositeQuery returns the CompositeQuery field if non-nil, zero value otherwise.
 
 ### GetCompositeQueryOk
 
-`func (o *O11yO11ySavedViewUpdateIn) GetCompositeQueryOk() (*O11yCompositeQuery, bool)`
+`func (o *O11yO11ySavedViewUpdateIn) GetCompositeQueryOk() (*O11yV3CompositeQuery, bool)`
 
 GetCompositeQueryOk returns a tuple with the CompositeQuery field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompositeQuery
 
-`func (o *O11yO11ySavedViewUpdateIn) SetCompositeQuery(v O11yCompositeQuery)`
+`func (o *O11yO11ySavedViewUpdateIn) SetCompositeQuery(v O11yV3CompositeQuery)`
 
 SetCompositeQuery sets CompositeQuery field to given value.
 

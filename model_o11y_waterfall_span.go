@@ -19,37 +19,40 @@ var _ MappedNullable = &O11yWaterfallSpan{}
 
 // O11yWaterfallSpan struct for O11yWaterfallSpan
 type O11yWaterfallSpan struct {
-	Attributes map[string]map[string]interface{} `json:"attributes,omitempty"`
-	// Calculated fields https://o11y.io/docs/traces-management/guides/derived-fields-spans
-	DbName             *string           `json:"db_name,omitempty"`
-	DbOperation        *string           `json:"db_operation,omitempty"`
-	DurationNano       *int32            `json:"duration_nano,omitempty"`
-	Events             []O11yEvent       `json:"events,omitempty"`
-	ExternalHttpMethod *string           `json:"external_http_method,omitempty"`
-	ExternalHttpUrl    *string           `json:"external_http_url,omitempty"`
-	Flags              *int32            `json:"flags,omitempty"`
-	HasChildren        *bool             `json:"has_children,omitempty"`
-	HasError           *bool             `json:"has_error,omitempty"`
-	HttpHost           *string           `json:"http_host,omitempty"`
-	HttpMethod         *string           `json:"http_method,omitempty"`
-	HttpUrl            *string           `json:"http_url,omitempty"`
-	IsRemote           *string           `json:"is_remote,omitempty"`
-	KindString         *string           `json:"kind_string,omitempty"`
-	Level              *int32            `json:"level,omitempty"`
-	Name               *string           `json:"name,omitempty"`
-	ParentSpanId       *string           `json:"parent_span_id,omitempty"`
-	References         []O11yOtelSpanRef `json:"references,omitempty"`
-	Resource           map[string]string `json:"resource,omitempty"`
-	ResponseStatusCode *string           `json:"response_status_code,omitempty"`
-	SpanId             *string           `json:"span_id,omitempty"`
-	StatusCode         *int32            `json:"status_code,omitempty"`
-	StatusCodeString   *string           `json:"status_code_string,omitempty"`
-	StatusMessage      *string           `json:"status_message,omitempty"`
-	SubTreeNodeCount   *int32            `json:"sub_tree_node_count,omitempty"`
-	TimeUnix           *int32            `json:"time_unix,omitempty"`
-	TraceId            *string           `json:"trace_id,omitempty"`
-	TraceState         *string           `json:"trace_state,omitempty"`
+	Attributes map[string]interface{} `json:"attributes,omitempty"`
+	// Calculated fields, derived from the span's attributes.
+	DbName               *string           `json:"db_name,omitempty"`
+	DbOperation          *string           `json:"db_operation,omitempty"`
+	DurationNano         *int32            `json:"duration_nano,omitempty"`
+	Events               []O11yEvent       `json:"events,omitempty"`
+	ExternalHttpMethod   *string           `json:"external_http_method,omitempty"`
+	ExternalHttpUrl      *string           `json:"external_http_url,omitempty"`
+	Flags                *int32            `json:"flags,omitempty"`
+	HasChildren          *bool             `json:"has_children,omitempty"`
+	HasError             *bool             `json:"has_error,omitempty"`
+	HttpHost             *string           `json:"http_host,omitempty"`
+	HttpMethod           *string           `json:"http_method,omitempty"`
+	HttpUrl              *string           `json:"http_url,omitempty"`
+	IsRemote             *string           `json:"is_remote,omitempty"`
+	KindString           *string           `json:"kind_string,omitempty"`
+	Level                *int32            `json:"level,omitempty"`
+	Name                 *string           `json:"name,omitempty"`
+	ParentSpanId         *string           `json:"parent_span_id,omitempty"`
+	References           []O11yOtelSpanRef `json:"references,omitempty"`
+	Resource             map[string]string `json:"resource,omitempty"`
+	ResponseStatusCode   *string           `json:"response_status_code,omitempty"`
+	SpanId               *string           `json:"span_id,omitempty"`
+	StatusCode           *int32            `json:"status_code,omitempty"`
+	StatusCodeString     *string           `json:"status_code_string,omitempty"`
+	StatusMessage        *string           `json:"status_message,omitempty"`
+	SubTreeNodeCount     *int32            `json:"sub_tree_node_count,omitempty"`
+	TimeUnix             *int32            `json:"time_unix,omitempty"`
+	TraceId              *string           `json:"trace_id,omitempty"`
+	TraceState           *string           `json:"trace_state,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yWaterfallSpan O11yWaterfallSpan
 
 // NewO11yWaterfallSpan instantiates a new O11yWaterfallSpan object
 // This constructor will assign default values to properties that have it defined,
@@ -69,9 +72,9 @@ func NewO11yWaterfallSpanWithDefaults() *O11yWaterfallSpan {
 }
 
 // GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *O11yWaterfallSpan) GetAttributes() map[string]map[string]interface{} {
+func (o *O11yWaterfallSpan) GetAttributes() map[string]interface{} {
 	if o == nil || IsNil(o.Attributes) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Attributes
@@ -79,9 +82,9 @@ func (o *O11yWaterfallSpan) GetAttributes() map[string]map[string]interface{} {
 
 // GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yWaterfallSpan) GetAttributesOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yWaterfallSpan) GetAttributesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Attributes) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Attributes, true
 }
@@ -95,8 +98,8 @@ func (o *O11yWaterfallSpan) HasAttributes() bool {
 	return false
 }
 
-// SetAttributes gets a reference to the given map[string]map[string]interface{} and assigns it to the Attributes field.
-func (o *O11yWaterfallSpan) SetAttributes(v map[string]map[string]interface{}) {
+// SetAttributes gets a reference to the given map[string]interface{} and assigns it to the Attributes field.
+func (o *O11yWaterfallSpan) SetAttributes(v map[string]interface{}) {
 	o.Attributes = v
 }
 
@@ -1093,7 +1096,61 @@ func (o O11yWaterfallSpan) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TraceState) {
 		toSerialize["trace_state"] = o.TraceState
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yWaterfallSpan) UnmarshalJSON(data []byte) (err error) {
+	varO11yWaterfallSpan := _O11yWaterfallSpan{}
+
+	err = json.Unmarshal(data, &varO11yWaterfallSpan)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yWaterfallSpan(varO11yWaterfallSpan)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "db_name")
+		delete(additionalProperties, "db_operation")
+		delete(additionalProperties, "duration_nano")
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "external_http_method")
+		delete(additionalProperties, "external_http_url")
+		delete(additionalProperties, "flags")
+		delete(additionalProperties, "has_children")
+		delete(additionalProperties, "has_error")
+		delete(additionalProperties, "http_host")
+		delete(additionalProperties, "http_method")
+		delete(additionalProperties, "http_url")
+		delete(additionalProperties, "is_remote")
+		delete(additionalProperties, "kind_string")
+		delete(additionalProperties, "level")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "parent_span_id")
+		delete(additionalProperties, "references")
+		delete(additionalProperties, "resource")
+		delete(additionalProperties, "response_status_code")
+		delete(additionalProperties, "span_id")
+		delete(additionalProperties, "status_code")
+		delete(additionalProperties, "status_code_string")
+		delete(additionalProperties, "status_message")
+		delete(additionalProperties, "sub_tree_node_count")
+		delete(additionalProperties, "time_unix")
+		delete(additionalProperties, "trace_id")
+		delete(additionalProperties, "trace_state")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yWaterfallSpan struct {

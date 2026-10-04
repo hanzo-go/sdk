@@ -82,7 +82,7 @@ func (a *IngressAPIService) DeleteIngressMiddlewaresByIdExecute(r IngressAPIDele
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -111,6 +111,14 @@ func (a *IngressAPIService) DeleteIngressMiddlewaresByIdExecute(r IngressAPIDele
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -176,7 +184,7 @@ func (a *IngressAPIService) DeleteIngressRoutesByIdExecute(r IngressAPIDeleteIng
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -205,6 +213,14 @@ func (a *IngressAPIService) DeleteIngressRoutesByIdExecute(r IngressAPIDeleteIng
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -271,7 +287,7 @@ func (a *IngressAPIService) DeleteIngressServicesByIdExecute(r IngressAPIDeleteI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -300,6 +316,14 @@ func (a *IngressAPIService) DeleteIngressServicesByIdExecute(r IngressAPIDeleteI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -311,7 +335,7 @@ type IngressAPIGetIngressMiddlewaresRequest struct {
 	ApiService *IngressAPIService
 }
 
-func (r IngressAPIGetIngressMiddlewaresRequest) Execute() (*IngressMiddlewares, *http.Response, error) {
+func (r IngressAPIGetIngressMiddlewaresRequest) Execute() (*IngressIngressMiddlewares, *http.Response, error) {
 	return r.ApiService.GetIngressMiddlewaresExecute(r)
 }
 
@@ -333,13 +357,13 @@ func (a *IngressAPIService) GetIngressMiddlewares(ctx context.Context) IngressAP
 
 // Execute executes the request
 //
-//	@return IngressMiddlewares
-func (a *IngressAPIService) GetIngressMiddlewaresExecute(r IngressAPIGetIngressMiddlewaresRequest) (*IngressMiddlewares, *http.Response, error) {
+//	@return IngressIngressMiddlewares
+func (a *IngressAPIService) GetIngressMiddlewaresExecute(r IngressAPIGetIngressMiddlewaresRequest) (*IngressIngressMiddlewares, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IngressMiddlewares
+		localVarReturnValue *IngressIngressMiddlewares
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.GetIngressMiddlewares")
@@ -363,7 +387,7 @@ func (a *IngressAPIService) GetIngressMiddlewaresExecute(r IngressAPIGetIngressM
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -392,6 +416,14 @@ func (a *IngressAPIService) GetIngressMiddlewaresExecute(r IngressAPIGetIngressM
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -413,7 +445,7 @@ type IngressAPIGetIngressMiddlewaresByIdRequest struct {
 	id         string
 }
 
-func (r IngressAPIGetIngressMiddlewaresByIdRequest) Execute() (*Middleware, *http.Response, error) {
+func (r IngressAPIGetIngressMiddlewaresByIdRequest) Execute() (*IngressMiddleware, *http.Response, error) {
 	return r.ApiService.GetIngressMiddlewaresByIdExecute(r)
 }
 
@@ -436,13 +468,13 @@ func (a *IngressAPIService) GetIngressMiddlewaresById(ctx context.Context, id st
 
 // Execute executes the request
 //
-//	@return Middleware
-func (a *IngressAPIService) GetIngressMiddlewaresByIdExecute(r IngressAPIGetIngressMiddlewaresByIdRequest) (*Middleware, *http.Response, error) {
+//	@return IngressMiddleware
+func (a *IngressAPIService) GetIngressMiddlewaresByIdExecute(r IngressAPIGetIngressMiddlewaresByIdRequest) (*IngressMiddleware, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Middleware
+		localVarReturnValue *IngressMiddleware
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.GetIngressMiddlewaresById")
@@ -467,7 +499,7 @@ func (a *IngressAPIService) GetIngressMiddlewaresByIdExecute(r IngressAPIGetIngr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -496,6 +528,14 @@ func (a *IngressAPIService) GetIngressMiddlewaresByIdExecute(r IngressAPIGetIngr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -516,7 +556,7 @@ type IngressAPIGetIngressRoutesRequest struct {
 	ApiService *IngressAPIService
 }
 
-func (r IngressAPIGetIngressRoutesRequest) Execute() (*IngressRoutes, *http.Response, error) {
+func (r IngressAPIGetIngressRoutesRequest) Execute() (*IngressIngressRoutes, *http.Response, error) {
 	return r.ApiService.GetIngressRoutesExecute(r)
 }
 
@@ -538,13 +578,13 @@ func (a *IngressAPIService) GetIngressRoutes(ctx context.Context) IngressAPIGetI
 
 // Execute executes the request
 //
-//	@return IngressRoutes
-func (a *IngressAPIService) GetIngressRoutesExecute(r IngressAPIGetIngressRoutesRequest) (*IngressRoutes, *http.Response, error) {
+//	@return IngressIngressRoutes
+func (a *IngressAPIService) GetIngressRoutesExecute(r IngressAPIGetIngressRoutesRequest) (*IngressIngressRoutes, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IngressRoutes
+		localVarReturnValue *IngressIngressRoutes
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.GetIngressRoutes")
@@ -568,7 +608,7 @@ func (a *IngressAPIService) GetIngressRoutesExecute(r IngressAPIGetIngressRoutes
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -597,6 +637,14 @@ func (a *IngressAPIService) GetIngressRoutesExecute(r IngressAPIGetIngressRoutes
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -618,7 +666,7 @@ type IngressAPIGetIngressRoutesByIdRequest struct {
 	id         string
 }
 
-func (r IngressAPIGetIngressRoutesByIdRequest) Execute() (*Route, *http.Response, error) {
+func (r IngressAPIGetIngressRoutesByIdRequest) Execute() (*IngressRoute, *http.Response, error) {
 	return r.ApiService.GetIngressRoutesByIdExecute(r)
 }
 
@@ -641,13 +689,13 @@ func (a *IngressAPIService) GetIngressRoutesById(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return Route
-func (a *IngressAPIService) GetIngressRoutesByIdExecute(r IngressAPIGetIngressRoutesByIdRequest) (*Route, *http.Response, error) {
+//	@return IngressRoute
+func (a *IngressAPIService) GetIngressRoutesByIdExecute(r IngressAPIGetIngressRoutesByIdRequest) (*IngressRoute, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Route
+		localVarReturnValue *IngressRoute
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.GetIngressRoutesById")
@@ -672,7 +720,7 @@ func (a *IngressAPIService) GetIngressRoutesByIdExecute(r IngressAPIGetIngressRo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -701,6 +749,14 @@ func (a *IngressAPIService) GetIngressRoutesByIdExecute(r IngressAPIGetIngressRo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -721,7 +777,7 @@ type IngressAPIGetIngressServicesRequest struct {
 	ApiService *IngressAPIService
 }
 
-func (r IngressAPIGetIngressServicesRequest) Execute() (*IngressServices, *http.Response, error) {
+func (r IngressAPIGetIngressServicesRequest) Execute() (*IngressIngressServices, *http.Response, error) {
 	return r.ApiService.GetIngressServicesExecute(r)
 }
 
@@ -744,13 +800,13 @@ func (a *IngressAPIService) GetIngressServices(ctx context.Context) IngressAPIGe
 
 // Execute executes the request
 //
-//	@return IngressServices
-func (a *IngressAPIService) GetIngressServicesExecute(r IngressAPIGetIngressServicesRequest) (*IngressServices, *http.Response, error) {
+//	@return IngressIngressServices
+func (a *IngressAPIService) GetIngressServicesExecute(r IngressAPIGetIngressServicesRequest) (*IngressIngressServices, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IngressServices
+		localVarReturnValue *IngressIngressServices
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.GetIngressServices")
@@ -774,7 +830,7 @@ func (a *IngressAPIService) GetIngressServicesExecute(r IngressAPIGetIngressServ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -803,6 +859,14 @@ func (a *IngressAPIService) GetIngressServicesExecute(r IngressAPIGetIngressServ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -824,7 +888,7 @@ type IngressAPIGetIngressServicesByIdRequest struct {
 	id         string
 }
 
-func (r IngressAPIGetIngressServicesByIdRequest) Execute() (*Upstream, *http.Response, error) {
+func (r IngressAPIGetIngressServicesByIdRequest) Execute() (*IngressUpstream, *http.Response, error) {
 	return r.ApiService.GetIngressServicesByIdExecute(r)
 }
 
@@ -847,13 +911,13 @@ func (a *IngressAPIService) GetIngressServicesById(ctx context.Context, id strin
 
 // Execute executes the request
 //
-//	@return Upstream
-func (a *IngressAPIService) GetIngressServicesByIdExecute(r IngressAPIGetIngressServicesByIdRequest) (*Upstream, *http.Response, error) {
+//	@return IngressUpstream
+func (a *IngressAPIService) GetIngressServicesByIdExecute(r IngressAPIGetIngressServicesByIdRequest) (*IngressUpstream, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Upstream
+		localVarReturnValue *IngressUpstream
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.GetIngressServicesById")
@@ -878,7 +942,7 @@ func (a *IngressAPIService) GetIngressServicesByIdExecute(r IngressAPIGetIngress
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -907,6 +971,14 @@ func (a *IngressAPIService) GetIngressServicesByIdExecute(r IngressAPIGetIngress
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -927,14 +999,14 @@ type IngressAPIGetIngressStatusRequest struct {
 	ApiService *IngressAPIService
 }
 
-func (r IngressAPIGetIngressStatusRequest) Execute() (*IngressStatus, *http.Response, error) {
+func (r IngressAPIGetIngressStatusRequest) Execute() (*IngressIngressStatus, *http.Response, error) {
 	return r.ApiService.GetIngressStatusExecute(r)
 }
 
 /*
-GetIngressStatus Status reports the ingress edge's live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
+GetIngressStatus Reports the ingress edge's live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
 
-Status reports the ingress edge's live posture: the role this instance runs in
+Reports the ingress edge's live posture: the role this instance runs in
 (app or edge), whether its listeners are bound and on which addresses, the ACME
 posture (staging flag and certificate cache directory), how many hosts the
 compiled route table currently serves, and how many the ACME HostPolicy will
@@ -952,13 +1024,13 @@ func (a *IngressAPIService) GetIngressStatus(ctx context.Context) IngressAPIGetI
 
 // Execute executes the request
 //
-//	@return IngressStatus
-func (a *IngressAPIService) GetIngressStatusExecute(r IngressAPIGetIngressStatusRequest) (*IngressStatus, *http.Response, error) {
+//	@return IngressIngressStatus
+func (a *IngressAPIService) GetIngressStatusExecute(r IngressAPIGetIngressStatusRequest) (*IngressIngressStatus, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IngressStatus
+		localVarReturnValue *IngressIngressStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.GetIngressStatus")
@@ -982,7 +1054,7 @@ func (a *IngressAPIService) GetIngressStatusExecute(r IngressAPIGetIngressStatus
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1011,6 +1083,14 @@ func (a *IngressAPIService) GetIngressStatusExecute(r IngressAPIGetIngressStatus
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1031,14 +1111,14 @@ type IngressAPIGetIngressTlsRequest struct {
 	ApiService *IngressAPIService
 }
 
-func (r IngressAPIGetIngressTlsRequest) Execute() (*IngressTLS, *http.Response, error) {
+func (r IngressAPIGetIngressTlsRequest) Execute() (*IngressIngressTLS, *http.Response, error) {
 	return r.ApiService.GetIngressTlsExecute(r)
 }
 
 /*
-GetIngressTls GetTLS returns the caller org's ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
+GetIngressTls Returns the caller org's ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
 
-GetTLS returns the caller org's ACME intent together with the edge-wide TLS
+Returns the caller org's ACME intent together with the edge-wide TLS
 facts it lands in: which role this instance runs in, whether its listeners are
 bound, every host the ACME HostPolicy will issue a certificate for (the union
 across ALL orgs of TLS-marked routes and configured extraHosts, because one
@@ -1057,13 +1137,13 @@ func (a *IngressAPIService) GetIngressTls(ctx context.Context) IngressAPIGetIngr
 
 // Execute executes the request
 //
-//	@return IngressTLS
-func (a *IngressAPIService) GetIngressTlsExecute(r IngressAPIGetIngressTlsRequest) (*IngressTLS, *http.Response, error) {
+//	@return IngressIngressTLS
+func (a *IngressAPIService) GetIngressTlsExecute(r IngressAPIGetIngressTlsRequest) (*IngressIngressTLS, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IngressTLS
+		localVarReturnValue *IngressIngressTLS
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.GetIngressTls")
@@ -1087,7 +1167,7 @@ func (a *IngressAPIService) GetIngressTlsExecute(r IngressAPIGetIngressTlsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1116,6 +1196,14 @@ func (a *IngressAPIService) GetIngressTlsExecute(r IngressAPIGetIngressTlsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1132,17 +1220,17 @@ func (a *IngressAPIService) GetIngressTlsExecute(r IngressAPIGetIngressTlsReques
 }
 
 type IngressAPIPostIngressMiddlewaresRequest struct {
-	ctx        context.Context
-	ApiService *IngressAPIService
-	middleware *Middleware
+	ctx               context.Context
+	ApiService        *IngressAPIService
+	ingressMiddleware *IngressMiddleware
 }
 
-func (r IngressAPIPostIngressMiddlewaresRequest) Middleware(middleware Middleware) IngressAPIPostIngressMiddlewaresRequest {
-	r.middleware = &middleware
+func (r IngressAPIPostIngressMiddlewaresRequest) IngressMiddleware(ingressMiddleware IngressMiddleware) IngressAPIPostIngressMiddlewaresRequest {
+	r.ingressMiddleware = &ingressMiddleware
 	return r
 }
 
-func (r IngressAPIPostIngressMiddlewaresRequest) Execute() (*Middleware, *http.Response, error) {
+func (r IngressAPIPostIngressMiddlewaresRequest) Execute() (*IngressMiddleware, *http.Response, error) {
 	return r.ApiService.PostIngressMiddlewaresExecute(r)
 }
 
@@ -1166,13 +1254,13 @@ func (a *IngressAPIService) PostIngressMiddlewares(ctx context.Context) IngressA
 
 // Execute executes the request
 //
-//	@return Middleware
-func (a *IngressAPIService) PostIngressMiddlewaresExecute(r IngressAPIPostIngressMiddlewaresRequest) (*Middleware, *http.Response, error) {
+//	@return IngressMiddleware
+func (a *IngressAPIService) PostIngressMiddlewaresExecute(r IngressAPIPostIngressMiddlewaresRequest) (*IngressMiddleware, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Middleware
+		localVarReturnValue *IngressMiddleware
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.PostIngressMiddlewares")
@@ -1185,8 +1273,8 @@ func (a *IngressAPIService) PostIngressMiddlewaresExecute(r IngressAPIPostIngres
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.middleware == nil {
-		return localVarReturnValue, nil, reportError("middleware is required and must be specified")
+	if r.ingressMiddleware == nil {
+		return localVarReturnValue, nil, reportError("ingressMiddleware is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1199,7 +1287,7 @@ func (a *IngressAPIService) PostIngressMiddlewaresExecute(r IngressAPIPostIngres
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1207,7 +1295,7 @@ func (a *IngressAPIService) PostIngressMiddlewaresExecute(r IngressAPIPostIngres
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.middleware
+	localVarPostBody = r.ingressMiddleware
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1230,6 +1318,14 @@ func (a *IngressAPIService) PostIngressMiddlewaresExecute(r IngressAPIPostIngres
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1246,17 +1342,17 @@ func (a *IngressAPIService) PostIngressMiddlewaresExecute(r IngressAPIPostIngres
 }
 
 type IngressAPIPostIngressRoutesRequest struct {
-	ctx        context.Context
-	ApiService *IngressAPIService
-	route      *Route
+	ctx          context.Context
+	ApiService   *IngressAPIService
+	ingressRoute *IngressRoute
 }
 
-func (r IngressAPIPostIngressRoutesRequest) Route(route Route) IngressAPIPostIngressRoutesRequest {
-	r.route = &route
+func (r IngressAPIPostIngressRoutesRequest) IngressRoute(ingressRoute IngressRoute) IngressAPIPostIngressRoutesRequest {
+	r.ingressRoute = &ingressRoute
 	return r
 }
 
-func (r IngressAPIPostIngressRoutesRequest) Execute() (*Route, *http.Response, error) {
+func (r IngressAPIPostIngressRoutesRequest) Execute() (*IngressRoute, *http.Response, error) {
 	return r.ApiService.PostIngressRoutesExecute(r)
 }
 
@@ -1281,13 +1377,13 @@ func (a *IngressAPIService) PostIngressRoutes(ctx context.Context) IngressAPIPos
 
 // Execute executes the request
 //
-//	@return Route
-func (a *IngressAPIService) PostIngressRoutesExecute(r IngressAPIPostIngressRoutesRequest) (*Route, *http.Response, error) {
+//	@return IngressRoute
+func (a *IngressAPIService) PostIngressRoutesExecute(r IngressAPIPostIngressRoutesRequest) (*IngressRoute, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Route
+		localVarReturnValue *IngressRoute
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.PostIngressRoutes")
@@ -1300,8 +1396,8 @@ func (a *IngressAPIService) PostIngressRoutesExecute(r IngressAPIPostIngressRout
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.route == nil {
-		return localVarReturnValue, nil, reportError("route is required and must be specified")
+	if r.ingressRoute == nil {
+		return localVarReturnValue, nil, reportError("ingressRoute is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1314,7 +1410,7 @@ func (a *IngressAPIService) PostIngressRoutesExecute(r IngressAPIPostIngressRout
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1322,7 +1418,7 @@ func (a *IngressAPIService) PostIngressRoutesExecute(r IngressAPIPostIngressRout
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.route
+	localVarPostBody = r.ingressRoute
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1345,6 +1441,14 @@ func (a *IngressAPIService) PostIngressRoutesExecute(r IngressAPIPostIngressRout
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1361,17 +1465,17 @@ func (a *IngressAPIService) PostIngressRoutesExecute(r IngressAPIPostIngressRout
 }
 
 type IngressAPIPostIngressServicesRequest struct {
-	ctx        context.Context
-	ApiService *IngressAPIService
-	upstream   *Upstream
+	ctx             context.Context
+	ApiService      *IngressAPIService
+	ingressUpstream *IngressUpstream
 }
 
-func (r IngressAPIPostIngressServicesRequest) Upstream(upstream Upstream) IngressAPIPostIngressServicesRequest {
-	r.upstream = &upstream
+func (r IngressAPIPostIngressServicesRequest) IngressUpstream(ingressUpstream IngressUpstream) IngressAPIPostIngressServicesRequest {
+	r.ingressUpstream = &ingressUpstream
 	return r
 }
 
-func (r IngressAPIPostIngressServicesRequest) Execute() (*Upstream, *http.Response, error) {
+func (r IngressAPIPostIngressServicesRequest) Execute() (*IngressUpstream, *http.Response, error) {
 	return r.ApiService.PostIngressServicesExecute(r)
 }
 
@@ -1395,13 +1499,13 @@ func (a *IngressAPIService) PostIngressServices(ctx context.Context) IngressAPIP
 
 // Execute executes the request
 //
-//	@return Upstream
-func (a *IngressAPIService) PostIngressServicesExecute(r IngressAPIPostIngressServicesRequest) (*Upstream, *http.Response, error) {
+//	@return IngressUpstream
+func (a *IngressAPIService) PostIngressServicesExecute(r IngressAPIPostIngressServicesRequest) (*IngressUpstream, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Upstream
+		localVarReturnValue *IngressUpstream
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.PostIngressServices")
@@ -1414,8 +1518,8 @@ func (a *IngressAPIService) PostIngressServicesExecute(r IngressAPIPostIngressSe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.upstream == nil {
-		return localVarReturnValue, nil, reportError("upstream is required and must be specified")
+	if r.ingressUpstream == nil {
+		return localVarReturnValue, nil, reportError("ingressUpstream is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1428,7 +1532,7 @@ func (a *IngressAPIService) PostIngressServicesExecute(r IngressAPIPostIngressSe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1436,7 +1540,7 @@ func (a *IngressAPIService) PostIngressServicesExecute(r IngressAPIPostIngressSe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.upstream
+	localVarPostBody = r.ingressUpstream
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1459,6 +1563,14 @@ func (a *IngressAPIService) PostIngressServicesExecute(r IngressAPIPostIngressSe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1475,18 +1587,18 @@ func (a *IngressAPIService) PostIngressServicesExecute(r IngressAPIPostIngressSe
 }
 
 type IngressAPIPutIngressMiddlewaresByIdRequest struct {
-	ctx        context.Context
-	ApiService *IngressAPIService
-	id         string
-	middleware *Middleware
+	ctx               context.Context
+	ApiService        *IngressAPIService
+	id                string
+	ingressMiddleware *IngressMiddleware
 }
 
-func (r IngressAPIPutIngressMiddlewaresByIdRequest) Middleware(middleware Middleware) IngressAPIPutIngressMiddlewaresByIdRequest {
-	r.middleware = &middleware
+func (r IngressAPIPutIngressMiddlewaresByIdRequest) IngressMiddleware(ingressMiddleware IngressMiddleware) IngressAPIPutIngressMiddlewaresByIdRequest {
+	r.ingressMiddleware = &ingressMiddleware
 	return r
 }
 
-func (r IngressAPIPutIngressMiddlewaresByIdRequest) Execute() (*Middleware, *http.Response, error) {
+func (r IngressAPIPutIngressMiddlewaresByIdRequest) Execute() (*IngressMiddleware, *http.Response, error) {
 	return r.ApiService.PutIngressMiddlewaresByIdExecute(r)
 }
 
@@ -1512,13 +1624,13 @@ func (a *IngressAPIService) PutIngressMiddlewaresById(ctx context.Context, id st
 
 // Execute executes the request
 //
-//	@return Middleware
-func (a *IngressAPIService) PutIngressMiddlewaresByIdExecute(r IngressAPIPutIngressMiddlewaresByIdRequest) (*Middleware, *http.Response, error) {
+//	@return IngressMiddleware
+func (a *IngressAPIService) PutIngressMiddlewaresByIdExecute(r IngressAPIPutIngressMiddlewaresByIdRequest) (*IngressMiddleware, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Middleware
+		localVarReturnValue *IngressMiddleware
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.PutIngressMiddlewaresById")
@@ -1532,8 +1644,8 @@ func (a *IngressAPIService) PutIngressMiddlewaresByIdExecute(r IngressAPIPutIngr
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.middleware == nil {
-		return localVarReturnValue, nil, reportError("middleware is required and must be specified")
+	if r.ingressMiddleware == nil {
+		return localVarReturnValue, nil, reportError("ingressMiddleware is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1546,7 +1658,7 @@ func (a *IngressAPIService) PutIngressMiddlewaresByIdExecute(r IngressAPIPutIngr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1554,7 +1666,7 @@ func (a *IngressAPIService) PutIngressMiddlewaresByIdExecute(r IngressAPIPutIngr
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.middleware
+	localVarPostBody = r.ingressMiddleware
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1577,6 +1689,14 @@ func (a *IngressAPIService) PutIngressMiddlewaresByIdExecute(r IngressAPIPutIngr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1593,18 +1713,18 @@ func (a *IngressAPIService) PutIngressMiddlewaresByIdExecute(r IngressAPIPutIngr
 }
 
 type IngressAPIPutIngressRoutesByIdRequest struct {
-	ctx        context.Context
-	ApiService *IngressAPIService
-	id         string
-	route      *Route
+	ctx          context.Context
+	ApiService   *IngressAPIService
+	id           string
+	ingressRoute *IngressRoute
 }
 
-func (r IngressAPIPutIngressRoutesByIdRequest) Route(route Route) IngressAPIPutIngressRoutesByIdRequest {
-	r.route = &route
+func (r IngressAPIPutIngressRoutesByIdRequest) IngressRoute(ingressRoute IngressRoute) IngressAPIPutIngressRoutesByIdRequest {
+	r.ingressRoute = &ingressRoute
 	return r
 }
 
-func (r IngressAPIPutIngressRoutesByIdRequest) Execute() (*Route, *http.Response, error) {
+func (r IngressAPIPutIngressRoutesByIdRequest) Execute() (*IngressRoute, *http.Response, error) {
 	return r.ApiService.PutIngressRoutesByIdExecute(r)
 }
 
@@ -1631,13 +1751,13 @@ func (a *IngressAPIService) PutIngressRoutesById(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return Route
-func (a *IngressAPIService) PutIngressRoutesByIdExecute(r IngressAPIPutIngressRoutesByIdRequest) (*Route, *http.Response, error) {
+//	@return IngressRoute
+func (a *IngressAPIService) PutIngressRoutesByIdExecute(r IngressAPIPutIngressRoutesByIdRequest) (*IngressRoute, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Route
+		localVarReturnValue *IngressRoute
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.PutIngressRoutesById")
@@ -1651,8 +1771,8 @@ func (a *IngressAPIService) PutIngressRoutesByIdExecute(r IngressAPIPutIngressRo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.route == nil {
-		return localVarReturnValue, nil, reportError("route is required and must be specified")
+	if r.ingressRoute == nil {
+		return localVarReturnValue, nil, reportError("ingressRoute is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1665,7 +1785,7 @@ func (a *IngressAPIService) PutIngressRoutesByIdExecute(r IngressAPIPutIngressRo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1673,7 +1793,7 @@ func (a *IngressAPIService) PutIngressRoutesByIdExecute(r IngressAPIPutIngressRo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.route
+	localVarPostBody = r.ingressRoute
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1696,6 +1816,14 @@ func (a *IngressAPIService) PutIngressRoutesByIdExecute(r IngressAPIPutIngressRo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1712,18 +1840,18 @@ func (a *IngressAPIService) PutIngressRoutesByIdExecute(r IngressAPIPutIngressRo
 }
 
 type IngressAPIPutIngressServicesByIdRequest struct {
-	ctx        context.Context
-	ApiService *IngressAPIService
-	id         string
-	upstream   *Upstream
+	ctx             context.Context
+	ApiService      *IngressAPIService
+	id              string
+	ingressUpstream *IngressUpstream
 }
 
-func (r IngressAPIPutIngressServicesByIdRequest) Upstream(upstream Upstream) IngressAPIPutIngressServicesByIdRequest {
-	r.upstream = &upstream
+func (r IngressAPIPutIngressServicesByIdRequest) IngressUpstream(ingressUpstream IngressUpstream) IngressAPIPutIngressServicesByIdRequest {
+	r.ingressUpstream = &ingressUpstream
 	return r
 }
 
-func (r IngressAPIPutIngressServicesByIdRequest) Execute() (*Upstream, *http.Response, error) {
+func (r IngressAPIPutIngressServicesByIdRequest) Execute() (*IngressUpstream, *http.Response, error) {
 	return r.ApiService.PutIngressServicesByIdExecute(r)
 }
 
@@ -1749,13 +1877,13 @@ func (a *IngressAPIService) PutIngressServicesById(ctx context.Context, id strin
 
 // Execute executes the request
 //
-//	@return Upstream
-func (a *IngressAPIService) PutIngressServicesByIdExecute(r IngressAPIPutIngressServicesByIdRequest) (*Upstream, *http.Response, error) {
+//	@return IngressUpstream
+func (a *IngressAPIService) PutIngressServicesByIdExecute(r IngressAPIPutIngressServicesByIdRequest) (*IngressUpstream, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Upstream
+		localVarReturnValue *IngressUpstream
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.PutIngressServicesById")
@@ -1769,8 +1897,8 @@ func (a *IngressAPIService) PutIngressServicesByIdExecute(r IngressAPIPutIngress
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.upstream == nil {
-		return localVarReturnValue, nil, reportError("upstream is required and must be specified")
+	if r.ingressUpstream == nil {
+		return localVarReturnValue, nil, reportError("ingressUpstream is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1783,7 +1911,7 @@ func (a *IngressAPIService) PutIngressServicesByIdExecute(r IngressAPIPutIngress
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1791,7 +1919,7 @@ func (a *IngressAPIService) PutIngressServicesByIdExecute(r IngressAPIPutIngress
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.upstream
+	localVarPostBody = r.ingressUpstream
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1814,6 +1942,14 @@ func (a *IngressAPIService) PutIngressServicesByIdExecute(r IngressAPIPutIngress
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1830,24 +1966,24 @@ func (a *IngressAPIService) PutIngressServicesByIdExecute(r IngressAPIPutIngress
 }
 
 type IngressAPIPutIngressTlsRequest struct {
-	ctx        context.Context
-	ApiService *IngressAPIService
-	tLSConfig  *TLSConfig
+	ctx              context.Context
+	ApiService       *IngressAPIService
+	ingressTLSConfig *IngressTLSConfig
 }
 
-func (r IngressAPIPutIngressTlsRequest) TLSConfig(tLSConfig TLSConfig) IngressAPIPutIngressTlsRequest {
-	r.tLSConfig = &tLSConfig
+func (r IngressAPIPutIngressTlsRequest) IngressTLSConfig(ingressTLSConfig IngressTLSConfig) IngressAPIPutIngressTlsRequest {
+	r.ingressTLSConfig = &ingressTLSConfig
 	return r
 }
 
-func (r IngressAPIPutIngressTlsRequest) Execute() (*TLSConfig, *http.Response, error) {
+func (r IngressAPIPutIngressTlsRequest) Execute() (*IngressTLSConfig, *http.Response, error) {
 	return r.ApiService.PutIngressTlsExecute(r)
 }
 
 /*
-PutIngressTls PutTLS replaces the caller org's ACME intent and hot-applies what can be hot-applied.
+PutIngressTls Replaces the caller org's ACME intent and hot-applies what can be hot-applied.
 
-PutTLS replaces the caller org's ACME intent and hot-applies what can be
+Replaces the caller org's ACME intent and hot-applies what can be
 hot-applied. extraHosts are normalized and validated, then feed the ACME
 HostPolicy on the reload this op performs, alongside the per-route tls flags.
 acmeEmail and staging bind an ACME account for the lifetime of an edge process,
@@ -1865,13 +2001,13 @@ func (a *IngressAPIService) PutIngressTls(ctx context.Context) IngressAPIPutIngr
 
 // Execute executes the request
 //
-//	@return TLSConfig
-func (a *IngressAPIService) PutIngressTlsExecute(r IngressAPIPutIngressTlsRequest) (*TLSConfig, *http.Response, error) {
+//	@return IngressTLSConfig
+func (a *IngressAPIService) PutIngressTlsExecute(r IngressAPIPutIngressTlsRequest) (*IngressTLSConfig, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TLSConfig
+		localVarReturnValue *IngressTLSConfig
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IngressAPIService.PutIngressTls")
@@ -1884,8 +2020,8 @@ func (a *IngressAPIService) PutIngressTlsExecute(r IngressAPIPutIngressTlsReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.tLSConfig == nil {
-		return localVarReturnValue, nil, reportError("tLSConfig is required and must be specified")
+	if r.ingressTLSConfig == nil {
+		return localVarReturnValue, nil, reportError("ingressTLSConfig is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1898,7 +2034,7 @@ func (a *IngressAPIService) PutIngressTlsExecute(r IngressAPIPutIngressTlsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1906,7 +2042,7 @@ func (a *IngressAPIService) PutIngressTlsExecute(r IngressAPIPutIngressTlsReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.tLSConfig
+	localVarPostBody = r.ingressTLSConfig
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1929,6 +2065,14 @@ func (a *IngressAPIService) PutIngressTlsExecute(r IngressAPIPutIngressTlsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

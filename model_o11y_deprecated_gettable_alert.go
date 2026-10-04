@@ -19,11 +19,14 @@ var _ MappedNullable = &O11yDeprecatedGettableAlert{}
 
 // O11yDeprecatedGettableAlert struct for O11yDeprecatedGettableAlert
 type O11yDeprecatedGettableAlert struct {
-	Alert       *O11yAlert       `json:"Alert,omitempty"`
-	Fingerprint *string          `json:"fingerprint,omitempty"`
-	Receivers   []string         `json:"receivers,omitempty"`
-	Status      *O11yAlertStatus `json:"status,omitempty"`
+	Alert                *O11yAlert       `json:"Alert,omitempty"`
+	Fingerprint          *string          `json:"fingerprint,omitempty"`
+	Receivers            []string         `json:"receivers,omitempty"`
+	Status               *O11yAlertStatus `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yDeprecatedGettableAlert O11yDeprecatedGettableAlert
 
 // NewO11yDeprecatedGettableAlert instantiates a new O11yDeprecatedGettableAlert object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11yDeprecatedGettableAlert) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yDeprecatedGettableAlert) UnmarshalJSON(data []byte) (err error) {
+	varO11yDeprecatedGettableAlert := _O11yDeprecatedGettableAlert{}
+
+	err = json.Unmarshal(data, &varO11yDeprecatedGettableAlert)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yDeprecatedGettableAlert(varO11yDeprecatedGettableAlert)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "Alert")
+		delete(additionalProperties, "fingerprint")
+		delete(additionalProperties, "receivers")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yDeprecatedGettableAlert struct {

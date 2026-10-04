@@ -22,8 +22,11 @@ type O11yO11yMetricAlert struct {
 	// AlertID is the alert rule's id.
 	AlertId *string `json:"alertId,omitempty"`
 	// AlertName is the alert rule's name.
-	AlertName *string `json:"alertName,omitempty"`
+	AlertName            *string `json:"alertName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricAlert O11yO11yMetricAlert
 
 // NewO11yO11yMetricAlert instantiates a new O11yO11yMetricAlert object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yMetricAlert) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AlertName) {
 		toSerialize["alertName"] = o.AlertName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricAlert) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricAlert := _O11yO11yMetricAlert{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricAlert)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricAlert(varO11yO11yMetricAlert)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alertId")
+		delete(additionalProperties, "alertName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricAlert struct {

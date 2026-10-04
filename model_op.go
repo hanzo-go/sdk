@@ -19,11 +19,14 @@ var _ MappedNullable = &Op{}
 
 // Op struct for Op
 type Op struct {
-	Href        *string `json:"href,omitempty"`
-	Method      *string `json:"method,omitempty"`
-	OperationId *string `json:"operationId,omitempty"`
-	Summary     *string `json:"summary,omitempty"`
+	Href                 *string `json:"href,omitempty"`
+	Method               *string `json:"method,omitempty"`
+	OperationId          *string `json:"operationId,omitempty"`
+	Summary              *string `json:"summary,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Op Op
 
 // NewOp instantiates a new Op object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o Op) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Summary) {
 		toSerialize["summary"] = o.Summary
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Op) UnmarshalJSON(data []byte) (err error) {
+	varOp := _Op{}
+
+	err = json.Unmarshal(data, &varOp)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Op(varOp)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "href")
+		delete(additionalProperties, "method")
+		delete(additionalProperties, "operationId")
+		delete(additionalProperties, "summary")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOp struct {

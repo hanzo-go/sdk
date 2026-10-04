@@ -44,7 +44,7 @@ func main() {
 	instructions := "You answer in exactly one sentence."
 
 	created, _, err := client.AgentAPI.PostAgent(ctx).
-		CreateAgentIn(hanzoai.CreateAgentIn{
+		AgentCreateAgentIn(hanzoai.AgentCreateAgentIn{
 			Name:         &name,
 			Model:        &model,
 			Instructions: &instructions,
@@ -68,7 +68,7 @@ func main() {
 }
 
 // poll reads the run list until its newest run reaches a terminal status.
-func poll(ctx context.Context, client *hanzoai.Client, ref string) (*hanzoai.AgentRunView, error) {
+func poll(ctx context.Context, client *hanzoai.Client, ref string) (*hanzoai.AgentAgentRunView, error) {
 	for deadline := time.Now().Add(2 * time.Minute); time.Now().Before(deadline); time.Sleep(2 * time.Second) {
 		list, _, err := client.AgentAPI.GetAgentByRefRuns(ctx, ref).Limit(1).Execute()
 		if err != nil {

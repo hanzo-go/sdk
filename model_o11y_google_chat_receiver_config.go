@@ -19,12 +19,15 @@ var _ MappedNullable = &O11yGoogleChatReceiverConfig{}
 
 // O11yGoogleChatReceiverConfig struct for O11yGoogleChatReceiverConfig
 type O11yGoogleChatReceiverConfig struct {
-	NotifierConfig *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
-	HttpConfig     *O11yHTTPClientConfig `json:"http_config,omitempty"`
-	Text           *string               `json:"text,omitempty"`
-	Title          *string               `json:"title,omitempty"`
-	WebhookUrl     interface{}           `json:"webhook_url,omitempty"`
+	NotifierConfig       *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
+	HttpConfig           *O11yHTTPClientConfig `json:"http_config,omitempty"`
+	Text                 *string               `json:"text,omitempty"`
+	Title                *string               `json:"title,omitempty"`
+	WebhookUrl           interface{}           `json:"webhook_url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGoogleChatReceiverConfig O11yGoogleChatReceiverConfig
 
 // NewO11yGoogleChatReceiverConfig instantiates a new O11yGoogleChatReceiverConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o O11yGoogleChatReceiverConfig) ToMap() (map[string]interface{}, error) {
 	if o.WebhookUrl != nil {
 		toSerialize["webhook_url"] = o.WebhookUrl
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGoogleChatReceiverConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yGoogleChatReceiverConfig := _O11yGoogleChatReceiverConfig{}
+
+	err = json.Unmarshal(data, &varO11yGoogleChatReceiverConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGoogleChatReceiverConfig(varO11yGoogleChatReceiverConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "webhook_url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGoogleChatReceiverConfig struct {

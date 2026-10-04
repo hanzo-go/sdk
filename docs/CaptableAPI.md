@@ -40,7 +40,7 @@ Method | HTTP request | Description
 
 ## DeleteCaptableConvertiblesById
 
-> CaptableDeleted DeleteCaptableConvertiblesById(ctx, id).Execute()
+> CaptableCaptableDeleted DeleteCaptableConvertiblesById(ctx, id).Execute()
 
 Removes one of the caller org's convertible notes, taking its principal out of the cap table's unconverted-instrument totals.
 
@@ -68,7 +68,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.DeleteCaptableConvertiblesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteCaptableConvertiblesById`: CaptableDeleted
+	// response from `DeleteCaptableConvertiblesById`: CaptableCaptableDeleted
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.DeleteCaptableConvertiblesById`: %v\n", resp)
 }
 ```
@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CaptableDeleted**](CaptableDeleted.md)
+[**CaptableCaptableDeleted**](CaptableCaptableDeleted.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -110,7 +110,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCaptableOptionsById
 
-> CaptableDeleted DeleteCaptableOptionsById(ctx, id).Execute()
+> CaptableCaptableDeleted DeleteCaptableOptionsById(ctx, id).Execute()
 
 Removes one of the caller org's option grants, taking its shares out of the cap table's granted-options and fully-diluted counts.
 
@@ -138,7 +138,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.DeleteCaptableOptionsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteCaptableOptionsById`: CaptableDeleted
+	// response from `DeleteCaptableOptionsById`: CaptableCaptableDeleted
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.DeleteCaptableOptionsById`: %v\n", resp)
 }
 ```
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CaptableDeleted**](CaptableDeleted.md)
+[**CaptableCaptableDeleted**](CaptableCaptableDeleted.md)
 
 ### Authorization
 
@@ -171,7 +171,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -180,7 +180,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCaptableSafesById
 
-> CaptableDeleted DeleteCaptableSafesById(ctx, id).Execute()
+> CaptableCaptableDeleted DeleteCaptableSafesById(ctx, id).Execute()
 
 Removes one of the caller org's SAFEs, taking its capital out of the cap table's unconverted-instrument totals.
 
@@ -208,7 +208,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.DeleteCaptableSafesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteCaptableSafesById`: CaptableDeleted
+	// response from `DeleteCaptableSafesById`: CaptableCaptableDeleted
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.DeleteCaptableSafesById`: %v\n", resp)
 }
 ```
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CaptableDeleted**](CaptableDeleted.md)
+[**CaptableCaptableDeleted**](CaptableCaptableDeleted.md)
 
 ### Authorization
 
@@ -241,7 +241,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -250,7 +250,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCaptableSharesById
 
-> CaptableDeleted DeleteCaptableSharesById(ctx, id).Execute()
+> CaptableCaptableDeleted DeleteCaptableSharesById(ctx, id).Execute()
 
 Removes one of the caller org's share certificates, taking its shares out of the cap table's outstanding and fully-diluted counts.
 
@@ -278,7 +278,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.DeleteCaptableSharesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteCaptableSharesById`: CaptableDeleted
+	// response from `DeleteCaptableSharesById`: CaptableCaptableDeleted
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.DeleteCaptableSharesById`: %v\n", resp)
 }
 ```
@@ -302,7 +302,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CaptableDeleted**](CaptableDeleted.md)
+[**CaptableCaptableDeleted**](CaptableCaptableDeleted.md)
 
 ### Authorization
 
@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -320,7 +320,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCaptableStakeholdersById
 
-> CaptableDeleted DeleteCaptableStakeholdersById(ctx, id).Execute()
+> CaptableCaptableDeleted DeleteCaptableStakeholdersById(ctx, id).Execute()
 
 Removes one of the caller org's stakeholders.
 
@@ -348,7 +348,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.DeleteCaptableStakeholdersById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteCaptableStakeholdersById`: CaptableDeleted
+	// response from `DeleteCaptableStakeholdersById`: CaptableCaptableDeleted
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.DeleteCaptableStakeholdersById`: %v\n", resp)
 }
 ```
@@ -372,7 +372,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CaptableDeleted**](CaptableDeleted.md)
+[**CaptableCaptableDeleted**](CaptableCaptableDeleted.md)
 
 ### Authorization
 
@@ -381,7 +381,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -390,7 +390,7 @@ Name | Type | Description  | Notes
 
 ## GetCaptableClasses
 
-> []CaptableShareClass GetCaptableClasses(ctx).Execute()
+> []CaptableCaptableShareClass GetCaptableClasses(ctx).Execute()
 
 Returns the caller org's share classes, in creation order.
 
@@ -417,7 +417,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableClasses``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCaptableClasses`: []CaptableShareClass
+	// response from `GetCaptableClasses`: []CaptableCaptableShareClass
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableClasses`: %v\n", resp)
 }
 ```
@@ -433,7 +433,7 @@ Other parameters are passed through a pointer to a apiGetCaptableClassesRequest 
 
 ### Return type
 
-[**[]CaptableShareClass**](CaptableShareClass.md)
+[**[]CaptableCaptableShareClass**](CaptableCaptableShareClass.md)
 
 ### Authorization
 
@@ -442,7 +442,7 @@ Other parameters are passed through a pointer to a apiGetCaptableClassesRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -451,7 +451,7 @@ Other parameters are passed through a pointer to a apiGetCaptableClassesRequest 
 
 ## GetCaptableCompany
 
-> CaptableCompany GetCaptableCompany(ctx).Execute()
+> CaptableCaptableCompany GetCaptableCompany(ctx).Execute()
 
 Returns the caller org's cap-table company record.
 
@@ -478,7 +478,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableCompany``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCaptableCompany`: CaptableCompany
+	// response from `GetCaptableCompany`: CaptableCaptableCompany
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableCompany`: %v\n", resp)
 }
 ```
@@ -494,7 +494,7 @@ Other parameters are passed through a pointer to a apiGetCaptableCompanyRequest 
 
 ### Return type
 
-[**CaptableCompany**](CaptableCompany.md)
+[**CaptableCaptableCompany**](CaptableCaptableCompany.md)
 
 ### Authorization
 
@@ -503,7 +503,7 @@ Other parameters are passed through a pointer to a apiGetCaptableCompanyRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -512,7 +512,7 @@ Other parameters are passed through a pointer to a apiGetCaptableCompanyRequest 
 
 ## GetCaptableConvertibles
 
-> CaptableNotes GetCaptableConvertibles(ctx).Execute()
+> CaptableCaptableNotes GetCaptableConvertibles(ctx).Execute()
 
 Returns the caller org's convertible notes, newest first.
 
@@ -539,7 +539,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableConvertibles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCaptableConvertibles`: CaptableNotes
+	// response from `GetCaptableConvertibles`: CaptableCaptableNotes
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableConvertibles`: %v\n", resp)
 }
 ```
@@ -555,7 +555,7 @@ Other parameters are passed through a pointer to a apiGetCaptableConvertiblesReq
 
 ### Return type
 
-[**CaptableNotes**](CaptableNotes.md)
+[**CaptableCaptableNotes**](CaptableCaptableNotes.md)
 
 ### Authorization
 
@@ -564,7 +564,7 @@ Other parameters are passed through a pointer to a apiGetCaptableConvertiblesReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -573,7 +573,7 @@ Other parameters are passed through a pointer to a apiGetCaptableConvertiblesReq
 
 ## GetCaptableInvestments
 
-> CaptableInvestments GetCaptableInvestments(ctx).Execute()
+> CaptableCaptableInvestments GetCaptableInvestments(ctx).Execute()
 
 Returns the caller org's investments, newest first.
 
@@ -600,7 +600,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableInvestments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCaptableInvestments`: CaptableInvestments
+	// response from `GetCaptableInvestments`: CaptableCaptableInvestments
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableInvestments`: %v\n", resp)
 }
 ```
@@ -616,7 +616,7 @@ Other parameters are passed through a pointer to a apiGetCaptableInvestmentsRequ
 
 ### Return type
 
-[**CaptableInvestments**](CaptableInvestments.md)
+[**CaptableCaptableInvestments**](CaptableCaptableInvestments.md)
 
 ### Authorization
 
@@ -625,7 +625,7 @@ Other parameters are passed through a pointer to a apiGetCaptableInvestmentsRequ
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -634,7 +634,7 @@ Other parameters are passed through a pointer to a apiGetCaptableInvestmentsRequ
 
 ## GetCaptableOptions
 
-> CaptableOptions GetCaptableOptions(ctx).Execute()
+> CaptableCaptableOptions GetCaptableOptions(ctx).Execute()
 
 Returns the caller org's option grants, newest first.
 
@@ -661,7 +661,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableOptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCaptableOptions`: CaptableOptions
+	// response from `GetCaptableOptions`: CaptableCaptableOptions
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableOptions`: %v\n", resp)
 }
 ```
@@ -677,7 +677,7 @@ Other parameters are passed through a pointer to a apiGetCaptableOptionsRequest 
 
 ### Return type
 
-[**CaptableOptions**](CaptableOptions.md)
+[**CaptableCaptableOptions**](CaptableCaptableOptions.md)
 
 ### Authorization
 
@@ -686,7 +686,7 @@ Other parameters are passed through a pointer to a apiGetCaptableOptionsRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -695,7 +695,7 @@ Other parameters are passed through a pointer to a apiGetCaptableOptionsRequest 
 
 ## GetCaptablePlans
 
-> CaptableEquityPlans GetCaptablePlans(ctx).Execute()
+> CaptableCaptableEquityPlans GetCaptablePlans(ctx).Execute()
 
 Returns the caller org's equity plans, newest first.
 
@@ -722,7 +722,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptablePlans``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCaptablePlans`: CaptableEquityPlans
+	// response from `GetCaptablePlans`: CaptableCaptableEquityPlans
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptablePlans`: %v\n", resp)
 }
 ```
@@ -738,7 +738,7 @@ Other parameters are passed through a pointer to a apiGetCaptablePlansRequest st
 
 ### Return type
 
-[**CaptableEquityPlans**](CaptableEquityPlans.md)
+[**CaptableCaptableEquityPlans**](CaptableCaptableEquityPlans.md)
 
 ### Authorization
 
@@ -747,7 +747,7 @@ Other parameters are passed through a pointer to a apiGetCaptablePlansRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -756,7 +756,7 @@ Other parameters are passed through a pointer to a apiGetCaptablePlansRequest st
 
 ## GetCaptableRounds
 
-> CaptableRounds GetCaptableRounds(ctx).Execute()
+> CaptableCaptableRounds GetCaptableRounds(ctx).Execute()
 
 Returns the caller org's fundraising rounds, newest first.
 
@@ -783,7 +783,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableRounds``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCaptableRounds`: CaptableRounds
+	// response from `GetCaptableRounds`: CaptableCaptableRounds
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableRounds`: %v\n", resp)
 }
 ```
@@ -799,7 +799,7 @@ Other parameters are passed through a pointer to a apiGetCaptableRoundsRequest s
 
 ### Return type
 
-[**CaptableRounds**](CaptableRounds.md)
+[**CaptableCaptableRounds**](CaptableCaptableRounds.md)
 
 ### Authorization
 
@@ -808,7 +808,7 @@ Other parameters are passed through a pointer to a apiGetCaptableRoundsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -817,7 +817,7 @@ Other parameters are passed through a pointer to a apiGetCaptableRoundsRequest s
 
 ## GetCaptableRoundsById
 
-> CaptableRoundDetail GetCaptableRoundsById(ctx, id).Execute()
+> CaptableCaptableRoundDetail GetCaptableRoundsById(ctx, id).Execute()
 
 Returns one of the caller org's fundraising rounds together with every investment written into it, oldest first.
 
@@ -845,7 +845,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableRoundsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCaptableRoundsById`: CaptableRoundDetail
+	// response from `GetCaptableRoundsById`: CaptableCaptableRoundDetail
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableRoundsById`: %v\n", resp)
 }
 ```
@@ -869,7 +869,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CaptableRoundDetail**](CaptableRoundDetail.md)
+[**CaptableCaptableRoundDetail**](CaptableCaptableRoundDetail.md)
 
 ### Authorization
 
@@ -878,7 +878,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -887,7 +887,7 @@ Name | Type | Description  | Notes
 
 ## GetCaptableSafes
 
-> CaptableSafes GetCaptableSafes(ctx).Execute()
+> CaptableCaptableSafes GetCaptableSafes(ctx).Execute()
 
 Returns the caller org's SAFEs, newest first.
 
@@ -914,7 +914,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableSafes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCaptableSafes`: CaptableSafes
+	// response from `GetCaptableSafes`: CaptableCaptableSafes
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableSafes`: %v\n", resp)
 }
 ```
@@ -930,7 +930,7 @@ Other parameters are passed through a pointer to a apiGetCaptableSafesRequest st
 
 ### Return type
 
-[**CaptableSafes**](CaptableSafes.md)
+[**CaptableCaptableSafes**](CaptableCaptableSafes.md)
 
 ### Authorization
 
@@ -939,7 +939,7 @@ Other parameters are passed through a pointer to a apiGetCaptableSafesRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -948,7 +948,7 @@ Other parameters are passed through a pointer to a apiGetCaptableSafesRequest st
 
 ## GetCaptableShares
 
-> CaptableShares GetCaptableShares(ctx).Execute()
+> CaptableCaptableShares GetCaptableShares(ctx).Execute()
 
 Returns the caller org's share certificates, newest first.
 
@@ -975,7 +975,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableShares``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCaptableShares`: CaptableShares
+	// response from `GetCaptableShares`: CaptableCaptableShares
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableShares`: %v\n", resp)
 }
 ```
@@ -991,7 +991,7 @@ Other parameters are passed through a pointer to a apiGetCaptableSharesRequest s
 
 ### Return type
 
-[**CaptableShares**](CaptableShares.md)
+[**CaptableCaptableShares**](CaptableCaptableShares.md)
 
 ### Authorization
 
@@ -1000,7 +1000,7 @@ Other parameters are passed through a pointer to a apiGetCaptableSharesRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1009,7 +1009,7 @@ Other parameters are passed through a pointer to a apiGetCaptableSharesRequest s
 
 ## GetCaptableStakeholders
 
-> []CaptableStakeholder GetCaptableStakeholders(ctx).Execute()
+> []CaptableCaptableStakeholder GetCaptableStakeholders(ctx).Execute()
 
 Returns the caller org's stakeholders, newest first.
 
@@ -1036,7 +1036,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableStakeholders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCaptableStakeholders`: []CaptableStakeholder
+	// response from `GetCaptableStakeholders`: []CaptableCaptableStakeholder
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableStakeholders`: %v\n", resp)
 }
 ```
@@ -1052,7 +1052,7 @@ Other parameters are passed through a pointer to a apiGetCaptableStakeholdersReq
 
 ### Return type
 
-[**[]CaptableStakeholder**](CaptableStakeholder.md)
+[**[]CaptableCaptableStakeholder**](CaptableCaptableStakeholder.md)
 
 ### Authorization
 
@@ -1061,7 +1061,7 @@ Other parameters are passed through a pointer to a apiGetCaptableStakeholdersReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1070,7 +1070,7 @@ Other parameters are passed through a pointer to a apiGetCaptableStakeholdersReq
 
 ## GetCaptableSummary
 
-> CaptableSummary GetCaptableSummary(ctx).Execute()
+> CaptableCaptableSummary GetCaptableSummary(ctx).Execute()
 
 Computes the caller org's cap table.
 
@@ -1097,7 +1097,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.GetCaptableSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCaptableSummary`: CaptableSummary
+	// response from `GetCaptableSummary`: CaptableCaptableSummary
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.GetCaptableSummary`: %v\n", resp)
 }
 ```
@@ -1113,7 +1113,7 @@ Other parameters are passed through a pointer to a apiGetCaptableSummaryRequest 
 
 ### Return type
 
-[**CaptableSummary**](CaptableSummary.md)
+[**CaptableCaptableSummary**](CaptableCaptableSummary.md)
 
 ### Authorization
 
@@ -1122,7 +1122,7 @@ Other parameters are passed through a pointer to a apiGetCaptableSummaryRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1131,7 +1131,7 @@ Other parameters are passed through a pointer to a apiGetCaptableSummaryRequest 
 
 ## PatchCaptableClassesById
 
-> CaptableUpdated PatchCaptableClassesById(ctx, id).CaptableShareClassAmend(captableShareClassAmend).Execute()
+> CaptableCaptableUpdated PatchCaptableClassesById(ctx, id).CaptableCaptableShareClassAmend(captableCaptableShareClassAmend).Execute()
 
 Replaces one share class's terms.
 
@@ -1151,16 +1151,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID addresses the resource. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which row is written whatever a body claims.
-	captableShareClassAmend := *openapiclient.NewCaptableShareClassAmend() // CaptableShareClassAmend | 
+	captableCaptableShareClassAmend := *openapiclient.NewCaptableCaptableShareClassAmend() // CaptableCaptableShareClassAmend | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PatchCaptableClassesById(context.Background(), id).CaptableShareClassAmend(captableShareClassAmend).Execute()
+	resp, r, err := apiClient.CaptableAPI.PatchCaptableClassesById(context.Background(), id).CaptableCaptableShareClassAmend(captableCaptableShareClassAmend).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PatchCaptableClassesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchCaptableClassesById`: CaptableUpdated
+	// response from `PatchCaptableClassesById`: CaptableCaptableUpdated
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PatchCaptableClassesById`: %v\n", resp)
 }
 ```
@@ -1181,11 +1181,11 @@ Other parameters are passed through a pointer to a apiPatchCaptableClassesByIdRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **captableShareClassAmend** | [**CaptableShareClassAmend**](CaptableShareClassAmend.md) |  | 
+ **captableCaptableShareClassAmend** | [**CaptableCaptableShareClassAmend**](CaptableCaptableShareClassAmend.md) |  | 
 
 ### Return type
 
-[**CaptableUpdated**](CaptableUpdated.md)
+[**CaptableCaptableUpdated**](CaptableCaptableUpdated.md)
 
 ### Authorization
 
@@ -1194,7 +1194,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1203,7 +1203,7 @@ Name | Type | Description  | Notes
 
 ## PatchCaptableStakeholdersById
 
-> CaptableUpdated PatchCaptableStakeholdersById(ctx, id).CaptableStakeholderPatch(captableStakeholderPatch).Execute()
+> CaptableCaptableUpdated PatchCaptableStakeholdersById(ctx, id).CaptableCaptableStakeholderPatch(captableCaptableStakeholderPatch).Execute()
 
 Changes one of the caller org's stakeholders.
 
@@ -1223,16 +1223,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the stakeholder to update. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.
-	captableStakeholderPatch := *openapiclient.NewCaptableStakeholderPatch() // CaptableStakeholderPatch | 
+	captableCaptableStakeholderPatch := *openapiclient.NewCaptableCaptableStakeholderPatch() // CaptableCaptableStakeholderPatch | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PatchCaptableStakeholdersById(context.Background(), id).CaptableStakeholderPatch(captableStakeholderPatch).Execute()
+	resp, r, err := apiClient.CaptableAPI.PatchCaptableStakeholdersById(context.Background(), id).CaptableCaptableStakeholderPatch(captableCaptableStakeholderPatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PatchCaptableStakeholdersById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchCaptableStakeholdersById`: CaptableUpdated
+	// response from `PatchCaptableStakeholdersById`: CaptableCaptableUpdated
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PatchCaptableStakeholdersById`: %v\n", resp)
 }
 ```
@@ -1253,11 +1253,11 @@ Other parameters are passed through a pointer to a apiPatchCaptableStakeholdersB
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **captableStakeholderPatch** | [**CaptableStakeholderPatch**](CaptableStakeholderPatch.md) |  | 
+ **captableCaptableStakeholderPatch** | [**CaptableCaptableStakeholderPatch**](CaptableCaptableStakeholderPatch.md) |  | 
 
 ### Return type
 
-[**CaptableUpdated**](CaptableUpdated.md)
+[**CaptableCaptableUpdated**](CaptableCaptableUpdated.md)
 
 ### Authorization
 
@@ -1266,7 +1266,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1275,7 +1275,7 @@ Name | Type | Description  | Notes
 
 ## PostCaptableClasses
 
-> CaptableCreated PostCaptableClasses(ctx).CaptableShareClassIn(captableShareClassIn).Execute()
+> CaptableCaptableCreated PostCaptableClasses(ctx).CaptableCaptableShareClassIn(captableCaptableShareClassIn).Execute()
 
 Defines a new class of shares.
 
@@ -1294,16 +1294,16 @@ import (
 )
 
 func main() {
-	captableShareClassIn := *openapiclient.NewCaptableShareClassIn() // CaptableShareClassIn | 
+	captableCaptableShareClassIn := *openapiclient.NewCaptableCaptableShareClassIn() // CaptableCaptableShareClassIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PostCaptableClasses(context.Background()).CaptableShareClassIn(captableShareClassIn).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableClasses(context.Background()).CaptableCaptableShareClassIn(captableCaptableShareClassIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableClasses``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCaptableClasses`: CaptableCreated
+	// response from `PostCaptableClasses`: CaptableCaptableCreated
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableClasses`: %v\n", resp)
 }
 ```
@@ -1319,11 +1319,11 @@ Other parameters are passed through a pointer to a apiPostCaptableClassesRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **captableShareClassIn** | [**CaptableShareClassIn**](CaptableShareClassIn.md) |  | 
+ **captableCaptableShareClassIn** | [**CaptableCaptableShareClassIn**](CaptableCaptableShareClassIn.md) |  | 
 
 ### Return type
 
-[**CaptableCreated**](CaptableCreated.md)
+[**CaptableCaptableCreated**](CaptableCaptableCreated.md)
 
 ### Authorization
 
@@ -1332,7 +1332,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1341,7 +1341,7 @@ Name | Type | Description  | Notes
 
 ## PostCaptableConvertibles
 
-> CaptableCreated PostCaptableConvertibles(ctx).CaptableConvertibleIn(captableConvertibleIn).Execute()
+> CaptableCaptableCreated PostCaptableConvertibles(ctx).CaptableCaptableConvertibleIn(captableCaptableConvertibleIn).Execute()
 
 Records a convertible note.
 
@@ -1360,16 +1360,16 @@ import (
 )
 
 func main() {
-	captableConvertibleIn := *openapiclient.NewCaptableConvertibleIn() // CaptableConvertibleIn | 
+	captableCaptableConvertibleIn := *openapiclient.NewCaptableCaptableConvertibleIn() // CaptableCaptableConvertibleIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PostCaptableConvertibles(context.Background()).CaptableConvertibleIn(captableConvertibleIn).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableConvertibles(context.Background()).CaptableCaptableConvertibleIn(captableCaptableConvertibleIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableConvertibles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCaptableConvertibles`: CaptableCreated
+	// response from `PostCaptableConvertibles`: CaptableCaptableCreated
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableConvertibles`: %v\n", resp)
 }
 ```
@@ -1385,11 +1385,11 @@ Other parameters are passed through a pointer to a apiPostCaptableConvertiblesRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **captableConvertibleIn** | [**CaptableConvertibleIn**](CaptableConvertibleIn.md) |  | 
+ **captableCaptableConvertibleIn** | [**CaptableCaptableConvertibleIn**](CaptableCaptableConvertibleIn.md) |  | 
 
 ### Return type
 
-[**CaptableCreated**](CaptableCreated.md)
+[**CaptableCaptableCreated**](CaptableCaptableCreated.md)
 
 ### Authorization
 
@@ -1398,7 +1398,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1407,7 +1407,7 @@ Name | Type | Description  | Notes
 
 ## PostCaptableOptions
 
-> CaptableCreated PostCaptableOptions(ctx).CaptableOptionIn(captableOptionIn).Execute()
+> CaptableCaptableCreated PostCaptableOptions(ctx).CaptableCaptableOptionIn(captableCaptableOptionIn).Execute()
 
 Grants options to a stakeholder from an equity plan.
 
@@ -1426,16 +1426,16 @@ import (
 )
 
 func main() {
-	captableOptionIn := *openapiclient.NewCaptableOptionIn() // CaptableOptionIn | 
+	captableCaptableOptionIn := *openapiclient.NewCaptableCaptableOptionIn() // CaptableCaptableOptionIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PostCaptableOptions(context.Background()).CaptableOptionIn(captableOptionIn).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableOptions(context.Background()).CaptableCaptableOptionIn(captableCaptableOptionIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableOptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCaptableOptions`: CaptableCreated
+	// response from `PostCaptableOptions`: CaptableCaptableCreated
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableOptions`: %v\n", resp)
 }
 ```
@@ -1451,11 +1451,11 @@ Other parameters are passed through a pointer to a apiPostCaptableOptionsRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **captableOptionIn** | [**CaptableOptionIn**](CaptableOptionIn.md) |  | 
+ **captableCaptableOptionIn** | [**CaptableCaptableOptionIn**](CaptableCaptableOptionIn.md) |  | 
 
 ### Return type
 
-[**CaptableCreated**](CaptableCreated.md)
+[**CaptableCaptableCreated**](CaptableCaptableCreated.md)
 
 ### Authorization
 
@@ -1464,7 +1464,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1473,7 +1473,7 @@ Name | Type | Description  | Notes
 
 ## PostCaptablePlans
 
-> CaptableCreated PostCaptablePlans(ctx).CaptableEquityPlanIn(captableEquityPlanIn).Execute()
+> CaptableCaptableCreated PostCaptablePlans(ctx).CaptableCaptableEquityPlanIn(captableCaptableEquityPlanIn).Execute()
 
 Opens an equity plan that options are granted from.
 
@@ -1492,16 +1492,16 @@ import (
 )
 
 func main() {
-	captableEquityPlanIn := *openapiclient.NewCaptableEquityPlanIn() // CaptableEquityPlanIn | 
+	captableCaptableEquityPlanIn := *openapiclient.NewCaptableCaptableEquityPlanIn() // CaptableCaptableEquityPlanIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PostCaptablePlans(context.Background()).CaptableEquityPlanIn(captableEquityPlanIn).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptablePlans(context.Background()).CaptableCaptableEquityPlanIn(captableCaptableEquityPlanIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptablePlans``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCaptablePlans`: CaptableCreated
+	// response from `PostCaptablePlans`: CaptableCaptableCreated
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptablePlans`: %v\n", resp)
 }
 ```
@@ -1517,11 +1517,11 @@ Other parameters are passed through a pointer to a apiPostCaptablePlansRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **captableEquityPlanIn** | [**CaptableEquityPlanIn**](CaptableEquityPlanIn.md) |  | 
+ **captableCaptableEquityPlanIn** | [**CaptableCaptableEquityPlanIn**](CaptableCaptableEquityPlanIn.md) |  | 
 
 ### Return type
 
-[**CaptableCreated**](CaptableCreated.md)
+[**CaptableCaptableCreated**](CaptableCaptableCreated.md)
 
 ### Authorization
 
@@ -1530,7 +1530,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1539,7 +1539,7 @@ Name | Type | Description  | Notes
 
 ## PostCaptableRounds
 
-> CaptableCreated PostCaptableRounds(ctx).CaptableRoundIn(captableRoundIn).Execute()
+> CaptableCaptableCreated PostCaptableRounds(ctx).CaptableCaptableRoundIn(captableCaptableRoundIn).Execute()
 
 Opens a priced round that investments can be added to.
 
@@ -1558,16 +1558,16 @@ import (
 )
 
 func main() {
-	captableRoundIn := *openapiclient.NewCaptableRoundIn() // CaptableRoundIn | 
+	captableCaptableRoundIn := *openapiclient.NewCaptableCaptableRoundIn() // CaptableCaptableRoundIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PostCaptableRounds(context.Background()).CaptableRoundIn(captableRoundIn).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableRounds(context.Background()).CaptableCaptableRoundIn(captableCaptableRoundIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableRounds``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCaptableRounds`: CaptableCreated
+	// response from `PostCaptableRounds`: CaptableCaptableCreated
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableRounds`: %v\n", resp)
 }
 ```
@@ -1583,11 +1583,11 @@ Other parameters are passed through a pointer to a apiPostCaptableRoundsRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **captableRoundIn** | [**CaptableRoundIn**](CaptableRoundIn.md) |  | 
+ **captableCaptableRoundIn** | [**CaptableCaptableRoundIn**](CaptableCaptableRoundIn.md) |  | 
 
 ### Return type
 
-[**CaptableCreated**](CaptableCreated.md)
+[**CaptableCaptableCreated**](CaptableCaptableCreated.md)
 
 ### Authorization
 
@@ -1596,7 +1596,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1605,7 +1605,7 @@ Name | Type | Description  | Notes
 
 ## PostCaptableRoundsByIdClose
 
-> CaptableUpdated PostCaptableRoundsByIdClose(ctx, id).CaptableRoundCloseRequest(captableRoundCloseRequest).Execute()
+> CaptableCaptableUpdated PostCaptableRoundsByIdClose(ctx, id).CaptableCaptableRoundCloseRequest(captableCaptableRoundCloseRequest).Execute()
 
 Closes one of the caller org's fundraising rounds, recording the close date and moving its status to CLOSED.
 
@@ -1625,16 +1625,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the round to close. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.
-	captableRoundCloseRequest := *openapiclient.NewCaptableRoundCloseRequest() // CaptableRoundCloseRequest | 
+	captableCaptableRoundCloseRequest := *openapiclient.NewCaptableCaptableRoundCloseRequest() // CaptableCaptableRoundCloseRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PostCaptableRoundsByIdClose(context.Background(), id).CaptableRoundCloseRequest(captableRoundCloseRequest).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableRoundsByIdClose(context.Background(), id).CaptableCaptableRoundCloseRequest(captableCaptableRoundCloseRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableRoundsByIdClose``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCaptableRoundsByIdClose`: CaptableUpdated
+	// response from `PostCaptableRoundsByIdClose`: CaptableCaptableUpdated
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableRoundsByIdClose`: %v\n", resp)
 }
 ```
@@ -1655,11 +1655,11 @@ Other parameters are passed through a pointer to a apiPostCaptableRoundsByIdClos
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **captableRoundCloseRequest** | [**CaptableRoundCloseRequest**](CaptableRoundCloseRequest.md) |  | 
+ **captableCaptableRoundCloseRequest** | [**CaptableCaptableRoundCloseRequest**](CaptableCaptableRoundCloseRequest.md) |  | 
 
 ### Return type
 
-[**CaptableUpdated**](CaptableUpdated.md)
+[**CaptableCaptableUpdated**](CaptableCaptableUpdated.md)
 
 ### Authorization
 
@@ -1668,7 +1668,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1677,7 +1677,7 @@ Name | Type | Description  | Notes
 
 ## PostCaptableRoundsByIdInvestments
 
-> CaptableInvested PostCaptableRoundsByIdInvestments(ctx, id).CaptableInvestmentIn(captableInvestmentIn).Execute()
+> CaptableCaptableInvested PostCaptableRoundsByIdInvestments(ctx, id).CaptableCaptableInvestmentIn(captableCaptableInvestmentIn).Execute()
 
 Records one investor's money into an open round.
 
@@ -1697,16 +1697,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the round to invest in. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which round is written whatever a body claims.
-	captableInvestmentIn := *openapiclient.NewCaptableInvestmentIn() // CaptableInvestmentIn | 
+	captableCaptableInvestmentIn := *openapiclient.NewCaptableCaptableInvestmentIn() // CaptableCaptableInvestmentIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PostCaptableRoundsByIdInvestments(context.Background(), id).CaptableInvestmentIn(captableInvestmentIn).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableRoundsByIdInvestments(context.Background(), id).CaptableCaptableInvestmentIn(captableCaptableInvestmentIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableRoundsByIdInvestments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCaptableRoundsByIdInvestments`: CaptableInvested
+	// response from `PostCaptableRoundsByIdInvestments`: CaptableCaptableInvested
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableRoundsByIdInvestments`: %v\n", resp)
 }
 ```
@@ -1727,11 +1727,11 @@ Other parameters are passed through a pointer to a apiPostCaptableRoundsByIdInve
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **captableInvestmentIn** | [**CaptableInvestmentIn**](CaptableInvestmentIn.md) |  | 
+ **captableCaptableInvestmentIn** | [**CaptableCaptableInvestmentIn**](CaptableCaptableInvestmentIn.md) |  | 
 
 ### Return type
 
-[**CaptableInvested**](CaptableInvested.md)
+[**CaptableCaptableInvested**](CaptableCaptableInvested.md)
 
 ### Authorization
 
@@ -1740,7 +1740,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1749,7 +1749,7 @@ Name | Type | Description  | Notes
 
 ## PostCaptableSafes
 
-> CaptableCreated PostCaptableSafes(ctx).CaptableSafeIn(captableSafeIn).Execute()
+> CaptableCaptableCreated PostCaptableSafes(ctx).CaptableCaptableSafeIn(captableCaptableSafeIn).Execute()
 
 Records a SAFE — a simple agreement for future equity.
 
@@ -1768,16 +1768,16 @@ import (
 )
 
 func main() {
-	captableSafeIn := *openapiclient.NewCaptableSafeIn() // CaptableSafeIn | 
+	captableCaptableSafeIn := *openapiclient.NewCaptableCaptableSafeIn() // CaptableCaptableSafeIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PostCaptableSafes(context.Background()).CaptableSafeIn(captableSafeIn).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableSafes(context.Background()).CaptableCaptableSafeIn(captableCaptableSafeIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableSafes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCaptableSafes`: CaptableCreated
+	// response from `PostCaptableSafes`: CaptableCaptableCreated
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableSafes`: %v\n", resp)
 }
 ```
@@ -1793,11 +1793,11 @@ Other parameters are passed through a pointer to a apiPostCaptableSafesRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **captableSafeIn** | [**CaptableSafeIn**](CaptableSafeIn.md) |  | 
+ **captableCaptableSafeIn** | [**CaptableCaptableSafeIn**](CaptableCaptableSafeIn.md) |  | 
 
 ### Return type
 
-[**CaptableCreated**](CaptableCreated.md)
+[**CaptableCaptableCreated**](CaptableCaptableCreated.md)
 
 ### Authorization
 
@@ -1806,7 +1806,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1815,7 +1815,7 @@ Name | Type | Description  | Notes
 
 ## PostCaptableShares
 
-> CaptableCreated PostCaptableShares(ctx).CaptableShareIn(captableShareIn).Execute()
+> CaptableCaptableCreated PostCaptableShares(ctx).CaptableCaptableShareIn(captableCaptableShareIn).Execute()
 
 Issues a share certificate to a stakeholder.
 
@@ -1834,16 +1834,16 @@ import (
 )
 
 func main() {
-	captableShareIn := *openapiclient.NewCaptableShareIn() // CaptableShareIn | 
+	captableCaptableShareIn := *openapiclient.NewCaptableCaptableShareIn() // CaptableCaptableShareIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PostCaptableShares(context.Background()).CaptableShareIn(captableShareIn).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableShares(context.Background()).CaptableCaptableShareIn(captableCaptableShareIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableShares``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCaptableShares`: CaptableCreated
+	// response from `PostCaptableShares`: CaptableCaptableCreated
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableShares`: %v\n", resp)
 }
 ```
@@ -1859,11 +1859,11 @@ Other parameters are passed through a pointer to a apiPostCaptableSharesRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **captableShareIn** | [**CaptableShareIn**](CaptableShareIn.md) |  | 
+ **captableCaptableShareIn** | [**CaptableCaptableShareIn**](CaptableCaptableShareIn.md) |  | 
 
 ### Return type
 
-[**CaptableCreated**](CaptableCreated.md)
+[**CaptableCaptableCreated**](CaptableCaptableCreated.md)
 
 ### Authorization
 
@@ -1872,7 +1872,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1881,7 +1881,7 @@ Name | Type | Description  | Notes
 
 ## PostCaptableSharesTransfer
 
-> CaptableTransferred PostCaptableSharesTransfer(ctx).CaptableShareTransfer(captableShareTransfer).Execute()
+> CaptableCaptableTransferred PostCaptableSharesTransfer(ctx).CaptableCaptableShareTransfer(captableCaptableShareTransfer).Execute()
 
 Moves shares from one stakeholder to another.
 
@@ -1900,16 +1900,16 @@ import (
 )
 
 func main() {
-	captableShareTransfer := *openapiclient.NewCaptableShareTransfer() // CaptableShareTransfer | 
+	captableCaptableShareTransfer := *openapiclient.NewCaptableCaptableShareTransfer() // CaptableCaptableShareTransfer | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PostCaptableSharesTransfer(context.Background()).CaptableShareTransfer(captableShareTransfer).Execute()
+	resp, r, err := apiClient.CaptableAPI.PostCaptableSharesTransfer(context.Background()).CaptableCaptableShareTransfer(captableCaptableShareTransfer).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PostCaptableSharesTransfer``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCaptableSharesTransfer`: CaptableTransferred
+	// response from `PostCaptableSharesTransfer`: CaptableCaptableTransferred
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PostCaptableSharesTransfer`: %v\n", resp)
 }
 ```
@@ -1925,11 +1925,11 @@ Other parameters are passed through a pointer to a apiPostCaptableSharesTransfer
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **captableShareTransfer** | [**CaptableShareTransfer**](CaptableShareTransfer.md) |  | 
+ **captableCaptableShareTransfer** | [**CaptableCaptableShareTransfer**](CaptableCaptableShareTransfer.md) |  | 
 
 ### Return type
 
-[**CaptableTransferred**](CaptableTransferred.md)
+[**CaptableCaptableTransferred**](CaptableCaptableTransferred.md)
 
 ### Authorization
 
@@ -1938,7 +1938,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2006,7 +2006,7 @@ Other parameters are passed through a pointer to a apiPostCaptableStakeholdersRe
 
 ## PutCaptableCompany
 
-> CaptableUpdated PutCaptableCompany(ctx).CaptableCompanyUpdate(captableCompanyUpdate).Execute()
+> CaptableCaptableUpdated PutCaptableCompany(ctx).CaptableCaptableCompanyUpdate(captableCaptableCompanyUpdate).Execute()
 
 Sets the caller org's company name and incorporation details.
 
@@ -2025,16 +2025,16 @@ import (
 )
 
 func main() {
-	captableCompanyUpdate := *openapiclient.NewCaptableCompanyUpdate() // CaptableCompanyUpdate | 
+	captableCaptableCompanyUpdate := *openapiclient.NewCaptableCaptableCompanyUpdate() // CaptableCaptableCompanyUpdate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CaptableAPI.PutCaptableCompany(context.Background()).CaptableCompanyUpdate(captableCompanyUpdate).Execute()
+	resp, r, err := apiClient.CaptableAPI.PutCaptableCompany(context.Background()).CaptableCaptableCompanyUpdate(captableCaptableCompanyUpdate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CaptableAPI.PutCaptableCompany``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutCaptableCompany`: CaptableUpdated
+	// response from `PutCaptableCompany`: CaptableCaptableUpdated
 	fmt.Fprintf(os.Stdout, "Response from `CaptableAPI.PutCaptableCompany`: %v\n", resp)
 }
 ```
@@ -2050,11 +2050,11 @@ Other parameters are passed through a pointer to a apiPutCaptableCompanyRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **captableCompanyUpdate** | [**CaptableCompanyUpdate**](CaptableCompanyUpdate.md) |  | 
+ **captableCaptableCompanyUpdate** | [**CaptableCaptableCompanyUpdate**](CaptableCaptableCompanyUpdate.md) |  | 
 
 ### Return type
 
-[**CaptableUpdated**](CaptableUpdated.md)
+[**CaptableCaptableUpdated**](CaptableCaptableUpdated.md)
 
 ### Authorization
 
@@ -2063,7 +2063,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

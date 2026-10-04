@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**GetCodeFile**](CodeAPI.md#GetCodeFile) | **Get** /v1/code/file | Returns the INDEXED content of one file — read_file over the chunks the search tiers hold, for pulling up code an agent just found.
 [**GetCodeSearch**](CodeAPI.md#GetCodeSearch) | **Get** /v1/code/search | Finds code in the caller org&#39;s index across three orthogonal retrieval tiers fused by reciprocal-rank fusion: lexical (FTS5 trigram over code-tokenized text), symbolic (real definition and reference edges), and semantic (embedding cosine over AST-boundary chunks).
 [**GetCodeTree**](CodeAPI.md#GetCodeTree) | **Get** /v1/code/tree | Returns one repository&#39;s file structure with a per-file symbol count — get_repo_structure over the org&#39;s own index, with no git checkout involved.
-[**PostCodeAsk**](CodeAPI.md#PostCodeAsk) | **Post** /v1/code/ask | Is askGet with the question in the request BODY, for a question too long or too awkward to put in a URL.
+[**PostCodeAsk**](CodeAPI.md#PostCodeAsk) | **Post** /v1/code/ask | Answers a question about the caller org&#39;s code with a CITED answer, taking the question from the request BODY, for a question too long or too awkward to put in a URL.
 [**PostCodeContext**](CodeAPI.md#PostCodeContext) | **Post** /v1/code/context | Packs the most relevant code for a query into a token budget — THE primitive for a coding agent that has to decide what to put in a prompt.
 [**PostCodeIndex**](CodeAPI.md#PostCodeIndex) | **Post** /v1/code/index | (re)indexes a repository for the caller&#39;s org, incrementally: files whose content hash is unchanged are skipped, so re-sending a whole tree is cheap.
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## GetCodeAsk
 
-> AskAnswer GetCodeAsk(ctx).Q(q).Repo(repo).Execute()
+> CodeAskAnswer GetCodeAsk(ctx).Q(q).Repo(repo).Execute()
 
 Answers a question about the caller org's code with a CITED answer: retrieval packs grounding context, then the synthesizer writes the answer over exactly those spans, which come back alongside it.
 
@@ -45,7 +45,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.GetCodeAsk``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCodeAsk`: AskAnswer
+	// response from `GetCodeAsk`: CodeAskAnswer
 	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.GetCodeAsk`: %v\n", resp)
 }
 ```
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AskAnswer**](AskAnswer.md)
+[**CodeAskAnswer**](CodeAskAnswer.md)
 
 ### Authorization
 
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 ## GetCodeFile
 
-> FileContent GetCodeFile(ctx).Path(path).Repo(repo).Execute()
+> CodeFileContent GetCodeFile(ctx).Path(path).Repo(repo).Execute()
 
 Returns the INDEXED content of one file — read_file over the chunks the search tiers hold, for pulling up code an agent just found.
 
@@ -113,7 +113,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.GetCodeFile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCodeFile`: FileContent
+	// response from `GetCodeFile`: CodeFileContent
 	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.GetCodeFile`: %v\n", resp)
 }
 ```
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FileContent**](FileContent.md)
+[**CodeFileContent**](CodeFileContent.md)
 
 ### Authorization
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ## GetCodeSearch
 
-> SearchResults GetCodeSearch(ctx).Q(q).Type_(type_).Repo(repo).Limit(limit).Execute()
+> CodeSearchResults GetCodeSearch(ctx).Q(q).Type_(type_).Repo(repo).Limit(limit).Execute()
 
 Finds code in the caller org's index across three orthogonal retrieval tiers fused by reciprocal-rank fusion: lexical (FTS5 trigram over code-tokenized text), symbolic (real definition and reference edges), and semantic (embedding cosine over AST-boundary chunks).
 
@@ -183,7 +183,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.GetCodeSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCodeSearch`: SearchResults
+	// response from `GetCodeSearch`: CodeSearchResults
 	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.GetCodeSearch`: %v\n", resp)
 }
 ```
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SearchResults**](SearchResults.md)
+[**CodeSearchResults**](CodeSearchResults.md)
 
 ### Authorization
 
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 
 ## GetCodeTree
 
-> RepoTree GetCodeTree(ctx).Repo(repo).Execute()
+> CodeRepoTree GetCodeTree(ctx).Repo(repo).Execute()
 
 Returns one repository's file structure with a per-file symbol count — get_repo_structure over the org's own index, with no git checkout involved.
 
@@ -252,7 +252,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.GetCodeTree``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCodeTree`: RepoTree
+	// response from `GetCodeTree`: CodeRepoTree
 	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.GetCodeTree`: %v\n", resp)
 }
 ```
@@ -272,7 +272,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RepoTree**](RepoTree.md)
+[**CodeRepoTree**](CodeRepoTree.md)
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -290,9 +290,9 @@ Name | Type | Description  | Notes
 
 ## PostCodeAsk
 
-> AskAnswer PostCodeAsk(ctx).AskPostIn(askPostIn).Execute()
+> CodeAskAnswer PostCodeAsk(ctx).CodeAskPostIn(codeAskPostIn).Execute()
 
-Is askGet with the question in the request BODY, for a question too long or too awkward to put in a URL.
+Answers a question about the caller org's code with a CITED answer, taking the question from the request BODY, for a question too long or too awkward to put in a URL.
 
 
 
@@ -309,16 +309,16 @@ import (
 )
 
 func main() {
-	askPostIn := *openapiclient.NewAskPostIn() // AskPostIn | 
+	codeAskPostIn := *openapiclient.NewCodeAskPostIn() // CodeAskPostIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CodeAPI.PostCodeAsk(context.Background()).AskPostIn(askPostIn).Execute()
+	resp, r, err := apiClient.CodeAPI.PostCodeAsk(context.Background()).CodeAskPostIn(codeAskPostIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.PostCodeAsk``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCodeAsk`: AskAnswer
+	// response from `PostCodeAsk`: CodeAskAnswer
 	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.PostCodeAsk`: %v\n", resp)
 }
 ```
@@ -334,11 +334,11 @@ Other parameters are passed through a pointer to a apiPostCodeAskRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **askPostIn** | [**AskPostIn**](AskPostIn.md) |  | 
+ **codeAskPostIn** | [**CodeAskPostIn**](CodeAskPostIn.md) |  | 
 
 ### Return type
 
-[**AskAnswer**](AskAnswer.md)
+[**CodeAskAnswer**](CodeAskAnswer.md)
 
 ### Authorization
 
@@ -347,7 +347,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -356,7 +356,7 @@ Name | Type | Description  | Notes
 
 ## PostCodeContext
 
-> ContextBundle PostCodeContext(ctx).ContextIn(contextIn).Execute()
+> CodeContextBundle PostCodeContext(ctx).CodeContextIn(codeContextIn).Execute()
 
 Packs the most relevant code for a query into a token budget — THE primitive for a coding agent that has to decide what to put in a prompt.
 
@@ -375,16 +375,16 @@ import (
 )
 
 func main() {
-	contextIn := *openapiclient.NewContextIn() // ContextIn | 
+	codeContextIn := *openapiclient.NewCodeContextIn() // CodeContextIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CodeAPI.PostCodeContext(context.Background()).ContextIn(contextIn).Execute()
+	resp, r, err := apiClient.CodeAPI.PostCodeContext(context.Background()).CodeContextIn(codeContextIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.PostCodeContext``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCodeContext`: ContextBundle
+	// response from `PostCodeContext`: CodeContextBundle
 	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.PostCodeContext`: %v\n", resp)
 }
 ```
@@ -400,11 +400,11 @@ Other parameters are passed through a pointer to a apiPostCodeContextRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contextIn** | [**ContextIn**](ContextIn.md) |  | 
+ **codeContextIn** | [**CodeContextIn**](CodeContextIn.md) |  | 
 
 ### Return type
 
-[**ContextBundle**](ContextBundle.md)
+[**CodeContextBundle**](CodeContextBundle.md)
 
 ### Authorization
 
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -422,7 +422,7 @@ Name | Type | Description  | Notes
 
 ## PostCodeIndex
 
-> IndexResult PostCodeIndex(ctx).IndexIn(indexIn).Execute()
+> CodeIndexResult PostCodeIndex(ctx).CodeIndexIn(codeIndexIn).Execute()
 
 (re)indexes a repository for the caller's org, incrementally: files whose content hash is unchanged are skipped, so re-sending a whole tree is cheap.
 
@@ -441,16 +441,16 @@ import (
 )
 
 func main() {
-	indexIn := *openapiclient.NewIndexIn() // IndexIn | 
+	codeIndexIn := *openapiclient.NewCodeIndexIn() // CodeIndexIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CodeAPI.PostCodeIndex(context.Background()).IndexIn(indexIn).Execute()
+	resp, r, err := apiClient.CodeAPI.PostCodeIndex(context.Background()).CodeIndexIn(codeIndexIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CodeAPI.PostCodeIndex``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostCodeIndex`: IndexResult
+	// response from `PostCodeIndex`: CodeIndexResult
 	fmt.Fprintf(os.Stdout, "Response from `CodeAPI.PostCodeIndex`: %v\n", resp)
 }
 ```
@@ -466,11 +466,11 @@ Other parameters are passed through a pointer to a apiPostCodeIndexRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexIn** | [**IndexIn**](IndexIn.md) |  | 
+ **codeIndexIn** | [**CodeIndexIn**](CodeIndexIn.md) |  | 
 
 ### Return type
 
-[**IndexResult**](IndexResult.md)
+[**CodeIndexResult**](CodeIndexResult.md)
 
 ### Authorization
 
@@ -479,7 +479,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

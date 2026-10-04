@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yGettableSpanMappers{}
 
 // O11yGettableSpanMappers struct for O11yGettableSpanMappers
 type O11yGettableSpanMappers struct {
-	Items []O11ySpanMapper `json:"items,omitempty"`
+	Items                []O11ySpanMapper `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableSpanMappers O11yGettableSpanMappers
 
 // NewO11yGettableSpanMappers instantiates a new O11yGettableSpanMappers object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yGettableSpanMappers) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableSpanMappers) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableSpanMappers := _O11yGettableSpanMappers{}
+
+	err = json.Unmarshal(data, &varO11yGettableSpanMappers)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableSpanMappers(varO11yGettableSpanMappers)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableSpanMappers struct {

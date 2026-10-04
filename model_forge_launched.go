@@ -19,11 +19,14 @@ var _ MappedNullable = &ForgeLaunched{}
 
 // ForgeLaunched struct for ForgeLaunched
 type ForgeLaunched struct {
-	Job    *int32  `json:"job,omitempty"`
-	Org    *string `json:"org,omitempty"`
-	Repo   *string `json:"repo,omitempty"`
-	Runner *string `json:"runner,omitempty"`
+	Job                  *int32  `json:"job,omitempty"`
+	Org                  *string `json:"org,omitempty"`
+	Repo                 *string `json:"repo,omitempty"`
+	Runner               *string `json:"runner,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ForgeLaunched ForgeLaunched
 
 // NewForgeLaunched instantiates a new ForgeLaunched object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o ForgeLaunched) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Runner) {
 		toSerialize["runner"] = o.Runner
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ForgeLaunched) UnmarshalJSON(data []byte) (err error) {
+	varForgeLaunched := _ForgeLaunched{}
+
+	err = json.Unmarshal(data, &varForgeLaunched)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ForgeLaunched(varForgeLaunched)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "job")
+		delete(additionalProperties, "org")
+		delete(additionalProperties, "repo")
+		delete(additionalProperties, "runner")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableForgeLaunched struct {

@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yIntegrationAssets{}
 
 // O11yIntegrationAssets struct for O11yIntegrationAssets
 type O11yIntegrationAssets struct {
-	Alerts     []interface{}                       `json:"alerts,omitempty"`
-	Dashboards []map[string]map[string]interface{} `json:"dashboards,omitempty"`
-	Logs       *O11yLogsAssets                     `json:"logs,omitempty"`
+	Alerts               []interface{}            `json:"alerts,omitempty"`
+	Dashboards           []map[string]interface{} `json:"dashboards,omitempty"`
+	Logs                 *O11yLogsAssets          `json:"logs,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yIntegrationAssets O11yIntegrationAssets
 
 // NewO11yIntegrationAssets instantiates a new O11yIntegrationAssets object
 // This constructor will assign default values to properties that have it defined,
@@ -74,9 +77,9 @@ func (o *O11yIntegrationAssets) SetAlerts(v []interface{}) {
 }
 
 // GetDashboards returns the Dashboards field value if set, zero value otherwise.
-func (o *O11yIntegrationAssets) GetDashboards() []map[string]map[string]interface{} {
+func (o *O11yIntegrationAssets) GetDashboards() []map[string]interface{} {
 	if o == nil || IsNil(o.Dashboards) {
-		var ret []map[string]map[string]interface{}
+		var ret []map[string]interface{}
 		return ret
 	}
 	return o.Dashboards
@@ -84,7 +87,7 @@ func (o *O11yIntegrationAssets) GetDashboards() []map[string]map[string]interfac
 
 // GetDashboardsOk returns a tuple with the Dashboards field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yIntegrationAssets) GetDashboardsOk() ([]map[string]map[string]interface{}, bool) {
+func (o *O11yIntegrationAssets) GetDashboardsOk() ([]map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Dashboards) {
 		return nil, false
 	}
@@ -100,8 +103,8 @@ func (o *O11yIntegrationAssets) HasDashboards() bool {
 	return false
 }
 
-// SetDashboards gets a reference to the given []map[string]map[string]interface{} and assigns it to the Dashboards field.
-func (o *O11yIntegrationAssets) SetDashboards(v []map[string]map[string]interface{}) {
+// SetDashboards gets a reference to the given []map[string]interface{} and assigns it to the Dashboards field.
+func (o *O11yIntegrationAssets) SetDashboards(v []map[string]interface{}) {
 	o.Dashboards = v
 }
 
@@ -156,7 +159,35 @@ func (o O11yIntegrationAssets) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Logs) {
 		toSerialize["logs"] = o.Logs
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yIntegrationAssets) UnmarshalJSON(data []byte) (err error) {
+	varO11yIntegrationAssets := _O11yIntegrationAssets{}
+
+	err = json.Unmarshal(data, &varO11yIntegrationAssets)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yIntegrationAssets(varO11yIntegrationAssets)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alerts")
+		delete(additionalProperties, "dashboards")
+		delete(additionalProperties, "logs")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yIntegrationAssets struct {

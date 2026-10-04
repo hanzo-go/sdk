@@ -19,17 +19,16 @@ var _ MappedNullable = &ProjectsUploadGrant{}
 
 // ProjectsUploadGrant struct for ProjectsUploadGrant
 type ProjectsUploadGrant struct {
-	// ExpiresAt is when the grant stops being accepted, as Unix seconds. It is short-lived by design and is handed out ONCE, on the response that queues the deployment — a later read of that deployment does not carry it, so a grant cannot be fetched again after the build it was minted for.
-	ExpiresAt *int64 `json:"expiresAt,omitempty"`
-	// Fields are form values every POST must carry VERBATIM, alongside `key` and `file`. The signature covers them, so altering any one of them — including widening the key to reach outside the prefix — invalidates the grant rather than extending it.
-	Fields map[string]string `json:"fields,omitempty"`
-	// MaxBytes bounds ONE object, not the upload as a whole.
-	MaxBytes *int64 `json:"maxBytes,omitempty"`
-	// Prefix is the only place this grant can write: the deployment's own key prefix. It authorizes WRITES ONLY, which is why completing a deployment reconciles the prefix against a manifest instead of letting CI delete.
-	Prefix *string `json:"prefix,omitempty"`
-	// URL is the address to POST each object to. It is signed for the PUBLIC endpoint, because the signature covers the host and CI posts from outside the cluster.
-	Url *string `json:"url,omitempty"`
+	Copy                 *bool             `json:"copy,omitempty"`
+	ExpiresAt            *int32            `json:"expiresAt,omitempty"`
+	Fields               map[string]string `json:"fields,omitempty"`
+	MaxBytes             *int32            `json:"maxBytes,omitempty"`
+	Prefix               *string           `json:"prefix,omitempty"`
+	Url                  *string           `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ProjectsUploadGrant ProjectsUploadGrant
 
 // NewProjectsUploadGrant instantiates a new ProjectsUploadGrant object
 // This constructor will assign default values to properties that have it defined,
@@ -48,10 +47,42 @@ func NewProjectsUploadGrantWithDefaults() *ProjectsUploadGrant {
 	return &this
 }
 
+// GetCopy returns the Copy field value if set, zero value otherwise.
+func (o *ProjectsUploadGrant) GetCopy() bool {
+	if o == nil || IsNil(o.Copy) {
+		var ret bool
+		return ret
+	}
+	return *o.Copy
+}
+
+// GetCopyOk returns a tuple with the Copy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProjectsUploadGrant) GetCopyOk() (*bool, bool) {
+	if o == nil || IsNil(o.Copy) {
+		return nil, false
+	}
+	return o.Copy, true
+}
+
+// HasCopy returns a boolean if a field has been set.
+func (o *ProjectsUploadGrant) HasCopy() bool {
+	if o != nil && !IsNil(o.Copy) {
+		return true
+	}
+
+	return false
+}
+
+// SetCopy gets a reference to the given bool and assigns it to the Copy field.
+func (o *ProjectsUploadGrant) SetCopy(v bool) {
+	o.Copy = &v
+}
+
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
-func (o *ProjectsUploadGrant) GetExpiresAt() int64 {
+func (o *ProjectsUploadGrant) GetExpiresAt() int32 {
 	if o == nil || IsNil(o.ExpiresAt) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.ExpiresAt
@@ -59,7 +90,7 @@ func (o *ProjectsUploadGrant) GetExpiresAt() int64 {
 
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsUploadGrant) GetExpiresAtOk() (*int64, bool) {
+func (o *ProjectsUploadGrant) GetExpiresAtOk() (*int32, bool) {
 	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
@@ -75,8 +106,8 @@ func (o *ProjectsUploadGrant) HasExpiresAt() bool {
 	return false
 }
 
-// SetExpiresAt gets a reference to the given int64 and assigns it to the ExpiresAt field.
-func (o *ProjectsUploadGrant) SetExpiresAt(v int64) {
+// SetExpiresAt gets a reference to the given int32 and assigns it to the ExpiresAt field.
+func (o *ProjectsUploadGrant) SetExpiresAt(v int32) {
 	o.ExpiresAt = &v
 }
 
@@ -113,9 +144,9 @@ func (o *ProjectsUploadGrant) SetFields(v map[string]string) {
 }
 
 // GetMaxBytes returns the MaxBytes field value if set, zero value otherwise.
-func (o *ProjectsUploadGrant) GetMaxBytes() int64 {
+func (o *ProjectsUploadGrant) GetMaxBytes() int32 {
 	if o == nil || IsNil(o.MaxBytes) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.MaxBytes
@@ -123,7 +154,7 @@ func (o *ProjectsUploadGrant) GetMaxBytes() int64 {
 
 // GetMaxBytesOk returns a tuple with the MaxBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectsUploadGrant) GetMaxBytesOk() (*int64, bool) {
+func (o *ProjectsUploadGrant) GetMaxBytesOk() (*int32, bool) {
 	if o == nil || IsNil(o.MaxBytes) {
 		return nil, false
 	}
@@ -139,8 +170,8 @@ func (o *ProjectsUploadGrant) HasMaxBytes() bool {
 	return false
 }
 
-// SetMaxBytes gets a reference to the given int64 and assigns it to the MaxBytes field.
-func (o *ProjectsUploadGrant) SetMaxBytes(v int64) {
+// SetMaxBytes gets a reference to the given int32 and assigns it to the MaxBytes field.
+func (o *ProjectsUploadGrant) SetMaxBytes(v int32) {
 	o.MaxBytes = &v
 }
 
@@ -218,6 +249,9 @@ func (o ProjectsUploadGrant) MarshalJSON() ([]byte, error) {
 
 func (o ProjectsUploadGrant) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Copy) {
+		toSerialize["copy"] = o.Copy
+	}
 	if !IsNil(o.ExpiresAt) {
 		toSerialize["expiresAt"] = o.ExpiresAt
 	}
@@ -233,7 +267,38 @@ func (o ProjectsUploadGrant) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ProjectsUploadGrant) UnmarshalJSON(data []byte) (err error) {
+	varProjectsUploadGrant := _ProjectsUploadGrant{}
+
+	err = json.Unmarshal(data, &varProjectsUploadGrant)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ProjectsUploadGrant(varProjectsUploadGrant)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "copy")
+		delete(additionalProperties, "expiresAt")
+		delete(additionalProperties, "fields")
+		delete(additionalProperties, "maxBytes")
+		delete(additionalProperties, "prefix")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableProjectsUploadGrant struct {

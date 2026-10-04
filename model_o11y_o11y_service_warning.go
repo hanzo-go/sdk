@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yServiceWarning{}
 // O11yO11yServiceWarning struct for O11yO11yServiceWarning
 type O11yO11yServiceWarning struct {
 	// TopLevelOps are the entry-point operations the profile was computed over.
-	TopLevelOps []string `json:"topLevelOps,omitempty"`
+	TopLevelOps          []string `json:"topLevelOps,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yServiceWarning O11yO11yServiceWarning
 
 // NewO11yO11yServiceWarning instantiates a new O11yO11yServiceWarning object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yServiceWarning) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TopLevelOps) {
 		toSerialize["topLevelOps"] = o.TopLevelOps
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yServiceWarning) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yServiceWarning := _O11yO11yServiceWarning{}
+
+	err = json.Unmarshal(data, &varO11yO11yServiceWarning)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yServiceWarning(varO11yO11yServiceWarning)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "topLevelOps")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yServiceWarning struct {

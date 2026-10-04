@@ -82,36 +82,41 @@ type IamApplication struct {
 	OrganizationObj              *IamOrganization      `json:"organizationObj,omitempty"`
 	OtherDomains                 []string              `json:"otherDomains,omitempty"`
 	Owner                        *string               `json:"owner,omitempty"`
-	Project                      *string               `json:"project,omitempty"`
-	Providers                    []IamProviderItem     `json:"providers,omitempty"`
-	RedirectUris                 []string              `json:"redirectUris,omitempty"`
-	RefreshExpireInHours         *float64              `json:"refreshExpireInHours,omitempty"`
-	SamlAttributes               []IamSamlItem         `json:"samlAttributes,omitempty"`
-	SamlHashAlgorithm            *string               `json:"samlHashAlgorithm,omitempty"`
-	SamlReplyUrl                 *string               `json:"samlReplyUrl,omitempty"`
-	Scopes                       []IamScopeItem        `json:"scopes,omitempty"`
-	SigninHtml                   *string               `json:"signinHtml,omitempty"`
-	SigninItems                  []IamSigninItem       `json:"signinItems,omitempty"`
-	SigninMethods                []IamSigninMethod     `json:"signinMethods,omitempty"`
-	SigninUrl                    *string               `json:"signinUrl,omitempty"`
-	SignupHtml                   *string               `json:"signupHtml,omitempty"`
-	SignupItems                  []IamSignupItem       `json:"signupItems,omitempty"`
-	SignupUrl                    *string               `json:"signupUrl,omitempty"`
-	SslCert                      *string               `json:"sslCert,omitempty"`
-	SslMode                      *string               `json:"sslMode,omitempty"`
-	Tags                         []string              `json:"tags,omitempty"`
-	TermsOfUse                   *string               `json:"termsOfUse,omitempty"`
-	ThemeData                    *IamThemeData         `json:"themeData,omitempty"`
-	Title                        *string               `json:"title,omitempty"`
-	TokenAttributes              []IamJwtItem          `json:"tokenAttributes,omitempty"`
-	TokenFields                  []string              `json:"tokenFields,omitempty"`
-	TokenFormat                  *string               `json:"tokenFormat,omitempty"`
-	TokenSigningMethod           *string               `json:"tokenSigningMethod,omitempty"`
-	Type                         *string               `json:"type,omitempty"`
-	UpdatedAt                    *time.Time            `json:"updatedAt,omitempty"`
-	UpstreamHost                 *string               `json:"upstreamHost,omitempty"`
-	UseEmailAsSamlNameId         *bool                 `json:"useEmailAsSamlNameId,omitempty"`
+	// Platform marks an application the platform itself declares (init_data.json): its own consoles and apps, never one a tenant registered. The seed stamps it on every declared application at boot, and only a SuperAdmin may change it over the API. It is what lets a signed-in person act through IAM with a bearer on the platform's behalf — sending an invitation from the platform's own email account, joining an org — which a tenant's application may not do with the tokens its users hand it.
+	Platform             *bool             `json:"platform,omitempty"`
+	Project              *string           `json:"project,omitempty"`
+	Providers            []IamProviderItem `json:"providers,omitempty"`
+	RedirectUris         []string          `json:"redirectUris,omitempty"`
+	RefreshExpireInHours *float64          `json:"refreshExpireInHours,omitempty"`
+	SamlAttributes       []IamSamlItem     `json:"samlAttributes,omitempty"`
+	SamlHashAlgorithm    *string           `json:"samlHashAlgorithm,omitempty"`
+	SamlReplyUrl         *string           `json:"samlReplyUrl,omitempty"`
+	Scopes               []IamScopeItem    `json:"scopes,omitempty"`
+	SigninHtml           *string           `json:"signinHtml,omitempty"`
+	SigninItems          []IamSigninItem   `json:"signinItems,omitempty"`
+	SigninMethods        []IamSigninMethod `json:"signinMethods,omitempty"`
+	SigninUrl            *string           `json:"signinUrl,omitempty"`
+	SignupHtml           *string           `json:"signupHtml,omitempty"`
+	SignupItems          []IamSignupItem   `json:"signupItems,omitempty"`
+	SignupUrl            *string           `json:"signupUrl,omitempty"`
+	SslCert              *string           `json:"sslCert,omitempty"`
+	SslMode              *string           `json:"sslMode,omitempty"`
+	Tags                 []string          `json:"tags,omitempty"`
+	TermsOfUse           *string           `json:"termsOfUse,omitempty"`
+	ThemeData            *IamThemeData     `json:"themeData,omitempty"`
+	Title                *string           `json:"title,omitempty"`
+	TokenAttributes      []IamJwtItem      `json:"tokenAttributes,omitempty"`
+	TokenFields          []string          `json:"tokenFields,omitempty"`
+	TokenFormat          *string           `json:"tokenFormat,omitempty"`
+	TokenSigningMethod   *string           `json:"tokenSigningMethod,omitempty"`
+	Type                 *string           `json:"type,omitempty"`
+	UpdatedAt            *time.Time        `json:"updatedAt,omitempty"`
+	UpstreamHost         *string           `json:"upstreamHost,omitempty"`
+	UseEmailAsSamlNameId *bool             `json:"useEmailAsSamlNameId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamApplication IamApplication
 
 // NewIamApplication instantiates a new IamApplication object
 // This constructor will assign default values to properties that have it defined,
@@ -2082,6 +2087,38 @@ func (o *IamApplication) SetOwner(v string) {
 	o.Owner = &v
 }
 
+// GetPlatform returns the Platform field value if set, zero value otherwise.
+func (o *IamApplication) GetPlatform() bool {
+	if o == nil || IsNil(o.Platform) {
+		var ret bool
+		return ret
+	}
+	return *o.Platform
+}
+
+// GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamApplication) GetPlatformOk() (*bool, bool) {
+	if o == nil || IsNil(o.Platform) {
+		return nil, false
+	}
+	return o.Platform, true
+}
+
+// HasPlatform returns a boolean if a field has been set.
+func (o *IamApplication) HasPlatform() bool {
+	if o != nil && !IsNil(o.Platform) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlatform gets a reference to the given bool and assigns it to the Platform field.
+func (o *IamApplication) SetPlatform(v bool) {
+	o.Platform = &v
+}
+
 // GetProject returns the Project field value if set, zero value otherwise.
 func (o *IamApplication) GetProject() string {
 	if o == nil || IsNil(o.Project) {
@@ -3203,6 +3240,9 @@ func (o IamApplication) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
+	if !IsNil(o.Platform) {
+		toSerialize["platform"] = o.Platform
+	}
 	if !IsNil(o.Project) {
 		toSerialize["project"] = o.Project
 	}
@@ -3290,7 +3330,123 @@ func (o IamApplication) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UseEmailAsSamlNameId) {
 		toSerialize["useEmailAsSamlNameId"] = o.UseEmailAsSamlNameId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamApplication) UnmarshalJSON(data []byte) (err error) {
+	varIamApplication := _IamApplication{}
+
+	err = json.Unmarshal(data, &varIamApplication)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamApplication(varIamApplication)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "affiliationUrl")
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "cert")
+		delete(additionalProperties, "certObj")
+		delete(additionalProperties, "certPublicKey")
+		delete(additionalProperties, "clientCert")
+		delete(additionalProperties, "clientId")
+		delete(additionalProperties, "clientSecret")
+		delete(additionalProperties, "codeResendTimeout")
+		delete(additionalProperties, "cookieExpireInHours")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "customScopes")
+		delete(additionalProperties, "defaultGroup")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "disableSamlAttributes")
+		delete(additionalProperties, "disableSignin")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "domain")
+		delete(additionalProperties, "enableAutoSignin")
+		delete(additionalProperties, "enableCodeSignin")
+		delete(additionalProperties, "enableExclusiveSignin")
+		delete(additionalProperties, "enableLinkWithEmail")
+		delete(additionalProperties, "enablePassword")
+		delete(additionalProperties, "enableSamlAssertionSignature")
+		delete(additionalProperties, "enableSamlC14n10")
+		delete(additionalProperties, "enableSamlCompress")
+		delete(additionalProperties, "enableSamlPostBinding")
+		delete(additionalProperties, "enableSignUp")
+		delete(additionalProperties, "enableSigninSession")
+		delete(additionalProperties, "enableWebAuthn")
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "expireInHours")
+		delete(additionalProperties, "failedSigninFrozenTime")
+		delete(additionalProperties, "failedSigninLimit")
+		delete(additionalProperties, "favicon")
+		delete(additionalProperties, "footerHtml")
+		delete(additionalProperties, "forcedRedirectOrigin")
+		delete(additionalProperties, "forgetUrl")
+		delete(additionalProperties, "formBackgroundUrl")
+		delete(additionalProperties, "formBackgroundUrlMobile")
+		delete(additionalProperties, "formCss")
+		delete(additionalProperties, "formCssMobile")
+		delete(additionalProperties, "formOffset")
+		delete(additionalProperties, "formSideHtml")
+		delete(additionalProperties, "grantTypes")
+		delete(additionalProperties, "headerHtml")
+		delete(additionalProperties, "homepageUrl")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "ipRestriction")
+		delete(additionalProperties, "ipWhitelist")
+		delete(additionalProperties, "isShared")
+		delete(additionalProperties, "logo")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "order")
+		delete(additionalProperties, "orgChoiceMode")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "organizationObj")
+		delete(additionalProperties, "otherDomains")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "platform")
+		delete(additionalProperties, "project")
+		delete(additionalProperties, "providers")
+		delete(additionalProperties, "redirectUris")
+		delete(additionalProperties, "refreshExpireInHours")
+		delete(additionalProperties, "samlAttributes")
+		delete(additionalProperties, "samlHashAlgorithm")
+		delete(additionalProperties, "samlReplyUrl")
+		delete(additionalProperties, "scopes")
+		delete(additionalProperties, "signinHtml")
+		delete(additionalProperties, "signinItems")
+		delete(additionalProperties, "signinMethods")
+		delete(additionalProperties, "signinUrl")
+		delete(additionalProperties, "signupHtml")
+		delete(additionalProperties, "signupItems")
+		delete(additionalProperties, "signupUrl")
+		delete(additionalProperties, "sslCert")
+		delete(additionalProperties, "sslMode")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "termsOfUse")
+		delete(additionalProperties, "themeData")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "tokenAttributes")
+		delete(additionalProperties, "tokenFields")
+		delete(additionalProperties, "tokenFormat")
+		delete(additionalProperties, "tokenSigningMethod")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "upstreamHost")
+		delete(additionalProperties, "useEmailAsSamlNameId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamApplication struct {

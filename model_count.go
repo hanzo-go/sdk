@@ -19,14 +19,17 @@ var _ MappedNullable = &Count{}
 
 // Count struct for Count
 type Count struct {
-	ChatCount    *int32   `json:"chatCount,omitempty"`
-	Currency     *string  `json:"currency,omitempty"`
-	Date         *string  `json:"date,omitempty"`
-	MessageCount *int32   `json:"messageCount,omitempty"`
-	Price        *float32 `json:"price,omitempty"`
-	TokenCount   *int32   `json:"tokenCount,omitempty"`
-	UserCount    *int32   `json:"userCount,omitempty"`
+	ChatCount            *int32   `json:"chatCount,omitempty"`
+	Currency             *string  `json:"currency,omitempty"`
+	Date                 *string  `json:"date,omitempty"`
+	MessageCount         *int32   `json:"messageCount,omitempty"`
+	Price                *float32 `json:"price,omitempty"`
+	TokenCount           *int32   `json:"tokenCount,omitempty"`
+	UserCount            *int32   `json:"userCount,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Count Count
 
 // NewCount instantiates a new Count object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o Count) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserCount) {
 		toSerialize["userCount"] = o.UserCount
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Count) UnmarshalJSON(data []byte) (err error) {
+	varCount := _Count{}
+
+	err = json.Unmarshal(data, &varCount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Count(varCount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "chatCount")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "messageCount")
+		delete(additionalProperties, "price")
+		delete(additionalProperties, "tokenCount")
+		delete(additionalProperties, "userCount")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCount struct {

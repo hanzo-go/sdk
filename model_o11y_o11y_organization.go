@@ -33,8 +33,11 @@ type O11yO11yOrganization struct {
 	// Name is the org's short name.
 	Name *string `json:"name,omitempty"`
 	// UpdatedAt is when it last changed.
-	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yOrganization O11yO11yOrganization
 
 // NewO11yO11yOrganization instantiates a new O11yO11yOrganization object
 // This constructor will assign default values to properties that have it defined,
@@ -308,7 +311,39 @@ func (o O11yO11yOrganization) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yOrganization) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yOrganization := _O11yO11yOrganization{}
+
+	err = json.Unmarshal(data, &varO11yO11yOrganization)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yOrganization(varO11yO11yOrganization)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alias")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yOrganization struct {

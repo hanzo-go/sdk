@@ -28,7 +28,7 @@ type TeamAPIDeleteTeamAccountCookieRequest struct {
 	ApiService *TeamAPIService
 }
 
-func (r TeamAPIDeleteTeamAccountCookieRequest) Execute() (*CookieAck, *http.Response, error) {
+func (r TeamAPIDeleteTeamAccountCookieRequest) Execute() (*TeamCookieAck, *http.Response, error) {
 	return r.ApiService.DeleteTeamAccountCookieExecute(r)
 }
 
@@ -58,13 +58,13 @@ func (a *TeamAPIService) DeleteTeamAccountCookie(ctx context.Context) TeamAPIDel
 
 // Execute executes the request
 //
-//	@return CookieAck
-func (a *TeamAPIService) DeleteTeamAccountCookieExecute(r TeamAPIDeleteTeamAccountCookieRequest) (*CookieAck, *http.Response, error) {
+//	@return TeamCookieAck
+func (a *TeamAPIService) DeleteTeamAccountCookieExecute(r TeamAPIDeleteTeamAccountCookieRequest) (*TeamCookieAck, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CookieAck
+		localVarReturnValue *TeamCookieAck
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.DeleteTeamAccountCookie")
@@ -88,7 +88,7 @@ func (a *TeamAPIService) DeleteTeamAccountCookieExecute(r TeamAPIDeleteTeamAccou
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -117,6 +117,14 @@ func (a *TeamAPIService) DeleteTeamAccountCookieExecute(r TeamAPIDeleteTeamAccou
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -130,6 +138,122 @@ func (a *TeamAPIService) DeleteTeamAccountCookieExecute(r TeamAPIDeleteTeamAccou
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIDeleteTeamDocsByIdRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	id         string
+	space      *string
+}
+
+// Space is the space uuid holding it.
+func (r TeamAPIDeleteTeamDocsByIdRequest) Space(space string) TeamAPIDeleteTeamDocsByIdRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIDeleteTeamDocsByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteTeamDocsByIdExecute(r)
+}
+
+/*
+DeleteTeamDocsById Removes a document with everything nested under it and every comment on any of them — the Team client's own delete, which takes the subtree with it.
+
+Removes a document with everything nested under it and every
+comment on any of them — the Team client's own delete, which takes the
+subtree with it. Its author, an owner of its teamspace or an admin of the
+space may delete it. Answers 204.
+
+The document model has no archived state for a page (only a teamspace can be
+archived), so there is nothing softer to offer here than removal.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the document, from the path.
+	@return TeamAPIDeleteTeamDocsByIdRequest
+*/
+func (a *TeamAPIService) DeleteTeamDocsById(ctx context.Context, id string) TeamAPIDeleteTeamDocsByIdRequest {
+	return TeamAPIDeleteTeamDocsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *TeamAPIService) DeleteTeamDocsByIdExecute(r TeamAPIDeleteTeamDocsByIdRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.DeleteTeamDocsById")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/docs/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type TeamAPIDeleteTeamFilesBySpaceByFilenameRequest struct {
@@ -212,7 +336,7 @@ func (a *TeamAPIService) DeleteTeamFilesBySpaceByFilenameExecute(r TeamAPIDelete
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -241,6 +365,375 @@ func (a *TeamAPIService) DeleteTeamFilesBySpaceByFilenameExecute(r TeamAPIDelete
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type TeamAPIDeleteTeamMessagesByIdRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	id         string
+	space      *string
+}
+
+// Space names the space holding it. A message id is unique within a space, not across the org.
+func (r TeamAPIDeleteTeamMessagesByIdRequest) Space(space string) TeamAPIDeleteTeamMessagesByIdRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIDeleteTeamMessagesByIdRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteTeamMessagesByIdExecute(r)
+}
+
+/*
+DeleteTeamMessagesById Removes a message, with its replies, reactions, files and the inbox notifications that point at it.
+
+Removes a message, with its replies, reactions, files and the
+inbox notifications that point at it. Its author may delete it, and so may an
+owner or admin of the space.
+
+Each removal is a platform remove through the Team client's write path, so the
+message disappears from every open client live. Answers 204.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the message, from the path.
+	@return TeamAPIDeleteTeamMessagesByIdRequest
+*/
+func (a *TeamAPIService) DeleteTeamMessagesById(ctx context.Context, id string) TeamAPIDeleteTeamMessagesByIdRequest {
+	return TeamAPIDeleteTeamMessagesByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *TeamAPIService) DeleteTeamMessagesByIdExecute(r TeamAPIDeleteTeamMessagesByIdRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.DeleteTeamMessagesById")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/messages/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type TeamAPIDeleteTeamMessagesByIdReactionsByEmojiRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	id         string
+	emoji      string
+	space      *string
+}
+
+// Space names the space holding the message.
+func (r TeamAPIDeleteTeamMessagesByIdReactionsByEmojiRequest) Space(space string) TeamAPIDeleteTeamMessagesByIdReactionsByEmojiRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIDeleteTeamMessagesByIdReactionsByEmojiRequest) Execute() (*TeamTeamMessage, *http.Response, error) {
+	return r.ApiService.DeleteTeamMessagesByIdReactionsByEmojiExecute(r)
+}
+
+/*
+DeleteTeamMessagesByIdReactionsByEmoji Takes back the caller's reaction to a message and answers the message with its reactions as they now stand.
+
+Takes back the caller's reaction to a message and answers the message
+with its reactions as they now stand. Taking back a reaction the caller never
+made changes nothing and is not an error.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the message, from the path.
+	@param emoji Emoji is the reaction, from the path (percent-encoded on the wire).
+	@return TeamAPIDeleteTeamMessagesByIdReactionsByEmojiRequest
+*/
+func (a *TeamAPIService) DeleteTeamMessagesByIdReactionsByEmoji(ctx context.Context, id string, emoji string) TeamAPIDeleteTeamMessagesByIdReactionsByEmojiRequest {
+	return TeamAPIDeleteTeamMessagesByIdReactionsByEmojiRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		emoji:      emoji,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamMessage
+func (a *TeamAPIService) DeleteTeamMessagesByIdReactionsByEmojiExecute(r TeamAPIDeleteTeamMessagesByIdReactionsByEmojiRequest) (*TeamTeamMessage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamMessage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.DeleteTeamMessagesByIdReactionsByEmoji")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/messages/{id}/reactions/{emoji}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"emoji"+"}", url.PathEscape(parameterValueToString(r.emoji, "emoji")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	id         string
+	account    string
+	space      *string
+}
+
+// Space is the space uuid holding the room.
+func (r TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest) Space(space string) TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteTeamRoomsByIdMembersByAccountExecute(r)
+}
+
+/*
+DeleteTeamRoomsByIdMembersByAccount Takes one person out of a room — the caller leaving, when the account is their own.
+
+Takes one person out of a room — the caller leaving, when the
+account is their own. Removing somebody else takes owning the room or
+administering the space. Leaving a room you are not in, or removing somebody
+who is not there, changes nothing. A direct message cannot be left: its people
+are what it is. Answers 204.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the room, from the path.
+	@param account Account is the account uuid to remove, from the path. Your own is leaving.
+	@return TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest
+*/
+func (a *TeamAPIService) DeleteTeamRoomsByIdMembersByAccount(ctx context.Context, id string, account string) TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest {
+	return TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		account:    account,
+	}
+}
+
+// Execute executes the request
+func (a *TeamAPIService) DeleteTeamRoomsByIdMembersByAccountExecute(r TeamAPIDeleteTeamRoomsByIdMembersByAccountRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.DeleteTeamRoomsByIdMembersByAccount")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/rooms/{id}/members/{account}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account"+"}", url.PathEscape(parameterValueToString(r.account, "account")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -446,7 +939,7 @@ type TeamAPIGetTeamAccountProvidersRequest struct {
 	ApiService *TeamAPIService
 }
 
-func (r TeamAPIGetTeamAccountProvidersRequest) Execute() ([]ProviderInfo, *http.Response, error) {
+func (r TeamAPIGetTeamAccountProvidersRequest) Execute() ([]TeamProviderInfo, *http.Response, error) {
 	return r.ApiService.GetTeamAccountProvidersExecute(r)
 }
 
@@ -472,13 +965,13 @@ func (a *TeamAPIService) GetTeamAccountProviders(ctx context.Context) TeamAPIGet
 
 // Execute executes the request
 //
-//	@return []ProviderInfo
-func (a *TeamAPIService) GetTeamAccountProvidersExecute(r TeamAPIGetTeamAccountProvidersRequest) ([]ProviderInfo, *http.Response, error) {
+//	@return []TeamProviderInfo
+func (a *TeamAPIService) GetTeamAccountProvidersExecute(r TeamAPIGetTeamAccountProvidersRequest) ([]TeamProviderInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []ProviderInfo
+		localVarReturnValue []TeamProviderInfo
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamAccountProviders")
@@ -502,7 +995,7 @@ func (a *TeamAPIService) GetTeamAccountProvidersExecute(r TeamAPIGetTeamAccountP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -531,6 +1024,14 @@ func (a *TeamAPIService) GetTeamAccountProvidersExecute(r TeamAPIGetTeamAccountP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -551,7 +1052,7 @@ type TeamAPIGetTeamBillingPlanRequest struct {
 	ApiService *TeamAPIService
 }
 
-func (r TeamAPIGetTeamBillingPlanRequest) Execute() (*PlanInfo, *http.Response, error) {
+func (r TeamAPIGetTeamBillingPlanRequest) Execute() (*TeamPlanInfo, *http.Response, error) {
 	return r.ApiService.GetTeamBillingPlanExecute(r)
 }
 
@@ -578,13 +1079,13 @@ func (a *TeamAPIService) GetTeamBillingPlan(ctx context.Context) TeamAPIGetTeamB
 
 // Execute executes the request
 //
-//	@return PlanInfo
-func (a *TeamAPIService) GetTeamBillingPlanExecute(r TeamAPIGetTeamBillingPlanRequest) (*PlanInfo, *http.Response, error) {
+//	@return TeamPlanInfo
+func (a *TeamAPIService) GetTeamBillingPlanExecute(r TeamAPIGetTeamBillingPlanRequest) (*TeamPlanInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanInfo
+		localVarReturnValue *TeamPlanInfo
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamBillingPlan")
@@ -608,7 +1109,7 @@ func (a *TeamAPIService) GetTeamBillingPlanExecute(r TeamAPIGetTeamBillingPlanRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -637,6 +1138,14 @@ func (a *TeamAPIService) GetTeamBillingPlanExecute(r TeamAPIGetTeamBillingPlanRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -852,6 +1361,505 @@ func (a *TeamAPIService) GetTeamCollaboratorExecute(r TeamAPIGetTeamCollaborator
 	return localVarHTTPResponse, nil
 }
 
+type TeamAPIGetTeamDocsRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	space      *string
+	teamspace  *string
+	parent     *string
+}
+
+// Space is the space uuid. Optional for a caller in exactly one space.
+func (r TeamAPIGetTeamDocsRequest) Space(space string) TeamAPIGetTeamDocsRequest {
+	r.space = &space
+	return r
+}
+
+// Teamspace narrows the answer to one teamspace.
+func (r TeamAPIGetTeamDocsRequest) Teamspace(teamspace string) TeamAPIGetTeamDocsRequest {
+	r.teamspace = &teamspace
+	return r
+}
+
+// Parent narrows the answer to one document&#39;s children.
+func (r TeamAPIGetTeamDocsRequest) Parent(parent string) TeamAPIGetTeamDocsRequest {
+	r.parent = &parent
+	return r
+}
+
+func (r TeamAPIGetTeamDocsRequest) Execute() (*TeamTeamDocs, *http.Response, error) {
+	return r.ApiService.GetTeamDocsExecute(r)
+}
+
+/*
+GetTeamDocs Returns the documents of a space the caller may see, with the teamspaces they are grouped in.
+
+Returns the documents of a space the caller may see, with the
+teamspaces they are grouped in.
+
+These are the Team client's own document rows, so a page created there is
+here with no sync. Each carries the `collaborator` id its body opens with on
+the /v1/team/collaborator socket. A private teamspace's documents are listed
+only for its members.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamAPIGetTeamDocsRequest
+*/
+func (a *TeamAPIService) GetTeamDocs(ctx context.Context) TeamAPIGetTeamDocsRequest {
+	return TeamAPIGetTeamDocsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamDocs
+func (a *TeamAPIService) GetTeamDocsExecute(r TeamAPIGetTeamDocsRequest) (*TeamTeamDocs, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamDocs
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamDocs")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/docs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	if r.teamspace != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "teamspace", r.teamspace, "form", "")
+	}
+	if r.parent != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "parent", r.parent, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIGetTeamDocsByIdRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	id         string
+	space      *string
+}
+
+// Space is the space uuid holding it.
+func (r TeamAPIGetTeamDocsByIdRequest) Space(space string) TeamAPIGetTeamDocsByIdRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIGetTeamDocsByIdRequest) Execute() (*TeamTeamDoc, *http.Response, error) {
+	return r.ApiService.GetTeamDocsByIdExecute(r)
+}
+
+/*
+GetTeamDocsById Returns one document the caller may see.
+
+Returns one document the caller may see.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the document, from the path.
+	@return TeamAPIGetTeamDocsByIdRequest
+*/
+func (a *TeamAPIService) GetTeamDocsById(ctx context.Context, id string) TeamAPIGetTeamDocsByIdRequest {
+	return TeamAPIGetTeamDocsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamDoc
+func (a *TeamAPIService) GetTeamDocsByIdExecute(r TeamAPIGetTeamDocsByIdRequest) (*TeamTeamDoc, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamDoc
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamDocsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/docs/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIGetTeamDocsByIdCommentsRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	id         string
+	space      *string
+}
+
+// Space is the space uuid holding it.
+func (r TeamAPIGetTeamDocsByIdCommentsRequest) Space(space string) TeamAPIGetTeamDocsByIdCommentsRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIGetTeamDocsByIdCommentsRequest) Execute() (*TeamTeamMessages, *http.Response, error) {
+	return r.ApiService.GetTeamDocsByIdCommentsExecute(r)
+}
+
+/*
+GetTeamDocsByIdComments Returns the comments on a document, oldest first — the same message shape a room's conversation answers.
+
+Returns the comments on a document, oldest first — the same
+message shape a room's conversation answers.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the document, from the path.
+	@return TeamAPIGetTeamDocsByIdCommentsRequest
+*/
+func (a *TeamAPIService) GetTeamDocsByIdComments(ctx context.Context, id string) TeamAPIGetTeamDocsByIdCommentsRequest {
+	return TeamAPIGetTeamDocsByIdCommentsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamMessages
+func (a *TeamAPIService) GetTeamDocsByIdCommentsExecute(r TeamAPIGetTeamDocsByIdCommentsRequest) (*TeamTeamMessages, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamMessages
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamDocsByIdComments")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/docs/{id}/comments"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIGetTeamEventsRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+}
+
+func (r TeamAPIGetTeamEventsRequest) Execute() (*os.File, *http.Response, error) {
+	return r.ApiService.GetTeamEventsExecute(r)
+}
+
+/*
+GetTeamEvents Stream live changes to what the caller may see, as Server-Sent Events
+
+Holds one text/event-stream open per caller and pushes each change as it is written — by the Team client, a typed op or an agent — filtered to the rooms, documents and inbox the caller may see under the same rule the ops apply. Authenticate with `Authorization: Bearer` (a fetch-based SSE reader; a browser EventSource cannot set it). `?space=` narrows the stream to one space; without it the stream covers every space the caller is a member of at connect.
+
+Each frame is `event: <name>` and a JSON `data:` line carrying `space` and one of:
+- `message.created`, `message.updated` — `message`, the message as the message ops answer it (a room message, a thread reply or a document comment; a count or reaction change is an update);
+- `message.deleted` — `id`, and `room`/`doc`/`thread` where known;
+- `reaction.changed` — `message`, with its reactions as they now stand;
+- `room.changed` — `room`, as the room listing answers it, sent to those who can see it after the change (somebody removed from a private room is not told; the room list is the truth);
+- `doc.changed` — `doc`, as the document ops answer it (`removed: true` and `id` when deleted); body edits happen on the collaborator socket and are not streamed here;
+- `inbox.created`, `inbox.updated` — `item`, one of the caller's own notifications.
+
+A `: ping` comment is written every 25 seconds. There is no resume: the server keeps no event sequence, so frames carry no `id` and Last-Event-ID is ignored; on reconnect, re-read the ops. A stream that falls too far behind is closed rather than allowed to slow a writer, and so is one whose caller is no longer a member of the space an event is in. 401 without a verified team credential; 404 for a named space the caller is not in.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamAPIGetTeamEventsRequest
+*/
+func (a *TeamAPIService) GetTeamEvents(ctx context.Context) TeamAPIGetTeamEventsRequest {
+	return TeamAPIGetTeamEventsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return *os.File
+func (a *TeamAPIService) GetTeamEventsExecute(r TeamAPIGetTeamEventsRequest) (*os.File, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *os.File
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamEvents")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/events"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"text/event-stream"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type TeamAPIGetTeamFilesBySpaceByFilenameRequest struct {
 	ctx        context.Context
 	ApiService *TeamAPIService
@@ -966,6 +1974,386 @@ func (a *TeamAPIService) GetTeamFilesBySpaceByFilenameExecute(r TeamAPIGetTeamFi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type TeamAPIGetTeamInboxRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	space      *string
+	archived   *bool
+}
+
+// Space is the space uuid. Optional for a caller in exactly one space.
+func (r TeamAPIGetTeamInboxRequest) Space(space string) TeamAPIGetTeamInboxRequest {
+	r.space = &space
+	return r
+}
+
+// Archived lists the archived notifications instead of the live ones.
+func (r TeamAPIGetTeamInboxRequest) Archived(archived bool) TeamAPIGetTeamInboxRequest {
+	r.archived = &archived
+	return r
+}
+
+func (r TeamAPIGetTeamInboxRequest) Execute() (*TeamTeamInbox, *http.Response, error) {
+	return r.ApiService.GetTeamInboxExecute(r)
+}
+
+/*
+GetTeamInbox Returns the caller's notifications, newest first, each with the room or document it is about and the message that caused it.
+
+Returns the caller's notifications, newest first, each with the
+room or document it is about and the message that caused it.
+
+These are the rows the Team client's Inbox reads, so a notification cleared
+there is cleared here. Only the caller's own notifications are ever listed.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamAPIGetTeamInboxRequest
+*/
+func (a *TeamAPIService) GetTeamInbox(ctx context.Context) TeamAPIGetTeamInboxRequest {
+	return TeamAPIGetTeamInboxRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamInbox
+func (a *TeamAPIService) GetTeamInboxExecute(r TeamAPIGetTeamInboxRequest) (*TeamTeamInbox, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamInbox
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamInbox")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/inbox"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	if r.archived != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIGetTeamMembersRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	space      *string
+}
+
+// Space is the space uuid. Optional for a caller in exactly one space.
+func (r TeamAPIGetTeamMembersRequest) Space(space string) TeamAPIGetTeamMembersRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIGetTeamMembersRequest) Execute() (*TeamTeamMembers, *http.Response, error) {
+	return r.ApiService.GetTeamMembersExecute(r)
+}
+
+/*
+GetTeamMembers Returns the people and agents in a space, with the name, avatar, role and presence a client draws them with.
+
+Returns the people and agents in a space, with the name, avatar,
+role and presence a client draws them with.
+
+People come from IAM, the membership authority; agents from the org's agent
+registry; avatars from the Person documents the Team client edits. An IAM that
+does not answer is a 502 rather than an empty roster, and an agent registry
+that does not answer is named in `degraded` beside the people who did load.
+The caller must be a member of the space.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamAPIGetTeamMembersRequest
+*/
+func (a *TeamAPIService) GetTeamMembers(ctx context.Context) TeamAPIGetTeamMembersRequest {
+	return TeamAPIGetTeamMembersRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamMembers
+func (a *TeamAPIService) GetTeamMembersExecute(r TeamAPIGetTeamMembersRequest) (*TeamTeamMembers, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamMembers
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamMembers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/members"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIGetTeamMessagesByIdRepliesRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	id         string
+	space      *string
+}
+
+// Space names the space holding it. A message id is unique within a space, not across the org.
+func (r TeamAPIGetTeamMessagesByIdRepliesRequest) Space(space string) TeamAPIGetTeamMessagesByIdRepliesRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIGetTeamMessagesByIdRepliesRequest) Execute() (*TeamTeamMessages, *http.Response, error) {
+	return r.ApiService.GetTeamMessagesByIdRepliesExecute(r)
+}
+
+/*
+GetTeamMessagesByIdReplies Returns a message's thread, oldest first, each reply with its reactions and files.
+
+Returns a message's thread, oldest first, each reply with its
+reactions and files.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the message, from the path.
+	@return TeamAPIGetTeamMessagesByIdRepliesRequest
+*/
+func (a *TeamAPIService) GetTeamMessagesByIdReplies(ctx context.Context, id string) TeamAPIGetTeamMessagesByIdRepliesRequest {
+	return TeamAPIGetTeamMessagesByIdRepliesRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamMessages
+func (a *TeamAPIService) GetTeamMessagesByIdRepliesExecute(r TeamAPIGetTeamMessagesByIdRepliesRequest) (*TeamTeamMessages, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamMessages
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamMessagesByIdReplies")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/messages/{id}/replies"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type TeamAPIGetTeamPublicRequest struct {
 	ctx        context.Context
 	ApiService *TeamAPIService
@@ -992,7 +2380,7 @@ func (r TeamAPIGetTeamPublicRequest) Limit(limit int64) TeamAPIGetTeamPublicRequ
 	return r
 }
 
-func (r TeamAPIGetTeamPublicRequest) Execute() (*PublicRooms, *http.Response, error) {
+func (r TeamAPIGetTeamPublicRequest) Execute() (*TeamPublicRooms, *http.Response, error) {
 	return r.ApiService.GetTeamPublicExecute(r)
 }
 
@@ -1023,13 +2411,13 @@ func (a *TeamAPIService) GetTeamPublic(ctx context.Context) TeamAPIGetTeamPublic
 
 // Execute executes the request
 //
-//	@return PublicRooms
-func (a *TeamAPIService) GetTeamPublicExecute(r TeamAPIGetTeamPublicRequest) (*PublicRooms, *http.Response, error) {
+//	@return TeamPublicRooms
+func (a *TeamAPIService) GetTeamPublicExecute(r TeamAPIGetTeamPublicRequest) (*TeamPublicRooms, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PublicRooms
+		localVarReturnValue *TeamPublicRooms
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamPublic")
@@ -1062,7 +2450,7 @@ func (a *TeamAPIService) GetTeamPublicExecute(r TeamAPIGetTeamPublicRequest) (*P
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1091,6 +2479,14 @@ func (a *TeamAPIService) GetTeamPublicExecute(r TeamAPIGetTeamPublicRequest) (*P
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1111,20 +2507,25 @@ type TeamAPIGetTeamRoomsRequest struct {
 	ApiService *TeamAPIService
 }
 
-func (r TeamAPIGetTeamRoomsRequest) Execute() (*TeamRooms, *http.Response, error) {
+func (r TeamAPIGetTeamRoomsRequest) Execute() (*TeamTeamRooms, *http.Response, error) {
 	return r.ApiService.GetTeamRoomsExecute(r)
 }
 
 /*
-GetTeamRooms Returns every room of the caller's org, across the spaces it owns, with the work facet each carries.
+GetTeamRooms Returns the rooms the caller may see, with the kind and work facet each carries.
 
-Returns every room of the caller's org, across the spaces
-it owns, with the work facet each carries.
+Returns the rooms the caller may see, with the kind and work
+facet each carries.
+
+A signed-in TEAM MEMBER reads every room of every space they are in that is
+open to them: public channels, and the private channels and direct messages
+that name them. An APPLICATION of the org (its own machine credential) reads
+the public channels of the org's spaces and nothing that belongs to
+particular people. Anybody else without a team session is 401.
 
 It reads the SAME Chunter documents the transactor serves, so a room opened
 in the Team client appears here with no sync, and a facet written here is read
-by anything holding the document. Direct messages are included: a room between
-two people is a room with no name, not a different kind of thing.
+by anything holding the document.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return TeamAPIGetTeamRoomsRequest
@@ -1138,13 +2539,13 @@ func (a *TeamAPIService) GetTeamRooms(ctx context.Context) TeamAPIGetTeamRoomsRe
 
 // Execute executes the request
 //
-//	@return TeamRooms
-func (a *TeamAPIService) GetTeamRoomsExecute(r TeamAPIGetTeamRoomsRequest) (*TeamRooms, *http.Response, error) {
+//	@return TeamTeamRooms
+func (a *TeamAPIService) GetTeamRoomsExecute(r TeamAPIGetTeamRoomsRequest) (*TeamTeamRooms, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TeamRooms
+		localVarReturnValue *TeamTeamRooms
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamRooms")
@@ -1168,7 +2569,7 @@ func (a *TeamAPIService) GetTeamRoomsExecute(r TeamAPIGetTeamRoomsRequest) (*Tea
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1197,6 +2598,137 @@ func (a *TeamAPIService) GetTeamRoomsExecute(r TeamAPIGetTeamRoomsRequest) (*Tea
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIGetTeamRoomsByIdMembersRequest struct {
+	ctx        context.Context
+	ApiService *TeamAPIService
+	id         string
+	space      *string
+}
+
+// Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order.
+func (r TeamAPIGetTeamRoomsByIdMembersRequest) Space(space string) TeamAPIGetTeamRoomsByIdMembersRequest {
+	r.space = &space
+	return r
+}
+
+func (r TeamAPIGetTeamRoomsByIdMembersRequest) Execute() (*TeamTeamRoomMembers, *http.Response, error) {
+	return r.ApiService.GetTeamRoomsByIdMembersExecute(r)
+}
+
+/*
+GetTeamRoomsByIdMembers Returns the people and agents in one room, as the roster describes them.
+
+Returns the people and agents in one room, as the roster
+describes them. The caller must be able to see the room.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the room, from the path. The URL is the authority.
+	@return TeamAPIGetTeamRoomsByIdMembersRequest
+*/
+func (a *TeamAPIService) GetTeamRoomsByIdMembers(ctx context.Context, id string) TeamAPIGetTeamRoomsByIdMembersRequest {
+	return TeamAPIGetTeamRoomsByIdMembersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamRoomMembers
+func (a *TeamAPIService) GetTeamRoomsByIdMembersExecute(r TeamAPIGetTeamRoomsByIdMembersRequest) (*TeamTeamRoomMembers, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamRoomMembers
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamRoomsByIdMembers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/rooms/{id}/members"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.space != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "space", r.space, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1225,18 +2757,21 @@ func (r TeamAPIGetTeamRoomsByIdMessagesRequest) Space(space string) TeamAPIGetTe
 	return r
 }
 
-func (r TeamAPIGetTeamRoomsByIdMessagesRequest) Execute() (*TeamMessages, *http.Response, error) {
+func (r TeamAPIGetTeamRoomsByIdMessagesRequest) Execute() (*TeamTeamMessages, *http.Response, error) {
 	return r.ApiService.GetTeamRoomsByIdMessagesExecute(r)
 }
 
 /*
-GetTeamRoomsByIdMessages Returns the tail of one room's conversation, oldest first.
+GetTeamRoomsByIdMessages Returns the tail of one room's conversation, oldest first, each message with its reactions, files and thread count.
 
-Returns the tail of one room's conversation, oldest first.
+Returns the tail of one room's conversation, oldest first, each
+message with its reactions, files and thread count.
 
 It reads the SAME Chunter documents the transactor serves, so a message typed
-in the Team client is here with no sync. A room the caller's org does not own
-answers 404 rather than 403, so a probe learns nothing about what exists.
+in the Team client is here with no sync. A team member reads any room they
+may see; an application of the org reads public channels only; anybody else
+without a team session is 401. A room the caller may not read answers 404
+rather than 403, so a probe learns nothing about what exists.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the room, from the path. The URL is the authority.
@@ -1252,13 +2787,13 @@ func (a *TeamAPIService) GetTeamRoomsByIdMessages(ctx context.Context, id string
 
 // Execute executes the request
 //
-//	@return TeamMessages
-func (a *TeamAPIService) GetTeamRoomsByIdMessagesExecute(r TeamAPIGetTeamRoomsByIdMessagesRequest) (*TeamMessages, *http.Response, error) {
+//	@return TeamTeamMessages
+func (a *TeamAPIService) GetTeamRoomsByIdMessagesExecute(r TeamAPIGetTeamRoomsByIdMessagesRequest) (*TeamTeamMessages, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TeamMessages
+		localVarReturnValue *TeamTeamMessages
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamRoomsByIdMessages")
@@ -1286,7 +2821,7 @@ func (a *TeamAPIService) GetTeamRoomsByIdMessagesExecute(r TeamAPIGetTeamRoomsBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1315,6 +2850,14 @@ func (a *TeamAPIService) GetTeamRoomsByIdMessagesExecute(r TeamAPIGetTeamRoomsBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1440,14 +2983,14 @@ func (r TeamAPIGetTeamTransactorStatisticsRequest) Token(token string) TeamAPIGe
 	return r
 }
 
-func (r TeamAPIGetTeamTransactorStatisticsRequest) Execute() (*StatsOut, *http.Response, error) {
+func (r TeamAPIGetTeamTransactorStatisticsRequest) Execute() (*TeamStatsOut, *http.Response, error) {
 	return r.ApiService.GetTeamTransactorStatisticsExecute(r)
 }
 
 /*
-GetTeamTransactorStatistics Statistics returns the transactor's live sessions for the space the caller's credential names — the endpoint the front's space switcher and server panel poll on the transactor base.
+GetTeamTransactorStatistics Returns the transactor's live sessions for the space the caller's credential names — the endpoint the front's space switcher and server panel poll on the transactor base.
 
-Statistics returns the transactor's live sessions for the space the caller's
+Returns the transactor's live sessions for the space the caller's
 credential names — the endpoint the front's space switcher and server panel
 poll on the transactor base. `token` carries the same two lanes the socket's path
 segment does: a space UUID names the space and is authorized against the
@@ -1467,13 +3010,13 @@ func (a *TeamAPIService) GetTeamTransactorStatistics(ctx context.Context) TeamAP
 
 // Execute executes the request
 //
-//	@return StatsOut
-func (a *TeamAPIService) GetTeamTransactorStatisticsExecute(r TeamAPIGetTeamTransactorStatisticsRequest) (*StatsOut, *http.Response, error) {
+//	@return TeamStatsOut
+func (a *TeamAPIService) GetTeamTransactorStatisticsExecute(r TeamAPIGetTeamTransactorStatisticsRequest) (*TeamStatsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *StatsOut
+		localVarReturnValue *TeamStatsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.GetTeamTransactorStatistics")
@@ -1500,7 +3043,7 @@ func (a *TeamAPIService) GetTeamTransactorStatisticsExecute(r TeamAPIGetTeamTran
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1529,6 +3072,399 @@ func (a *TeamAPIService) GetTeamTransactorStatisticsExecute(r TeamAPIGetTeamTran
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPatchTeamDocsByIdRequest struct {
+	ctx             context.Context
+	ApiService      *TeamAPIService
+	id              string
+	teamTeamDocEdit *TeamTeamDocEdit
+}
+
+func (r TeamAPIPatchTeamDocsByIdRequest) TeamTeamDocEdit(teamTeamDocEdit TeamTeamDocEdit) TeamAPIPatchTeamDocsByIdRequest {
+	r.teamTeamDocEdit = &teamTeamDocEdit
+	return r
+}
+
+func (r TeamAPIPatchTeamDocsByIdRequest) Execute() (*TeamTeamDoc, *http.Response, error) {
+	return r.ApiService.PatchTeamDocsByIdExecute(r)
+}
+
+/*
+PatchTeamDocsById Renames a document or moves it — under another document, to the top of its teamspace, or to another teamspace with everything nested under it.
+
+Renames a document or moves it — under another document, to the top
+of its teamspace, or to another teamspace with everything nested under it.
+
+Anyone who can write the teamspace may rename or move a page, as in the Team
+client. A move goes after its new siblings, and a document cannot be moved
+under itself or under one of its own descendants.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the document, from the path.
+	@return TeamAPIPatchTeamDocsByIdRequest
+*/
+func (a *TeamAPIService) PatchTeamDocsById(ctx context.Context, id string) TeamAPIPatchTeamDocsByIdRequest {
+	return TeamAPIPatchTeamDocsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamDoc
+func (a *TeamAPIService) PatchTeamDocsByIdExecute(r TeamAPIPatchTeamDocsByIdRequest) (*TeamTeamDoc, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamDoc
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PatchTeamDocsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/docs/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamDocEdit == nil {
+		return localVarReturnValue, nil, reportError("teamTeamDocEdit is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamDocEdit
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPatchTeamMessagesByIdRequest struct {
+	ctx                 context.Context
+	ApiService          *TeamAPIService
+	id                  string
+	teamTeamMessageEdit *TeamTeamMessageEdit
+}
+
+func (r TeamAPIPatchTeamMessagesByIdRequest) TeamTeamMessageEdit(teamTeamMessageEdit TeamTeamMessageEdit) TeamAPIPatchTeamMessagesByIdRequest {
+	r.teamTeamMessageEdit = &teamTeamMessageEdit
+	return r
+}
+
+func (r TeamAPIPatchTeamMessagesByIdRequest) Execute() (*TeamTeamMessage, *http.Response, error) {
+	return r.ApiService.PatchTeamMessagesByIdExecute(r)
+}
+
+/*
+PatchTeamMessagesById Rewrites what a message says.
+
+Rewrites what a message says. Only its author may edit it.
+
+The edit is an ordinary update of the message document through the Team
+client's own write path, stamped with editedOn, so an open client shows the
+new text and the "edited" mark live. Somebody the new text mentions for the
+first time is notified.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the message, from the path.
+	@return TeamAPIPatchTeamMessagesByIdRequest
+*/
+func (a *TeamAPIService) PatchTeamMessagesById(ctx context.Context, id string) TeamAPIPatchTeamMessagesByIdRequest {
+	return TeamAPIPatchTeamMessagesByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamMessage
+func (a *TeamAPIService) PatchTeamMessagesByIdExecute(r TeamAPIPatchTeamMessagesByIdRequest) (*TeamTeamMessage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamMessage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PatchTeamMessagesById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/messages/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamMessageEdit == nil {
+		return localVarReturnValue, nil, reportError("teamTeamMessageEdit is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamMessageEdit
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPatchTeamRoomsByIdRequest struct {
+	ctx              context.Context
+	ApiService       *TeamAPIService
+	id               string
+	teamTeamRoomEdit *TeamTeamRoomEdit
+}
+
+func (r TeamAPIPatchTeamRoomsByIdRequest) TeamTeamRoomEdit(teamTeamRoomEdit TeamTeamRoomEdit) TeamAPIPatchTeamRoomsByIdRequest {
+	r.teamTeamRoomEdit = &teamTeamRoomEdit
+	return r
+}
+
+func (r TeamAPIPatchTeamRoomsByIdRequest) Execute() (*TeamTeamRoom, *http.Response, error) {
+	return r.ApiService.PatchTeamRoomsByIdExecute(r)
+}
+
+/*
+PatchTeamRoomsById Renames a channel, sets its topic, or archives or reopens it, and answers the room as it now stands.
+
+Renames a channel, sets its topic, or archives or reopens it, and
+answers the room as it now stands.
+
+Its owners and the space's admins may edit a room; a room nobody owns — one
+opened by an integration — may be edited by anyone in it, and a direct
+message by either person in it. Archiving withdraws a public channel from the
+cross-org directory in the same write; reopening lists it again.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the room, from the path.
+	@return TeamAPIPatchTeamRoomsByIdRequest
+*/
+func (a *TeamAPIService) PatchTeamRoomsById(ctx context.Context, id string) TeamAPIPatchTeamRoomsByIdRequest {
+	return TeamAPIPatchTeamRoomsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamRoom
+func (a *TeamAPIService) PatchTeamRoomsByIdExecute(r TeamAPIPatchTeamRoomsByIdRequest) (*TeamTeamRoom, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamRoom
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PatchTeamRoomsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/rooms/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamRoomEdit == nil {
+		return localVarReturnValue, nil, reportError("teamTeamRoomEdit is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamRoomEdit
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1639,18 +3575,18 @@ func (a *TeamAPIService) PostTeamAccountExecute(r TeamAPIPostTeamAccountRequest)
 }
 
 type TeamAPIPostTeamCollaboratorRpcByDocumentidRequest struct {
-	ctx           context.Context
-	ApiService    *TeamAPIService
-	documentId    string
-	collabRequest *CollabRequest
+	ctx               context.Context
+	ApiService        *TeamAPIService
+	documentId        string
+	teamCollabRequest *TeamCollabRequest
 }
 
-func (r TeamAPIPostTeamCollaboratorRpcByDocumentidRequest) CollabRequest(collabRequest CollabRequest) TeamAPIPostTeamCollaboratorRpcByDocumentidRequest {
-	r.collabRequest = &collabRequest
+func (r TeamAPIPostTeamCollaboratorRpcByDocumentidRequest) TeamCollabRequest(teamCollabRequest TeamCollabRequest) TeamAPIPostTeamCollaboratorRpcByDocumentidRequest {
+	r.teamCollabRequest = &teamCollabRequest
 	return r
 }
 
-func (r TeamAPIPostTeamCollaboratorRpcByDocumentidRequest) Execute() (*CollabResult, *http.Response, error) {
+func (r TeamAPIPostTeamCollaboratorRpcByDocumentidRequest) Execute() (*TeamCollabResult, *http.Response, error) {
 	return r.ApiService.PostTeamCollaboratorRpcByDocumentidExecute(r)
 }
 
@@ -1688,13 +3624,13 @@ func (a *TeamAPIService) PostTeamCollaboratorRpcByDocumentid(ctx context.Context
 
 // Execute executes the request
 //
-//	@return CollabResult
-func (a *TeamAPIService) PostTeamCollaboratorRpcByDocumentidExecute(r TeamAPIPostTeamCollaboratorRpcByDocumentidRequest) (*CollabResult, *http.Response, error) {
+//	@return TeamCollabResult
+func (a *TeamAPIService) PostTeamCollaboratorRpcByDocumentidExecute(r TeamAPIPostTeamCollaboratorRpcByDocumentidRequest) (*TeamCollabResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CollabResult
+		localVarReturnValue *TeamCollabResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamCollaboratorRpcByDocumentid")
@@ -1708,8 +3644,8 @@ func (a *TeamAPIService) PostTeamCollaboratorRpcByDocumentidExecute(r TeamAPIPos
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.collabRequest == nil {
-		return localVarReturnValue, nil, reportError("collabRequest is required and must be specified")
+	if r.teamCollabRequest == nil {
+		return localVarReturnValue, nil, reportError("teamCollabRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1722,7 +3658,7 @@ func (a *TeamAPIService) PostTeamCollaboratorRpcByDocumentidExecute(r TeamAPIPos
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1730,7 +3666,7 @@ func (a *TeamAPIService) PostTeamCollaboratorRpcByDocumentidExecute(r TeamAPIPos
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.collabRequest
+	localVarPostBody = r.teamCollabRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1753,6 +3689,397 @@ func (a *TeamAPIService) PostTeamCollaboratorRpcByDocumentidExecute(r TeamAPIPos
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamDmsRequest struct {
+	ctx                context.Context
+	ApiService         *TeamAPIService
+	teamTeamDirectOpen *TeamTeamDirectOpen
+}
+
+func (r TeamAPIPostTeamDmsRequest) TeamTeamDirectOpen(teamTeamDirectOpen TeamTeamDirectOpen) TeamAPIPostTeamDmsRequest {
+	r.teamTeamDirectOpen = &teamTeamDirectOpen
+	return r
+}
+
+func (r TeamAPIPostTeamDmsRequest) Execute() (*TeamTeamDirect, *http.Response, error) {
+	return r.ApiService.PostTeamDmsExecute(r)
+}
+
+/*
+PostTeamDms Opens the direct message between the caller and the people named, or answers the one that already exists — there is one conversation per set of people, however many times it is asked for.
+
+Opens the direct message between the caller and the people named,
+or answers the one that already exists — there is one conversation per set of
+people, however many times it is asked for.
+
+Every person named must be a member of the space or one of the org's agents;
+a direct message with an agent is a conversation it answers every message in,
+and a guest may not open one.
+Answers 201 when this call opened it and 200 when it was already there.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamAPIPostTeamDmsRequest
+*/
+func (a *TeamAPIService) PostTeamDms(ctx context.Context) TeamAPIPostTeamDmsRequest {
+	return TeamAPIPostTeamDmsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamDirect
+func (a *TeamAPIService) PostTeamDmsExecute(r TeamAPIPostTeamDmsRequest) (*TeamTeamDirect, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamDirect
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamDms")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/dms"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamDirectOpen == nil {
+		return localVarReturnValue, nil, reportError("teamTeamDirectOpen is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamDirectOpen
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamDocsRequest struct {
+	ctx            context.Context
+	ApiService     *TeamAPIService
+	teamTeamDocNew *TeamTeamDocNew
+}
+
+func (r TeamAPIPostTeamDocsRequest) TeamTeamDocNew(teamTeamDocNew TeamTeamDocNew) TeamAPIPostTeamDocsRequest {
+	r.teamTeamDocNew = &teamTeamDocNew
+	return r
+}
+
+func (r TeamAPIPostTeamDocsRequest) Execute() (*TeamTeamDoc, *http.Response, error) {
+	return r.ApiService.PostTeamDocsExecute(r)
+}
+
+/*
+PostTeamDocs Creates a document, as the caller, after its siblings.
+
+Creates a document, as the caller, after its siblings.
+
+It is created through the Team client's own write path, so it appears in an
+open Documents sidebar live, and its author is subscribed to it: a comment on
+it lands in their inbox. Its body starts empty — open the returned
+`collaborator` id on the /v1/team/collaborator socket to write it.
+
+A space whose caller can write no teamspace at all gets one on its first
+document: a public "General" teamspace every current member of the space is
+in, which is what the Team client would otherwise make somebody create by hand
+before the first page. Guests and agents are not made members of it.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamAPIPostTeamDocsRequest
+*/
+func (a *TeamAPIService) PostTeamDocs(ctx context.Context) TeamAPIPostTeamDocsRequest {
+	return TeamAPIPostTeamDocsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamDoc
+func (a *TeamAPIService) PostTeamDocsExecute(r TeamAPIPostTeamDocsRequest) (*TeamTeamDoc, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamDoc
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamDocs")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/docs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamDocNew == nil {
+		return localVarReturnValue, nil, reportError("teamTeamDocNew is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamDocNew
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamDocsByIdCommentsRequest struct {
+	ctx                  context.Context
+	ApiService           *TeamAPIService
+	id                   string
+	teamTeamCommentWrite *TeamTeamCommentWrite
+}
+
+func (r TeamAPIPostTeamDocsByIdCommentsRequest) TeamTeamCommentWrite(teamTeamCommentWrite TeamTeamCommentWrite) TeamAPIPostTeamDocsByIdCommentsRequest {
+	r.teamTeamCommentWrite = &teamTeamCommentWrite
+	return r
+}
+
+func (r TeamAPIPostTeamDocsByIdCommentsRequest) Execute() (*TeamTeamMessage, *http.Response, error) {
+	return r.ApiService.PostTeamDocsByIdCommentsExecute(r)
+}
+
+/*
+PostTeamDocsByIdComments Comments on a document, as the caller.
+
+Comments on a document, as the caller.
+
+It is a message attached to the document, written through the Team client's
+own path: the people subscribed to the document and anyone mentioned are
+notified, and an agent mentioned answers with a comment of its own. It can be
+replied to, reacted to, edited and deleted with the message ops.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the document, from the path.
+	@return TeamAPIPostTeamDocsByIdCommentsRequest
+*/
+func (a *TeamAPIService) PostTeamDocsByIdComments(ctx context.Context, id string) TeamAPIPostTeamDocsByIdCommentsRequest {
+	return TeamAPIPostTeamDocsByIdCommentsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamMessage
+func (a *TeamAPIService) PostTeamDocsByIdCommentsExecute(r TeamAPIPostTeamDocsByIdCommentsRequest) (*TeamTeamMessage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamMessage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamDocsByIdComments")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/docs/{id}/comments"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamCommentWrite == nil {
+		return localVarReturnValue, nil, reportError("teamTeamCommentWrite is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamCommentWrite
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1884,18 +4211,516 @@ func (a *TeamAPIService) PostTeamFilesBySpaceExecute(r TeamAPIPostTeamFilesBySpa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type TeamAPIPostTeamRoomsRequest struct {
-	ctx         context.Context
-	ApiService  *TeamAPIService
-	teamRoomNew *TeamRoomNew
+type TeamAPIPostTeamInboxByIdArchiveRequest struct {
+	ctx             context.Context
+	ApiService      *TeamAPIService
+	id              string
+	teamTeamInboxAt *TeamTeamInboxAt
 }
 
-func (r TeamAPIPostTeamRoomsRequest) TeamRoomNew(teamRoomNew TeamRoomNew) TeamAPIPostTeamRoomsRequest {
-	r.teamRoomNew = &teamRoomNew
+func (r TeamAPIPostTeamInboxByIdArchiveRequest) TeamTeamInboxAt(teamTeamInboxAt TeamTeamInboxAt) TeamAPIPostTeamInboxByIdArchiveRequest {
+	r.teamTeamInboxAt = &teamTeamInboxAt
 	return r
 }
 
-func (r TeamAPIPostTeamRoomsRequest) Execute() (*TeamRoom, *http.Response, error) {
+func (r TeamAPIPostTeamInboxByIdArchiveRequest) Execute() (*TeamTeamInboxItem, *http.Response, error) {
+	return r.ApiService.PostTeamInboxByIdArchiveExecute(r)
+}
+
+/*
+PostTeamInboxByIdArchive Archives one of the caller's notifications — read, and out of the live inbox — and answers it.
+
+Archives one of the caller's notifications — read, and
+out of the live inbox — and answers it. It is listed again with
+`archived=true`.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the notification, from the path.
+	@return TeamAPIPostTeamInboxByIdArchiveRequest
+*/
+func (a *TeamAPIService) PostTeamInboxByIdArchive(ctx context.Context, id string) TeamAPIPostTeamInboxByIdArchiveRequest {
+	return TeamAPIPostTeamInboxByIdArchiveRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamInboxItem
+func (a *TeamAPIService) PostTeamInboxByIdArchiveExecute(r TeamAPIPostTeamInboxByIdArchiveRequest) (*TeamTeamInboxItem, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamInboxItem
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamInboxByIdArchive")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/inbox/{id}/archive"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamInboxAt == nil {
+		return localVarReturnValue, nil, reportError("teamTeamInboxAt is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamInboxAt
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamInboxByIdReadRequest struct {
+	ctx             context.Context
+	ApiService      *TeamAPIService
+	id              string
+	teamTeamInboxAt *TeamTeamInboxAt
+}
+
+func (r TeamAPIPostTeamInboxByIdReadRequest) TeamTeamInboxAt(teamTeamInboxAt TeamTeamInboxAt) TeamAPIPostTeamInboxByIdReadRequest {
+	r.teamTeamInboxAt = &teamTeamInboxAt
+	return r
+}
+
+func (r TeamAPIPostTeamInboxByIdReadRequest) Execute() (*TeamTeamInboxItem, *http.Response, error) {
+	return r.ApiService.PostTeamInboxByIdReadExecute(r)
+}
+
+/*
+PostTeamInboxByIdRead Marks one of the caller's notifications read and answers it.
+
+Marks one of the caller's notifications read and answers it.
+Another person's notification is a 404, as one that does not exist is.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the notification, from the path.
+	@return TeamAPIPostTeamInboxByIdReadRequest
+*/
+func (a *TeamAPIService) PostTeamInboxByIdRead(ctx context.Context, id string) TeamAPIPostTeamInboxByIdReadRequest {
+	return TeamAPIPostTeamInboxByIdReadRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamInboxItem
+func (a *TeamAPIService) PostTeamInboxByIdReadExecute(r TeamAPIPostTeamInboxByIdReadRequest) (*TeamTeamInboxItem, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamInboxItem
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamInboxByIdRead")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/inbox/{id}/read"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamInboxAt == nil {
+		return localVarReturnValue, nil, reportError("teamTeamInboxAt is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamInboxAt
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamInboxReadRequest struct {
+	ctx              context.Context
+	ApiService       *TeamAPIService
+	teamTeamInboxAll *TeamTeamInboxAll
+}
+
+func (r TeamAPIPostTeamInboxReadRequest) TeamTeamInboxAll(teamTeamInboxAll TeamTeamInboxAll) TeamAPIPostTeamInboxReadRequest {
+	r.teamTeamInboxAll = &teamTeamInboxAll
+	return r
+}
+
+func (r TeamAPIPostTeamInboxReadRequest) Execute() (*TeamTeamInboxCleared, *http.Response, error) {
+	return r.ApiService.PostTeamInboxReadExecute(r)
+}
+
+/*
+PostTeamInboxRead Marks every live notification of the caller's read, and says how many it changed.
+
+Marks every live notification of the caller's read, and
+says how many it changed.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return TeamAPIPostTeamInboxReadRequest
+*/
+func (a *TeamAPIService) PostTeamInboxRead(ctx context.Context) TeamAPIPostTeamInboxReadRequest {
+	return TeamAPIPostTeamInboxReadRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamInboxCleared
+func (a *TeamAPIService) PostTeamInboxReadExecute(r TeamAPIPostTeamInboxReadRequest) (*TeamTeamInboxCleared, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamInboxCleared
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamInboxRead")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/inbox/read"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamInboxAll == nil {
+		return localVarReturnValue, nil, reportError("teamTeamInboxAll is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamInboxAll
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamMessagesByIdRepliesRequest struct {
+	ctx                context.Context
+	ApiService         *TeamAPIService
+	id                 string
+	teamTeamReplyWrite *TeamTeamReplyWrite
+}
+
+func (r TeamAPIPostTeamMessagesByIdRepliesRequest) TeamTeamReplyWrite(teamTeamReplyWrite TeamTeamReplyWrite) TeamAPIPostTeamMessagesByIdRepliesRequest {
+	r.teamTeamReplyWrite = &teamTeamReplyWrite
+	return r
+}
+
+func (r TeamAPIPostTeamMessagesByIdRepliesRequest) Execute() (*TeamTeamMessage, *http.Response, error) {
+	return r.ApiService.PostTeamMessagesByIdRepliesExecute(r)
+}
+
+/*
+PostTeamMessagesByIdReplies Answers a message in its thread, as the caller.
+
+Answers a message in its thread, as the caller.
+
+A reply is a thread message attached to the one it answers, written through
+the Team client's own path: the parent's reply count and last-reply time move
+with it, the people already in the thread and anyone mentioned are notified,
+and an agent mentioned in a reply answers in the same thread. A reply cannot
+itself be replied to — threads are one level deep, as in the Team client.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the message being answered, from the path.
+	@return TeamAPIPostTeamMessagesByIdRepliesRequest
+*/
+func (a *TeamAPIService) PostTeamMessagesByIdReplies(ctx context.Context, id string) TeamAPIPostTeamMessagesByIdRepliesRequest {
+	return TeamAPIPostTeamMessagesByIdRepliesRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamMessage
+func (a *TeamAPIService) PostTeamMessagesByIdRepliesExecute(r TeamAPIPostTeamMessagesByIdRepliesRequest) (*TeamTeamMessage, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamMessage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamMessagesByIdReplies")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/messages/{id}/replies"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamReplyWrite == nil {
+		return localVarReturnValue, nil, reportError("teamTeamReplyWrite is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamReplyWrite
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamRoomsRequest struct {
+	ctx             context.Context
+	ApiService      *TeamAPIService
+	teamTeamRoomNew *TeamTeamRoomNew
+}
+
+func (r TeamAPIPostTeamRoomsRequest) TeamTeamRoomNew(teamTeamRoomNew TeamTeamRoomNew) TeamAPIPostTeamRoomsRequest {
+	r.teamTeamRoomNew = &teamTeamRoomNew
+	return r
+}
+
+func (r TeamAPIPostTeamRoomsRequest) Execute() (*TeamTeamRoom, *http.Response, error) {
 	return r.ApiService.PostTeamRoomsExecute(r)
 }
 
@@ -1908,6 +4733,12 @@ It writes through the SAME applyTx path the Team client uses, so a room opened
 here is broadcast to every live client of the space and appears in an open
 sidebar without a reload — the same property listRooms rests on, read from the
 write side.
+
+A SIGNED-IN TEAM MEMBER opens it as themselves: they are its first member and
+its owner, every other member named must be somebody the space knows (a person
+in it, or one of the org's agents), and a guest may not open rooms at all. An
+application of the org opens it as the org, with exactly the members it names.
+Anybody else without a team session is 401.
 
 TWO TRANSACTIONS, NOT ONE, when the request states a facet. The document and
 its mixin are separate writes in this model (bindRoom writes only the second),
@@ -1927,13 +4758,13 @@ func (a *TeamAPIService) PostTeamRooms(ctx context.Context) TeamAPIPostTeamRooms
 
 // Execute executes the request
 //
-//	@return TeamRoom
-func (a *TeamAPIService) PostTeamRoomsExecute(r TeamAPIPostTeamRoomsRequest) (*TeamRoom, *http.Response, error) {
+//	@return TeamTeamRoom
+func (a *TeamAPIService) PostTeamRoomsExecute(r TeamAPIPostTeamRoomsRequest) (*TeamTeamRoom, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TeamRoom
+		localVarReturnValue *TeamTeamRoom
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamRooms")
@@ -1946,8 +4777,8 @@ func (a *TeamAPIService) PostTeamRoomsExecute(r TeamAPIPostTeamRoomsRequest) (*T
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.teamRoomNew == nil {
-		return localVarReturnValue, nil, reportError("teamRoomNew is required and must be specified")
+	if r.teamTeamRoomNew == nil {
+		return localVarReturnValue, nil, reportError("teamTeamRoomNew is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1960,7 +4791,7 @@ func (a *TeamAPIService) PostTeamRoomsExecute(r TeamAPIPostTeamRoomsRequest) (*T
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1968,7 +4799,7 @@ func (a *TeamAPIService) PostTeamRoomsExecute(r TeamAPIPostTeamRoomsRequest) (*T
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.teamRoomNew
+	localVarPostBody = r.teamTeamRoomNew
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1991,6 +4822,144 @@ func (a *TeamAPIService) PostTeamRoomsExecute(r TeamAPIPostTeamRoomsRequest) (*T
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPostTeamRoomsByIdMembersRequest struct {
+	ctx              context.Context
+	ApiService       *TeamAPIService
+	id               string
+	teamTeamRoomJoin *TeamTeamRoomJoin
+}
+
+func (r TeamAPIPostTeamRoomsByIdMembersRequest) TeamTeamRoomJoin(teamTeamRoomJoin TeamTeamRoomJoin) TeamAPIPostTeamRoomsByIdMembersRequest {
+	r.teamTeamRoomJoin = &teamTeamRoomJoin
+	return r
+}
+
+func (r TeamAPIPostTeamRoomsByIdMembersRequest) Execute() (*TeamTeamRoom, *http.Response, error) {
+	return r.ApiService.PostTeamRoomsByIdMembersExecute(r)
+}
+
+/*
+PostTeamRoomsByIdMembers Adds people to a room and answers the room as it now stands.
+
+Adds people to a room and answers the room as it now stands.
+
+Anyone in the space except a guest may join a public channel by naming
+themselves. Adding somebody else takes being in the room already (or
+administering the space, for a room they can see). A direct message's people
+are what it is, so none can be added — open another one. Everyone added must
+be a member of the space or one of the org's agents; an agent added to a room
+answers when it is @-mentioned there.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the room, from the path.
+	@return TeamAPIPostTeamRoomsByIdMembersRequest
+*/
+func (a *TeamAPIService) PostTeamRoomsByIdMembers(ctx context.Context, id string) TeamAPIPostTeamRoomsByIdMembersRequest {
+	return TeamAPIPostTeamRoomsByIdMembersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamRoom
+func (a *TeamAPIService) PostTeamRoomsByIdMembersExecute(r TeamAPIPostTeamRoomsByIdMembersRequest) (*TeamTeamRoom, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamRoom
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamRoomsByIdMembers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/rooms/{id}/members"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamRoomJoin == nil {
+		return localVarReturnValue, nil, reportError("teamTeamRoomJoin is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamRoomJoin
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2007,18 +4976,18 @@ func (a *TeamAPIService) PostTeamRoomsExecute(r TeamAPIPostTeamRoomsRequest) (*T
 }
 
 type TeamAPIPostTeamRoomsByIdMessagesRequest struct {
-	ctx              context.Context
-	ApiService       *TeamAPIService
-	id               string
-	teamMessageWrite *TeamMessageWrite
+	ctx                  context.Context
+	ApiService           *TeamAPIService
+	id                   string
+	teamTeamMessageWrite *TeamTeamMessageWrite
 }
 
-func (r TeamAPIPostTeamRoomsByIdMessagesRequest) TeamMessageWrite(teamMessageWrite TeamMessageWrite) TeamAPIPostTeamRoomsByIdMessagesRequest {
-	r.teamMessageWrite = &teamMessageWrite
+func (r TeamAPIPostTeamRoomsByIdMessagesRequest) TeamTeamMessageWrite(teamTeamMessageWrite TeamTeamMessageWrite) TeamAPIPostTeamRoomsByIdMessagesRequest {
+	r.teamTeamMessageWrite = &teamTeamMessageWrite
 	return r
 }
 
-func (r TeamAPIPostTeamRoomsByIdMessagesRequest) Execute() (*TeamMessage, *http.Response, error) {
+func (r TeamAPIPostTeamRoomsByIdMessagesRequest) Execute() (*TeamTeamMessage, *http.Response, error) {
 	return r.ApiService.PostTeamRoomsByIdMessagesExecute(r)
 }
 
@@ -2031,6 +5000,12 @@ The write goes through the SAME applyTx path the Team client's own messages
 take and is broadcast to every connected client of the space, so a message
 sent here appears live in an open room rather than on the next reload. It
 answers the message as the store now HOLDS it.
+
+`<@account-uuid>` in the text is stored as the platform's mention, so the
+person is notified in their inbox. Mentioning one of the org's agents — or
+writing in a direct message with one — wakes it: it runs as itself, on behalf
+of the caller, and posts its answer into the same room. The caller must be
+able to see the room, and an archived room refuses new messages (409).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the room to say it in, from the path.
@@ -2046,13 +5021,13 @@ func (a *TeamAPIService) PostTeamRoomsByIdMessages(ctx context.Context, id strin
 
 // Execute executes the request
 //
-//	@return TeamMessage
-func (a *TeamAPIService) PostTeamRoomsByIdMessagesExecute(r TeamAPIPostTeamRoomsByIdMessagesRequest) (*TeamMessage, *http.Response, error) {
+//	@return TeamTeamMessage
+func (a *TeamAPIService) PostTeamRoomsByIdMessagesExecute(r TeamAPIPostTeamRoomsByIdMessagesRequest) (*TeamTeamMessage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TeamMessage
+		localVarReturnValue *TeamTeamMessage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PostTeamRoomsByIdMessages")
@@ -2066,8 +5041,8 @@ func (a *TeamAPIService) PostTeamRoomsByIdMessagesExecute(r TeamAPIPostTeamRooms
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.teamMessageWrite == nil {
-		return localVarReturnValue, nil, reportError("teamMessageWrite is required and must be specified")
+	if r.teamTeamMessageWrite == nil {
+		return localVarReturnValue, nil, reportError("teamTeamMessageWrite is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2080,7 +5055,7 @@ func (a *TeamAPIService) PostTeamRoomsByIdMessagesExecute(r TeamAPIPostTeamRooms
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2088,7 +5063,7 @@ func (a *TeamAPIService) PostTeamRoomsByIdMessagesExecute(r TeamAPIPostTeamRooms
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.teamMessageWrite
+	localVarPostBody = r.teamTeamMessageWrite
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2111,6 +5086,14 @@ func (a *TeamAPIService) PostTeamRoomsByIdMessagesExecute(r TeamAPIPostTeamRooms
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2230,69 +5213,72 @@ func (a *TeamAPIService) PutTeamAccountCookieExecute(r TeamAPIPutTeamAccountCook
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type TeamAPIPutTeamRoomsByIdRequest struct {
-	ctx          context.Context
-	ApiService   *TeamAPIService
-	id           string
-	teamRoomBind *TeamRoomBind
+type TeamAPIPutTeamMessagesByIdReactionsByEmojiRequest struct {
+	ctx                   context.Context
+	ApiService            *TeamAPIService
+	id                    string
+	emoji                 string
+	teamTeamReactionWrite *TeamTeamReactionWrite
 }
 
-func (r TeamAPIPutTeamRoomsByIdRequest) TeamRoomBind(teamRoomBind TeamRoomBind) TeamAPIPutTeamRoomsByIdRequest {
-	r.teamRoomBind = &teamRoomBind
+func (r TeamAPIPutTeamMessagesByIdReactionsByEmojiRequest) TeamTeamReactionWrite(teamTeamReactionWrite TeamTeamReactionWrite) TeamAPIPutTeamMessagesByIdReactionsByEmojiRequest {
+	r.teamTeamReactionWrite = &teamTeamReactionWrite
 	return r
 }
 
-func (r TeamAPIPutTeamRoomsByIdRequest) Execute() (*TeamRoom, *http.Response, error) {
-	return r.ApiService.PutTeamRoomsByIdExecute(r)
+func (r TeamAPIPutTeamMessagesByIdReactionsByEmojiRequest) Execute() (*TeamTeamMessage, *http.Response, error) {
+	return r.ApiService.PutTeamMessagesByIdReactionsByEmojiExecute(r)
 }
 
 /*
-PutTeamRoomsById States what a room is for: its lifecycle intent, and what it is about.
+PutTeamMessagesByIdReactionsByEmoji Adds the caller's reaction to a message and answers the message with its reactions as they now stand.
 
-States what a room is for: its lifecycle intent, and what it is
-about. It answers the room as it now stands.
+Adds the caller's reaction to a message and answers the message with
+its reactions as they now stand. Reacting twice with one emoji is one
+reaction: the second call changes nothing.
 
-The write is a platform MIXIN on the room document, applied through the
-SAME applyTx path the Team client's own writes take and broadcast to every
-connected client — so a room bound here updates live in an open space
-rather than on the next reload.
+The emoji is the last path segment, percent-encoded — PUT
+/v1/team/messages/7a1c/reactions/%F0%9F%91%8D for 👍.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write.
-	@return TeamAPIPutTeamRoomsByIdRequest
+	@param id ID is the message, from the path.
+	@param emoji Emoji is the reaction, from the path (percent-encoded on the wire).
+	@return TeamAPIPutTeamMessagesByIdReactionsByEmojiRequest
 */
-func (a *TeamAPIService) PutTeamRoomsById(ctx context.Context, id string) TeamAPIPutTeamRoomsByIdRequest {
-	return TeamAPIPutTeamRoomsByIdRequest{
+func (a *TeamAPIService) PutTeamMessagesByIdReactionsByEmoji(ctx context.Context, id string, emoji string) TeamAPIPutTeamMessagesByIdReactionsByEmojiRequest {
+	return TeamAPIPutTeamMessagesByIdReactionsByEmojiRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
+		emoji:      emoji,
 	}
 }
 
 // Execute executes the request
 //
-//	@return TeamRoom
-func (a *TeamAPIService) PutTeamRoomsByIdExecute(r TeamAPIPutTeamRoomsByIdRequest) (*TeamRoom, *http.Response, error) {
+//	@return TeamTeamMessage
+func (a *TeamAPIService) PutTeamMessagesByIdReactionsByEmojiExecute(r TeamAPIPutTeamMessagesByIdReactionsByEmojiRequest) (*TeamTeamMessage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TeamRoom
+		localVarReturnValue *TeamTeamMessage
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PutTeamRoomsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PutTeamMessagesByIdReactionsByEmoji")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/team/rooms/{id}"
+	localVarPath := localBasePath + "/v1/team/messages/{id}/reactions/{emoji}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"emoji"+"}", url.PathEscape(parameterValueToString(r.emoji, "emoji")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.teamRoomBind == nil {
-		return localVarReturnValue, nil, reportError("teamRoomBind is required and must be specified")
+	if r.teamTeamReactionWrite == nil {
+		return localVarReturnValue, nil, reportError("teamTeamReactionWrite is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2305,7 +5291,7 @@ func (a *TeamAPIService) PutTeamRoomsByIdExecute(r TeamAPIPutTeamRoomsByIdReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2313,7 +5299,7 @@ func (a *TeamAPIService) PutTeamRoomsByIdExecute(r TeamAPIPutTeamRoomsByIdReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.teamRoomBind
+	localVarPostBody = r.teamTeamReactionWrite
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2336,6 +5322,145 @@ func (a *TeamAPIService) PutTeamRoomsByIdExecute(r TeamAPIPutTeamRoomsByIdReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type TeamAPIPutTeamRoomsByIdRequest struct {
+	ctx              context.Context
+	ApiService       *TeamAPIService
+	id               string
+	teamTeamRoomBind *TeamTeamRoomBind
+}
+
+func (r TeamAPIPutTeamRoomsByIdRequest) TeamTeamRoomBind(teamTeamRoomBind TeamTeamRoomBind) TeamAPIPutTeamRoomsByIdRequest {
+	r.teamTeamRoomBind = &teamTeamRoomBind
+	return r
+}
+
+func (r TeamAPIPutTeamRoomsByIdRequest) Execute() (*TeamTeamRoom, *http.Response, error) {
+	return r.ApiService.PutTeamRoomsByIdExecute(r)
+}
+
+/*
+PutTeamRoomsById States what a room is for: its lifecycle intent, and what it is about.
+
+States what a room is for: its lifecycle intent, and what it is
+about. It answers the room as it now stands.
+
+The write is a platform MIXIN on the room document, applied through the
+SAME applyTx path the Team client's own writes take and broadcast to every
+connected client — so a room bound here updates live in an open space
+rather than on the next reload. A team member binds a room they can see; an
+application of the org binds its public channels only; anybody else without
+a team session is 401.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write.
+	@return TeamAPIPutTeamRoomsByIdRequest
+*/
+func (a *TeamAPIService) PutTeamRoomsById(ctx context.Context, id string) TeamAPIPutTeamRoomsByIdRequest {
+	return TeamAPIPutTeamRoomsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamTeamRoom
+func (a *TeamAPIService) PutTeamRoomsByIdExecute(r TeamAPIPutTeamRoomsByIdRequest) (*TeamTeamRoom, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamTeamRoom
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.PutTeamRoomsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/team/rooms/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.teamTeamRoomBind == nil {
+		return localVarReturnValue, nil, reportError("teamTeamRoomBind is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.teamTeamRoomBind
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

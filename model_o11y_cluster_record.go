@@ -28,7 +28,10 @@ type O11yClusterRecord struct {
 	Meta                  map[string]string          `json:"meta,omitempty"`
 	NodeCountsByReadiness *O11yNodeCountsByReadiness `json:"nodeCountsByReadiness,omitempty"`
 	PodCountsByPhase      *O11yPodCountsByPhase      `json:"podCountsByPhase,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
+
+type _O11yClusterRecord O11yClusterRecord
 
 // NewO11yClusterRecord instantiates a new O11yClusterRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -337,7 +340,40 @@ func (o O11yClusterRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PodCountsByPhase) {
 		toSerialize["podCountsByPhase"] = o.PodCountsByPhase
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yClusterRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yClusterRecord := _O11yClusterRecord{}
+
+	err = json.Unmarshal(data, &varO11yClusterRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yClusterRecord(varO11yClusterRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "clusterCPU")
+		delete(additionalProperties, "clusterCPUAllocatable")
+		delete(additionalProperties, "clusterMemory")
+		delete(additionalProperties, "clusterMemoryAllocatable")
+		delete(additionalProperties, "clusterName")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "nodeCountsByReadiness")
+		delete(additionalProperties, "podCountsByPhase")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yClusterRecord struct {

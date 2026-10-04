@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -24,8 +23,9 @@ type PostAiScans200Response struct {
 	Data  *Sweep      `json:"data,omitempty"`
 	Data2 interface{} `json:"data2,omitempty"`
 	// Empty on success, the reason on failure.
-	Msg    string `json:"msg"`
-	Status string `json:"status"`
+	Msg                  string `json:"msg"`
+	Status               string `json:"status"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PostAiScans200Response PostAiScans200Response
@@ -180,6 +180,11 @@ func (o PostAiScans200Response) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["msg"] = o.Msg
 	toSerialize["status"] = o.Status
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -208,15 +213,23 @@ func (o *PostAiScans200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varPostAiScans200Response := _PostAiScans200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPostAiScans200Response)
+	err = json.Unmarshal(data, &varPostAiScans200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PostAiScans200Response(varPostAiScans200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "data2")
+		delete(additionalProperties, "msg")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -26,14 +26,14 @@ type MeetAPIGetMeetHealthRequest struct {
 	ApiService *MeetAPIService
 }
 
-func (r MeetAPIGetMeetHealthRequest) Execute() (*MeetHealth, *http.Response, error) {
+func (r MeetAPIGetMeetHealthRequest) Execute() (*MeetMeetHealth, *http.Response, error) {
 	return r.ApiService.GetMeetHealthExecute(r)
 }
 
 /*
-GetMeetHealth Health reports whether the office can mint join tokens.
+GetMeetHealth Reports whether the office can mint join tokens.
 
-Health reports whether the office can mint join tokens.
+Reports whether the office can mint join tokens.
 
 It reports whether this deployment holds the LiveKit key pair it needs:
 ready:true with 200 when tokens can be minted, the SAME body with ready:false,
@@ -57,13 +57,13 @@ func (a *MeetAPIService) GetMeetHealth(ctx context.Context) MeetAPIGetMeetHealth
 
 // Execute executes the request
 //
-//	@return MeetHealth
-func (a *MeetAPIService) GetMeetHealthExecute(r MeetAPIGetMeetHealthRequest) (*MeetHealth, *http.Response, error) {
+//	@return MeetMeetHealth
+func (a *MeetAPIService) GetMeetHealthExecute(r MeetAPIGetMeetHealthRequest) (*MeetMeetHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MeetHealth
+		localVarReturnValue *MeetMeetHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MeetAPIService.GetMeetHealth")
@@ -87,7 +87,7 @@ func (a *MeetAPIService) GetMeetHealthExecute(r MeetAPIGetMeetHealthRequest) (*M
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -117,7 +117,7 @@ func (a *MeetAPIService) GetMeetHealthExecute(r MeetAPIGetMeetHealthRequest) (*M
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
-			var v MeetHealth
+			var v MeetMeetHealth
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -125,7 +125,16 @@ func (a *MeetAPIService) GetMeetHealthExecute(r MeetAPIGetMeetHealthRequest) (*M
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -254,7 +263,7 @@ func (r MeetAPIMeetCallRequest) Room(room string) MeetAPIMeetCallRequest {
 	return r
 }
 
-func (r MeetAPIMeetCallRequest) Execute() (*Venue, *http.Response, error) {
+func (r MeetAPIMeetCallRequest) Execute() (*MeetVenue, *http.Response, error) {
 	return r.ApiService.MeetCallExecute(r)
 }
 
@@ -293,13 +302,13 @@ func (a *MeetAPIService) MeetCall(ctx context.Context) MeetAPIMeetCallRequest {
 
 // Execute executes the request
 //
-//	@return Venue
-func (a *MeetAPIService) MeetCallExecute(r MeetAPIMeetCallRequest) (*Venue, *http.Response, error) {
+//	@return MeetVenue
+func (a *MeetAPIService) MeetCallExecute(r MeetAPIMeetCallRequest) (*MeetVenue, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Venue
+		localVarReturnValue *MeetVenue
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MeetAPIService.MeetCall")
@@ -331,7 +340,7 @@ func (a *MeetAPIService) MeetCallExecute(r MeetAPIMeetCallRequest) (*Venue, *htt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -360,6 +369,14 @@ func (a *MeetAPIService) MeetCallExecute(r MeetAPIMeetCallRequest) (*Venue, *htt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -387,7 +404,7 @@ func (r MeetAPIMeetRecordReadRequest) Room(room string) MeetAPIMeetRecordReadReq
 	return r
 }
 
-func (r MeetAPIMeetRecordReadRequest) Execute() (*Recording, *http.Response, error) {
+func (r MeetAPIMeetRecordReadRequest) Execute() (*MeetRecording, *http.Response, error) {
 	return r.ApiService.MeetRecordReadExecute(r)
 }
 
@@ -418,13 +435,13 @@ func (a *MeetAPIService) MeetRecordRead(ctx context.Context) MeetAPIMeetRecordRe
 
 // Execute executes the request
 //
-//	@return Recording
-func (a *MeetAPIService) MeetRecordReadExecute(r MeetAPIMeetRecordReadRequest) (*Recording, *http.Response, error) {
+//	@return MeetRecording
+func (a *MeetAPIService) MeetRecordReadExecute(r MeetAPIMeetRecordReadRequest) (*MeetRecording, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Recording
+		localVarReturnValue *MeetRecording
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MeetAPIService.MeetRecordRead")
@@ -452,7 +469,7 @@ func (a *MeetAPIService) MeetRecordReadExecute(r MeetAPIMeetRecordReadRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -481,6 +498,14 @@ func (a *MeetAPIService) MeetRecordReadExecute(r MeetAPIMeetRecordReadRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -497,17 +522,17 @@ func (a *MeetAPIService) MeetRecordReadExecute(r MeetAPIMeetRecordReadRequest) (
 }
 
 type MeetAPIMeetRecordStartRequest struct {
-	ctx        context.Context
-	ApiService *MeetAPIService
-	recordIn   *RecordIn
+	ctx          context.Context
+	ApiService   *MeetAPIService
+	meetRecordIn *MeetRecordIn
 }
 
-func (r MeetAPIMeetRecordStartRequest) RecordIn(recordIn RecordIn) MeetAPIMeetRecordStartRequest {
-	r.recordIn = &recordIn
+func (r MeetAPIMeetRecordStartRequest) MeetRecordIn(meetRecordIn MeetRecordIn) MeetAPIMeetRecordStartRequest {
+	r.meetRecordIn = &meetRecordIn
 	return r
 }
 
-func (r MeetAPIMeetRecordStartRequest) Execute() (*Recording, *http.Response, error) {
+func (r MeetAPIMeetRecordStartRequest) Execute() (*MeetRecording, *http.Response, error) {
 	return r.ApiService.MeetRecordStartExecute(r)
 }
 
@@ -543,13 +568,13 @@ func (a *MeetAPIService) MeetRecordStart(ctx context.Context) MeetAPIMeetRecordS
 
 // Execute executes the request
 //
-//	@return Recording
-func (a *MeetAPIService) MeetRecordStartExecute(r MeetAPIMeetRecordStartRequest) (*Recording, *http.Response, error) {
+//	@return MeetRecording
+func (a *MeetAPIService) MeetRecordStartExecute(r MeetAPIMeetRecordStartRequest) (*MeetRecording, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Recording
+		localVarReturnValue *MeetRecording
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MeetAPIService.MeetRecordStart")
@@ -562,8 +587,8 @@ func (a *MeetAPIService) MeetRecordStartExecute(r MeetAPIMeetRecordStartRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.recordIn == nil {
-		return localVarReturnValue, nil, reportError("recordIn is required and must be specified")
+	if r.meetRecordIn == nil {
+		return localVarReturnValue, nil, reportError("meetRecordIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -576,7 +601,7 @@ func (a *MeetAPIService) MeetRecordStartExecute(r MeetAPIMeetRecordStartRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -584,7 +609,7 @@ func (a *MeetAPIService) MeetRecordStartExecute(r MeetAPIMeetRecordStartRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.recordIn
+	localVarPostBody = r.meetRecordIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -607,6 +632,14 @@ func (a *MeetAPIService) MeetRecordStartExecute(r MeetAPIMeetRecordStartRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -634,7 +667,7 @@ func (r MeetAPIMeetRecordStopRequest) Room(room string) MeetAPIMeetRecordStopReq
 	return r
 }
 
-func (r MeetAPIMeetRecordStopRequest) Execute() (*Recording, *http.Response, error) {
+func (r MeetAPIMeetRecordStopRequest) Execute() (*MeetRecording, *http.Response, error) {
 	return r.ApiService.MeetRecordStopExecute(r)
 }
 
@@ -671,13 +704,13 @@ func (a *MeetAPIService) MeetRecordStop(ctx context.Context) MeetAPIMeetRecordSt
 
 // Execute executes the request
 //
-//	@return Recording
-func (a *MeetAPIService) MeetRecordStopExecute(r MeetAPIMeetRecordStopRequest) (*Recording, *http.Response, error) {
+//	@return MeetRecording
+func (a *MeetAPIService) MeetRecordStopExecute(r MeetAPIMeetRecordStopRequest) (*MeetRecording, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Recording
+		localVarReturnValue *MeetRecording
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MeetAPIService.MeetRecordStop")
@@ -705,7 +738,7 @@ func (a *MeetAPIService) MeetRecordStopExecute(r MeetAPIMeetRecordStopRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -734,6 +767,14 @@ func (a *MeetAPIService) MeetRecordStopExecute(r MeetAPIMeetRecordStopRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

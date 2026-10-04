@@ -19,18 +19,21 @@ var _ MappedNullable = &O11yVictorOpsConfig{}
 
 // O11yVictorOpsConfig struct for O11yVictorOpsConfig
 type O11yVictorOpsConfig struct {
-	NotifierConfig    *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
-	ApiKey            interface{}           `json:"api_key,omitempty"`
-	ApiKeyFile        *string               `json:"api_key_file,omitempty"`
-	ApiUrl            interface{}           `json:"api_url,omitempty"`
-	CustomFields      map[string]string     `json:"custom_fields,omitempty"`
-	EntityDisplayName *string               `json:"entity_display_name,omitempty"`
-	HttpConfig        *O11yHTTPClientConfig `json:"http_config,omitempty"`
-	MessageType       *string               `json:"message_type,omitempty"`
-	MonitoringTool    *string               `json:"monitoring_tool,omitempty"`
-	RoutingKey        *string               `json:"routing_key,omitempty"`
-	StateMessage      *string               `json:"state_message,omitempty"`
+	NotifierConfig       *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
+	ApiKey               interface{}           `json:"api_key,omitempty"`
+	ApiKeyFile           *string               `json:"api_key_file,omitempty"`
+	ApiUrl               interface{}           `json:"api_url,omitempty"`
+	CustomFields         map[string]string     `json:"custom_fields,omitempty"`
+	EntityDisplayName    *string               `json:"entity_display_name,omitempty"`
+	HttpConfig           *O11yHTTPClientConfig `json:"http_config,omitempty"`
+	MessageType          *string               `json:"message_type,omitempty"`
+	MonitoringTool       *string               `json:"monitoring_tool,omitempty"`
+	RoutingKey           *string               `json:"routing_key,omitempty"`
+	StateMessage         *string               `json:"state_message,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yVictorOpsConfig O11yVictorOpsConfig
 
 // NewO11yVictorOpsConfig instantiates a new O11yVictorOpsConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -446,7 +449,43 @@ func (o O11yVictorOpsConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StateMessage) {
 		toSerialize["state_message"] = o.StateMessage
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yVictorOpsConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yVictorOpsConfig := _O11yVictorOpsConfig{}
+
+	err = json.Unmarshal(data, &varO11yVictorOpsConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yVictorOpsConfig(varO11yVictorOpsConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "api_key")
+		delete(additionalProperties, "api_key_file")
+		delete(additionalProperties, "api_url")
+		delete(additionalProperties, "custom_fields")
+		delete(additionalProperties, "entity_display_name")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "message_type")
+		delete(additionalProperties, "monitoring_tool")
+		delete(additionalProperties, "routing_key")
+		delete(additionalProperties, "state_message")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yVictorOpsConfig struct {

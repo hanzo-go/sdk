@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -24,8 +23,9 @@ type Envelope struct {
 	Data  interface{} `json:"data,omitempty"`
 	Data2 interface{} `json:"data2,omitempty"`
 	// Empty on success, the reason on failure.
-	Msg    string `json:"msg"`
-	Status string `json:"status"`
+	Msg                  string `json:"msg"`
+	Status               string `json:"status"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Envelope Envelope
@@ -181,6 +181,11 @@ func (o Envelope) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["msg"] = o.Msg
 	toSerialize["status"] = o.Status
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -209,15 +214,23 @@ func (o *Envelope) UnmarshalJSON(data []byte) (err error) {
 
 	varEnvelope := _Envelope{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varEnvelope)
+	err = json.Unmarshal(data, &varEnvelope)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Envelope(varEnvelope)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "data2")
+		delete(additionalProperties, "msg")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

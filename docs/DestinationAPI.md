@@ -8,13 +8,13 @@ Method | HTTP request | Description
 [**GetDestination**](DestinationAPI.md#GetDestination) | **Get** /v1/destination | Reports every destination this deployment can forward to, each with the caller org&#39;s connection state: whether it is connected, whether it is enabled, whether a credential resolves right now, and the config fields the console renders for it.
 [**GetDestinationByPlatform**](DestinationAPI.md#GetDestinationByPlatform) | **Get** /v1/destination/{platform} | Reports one destination&#39;s card for the caller&#39;s org — its config fields, its connection state, and whether a credential resolves right now.
 [**PostDestinationByPlatform**](DestinationAPI.md#PostDestinationByPlatform) | **Post** /v1/destination/{platform} | Connect one conversion destination for your org, or update the one you have
-[**PostDestinationByPlatformTest**](DestinationAPI.md#PostDestinationByPlatformTest) | **Post** /v1/destination/{platform}/test | Sends ONE synthetic pageview through the connected destination end to end and reports what the platform said.
+[**PostDestinationByPlatformTest**](DestinationAPI.md#PostDestinationByPlatformTest) | **Post** /v1/destination/{platform}/test | Sends ONE synthetic conversion through the connected destination end to end and reports what the platform said.
 
 
 
 ## DeleteDestinationByPlatform
 
-> DestinationDisconnected DeleteDestinationByPlatform(ctx, platform).Execute()
+> DestinationDestinationDisconnected DeleteDestinationByPlatform(ctx, platform).Execute()
 
 Forgets a destination for the caller's org: every credential held in KMS, then the stored config.
 
@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	platform := "ga4" // string | Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics.
+	platform := "ga4" // string | Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DestinationAPI.DeleteDestinationByPlatform``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteDestinationByPlatform`: DestinationDisconnected
+	// response from `DeleteDestinationByPlatform`: DestinationDestinationDisconnected
 	fmt.Fprintf(os.Stdout, "Response from `DestinationAPI.DeleteDestinationByPlatform`: %v\n", resp)
 }
 ```
@@ -53,7 +53,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**platform** | **string** | Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. | 
+**platform** | **string** | Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. | 
 
 ### Other Parameters
 
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DestinationDisconnected**](DestinationDisconnected.md)
+[**DestinationDestinationDisconnected**](DestinationDestinationDisconnected.md)
 
 ### Authorization
 
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 ## GetDestination
 
-> DestinationList GetDestination(ctx).Execute()
+> DestinationDestinationList GetDestination(ctx).Execute()
 
 Reports every destination this deployment can forward to, each with the caller org's connection state: whether it is connected, whether it is enabled, whether a credential resolves right now, and the config fields the console renders for it.
 
@@ -111,7 +111,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DestinationAPI.GetDestination``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDestination`: DestinationList
+	// response from `GetDestination`: DestinationDestinationList
 	fmt.Fprintf(os.Stdout, "Response from `DestinationAPI.GetDestination`: %v\n", resp)
 }
 ```
@@ -127,7 +127,7 @@ Other parameters are passed through a pointer to a apiGetDestinationRequest stru
 
 ### Return type
 
-[**DestinationList**](DestinationList.md)
+[**DestinationDestinationList**](DestinationDestinationList.md)
 
 ### Authorization
 
@@ -136,7 +136,7 @@ Other parameters are passed through a pointer to a apiGetDestinationRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -145,7 +145,7 @@ Other parameters are passed through a pointer to a apiGetDestinationRequest stru
 
 ## GetDestinationByPlatform
 
-> DestinationStatus GetDestinationByPlatform(ctx, platform).Execute()
+> DestinationDestinationStatus GetDestinationByPlatform(ctx, platform).Execute()
 
 Reports one destination's card for the caller's org — its config fields, its connection state, and whether a credential resolves right now.
 
@@ -164,7 +164,7 @@ import (
 )
 
 func main() {
-	platform := "ga4" // string | Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics.
+	platform := "ga4" // string | Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -173,7 +173,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DestinationAPI.GetDestinationByPlatform``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDestinationByPlatform`: DestinationStatus
+	// response from `GetDestinationByPlatform`: DestinationDestinationStatus
 	fmt.Fprintf(os.Stdout, "Response from `DestinationAPI.GetDestinationByPlatform`: %v\n", resp)
 }
 ```
@@ -184,7 +184,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**platform** | **string** | Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. | 
+**platform** | **string** | Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. | 
 
 ### Other Parameters
 
@@ -197,7 +197,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DestinationStatus**](DestinationStatus.md)
+[**DestinationDestinationStatus**](DestinationDestinationStatus.md)
 
 ### Authorization
 
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -287,9 +287,9 @@ Name | Type | Description  | Notes
 
 ## PostDestinationByPlatformTest
 
-> DestinationTest PostDestinationByPlatformTest(ctx, platform).Execute()
+> DestinationDestinationTest PostDestinationByPlatformTest(ctx, platform).Execute()
 
-Sends ONE synthetic pageview through the connected destination end to end and reports what the platform said.
+Sends ONE synthetic conversion through the connected destination end to end and reports what the platform said.
 
 
 
@@ -306,7 +306,7 @@ import (
 )
 
 func main() {
-	platform := "ga4" // string | Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics.
+	platform := "ga4" // string | Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -315,7 +315,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DestinationAPI.PostDestinationByPlatformTest``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDestinationByPlatformTest`: DestinationTest
+	// response from `PostDestinationByPlatformTest`: DestinationDestinationTest
 	fmt.Fprintf(os.Stdout, "Response from `DestinationAPI.PostDestinationByPlatformTest`: %v\n", resp)
 }
 ```
@@ -326,7 +326,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**platform** | **string** | Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. | 
+**platform** | **string** | Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. | 
 
 ### Other Parameters
 
@@ -339,7 +339,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DestinationTest**](DestinationTest.md)
+[**DestinationDestinationTest**](DestinationDestinationTest.md)
 
 ### Authorization
 
@@ -348,7 +348,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

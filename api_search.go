@@ -22,17 +22,17 @@ import (
 type SearchAPIService service
 
 type SearchAPISearchRequest struct {
-	ctx        context.Context
-	ApiService *SearchAPIService
-	request    *Request
+	ctx           context.Context
+	ApiService    *SearchAPIService
+	searchRequest *SearchRequest
 }
 
-func (r SearchAPISearchRequest) Request(request Request) SearchAPISearchRequest {
-	r.request = &request
+func (r SearchAPISearchRequest) SearchRequest(searchRequest SearchRequest) SearchAPISearchRequest {
+	r.searchRequest = &searchRequest
 	return r
 }
 
-func (r SearchAPISearchRequest) Execute() (*Fusion, *http.Response, error) {
+func (r SearchAPISearchRequest) Execute() (*SearchFusion, *http.Response, error) {
 	return r.ApiService.SearchExecute(r)
 }
 
@@ -55,13 +55,13 @@ func (a *SearchAPIService) Search(ctx context.Context) SearchAPISearchRequest {
 
 // Execute executes the request
 //
-//	@return Fusion
-func (a *SearchAPIService) SearchExecute(r SearchAPISearchRequest) (*Fusion, *http.Response, error) {
+//	@return SearchFusion
+func (a *SearchAPIService) SearchExecute(r SearchAPISearchRequest) (*SearchFusion, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Fusion
+		localVarReturnValue *SearchFusion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchAPIService.Search")
@@ -74,8 +74,8 @@ func (a *SearchAPIService) SearchExecute(r SearchAPISearchRequest) (*Fusion, *ht
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.request == nil {
-		return localVarReturnValue, nil, reportError("request is required and must be specified")
+	if r.searchRequest == nil {
+		return localVarReturnValue, nil, reportError("searchRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -88,7 +88,7 @@ func (a *SearchAPIService) SearchExecute(r SearchAPISearchRequest) (*Fusion, *ht
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -96,7 +96,7 @@ func (a *SearchAPIService) SearchExecute(r SearchAPISearchRequest) (*Fusion, *ht
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.request
+	localVarPostBody = r.searchRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -119,6 +119,14 @@ func (a *SearchAPIService) SearchExecute(r SearchAPISearchRequest) (*Fusion, *ht
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

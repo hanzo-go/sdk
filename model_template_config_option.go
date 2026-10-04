@@ -19,13 +19,16 @@ var _ MappedNullable = &TemplateConfigOption{}
 
 // TemplateConfigOption struct for TemplateConfigOption
 type TemplateConfigOption struct {
-	Default     *string  `json:"default,omitempty"`
-	Description *string  `json:"description,omitempty"`
-	Options     []string `json:"options,omitempty"`
-	Parameter   *string  `json:"parameter,omitempty"`
-	Required    *bool    `json:"required,omitempty"`
-	Type        *string  `json:"type,omitempty"`
+	Default              *string  `json:"default,omitempty"`
+	Description          *string  `json:"description,omitempty"`
+	Options              []string `json:"options,omitempty"`
+	Parameter            *string  `json:"parameter,omitempty"`
+	Required             *bool    `json:"required,omitempty"`
+	Type                 *string  `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TemplateConfigOption TemplateConfigOption
 
 // NewTemplateConfigOption instantiates a new TemplateConfigOption object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o TemplateConfigOption) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TemplateConfigOption) UnmarshalJSON(data []byte) (err error) {
+	varTemplateConfigOption := _TemplateConfigOption{}
+
+	err = json.Unmarshal(data, &varTemplateConfigOption)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TemplateConfigOption(varTemplateConfigOption)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "default")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "options")
+		delete(additionalProperties, "parameter")
+		delete(additionalProperties, "required")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTemplateConfigOption struct {

@@ -45,8 +45,11 @@ type O11yO11yLLMScore struct {
 	// UpdatedAt is when the score last changed.
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	// Value is the numeric score.
-	Value *float64 `json:"value,omitempty"`
+	Value                *float64 `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMScore O11yO11yLLMScore
 
 // NewO11yO11yLLMScore instantiates a new O11yO11yLLMScore object
 // This constructor will assign default values to properties that have it defined,
@@ -530,7 +533,45 @@ func (o O11yO11yLLMScore) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMScore) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMScore := _O11yO11yLLMScore{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMScore)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMScore(varO11yO11yLLMScore)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "comment")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "dataType")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "observationId")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "stringValue")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "traceId")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMScore struct {

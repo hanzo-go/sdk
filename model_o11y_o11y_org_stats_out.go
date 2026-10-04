@@ -20,10 +20,13 @@ var _ MappedNullable = &O11yO11yOrgStatsOut{}
 // O11yO11yOrgStatsOut struct for O11yO11yOrgStatsOut
 type O11yO11yOrgStatsOut struct {
 	// Data are the statistics, keyed by the reporter's own counter names.
-	Data map[string]map[string]interface{} `json:"data,omitempty"`
+	Data map[string]interface{} `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yOrgStatsOut O11yO11yOrgStatsOut
 
 // NewO11yO11yOrgStatsOut instantiates a new O11yO11yOrgStatsOut object
 // This constructor will assign default values to properties that have it defined,
@@ -43,9 +46,9 @@ func NewO11yO11yOrgStatsOutWithDefaults() *O11yO11yOrgStatsOut {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *O11yO11yOrgStatsOut) GetData() map[string]map[string]interface{} {
+func (o *O11yO11yOrgStatsOut) GetData() map[string]interface{} {
 	if o == nil || IsNil(o.Data) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Data
@@ -53,9 +56,9 @@ func (o *O11yO11yOrgStatsOut) GetData() map[string]map[string]interface{} {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yOrgStatsOut) GetDataOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yO11yOrgStatsOut) GetDataOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Data) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Data, true
 }
@@ -69,8 +72,8 @@ func (o *O11yO11yOrgStatsOut) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given map[string]map[string]interface{} and assigns it to the Data field.
-func (o *O11yO11yOrgStatsOut) SetData(v map[string]map[string]interface{}) {
+// SetData gets a reference to the given map[string]interface{} and assigns it to the Data field.
+func (o *O11yO11yOrgStatsOut) SetData(v map[string]interface{}) {
 	o.Data = v
 }
 
@@ -122,7 +125,34 @@ func (o O11yO11yOrgStatsOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yOrgStatsOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yOrgStatsOut := _O11yO11yOrgStatsOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yOrgStatsOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yOrgStatsOut(varO11yO11yOrgStatsOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yOrgStatsOut struct {

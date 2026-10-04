@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yCollectedLogAttribute{}
 
 // O11yCollectedLogAttribute struct for O11yCollectedLogAttribute
 type O11yCollectedLogAttribute struct {
-	Name *string `json:"name,omitempty"`
-	Path *string `json:"path,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Path                 *string `json:"path,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yCollectedLogAttribute O11yCollectedLogAttribute
 
 // NewO11yCollectedLogAttribute instantiates a new O11yCollectedLogAttribute object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yCollectedLogAttribute) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yCollectedLogAttribute) UnmarshalJSON(data []byte) (err error) {
+	varO11yCollectedLogAttribute := _O11yCollectedLogAttribute{}
+
+	err = json.Unmarshal(data, &varO11yCollectedLogAttribute)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yCollectedLogAttribute(varO11yCollectedLogAttribute)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yCollectedLogAttribute struct {

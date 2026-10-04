@@ -26,8 +26,11 @@ type O11yO11yMetricHighlights struct {
 	// LastReceived is when the metric last arrived, as a Unix timestamp in milliseconds.
 	LastReceived *int32 `json:"lastReceived,omitempty"`
 	// TotalTimeSeries is how many time series the metric has ever had.
-	TotalTimeSeries *int32 `json:"totalTimeSeries,omitempty"`
+	TotalTimeSeries      *int32 `json:"totalTimeSeries,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricHighlights O11yO11yMetricHighlights
 
 // NewO11yO11yMetricHighlights instantiates a new O11yO11yMetricHighlights object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yMetricHighlights) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalTimeSeries) {
 		toSerialize["totalTimeSeries"] = o.TotalTimeSeries
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricHighlights) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricHighlights := _O11yO11yMetricHighlights{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricHighlights)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricHighlights(varO11yO11yMetricHighlights)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "activeTimeSeries")
+		delete(additionalProperties, "dataPoints")
+		delete(additionalProperties, "lastReceived")
+		delete(additionalProperties, "totalTimeSeries")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricHighlights struct {

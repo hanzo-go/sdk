@@ -19,10 +19,13 @@ var _ MappedNullable = &IamFaceId{}
 
 // IamFaceId struct for IamFaceId
 type IamFaceId struct {
-	FaceIdData []float64 `json:"faceIdData,omitempty"`
-	ImageUrl   *string   `json:"imageUrl,omitempty"`
-	Name       *string   `json:"name,omitempty"`
+	FaceIdData           []float64 `json:"faceIdData,omitempty"`
+	ImageUrl             *string   `json:"imageUrl,omitempty"`
+	Name                 *string   `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamFaceId IamFaceId
 
 // NewIamFaceId instantiates a new IamFaceId object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o IamFaceId) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamFaceId) UnmarshalJSON(data []byte) (err error) {
+	varIamFaceId := _IamFaceId{}
+
+	err = json.Unmarshal(data, &varIamFaceId)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamFaceId(varIamFaceId)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "faceIdData")
+		delete(additionalProperties, "imageUrl")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamFaceId struct {

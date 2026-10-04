@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** |  | [optional] 
-**Format** | Pointer to **string** |  | [optional] 
+**Format** | Pointer to **interface{}** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**Parameters** | Pointer to **string** |  | [optional] 
+**Parameters** | Pointer to **interface{}** |  | [optional] 
 **Strict** | Pointer to **bool** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 
@@ -57,20 +57,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetFormat
 
-`func (o *AiResponsesTool) GetFormat() string`
+`func (o *AiResponsesTool) GetFormat() interface{}`
 
 GetFormat returns the Format field if non-nil, zero value otherwise.
 
 ### GetFormatOk
 
-`func (o *AiResponsesTool) GetFormatOk() (*string, bool)`
+`func (o *AiResponsesTool) GetFormatOk() (*interface{}, bool)`
 
 GetFormatOk returns a tuple with the Format field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFormat
 
-`func (o *AiResponsesTool) SetFormat(v string)`
+`func (o *AiResponsesTool) SetFormat(v interface{})`
 
 SetFormat sets Format field to given value.
 
@@ -80,6 +80,16 @@ SetFormat sets Format field to given value.
 
 HasFormat returns a boolean if a field has been set.
 
+### SetFormatNil
+
+`func (o *AiResponsesTool) SetFormatNil(b bool)`
+
+ SetFormatNil sets the value for Format to be an explicit nil
+
+### UnsetFormat
+`func (o *AiResponsesTool) UnsetFormat()`
+
+UnsetFormat ensures that no value is present for Format, not even an explicit nil
 ### GetName
 
 `func (o *AiResponsesTool) GetName() string`
@@ -107,20 +117,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetParameters
 
-`func (o *AiResponsesTool) GetParameters() string`
+`func (o *AiResponsesTool) GetParameters() interface{}`
 
 GetParameters returns the Parameters field if non-nil, zero value otherwise.
 
 ### GetParametersOk
 
-`func (o *AiResponsesTool) GetParametersOk() (*string, bool)`
+`func (o *AiResponsesTool) GetParametersOk() (*interface{}, bool)`
 
 GetParametersOk returns a tuple with the Parameters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetParameters
 
-`func (o *AiResponsesTool) SetParameters(v string)`
+`func (o *AiResponsesTool) SetParameters(v interface{})`
 
 SetParameters sets Parameters field to given value.
 
@@ -130,6 +140,16 @@ SetParameters sets Parameters field to given value.
 
 HasParameters returns a boolean if a field has been set.
 
+### SetParametersNil
+
+`func (o *AiResponsesTool) SetParametersNil(b bool)`
+
+ SetParametersNil sets the value for Parameters to be an explicit nil
+
+### UnsetParameters
+`func (o *AiResponsesTool) UnsetParameters()`
+
+UnsetParameters ensures that no value is present for Parameters, not even an explicit nil
 ### GetStrict
 
 `func (o *AiResponsesTool) GetStrict() bool`

@@ -19,26 +19,29 @@ var _ MappedNullable = &Task{}
 
 // Task struct for Task
 type Task struct {
-	Activity     *string  `json:"activity,omitempty"`
-	CreatedTime  *string  `json:"createdTime,omitempty"`
-	DisplayName  *string  `json:"displayName,omitempty"`
-	DocumentText *string  `json:"documentText,omitempty"`
-	DocumentUrl  *string  `json:"documentUrl,omitempty"`
-	Example      *string  `json:"example,omitempty"`
-	Grade        *string  `json:"grade,omitempty"`
-	Labels       []string `json:"labels,omitempty"`
-	Log          *string  `json:"log,omitempty"`
-	Name         *string  `json:"name,omitempty"`
-	Owner        *string  `json:"owner,omitempty"`
-	Path         *string  `json:"path,omitempty"`
-	Provider     *string  `json:"provider,omitempty"`
-	Result       *string  `json:"result,omitempty"`
-	Scale        *string  `json:"scale,omitempty"`
-	Score        *float32 `json:"score,omitempty"`
-	Subject      *string  `json:"subject,omitempty"`
-	Topic        *string  `json:"topic,omitempty"`
-	Type         *string  `json:"type,omitempty"`
+	Activity             *string  `json:"activity,omitempty"`
+	CreatedTime          *string  `json:"createdTime,omitempty"`
+	DisplayName          *string  `json:"displayName,omitempty"`
+	DocumentText         *string  `json:"documentText,omitempty"`
+	DocumentUrl          *string  `json:"documentUrl,omitempty"`
+	Example              *string  `json:"example,omitempty"`
+	Grade                *string  `json:"grade,omitempty"`
+	Labels               []string `json:"labels,omitempty"`
+	Log                  *string  `json:"log,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	Owner                *string  `json:"owner,omitempty"`
+	Path                 *string  `json:"path,omitempty"`
+	Provider             *string  `json:"provider,omitempty"`
+	Result               *string  `json:"result,omitempty"`
+	Scale                *string  `json:"scale,omitempty"`
+	Score                *float32 `json:"score,omitempty"`
+	Subject              *string  `json:"subject,omitempty"`
+	Topic                *string  `json:"topic,omitempty"`
+	Type                 *string  `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Task Task
 
 // NewTask instantiates a new Task object
 // This constructor will assign default values to properties that have it defined,
@@ -732,7 +735,51 @@ func (o Task) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Task) UnmarshalJSON(data []byte) (err error) {
+	varTask := _Task{}
+
+	err = json.Unmarshal(data, &varTask)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Task(varTask)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "activity")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "documentText")
+		delete(additionalProperties, "documentUrl")
+		delete(additionalProperties, "example")
+		delete(additionalProperties, "grade")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "log")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "result")
+		delete(additionalProperties, "scale")
+		delete(additionalProperties, "score")
+		delete(additionalProperties, "subject")
+		delete(additionalProperties, "topic")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTask struct {

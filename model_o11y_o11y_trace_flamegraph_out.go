@@ -22,8 +22,11 @@ type O11yO11yTraceFlamegraphOut struct {
 	// Data holds the flamegraph.
 	Data *O11yGettableFlamegraphTrace `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTraceFlamegraphOut O11yO11yTraceFlamegraphOut
 
 // NewO11yO11yTraceFlamegraphOut instantiates a new O11yO11yTraceFlamegraphOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yTraceFlamegraphOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTraceFlamegraphOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTraceFlamegraphOut := _O11yO11yTraceFlamegraphOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yTraceFlamegraphOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTraceFlamegraphOut(varO11yO11yTraceFlamegraphOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTraceFlamegraphOut struct {

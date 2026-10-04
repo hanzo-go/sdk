@@ -19,11 +19,14 @@ var _ MappedNullable = &IamScopeItem{}
 
 // IamScopeItem struct for IamScopeItem
 type IamScopeItem struct {
-	Description *string  `json:"description,omitempty"`
-	DisplayName *string  `json:"displayName,omitempty"`
-	Name        *string  `json:"name,omitempty"`
-	Tools       []string `json:"tools,omitempty"`
+	Description          *string  `json:"description,omitempty"`
+	DisplayName          *string  `json:"displayName,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	Tools                []string `json:"tools,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamScopeItem IamScopeItem
 
 // NewIamScopeItem instantiates a new IamScopeItem object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o IamScopeItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tools) {
 		toSerialize["tools"] = o.Tools
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamScopeItem) UnmarshalJSON(data []byte) (err error) {
+	varIamScopeItem := _IamScopeItem{}
+
+	err = json.Unmarshal(data, &varIamScopeItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamScopeItem(varIamScopeItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "tools")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamScopeItem struct {

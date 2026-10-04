@@ -19,12 +19,15 @@ var _ MappedNullable = &Exception{}
 
 // Exception struct for Exception
 type Exception struct {
-	Frames  []Frame `json:"frames,omitempty"`
-	Handled *bool   `json:"handled,omitempty"`
-	Message *string `json:"message,omitempty"`
-	Stack   *string `json:"stack,omitempty"`
-	Type    *string `json:"type,omitempty"`
+	Frames               []Frame `json:"frames,omitempty"`
+	Handled              *bool   `json:"handled,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	Stack                *string `json:"stack,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Exception Exception
 
 // NewException instantiates a new Exception object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o Exception) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Exception) UnmarshalJSON(data []byte) (err error) {
+	varException := _Exception{}
+
+	err = json.Unmarshal(data, &varException)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Exception(varException)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "frames")
+		delete(additionalProperties, "handled")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "stack")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableException struct {

@@ -28,8 +28,11 @@ type O11yO11yMetricMetadata struct {
 	// Type is the metric type, e.g. gauge, sum, histogram.
 	Type *string `json:"type,omitempty"`
 	// Unit is the metric's unit.
-	Unit *string `json:"unit,omitempty"`
+	Unit                 *string `json:"unit,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricMetadata O11yO11yMetricMetadata
 
 // NewO11yO11yMetricMetadata instantiates a new O11yO11yMetricMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yMetricMetadata) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Unit) {
 		toSerialize["unit"] = o.Unit
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricMetadata) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricMetadata := _O11yO11yMetricMetadata{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricMetadata(varO11yO11yMetricMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "isMonotonic")
+		delete(additionalProperties, "temporality")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "unit")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricMetadata struct {

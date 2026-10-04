@@ -19,11 +19,14 @@ var _ MappedNullable = &OpenaiLogProb{}
 
 // OpenaiLogProb struct for OpenaiLogProb
 type OpenaiLogProb struct {
-	Bytes       *string             `json:"bytes,omitempty"`
-	Logprob     *float32            `json:"logprob,omitempty"`
-	Token       *string             `json:"token,omitempty"`
-	TopLogprobs []OpenaiTopLogProbs `json:"top_logprobs,omitempty"`
+	Bytes                *string             `json:"bytes,omitempty"`
+	Logprob              *float32            `json:"logprob,omitempty"`
+	Token                *string             `json:"token,omitempty"`
+	TopLogprobs          []OpenaiTopLogProbs `json:"top_logprobs,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiLogProb OpenaiLogProb
 
 // NewOpenaiLogProb instantiates a new OpenaiLogProb object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o OpenaiLogProb) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TopLogprobs) {
 		toSerialize["top_logprobs"] = o.TopLogprobs
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiLogProb) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiLogProb := _OpenaiLogProb{}
+
+	err = json.Unmarshal(data, &varOpenaiLogProb)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiLogProb(varOpenaiLogProb)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "bytes")
+		delete(additionalProperties, "logprob")
+		delete(additionalProperties, "token")
+		delete(additionalProperties, "top_logprobs")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiLogProb struct {

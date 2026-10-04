@@ -19,11 +19,14 @@ var _ MappedNullable = &AiPanelJudge{}
 
 // AiPanelJudge struct for AiPanelJudge
 type AiPanelJudge struct {
-	Mean   *float32 `json:"mean,omitempty"`
-	Model  *string  `json:"model,omitempty"`
-	N      *int32   `json:"n,omitempty"`
-	Weight *float32 `json:"weight,omitempty"`
+	Mean                 *float32 `json:"mean,omitempty"`
+	Model                *string  `json:"model,omitempty"`
+	N                    *int32   `json:"n,omitempty"`
+	Weight               *float32 `json:"weight,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiPanelJudge AiPanelJudge
 
 // NewAiPanelJudge instantiates a new AiPanelJudge object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o AiPanelJudge) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Weight) {
 		toSerialize["weight"] = o.Weight
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiPanelJudge) UnmarshalJSON(data []byte) (err error) {
+	varAiPanelJudge := _AiPanelJudge{}
+
+	err = json.Unmarshal(data, &varAiPanelJudge)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiPanelJudge(varAiPanelJudge)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "mean")
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "n")
+		delete(additionalProperties, "weight")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiPanelJudge struct {

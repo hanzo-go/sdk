@@ -27,8 +27,11 @@ type O11yVolumeListRequest struct {
 	Offset  *int64             `json:"offset,omitempty"`
 	OrderBy *O11yOrderBy       `json:"orderBy,omitempty"`
 	// epoch time in ms
-	Start *int64 `json:"start,omitempty"`
+	Start                *int64 `json:"start,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yVolumeListRequest O11yVolumeListRequest
 
 // NewO11yVolumeListRequest instantiates a new O11yVolumeListRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -302,7 +305,39 @@ func (o O11yVolumeListRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Start) {
 		toSerialize["start"] = o.Start
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yVolumeListRequest) UnmarshalJSON(data []byte) (err error) {
+	varO11yVolumeListRequest := _O11yVolumeListRequest{}
+
+	err = json.Unmarshal(data, &varO11yVolumeListRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yVolumeListRequest(varO11yVolumeListRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "filters")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "orderBy")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yVolumeListRequest struct {

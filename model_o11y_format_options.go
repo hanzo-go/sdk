@@ -21,7 +21,10 @@ var _ MappedNullable = &O11yFormatOptions{}
 type O11yFormatOptions struct {
 	FillGaps               *bool `json:"fillGaps,omitempty"`
 	FormatTableResultForUI *bool `json:"formatTableResultForUI,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
+
+type _O11yFormatOptions O11yFormatOptions
 
 // NewO11yFormatOptions instantiates a new O11yFormatOptions object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yFormatOptions) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.FormatTableResultForUI) {
 		toSerialize["formatTableResultForUI"] = o.FormatTableResultForUI
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yFormatOptions) UnmarshalJSON(data []byte) (err error) {
+	varO11yFormatOptions := _O11yFormatOptions{}
+
+	err = json.Unmarshal(data, &varO11yFormatOptions)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yFormatOptions(varO11yFormatOptions)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fillGaps")
+		delete(additionalProperties, "formatTableResultForUI")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yFormatOptions struct {

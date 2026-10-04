@@ -19,11 +19,14 @@ var _ MappedNullable = &O11yCollectedMetric{}
 
 // O11yCollectedMetric struct for O11yCollectedMetric
 type O11yCollectedMetric struct {
-	Description *string `json:"description,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Type        *string `json:"type,omitempty"`
-	Unit        *string `json:"unit,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Unit                 *string `json:"unit,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yCollectedMetric O11yCollectedMetric
 
 // NewO11yCollectedMetric instantiates a new O11yCollectedMetric object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11yCollectedMetric) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Unit) {
 		toSerialize["unit"] = o.Unit
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yCollectedMetric) UnmarshalJSON(data []byte) (err error) {
+	varO11yCollectedMetric := _O11yCollectedMetric{}
+
+	err = json.Unmarshal(data, &varO11yCollectedMetric)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yCollectedMetric(varO11yCollectedMetric)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "unit")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yCollectedMetric struct {

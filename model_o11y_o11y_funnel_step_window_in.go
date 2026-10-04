@@ -19,11 +19,14 @@ var _ MappedNullable = &O11yO11yFunnelStepWindowIn{}
 
 // O11yO11yFunnelStepWindowIn struct for O11yO11yFunnelStepWindowIn
 type O11yO11yFunnelStepWindowIn struct {
-	EndTime   *int64 `json:"end_time,omitempty"`
-	StartTime *int64 `json:"start_time,omitempty"`
-	StepEnd   *int64 `json:"step_end,omitempty"`
-	StepStart *int64 `json:"step_start,omitempty"`
+	EndTime              *int64 `json:"end_time,omitempty"`
+	StartTime            *int64 `json:"start_time,omitempty"`
+	StepEnd              *int64 `json:"step_end,omitempty"`
+	StepStart            *int64 `json:"step_start,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFunnelStepWindowIn O11yO11yFunnelStepWindowIn
 
 // NewO11yO11yFunnelStepWindowIn instantiates a new O11yO11yFunnelStepWindowIn object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11yO11yFunnelStepWindowIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StepStart) {
 		toSerialize["step_start"] = o.StepStart
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFunnelStepWindowIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFunnelStepWindowIn := _O11yO11yFunnelStepWindowIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yFunnelStepWindowIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFunnelStepWindowIn(varO11yO11yFunnelStepWindowIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end_time")
+		delete(additionalProperties, "start_time")
+		delete(additionalProperties, "step_end")
+		delete(additionalProperties, "step_start")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFunnelStepWindowIn struct {

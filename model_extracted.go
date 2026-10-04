@@ -19,23 +19,18 @@ var _ MappedNullable = &Extracted{}
 
 // Extracted struct for Extracted
 type Extracted struct {
-	// Category is the expense bucket the SCANNER guessed, as a slug — a hint only. Vendor rules override it whenever they know better, so this is the model's reading and not the account the entry will land on.
-	Category *string `json:"category,omitempty"`
-	// Currency is the ISO code the document is denominated in.
-	Currency *string `json:"currency,omitempty"`
-	// IssuedAt is the document's OWN date as YYYY-MM-DD — when the bill was issued, which is not when it was uploaded or when it will post.
-	IssuedAt *string `json:"issuedAt,omitempty"`
-	// LineItems are the individual lines read off the document, where it had any. They need not sum to totalCents: a document may carry lines the scanner could not read, and the total is taken from the total.
-	LineItems []LineItem `json:"lineItems,omitempty"`
-	// Merchant is the supplier as printed on the document.
-	Merchant *string `json:"merchant,omitempty"`
-	// Note is anything else worth carrying from the document that has no field of its own.
-	Note *string `json:"note,omitempty"`
-	// TaxCents is how much of that total is tax, in cents. It is part of totalCents, not additional to it.
-	TaxCents *int64 `json:"taxCents,omitempty"`
-	// TotalCents is the document total in whole cents, tax INCLUDED.
-	TotalCents *int64 `json:"totalCents,omitempty"`
+	Category             *string    `json:"category,omitempty"`
+	Currency             *string    `json:"currency,omitempty"`
+	IssuedAt             *string    `json:"issuedAt,omitempty"`
+	LineItems            []LineItem `json:"lineItems,omitempty"`
+	Merchant             *string    `json:"merchant,omitempty"`
+	Note                 *string    `json:"note,omitempty"`
+	TaxCents             *int32     `json:"taxCents,omitempty"`
+	TotalCents           *int32     `json:"totalCents,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Extracted Extracted
 
 // NewExtracted instantiates a new Extracted object
 // This constructor will assign default values to properties that have it defined,
@@ -247,9 +242,9 @@ func (o *Extracted) SetNote(v string) {
 }
 
 // GetTaxCents returns the TaxCents field value if set, zero value otherwise.
-func (o *Extracted) GetTaxCents() int64 {
+func (o *Extracted) GetTaxCents() int32 {
 	if o == nil || IsNil(o.TaxCents) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.TaxCents
@@ -257,7 +252,7 @@ func (o *Extracted) GetTaxCents() int64 {
 
 // GetTaxCentsOk returns a tuple with the TaxCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Extracted) GetTaxCentsOk() (*int64, bool) {
+func (o *Extracted) GetTaxCentsOk() (*int32, bool) {
 	if o == nil || IsNil(o.TaxCents) {
 		return nil, false
 	}
@@ -273,15 +268,15 @@ func (o *Extracted) HasTaxCents() bool {
 	return false
 }
 
-// SetTaxCents gets a reference to the given int64 and assigns it to the TaxCents field.
-func (o *Extracted) SetTaxCents(v int64) {
+// SetTaxCents gets a reference to the given int32 and assigns it to the TaxCents field.
+func (o *Extracted) SetTaxCents(v int32) {
 	o.TaxCents = &v
 }
 
 // GetTotalCents returns the TotalCents field value if set, zero value otherwise.
-func (o *Extracted) GetTotalCents() int64 {
+func (o *Extracted) GetTotalCents() int32 {
 	if o == nil || IsNil(o.TotalCents) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.TotalCents
@@ -289,7 +284,7 @@ func (o *Extracted) GetTotalCents() int64 {
 
 // GetTotalCentsOk returns a tuple with the TotalCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Extracted) GetTotalCentsOk() (*int64, bool) {
+func (o *Extracted) GetTotalCentsOk() (*int32, bool) {
 	if o == nil || IsNil(o.TotalCents) {
 		return nil, false
 	}
@@ -305,8 +300,8 @@ func (o *Extracted) HasTotalCents() bool {
 	return false
 }
 
-// SetTotalCents gets a reference to the given int64 and assigns it to the TotalCents field.
-func (o *Extracted) SetTotalCents(v int64) {
+// SetTotalCents gets a reference to the given int32 and assigns it to the TotalCents field.
+func (o *Extracted) SetTotalCents(v int32) {
 	o.TotalCents = &v
 }
 
@@ -344,7 +339,40 @@ func (o Extracted) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalCents) {
 		toSerialize["totalCents"] = o.TotalCents
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Extracted) UnmarshalJSON(data []byte) (err error) {
+	varExtracted := _Extracted{}
+
+	err = json.Unmarshal(data, &varExtracted)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Extracted(varExtracted)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "issuedAt")
+		delete(additionalProperties, "lineItems")
+		delete(additionalProperties, "merchant")
+		delete(additionalProperties, "note")
+		delete(additionalProperties, "taxCents")
+		delete(additionalProperties, "totalCents")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableExtracted struct {

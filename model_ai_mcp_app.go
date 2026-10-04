@@ -22,8 +22,11 @@ type AiMCPApp struct {
 	// Name is the subsystem, as the manifest names it.
 	Name *string `json:"name,omitempty"`
 	// Served reports that THIS process mounted it, so its tools are on this process's MCP server rather than behind a sibling this process only knows the name of.
-	Served *bool `json:"served,omitempty"`
+	Served               *bool `json:"served,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiMCPApp AiMCPApp
 
 // NewAiMCPApp instantiates a new AiMCPApp object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o AiMCPApp) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Served) {
 		toSerialize["served"] = o.Served
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiMCPApp) UnmarshalJSON(data []byte) (err error) {
+	varAiMCPApp := _AiMCPApp{}
+
+	err = json.Unmarshal(data, &varAiMCPApp)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiMCPApp(varAiMCPApp)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "served")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiMCPApp struct {

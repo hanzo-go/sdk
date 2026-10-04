@@ -24,11 +24,14 @@ type IamTeamsInput struct {
 	DisplayName *string `json:"displayName,omitempty"`
 	IsEnabled   *bool   `json:"isEnabled,omitempty"`
 	// Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL.
-	Name         *string  `json:"name,omitempty"`
-	Organization *string  `json:"organization,omitempty"`
-	Parent       *string  `json:"parent,omitempty"`
-	Users        []string `json:"users,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	Organization         *string  `json:"organization,omitempty"`
+	Parent               *string  `json:"parent,omitempty"`
+	Users                []string `json:"users,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamTeamsInput IamTeamsInput
 
 // NewIamTeamsInput instantiates a new IamTeamsInput object
 // This constructor will assign default values to properties that have it defined,
@@ -337,7 +340,40 @@ func (o IamTeamsInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamTeamsInput) UnmarshalJSON(data []byte) (err error) {
+	varIamTeamsInput := _IamTeamsInput{}
+
+	err = json.Unmarshal(data, &varIamTeamsInput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamTeamsInput(varIamTeamsInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "isEnabled")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "parent")
+		delete(additionalProperties, "users")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamTeamsInput struct {

@@ -22,17 +22,17 @@ import (
 type StandingAPIService service
 
 type StandingAPIPostStandingUpkeepRequest struct {
-	ctx        context.Context
-	ApiService *StandingAPIService
-	upkeepIn   *UpkeepIn
+	ctx              context.Context
+	ApiService       *StandingAPIService
+	standingUpkeepIn *StandingUpkeepIn
 }
 
-func (r StandingAPIPostStandingUpkeepRequest) UpkeepIn(upkeepIn UpkeepIn) StandingAPIPostStandingUpkeepRequest {
-	r.upkeepIn = &upkeepIn
+func (r StandingAPIPostStandingUpkeepRequest) StandingUpkeepIn(standingUpkeepIn StandingUpkeepIn) StandingAPIPostStandingUpkeepRequest {
+	r.standingUpkeepIn = &standingUpkeepIn
 	return r
 }
 
-func (r StandingAPIPostStandingUpkeepRequest) Execute() (*Upkeep, *http.Response, error) {
+func (r StandingAPIPostStandingUpkeepRequest) Execute() (*StandingUpkeep, *http.Response, error) {
 	return r.ApiService.PostStandingUpkeepExecute(r)
 }
 
@@ -60,13 +60,13 @@ func (a *StandingAPIService) PostStandingUpkeep(ctx context.Context) StandingAPI
 
 // Execute executes the request
 //
-//	@return Upkeep
-func (a *StandingAPIService) PostStandingUpkeepExecute(r StandingAPIPostStandingUpkeepRequest) (*Upkeep, *http.Response, error) {
+//	@return StandingUpkeep
+func (a *StandingAPIService) PostStandingUpkeepExecute(r StandingAPIPostStandingUpkeepRequest) (*StandingUpkeep, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Upkeep
+		localVarReturnValue *StandingUpkeep
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StandingAPIService.PostStandingUpkeep")
@@ -79,8 +79,8 @@ func (a *StandingAPIService) PostStandingUpkeepExecute(r StandingAPIPostStanding
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.upkeepIn == nil {
-		return localVarReturnValue, nil, reportError("upkeepIn is required and must be specified")
+	if r.standingUpkeepIn == nil {
+		return localVarReturnValue, nil, reportError("standingUpkeepIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -93,7 +93,7 @@ func (a *StandingAPIService) PostStandingUpkeepExecute(r StandingAPIPostStanding
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -101,7 +101,7 @@ func (a *StandingAPIService) PostStandingUpkeepExecute(r StandingAPIPostStanding
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.upkeepIn
+	localVarPostBody = r.standingUpkeepIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -124,6 +124,14 @@ func (a *StandingAPIService) PostStandingUpkeepExecute(r StandingAPIPostStanding
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

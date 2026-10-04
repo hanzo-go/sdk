@@ -150,6 +150,7 @@ type IamUser struct {
 	Microsoftonline      *string       `json:"microsoftonline,omitempty"`
 	MultiFactorAuths     []IamMfaProps `json:"multiFactorAuths,omitempty"`
 	Name                 *string       `json:"name,omitempty"`
+	NameKey              *string       `json:"nameKey,omitempty"`
 	Naver                *string       `json:"naver,omitempty"`
 	NeedUpdatePassword   *bool         `json:"needUpdatePassword,omitempty"`
 	Nextcloud            *string       `json:"nextcloud,omitempty"`
@@ -205,17 +206,20 @@ type IamUser struct {
 	VerificationCode  *string           `json:"verificationCode,omitempty"`
 	Vk                *string           `json:"vk,omitempty"`
 	// Multi-factor authentication. TotpSecret and RecoveryCodes are secret verify-only material — the handler strips them from every response. WebauthnCredentials is carried as raw JSON here for lossless migration; the typed passkey model is the sibling WebauthnCredential entity.
-	WebauthnCredentials []interface{} `json:"webauthnCredentials,omitempty"`
-	Wechat              *string       `json:"wechat,omitempty"`
-	Wecom               *string       `json:"wecom,omitempty"`
-	Weibo               *string       `json:"weibo,omitempty"`
-	Wepay               *string       `json:"wepay,omitempty"`
-	Xero                *string       `json:"xero,omitempty"`
-	Yahoo               *string       `json:"yahoo,omitempty"`
-	Yammer              *string       `json:"yammer,omitempty"`
-	Yandex              *string       `json:"yandex,omitempty"`
-	Zoom                *string       `json:"zoom,omitempty"`
+	WebauthnCredentials  []interface{} `json:"webauthnCredentials,omitempty"`
+	Wechat               *string       `json:"wechat,omitempty"`
+	Wecom                *string       `json:"wecom,omitempty"`
+	Weibo                *string       `json:"weibo,omitempty"`
+	Wepay                *string       `json:"wepay,omitempty"`
+	Xero                 *string       `json:"xero,omitempty"`
+	Yahoo                *string       `json:"yahoo,omitempty"`
+	Yammer               *string       `json:"yammer,omitempty"`
+	Yandex               *string       `json:"yandex,omitempty"`
+	Zoom                 *string       `json:"zoom,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamUser IamUser
 
 // NewIamUser instantiates a new IamUser object
 // This constructor will assign default values to properties that have it defined,
@@ -4138,6 +4142,38 @@ func (o *IamUser) SetName(v string) {
 	o.Name = &v
 }
 
+// GetNameKey returns the NameKey field value if set, zero value otherwise.
+func (o *IamUser) GetNameKey() string {
+	if o == nil || IsNil(o.NameKey) {
+		var ret string
+		return ret
+	}
+	return *o.NameKey
+}
+
+// GetNameKeyOk returns a tuple with the NameKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamUser) GetNameKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.NameKey) {
+		return nil, false
+	}
+	return o.NameKey, true
+}
+
+// HasNameKey returns a boolean if a field has been set.
+func (o *IamUser) HasNameKey() bool {
+	if o != nil && !IsNil(o.NameKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetNameKey gets a reference to the given string and assigns it to the NameKey field.
+func (o *IamUser) SetNameKey(v string) {
+	o.NameKey = &v
+}
+
 // GetNaver returns the Naver field value if set, zero value otherwise.
 func (o *IamUser) GetNaver() string {
 	if o == nil || IsNil(o.Naver) {
@@ -6498,6 +6534,9 @@ func (o IamUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+	if !IsNil(o.NameKey) {
+		toSerialize["nameKey"] = o.NameKey
+	}
 	if !IsNil(o.Naver) {
 		toSerialize["naver"] = o.Naver
 	}
@@ -6684,7 +6723,217 @@ func (o IamUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Zoom) {
 		toSerialize["zoom"] = o.Zoom
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamUser) UnmarshalJSON(data []byte) (err error) {
+	varIamUser := _IamUser{}
+
+	err = json.Unmarshal(data, &varIamUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamUser(varIamUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accessKey")
+		delete(additionalProperties, "accessSecret")
+		delete(additionalProperties, "accessSecretHash")
+		delete(additionalProperties, "accessToken")
+		delete(additionalProperties, "address")
+		delete(additionalProperties, "addresses")
+		delete(additionalProperties, "adfs")
+		delete(additionalProperties, "affiliation")
+		delete(additionalProperties, "alipay")
+		delete(additionalProperties, "amazon")
+		delete(additionalProperties, "apple")
+		delete(additionalProperties, "applicationScopes")
+		delete(additionalProperties, "auth0")
+		delete(additionalProperties, "avatar")
+		delete(additionalProperties, "avatarType")
+		delete(additionalProperties, "azuread")
+		delete(additionalProperties, "azureadb2c")
+		delete(additionalProperties, "baidu")
+		delete(additionalProperties, "balance")
+		delete(additionalProperties, "balanceCredit")
+		delete(additionalProperties, "balanceCurrency")
+		delete(additionalProperties, "battlenet")
+		delete(additionalProperties, "bilibili")
+		delete(additionalProperties, "bio")
+		delete(additionalProperties, "birthday")
+		delete(additionalProperties, "bitbucket")
+		delete(additionalProperties, "box")
+		delete(additionalProperties, "cart")
+		delete(additionalProperties, "cloudfoundry")
+		delete(additionalProperties, "countryCode")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdIp")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "custom")
+		delete(additionalProperties, "custom10")
+		delete(additionalProperties, "custom2")
+		delete(additionalProperties, "custom3")
+		delete(additionalProperties, "custom4")
+		delete(additionalProperties, "custom5")
+		delete(additionalProperties, "custom6")
+		delete(additionalProperties, "custom7")
+		delete(additionalProperties, "custom8")
+		delete(additionalProperties, "custom9")
+		delete(additionalProperties, "dailymotion")
+		delete(additionalProperties, "deezer")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "deletedTime")
+		delete(additionalProperties, "digitalocean")
+		delete(additionalProperties, "dingtalk")
+		delete(additionalProperties, "discord")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "douyin")
+		delete(additionalProperties, "dropbox")
+		delete(additionalProperties, "education")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "emailVerified")
+		delete(additionalProperties, "eveonline")
+		delete(additionalProperties, "externalId")
+		delete(additionalProperties, "faceIds")
+		delete(additionalProperties, "facebook")
+		delete(additionalProperties, "firstName")
+		delete(additionalProperties, "fitbit")
+		delete(additionalProperties, "gender")
+		delete(additionalProperties, "gitea")
+		delete(additionalProperties, "gitee")
+		delete(additionalProperties, "github")
+		delete(additionalProperties, "gitlab")
+		delete(additionalProperties, "google")
+		delete(additionalProperties, "hash")
+		delete(additionalProperties, "heroku")
+		delete(additionalProperties, "homepage")
+		delete(additionalProperties, "iam")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "idCard")
+		delete(additionalProperties, "idCardType")
+		delete(additionalProperties, "influxcloud")
+		delete(additionalProperties, "infoflow")
+		delete(additionalProperties, "instagram")
+		delete(additionalProperties, "intercom")
+		delete(additionalProperties, "invitation")
+		delete(additionalProperties, "invitationCode")
+		delete(additionalProperties, "ipWhitelist")
+		delete(additionalProperties, "isAdmin")
+		delete(additionalProperties, "isDefaultAvatar")
+		delete(additionalProperties, "isDeleted")
+		delete(additionalProperties, "isForbidden")
+		delete(additionalProperties, "isOnline")
+		delete(additionalProperties, "isVerified")
+		delete(additionalProperties, "kakao")
+		delete(additionalProperties, "karma")
+		delete(additionalProperties, "kwai")
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "lark")
+		delete(additionalProperties, "lastChangePasswordTime")
+		delete(additionalProperties, "lastName")
+		delete(additionalProperties, "lastSigninIp")
+		delete(additionalProperties, "lastSigninTime")
+		delete(additionalProperties, "lastSigninWrongTime")
+		delete(additionalProperties, "lastfm")
+		delete(additionalProperties, "ldap")
+		delete(additionalProperties, "line")
+		delete(additionalProperties, "linkedin")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "mailru")
+		delete(additionalProperties, "managedAccounts")
+		delete(additionalProperties, "meetup")
+		delete(additionalProperties, "mfaAccounts")
+		delete(additionalProperties, "mfaEmailEnabled")
+		delete(additionalProperties, "mfaItems")
+		delete(additionalProperties, "mfaPhoneEnabled")
+		delete(additionalProperties, "mfaPushEnabled")
+		delete(additionalProperties, "mfaPushProvider")
+		delete(additionalProperties, "mfaPushReceiver")
+		delete(additionalProperties, "mfaRadiusEnabled")
+		delete(additionalProperties, "mfaRadiusProvider")
+		delete(additionalProperties, "mfaRadiusUsername")
+		delete(additionalProperties, "mfaRememberDeadline")
+		delete(additionalProperties, "mfaRememberDigest")
+		delete(additionalProperties, "microsoftonline")
+		delete(additionalProperties, "multiFactorAuths")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "nameKey")
+		delete(additionalProperties, "naver")
+		delete(additionalProperties, "needUpdatePassword")
+		delete(additionalProperties, "nextcloud")
+		delete(additionalProperties, "okta")
+		delete(additionalProperties, "onedrive")
+		delete(additionalProperties, "originalRefreshToken")
+		delete(additionalProperties, "originalToken")
+		delete(additionalProperties, "oura")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "passwordHash")
+		delete(additionalProperties, "passwordSalt")
+		delete(additionalProperties, "passwordType")
+		delete(additionalProperties, "patreon")
+		delete(additionalProperties, "paypal")
+		delete(additionalProperties, "permanentAvatar")
+		delete(additionalProperties, "phone")
+		delete(additionalProperties, "preHash")
+		delete(additionalProperties, "preferredMfaType")
+		delete(additionalProperties, "properties")
+		delete(additionalProperties, "qq")
+		delete(additionalProperties, "ranking")
+		delete(additionalProperties, "realName")
+		delete(additionalProperties, "recoveryCodes")
+		delete(additionalProperties, "region")
+		delete(additionalProperties, "registerSource")
+		delete(additionalProperties, "registerType")
+		delete(additionalProperties, "salesforce")
+		delete(additionalProperties, "score")
+		delete(additionalProperties, "shopify")
+		delete(additionalProperties, "signinWrongTimes")
+		delete(additionalProperties, "signupApplication")
+		delete(additionalProperties, "slack")
+		delete(additionalProperties, "soundcloud")
+		delete(additionalProperties, "spotify")
+		delete(additionalProperties, "steam")
+		delete(additionalProperties, "strava")
+		delete(additionalProperties, "stripe")
+		delete(additionalProperties, "tag")
+		delete(additionalProperties, "telegram")
+		delete(additionalProperties, "tiktok")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "totpSecret")
+		delete(additionalProperties, "tumblr")
+		delete(additionalProperties, "twitch")
+		delete(additionalProperties, "twitter")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "typetalk")
+		delete(additionalProperties, "uber")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedTime")
+		delete(additionalProperties, "verificationCode")
+		delete(additionalProperties, "vk")
+		delete(additionalProperties, "webauthnCredentials")
+		delete(additionalProperties, "wechat")
+		delete(additionalProperties, "wecom")
+		delete(additionalProperties, "weibo")
+		delete(additionalProperties, "wepay")
+		delete(additionalProperties, "xero")
+		delete(additionalProperties, "yahoo")
+		delete(additionalProperties, "yammer")
+		delete(additionalProperties, "yandex")
+		delete(additionalProperties, "zoom")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamUser struct {

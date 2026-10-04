@@ -19,17 +19,20 @@ var _ MappedNullable = &IamProjectsInput{}
 
 // IamProjectsInput struct for IamProjectsInput
 type IamProjectsInput struct {
-	CreatedTime  *string  `json:"createdTime,omitempty"`
-	Description  *string  `json:"description,omitempty"`
-	DisplayName  *string  `json:"displayName,omitempty"`
-	IsDefault    *bool    `json:"isDefault,omitempty"`
-	Metadata     *string  `json:"metadata,omitempty"`
-	Name         *string  `json:"name,omitempty"`
-	Organization *string  `json:"organization,omitempty"`
-	Owner        *string  `json:"owner,omitempty"`
-	Tags         []string `json:"tags,omitempty"`
-	Workspace    *string  `json:"workspace,omitempty"`
+	CreatedTime          *string  `json:"createdTime,omitempty"`
+	Description          *string  `json:"description,omitempty"`
+	DisplayName          *string  `json:"displayName,omitempty"`
+	IsDefault            *bool    `json:"isDefault,omitempty"`
+	Metadata             *string  `json:"metadata,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	Organization         *string  `json:"organization,omitempty"`
+	Owner                *string  `json:"owner,omitempty"`
+	Tags                 []string `json:"tags,omitempty"`
+	Workspace            *string  `json:"workspace,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamProjectsInput IamProjectsInput
 
 // NewIamProjectsInput instantiates a new IamProjectsInput object
 // This constructor will assign default values to properties that have it defined,
@@ -408,7 +411,42 @@ func (o IamProjectsInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Workspace) {
 		toSerialize["workspace"] = o.Workspace
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamProjectsInput) UnmarshalJSON(data []byte) (err error) {
+	varIamProjectsInput := _IamProjectsInput{}
+
+	err = json.Unmarshal(data, &varIamProjectsInput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamProjectsInput(varIamProjectsInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "isDefault")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "workspace")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamProjectsInput struct {

@@ -19,16 +19,19 @@ var _ MappedNullable = &ApplicationEvent{}
 
 // ApplicationEvent struct for ApplicationEvent
 type ApplicationEvent struct {
-	Count          *int32  `json:"count,omitempty"`
-	FirstTime      *string `json:"firstTime,omitempty"`
-	InvolvedObject *string `json:"involvedObject,omitempty"`
-	LastTime       *string `json:"lastTime,omitempty"`
-	Message        *string `json:"message,omitempty"`
-	Name           *string `json:"name,omitempty"`
-	Reason         *string `json:"reason,omitempty"`
-	Source         *string `json:"source,omitempty"`
-	Type           *string `json:"type,omitempty"`
+	Count                *int32  `json:"count,omitempty"`
+	FirstTime            *string `json:"firstTime,omitempty"`
+	InvolvedObject       *string `json:"involvedObject,omitempty"`
+	LastTime             *string `json:"lastTime,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Reason               *string `json:"reason,omitempty"`
+	Source               *string `json:"source,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ApplicationEvent ApplicationEvent
 
 // NewApplicationEvent instantiates a new ApplicationEvent object
 // This constructor will assign default values to properties that have it defined,
@@ -372,7 +375,41 @@ func (o ApplicationEvent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ApplicationEvent) UnmarshalJSON(data []byte) (err error) {
+	varApplicationEvent := _ApplicationEvent{}
+
+	err = json.Unmarshal(data, &varApplicationEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApplicationEvent(varApplicationEvent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "firstTime")
+		delete(additionalProperties, "involvedObject")
+		delete(additionalProperties, "lastTime")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "reason")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableApplicationEvent struct {

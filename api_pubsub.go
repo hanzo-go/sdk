@@ -22,24 +22,24 @@ import (
 type PubsubAPIService service
 
 type PubsubAPIPostPubsubPublishRequest struct {
-	ctx        context.Context
-	ApiService *PubsubAPIService
-	busPublish *BusPublish
+	ctx              context.Context
+	ApiService       *PubsubAPIService
+	pubsubBusPublish *PubsubBusPublish
 }
 
-func (r PubsubAPIPostPubsubPublishRequest) BusPublish(busPublish BusPublish) PubsubAPIPostPubsubPublishRequest {
-	r.busPublish = &busPublish
+func (r PubsubAPIPostPubsubPublishRequest) PubsubBusPublish(pubsubBusPublish PubsubBusPublish) PubsubAPIPostPubsubPublishRequest {
+	r.pubsubBusPublish = &pubsubBusPublish
 	return r
 }
 
-func (r PubsubAPIPostPubsubPublishRequest) Execute() (*BusAck, *http.Response, error) {
+func (r PubsubAPIPostPubsubPublishRequest) Execute() (*PubsubBusAck, *http.Response, error) {
 	return r.ApiService.PostPubsubPublishExecute(r)
 }
 
 /*
-PostPubsubPublish Publish puts one message on the org's bus.
+PostPubsubPublish Puts one message on the org's bus.
 
-Publish puts one message on the org's bus. When a stream captures the subject
+Puts one message on the org's bus. When a stream captures the subject
 the write is DURABLE — the receipt names the stream and sequence only after
 JetStream has it on storage, and a repeated Nats-Msg-Id header within the
 dedup window answers duplicate instead of storing twice. When nothing
@@ -58,13 +58,13 @@ func (a *PubsubAPIService) PostPubsubPublish(ctx context.Context) PubsubAPIPostP
 
 // Execute executes the request
 //
-//	@return BusAck
-func (a *PubsubAPIService) PostPubsubPublishExecute(r PubsubAPIPostPubsubPublishRequest) (*BusAck, *http.Response, error) {
+//	@return PubsubBusAck
+func (a *PubsubAPIService) PostPubsubPublishExecute(r PubsubAPIPostPubsubPublishRequest) (*PubsubBusAck, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BusAck
+		localVarReturnValue *PubsubBusAck
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PubsubAPIService.PostPubsubPublish")
@@ -77,8 +77,8 @@ func (a *PubsubAPIService) PostPubsubPublishExecute(r PubsubAPIPostPubsubPublish
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.busPublish == nil {
-		return localVarReturnValue, nil, reportError("busPublish is required and must be specified")
+	if r.pubsubBusPublish == nil {
+		return localVarReturnValue, nil, reportError("pubsubBusPublish is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -91,7 +91,7 @@ func (a *PubsubAPIService) PostPubsubPublishExecute(r PubsubAPIPostPubsubPublish
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -99,7 +99,7 @@ func (a *PubsubAPIService) PostPubsubPublishExecute(r PubsubAPIPostPubsubPublish
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.busPublish
+	localVarPostBody = r.pubsubBusPublish
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -122,6 +122,14 @@ func (a *PubsubAPIService) PostPubsubPublishExecute(r PubsubAPIPostPubsubPublish
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -138,24 +146,24 @@ func (a *PubsubAPIService) PostPubsubPublishExecute(r PubsubAPIPostPubsubPublish
 }
 
 type PubsubAPIPostPubsubRequestRequest struct {
-	ctx        context.Context
-	ApiService *PubsubAPIService
-	busRequest *BusRequest
+	ctx              context.Context
+	ApiService       *PubsubAPIService
+	pubsubBusRequest *PubsubBusRequest
 }
 
-func (r PubsubAPIPostPubsubRequestRequest) BusRequest(busRequest BusRequest) PubsubAPIPostPubsubRequestRequest {
-	r.busRequest = &busRequest
+func (r PubsubAPIPostPubsubRequestRequest) PubsubBusRequest(pubsubBusRequest PubsubBusRequest) PubsubAPIPostPubsubRequestRequest {
+	r.pubsubBusRequest = &pubsubBusRequest
 	return r
 }
 
-func (r PubsubAPIPostPubsubRequestRequest) Execute() (*BusMessage, *http.Response, error) {
+func (r PubsubAPIPostPubsubRequestRequest) Execute() (*PubsubBusMessage, *http.Response, error) {
 	return r.ApiService.PostPubsubRequestExecute(r)
 }
 
 /*
-PostPubsubRequest Request sends one request on the org's bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
+PostPubsubRequest Sends one request on the org's bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
 
-Request sends one request on the org's bus and waits for one reply — the
+Sends one request on the org's bus and waits for one reply — the
 synchronous half of pub/sub, for callers speaking to a responder subscribed
 on the NATS port. 404 when nobody is listening on the subject; 408 when a
 responder exists but no reply arrived within the timeout.
@@ -172,13 +180,13 @@ func (a *PubsubAPIService) PostPubsubRequest(ctx context.Context) PubsubAPIPostP
 
 // Execute executes the request
 //
-//	@return BusMessage
-func (a *PubsubAPIService) PostPubsubRequestExecute(r PubsubAPIPostPubsubRequestRequest) (*BusMessage, *http.Response, error) {
+//	@return PubsubBusMessage
+func (a *PubsubAPIService) PostPubsubRequestExecute(r PubsubAPIPostPubsubRequestRequest) (*PubsubBusMessage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BusMessage
+		localVarReturnValue *PubsubBusMessage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PubsubAPIService.PostPubsubRequest")
@@ -191,8 +199,8 @@ func (a *PubsubAPIService) PostPubsubRequestExecute(r PubsubAPIPostPubsubRequest
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.busRequest == nil {
-		return localVarReturnValue, nil, reportError("busRequest is required and must be specified")
+	if r.pubsubBusRequest == nil {
+		return localVarReturnValue, nil, reportError("pubsubBusRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -205,7 +213,7 @@ func (a *PubsubAPIService) PostPubsubRequestExecute(r PubsubAPIPostPubsubRequest
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -213,7 +221,7 @@ func (a *PubsubAPIService) PostPubsubRequestExecute(r PubsubAPIPostPubsubRequest
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.busRequest
+	localVarPostBody = r.pubsubBusRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -236,6 +244,14 @@ func (a *PubsubAPIService) PostPubsubRequestExecute(r PubsubAPIPostPubsubRequest
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

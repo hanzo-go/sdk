@@ -19,18 +19,21 @@ var _ MappedNullable = &O11yPodRecord{}
 
 // O11yPodRecord struct for O11yPodRecord
 type O11yPodRecord struct {
-	Meta             map[string]string     `json:"meta,omitempty"`
-	PodAge           *int64                `json:"podAge,omitempty"`
-	PodCPU           *float64              `json:"podCPU,omitempty"`
-	PodCPULimit      *float64              `json:"podCPULimit,omitempty"`
-	PodCPURequest    *float64              `json:"podCPURequest,omitempty"`
-	PodCountsByPhase *O11yPodCountsByPhase `json:"podCountsByPhase,omitempty"`
-	PodMemory        *float64              `json:"podMemory,omitempty"`
-	PodMemoryLimit   *float64              `json:"podMemoryLimit,omitempty"`
-	PodMemoryRequest *float64              `json:"podMemoryRequest,omitempty"`
-	PodPhase         interface{}           `json:"podPhase,omitempty"`
-	PodUID           *string               `json:"podUID,omitempty"`
+	Meta                 map[string]string     `json:"meta,omitempty"`
+	PodAge               *int64                `json:"podAge,omitempty"`
+	PodCPU               *float64              `json:"podCPU,omitempty"`
+	PodCPULimit          *float64              `json:"podCPULimit,omitempty"`
+	PodCPURequest        *float64              `json:"podCPURequest,omitempty"`
+	PodCountsByPhase     *O11yPodCountsByPhase `json:"podCountsByPhase,omitempty"`
+	PodMemory            *float64              `json:"podMemory,omitempty"`
+	PodMemoryLimit       *float64              `json:"podMemoryLimit,omitempty"`
+	PodMemoryRequest     *float64              `json:"podMemoryRequest,omitempty"`
+	PodPhase             interface{}           `json:"podPhase,omitempty"`
+	PodUID               *string               `json:"podUID,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPodRecord O11yPodRecord
 
 // NewO11yPodRecord instantiates a new O11yPodRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -445,7 +448,43 @@ func (o O11yPodRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PodUID) {
 		toSerialize["podUID"] = o.PodUID
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPodRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yPodRecord := _O11yPodRecord{}
+
+	err = json.Unmarshal(data, &varO11yPodRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPodRecord(varO11yPodRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "podAge")
+		delete(additionalProperties, "podCPU")
+		delete(additionalProperties, "podCPULimit")
+		delete(additionalProperties, "podCPURequest")
+		delete(additionalProperties, "podCountsByPhase")
+		delete(additionalProperties, "podMemory")
+		delete(additionalProperties, "podMemoryLimit")
+		delete(additionalProperties, "podMemoryRequest")
+		delete(additionalProperties, "podPhase")
+		delete(additionalProperties, "podUID")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPodRecord struct {

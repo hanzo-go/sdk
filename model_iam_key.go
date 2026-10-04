@@ -45,11 +45,14 @@ type IamKey struct {
 	Scope *string `json:"scope,omitempty"`
 	State *string `json:"state,omitempty"`
 	// Type is the scope the key is bound to — \"Organization\", \"Application\", \"User\", or \"General\" — and Organization / Application / User name the concrete principal for whichever scope Type selects.
-	Type        *string    `json:"type,omitempty"`
-	UpdatedAt   *time.Time `json:"updatedAt,omitempty"`
-	UpdatedTime *string    `json:"updatedTime,omitempty"`
-	User        *string    `json:"user,omitempty"`
+	Type                 *string    `json:"type,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	UpdatedTime          *string    `json:"updatedTime,omitempty"`
+	User                 *string    `json:"user,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamKey IamKey
 
 // NewIamKey instantiates a new IamKey object
 // This constructor will assign default values to properties that have it defined,
@@ -778,7 +781,52 @@ func (o IamKey) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamKey) UnmarshalJSON(data []byte) (err error) {
+	varIamKey := _IamKey{}
+
+	err = json.Unmarshal(data, &varIamKey)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamKey(varIamKey)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accessKey")
+		delete(additionalProperties, "accessSecret")
+		delete(additionalProperties, "accessSecretDigest")
+		delete(additionalProperties, "act")
+		delete(additionalProperties, "application")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "expireTime")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "scope")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedTime")
+		delete(additionalProperties, "user")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamKey struct {

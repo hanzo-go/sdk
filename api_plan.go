@@ -27,7 +27,7 @@ type PlanAPIGetPlanRequest struct {
 	ApiService *PlanAPIService
 }
 
-func (r PlanAPIGetPlanRequest) Execute() (*PlanList, *http.Response, error) {
+func (r PlanAPIGetPlanRequest) Execute() (*PlanPlanList, *http.Response, error) {
 	return r.ApiService.GetPlanExecute(r)
 }
 
@@ -51,13 +51,13 @@ func (a *PlanAPIService) GetPlan(ctx context.Context) PlanAPIGetPlanRequest {
 
 // Execute executes the request
 //
-//	@return PlanList
-func (a *PlanAPIService) GetPlanExecute(r PlanAPIGetPlanRequest) (*PlanList, *http.Response, error) {
+//	@return PlanPlanList
+func (a *PlanAPIService) GetPlanExecute(r PlanAPIGetPlanRequest) (*PlanPlanList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanList
+		localVarReturnValue *PlanPlanList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlanAPIService.GetPlan")
@@ -81,7 +81,7 @@ func (a *PlanAPIService) GetPlanExecute(r PlanAPIGetPlanRequest) (*PlanList, *ht
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -110,6 +110,14 @@ func (a *PlanAPIService) GetPlanExecute(r PlanAPIGetPlanRequest) (*PlanList, *ht
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -130,7 +138,7 @@ type PlanAPIGetPlanBlockchainRequest struct {
 	ApiService *PlanAPIService
 }
 
-func (r PlanAPIGetPlanBlockchainRequest) Execute() (*PlanList, *http.Response, error) {
+func (r PlanAPIGetPlanBlockchainRequest) Execute() (*PlanPlanList, *http.Response, error) {
 	return r.ApiService.GetPlanBlockchainExecute(r)
 }
 
@@ -154,13 +162,13 @@ func (a *PlanAPIService) GetPlanBlockchain(ctx context.Context) PlanAPIGetPlanBl
 
 // Execute executes the request
 //
-//	@return PlanList
-func (a *PlanAPIService) GetPlanBlockchainExecute(r PlanAPIGetPlanBlockchainRequest) (*PlanList, *http.Response, error) {
+//	@return PlanPlanList
+func (a *PlanAPIService) GetPlanBlockchainExecute(r PlanAPIGetPlanBlockchainRequest) (*PlanPlanList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanList
+		localVarReturnValue *PlanPlanList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlanAPIService.GetPlanBlockchain")
@@ -184,7 +192,7 @@ func (a *PlanAPIService) GetPlanBlockchainExecute(r PlanAPIGetPlanBlockchainRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -213,6 +221,14 @@ func (a *PlanAPIService) GetPlanBlockchainExecute(r PlanAPIGetPlanBlockchainRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -233,7 +249,7 @@ type PlanAPIGetPlanDnsRequest struct {
 	ApiService *PlanAPIService
 }
 
-func (r PlanAPIGetPlanDnsRequest) Execute() (*PlanList, *http.Response, error) {
+func (r PlanAPIGetPlanDnsRequest) Execute() (*PlanPlanList, *http.Response, error) {
 	return r.ApiService.GetPlanDnsExecute(r)
 }
 
@@ -256,13 +272,13 @@ func (a *PlanAPIService) GetPlanDns(ctx context.Context) PlanAPIGetPlanDnsReques
 
 // Execute executes the request
 //
-//	@return PlanList
-func (a *PlanAPIService) GetPlanDnsExecute(r PlanAPIGetPlanDnsRequest) (*PlanList, *http.Response, error) {
+//	@return PlanPlanList
+func (a *PlanAPIService) GetPlanDnsExecute(r PlanAPIGetPlanDnsRequest) (*PlanPlanList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanList
+		localVarReturnValue *PlanPlanList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlanAPIService.GetPlanDns")
@@ -286,7 +302,7 @@ func (a *PlanAPIService) GetPlanDnsExecute(r PlanAPIGetPlanDnsRequest) (*PlanLis
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -315,6 +331,14 @@ func (a *PlanAPIService) GetPlanDnsExecute(r PlanAPIGetPlanDnsRequest) (*PlanLis
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -336,7 +360,7 @@ type PlanAPIGetPlanEntitlementsByIdRequest struct {
 	id         string
 }
 
-func (r PlanAPIGetPlanEntitlementsByIdRequest) Execute() (*PlanEntitlements, *http.Response, error) {
+func (r PlanAPIGetPlanEntitlementsByIdRequest) Execute() (*PlanPlanEntitlements, *http.Response, error) {
 	return r.ApiService.GetPlanEntitlementsByIdExecute(r)
 }
 
@@ -363,13 +387,13 @@ func (a *PlanAPIService) GetPlanEntitlementsById(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return PlanEntitlements
-func (a *PlanAPIService) GetPlanEntitlementsByIdExecute(r PlanAPIGetPlanEntitlementsByIdRequest) (*PlanEntitlements, *http.Response, error) {
+//	@return PlanPlanEntitlements
+func (a *PlanAPIService) GetPlanEntitlementsByIdExecute(r PlanAPIGetPlanEntitlementsByIdRequest) (*PlanPlanEntitlements, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanEntitlements
+		localVarReturnValue *PlanPlanEntitlements
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlanAPIService.GetPlanEntitlementsById")
@@ -394,7 +418,7 @@ func (a *PlanAPIService) GetPlanEntitlementsByIdExecute(r PlanAPIGetPlanEntitlem
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -423,6 +447,14 @@ func (a *PlanAPIService) GetPlanEntitlementsByIdExecute(r PlanAPIGetPlanEntitlem
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -443,7 +475,7 @@ type PlanAPIGetPlanGpuRequest struct {
 	ApiService *PlanAPIService
 }
 
-func (r PlanAPIGetPlanGpuRequest) Execute() (*PlanTierList, *http.Response, error) {
+func (r PlanAPIGetPlanGpuRequest) Execute() (*PlanPlanTierList, *http.Response, error) {
 	return r.ApiService.GetPlanGpuExecute(r)
 }
 
@@ -465,13 +497,13 @@ func (a *PlanAPIService) GetPlanGpu(ctx context.Context) PlanAPIGetPlanGpuReques
 
 // Execute executes the request
 //
-//	@return PlanTierList
-func (a *PlanAPIService) GetPlanGpuExecute(r PlanAPIGetPlanGpuRequest) (*PlanTierList, *http.Response, error) {
+//	@return PlanPlanTierList
+func (a *PlanAPIService) GetPlanGpuExecute(r PlanAPIGetPlanGpuRequest) (*PlanPlanTierList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanTierList
+		localVarReturnValue *PlanPlanTierList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlanAPIService.GetPlanGpu")
@@ -495,7 +527,7 @@ func (a *PlanAPIService) GetPlanGpuExecute(r PlanAPIGetPlanGpuRequest) (*PlanTie
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -524,6 +556,14 @@ func (a *PlanAPIService) GetPlanGpuExecute(r PlanAPIGetPlanGpuRequest) (*PlanTie
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -544,14 +584,14 @@ type PlanAPIGetPlanHealthRequest struct {
 	ApiService *PlanAPIService
 }
 
-func (r PlanAPIGetPlanHealthRequest) Execute() (*PlanHealth, *http.Response, error) {
+func (r PlanAPIGetPlanHealthRequest) Execute() (*PlanPlanHealth, *http.Response, error) {
 	return r.ApiService.GetPlanHealthExecute(r)
 }
 
 /*
-GetPlanHealth Health reports that the plans subsystem is mounted and serving.
+GetPlanHealth Reports that the plans subsystem is mounted and serving.
 
-Health reports that the plans subsystem is mounted and serving. It answers from
+Reports that the plans subsystem is mounted and serving. It answers from
 the process itself and consults neither the catalog bundle nor the goja host,
 so it stays "ok" while either is degraded.
 
@@ -567,13 +607,13 @@ func (a *PlanAPIService) GetPlanHealth(ctx context.Context) PlanAPIGetPlanHealth
 
 // Execute executes the request
 //
-//	@return PlanHealth
-func (a *PlanAPIService) GetPlanHealthExecute(r PlanAPIGetPlanHealthRequest) (*PlanHealth, *http.Response, error) {
+//	@return PlanPlanHealth
+func (a *PlanAPIService) GetPlanHealthExecute(r PlanAPIGetPlanHealthRequest) (*PlanPlanHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanHealth
+		localVarReturnValue *PlanPlanHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlanAPIService.GetPlanHealth")
@@ -597,7 +637,7 @@ func (a *PlanAPIService) GetPlanHealthExecute(r PlanAPIGetPlanHealthRequest) (*P
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -626,6 +666,14 @@ func (a *PlanAPIService) GetPlanHealthExecute(r PlanAPIGetPlanHealthRequest) (*P
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -699,7 +747,7 @@ func (a *PlanAPIService) GetPlanPolicyExecute(r PlanAPIGetPlanPolicyRequest) (ma
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -728,6 +776,14 @@ func (a *PlanAPIService) GetPlanPolicyExecute(r PlanAPIGetPlanPolicyRequest) (ma
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -748,7 +804,7 @@ type PlanAPIGetPlanRegionsRequest struct {
 	ApiService *PlanAPIService
 }
 
-func (r PlanAPIGetPlanRegionsRequest) Execute() (*PlanRegionList, *http.Response, error) {
+func (r PlanAPIGetPlanRegionsRequest) Execute() (*PlanPlanRegionList, *http.Response, error) {
 	return r.ApiService.GetPlanRegionsExecute(r)
 }
 
@@ -770,13 +826,13 @@ func (a *PlanAPIService) GetPlanRegions(ctx context.Context) PlanAPIGetPlanRegio
 
 // Execute executes the request
 //
-//	@return PlanRegionList
-func (a *PlanAPIService) GetPlanRegionsExecute(r PlanAPIGetPlanRegionsRequest) (*PlanRegionList, *http.Response, error) {
+//	@return PlanPlanRegionList
+func (a *PlanAPIService) GetPlanRegionsExecute(r PlanAPIGetPlanRegionsRequest) (*PlanPlanRegionList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanRegionList
+		localVarReturnValue *PlanPlanRegionList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlanAPIService.GetPlanRegions")
@@ -800,7 +856,7 @@ func (a *PlanAPIService) GetPlanRegionsExecute(r PlanAPIGetPlanRegionsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -829,6 +885,14 @@ func (a *PlanAPIService) GetPlanRegionsExecute(r PlanAPIGetPlanRegionsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -850,7 +914,7 @@ type PlanAPIGetPlanResolveByIdRequest struct {
 	id         string
 }
 
-func (r PlanAPIGetPlanResolveByIdRequest) Execute() (*PlanResolution, *http.Response, error) {
+func (r PlanAPIGetPlanResolveByIdRequest) Execute() (*PlanPlanResolution, *http.Response, error) {
 	return r.ApiService.GetPlanResolveByIdExecute(r)
 }
 
@@ -878,13 +942,13 @@ func (a *PlanAPIService) GetPlanResolveById(ctx context.Context, id string) Plan
 
 // Execute executes the request
 //
-//	@return PlanResolution
-func (a *PlanAPIService) GetPlanResolveByIdExecute(r PlanAPIGetPlanResolveByIdRequest) (*PlanResolution, *http.Response, error) {
+//	@return PlanPlanResolution
+func (a *PlanAPIService) GetPlanResolveByIdExecute(r PlanAPIGetPlanResolveByIdRequest) (*PlanPlanResolution, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanResolution
+		localVarReturnValue *PlanPlanResolution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlanAPIService.GetPlanResolveById")
@@ -909,7 +973,7 @@ func (a *PlanAPIService) GetPlanResolveByIdExecute(r PlanAPIGetPlanResolveByIdRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -938,6 +1002,14 @@ func (a *PlanAPIService) GetPlanResolveByIdExecute(r PlanAPIGetPlanResolveByIdRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -958,7 +1030,7 @@ type PlanAPIGetPlanSchemaRequest struct {
 	ApiService *PlanAPIService
 }
 
-func (r PlanAPIGetPlanSchemaRequest) Execute() (*PlanSchemas, *http.Response, error) {
+func (r PlanAPIGetPlanSchemaRequest) Execute() (*PlanPlanSchemas, *http.Response, error) {
 	return r.ApiService.GetPlanSchemaExecute(r)
 }
 
@@ -981,13 +1053,13 @@ func (a *PlanAPIService) GetPlanSchema(ctx context.Context) PlanAPIGetPlanSchema
 
 // Execute executes the request
 //
-//	@return PlanSchemas
-func (a *PlanAPIService) GetPlanSchemaExecute(r PlanAPIGetPlanSchemaRequest) (*PlanSchemas, *http.Response, error) {
+//	@return PlanPlanSchemas
+func (a *PlanAPIService) GetPlanSchemaExecute(r PlanAPIGetPlanSchemaRequest) (*PlanPlanSchemas, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanSchemas
+		localVarReturnValue *PlanPlanSchemas
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlanAPIService.GetPlanSchema")
@@ -1011,7 +1083,7 @@ func (a *PlanAPIService) GetPlanSchemaExecute(r PlanAPIGetPlanSchemaRequest) (*P
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1040,6 +1112,14 @@ func (a *PlanAPIService) GetPlanSchemaExecute(r PlanAPIGetPlanSchemaRequest) (*P
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1112,7 +1192,7 @@ func (a *PlanAPIService) GetPlanStorageExecute(r PlanAPIGetPlanStorageRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1141,6 +1221,14 @@ func (a *PlanAPIService) GetPlanStorageExecute(r PlanAPIGetPlanStorageRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1161,7 +1249,7 @@ type PlanAPIGetPlanSubscriptionsRequest struct {
 	ApiService *PlanAPIService
 }
 
-func (r PlanAPIGetPlanSubscriptionsRequest) Execute() (*PlanList, *http.Response, error) {
+func (r PlanAPIGetPlanSubscriptionsRequest) Execute() (*PlanPlanList, *http.Response, error) {
 	return r.ApiService.GetPlanSubscriptionsExecute(r)
 }
 
@@ -1184,13 +1272,13 @@ func (a *PlanAPIService) GetPlanSubscriptions(ctx context.Context) PlanAPIGetPla
 
 // Execute executes the request
 //
-//	@return PlanList
-func (a *PlanAPIService) GetPlanSubscriptionsExecute(r PlanAPIGetPlanSubscriptionsRequest) (*PlanList, *http.Response, error) {
+//	@return PlanPlanList
+func (a *PlanAPIService) GetPlanSubscriptionsExecute(r PlanAPIGetPlanSubscriptionsRequest) (*PlanPlanList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanList
+		localVarReturnValue *PlanPlanList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlanAPIService.GetPlanSubscriptions")
@@ -1214,7 +1302,7 @@ func (a *PlanAPIService) GetPlanSubscriptionsExecute(r PlanAPIGetPlanSubscriptio
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1243,6 +1331,14 @@ func (a *PlanAPIService) GetPlanSubscriptionsExecute(r PlanAPIGetPlanSubscriptio
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1263,7 +1359,7 @@ type PlanAPIGetPlanToolsRequest struct {
 	ApiService *PlanAPIService
 }
 
-func (r PlanAPIGetPlanToolsRequest) Execute() (*PlanToolList, *http.Response, error) {
+func (r PlanAPIGetPlanToolsRequest) Execute() (*PlanPlanToolList, *http.Response, error) {
 	return r.ApiService.GetPlanToolsExecute(r)
 }
 
@@ -1286,13 +1382,13 @@ func (a *PlanAPIService) GetPlanTools(ctx context.Context) PlanAPIGetPlanToolsRe
 
 // Execute executes the request
 //
-//	@return PlanToolList
-func (a *PlanAPIService) GetPlanToolsExecute(r PlanAPIGetPlanToolsRequest) (*PlanToolList, *http.Response, error) {
+//	@return PlanPlanToolList
+func (a *PlanAPIService) GetPlanToolsExecute(r PlanAPIGetPlanToolsRequest) (*PlanPlanToolList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanToolList
+		localVarReturnValue *PlanPlanToolList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlanAPIService.GetPlanTools")
@@ -1316,7 +1412,7 @@ func (a *PlanAPIService) GetPlanToolsExecute(r PlanAPIGetPlanToolsRequest) (*Pla
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1345,6 +1441,14 @@ func (a *PlanAPIService) GetPlanToolsExecute(r PlanAPIGetPlanToolsRequest) (*Pla
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1365,7 +1469,7 @@ type PlanAPIGetPlanVocabRequest struct {
 	ApiService *PlanAPIService
 }
 
-func (r PlanAPIGetPlanVocabRequest) Execute() (*PlanVocab, *http.Response, error) {
+func (r PlanAPIGetPlanVocabRequest) Execute() (*PlanPlanVocab, *http.Response, error) {
 	return r.ApiService.GetPlanVocabExecute(r)
 }
 
@@ -1389,13 +1493,13 @@ func (a *PlanAPIService) GetPlanVocab(ctx context.Context) PlanAPIGetPlanVocabRe
 
 // Execute executes the request
 //
-//	@return PlanVocab
-func (a *PlanAPIService) GetPlanVocabExecute(r PlanAPIGetPlanVocabRequest) (*PlanVocab, *http.Response, error) {
+//	@return PlanPlanVocab
+func (a *PlanAPIService) GetPlanVocabExecute(r PlanAPIGetPlanVocabRequest) (*PlanPlanVocab, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PlanVocab
+		localVarReturnValue *PlanPlanVocab
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlanAPIService.GetPlanVocab")
@@ -1419,7 +1523,7 @@ func (a *PlanAPIService) GetPlanVocabExecute(r PlanAPIGetPlanVocabRequest) (*Pla
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1448,6 +1552,14 @@ func (a *PlanAPIService) GetPlanVocabExecute(r PlanAPIGetPlanVocabRequest) (*Pla
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -41,8 +41,11 @@ type LicensingRelease struct {
 	// Version is the semantic version of the binary.
 	Version *string `json:"version,omitempty"`
 	// Yanked marks a pulled release (download refused; tokens may be revoked release-scoped too).
-	Yanked *bool `json:"yanked,omitempty"`
+	Yanked               *bool `json:"yanked,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicensingRelease LicensingRelease
 
 // NewLicensingRelease instantiates a new LicensingRelease object
 // This constructor will assign default values to properties that have it defined,
@@ -491,7 +494,44 @@ func (o LicensingRelease) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Yanked) {
 		toSerialize["yanked"] = o.Yanked
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicensingRelease) UnmarshalJSON(data []byte) (err error) {
+	varLicensingRelease := _LicensingRelease{}
+
+	err = json.Unmarshal(data, &varLicensingRelease)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicensingRelease(varLicensingRelease)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "app_id")
+		delete(additionalProperties, "artifact_ref")
+		delete(additionalProperties, "cosign_cert")
+		delete(additionalProperties, "cosign_signature")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "min_features")
+		delete(additionalProperties, "platform")
+		delete(additionalProperties, "product")
+		delete(additionalProperties, "sha256")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "yanked")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicensingRelease struct {

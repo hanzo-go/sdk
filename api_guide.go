@@ -27,7 +27,7 @@ type GuideAPIDeleteGuideCurriculumRequest struct {
 	ApiService *GuideAPIService
 }
 
-func (r GuideAPIDeleteGuideCurriculumRequest) Execute() (*CurriculumView, *http.Response, error) {
+func (r GuideAPIDeleteGuideCurriculumRequest) Execute() (*GuideCurriculumView, *http.Response, error) {
 	return r.ApiService.DeleteGuideCurriculumExecute(r)
 }
 
@@ -50,13 +50,13 @@ func (a *GuideAPIService) DeleteGuideCurriculum(ctx context.Context) GuideAPIDel
 
 // Execute executes the request
 //
-//	@return CurriculumView
-func (a *GuideAPIService) DeleteGuideCurriculumExecute(r GuideAPIDeleteGuideCurriculumRequest) (*CurriculumView, *http.Response, error) {
+//	@return GuideCurriculumView
+func (a *GuideAPIService) DeleteGuideCurriculumExecute(r GuideAPIDeleteGuideCurriculumRequest) (*GuideCurriculumView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CurriculumView
+		localVarReturnValue *GuideCurriculumView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.DeleteGuideCurriculum")
@@ -80,7 +80,7 @@ func (a *GuideAPIService) DeleteGuideCurriculumExecute(r GuideAPIDeleteGuideCurr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -109,6 +109,14 @@ func (a *GuideAPIService) DeleteGuideCurriculumExecute(r GuideAPIDeleteGuideCurr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -129,14 +137,14 @@ type GuideAPIGetGuideRequest struct {
 	ApiService *GuideAPIService
 }
 
-func (r GuideAPIGetGuideRequest) Execute() (*OverviewView, *http.Response, error) {
+func (r GuideAPIGetGuideRequest) Execute() (*GuideOverviewView, *http.Response, error) {
 	return r.ApiService.GetGuideExecute(r)
 }
 
 /*
-GetGuide Overview returns the caller org's launch journey: the active curriculum's version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org's analytics funnel folded in.
+GetGuide Returns the caller org's launch journey: the active curriculum's version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org's analytics funnel folded in.
 
-Overview returns the caller org's launch journey: the active curriculum's
+Returns the caller org's launch journey: the active curriculum's
 version and title, every step with its state, whether it is available, what
 blocks it and whether the Business AI can run it, the done/total/percent
 progress with the next step to take, and the org's analytics funnel folded in.
@@ -155,13 +163,13 @@ func (a *GuideAPIService) GetGuide(ctx context.Context) GuideAPIGetGuideRequest 
 
 // Execute executes the request
 //
-//	@return OverviewView
-func (a *GuideAPIService) GetGuideExecute(r GuideAPIGetGuideRequest) (*OverviewView, *http.Response, error) {
+//	@return GuideOverviewView
+func (a *GuideAPIService) GetGuideExecute(r GuideAPIGetGuideRequest) (*GuideOverviewView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *OverviewView
+		localVarReturnValue *GuideOverviewView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.GetGuide")
@@ -185,7 +193,7 @@ func (a *GuideAPIService) GetGuideExecute(r GuideAPIGetGuideRequest) (*OverviewV
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -214,6 +222,14 @@ func (a *GuideAPIService) GetGuideExecute(r GuideAPIGetGuideRequest) (*OverviewV
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -234,7 +250,7 @@ type GuideAPIGetGuideActionsRequest struct {
 	ApiService *GuideAPIService
 }
 
-func (r GuideAPIGetGuideActionsRequest) Execute() (*ActionsView, *http.Response, error) {
+func (r GuideAPIGetGuideActionsRequest) Execute() (*GuideActionsView, *http.Response, error) {
 	return r.ApiService.GetGuideActionsExecute(r)
 }
 
@@ -258,13 +274,13 @@ func (a *GuideAPIService) GetGuideActions(ctx context.Context) GuideAPIGetGuideA
 
 // Execute executes the request
 //
-//	@return ActionsView
-func (a *GuideAPIService) GetGuideActionsExecute(r GuideAPIGetGuideActionsRequest) (*ActionsView, *http.Response, error) {
+//	@return GuideActionsView
+func (a *GuideAPIService) GetGuideActionsExecute(r GuideAPIGetGuideActionsRequest) (*GuideActionsView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ActionsView
+		localVarReturnValue *GuideActionsView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.GetGuideActions")
@@ -288,7 +304,7 @@ func (a *GuideAPIService) GetGuideActionsExecute(r GuideAPIGetGuideActionsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -317,6 +333,14 @@ func (a *GuideAPIService) GetGuideActionsExecute(r GuideAPIGetGuideActionsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -337,14 +361,14 @@ type GuideAPIGetGuideAnalyticsRequest struct {
 	ApiService *GuideAPIService
 }
 
-func (r GuideAPIGetGuideAnalyticsRequest) Execute() (*AnalyticsView, *http.Response, error) {
+func (r GuideAPIGetGuideAnalyticsRequest) Execute() (*GuideAnalyticsView, *http.Response, error) {
 	return r.ApiService.GetGuideAnalyticsExecute(r)
 }
 
 /*
-GetGuideAnalytics Analytics returns the caller org's funnel from the analytics lens plus the GTM recommendations derived from it.
+GetGuideAnalytics Returns the caller org's funnel from the analytics lens plus the GTM recommendations derived from it.
 
-Analytics returns the caller org's funnel from the analytics lens plus the GTM
+Returns the caller org's funnel from the analytics lens plus the GTM
 recommendations derived from it. It is the Business AI's data-grounded read —
 what the funnel is doing, and the next-best action to move its weakest stage. An
 unreachable or silent warehouse answers available=false, never a fabricated
@@ -362,13 +386,13 @@ func (a *GuideAPIService) GetGuideAnalytics(ctx context.Context) GuideAPIGetGuid
 
 // Execute executes the request
 //
-//	@return AnalyticsView
-func (a *GuideAPIService) GetGuideAnalyticsExecute(r GuideAPIGetGuideAnalyticsRequest) (*AnalyticsView, *http.Response, error) {
+//	@return GuideAnalyticsView
+func (a *GuideAPIService) GetGuideAnalyticsExecute(r GuideAPIGetGuideAnalyticsRequest) (*GuideAnalyticsView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AnalyticsView
+		localVarReturnValue *GuideAnalyticsView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.GetGuideAnalytics")
@@ -392,7 +416,7 @@ func (a *GuideAPIService) GetGuideAnalyticsExecute(r GuideAPIGetGuideAnalyticsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -421,217 +445,14 @@ func (a *GuideAPIService) GetGuideAnalyticsExecute(r GuideAPIGetGuideAnalyticsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type GuideAPIGetGuideBlueprintRequest struct {
-	ctx        context.Context
-	ApiService *GuideAPIService
-}
-
-func (r GuideAPIGetGuideBlueprintRequest) Execute() (*BlueprintView, *http.Response, error) {
-	return r.ApiService.GetGuideBlueprintExecute(r)
-}
-
-/*
-GetGuideBlueprint Returns the FULL authored brand blueprint — every principle, section, step, strategy and template WITH its enabled flag made explicit, including the disabled items the org-facing reads never see — plus the active version number, the brand key it is stored under and the item counts.
-
-Returns the FULL authored brand blueprint — every principle,
-section, step, strategy and template WITH its enabled flag made explicit,
-including the disabled items the org-facing reads never see — plus the active
-version number, the brand key it is stored under and the item counts. It is the
-SuperAdmin authoring view of the platform blueprint, so it is refused 403 for
-anyone else, including a per-org admin: the brand blueprint is shared platform
-content, not a per-customer surface.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GuideAPIGetGuideBlueprintRequest
-*/
-func (a *GuideAPIService) GetGuideBlueprint(ctx context.Context) GuideAPIGetGuideBlueprintRequest {
-	return GuideAPIGetGuideBlueprintRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return BlueprintView
-func (a *GuideAPIService) GetGuideBlueprintExecute(r GuideAPIGetGuideBlueprintRequest) (*BlueprintView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BlueprintView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.GetGuideBlueprint")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/guide/blueprint"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type GuideAPIGetGuideBlueprintVersionsRequest struct {
-	ctx        context.Context
-	ApiService *GuideAPIService
-}
-
-func (r GuideAPIGetGuideBlueprintVersionsRequest) Execute() (*BlueprintVersionsView, *http.Response, error) {
-	return r.ApiService.GetGuideBlueprintVersionsExecute(r)
-}
-
-/*
-GetGuideBlueprintVersions Returns the brand blueprint's version history — every stored version's number and edit time, newest first — which is the point-in-time-recovery and audit trail behind the authoring plane.
-
-Returns the brand blueprint's version history — every
-stored version's number and edit time, newest first — which is the
-point-in-time-recovery and audit trail behind the authoring plane. Metadata
-only: the documents are not returned. SuperAdmin only, like the rest of this
-plane. The history is listable even when the current stored document no longer
-parses, so a schema-drifted row can still be diagnosed.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GuideAPIGetGuideBlueprintVersionsRequest
-*/
-func (a *GuideAPIService) GetGuideBlueprintVersions(ctx context.Context) GuideAPIGetGuideBlueprintVersionsRequest {
-	return GuideAPIGetGuideBlueprintVersionsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return BlueprintVersionsView
-func (a *GuideAPIService) GetGuideBlueprintVersionsExecute(r GuideAPIGetGuideBlueprintVersionsRequest) (*BlueprintVersionsView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BlueprintVersionsView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.GetGuideBlueprintVersions")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/guide/blueprint/versions"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -652,7 +473,7 @@ type GuideAPIGetGuideCurriculumRequest struct {
 	ApiService *GuideAPIService
 }
 
-func (r GuideAPIGetGuideCurriculumRequest) Execute() (*CurriculumView, *http.Response, error) {
+func (r GuideAPIGetGuideCurriculumRequest) Execute() (*GuideCurriculumView, *http.Response, error) {
 	return r.ApiService.GetGuideCurriculumExecute(r)
 }
 
@@ -675,13 +496,13 @@ func (a *GuideAPIService) GetGuideCurriculum(ctx context.Context) GuideAPIGetGui
 
 // Execute executes the request
 //
-//	@return CurriculumView
-func (a *GuideAPIService) GetGuideCurriculumExecute(r GuideAPIGetGuideCurriculumRequest) (*CurriculumView, *http.Response, error) {
+//	@return GuideCurriculumView
+func (a *GuideAPIService) GetGuideCurriculumExecute(r GuideAPIGetGuideCurriculumRequest) (*GuideCurriculumView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CurriculumView
+		localVarReturnValue *GuideCurriculumView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.GetGuideCurriculum")
@@ -705,7 +526,7 @@ func (a *GuideAPIService) GetGuideCurriculumExecute(r GuideAPIGetGuideCurriculum
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -734,6 +555,14 @@ func (a *GuideAPIService) GetGuideCurriculumExecute(r GuideAPIGetGuideCurriculum
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -754,14 +583,14 @@ type GuideAPIGetGuideProfileRequest struct {
 	ApiService *GuideAPIService
 }
 
-func (r GuideAPIGetGuideProfileRequest) Execute() (*ProfileResponse, *http.Response, error) {
+func (r GuideAPIGetGuideProfileRequest) Execute() (*GuideProfileResponse, *http.Response, error) {
 	return r.ApiService.GetGuideProfileExecute(r)
 }
 
 /*
-GetGuideProfile Profile returns the caller org's OBSERVED growth profile — the signal set, the classified growth stage, and the org's own key metrics.
+GetGuideProfile Returns the caller org's OBSERVED growth profile — the signal set, the classified growth stage, and the org's own key metrics.
 
-Profile returns the caller org's OBSERVED growth profile — the signal set, the
+Returns the caller org's OBSERVED growth profile — the signal set, the
 classified growth stage, and the org's own key metrics. It is a pure READ,
 recomputed from the org's CURRENT state each request (real-time by pull): it
 reuses the reconcile path (snapshotFor runs the detectors) for launch progress
@@ -782,13 +611,13 @@ func (a *GuideAPIService) GetGuideProfile(ctx context.Context) GuideAPIGetGuideP
 
 // Execute executes the request
 //
-//	@return ProfileResponse
-func (a *GuideAPIService) GetGuideProfileExecute(r GuideAPIGetGuideProfileRequest) (*ProfileResponse, *http.Response, error) {
+//	@return GuideProfileResponse
+func (a *GuideAPIService) GetGuideProfileExecute(r GuideAPIGetGuideProfileRequest) (*GuideProfileResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProfileResponse
+		localVarReturnValue *GuideProfileResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.GetGuideProfile")
@@ -812,7 +641,7 @@ func (a *GuideAPIService) GetGuideProfileExecute(r GuideAPIGetGuideProfileReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -841,6 +670,14 @@ func (a *GuideAPIService) GetGuideProfileExecute(r GuideAPIGetGuideProfileReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -882,14 +719,14 @@ func (r GuideAPIGetGuideStrategiesRequest) Workload(workload string) GuideAPIGet
 	return r
 }
 
-func (r GuideAPIGetGuideStrategiesRequest) Execute() (*CorpusView, *http.Response, error) {
+func (r GuideAPIGetGuideStrategiesRequest) Execute() (*GuideCorpusView, *http.Response, error) {
 	return r.ApiService.GetGuideStrategiesExecute(r)
 }
 
 /*
-GetGuideStrategies Strategies returns the ENABLED tactics corpus for the caller's org: the tactics library narrowed by the explicit category/workload filters AND by the org's OBSERVED growth stage and capability signals (a tactic's tags are preconditions, so it surfaces only once the org can act on it).
+GetGuideStrategies Returns the ENABLED tactics corpus for the caller's org: the tactics library narrowed by the explicit category/workload filters AND by the org's OBSERVED growth stage and capability signals (a tactic's tags are preconditions, so it surfaces only once the org can act on it).
 
-Strategies returns the ENABLED tactics corpus for the caller's org: the tactics
+Returns the ENABLED tactics corpus for the caller's org: the tactics
 library narrowed by the explicit category/workload filters AND by the org's
 OBSERVED growth stage and capability signals (a tactic's tags are
 preconditions, so it surfaces only once the org can act on it). Passing stage
@@ -909,13 +746,13 @@ func (a *GuideAPIService) GetGuideStrategies(ctx context.Context) GuideAPIGetGui
 
 // Execute executes the request
 //
-//	@return CorpusView
-func (a *GuideAPIService) GetGuideStrategiesExecute(r GuideAPIGetGuideStrategiesRequest) (*CorpusView, *http.Response, error) {
+//	@return GuideCorpusView
+func (a *GuideAPIService) GetGuideStrategiesExecute(r GuideAPIGetGuideStrategiesRequest) (*GuideCorpusView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CorpusView
+		localVarReturnValue *GuideCorpusView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.GetGuideStrategies")
@@ -948,7 +785,7 @@ func (a *GuideAPIService) GetGuideStrategiesExecute(r GuideAPIGetGuideStrategies
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -977,6 +814,14 @@ func (a *GuideAPIService) GetGuideStrategiesExecute(r GuideAPIGetGuideStrategies
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -997,14 +842,14 @@ type GuideAPIGetGuideSuggestRequest struct {
 	ApiService *GuideAPIService
 }
 
-func (r GuideAPIGetGuideSuggestRequest) Execute() (*SuggestResponse, *http.Response, error) {
+func (r GuideAPIGetGuideSuggestRequest) Execute() (*GuideSuggestResponse, *http.Response, error) {
 	return r.ApiService.GetGuideSuggestExecute(r)
 }
 
 /*
-GetGuideSuggest Suggest returns the caller org's next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org's funnel and the GTM recommendations derived from it.
+GetGuideSuggest Returns the caller org's next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org's funnel and the GTM recommendations derived from it.
 
-Suggest returns the caller org's next-best quests: the available, non-terminal
+Returns the caller org's next-best quests: the available, non-terminal
 steps of its journey ranked by how much downstream work each unblocks, each with
 the grounded reason it is a good next move and whether the Business AI can run
 it, plus the org's funnel and the GTM recommendations derived from it. A
@@ -1024,13 +869,13 @@ func (a *GuideAPIService) GetGuideSuggest(ctx context.Context) GuideAPIGetGuideS
 
 // Execute executes the request
 //
-//	@return SuggestResponse
-func (a *GuideAPIService) GetGuideSuggestExecute(r GuideAPIGetGuideSuggestRequest) (*SuggestResponse, *http.Response, error) {
+//	@return GuideSuggestResponse
+func (a *GuideAPIService) GetGuideSuggestExecute(r GuideAPIGetGuideSuggestRequest) (*GuideSuggestResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SuggestResponse
+		localVarReturnValue *GuideSuggestResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.GetGuideSuggest")
@@ -1054,7 +899,7 @@ func (a *GuideAPIService) GetGuideSuggestExecute(r GuideAPIGetGuideSuggestReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1083,6 +928,14 @@ func (a *GuideAPIService) GetGuideSuggestExecute(r GuideAPIGetGuideSuggestReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1098,127 +951,25 @@ func (a *GuideAPIService) GetGuideSuggestExecute(r GuideAPIGetGuideSuggestReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type GuideAPIPatchGuideBlueprintByCollectionByIdRequest struct {
-	ctx        context.Context
-	ApiService *GuideAPIService
-	collection string
-	id         string
-}
-
-func (r GuideAPIPatchGuideBlueprintByCollectionByIdRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PatchGuideBlueprintByCollectionByIdExecute(r)
-}
-
-/*
-PatchGuideBlueprintByCollectionById Edit — or retire — one item of the brand blueprint
-
-Edits a single item of the brand blueprint by id and saves it as a NEW VERSION, answering the whole blueprint after the edit. `collection` is one of `sections`, `steps`, `strategies` or `templates`; anything else is 400, and an id that collection does not hold is 404. This is also the retire lever: `{"enabled": false}` takes an item out of every org's journey without deleting it or its history.
-
-SuperAdmin ONLY, like the rest of the authoring plane; a per-org admin is 403. The write is audited.
-
-The patch is a SHALLOW merge over the item's own top-level keys — a key you send replaces that key whole, a key you omit is left alone — and `id` is dropped from the patch before it is applied, so an edit can never rekey an item. That is why the body has no declarable shape: its keys are the patched item's, not this route's.
-
-Fail-closed on the WHOLE document, not just the item: the blueprint is re-validated after the merge, so a patch that would dangle a dependency, break the step DAG or empty the journey is 422 and nothing is saved. An empty patch is 400 and one over 16 MiB is 413.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collection
-	@param id
-	@return GuideAPIPatchGuideBlueprintByCollectionByIdRequest
-*/
-func (a *GuideAPIService) PatchGuideBlueprintByCollectionById(ctx context.Context, collection string, id string) GuideAPIPatchGuideBlueprintByCollectionByIdRequest {
-	return GuideAPIPatchGuideBlueprintByCollectionByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		collection: collection,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *GuideAPIService) PatchGuideBlueprintByCollectionByIdExecute(r GuideAPIPatchGuideBlueprintByCollectionByIdRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPatch
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.PatchGuideBlueprintByCollectionById")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/guide/blueprint/{collection}/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", url.PathEscape(parameterValueToString(r.collection, "collection")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type GuideAPIPostGuideChatRequest struct {
-	ctx         context.Context
-	ApiService  *GuideAPIService
-	chatRequest *ChatRequest
+	ctx              context.Context
+	ApiService       *GuideAPIService
+	guideChatRequest *GuideChatRequest
 }
 
-func (r GuideAPIPostGuideChatRequest) ChatRequest(chatRequest ChatRequest) GuideAPIPostGuideChatRequest {
-	r.chatRequest = &chatRequest
+func (r GuideAPIPostGuideChatRequest) GuideChatRequest(guideChatRequest GuideChatRequest) GuideAPIPostGuideChatRequest {
+	r.guideChatRequest = &guideChatRequest
 	return r
 }
 
-func (r GuideAPIPostGuideChatRequest) Execute() (*ChatResponse, *http.Response, error) {
+func (r GuideAPIPostGuideChatRequest) Execute() (*GuideChatResponse, *http.Response, error) {
 	return r.ApiService.PostGuideChatExecute(r)
 }
 
 /*
-PostGuideChat Chat answers a founder's question about their launch journey as the Business AI coach: it grounds the reply in the org's REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
+PostGuideChat Answers a founder's question about their launch journey as the Business AI coach: it grounds the reply in the org's REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
 
-Chat answers a founder's question about their launch journey as the Business AI
+Answers a founder's question about their launch journey as the Business AI
 coach: it grounds the reply in the org's REAL progress, its ranked available
 quests and its analytics funnel, and returns those candidate quests alongside so
 the caller can act on one. READ-ONLY — it advises and never runs a step, so it
@@ -1238,13 +989,13 @@ func (a *GuideAPIService) PostGuideChat(ctx context.Context) GuideAPIPostGuideCh
 
 // Execute executes the request
 //
-//	@return ChatResponse
-func (a *GuideAPIService) PostGuideChatExecute(r GuideAPIPostGuideChatRequest) (*ChatResponse, *http.Response, error) {
+//	@return GuideChatResponse
+func (a *GuideAPIService) PostGuideChatExecute(r GuideAPIPostGuideChatRequest) (*GuideChatResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ChatResponse
+		localVarReturnValue *GuideChatResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.PostGuideChat")
@@ -1257,8 +1008,8 @@ func (a *GuideAPIService) PostGuideChatExecute(r GuideAPIPostGuideChatRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.chatRequest == nil {
-		return localVarReturnValue, nil, reportError("chatRequest is required and must be specified")
+	if r.guideChatRequest == nil {
+		return localVarReturnValue, nil, reportError("guideChatRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1271,7 +1022,7 @@ func (a *GuideAPIService) PostGuideChatExecute(r GuideAPIPostGuideChatRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1279,7 +1030,7 @@ func (a *GuideAPIService) PostGuideChatExecute(r GuideAPIPostGuideChatRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.chatRequest
+	localVarPostBody = r.guideChatRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1302,6 +1053,14 @@ func (a *GuideAPIService) PostGuideChatExecute(r GuideAPIPostGuideChatRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1334,7 +1093,7 @@ Executes one step of the caller org's journey through that principal's OWN tool 
 
 Ask for it live and the same actions arrive as Server-Sent Events instead, on either of two triggers — `Accept: text/event-stream` or `?stream=1`. The stream opens with a comment, emits one frame per action as it happens, and closes with an `end` frame carrying `ok` and the final state. The streamed run is detached and bounded at 120 seconds, so it finishes on its own clock once the response has begun.
 
-An agent that FAILS is not a failed request: the JSON answer still comes back 200 with `error` beside the events it did manage, and the stream still ends with `ok:false`. The refusals are the ones before the agent runs — 409 with `{error, step, blockedBy}` for a step whose dependencies are unfinished, 404 for an id the journey does not contain, 403 without a validated org.
+An agent that FAILS is not a failed request: the JSON answer still comes back 200 with `error` beside the events it did manage, and the stream still ends with `ok:false`. The refusals are the ones before the agent runs — 409 with `{error, step, blockedBy}` for a step whose dependencies are unfinished, 404 for an id the journey does not contain, 401 without a principal and 403 without an org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -1419,7 +1178,7 @@ type GuideAPIPostGuideStepsByIdDoneRequest struct {
 	id         string
 }
 
-func (r GuideAPIPostGuideStepsByIdDoneRequest) Execute() (*OverviewView, *http.Response, error) {
+func (r GuideAPIPostGuideStepsByIdDoneRequest) Execute() (*GuideOverviewView, *http.Response, error) {
 	return r.ApiService.PostGuideStepsByIdDoneExecute(r)
 }
 
@@ -1446,13 +1205,13 @@ func (a *GuideAPIService) PostGuideStepsByIdDone(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return OverviewView
-func (a *GuideAPIService) PostGuideStepsByIdDoneExecute(r GuideAPIPostGuideStepsByIdDoneRequest) (*OverviewView, *http.Response, error) {
+//	@return GuideOverviewView
+func (a *GuideAPIService) PostGuideStepsByIdDoneExecute(r GuideAPIPostGuideStepsByIdDoneRequest) (*GuideOverviewView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *OverviewView
+		localVarReturnValue *GuideOverviewView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.PostGuideStepsByIdDone")
@@ -1477,7 +1236,7 @@ func (a *GuideAPIService) PostGuideStepsByIdDoneExecute(r GuideAPIPostGuideSteps
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1506,6 +1265,14 @@ func (a *GuideAPIService) PostGuideStepsByIdDoneExecute(r GuideAPIPostGuideSteps
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1527,7 +1294,7 @@ type GuideAPIPostGuideStepsByIdResetRequest struct {
 	id         string
 }
 
-func (r GuideAPIPostGuideStepsByIdResetRequest) Execute() (*OverviewView, *http.Response, error) {
+func (r GuideAPIPostGuideStepsByIdResetRequest) Execute() (*GuideOverviewView, *http.Response, error) {
 	return r.ApiService.PostGuideStepsByIdResetExecute(r)
 }
 
@@ -1553,13 +1320,13 @@ func (a *GuideAPIService) PostGuideStepsByIdReset(ctx context.Context, id string
 
 // Execute executes the request
 //
-//	@return OverviewView
-func (a *GuideAPIService) PostGuideStepsByIdResetExecute(r GuideAPIPostGuideStepsByIdResetRequest) (*OverviewView, *http.Response, error) {
+//	@return GuideOverviewView
+func (a *GuideAPIService) PostGuideStepsByIdResetExecute(r GuideAPIPostGuideStepsByIdResetRequest) (*GuideOverviewView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *OverviewView
+		localVarReturnValue *GuideOverviewView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.PostGuideStepsByIdReset")
@@ -1584,7 +1351,7 @@ func (a *GuideAPIService) PostGuideStepsByIdResetExecute(r GuideAPIPostGuideStep
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1613,6 +1380,14 @@ func (a *GuideAPIService) PostGuideStepsByIdResetExecute(r GuideAPIPostGuideStep
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1634,7 +1409,7 @@ type GuideAPIPostGuideStepsByIdSkipRequest struct {
 	id         string
 }
 
-func (r GuideAPIPostGuideStepsByIdSkipRequest) Execute() (*OverviewView, *http.Response, error) {
+func (r GuideAPIPostGuideStepsByIdSkipRequest) Execute() (*GuideOverviewView, *http.Response, error) {
 	return r.ApiService.PostGuideStepsByIdSkipExecute(r)
 }
 
@@ -1661,13 +1436,13 @@ func (a *GuideAPIService) PostGuideStepsByIdSkip(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return OverviewView
-func (a *GuideAPIService) PostGuideStepsByIdSkipExecute(r GuideAPIPostGuideStepsByIdSkipRequest) (*OverviewView, *http.Response, error) {
+//	@return GuideOverviewView
+func (a *GuideAPIService) PostGuideStepsByIdSkipExecute(r GuideAPIPostGuideStepsByIdSkipRequest) (*GuideOverviewView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *OverviewView
+		localVarReturnValue *GuideOverviewView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.PostGuideStepsByIdSkip")
@@ -1692,7 +1467,7 @@ func (a *GuideAPIService) PostGuideStepsByIdSkipExecute(r GuideAPIPostGuideSteps
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1721,6 +1496,14 @@ func (a *GuideAPIService) PostGuideStepsByIdSkipExecute(r GuideAPIPostGuideSteps
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1742,7 +1525,7 @@ type GuideAPIPostGuideStepsByIdStartRequest struct {
 	id         string
 }
 
-func (r GuideAPIPostGuideStepsByIdStartRequest) Execute() (*OverviewView, *http.Response, error) {
+func (r GuideAPIPostGuideStepsByIdStartRequest) Execute() (*GuideOverviewView, *http.Response, error) {
 	return r.ApiService.PostGuideStepsByIdStartExecute(r)
 }
 
@@ -1770,13 +1553,13 @@ func (a *GuideAPIService) PostGuideStepsByIdStart(ctx context.Context, id string
 
 // Execute executes the request
 //
-//	@return OverviewView
-func (a *GuideAPIService) PostGuideStepsByIdStartExecute(r GuideAPIPostGuideStepsByIdStartRequest) (*OverviewView, *http.Response, error) {
+//	@return GuideOverviewView
+func (a *GuideAPIService) PostGuideStepsByIdStartExecute(r GuideAPIPostGuideStepsByIdStartRequest) (*GuideOverviewView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *OverviewView
+		localVarReturnValue *GuideOverviewView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.PostGuideStepsByIdStart")
@@ -1801,7 +1584,7 @@ func (a *GuideAPIService) PostGuideStepsByIdStartExecute(r GuideAPIPostGuideStep
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1830,6 +1613,14 @@ func (a *GuideAPIService) PostGuideStepsByIdStartExecute(r GuideAPIPostGuideStep
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1843,100 +1634,6 @@ func (a *GuideAPIService) PostGuideStepsByIdStartExecute(r GuideAPIPostGuideStep
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type GuideAPIPutGuideBlueprintRequest struct {
-	ctx        context.Context
-	ApiService *GuideAPIService
-}
-
-func (r GuideAPIPutGuideBlueprintRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PutGuideBlueprintExecute(r)
-}
-
-/*
-PutGuideBlueprint Publish a new version of the brand blueprint
-
-Replaces the deployment's brand blueprint — the shared journey, sections, strategies and templates every org starts from — as a NEW VERSION, and answers the stored document with its key and version number. The previous versions are kept, so /blueprint/versions is a real recovery trail.
-
-SuperAdmin ONLY. A per-org admin is 403: this is platform content, not a per-customer surface — the per-customer surface is /v1/guide/curriculum. The write is audited.
-
-The body is a blueprint document accepted as YAML **or** JSON, which is the caller-visible reason it takes a raw body. It must parse AND validate — unique ids throughout, an acyclic step graph with no dangling dependencies, every step's section and every strategy's principle resolving to a real one — or it is 422 and never becomes active, leaving the version already serving authoritative. An empty body is 400 and one over 16 MiB is 413.
-
-Edits are live: the next resolve reads the newest version. A stored document that is itself corrupt or schema-drifted does not block this write — the target is resolved without parsing what is there — so a bad version can always be published over.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return GuideAPIPutGuideBlueprintRequest
-*/
-func (a *GuideAPIService) PutGuideBlueprint(ctx context.Context) GuideAPIPutGuideBlueprintRequest {
-	return GuideAPIPutGuideBlueprintRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *GuideAPIService) PutGuideBlueprintExecute(r GuideAPIPutGuideBlueprintRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPut
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GuideAPIService.PutGuideBlueprint")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/guide/blueprint"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
 }
 
 type GuideAPIPutGuideCurriculumRequest struct {
@@ -1953,7 +1650,7 @@ PutGuideCurriculum Replace your org's journey with a curriculum you author
 
 Sets the caller org's OWN curriculum — the per-customer override — and answers the journey now in force with `custom: true`. The body is a curriculum document, and it is accepted as YAML **or** JSON: that is the caller-visible reason this takes a raw body rather than a declared shape. Whatever the syntax, the CANONICAL parsed form is what is stored, so the document the engine runs never depends on how it was written.
 
-Fail-closed: a body that does not parse, or parses but is not a valid journey (unique step ids, no dangling or cyclic dependencies), is 422 and NEVER becomes active — the org keeps the journey it had. Requires a validated org; 403 without one. An empty body is 400 and one over 256 KiB is 413.
+Fail-closed: a body that does not parse, or parses but is not a valid journey (unique step ids, no dangling or cyclic dependencies), is 422 and NEVER becomes active — the org keeps the journey it had. Requires a validated org: 401 without a principal, 403 without an org. An empty body is 400 and one over 256 KiB is 413.
 
 This is tier one only. It overrides nothing but this org's own journey; the shared brand blueprint is a different surface with a different gate. DELETE the same path to drop the override and fall back to it.
 

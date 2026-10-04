@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yMessage{}
 // O11yO11yMessage struct for O11yO11yMessage
 type O11yO11yMessage struct {
 	// Data is the acknowledgment message.
-	Data *string `json:"data,omitempty"`
+	Data                 *string `json:"data,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMessage O11yO11yMessage
 
 // NewO11yO11yMessage instantiates a new O11yO11yMessage object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yMessage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMessage) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMessage := _O11yO11yMessage{}
+
+	err = json.Unmarshal(data, &varO11yO11yMessage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMessage(varO11yO11yMessage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMessage struct {

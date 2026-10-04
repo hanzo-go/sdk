@@ -1,0 +1,118 @@
+# PlanPlanEntitlements
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Entitlements** | Pointer to **interface{}** |  | [optional] 
+**Id** | Pointer to **string** | ID is the plan id or slug that was resolved, as it was requested. | [optional] 
+**LicenseFeatures** | Pointer to **[]string** | LicenseFeatures is the flat, sorted feature list a signed license carries, derived from the entitlements. | [optional] 
+
+## Methods
+
+### NewPlanPlanEntitlements
+
+`func NewPlanPlanEntitlements() *PlanPlanEntitlements`
+
+NewPlanPlanEntitlements instantiates a new PlanPlanEntitlements object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewPlanPlanEntitlementsWithDefaults
+
+`func NewPlanPlanEntitlementsWithDefaults() *PlanPlanEntitlements`
+
+NewPlanPlanEntitlementsWithDefaults instantiates a new PlanPlanEntitlements object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetEntitlements
+
+`func (o *PlanPlanEntitlements) GetEntitlements() interface{}`
+
+GetEntitlements returns the Entitlements field if non-nil, zero value otherwise.
+
+### GetEntitlementsOk
+
+`func (o *PlanPlanEntitlements) GetEntitlementsOk() (*interface{}, bool)`
+
+GetEntitlementsOk returns a tuple with the Entitlements field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEntitlements
+
+`func (o *PlanPlanEntitlements) SetEntitlements(v interface{})`
+
+SetEntitlements sets Entitlements field to given value.
+
+### HasEntitlements
+
+`func (o *PlanPlanEntitlements) HasEntitlements() bool`
+
+HasEntitlements returns a boolean if a field has been set.
+
+### SetEntitlementsNil
+
+`func (o *PlanPlanEntitlements) SetEntitlementsNil(b bool)`
+
+ SetEntitlementsNil sets the value for Entitlements to be an explicit nil
+
+### UnsetEntitlements
+`func (o *PlanPlanEntitlements) UnsetEntitlements()`
+
+UnsetEntitlements ensures that no value is present for Entitlements, not even an explicit nil
+### GetId
+
+`func (o *PlanPlanEntitlements) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *PlanPlanEntitlements) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *PlanPlanEntitlements) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *PlanPlanEntitlements) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetLicenseFeatures
+
+`func (o *PlanPlanEntitlements) GetLicenseFeatures() []string`
+
+GetLicenseFeatures returns the LicenseFeatures field if non-nil, zero value otherwise.
+
+### GetLicenseFeaturesOk
+
+`func (o *PlanPlanEntitlements) GetLicenseFeaturesOk() (*[]string, bool)`
+
+GetLicenseFeaturesOk returns a tuple with the LicenseFeatures field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLicenseFeatures
+
+`func (o *PlanPlanEntitlements) SetLicenseFeatures(v []string)`
+
+SetLicenseFeatures sets LicenseFeatures field to given value.
+
+### HasLicenseFeatures
+
+`func (o *PlanPlanEntitlements) HasLicenseFeatures() bool`
+
+HasLicenseFeatures returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

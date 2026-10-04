@@ -19,10 +19,13 @@ var _ MappedNullable = &ExampleQuestion{}
 
 // ExampleQuestion struct for ExampleQuestion
 type ExampleQuestion struct {
-	Image *string `json:"image,omitempty"`
-	Text  *string `json:"text,omitempty"`
-	Title *string `json:"title,omitempty"`
+	Image                *string `json:"image,omitempty"`
+	Text                 *string `json:"text,omitempty"`
+	Title                *string `json:"title,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ExampleQuestion ExampleQuestion
 
 // NewExampleQuestion instantiates a new ExampleQuestion object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o ExampleQuestion) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ExampleQuestion) UnmarshalJSON(data []byte) (err error) {
+	varExampleQuestion := _ExampleQuestion{}
+
+	err = json.Unmarshal(data, &varExampleQuestion)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExampleQuestion(varExampleQuestion)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "title")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableExampleQuestion struct {

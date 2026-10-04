@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **time.Time** | CreatedAt is when the project was created. | [optional] 
-**Dsn** | Pointer to **string** | DSN is the project&#39;s freshly-derived ingest DSN. | [optional] 
 **Id** | Pointer to **string** | ID is the project id. | [optional] 
 **Name** | Pointer to **string** | Name is the project&#39;s display name. | [optional] 
 **Platform** | Pointer to **string** | Platform is the reporting runtime, e.g. go, python, javascript. | [optional] 
@@ -56,31 +55,6 @@ SetCreatedAt sets CreatedAt field to given value.
 `func (o *O11yO11ySentryProject) HasCreatedAt() bool`
 
 HasCreatedAt returns a boolean if a field has been set.
-
-### GetDsn
-
-`func (o *O11yO11ySentryProject) GetDsn() string`
-
-GetDsn returns the Dsn field if non-nil, zero value otherwise.
-
-### GetDsnOk
-
-`func (o *O11yO11ySentryProject) GetDsnOk() (*string, bool)`
-
-GetDsnOk returns a tuple with the Dsn field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDsn
-
-`func (o *O11yO11ySentryProject) SetDsn(v string)`
-
-SetDsn sets Dsn field to given value.
-
-### HasDsn
-
-`func (o *O11yO11ySentryProject) HasDsn() bool`
-
-HasDsn returns a boolean if a field has been set.
 
 ### GetId
 

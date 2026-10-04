@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yNodeCountsByReadiness{}
 
 // O11yNodeCountsByReadiness struct for O11yNodeCountsByReadiness
 type O11yNodeCountsByReadiness struct {
-	NotReady *int64 `json:"notReady,omitempty"`
-	Ready    *int64 `json:"ready,omitempty"`
+	NotReady             *int64 `json:"notReady,omitempty"`
+	Ready                *int64 `json:"ready,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yNodeCountsByReadiness O11yNodeCountsByReadiness
 
 // NewO11yNodeCountsByReadiness instantiates a new O11yNodeCountsByReadiness object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yNodeCountsByReadiness) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Ready) {
 		toSerialize["ready"] = o.Ready
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yNodeCountsByReadiness) UnmarshalJSON(data []byte) (err error) {
+	varO11yNodeCountsByReadiness := _O11yNodeCountsByReadiness{}
+
+	err = json.Unmarshal(data, &varO11yNodeCountsByReadiness)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yNodeCountsByReadiness(varO11yNodeCountsByReadiness)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "notReady")
+		delete(additionalProperties, "ready")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yNodeCountsByReadiness struct {

@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yLabel{}
 
 // O11yLabel struct for O11yLabel
 type O11yLabel struct {
-	Key   *O11yTelemetryFieldKey `json:"key,omitempty"`
-	Value map[string]interface{} `json:"value,omitempty"`
+	Key                  *O11yTelemetryFieldKey `json:"key,omitempty"`
+	Value                interface{}            `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yLabel O11yLabel
 
 // NewO11yLabel instantiates a new O11yLabel object
 // This constructor will assign default values to properties that have it defined,
@@ -72,10 +75,10 @@ func (o *O11yLabel) SetKey(v O11yTelemetryFieldKey) {
 	o.Key = &v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *O11yLabel) GetValue() map[string]interface{} {
-	if o == nil || IsNil(o.Value) {
-		var ret map[string]interface{}
+// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *O11yLabel) GetValue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Value
@@ -83,11 +86,12 @@ func (o *O11yLabel) GetValue() map[string]interface{} {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yLabel) GetValueOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *O11yLabel) GetValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Value) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
@@ -99,8 +103,8 @@ func (o *O11yLabel) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
-func (o *O11yLabel) SetValue(v map[string]interface{}) {
+// SetValue gets a reference to the given interface{} and assigns it to the Value field.
+func (o *O11yLabel) SetValue(v interface{}) {
 	o.Value = v
 }
 
@@ -117,10 +121,37 @@ func (o O11yLabel) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
-	if !IsNil(o.Value) {
+	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yLabel) UnmarshalJSON(data []byte) (err error) {
+	varO11yLabel := _O11yLabel{}
+
+	err = json.Unmarshal(data, &varO11yLabel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yLabel(varO11yLabel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yLabel struct {

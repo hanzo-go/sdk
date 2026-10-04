@@ -4,7 +4,9 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AiMCPTools**](AiAPI.md#AiMCPTools) | **Get** /v1/ai/mcp/tools | Tools reports what THIS PROCESS&#39;s MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+[**AiLimits**](AiAPI.md#AiLimits) | **Get** /v1/ai/limits | Reads the caller&#39;s plan usage: for each class of model the plan includes, the share used of the billing period and of its short window, who pays for the next request, and whether the caller is in limited mode and why; the share used of the session and the day; and the ways on.
+[**AiMCPTools**](AiAPI.md#AiMCPTools) | **Get** /v1/ai/mcp/tools | Reports what THIS PROCESS&#39;s MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+[**AiSetLimits**](AiAPI.md#AiSetLimits) | **Put** /v1/ai/limits | Sets the payer&#39;s choice to keep using a model on credits once the plan&#39;s included usage of it is spent.
 [**DeleteAiArticlesByOwnerByName**](AiAPI.md#DeleteAiArticlesByOwnerByName) | **Delete** /v1/ai/articles/{owner}/{name} | Delete a article
 [**DeleteAiAssetsByOwnerByName**](AiAPI.md#DeleteAiAssetsByOwnerByName) | **Delete** /v1/ai/assets/{owner}/{name} | Delete a asset
 [**DeleteAiChatsByOwnerByName**](AiAPI.md#DeleteAiChatsByOwnerByName) | **Delete** /v1/ai/chats/{owner}/{name} | Delete a chat
@@ -39,6 +41,9 @@ Method | HTTP request | Description
 [**DeleteAiVectorsByOwnerByName**](AiAPI.md#DeleteAiVectorsByOwnerByName) | **Delete** /v1/ai/vectors/{owner}/{name} | Delete a vector
 [**DeleteAiVideosByOwnerByName**](AiAPI.md#DeleteAiVideosByOwnerByName) | **Delete** /v1/ai/videos/{owner}/{name} | Delete a video
 [**DeleteAiWorkflowsByOwnerByName**](AiAPI.md#DeleteAiWorkflowsByOwnerByName) | **Delete** /v1/ai/workflows/{owner}/{name} | Delete a workflow
+[**DeleteAudioTranscriptById**](AiAPI.md#DeleteAudioTranscriptById) | **Delete** /v1/audio/transcript/{id} | Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+[**Get3dById**](AiAPI.md#Get3dById) | **Get** /v1/3d/{id} | Implements GET /v1/3d/:id (Retrieve 3D status).
+[**Get3dByIdContent**](AiAPI.md#Get3dByIdContent) | **Get** /v1/3d/{id}/content | Implements GET /v1/3d/:id/content (Download 3D splat/glb content).
 [**GetAiAccount**](AiAPI.md#GetAiAccount) | **Get** /v1/ai/account | Account
 [**GetAiActivities**](AiAPI.md#GetAiActivities) | **Get** /v1/ai/activities | List activities
 [**GetAiAnswer**](AiAPI.md#GetAiAnswer) | **Get** /v1/ai/answer | Answer
@@ -100,6 +105,7 @@ Method | HTTP request | Description
 [**GetAiRemoteConnections**](AiAPI.md#GetAiRemoteConnections) | **Get** /v1/ai/remote-connections | List remote-connections
 [**GetAiRemoteConnectionsByOwnerByName**](AiAPI.md#GetAiRemoteConnectionsByOwnerByName) | **Get** /v1/ai/remote-connections/{owner}/{name} | Retrieve a connection
 [**GetAiRouterArtifactMeta**](AiAPI.md#GetAiRouterArtifactMeta) | **Get** /v1/ai/router/artifact-meta | The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+[**GetAiRouterCatalog**](AiAPI.md#GetAiRouterCatalog) | **Get** /v1/ai/router/catalog | Lists the Zen and Enso routing catalogs: what each serves, its accounts and model health, and its version history.
 [**GetAiRouterData**](AiAPI.md#GetAiRouterData) | **Get** /v1/ai/router/data | Router Data
 [**GetAiRouterDefaults**](AiAPI.md#GetAiRouterDefaults) | **Get** /v1/ai/router/defaults | The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
 [**GetAiRouterHistory**](AiAPI.md#GetAiRouterHistory) | **Get** /v1/ai/router/history | Returns the router-improvement time-series.
@@ -184,6 +190,7 @@ Method | HTTP request | Description
 [**PatchAiVectorsByOwnerByName**](AiAPI.md#PatchAiVectorsByOwnerByName) | **Patch** /v1/ai/vectors/{owner}/{name} | Update a vector
 [**PatchAiVideosByOwnerByName**](AiAPI.md#PatchAiVideosByOwnerByName) | **Patch** /v1/ai/videos/{owner}/{name} | Update a video
 [**PatchAiWorkflowsByOwnerByName**](AiAPI.md#PatchAiWorkflowsByOwnerByName) | **Patch** /v1/ai/workflows/{owner}/{name} | Update a workflow
+[**Post3dGenerations**](AiAPI.md#Post3dGenerations) | **Post** /v1/3d/generations | Implements POST /v1/3d/generations (Text/Image to 3D &amp; Gaussian Splats).
 [**PostAiArticles**](AiAPI.md#PostAiArticles) | **Post** /v1/ai/articles | Create a article
 [**PostAiAssets**](AiAPI.md#PostAiAssets) | **Post** /v1/ai/assets | Create a asset
 [**PostAiAssetsByOwnerByNameScan**](AiAPI.md#PostAiAssetsByOwnerByNameScan) | **Post** /v1/ai/assets/{owner}/{name}/scan | Scan (asset)
@@ -227,6 +234,9 @@ Method | HTTP request | Description
 [**PostAiRemoteConnectionsByOwnerByNameStart**](AiAPI.md#PostAiRemoteConnectionsByOwnerByNameStart) | **Post** /v1/ai/remote-connections/{owner}/{name}/start | Start (connection)
 [**PostAiRemoteConnectionsByOwnerByNameStop**](AiAPI.md#PostAiRemoteConnectionsByOwnerByNameStop) | **Post** /v1/ai/remote-connections/{owner}/{name}/stop | Stop (connection)
 [**PostAiRouterArtifactMeta**](AiAPI.md#PostAiRouterArtifactMeta) | **Post** /v1/ai/router/artifact-meta | The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+[**PostAiRouterCatalogPropose**](AiAPI.md#PostAiRouterCatalogPropose) | **Post** /v1/ai/router/catalog/propose | Answers the diff an edited catalog would apply to a family, and the version it would be made from.
+[**PostAiRouterCatalogRollback**](AiAPI.md#PostAiRouterCatalogRollback) | **Post** /v1/ai/router/catalog/rollback | Applies an earlier version of a family&#39;s catalog again, as a new version.
+[**PostAiRouterCatalogTest**](AiAPI.md#PostAiRouterCatalogTest) | **Post** /v1/ai/router/catalog/test | Sends one short turn to a SKU through its family and answers which upstream wrote it and how long it took.
 [**PostAiRouterDefaults**](AiAPI.md#PostAiRouterDefaults) | **Post** /v1/ai/router/defaults | The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
 [**PostAiRouterLedger**](AiAPI.md#PostAiRouterLedger) | **Post** /v1/ai/router/ledger | The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
 [**PostAiRouterPolicy**](AiAPI.md#PostAiRouterPolicy) | **Post** /v1/ai/router/policy | The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -251,12 +261,16 @@ Method | HTTP request | Description
 [**PostAudioFoley**](AiAPI.md#PostAudioFoley) | **Post** /v1/audio/foley | Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
 [**PostAudioMusic**](AiAPI.md#PostAudioMusic) | **Post** /v1/audio/music | Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
 [**PostAudioSpeech**](AiAPI.md#PostAudioSpeech) | **Post** /v1/audio/speech | The OpenAI-compatible TTS endpoint (POST /v1/audio/speech).
+[**PostAudioTranscript**](AiAPI.md#PostAudioTranscript) | **Post** /v1/audio/transcript | Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+[**PostAudioTranscriptById**](AiAPI.md#PostAudioTranscriptById) | **Post** /v1/audio/transcript/{id} | Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
 [**PostAudioTranscriptions**](AiAPI.md#PostAudioTranscriptions) | **Post** /v1/audio/transcriptions | The OpenAI-compatible STT endpoint (POST /v1/audio/transcriptions, multipart: file + model [+ language + response_format]).
+[**PostAudioTranscriptionsPublic**](AiAPI.md#PostAudioTranscriptionsPublic) | **Post** /v1/audio/transcriptions/public | Transcribes up to a minute of audio for a caller with no account, on Hanzo&#39;s own transcriber, within a daily allowance per visitor.
 [**PostAudioVoice**](AiAPI.md#PostAudioVoice) | **Post** /v1/audio/voice | Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
 [**PostChat**](AiAPI.md#PostChat) | **Post** /v1/chat | Implements the OpenAI-compatible chat completions API
 [**PostChatCompletions**](AiAPI.md#PostChatCompletions) | **Post** /v1/chat/completions | Implements the OpenAI-compatible chat completions API
 [**PostChatPublic**](AiAPI.md#PostChatPublic) | **Post** /v1/chat/public | Serves one completion to a caller with no account.
 [**PostCompletions**](AiAPI.md#PostCompletions) | **Post** /v1/completions | Implements the OpenAI-compatible chat completions API
+[**PostDecisions**](AiAPI.md#PostDecisions) | **Post** /v1/decisions | Implements POST /v1/decisions (the Decisions API).
 [**PostEmbeddings**](AiAPI.md#PostEmbeddings) | **Post** /v1/embeddings | Implements POST /v1/embeddings (OpenAI-compatible).
 [**PostImagesGenerations**](AiAPI.md#PostImagesGenerations) | **Post** /v1/images/generations | Implements POST /v1/images/generations (OpenAI-compatible).
 [**PostMessages**](AiAPI.md#PostMessages) | **Post** /v1/messages | Implements the Anthropic Messages API.
@@ -281,6 +295,7 @@ Method | HTTP request | Description
 [**PutAiRecordsByOwnerByName**](AiAPI.md#PutAiRecordsByOwnerByName) | **Put** /v1/ai/records/{owner}/{name} | Replace a record
 [**PutAiRemoteConnectionsByOwnerByName**](AiAPI.md#PutAiRemoteConnectionsByOwnerByName) | **Put** /v1/ai/remote-connections/{owner}/{name} | Replace a connection
 [**PutAiRouterArtifactMeta**](AiAPI.md#PutAiRouterArtifactMeta) | **Put** /v1/ai/router/artifact-meta | The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
+[**PutAiRouterCatalog**](AiAPI.md#PutAiRouterCatalog) | **Put** /v1/ai/router/catalog | Applies an edited catalog to one family, made from its newest version, and records the new version.
 [**PutAiRouterDefaults**](AiAPI.md#PutAiRouterDefaults) | **Put** /v1/ai/router/defaults | The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
 [**PutAiRouterLedger**](AiAPI.md#PutAiRouterLedger) | **Put** /v1/ai/router/ledger | The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
 [**PutAiRouterPolicy**](AiAPI.md#PutAiRouterPolicy) | **Put** /v1/ai/router/policy | The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -300,11 +315,72 @@ Method | HTTP request | Description
 
 
 
+## AiLimits
+
+> AiLimits AiLimits(ctx).Execute()
+
+Reads the caller's plan usage: for each class of model the plan includes, the share used of the billing period and of its short window, who pays for the next request, and whether the caller is in limited mode and why; the share used of the session and the day; and the ways on.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.AiLimits(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.AiLimits``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AiLimits`: AiLimits
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.AiLimits`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAiLimitsRequest struct via the builder pattern
+
+
+### Return type
+
+[**AiLimits**](AiLimits.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## AiMCPTools
 
 > AiMCPSurface AiMCPTools(ctx).Names(names).Execute()
 
-Tools reports what THIS PROCESS's MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+Reports what THIS PROCESS's MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
 
 
 
@@ -359,7 +435,73 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AiSetLimits
+
+> AiLimits AiSetLimits(ctx).AiLimitsSet(aiLimitsSet).Execute()
+
+Sets the payer's choice to keep using a model on credits once the plan's included usage of it is spent.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	aiLimitsSet := *openapiclient.NewAiLimitsSet() // AiLimitsSet | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.AiSetLimits(context.Background()).AiLimitsSet(aiLimitsSet).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.AiSetLimits``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AiSetLimits`: AiLimits
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.AiSetLimits`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAiSetLimitsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aiLimitsSet** | [**AiLimitsSet**](AiLimitsSet.md) |  | 
+
+### Return type
+
+[**AiLimits**](AiLimits.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2713,6 +2855,210 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteAudioTranscriptById
+
+> DeleteAudioTranscriptById(ctx, id).Execute()
+
+Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AiAPI.DeleteAudioTranscriptById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.DeleteAudioTranscriptById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteAudioTranscriptByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## Get3dById
+
+> Get3dById(ctx, id).Execute()
+
+Implements GET /v1/3d/:id (Retrieve 3D status).
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AiAPI.Get3dById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.Get3dById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGet3dByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## Get3dByIdContent
+
+> Get3dByIdContent(ctx, id).Execute()
+
+Implements GET /v1/3d/:id/content (Download 3D splat/glb content).
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AiAPI.Get3dByIdContent(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.Get3dByIdContent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGet3dByIdContentRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6609,6 +6955,67 @@ Other parameters are passed through a pointer to a apiGetAiRouterArtifactMetaReq
 [[Back to README]](../README.md)
 
 
+## GetAiRouterCatalog
+
+> GetAiRouterCatalog200Response GetAiRouterCatalog(ctx).Execute()
+
+Lists the Zen and Enso routing catalogs: what each serves, its accounts and model health, and its version history.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.GetAiRouterCatalog(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.GetAiRouterCatalog``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAiRouterCatalog`: GetAiRouterCatalog200Response
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.GetAiRouterCatalog`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAiRouterCatalogRequest struct via the builder pattern
+
+
+### Return type
+
+[**GetAiRouterCatalog200Response**](GetAiRouterCatalog200Response.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetAiRouterData
 
 > Envelope GetAiRouterData(ctx).Execute()
@@ -9904,7 +10311,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiArticlesByOwnerByName
 
-> PostAiArticles200Response PatchAiArticlesByOwnerByName(ctx, owner, name).Execute()
+> PostAiArticles200Response PatchAiArticlesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a article
 
@@ -9925,10 +10332,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiArticlesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiArticlesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiArticlesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -9956,6 +10364,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -9967,7 +10376,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -9977,7 +10386,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiAssetsByOwnerByName
 
-> PostAiAssets200Response PatchAiAssetsByOwnerByName(ctx, owner, name).Execute()
+> PostAiAssets200Response PatchAiAssetsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a asset
 
@@ -9998,10 +10407,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiAssetsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiAssetsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiAssetsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10029,6 +10439,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -10040,7 +10451,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -10050,7 +10461,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiChatsByOwnerByName
 
-> PostAiChats200Response PatchAiChatsByOwnerByName(ctx, owner, name).Execute()
+> PostAiChats200Response PatchAiChatsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a chat
 
@@ -10071,10 +10482,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiChatsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiChatsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiChatsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10102,6 +10514,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -10113,7 +10526,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -10123,7 +10536,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiDeploymentsByOwnerByName
 
-> PostAiDeployments200Response PatchAiDeploymentsByOwnerByName(ctx, owner, name).Execute()
+> PostAiDeployments200Response PatchAiDeploymentsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a application
 
@@ -10144,10 +10557,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiDeploymentsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiDeploymentsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiDeploymentsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10175,6 +10589,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -10186,7 +10601,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -10196,7 +10611,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiFilesByOwnerByName
 
-> PostAiFiles200Response PatchAiFilesByOwnerByName(ctx, owner, name).Execute()
+> PostAiFiles200Response PatchAiFilesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a file
 
@@ -10217,10 +10632,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiFilesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiFilesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiFilesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10248,6 +10664,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -10259,7 +10676,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -10269,7 +10686,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiFormsByOwnerByName
 
-> PostAiForms200Response PatchAiFormsByOwnerByName(ctx, owner, name).Execute()
+> PostAiForms200Response PatchAiFormsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a form
 
@@ -10290,10 +10707,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiFormsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiFormsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiFormsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10321,6 +10739,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -10332,7 +10751,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -10342,7 +10761,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiGraphsByOwnerByName
 
-> PostAiGraphs200Response PatchAiGraphsByOwnerByName(ctx, owner, name).Execute()
+> PostAiGraphs200Response PatchAiGraphsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a graph
 
@@ -10363,10 +10782,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiGraphsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiGraphsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiGraphsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10394,6 +10814,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -10405,7 +10826,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -10415,7 +10836,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiMessagesByOwnerByName
 
-> PostAiMessages200Response PatchAiMessagesByOwnerByName(ctx, owner, name).Execute()
+> PostAiMessages200Response PatchAiMessagesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a message
 
@@ -10436,10 +10857,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiMessagesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiMessagesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiMessagesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10467,6 +10889,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -10478,7 +10901,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -10488,7 +10911,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiNodesByOwnerByName
 
-> PostAiNodes200Response PatchAiNodesByOwnerByName(ctx, owner, name).Execute()
+> PostAiNodes200Response PatchAiNodesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a node
 
@@ -10509,10 +10932,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiNodesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiNodesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiNodesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10540,6 +10964,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -10551,7 +10976,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -10683,7 +11108,7 @@ Other parameters are passed through a pointer to a apiPatchAiOrgSettingsListRequ
 
 ## PatchAiPreferences
 
-> Envelope PatchAiPreferences(ctx).Execute()
+> Envelope PatchAiPreferences(ctx).Body(body).Execute()
 
 Preferences
 
@@ -10700,10 +11125,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiPreferences(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiPreferences(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiPreferences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10715,12 +11141,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPatchAiPreferencesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -10732,7 +11162,7 @@ Other parameters are passed through a pointer to a apiPatchAiPreferencesRequest 
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -10742,7 +11172,7 @@ Other parameters are passed through a pointer to a apiPatchAiPreferencesRequest 
 
 ## PatchAiProvidersByOwnerByName
 
-> PostAiProviders200Response PatchAiProvidersByOwnerByName(ctx, owner, name).Execute()
+> PostAiProviders200Response PatchAiProvidersByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a provider
 
@@ -10763,10 +11193,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiProvidersByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiProvidersByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiProvidersByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10794,6 +11225,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -10805,7 +11237,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -10815,7 +11247,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiRecordsByOwnerByName
 
-> PostAiRecords200Response PatchAiRecordsByOwnerByName(ctx, owner, name).Execute()
+> PostAiRecords200Response PatchAiRecordsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a record
 
@@ -10836,10 +11268,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiRecordsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiRecordsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiRecordsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10867,6 +11300,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -10878,7 +11312,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -10888,7 +11322,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiRemoteConnectionsByOwnerByName
 
-> PostAiRemoteConnections200Response PatchAiRemoteConnectionsByOwnerByName(ctx, owner, name).Execute()
+> PostAiRemoteConnections200Response PatchAiRemoteConnectionsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a connection
 
@@ -10909,10 +11343,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiRemoteConnectionsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiRemoteConnectionsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiRemoteConnectionsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -10940,6 +11375,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -10951,7 +11387,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -11266,7 +11702,7 @@ Other parameters are passed through a pointer to a apiPatchAiRouterRewardsReques
 
 ## PatchAiRoutesByOwnerByName
 
-> PostAiRoutes200Response PatchAiRoutesByOwnerByName(ctx, owner, name).Execute()
+> PostAiRoutes200Response PatchAiRoutesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a model-route
 
@@ -11287,10 +11723,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiRoutesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiRoutesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiRoutesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -11318,6 +11755,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -11329,7 +11767,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -11339,7 +11777,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiScalesByOwnerByName
 
-> PostAiScales200Response PatchAiScalesByOwnerByName(ctx, owner, name).Execute()
+> PostAiScales200Response PatchAiScalesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a scale
 
@@ -11360,10 +11798,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiScalesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiScalesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiScalesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -11391,6 +11830,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -11402,7 +11842,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -11412,7 +11852,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiScansByOwnerByName
 
-> PostAiScans200Response PatchAiScansByOwnerByName(ctx, owner, name).Execute()
+> PostAiScans200Response PatchAiScansByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a scan
 
@@ -11433,10 +11873,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiScansByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiScansByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiScansByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -11464,6 +11905,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -11475,7 +11917,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -11485,7 +11927,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiSigninSessionsByOwnerByName
 
-> PostAiSigninSessions200Response PatchAiSigninSessionsByOwnerByName(ctx, owner, name).Execute()
+> PostAiSigninSessions200Response PatchAiSigninSessionsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a session
 
@@ -11506,10 +11948,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiSigninSessionsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiSigninSessionsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiSigninSessionsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -11537,6 +11980,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -11548,7 +11992,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -11558,7 +12002,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiStoresByOwnerByName
 
-> PostAiStores200Response PatchAiStoresByOwnerByName(ctx, owner, name).Execute()
+> PostAiStores200Response PatchAiStoresByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a store
 
@@ -11579,10 +12023,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiStoresByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiStoresByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiStoresByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -11610,6 +12055,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -11621,7 +12067,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -11631,7 +12077,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiTasksByOwnerByName
 
-> PostAiTasks200Response PatchAiTasksByOwnerByName(ctx, owner, name).Execute()
+> PostAiTasks200Response PatchAiTasksByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a task
 
@@ -11652,10 +12098,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiTasksByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiTasksByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiTasksByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -11683,6 +12130,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -11694,7 +12142,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -11704,7 +12152,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiTemplatesByOwnerByName
 
-> PostAiTemplates200Response PatchAiTemplatesByOwnerByName(ctx, owner, name).Execute()
+> PostAiTemplates200Response PatchAiTemplatesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a template
 
@@ -11725,10 +12173,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiTemplatesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiTemplatesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiTemplatesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -11756,6 +12205,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -11767,7 +12217,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -11777,7 +12227,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiTrainingContribution
 
-> Envelope PatchAiTrainingContribution(ctx).Execute()
+> Envelope PatchAiTrainingContribution(ctx).Body(body).Execute()
 
 Training Contribution
 
@@ -11794,10 +12244,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiTrainingContribution(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiTrainingContribution(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiTrainingContribution``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -11809,12 +12260,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPatchAiTrainingContributionRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -11826,7 +12281,7 @@ Other parameters are passed through a pointer to a apiPatchAiTrainingContributio
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -11836,7 +12291,7 @@ Other parameters are passed through a pointer to a apiPatchAiTrainingContributio
 
 ## PatchAiTreeFilesByOwnerByName
 
-> PostAiTreeFiles200Response PatchAiTreeFilesByOwnerByName(ctx, owner, name).Execute()
+> PostAiTreeFiles200Response PatchAiTreeFilesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a tree-file
 
@@ -11857,10 +12312,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiTreeFilesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiTreeFilesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiTreeFilesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -11888,6 +12344,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -11899,7 +12356,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -11909,7 +12366,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiVectorsByOwnerByName
 
-> PostAiVectors200Response PatchAiVectorsByOwnerByName(ctx, owner, name).Execute()
+> PostAiVectors200Response PatchAiVectorsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a vector
 
@@ -11930,10 +12387,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiVectorsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiVectorsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiVectorsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -11961,6 +12419,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -11972,7 +12431,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -11982,7 +12441,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiVideosByOwnerByName
 
-> PostAiVideos200Response PatchAiVideosByOwnerByName(ctx, owner, name).Execute()
+> PostAiVideos200Response PatchAiVideosByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a video
 
@@ -12003,10 +12462,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiVideosByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiVideosByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiVideosByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -12034,6 +12494,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -12045,7 +12506,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -12055,7 +12516,7 @@ Name | Type | Description  | Notes
 
 ## PatchAiWorkflowsByOwnerByName
 
-> PostAiWorkflows200Response PatchAiWorkflowsByOwnerByName(ctx, owner, name).Execute()
+> PostAiWorkflows200Response PatchAiWorkflowsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Update a workflow
 
@@ -12076,10 +12537,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PatchAiWorkflowsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PatchAiWorkflowsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PatchAiWorkflowsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -12107,6 +12569,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -12118,8 +12581,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## Post3dGenerations
+
+> Post3dGenerations(ctx).Execute()
+
+Implements POST /v1/3d/generations (Text/Image to 3D & Gaussian Splats).
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AiAPI.Post3dGenerations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.Post3dGenerations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPost3dGenerationsRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -12128,7 +12650,7 @@ Name | Type | Description  | Notes
 
 ## PostAiArticles
 
-> PostAiArticles200Response PostAiArticles(ctx).Execute()
+> PostAiArticles200Response PostAiArticles(ctx).Body(body).Execute()
 
 Create a article
 
@@ -12147,10 +12669,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiArticles(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiArticles(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiArticles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -12162,12 +12685,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiArticlesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -12179,7 +12706,7 @@ Other parameters are passed through a pointer to a apiPostAiArticlesRequest stru
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -12189,7 +12716,7 @@ Other parameters are passed through a pointer to a apiPostAiArticlesRequest stru
 
 ## PostAiAssets
 
-> PostAiAssets200Response PostAiAssets(ctx).Execute()
+> PostAiAssets200Response PostAiAssets(ctx).Body(body).Execute()
 
 Create a asset
 
@@ -12208,10 +12735,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiAssets(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiAssets(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiAssets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -12223,12 +12751,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiAssetsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -12240,7 +12772,7 @@ Other parameters are passed through a pointer to a apiPostAiAssetsRequest struct
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -12250,7 +12782,7 @@ Other parameters are passed through a pointer to a apiPostAiAssetsRequest struct
 
 ## PostAiAssetsByOwnerByNameScan
 
-> Envelope PostAiAssetsByOwnerByNameScan(ctx, owner, name).Execute()
+> Envelope PostAiAssetsByOwnerByNameScan(ctx, owner, name).Body(body).Execute()
 
 Scan (asset)
 
@@ -12269,10 +12801,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiAssetsByOwnerByNameScan(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiAssetsByOwnerByNameScan(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiAssetsByOwnerByNameScan``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -12300,6 +12833,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -12311,7 +12845,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -12321,7 +12855,7 @@ Name | Type | Description  | Notes
 
 ## PostAiAssetsScan
 
-> Envelope PostAiAssetsScan(ctx).Execute()
+> Envelope PostAiAssetsScan(ctx).Body(body).Execute()
 
 Scan (asset)
 
@@ -12338,10 +12872,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiAssetsScan(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiAssetsScan(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiAssetsScan``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -12353,12 +12888,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiAssetsScanRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -12370,7 +12909,7 @@ Other parameters are passed through a pointer to a apiPostAiAssetsScanRequest st
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -12380,7 +12919,7 @@ Other parameters are passed through a pointer to a apiPostAiAssetsScanRequest st
 
 ## PostAiChats
 
-> PostAiChats200Response PostAiChats(ctx).Execute()
+> PostAiChats200Response PostAiChats(ctx).Body(body).Execute()
 
 Create a chat
 
@@ -12399,10 +12938,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiChats(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiChats(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiChats``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -12414,12 +12954,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiChatsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -12431,7 +12975,7 @@ Other parameters are passed through a pointer to a apiPostAiChatsRequest struct 
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -12572,7 +13116,7 @@ Name | Type | Description  | Notes
 
 ## PostAiDeployments
 
-> PostAiDeployments200Response PostAiDeployments(ctx).Execute()
+> PostAiDeployments200Response PostAiDeployments(ctx).Body(body).Execute()
 
 Create a application
 
@@ -12591,10 +13135,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiDeployments(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiDeployments(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiDeployments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -12606,12 +13151,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiDeploymentsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -12623,7 +13172,7 @@ Other parameters are passed through a pointer to a apiPostAiDeploymentsRequest s
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -12633,7 +13182,7 @@ Other parameters are passed through a pointer to a apiPostAiDeploymentsRequest s
 
 ## PostAiDeploymentsByOwnerByNameDeploy
 
-> Envelope PostAiDeploymentsByOwnerByNameDeploy(ctx, owner, name).Execute()
+> Envelope PostAiDeploymentsByOwnerByNameDeploy(ctx, owner, name).Body(body).Execute()
 
 Deploy (application)
 
@@ -12652,10 +13201,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiDeploymentsByOwnerByNameDeploy(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiDeploymentsByOwnerByNameDeploy(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiDeploymentsByOwnerByNameDeploy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -12683,6 +13233,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -12694,7 +13245,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -12704,7 +13255,7 @@ Name | Type | Description  | Notes
 
 ## PostAiDeploymentsByOwnerByNameUndeploy
 
-> Envelope PostAiDeploymentsByOwnerByNameUndeploy(ctx, owner, name).Execute()
+> Envelope PostAiDeploymentsByOwnerByNameUndeploy(ctx, owner, name).Body(body).Execute()
 
 Undeploy (application)
 
@@ -12723,10 +13274,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiDeploymentsByOwnerByNameUndeploy(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiDeploymentsByOwnerByNameUndeploy(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiDeploymentsByOwnerByNameUndeploy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -12754,6 +13306,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -12765,7 +13318,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -12836,7 +13389,7 @@ Other parameters are passed through a pointer to a apiPostAiFeedbackRequest stru
 
 ## PostAiFiles
 
-> PostAiFiles200Response PostAiFiles(ctx).Execute()
+> PostAiFiles200Response PostAiFiles(ctx).Body(body).Execute()
 
 Create a file
 
@@ -12855,10 +13408,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiFiles(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiFiles(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiFiles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -12870,12 +13424,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiFilesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -12887,7 +13445,7 @@ Other parameters are passed through a pointer to a apiPostAiFilesRequest struct 
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -12897,7 +13455,7 @@ Other parameters are passed through a pointer to a apiPostAiFilesRequest struct 
 
 ## PostAiFilesActivate
 
-> Envelope PostAiFilesActivate(ctx).Execute()
+> Envelope PostAiFilesActivate(ctx).Body(body).Execute()
 
 Activate (file)
 
@@ -12914,10 +13472,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiFilesActivate(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiFilesActivate(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiFilesActivate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -12929,12 +13488,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiFilesActivateRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -12946,7 +13509,7 @@ Other parameters are passed through a pointer to a apiPostAiFilesActivateRequest
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -12956,7 +13519,7 @@ Other parameters are passed through a pointer to a apiPostAiFilesActivateRequest
 
 ## PostAiFilesByOwnerByNameVectors
 
-> Envelope PostAiFilesByOwnerByNameVectors(ctx, owner, name).Execute()
+> Envelope PostAiFilesByOwnerByNameVectors(ctx, owner, name).Body(body).Execute()
 
 Vectors (file)
 
@@ -12975,10 +13538,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiFilesByOwnerByNameVectors(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiFilesByOwnerByNameVectors(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiFilesByOwnerByNameVectors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -13006,6 +13570,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -13017,7 +13582,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -13027,7 +13592,7 @@ Name | Type | Description  | Notes
 
 ## PostAiFilesUpload
 
-> Envelope PostAiFilesUpload(ctx).Execute()
+> Envelope PostAiFilesUpload(ctx).Body(body).Execute()
 
 Upload (file)
 
@@ -13044,10 +13609,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiFilesUpload(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiFilesUpload(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiFilesUpload``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -13059,12 +13625,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiFilesUploadRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -13076,7 +13646,7 @@ Other parameters are passed through a pointer to a apiPostAiFilesUploadRequest s
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -13269,7 +13839,7 @@ Other parameters are passed through a pointer to a apiPostAiFinetuneJobsRequest 
 
 ## PostAiForms
 
-> PostAiForms200Response PostAiForms(ctx).Execute()
+> PostAiForms200Response PostAiForms(ctx).Body(body).Execute()
 
 Create a form
 
@@ -13288,10 +13858,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiForms(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiForms(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiForms``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -13303,12 +13874,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiFormsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -13320,7 +13895,7 @@ Other parameters are passed through a pointer to a apiPostAiFormsRequest struct 
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -13330,7 +13905,7 @@ Other parameters are passed through a pointer to a apiPostAiFormsRequest struct 
 
 ## PostAiGraphs
 
-> PostAiGraphs200Response PostAiGraphs(ctx).Execute()
+> PostAiGraphs200Response PostAiGraphs(ctx).Body(body).Execute()
 
 Create a graph
 
@@ -13349,10 +13924,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiGraphs(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiGraphs(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiGraphs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -13364,12 +13940,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiGraphsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -13381,7 +13961,7 @@ Other parameters are passed through a pointer to a apiPostAiGraphsRequest struct
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -13574,7 +14154,7 @@ Other parameters are passed through a pointer to a apiPostAiMemoryUpdateRequest 
 
 ## PostAiMessages
 
-> PostAiMessages200Response PostAiMessages(ctx).Execute()
+> PostAiMessages200Response PostAiMessages(ctx).Body(body).Execute()
 
 Create a message
 
@@ -13593,10 +14173,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiMessages(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiMessages(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiMessages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -13608,12 +14189,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiMessagesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -13625,7 +14210,7 @@ Other parameters are passed through a pointer to a apiPostAiMessagesRequest stru
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -13635,7 +14220,7 @@ Other parameters are passed through a pointer to a apiPostAiMessagesRequest stru
 
 ## PostAiNodes
 
-> PostAiNodes200Response PostAiNodes(ctx).Execute()
+> PostAiNodes200Response PostAiNodes(ctx).Body(body).Execute()
 
 Create a node
 
@@ -13654,10 +14239,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiNodes(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiNodes(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiNodes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -13669,12 +14255,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiNodesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -13686,7 +14276,7 @@ Other parameters are passed through a pointer to a apiPostAiNodesRequest struct 
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -13696,7 +14286,7 @@ Other parameters are passed through a pointer to a apiPostAiNodesRequest struct 
 
 ## PostAiNodesByOwnerByNameTunnel
 
-> Envelope PostAiNodesByOwnerByNameTunnel(ctx, owner, name).Execute()
+> Envelope PostAiNodesByOwnerByNameTunnel(ctx, owner, name).Body(body).Execute()
 
 Tunnel (node)
 
@@ -13715,10 +14305,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiNodesByOwnerByNameTunnel(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiNodesByOwnerByNameTunnel(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiNodesByOwnerByNameTunnel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -13746,6 +14337,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -13757,7 +14349,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -13889,7 +14481,7 @@ Other parameters are passed through a pointer to a apiPostAiOrgSettingsListReque
 
 ## PostAiProviders
 
-> PostAiProviders200Response PostAiProviders(ctx).Execute()
+> PostAiProviders200Response PostAiProviders(ctx).Body(body).Execute()
 
 Create a provider
 
@@ -13908,10 +14500,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiProviders(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiProviders(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiProviders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -13923,12 +14516,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiProvidersRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -13940,7 +14537,7 @@ Other parameters are passed through a pointer to a apiPostAiProvidersRequest str
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -13950,7 +14547,7 @@ Other parameters are passed through a pointer to a apiPostAiProvidersRequest str
 
 ## PostAiProvidersMcpTools
 
-> Envelope PostAiProvidersMcpTools(ctx).Execute()
+> Envelope PostAiProvidersMcpTools(ctx).Body(body).Execute()
 
 Mcp Tools (provider)
 
@@ -13967,10 +14564,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiProvidersMcpTools(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiProvidersMcpTools(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiProvidersMcpTools``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -13982,12 +14580,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiProvidersMcpToolsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -13999,7 +14601,7 @@ Other parameters are passed through a pointer to a apiPostAiProvidersMcpToolsReq
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -14314,7 +14916,7 @@ Other parameters are passed through a pointer to a apiPostAiRagQueryMultipleRequ
 
 ## PostAiRecords
 
-> PostAiRecords200Response PostAiRecords(ctx).Execute()
+> PostAiRecords200Response PostAiRecords(ctx).Body(body).Execute()
 
 Create a record
 
@@ -14333,10 +14935,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiRecords(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiRecords(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiRecords``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -14348,12 +14951,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiRecordsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -14365,7 +14972,7 @@ Other parameters are passed through a pointer to a apiPostAiRecordsRequest struc
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -14375,7 +14982,7 @@ Other parameters are passed through a pointer to a apiPostAiRecordsRequest struc
 
 ## PostAiRecordsBatch
 
-> Envelope PostAiRecordsBatch(ctx).Execute()
+> Envelope PostAiRecordsBatch(ctx).Body(body).Execute()
 
 Batch (record)
 
@@ -14392,10 +14999,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiRecordsBatch(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiRecordsBatch(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiRecordsBatch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -14407,12 +15015,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiRecordsBatchRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -14424,7 +15036,7 @@ Other parameters are passed through a pointer to a apiPostAiRecordsBatchRequest 
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -14434,7 +15046,7 @@ Other parameters are passed through a pointer to a apiPostAiRecordsBatchRequest 
 
 ## PostAiRecordsCommit
 
-> Envelope PostAiRecordsCommit(ctx).Execute()
+> Envelope PostAiRecordsCommit(ctx).Body(body).Execute()
 
 Commit (record)
 
@@ -14451,10 +15063,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiRecordsCommit(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiRecordsCommit(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiRecordsCommit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -14466,12 +15079,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiRecordsCommitRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -14483,7 +15100,7 @@ Other parameters are passed through a pointer to a apiPostAiRecordsCommitRequest
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -14493,7 +15110,7 @@ Other parameters are passed through a pointer to a apiPostAiRecordsCommitRequest
 
 ## PostAiRecordsCommitSecond
 
-> Envelope PostAiRecordsCommitSecond(ctx).Execute()
+> Envelope PostAiRecordsCommitSecond(ctx).Body(body).Execute()
 
 Commit Second (record)
 
@@ -14510,10 +15127,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiRecordsCommitSecond(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiRecordsCommitSecond(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiRecordsCommitSecond``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -14525,12 +15143,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiRecordsCommitSecondRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -14542,7 +15164,7 @@ Other parameters are passed through a pointer to a apiPostAiRecordsCommitSecondR
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -14552,7 +15174,7 @@ Other parameters are passed through a pointer to a apiPostAiRecordsCommitSecondR
 
 ## PostAiRemoteConnections
 
-> PostAiRemoteConnections200Response PostAiRemoteConnections(ctx).Execute()
+> PostAiRemoteConnections200Response PostAiRemoteConnections(ctx).Body(body).Execute()
 
 Create a connection
 
@@ -14571,10 +15193,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiRemoteConnections(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiRemoteConnections(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiRemoteConnections``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -14586,12 +15209,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiRemoteConnectionsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -14603,7 +15230,7 @@ Other parameters are passed through a pointer to a apiPostAiRemoteConnectionsReq
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -14613,7 +15240,7 @@ Other parameters are passed through a pointer to a apiPostAiRemoteConnectionsReq
 
 ## PostAiRemoteConnectionsByOwnerByNameStart
 
-> Envelope PostAiRemoteConnectionsByOwnerByNameStart(ctx, owner, name).Execute()
+> Envelope PostAiRemoteConnectionsByOwnerByNameStart(ctx, owner, name).Body(body).Execute()
 
 Start (connection)
 
@@ -14632,10 +15259,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiRemoteConnectionsByOwnerByNameStart(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiRemoteConnectionsByOwnerByNameStart(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiRemoteConnectionsByOwnerByNameStart``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -14663,6 +15291,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -14674,7 +15303,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -14684,7 +15313,7 @@ Name | Type | Description  | Notes
 
 ## PostAiRemoteConnectionsByOwnerByNameStop
 
-> Envelope PostAiRemoteConnectionsByOwnerByNameStop(ctx, owner, name).Execute()
+> Envelope PostAiRemoteConnectionsByOwnerByNameStop(ctx, owner, name).Body(body).Execute()
 
 Stop (connection)
 
@@ -14703,10 +15332,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiRemoteConnectionsByOwnerByNameStop(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiRemoteConnectionsByOwnerByNameStop(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiRemoteConnectionsByOwnerByNameStop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -14734,6 +15364,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -14745,7 +15376,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -14807,6 +15438,204 @@ Other parameters are passed through a pointer to a apiPostAiRouterArtifactMetaRe
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAiRouterCatalogPropose
+
+> PostAiRouterCatalogPropose200Response PostAiRouterCatalogPropose(ctx).AiRoutingEdit(aiRoutingEdit).Execute()
+
+Answers the diff an edited catalog would apply to a family, and the version it would be made from.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	aiRoutingEdit := *openapiclient.NewAiRoutingEdit() // AiRoutingEdit | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.PostAiRouterCatalogPropose(context.Background()).AiRoutingEdit(aiRoutingEdit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiRouterCatalogPropose``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAiRouterCatalogPropose`: PostAiRouterCatalogPropose200Response
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.PostAiRouterCatalogPropose`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAiRouterCatalogProposeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aiRoutingEdit** | [**AiRoutingEdit**](AiRoutingEdit.md) |  | 
+
+### Return type
+
+[**PostAiRouterCatalogPropose200Response**](PostAiRouterCatalogPropose200Response.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAiRouterCatalogRollback
+
+> PutAiRouterCatalog200Response PostAiRouterCatalogRollback(ctx).AiRoutingEdit(aiRoutingEdit).Execute()
+
+Applies an earlier version of a family's catalog again, as a new version.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	aiRoutingEdit := *openapiclient.NewAiRoutingEdit() // AiRoutingEdit | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.PostAiRouterCatalogRollback(context.Background()).AiRoutingEdit(aiRoutingEdit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiRouterCatalogRollback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAiRouterCatalogRollback`: PutAiRouterCatalog200Response
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.PostAiRouterCatalogRollback`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAiRouterCatalogRollbackRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aiRoutingEdit** | [**AiRoutingEdit**](AiRoutingEdit.md) |  | 
+
+### Return type
+
+[**PutAiRouterCatalog200Response**](PutAiRouterCatalog200Response.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAiRouterCatalogTest
+
+> PostAiRouterCatalogTest200Response PostAiRouterCatalogTest(ctx).AiRoutingEdit(aiRoutingEdit).Execute()
+
+Sends one short turn to a SKU through its family and answers which upstream wrote it and how long it took.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	aiRoutingEdit := *openapiclient.NewAiRoutingEdit() // AiRoutingEdit | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.PostAiRouterCatalogTest(context.Background()).AiRoutingEdit(aiRoutingEdit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiRouterCatalogTest``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAiRouterCatalogTest`: PostAiRouterCatalogTest200Response
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.PostAiRouterCatalogTest`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAiRouterCatalogTestRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aiRoutingEdit** | [**AiRoutingEdit**](AiRoutingEdit.md) |  | 
+
+### Return type
+
+[**PostAiRouterCatalogTest200Response**](PostAiRouterCatalogTest200Response.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15060,7 +15889,7 @@ Other parameters are passed through a pointer to a apiPostAiRouterRewardsRequest
 
 ## PostAiRoutes
 
-> PostAiRoutes200Response PostAiRoutes(ctx).Execute()
+> PostAiRoutes200Response PostAiRoutes(ctx).Body(body).Execute()
 
 Create a model-route
 
@@ -15079,10 +15908,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiRoutes(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiRoutes(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiRoutes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15094,12 +15924,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiRoutesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15111,7 +15945,7 @@ Other parameters are passed through a pointer to a apiPostAiRoutesRequest struct
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15121,7 +15955,7 @@ Other parameters are passed through a pointer to a apiPostAiRoutesRequest struct
 
 ## PostAiScales
 
-> PostAiScales200Response PostAiScales(ctx).Execute()
+> PostAiScales200Response PostAiScales(ctx).Body(body).Execute()
 
 Create a scale
 
@@ -15140,10 +15974,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiScales(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiScales(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiScales``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15155,12 +15990,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiScalesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15172,7 +16011,7 @@ Other parameters are passed through a pointer to a apiPostAiScalesRequest struct
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15182,7 +16021,7 @@ Other parameters are passed through a pointer to a apiPostAiScalesRequest struct
 
 ## PostAiScans
 
-> PostAiScans200Response PostAiScans(ctx).Execute()
+> PostAiScans200Response PostAiScans(ctx).Body(body).Execute()
 
 Create a scan
 
@@ -15201,10 +16040,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiScans(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiScans(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiScans``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15216,12 +16056,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiScansRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15233,7 +16077,7 @@ Other parameters are passed through a pointer to a apiPostAiScansRequest struct 
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15243,7 +16087,7 @@ Other parameters are passed through a pointer to a apiPostAiScansRequest struct 
 
 ## PostAiSignin
 
-> Envelope PostAiSignin(ctx).Execute()
+> Envelope PostAiSignin(ctx).Body(body).Execute()
 
 Signin
 
@@ -15260,10 +16104,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiSignin(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiSignin(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiSignin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15275,12 +16120,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiSigninRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15292,7 +16141,7 @@ Other parameters are passed through a pointer to a apiPostAiSigninRequest struct
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15302,7 +16151,7 @@ Other parameters are passed through a pointer to a apiPostAiSigninRequest struct
 
 ## PostAiSigninSessions
 
-> PostAiSigninSessions200Response PostAiSigninSessions(ctx).Execute()
+> PostAiSigninSessions200Response PostAiSigninSessions(ctx).Body(body).Execute()
 
 Create a session
 
@@ -15321,10 +16170,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiSigninSessions(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiSigninSessions(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiSigninSessions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15336,12 +16186,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiSigninSessionsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15353,7 +16207,7 @@ Other parameters are passed through a pointer to a apiPostAiSigninSessionsReques
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15363,7 +16217,7 @@ Other parameters are passed through a pointer to a apiPostAiSigninSessionsReques
 
 ## PostAiSignout
 
-> Envelope PostAiSignout(ctx).Execute()
+> Envelope PostAiSignout(ctx).Body(body).Execute()
 
 Signout
 
@@ -15380,10 +16234,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiSignout(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiSignout(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiSignout``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15395,12 +16250,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiSignoutRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15412,7 +16271,7 @@ Other parameters are passed through a pointer to a apiPostAiSignoutRequest struc
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15422,7 +16281,7 @@ Other parameters are passed through a pointer to a apiPostAiSignoutRequest struc
 
 ## PostAiStores
 
-> PostAiStores200Response PostAiStores(ctx).Execute()
+> PostAiStores200Response PostAiStores(ctx).Body(body).Execute()
 
 Create a store
 
@@ -15441,10 +16300,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiStores(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiStores(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiStores``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15456,12 +16316,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiStoresRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15473,7 +16337,7 @@ Other parameters are passed through a pointer to a apiPostAiStoresRequest struct
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15483,7 +16347,7 @@ Other parameters are passed through a pointer to a apiPostAiStoresRequest struct
 
 ## PostAiStoresByOwnerByNameVectors
 
-> Envelope PostAiStoresByOwnerByNameVectors(ctx, owner, name).Execute()
+> Envelope PostAiStoresByOwnerByNameVectors(ctx, owner, name).Body(body).Execute()
 
 Vectors (store)
 
@@ -15502,10 +16366,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiStoresByOwnerByNameVectors(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiStoresByOwnerByNameVectors(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiStoresByOwnerByNameVectors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15533,6 +16398,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15544,7 +16410,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15554,7 +16420,7 @@ Name | Type | Description  | Notes
 
 ## PostAiTasks
 
-> PostAiTasks200Response PostAiTasks(ctx).Execute()
+> PostAiTasks200Response PostAiTasks(ctx).Body(body).Execute()
 
 Create a task
 
@@ -15573,10 +16439,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiTasks(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiTasks(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiTasks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15588,12 +16455,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiTasksRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15605,7 +16476,7 @@ Other parameters are passed through a pointer to a apiPostAiTasksRequest struct 
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15615,7 +16486,7 @@ Other parameters are passed through a pointer to a apiPostAiTasksRequest struct 
 
 ## PostAiTasksByOwnerByNameAnalyze
 
-> Envelope PostAiTasksByOwnerByNameAnalyze(ctx, owner, name).Execute()
+> Envelope PostAiTasksByOwnerByNameAnalyze(ctx, owner, name).Body(body).Execute()
 
 Analyze (task)
 
@@ -15634,10 +16505,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiTasksByOwnerByNameAnalyze(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiTasksByOwnerByNameAnalyze(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiTasksByOwnerByNameAnalyze``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15665,6 +16537,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15676,7 +16549,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15686,7 +16559,7 @@ Name | Type | Description  | Notes
 
 ## PostAiTasksByOwnerByNameDocument
 
-> Envelope PostAiTasksByOwnerByNameDocument(ctx, owner, name).Execute()
+> Envelope PostAiTasksByOwnerByNameDocument(ctx, owner, name).Body(body).Execute()
 
 Document (task)
 
@@ -15705,10 +16578,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiTasksByOwnerByNameDocument(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiTasksByOwnerByNameDocument(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiTasksByOwnerByNameDocument``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15736,6 +16610,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15747,7 +16622,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15757,7 +16632,7 @@ Name | Type | Description  | Notes
 
 ## PostAiTemplates
 
-> PostAiTemplates200Response PostAiTemplates(ctx).Execute()
+> PostAiTemplates200Response PostAiTemplates(ctx).Body(body).Execute()
 
 Create a template
 
@@ -15776,10 +16651,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiTemplates(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiTemplates(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiTemplates``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15791,12 +16667,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiTemplatesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15808,7 +16688,7 @@ Other parameters are passed through a pointer to a apiPostAiTemplatesRequest str
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15818,7 +16698,7 @@ Other parameters are passed through a pointer to a apiPostAiTemplatesRequest str
 
 ## PostAiTreeFiles
 
-> PostAiTreeFiles200Response PostAiTreeFiles(ctx).Execute()
+> PostAiTreeFiles200Response PostAiTreeFiles(ctx).Body(body).Execute()
 
 Create a tree-file
 
@@ -15837,10 +16717,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiTreeFiles(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiTreeFiles(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiTreeFiles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15852,12 +16733,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiTreeFilesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15869,7 +16754,7 @@ Other parameters are passed through a pointer to a apiPostAiTreeFilesRequest str
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15879,7 +16764,7 @@ Other parameters are passed through a pointer to a apiPostAiTreeFilesRequest str
 
 ## PostAiVectors
 
-> PostAiVectors200Response PostAiVectors(ctx).Execute()
+> PostAiVectors200Response PostAiVectors(ctx).Body(body).Execute()
 
 Create a vector
 
@@ -15898,10 +16783,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiVectors(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiVectors(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiVectors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15913,12 +16799,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiVectorsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15930,7 +16820,7 @@ Other parameters are passed through a pointer to a apiPostAiVectorsRequest struc
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -15940,7 +16830,7 @@ Other parameters are passed through a pointer to a apiPostAiVectorsRequest struc
 
 ## PostAiVideos
 
-> PostAiVideos200Response PostAiVideos(ctx).Execute()
+> PostAiVideos200Response PostAiVideos(ctx).Body(body).Execute()
 
 Create a video
 
@@ -15959,10 +16849,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiVideos(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiVideos(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiVideos``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -15974,12 +16865,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiVideosRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -15991,7 +16886,7 @@ Other parameters are passed through a pointer to a apiPostAiVideosRequest struct
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -16001,7 +16896,7 @@ Other parameters are passed through a pointer to a apiPostAiVideosRequest struct
 
 ## PostAiVideosUpload
 
-> Envelope PostAiVideosUpload(ctx).Execute()
+> Envelope PostAiVideosUpload(ctx).Body(body).Execute()
 
 Upload (video)
 
@@ -16018,10 +16913,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiVideosUpload(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiVideosUpload(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiVideosUpload``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -16033,12 +16929,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiVideosUploadRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -16050,7 +16950,7 @@ Other parameters are passed through a pointer to a apiPostAiVideosUploadRequest 
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -16060,7 +16960,7 @@ Other parameters are passed through a pointer to a apiPostAiVideosUploadRequest 
 
 ## PostAiWorkflows
 
-> PostAiWorkflows200Response PostAiWorkflows(ctx).Execute()
+> PostAiWorkflows200Response PostAiWorkflows(ctx).Body(body).Execute()
 
 Create a workflow
 
@@ -16079,10 +16979,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostAiWorkflows(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostAiWorkflows(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAiWorkflows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -16094,12 +16995,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAiWorkflowsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -16111,7 +17016,7 @@ Other parameters are passed through a pointer to a apiPostAiWorkflowsRequest str
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -16296,6 +17201,133 @@ Other parameters are passed through a pointer to a apiPostAudioSpeechRequest str
 [[Back to README]](../README.md)
 
 
+## PostAudioTranscript
+
+> PostAudioTranscript(ctx).Execute()
+
+Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AiAPI.PostAudioTranscript(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAudioTranscript``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAudioTranscriptRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAudioTranscriptById
+
+> PostAudioTranscriptById(ctx, id).Execute()
+
+Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "id_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AiAPI.PostAudioTranscriptById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAudioTranscriptById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAudioTranscriptByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostAudioTranscriptions
 
 > OpenaiAudioResponse PostAudioTranscriptions(ctx).Execute()
@@ -16337,6 +17369,67 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostAudioTranscriptionsRequest struct via the builder pattern
+
+
+### Return type
+
+[**OpenaiAudioResponse**](OpenaiAudioResponse.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAudioTranscriptionsPublic
+
+> OpenaiAudioResponse PostAudioTranscriptionsPublic(ctx).Execute()
+
+Transcribes up to a minute of audio for a caller with no account, on Hanzo's own transcriber, within a daily allowance per visitor.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.PostAudioTranscriptionsPublic(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostAudioTranscriptionsPublic``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAudioTranscriptionsPublic`: OpenaiAudioResponse
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.PostAudioTranscriptionsPublic`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAudioTranscriptionsPublicRequest struct via the builder pattern
 
 
 ### Return type
@@ -16418,7 +17511,7 @@ Other parameters are passed through a pointer to a apiPostAudioVoiceRequest stru
 
 ## PostChat
 
-> OpenaiChatCompletionResponse PostChat(ctx).Execute()
+> OpenaiChatCompletionResponse PostChat(ctx).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
 
 Implements the OpenAI-compatible chat completions API
 
@@ -16437,10 +17530,11 @@ import (
 )
 
 func main() {
+	openaiChatCompletionRequest := *openapiclient.NewOpenaiChatCompletionRequest() // OpenaiChatCompletionRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostChat(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostChat(context.Background()).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostChat``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -16452,12 +17546,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostChatRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **openaiChatCompletionRequest** | [**OpenaiChatCompletionRequest**](OpenaiChatCompletionRequest.md) |  | 
 
 ### Return type
 
@@ -16469,7 +17567,7 @@ Other parameters are passed through a pointer to a apiPostChatRequest struct via
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -16479,7 +17577,7 @@ Other parameters are passed through a pointer to a apiPostChatRequest struct via
 
 ## PostChatCompletions
 
-> OpenaiChatCompletionResponse PostChatCompletions(ctx).Execute()
+> OpenaiChatCompletionResponse PostChatCompletions(ctx).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
 
 Implements the OpenAI-compatible chat completions API
 
@@ -16498,10 +17596,11 @@ import (
 )
 
 func main() {
+	openaiChatCompletionRequest := *openapiclient.NewOpenaiChatCompletionRequest() // OpenaiChatCompletionRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostChatCompletions(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostChatCompletions(context.Background()).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostChatCompletions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -16513,12 +17612,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostChatCompletionsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **openaiChatCompletionRequest** | [**OpenaiChatCompletionRequest**](OpenaiChatCompletionRequest.md) |  | 
 
 ### Return type
 
@@ -16530,7 +17633,7 @@ Other parameters are passed through a pointer to a apiPostChatCompletionsRequest
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -16540,7 +17643,7 @@ Other parameters are passed through a pointer to a apiPostChatCompletionsRequest
 
 ## PostChatPublic
 
-> OpenaiChatCompletionResponse PostChatPublic(ctx).Execute()
+> OpenaiChatCompletionResponse PostChatPublic(ctx).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
 
 Serves one completion to a caller with no account.
 
@@ -16559,10 +17662,11 @@ import (
 )
 
 func main() {
+	openaiChatCompletionRequest := *openapiclient.NewOpenaiChatCompletionRequest() // OpenaiChatCompletionRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostChatPublic(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostChatPublic(context.Background()).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostChatPublic``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -16574,12 +17678,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostChatPublicRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **openaiChatCompletionRequest** | [**OpenaiChatCompletionRequest**](OpenaiChatCompletionRequest.md) |  | 
 
 ### Return type
 
@@ -16591,7 +17699,7 @@ Other parameters are passed through a pointer to a apiPostChatPublicRequest stru
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -16601,7 +17709,7 @@ Other parameters are passed through a pointer to a apiPostChatPublicRequest stru
 
 ## PostCompletions
 
-> OpenaiChatCompletionResponse PostCompletions(ctx).Execute()
+> OpenaiChatCompletionResponse PostCompletions(ctx).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
 
 Implements the OpenAI-compatible chat completions API
 
@@ -16620,10 +17728,11 @@ import (
 )
 
 func main() {
+	openaiChatCompletionRequest := *openapiclient.NewOpenaiChatCompletionRequest() // OpenaiChatCompletionRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostCompletions(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostCompletions(context.Background()).OpenaiChatCompletionRequest(openaiChatCompletionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostCompletions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -16635,12 +17744,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostCompletionsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **openaiChatCompletionRequest** | [**OpenaiChatCompletionRequest**](OpenaiChatCompletionRequest.md) |  | 
 
 ### Return type
 
@@ -16652,7 +17765,73 @@ Other parameters are passed through a pointer to a apiPostCompletionsRequest str
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostDecisions
+
+> AiDecisionsResponse PostDecisions(ctx).AiDecisionsRequest(aiDecisionsRequest).Execute()
+
+Implements POST /v1/decisions (the Decisions API).
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	aiDecisionsRequest := *openapiclient.NewAiDecisionsRequest("Model_example") // AiDecisionsRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.PostDecisions(context.Background()).AiDecisionsRequest(aiDecisionsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostDecisions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostDecisions`: AiDecisionsResponse
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.PostDecisions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostDecisionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aiDecisionsRequest** | [**AiDecisionsRequest**](AiDecisionsRequest.md) |  | 
+
+### Return type
+
+[**AiDecisionsResponse**](AiDecisionsResponse.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -16662,7 +17841,7 @@ Other parameters are passed through a pointer to a apiPostCompletionsRequest str
 
 ## PostEmbeddings
 
-> OpenaiEmbeddingResponse PostEmbeddings(ctx).Execute()
+> OpenaiEmbeddingResponse PostEmbeddings(ctx).OpenaiEmbeddingRequest(openaiEmbeddingRequest).Execute()
 
 Implements POST /v1/embeddings (OpenAI-compatible).
 
@@ -16681,10 +17860,11 @@ import (
 )
 
 func main() {
+	openaiEmbeddingRequest := *openapiclient.NewOpenaiEmbeddingRequest() // OpenaiEmbeddingRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostEmbeddings(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostEmbeddings(context.Background()).OpenaiEmbeddingRequest(openaiEmbeddingRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostEmbeddings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -16696,12 +17876,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostEmbeddingsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **openaiEmbeddingRequest** | [**OpenaiEmbeddingRequest**](OpenaiEmbeddingRequest.md) |  | 
 
 ### Return type
 
@@ -16713,7 +17897,7 @@ Other parameters are passed through a pointer to a apiPostEmbeddingsRequest stru
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -16784,7 +17968,7 @@ Other parameters are passed through a pointer to a apiPostImagesGenerationsReque
 
 ## PostMessages
 
-> AiAnthropicResponse PostMessages(ctx).Execute()
+> AiAnthropicResponse PostMessages(ctx).AiAnthropicRequest(aiAnthropicRequest).Execute()
 
 Implements the Anthropic Messages API.
 
@@ -16803,10 +17987,11 @@ import (
 )
 
 func main() {
+	aiAnthropicRequest := *openapiclient.NewAiAnthropicRequest() // AiAnthropicRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PostMessages(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PostMessages(context.Background()).AiAnthropicRequest(aiAnthropicRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PostMessages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -16818,12 +18003,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostMessagesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aiAnthropicRequest** | [**AiAnthropicRequest**](AiAnthropicRequest.md) |  | 
 
 ### Return type
 
@@ -16835,7 +18024,7 @@ Other parameters are passed through a pointer to a apiPostMessagesRequest struct
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -17159,7 +18348,7 @@ Other parameters are passed through a pointer to a apiPostVideosGenerationsReque
 
 ## PutAiArticlesByOwnerByName
 
-> PostAiArticles200Response PutAiArticlesByOwnerByName(ctx, owner, name).Execute()
+> PostAiArticles200Response PutAiArticlesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a article
 
@@ -17180,10 +18369,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiArticlesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiArticlesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiArticlesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -17211,6 +18401,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -17222,7 +18413,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -17232,7 +18423,7 @@ Name | Type | Description  | Notes
 
 ## PutAiAssetsByOwnerByName
 
-> PostAiAssets200Response PutAiAssetsByOwnerByName(ctx, owner, name).Execute()
+> PostAiAssets200Response PutAiAssetsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a asset
 
@@ -17253,10 +18444,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiAssetsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiAssetsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiAssetsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -17284,6 +18476,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -17295,7 +18488,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -17305,7 +18498,7 @@ Name | Type | Description  | Notes
 
 ## PutAiChatsByOwnerByName
 
-> PostAiChats200Response PutAiChatsByOwnerByName(ctx, owner, name).Execute()
+> PostAiChats200Response PutAiChatsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a chat
 
@@ -17326,10 +18519,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiChatsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiChatsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiChatsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -17357,6 +18551,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -17368,7 +18563,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -17378,7 +18573,7 @@ Name | Type | Description  | Notes
 
 ## PutAiDeploymentsByOwnerByName
 
-> PostAiDeployments200Response PutAiDeploymentsByOwnerByName(ctx, owner, name).Execute()
+> PostAiDeployments200Response PutAiDeploymentsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a application
 
@@ -17399,10 +18594,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiDeploymentsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiDeploymentsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiDeploymentsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -17430,6 +18626,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -17441,7 +18638,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -17451,7 +18648,7 @@ Name | Type | Description  | Notes
 
 ## PutAiFilesByOwnerByName
 
-> PostAiFiles200Response PutAiFilesByOwnerByName(ctx, owner, name).Execute()
+> PostAiFiles200Response PutAiFilesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a file
 
@@ -17472,10 +18669,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiFilesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiFilesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiFilesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -17503,6 +18701,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -17514,7 +18713,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -17524,7 +18723,7 @@ Name | Type | Description  | Notes
 
 ## PutAiFormsByOwnerByName
 
-> PostAiForms200Response PutAiFormsByOwnerByName(ctx, owner, name).Execute()
+> PostAiForms200Response PutAiFormsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a form
 
@@ -17545,10 +18744,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiFormsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiFormsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiFormsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -17576,6 +18776,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -17587,7 +18788,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -17597,7 +18798,7 @@ Name | Type | Description  | Notes
 
 ## PutAiGraphsByOwnerByName
 
-> PostAiGraphs200Response PutAiGraphsByOwnerByName(ctx, owner, name).Execute()
+> PostAiGraphs200Response PutAiGraphsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a graph
 
@@ -17618,10 +18819,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiGraphsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiGraphsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiGraphsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -17649,6 +18851,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -17660,7 +18863,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -17670,7 +18873,7 @@ Name | Type | Description  | Notes
 
 ## PutAiMessagesByOwnerByName
 
-> PostAiMessages200Response PutAiMessagesByOwnerByName(ctx, owner, name).Execute()
+> PostAiMessages200Response PutAiMessagesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a message
 
@@ -17691,10 +18894,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiMessagesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiMessagesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiMessagesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -17722,6 +18926,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -17733,7 +18938,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -17743,7 +18948,7 @@ Name | Type | Description  | Notes
 
 ## PutAiNodesByOwnerByName
 
-> PostAiNodes200Response PutAiNodesByOwnerByName(ctx, owner, name).Execute()
+> PostAiNodes200Response PutAiNodesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a node
 
@@ -17764,10 +18969,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiNodesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiNodesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiNodesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -17795,6 +19001,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -17806,7 +19013,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -17938,7 +19145,7 @@ Other parameters are passed through a pointer to a apiPutAiOrgSettingsListReques
 
 ## PutAiPreferences
 
-> Envelope PutAiPreferences(ctx).Execute()
+> Envelope PutAiPreferences(ctx).Body(body).Execute()
 
 Preferences
 
@@ -17955,10 +19162,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiPreferences(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiPreferences(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiPreferences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -17970,12 +19178,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPutAiPreferencesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -17987,7 +19199,7 @@ Other parameters are passed through a pointer to a apiPutAiPreferencesRequest st
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -17997,7 +19209,7 @@ Other parameters are passed through a pointer to a apiPutAiPreferencesRequest st
 
 ## PutAiProvidersByOwnerByName
 
-> PostAiProviders200Response PutAiProvidersByOwnerByName(ctx, owner, name).Execute()
+> PostAiProviders200Response PutAiProvidersByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a provider
 
@@ -18018,10 +19230,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiProvidersByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiProvidersByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiProvidersByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -18049,6 +19262,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -18060,7 +19274,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -18070,7 +19284,7 @@ Name | Type | Description  | Notes
 
 ## PutAiRecordsByOwnerByName
 
-> PostAiRecords200Response PutAiRecordsByOwnerByName(ctx, owner, name).Execute()
+> PostAiRecords200Response PutAiRecordsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a record
 
@@ -18091,10 +19305,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiRecordsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiRecordsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiRecordsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -18122,6 +19337,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -18133,7 +19349,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -18143,7 +19359,7 @@ Name | Type | Description  | Notes
 
 ## PutAiRemoteConnectionsByOwnerByName
 
-> PostAiRemoteConnections200Response PutAiRemoteConnectionsByOwnerByName(ctx, owner, name).Execute()
+> PostAiRemoteConnections200Response PutAiRemoteConnectionsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a connection
 
@@ -18164,10 +19380,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiRemoteConnectionsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiRemoteConnectionsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiRemoteConnectionsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -18195,6 +19412,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -18206,7 +19424,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -18268,6 +19486,72 @@ Other parameters are passed through a pointer to a apiPutAiRouterArtifactMetaReq
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutAiRouterCatalog
+
+> PutAiRouterCatalog200Response PutAiRouterCatalog(ctx).AiRoutingEdit(aiRoutingEdit).Execute()
+
+Applies an edited catalog to one family, made from its newest version, and records the new version.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	aiRoutingEdit := *openapiclient.NewAiRoutingEdit() // AiRoutingEdit | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AiAPI.PutAiRouterCatalog(context.Background()).AiRoutingEdit(aiRoutingEdit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiRouterCatalog``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutAiRouterCatalog`: PutAiRouterCatalog200Response
+	fmt.Fprintf(os.Stdout, "Response from `AiAPI.PutAiRouterCatalog`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutAiRouterCatalogRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aiRoutingEdit** | [**AiRoutingEdit**](AiRoutingEdit.md) |  | 
+
+### Return type
+
+[**PutAiRouterCatalog200Response**](PutAiRouterCatalog200Response.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -18521,7 +19805,7 @@ Other parameters are passed through a pointer to a apiPutAiRouterRewardsRequest 
 
 ## PutAiRoutesByOwnerByName
 
-> PostAiRoutes200Response PutAiRoutesByOwnerByName(ctx, owner, name).Execute()
+> PostAiRoutes200Response PutAiRoutesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a model-route
 
@@ -18542,10 +19826,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiRoutesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiRoutesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiRoutesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -18573,6 +19858,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -18584,7 +19870,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -18594,7 +19880,7 @@ Name | Type | Description  | Notes
 
 ## PutAiScalesByOwnerByName
 
-> PostAiScales200Response PutAiScalesByOwnerByName(ctx, owner, name).Execute()
+> PostAiScales200Response PutAiScalesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a scale
 
@@ -18615,10 +19901,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiScalesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiScalesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiScalesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -18646,6 +19933,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -18657,7 +19945,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -18667,7 +19955,7 @@ Name | Type | Description  | Notes
 
 ## PutAiScansByOwnerByName
 
-> PostAiScans200Response PutAiScansByOwnerByName(ctx, owner, name).Execute()
+> PostAiScans200Response PutAiScansByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a scan
 
@@ -18688,10 +19976,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiScansByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiScansByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiScansByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -18719,6 +20008,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -18730,7 +20020,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -18740,7 +20030,7 @@ Name | Type | Description  | Notes
 
 ## PutAiSigninSessionsByOwnerByName
 
-> PostAiSigninSessions200Response PutAiSigninSessionsByOwnerByName(ctx, owner, name).Execute()
+> PostAiSigninSessions200Response PutAiSigninSessionsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a session
 
@@ -18761,10 +20051,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiSigninSessionsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiSigninSessionsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiSigninSessionsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -18792,6 +20083,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -18803,7 +20095,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -18813,7 +20105,7 @@ Name | Type | Description  | Notes
 
 ## PutAiStoresByOwnerByName
 
-> PostAiStores200Response PutAiStoresByOwnerByName(ctx, owner, name).Execute()
+> PostAiStores200Response PutAiStoresByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a store
 
@@ -18834,10 +20126,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiStoresByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiStoresByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiStoresByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -18865,6 +20158,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -18876,7 +20170,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -18886,7 +20180,7 @@ Name | Type | Description  | Notes
 
 ## PutAiTasksByOwnerByName
 
-> PostAiTasks200Response PutAiTasksByOwnerByName(ctx, owner, name).Execute()
+> PostAiTasks200Response PutAiTasksByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a task
 
@@ -18907,10 +20201,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiTasksByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiTasksByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiTasksByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -18938,6 +20233,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -18949,7 +20245,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -18959,7 +20255,7 @@ Name | Type | Description  | Notes
 
 ## PutAiTemplatesByOwnerByName
 
-> PostAiTemplates200Response PutAiTemplatesByOwnerByName(ctx, owner, name).Execute()
+> PostAiTemplates200Response PutAiTemplatesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a template
 
@@ -18980,10 +20276,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiTemplatesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiTemplatesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiTemplatesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -19011,6 +20308,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -19022,7 +20320,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -19032,7 +20330,7 @@ Name | Type | Description  | Notes
 
 ## PutAiTrainingContribution
 
-> Envelope PutAiTrainingContribution(ctx).Execute()
+> Envelope PutAiTrainingContribution(ctx).Body(body).Execute()
 
 Training Contribution
 
@@ -19049,10 +20347,11 @@ import (
 )
 
 func main() {
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiTrainingContribution(context.Background()).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiTrainingContribution(context.Background()).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiTrainingContribution``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -19064,12 +20363,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPutAiTrainingContributionRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -19081,7 +20384,7 @@ Other parameters are passed through a pointer to a apiPutAiTrainingContributionR
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -19091,7 +20394,7 @@ Other parameters are passed through a pointer to a apiPutAiTrainingContributionR
 
 ## PutAiTreeFilesByOwnerByName
 
-> PostAiTreeFiles200Response PutAiTreeFilesByOwnerByName(ctx, owner, name).Execute()
+> PostAiTreeFiles200Response PutAiTreeFilesByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a tree-file
 
@@ -19112,10 +20415,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiTreeFilesByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiTreeFilesByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiTreeFilesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -19143,6 +20447,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -19154,7 +20459,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -19164,7 +20469,7 @@ Name | Type | Description  | Notes
 
 ## PutAiVectorsByOwnerByName
 
-> PostAiVectors200Response PutAiVectorsByOwnerByName(ctx, owner, name).Execute()
+> PostAiVectors200Response PutAiVectorsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a vector
 
@@ -19185,10 +20490,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiVectorsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiVectorsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiVectorsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -19216,6 +20522,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -19227,7 +20534,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -19237,7 +20544,7 @@ Name | Type | Description  | Notes
 
 ## PutAiVideosByOwnerByName
 
-> PostAiVideos200Response PutAiVideosByOwnerByName(ctx, owner, name).Execute()
+> PostAiVideos200Response PutAiVideosByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a video
 
@@ -19258,10 +20565,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiVideosByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiVideosByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiVideosByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -19289,6 +20597,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -19300,7 +20609,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -19310,7 +20619,7 @@ Name | Type | Description  | Notes
 
 ## PutAiWorkflowsByOwnerByName
 
-> PostAiWorkflows200Response PutAiWorkflowsByOwnerByName(ctx, owner, name).Execute()
+> PostAiWorkflows200Response PutAiWorkflowsByOwnerByName(ctx, owner, name).Body(body).Execute()
 
 Replace a workflow
 
@@ -19331,10 +20640,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AiAPI.PutAiWorkflowsByOwnerByName(context.Background(), owner, name).Execute()
+	resp, r, err := apiClient.AiAPI.PutAiWorkflowsByOwnerByName(context.Background(), owner, name).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AiAPI.PutAiWorkflowsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -19362,6 +20672,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -19373,7 +20684,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

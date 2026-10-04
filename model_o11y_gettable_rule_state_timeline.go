@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yGettableRuleStateTimeline{}
 
 // O11yGettableRuleStateTimeline struct for O11yGettableRuleStateTimeline
 type O11yGettableRuleStateTimeline struct {
-	Items      []O11yGettableRuleStateHistory `json:"items,omitempty"`
-	NextCursor *string                        `json:"nextCursor,omitempty"`
-	Total      *int32                         `json:"total,omitempty"`
+	Items                []O11yGettableRuleStateHistory `json:"items,omitempty"`
+	NextCursor           *string                        `json:"nextCursor,omitempty"`
+	Total                *int32                         `json:"total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableRuleStateTimeline O11yGettableRuleStateTimeline
 
 // NewO11yGettableRuleStateTimeline instantiates a new O11yGettableRuleStateTimeline object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yGettableRuleStateTimeline) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableRuleStateTimeline) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableRuleStateTimeline := _O11yGettableRuleStateTimeline{}
+
+	err = json.Unmarshal(data, &varO11yGettableRuleStateTimeline)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableRuleStateTimeline(varO11yGettableRuleStateTimeline)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "nextCursor")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableRuleStateTimeline struct {

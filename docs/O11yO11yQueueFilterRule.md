@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | Pointer to [**O11yO11yQueueFilterKey**](O11yO11yQueueFilterKey.md) | Key names the attribute the predicate tests. | [optional] 
 **Op** | Pointer to **string** | Op is the comparison, e.g. &#x3D;, !&#x3D;, in, contains. | [optional] 
-**Value** | Pointer to **map[string]interface{}** | Value is the operand; its JSON type follows the attribute&#39;s dataType. | [optional] 
+**Value** | Pointer to **interface{}** |  | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasOp returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *O11yO11yQueueFilterRule) GetValue() map[string]interface{}`
+`func (o *O11yO11yQueueFilterRule) GetValue() interface{}`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *O11yO11yQueueFilterRule) GetValueOk() (*map[string]interface{}, bool)`
+`func (o *O11yO11yQueueFilterRule) GetValueOk() (*interface{}, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *O11yO11yQueueFilterRule) SetValue(v map[string]interface{})`
+`func (o *O11yO11yQueueFilterRule) SetValue(v interface{})`
 
 SetValue sets Value field to given value.
 
@@ -102,6 +102,16 @@ SetValue sets Value field to given value.
 
 HasValue returns a boolean if a field has been set.
 
+### SetValueNil
+
+`func (o *O11yO11yQueueFilterRule) SetValueNil(b bool)`
+
+ SetValueNil sets the value for Value to be an explicit nil
+
+### UnsetValue
+`func (o *O11yO11yQueueFilterRule) UnsetValue()`
+
+UnsetValue ensures that no value is present for Value, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

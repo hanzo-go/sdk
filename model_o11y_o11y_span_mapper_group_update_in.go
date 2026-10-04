@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yO11ySpanMapperGroupUpdateIn{}
 
 // O11yO11ySpanMapperGroupUpdateIn struct for O11yO11ySpanMapperGroupUpdateIn
 type O11yO11ySpanMapperGroupUpdateIn struct {
-	Condition *O11ySpanMapperGroupCondition `json:"condition,omitempty"`
-	Enabled   *bool                         `json:"enabled,omitempty"`
-	Name      *string                       `json:"name,omitempty"`
+	Condition            *O11ySpanMapperGroupCondition `json:"condition,omitempty"`
+	Enabled              *bool                         `json:"enabled,omitempty"`
+	Name                 *string                       `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11ySpanMapperGroupUpdateIn O11yO11ySpanMapperGroupUpdateIn
 
 // NewO11yO11ySpanMapperGroupUpdateIn instantiates a new O11yO11ySpanMapperGroupUpdateIn object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yO11ySpanMapperGroupUpdateIn) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11ySpanMapperGroupUpdateIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11ySpanMapperGroupUpdateIn := _O11yO11ySpanMapperGroupUpdateIn{}
+
+	err = json.Unmarshal(data, &varO11yO11ySpanMapperGroupUpdateIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11ySpanMapperGroupUpdateIn(varO11yO11ySpanMapperGroupUpdateIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "condition")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11ySpanMapperGroupUpdateIn struct {

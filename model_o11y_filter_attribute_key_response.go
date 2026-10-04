@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yFilterAttributeKeyResponse{}
 
 // O11yFilterAttributeKeyResponse struct for O11yFilterAttributeKeyResponse
 type O11yFilterAttributeKeyResponse struct {
-	AttributeKeys []O11yAttributeKey `json:"attributeKeys,omitempty"`
+	AttributeKeys        []O11yAttributeKey `json:"attributeKeys,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yFilterAttributeKeyResponse O11yFilterAttributeKeyResponse
 
 // NewO11yFilterAttributeKeyResponse instantiates a new O11yFilterAttributeKeyResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yFilterAttributeKeyResponse) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.AttributeKeys) {
 		toSerialize["attributeKeys"] = o.AttributeKeys
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yFilterAttributeKeyResponse) UnmarshalJSON(data []byte) (err error) {
+	varO11yFilterAttributeKeyResponse := _O11yFilterAttributeKeyResponse{}
+
+	err = json.Unmarshal(data, &varO11yFilterAttributeKeyResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yFilterAttributeKeyResponse(varO11yFilterAttributeKeyResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributeKeys")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yFilterAttributeKeyResponse struct {

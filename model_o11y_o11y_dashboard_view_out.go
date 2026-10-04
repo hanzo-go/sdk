@@ -22,8 +22,11 @@ type O11yO11yDashboardViewOut struct {
 	// Data is the saved view.
 	Data *O11yO11yDashboardView `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardViewOut O11yO11yDashboardViewOut
 
 // NewO11yO11yDashboardViewOut instantiates a new O11yO11yDashboardViewOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yDashboardViewOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardViewOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardViewOut := _O11yO11yDashboardViewOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardViewOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardViewOut(varO11yO11yDashboardViewOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardViewOut struct {

@@ -22,17 +22,17 @@ import (
 type CrawlAPIService service
 
 type CrawlAPIReadPageRequest struct {
-	ctx          context.Context
-	ApiService   *CrawlAPIService
-	crawlRequest *CrawlRequest
+	ctx               context.Context
+	ApiService        *CrawlAPIService
+	crawlCrawlRequest *CrawlCrawlRequest
 }
 
-func (r CrawlAPIReadPageRequest) CrawlRequest(crawlRequest CrawlRequest) CrawlAPIReadPageRequest {
-	r.crawlRequest = &crawlRequest
+func (r CrawlAPIReadPageRequest) CrawlCrawlRequest(crawlCrawlRequest CrawlCrawlRequest) CrawlAPIReadPageRequest {
+	r.crawlCrawlRequest = &crawlCrawlRequest
 	return r
 }
 
-func (r CrawlAPIReadPageRequest) Execute() (*CrawlResult, *http.Response, error) {
+func (r CrawlAPIReadPageRequest) Execute() (*CrawlCrawlResult, *http.Response, error) {
 	return r.ApiService.ReadPageExecute(r)
 }
 
@@ -82,13 +82,13 @@ func (a *CrawlAPIService) ReadPage(ctx context.Context) CrawlAPIReadPageRequest 
 
 // Execute executes the request
 //
-//	@return CrawlResult
-func (a *CrawlAPIService) ReadPageExecute(r CrawlAPIReadPageRequest) (*CrawlResult, *http.Response, error) {
+//	@return CrawlCrawlResult
+func (a *CrawlAPIService) ReadPageExecute(r CrawlAPIReadPageRequest) (*CrawlCrawlResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CrawlResult
+		localVarReturnValue *CrawlCrawlResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CrawlAPIService.ReadPage")
@@ -101,8 +101,8 @@ func (a *CrawlAPIService) ReadPageExecute(r CrawlAPIReadPageRequest) (*CrawlResu
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.crawlRequest == nil {
-		return localVarReturnValue, nil, reportError("crawlRequest is required and must be specified")
+	if r.crawlCrawlRequest == nil {
+		return localVarReturnValue, nil, reportError("crawlCrawlRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -115,7 +115,7 @@ func (a *CrawlAPIService) ReadPageExecute(r CrawlAPIReadPageRequest) (*CrawlResu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -123,7 +123,7 @@ func (a *CrawlAPIService) ReadPageExecute(r CrawlAPIReadPageRequest) (*CrawlResu
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.crawlRequest
+	localVarPostBody = r.crawlCrawlRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -147,7 +147,7 @@ func (a *CrawlAPIService) ReadPageExecute(r CrawlAPIReadPageRequest) (*CrawlResu
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v CrawlResult
+			var v CrawlCrawlResult
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -155,7 +155,16 @@ func (a *CrawlAPIService) ReadPageExecute(r CrawlAPIReadPageRequest) (*CrawlResu
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

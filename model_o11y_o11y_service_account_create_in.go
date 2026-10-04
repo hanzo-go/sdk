@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yServiceAccountCreateIn{}
 // O11yO11yServiceAccountCreateIn struct for O11yO11yServiceAccountCreateIn
 type O11yO11yServiceAccountCreateIn struct {
 	// Name is the account's name: a lowercase letter followed by lowercase letters, digits or hyphens, at most 50 characters. Required.
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yServiceAccountCreateIn O11yO11yServiceAccountCreateIn
 
 // NewO11yO11yServiceAccountCreateIn instantiates a new O11yO11yServiceAccountCreateIn object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yServiceAccountCreateIn) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yServiceAccountCreateIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yServiceAccountCreateIn := _O11yO11yServiceAccountCreateIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yServiceAccountCreateIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yServiceAccountCreateIn(varO11yO11yServiceAccountCreateIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yServiceAccountCreateIn struct {

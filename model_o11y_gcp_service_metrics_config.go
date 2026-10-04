@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yGCPServiceMetricsConfig{}
 
 // O11yGCPServiceMetricsConfig struct for O11yGCPServiceMetricsConfig
 type O11yGCPServiceMetricsConfig struct {
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled              *bool `json:"enabled,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGCPServiceMetricsConfig O11yGCPServiceMetricsConfig
 
 // NewO11yGCPServiceMetricsConfig instantiates a new O11yGCPServiceMetricsConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yGCPServiceMetricsConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGCPServiceMetricsConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yGCPServiceMetricsConfig := _O11yGCPServiceMetricsConfig{}
+
+	err = json.Unmarshal(data, &varO11yGCPServiceMetricsConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGCPServiceMetricsConfig(varO11yGCPServiceMetricsConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGCPServiceMetricsConfig struct {

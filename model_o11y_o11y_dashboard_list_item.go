@@ -45,8 +45,11 @@ type O11yO11yDashboardListItem struct {
 	// UpdatedAt is when it last changed.
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	// UpdatedBy is who last changed it.
-	UpdatedBy *string `json:"updatedBy,omitempty"`
+	UpdatedBy            *string `json:"updatedBy,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardListItem O11yO11yDashboardListItem
 
 // NewO11yO11yDashboardListItem instantiates a new O11yO11yDashboardListItem object
 // This constructor will assign default values to properties that have it defined,
@@ -530,7 +533,45 @@ func (o O11yO11yDashboardListItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedBy) {
 		toSerialize["updatedBy"] = o.UpdatedBy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardListItem) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardListItem := _O11yO11yDashboardListItem{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardListItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardListItem(varO11yO11yDashboardListItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "image")
+		delete(additionalProperties, "locked")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "orgId")
+		delete(additionalProperties, "schemaVersion")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "spec")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedBy")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardListItem struct {

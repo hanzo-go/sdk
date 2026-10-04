@@ -34,7 +34,7 @@ func (r AccountAPIDeleteAccountKeysRequest) Type_(type_ string) AccountAPIDelete
 	return r
 }
 
-func (r AccountAPIDeleteAccountKeysRequest) Execute() (*RevokedKey, *http.Response, error) {
+func (r AccountAPIDeleteAccountKeysRequest) Execute() (*AccountRevokedKey, *http.Response, error) {
 	return r.ApiService.DeleteAccountKeysExecute(r)
 }
 
@@ -48,8 +48,8 @@ their own API: the other key keeps working.
 
 Revoking is how a key is replaced when it does not need replacing; minting the
 same class again rotates it in one step. IAM drops the credential immediately,
-but the gateway caches keys for a few minutes, so a request that beat the cache
-expiry may still be served.
+but cloud caches a home key's principal for up to 60s, so a request inside that
+window may still be served. A member's key is never cached.
 
 For callers written against the older shape, the class is also accepted in a JSON
 request body, read only when `?type=` is absent.
@@ -66,13 +66,13 @@ func (a *AccountAPIService) DeleteAccountKeys(ctx context.Context) AccountAPIDel
 
 // Execute executes the request
 //
-//	@return RevokedKey
-func (a *AccountAPIService) DeleteAccountKeysExecute(r AccountAPIDeleteAccountKeysRequest) (*RevokedKey, *http.Response, error) {
+//	@return AccountRevokedKey
+func (a *AccountAPIService) DeleteAccountKeysExecute(r AccountAPIDeleteAccountKeysRequest) (*AccountRevokedKey, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RevokedKey
+		localVarReturnValue *AccountRevokedKey
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.DeleteAccountKeys")
@@ -99,7 +99,7 @@ func (a *AccountAPIService) DeleteAccountKeysExecute(r AccountAPIDeleteAccountKe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -128,6 +128,14 @@ func (a *AccountAPIService) DeleteAccountKeysExecute(r AccountAPIDeleteAccountKe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -148,7 +156,7 @@ type AccountAPIGetAccountAppearanceRequest struct {
 	ApiService *AccountAPIService
 }
 
-func (r AccountAPIGetAccountAppearanceRequest) Execute() (*Appearance, *http.Response, error) {
+func (r AccountAPIGetAccountAppearanceRequest) Execute() (*AccountAppearance, *http.Response, error) {
 	return r.ApiService.GetAccountAppearanceExecute(r)
 }
 
@@ -175,13 +183,13 @@ func (a *AccountAPIService) GetAccountAppearance(ctx context.Context) AccountAPI
 
 // Execute executes the request
 //
-//	@return Appearance
-func (a *AccountAPIService) GetAccountAppearanceExecute(r AccountAPIGetAccountAppearanceRequest) (*Appearance, *http.Response, error) {
+//	@return AccountAppearance
+func (a *AccountAPIService) GetAccountAppearanceExecute(r AccountAPIGetAccountAppearanceRequest) (*AccountAppearance, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Appearance
+		localVarReturnValue *AccountAppearance
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.GetAccountAppearance")
@@ -205,7 +213,7 @@ func (a *AccountAPIService) GetAccountAppearanceExecute(r AccountAPIGetAccountAp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -234,6 +242,14 @@ func (a *AccountAPIService) GetAccountAppearanceExecute(r AccountAPIGetAccountAp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -356,14 +372,14 @@ type AccountAPIGetAccountCsrfRequest struct {
 	ApiService *AccountAPIService
 }
 
-func (r AccountAPIGetAccountCsrfRequest) Execute() (*CsrfResp, *http.Response, error) {
+func (r AccountAPIGetAccountCsrfRequest) Execute() (*AccountCsrfResp, *http.Response, error) {
 	return r.ApiService.GetAccountCsrfExecute(r)
 }
 
 /*
-GetAccountCsrf IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
+GetAccountCsrf Mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
 
-IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on
+Mints the anti-forgery token a browser echoes as X-CSRF-Token on
 every change it asks for. The token is bound to the caller's validated identity
 and expires, so one minted for one identity cannot authorize a change as another.
 
@@ -383,13 +399,13 @@ func (a *AccountAPIService) GetAccountCsrf(ctx context.Context) AccountAPIGetAcc
 
 // Execute executes the request
 //
-//	@return CsrfResp
-func (a *AccountAPIService) GetAccountCsrfExecute(r AccountAPIGetAccountCsrfRequest) (*CsrfResp, *http.Response, error) {
+//	@return AccountCsrfResp
+func (a *AccountAPIService) GetAccountCsrfExecute(r AccountAPIGetAccountCsrfRequest) (*AccountCsrfResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CsrfResp
+		localVarReturnValue *AccountCsrfResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.GetAccountCsrf")
@@ -413,7 +429,7 @@ func (a *AccountAPIService) GetAccountCsrfExecute(r AccountAPIGetAccountCsrfRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -442,6 +458,14 @@ func (a *AccountAPIService) GetAccountCsrfExecute(r AccountAPIGetAccountCsrfRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -469,7 +493,7 @@ func (r AccountAPIGetAccountEmbedRequest) App(app string) AccountAPIGetAccountEm
 	return r
 }
 
-func (r AccountAPIGetAccountEmbedRequest) Execute() (*EmbedStatusResp, *http.Response, error) {
+func (r AccountAPIGetAccountEmbedRequest) Execute() (*AccountEmbedStatusResp, *http.Response, error) {
 	return r.ApiService.GetAccountEmbedExecute(r)
 }
 
@@ -502,13 +526,13 @@ func (a *AccountAPIService) GetAccountEmbed(ctx context.Context) AccountAPIGetAc
 
 // Execute executes the request
 //
-//	@return EmbedStatusResp
-func (a *AccountAPIService) GetAccountEmbedExecute(r AccountAPIGetAccountEmbedRequest) (*EmbedStatusResp, *http.Response, error) {
+//	@return AccountEmbedStatusResp
+func (a *AccountAPIService) GetAccountEmbedExecute(r AccountAPIGetAccountEmbedRequest) (*AccountEmbedStatusResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EmbedStatusResp
+		localVarReturnValue *AccountEmbedStatusResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.GetAccountEmbed")
@@ -535,7 +559,7 @@ func (a *AccountAPIService) GetAccountEmbedExecute(r AccountAPIGetAccountEmbedRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -564,6 +588,14 @@ func (a *AccountAPIService) GetAccountEmbedExecute(r AccountAPIGetAccountEmbedRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -584,7 +616,7 @@ type AccountAPIGetAccountKeysRequest struct {
 	ApiService *AccountAPIService
 }
 
-func (r AccountAPIGetAccountKeysRequest) Execute() (*ApiKeyList, *http.Response, error) {
+func (r AccountAPIGetAccountKeysRequest) Execute() (*AccountApiKeyList, *http.Response, error) {
 	return r.ApiService.GetAccountKeysExecute(r)
 }
 
@@ -612,13 +644,13 @@ func (a *AccountAPIService) GetAccountKeys(ctx context.Context) AccountAPIGetAcc
 
 // Execute executes the request
 //
-//	@return ApiKeyList
-func (a *AccountAPIService) GetAccountKeysExecute(r AccountAPIGetAccountKeysRequest) (*ApiKeyList, *http.Response, error) {
+//	@return AccountApiKeyList
+func (a *AccountAPIService) GetAccountKeysExecute(r AccountAPIGetAccountKeysRequest) (*AccountApiKeyList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ApiKeyList
+		localVarReturnValue *AccountApiKeyList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.GetAccountKeys")
@@ -642,7 +674,7 @@ func (a *AccountAPIService) GetAccountKeysExecute(r AccountAPIGetAccountKeysRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -671,6 +703,14 @@ func (a *AccountAPIService) GetAccountKeysExecute(r AccountAPIGetAccountKeysRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -687,17 +727,17 @@ func (a *AccountAPIService) GetAccountKeysExecute(r AccountAPIGetAccountKeysRequ
 }
 
 type AccountAPIPostAccountAppearanceRequest struct {
-	ctx        context.Context
-	ApiService *AccountAPIService
-	appearance *Appearance
+	ctx               context.Context
+	ApiService        *AccountAPIService
+	accountAppearance *AccountAppearance
 }
 
-func (r AccountAPIPostAccountAppearanceRequest) Appearance(appearance Appearance) AccountAPIPostAccountAppearanceRequest {
-	r.appearance = &appearance
+func (r AccountAPIPostAccountAppearanceRequest) AccountAppearance(accountAppearance AccountAppearance) AccountAPIPostAccountAppearanceRequest {
+	r.accountAppearance = &accountAppearance
 	return r
 }
 
-func (r AccountAPIPostAccountAppearanceRequest) Execute() (*Appearance, *http.Response, error) {
+func (r AccountAPIPostAccountAppearanceRequest) Execute() (*AccountAppearance, *http.Response, error) {
 	return r.ApiService.PostAccountAppearanceExecute(r)
 }
 
@@ -721,13 +761,13 @@ func (a *AccountAPIService) PostAccountAppearance(ctx context.Context) AccountAP
 
 // Execute executes the request
 //
-//	@return Appearance
-func (a *AccountAPIService) PostAccountAppearanceExecute(r AccountAPIPostAccountAppearanceRequest) (*Appearance, *http.Response, error) {
+//	@return AccountAppearance
+func (a *AccountAPIService) PostAccountAppearanceExecute(r AccountAPIPostAccountAppearanceRequest) (*AccountAppearance, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Appearance
+		localVarReturnValue *AccountAppearance
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.PostAccountAppearance")
@@ -740,8 +780,8 @@ func (a *AccountAPIService) PostAccountAppearanceExecute(r AccountAPIPostAccount
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.appearance == nil {
-		return localVarReturnValue, nil, reportError("appearance is required and must be specified")
+	if r.accountAppearance == nil {
+		return localVarReturnValue, nil, reportError("accountAppearance is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -754,7 +794,7 @@ func (a *AccountAPIService) PostAccountAppearanceExecute(r AccountAPIPostAccount
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -762,7 +802,7 @@ func (a *AccountAPIService) PostAccountAppearanceExecute(r AccountAPIPostAccount
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.appearance
+	localVarPostBody = r.accountAppearance
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -785,6 +825,14 @@ func (a *AccountAPIService) PostAccountAppearanceExecute(r AccountAPIPostAccount
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -893,17 +941,17 @@ func (a *AccountAPIService) PostAccountAvatarExecute(r AccountAPIPostAccountAvat
 }
 
 type AccountAPIPostAccountKeysRequest struct {
-	ctx        context.Context
-	ApiService *AccountAPIService
-	keyTypeIn  *KeyTypeIn
+	ctx              context.Context
+	ApiService       *AccountAPIService
+	accountKeyTypeIn *AccountKeyTypeIn
 }
 
-func (r AccountAPIPostAccountKeysRequest) KeyTypeIn(keyTypeIn KeyTypeIn) AccountAPIPostAccountKeysRequest {
-	r.keyTypeIn = &keyTypeIn
+func (r AccountAPIPostAccountKeysRequest) AccountKeyTypeIn(accountKeyTypeIn AccountKeyTypeIn) AccountAPIPostAccountKeysRequest {
+	r.accountKeyTypeIn = &accountKeyTypeIn
 	return r
 }
 
-func (r AccountAPIPostAccountKeysRequest) Execute() (*MintedKey, *http.Response, error) {
+func (r AccountAPIPostAccountKeysRequest) Execute() (*AccountMintedKey, *http.Response, error) {
 	return r.ApiService.PostAccountKeysExecute(r)
 }
 
@@ -929,13 +977,13 @@ func (a *AccountAPIService) PostAccountKeys(ctx context.Context) AccountAPIPostA
 
 // Execute executes the request
 //
-//	@return MintedKey
-func (a *AccountAPIService) PostAccountKeysExecute(r AccountAPIPostAccountKeysRequest) (*MintedKey, *http.Response, error) {
+//	@return AccountMintedKey
+func (a *AccountAPIService) PostAccountKeysExecute(r AccountAPIPostAccountKeysRequest) (*AccountMintedKey, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MintedKey
+		localVarReturnValue *AccountMintedKey
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.PostAccountKeys")
@@ -948,8 +996,8 @@ func (a *AccountAPIService) PostAccountKeysExecute(r AccountAPIPostAccountKeysRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.keyTypeIn == nil {
-		return localVarReturnValue, nil, reportError("keyTypeIn is required and must be specified")
+	if r.accountKeyTypeIn == nil {
+		return localVarReturnValue, nil, reportError("accountKeyTypeIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -962,7 +1010,7 @@ func (a *AccountAPIService) PostAccountKeysExecute(r AccountAPIPostAccountKeysRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -970,7 +1018,7 @@ func (a *AccountAPIService) PostAccountKeysExecute(r AccountAPIPostAccountKeysRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.keyTypeIn
+	localVarPostBody = r.accountKeyTypeIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -993,6 +1041,14 @@ func (a *AccountAPIService) PostAccountKeysExecute(r AccountAPIPostAccountKeysRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1009,24 +1065,24 @@ func (a *AccountAPIService) PostAccountKeysExecute(r AccountAPIPostAccountKeysRe
 }
 
 type AccountAPIPostAccountOrgsRequest struct {
-	ctx        context.Context
-	ApiService *AccountAPIService
-	onboardReq *OnboardReq
+	ctx               context.Context
+	ApiService        *AccountAPIService
+	accountOnboardReq *AccountOnboardReq
 }
 
-func (r AccountAPIPostAccountOrgsRequest) OnboardReq(onboardReq OnboardReq) AccountAPIPostAccountOrgsRequest {
-	r.onboardReq = &onboardReq
+func (r AccountAPIPostAccountOrgsRequest) AccountOnboardReq(accountOnboardReq AccountOnboardReq) AccountAPIPostAccountOrgsRequest {
+	r.accountOnboardReq = &accountOnboardReq
 	return r
 }
 
-func (r AccountAPIPostAccountOrgsRequest) Execute() (*OnboardResp, *http.Response, error) {
+func (r AccountAPIPostAccountOrgsRequest) Execute() (*AccountOnboardResp, *http.Response, error) {
 	return r.ApiService.PostAccountOrgsExecute(r)
 }
 
 /*
-PostAccountOrgs Onboard creates the caller's organization.
+PostAccountOrgs Creates the caller's organization.
 
-Onboard creates the caller's organization. Two flows, keyed on whether the caller
+Creates the caller's organization. Two flows, keyed on whether the caller
 already has a home org (mirrors app/onboard/route.ts):
 
   - FIRST-RUN (no home org): create + MOVE the user in as admin, so their next
@@ -1051,13 +1107,13 @@ func (a *AccountAPIService) PostAccountOrgs(ctx context.Context) AccountAPIPostA
 
 // Execute executes the request
 //
-//	@return OnboardResp
-func (a *AccountAPIService) PostAccountOrgsExecute(r AccountAPIPostAccountOrgsRequest) (*OnboardResp, *http.Response, error) {
+//	@return AccountOnboardResp
+func (a *AccountAPIService) PostAccountOrgsExecute(r AccountAPIPostAccountOrgsRequest) (*AccountOnboardResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *OnboardResp
+		localVarReturnValue *AccountOnboardResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.PostAccountOrgs")
@@ -1070,8 +1126,8 @@ func (a *AccountAPIService) PostAccountOrgsExecute(r AccountAPIPostAccountOrgsRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.onboardReq == nil {
-		return localVarReturnValue, nil, reportError("onboardReq is required and must be specified")
+	if r.accountOnboardReq == nil {
+		return localVarReturnValue, nil, reportError("accountOnboardReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1084,7 +1140,7 @@ func (a *AccountAPIService) PostAccountOrgsExecute(r AccountAPIPostAccountOrgsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1092,7 +1148,7 @@ func (a *AccountAPIService) PostAccountOrgsExecute(r AccountAPIPostAccountOrgsRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.onboardReq
+	localVarPostBody = r.accountOnboardReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1115,6 +1171,14 @@ func (a *AccountAPIService) PostAccountOrgsExecute(r AccountAPIPostAccountOrgsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

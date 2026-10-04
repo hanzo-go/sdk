@@ -26,8 +26,11 @@ type CartItemSet struct {
 	// Quantity is how many of that item the cart should hold AFTER this call — it is the resulting count, not a delta, so sending 3 twice leaves 3 and not 6. ZERO REMOVES the line, which is the only way to take an item out.
 	Quantity *int64 `json:"quantity,omitempty"`
 	// Variant names the specific sellable variant to set, by its id or its SKU. Prefer it over Product for anything sold in sizes, colours or tiers — the price and the stock are the variant's, not the product's.
-	Variant *string `json:"variant,omitempty"`
+	Variant              *string `json:"variant,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CartItemSet CartItemSet
 
 // NewCartItemSet instantiates a new CartItemSet object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o CartItemSet) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variant) {
 		toSerialize["variant"] = o.Variant
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CartItemSet) UnmarshalJSON(data []byte) (err error) {
+	varCartItemSet := _CartItemSet{}
+
+	err = json.Unmarshal(data, &varCartItemSet)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CartItemSet(varCartItemSet)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "product")
+		delete(additionalProperties, "quantity")
+		delete(additionalProperties, "variant")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCartItemSet struct {

@@ -27,7 +27,7 @@ type Web3APIGetWeb3ChainsRequest struct {
 	ApiService *Web3APIService
 }
 
-func (r Web3APIGetWeb3ChainsRequest) Execute() (*ChainList, *http.Response, error) {
+func (r Web3APIGetWeb3ChainsRequest) Execute() (*Web3ChainList, *http.Response, error) {
 	return r.ApiService.GetWeb3ChainsExecute(r)
 }
 
@@ -50,13 +50,13 @@ func (a *Web3APIService) GetWeb3Chains(ctx context.Context) Web3APIGetWeb3Chains
 
 // Execute executes the request
 //
-//	@return ChainList
-func (a *Web3APIService) GetWeb3ChainsExecute(r Web3APIGetWeb3ChainsRequest) (*ChainList, *http.Response, error) {
+//	@return Web3ChainList
+func (a *Web3APIService) GetWeb3ChainsExecute(r Web3APIGetWeb3ChainsRequest) (*Web3ChainList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ChainList
+		localVarReturnValue *Web3ChainList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Web3APIService.GetWeb3Chains")
@@ -80,7 +80,7 @@ func (a *Web3APIService) GetWeb3ChainsExecute(r Web3APIGetWeb3ChainsRequest) (*C
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -109,6 +109,14 @@ func (a *Web3APIService) GetWeb3ChainsExecute(r Web3APIGetWeb3ChainsRequest) (*C
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -130,7 +138,7 @@ type Web3APIGetWeb3ChainsByChainRequest struct {
 	chain      string
 }
 
-func (r Web3APIGetWeb3ChainsByChainRequest) Execute() (*ChainStatus, *http.Response, error) {
+func (r Web3APIGetWeb3ChainsByChainRequest) Execute() (*Web3ChainStatus, *http.Response, error) {
 	return r.ApiService.GetWeb3ChainsByChainExecute(r)
 }
 
@@ -156,13 +164,13 @@ func (a *Web3APIService) GetWeb3ChainsByChain(ctx context.Context, chain string)
 
 // Execute executes the request
 //
-//	@return ChainStatus
-func (a *Web3APIService) GetWeb3ChainsByChainExecute(r Web3APIGetWeb3ChainsByChainRequest) (*ChainStatus, *http.Response, error) {
+//	@return Web3ChainStatus
+func (a *Web3APIService) GetWeb3ChainsByChainExecute(r Web3APIGetWeb3ChainsByChainRequest) (*Web3ChainStatus, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ChainStatus
+		localVarReturnValue *Web3ChainStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Web3APIService.GetWeb3ChainsByChain")
@@ -187,7 +195,7 @@ func (a *Web3APIService) GetWeb3ChainsByChainExecute(r Web3APIGetWeb3ChainsByCha
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -216,6 +224,14 @@ func (a *Web3APIService) GetWeb3ChainsByChainExecute(r Web3APIGetWeb3ChainsByCha
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -238,7 +254,7 @@ type Web3APIGetWeb3TokensByChainByAddressRequest struct {
 	address    string
 }
 
-func (r Web3APIGetWeb3TokensByChainByAddressRequest) Execute() (*Balances, *http.Response, error) {
+func (r Web3APIGetWeb3TokensByChainByAddressRequest) Execute() (*Web3Balances, *http.Response, error) {
 	return r.ApiService.GetWeb3TokensByChainByAddressExecute(r)
 }
 
@@ -269,13 +285,13 @@ func (a *Web3APIService) GetWeb3TokensByChainByAddress(ctx context.Context, chai
 
 // Execute executes the request
 //
-//	@return Balances
-func (a *Web3APIService) GetWeb3TokensByChainByAddressExecute(r Web3APIGetWeb3TokensByChainByAddressRequest) (*Balances, *http.Response, error) {
+//	@return Web3Balances
+func (a *Web3APIService) GetWeb3TokensByChainByAddressExecute(r Web3APIGetWeb3TokensByChainByAddressRequest) (*Web3Balances, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Balances
+		localVarReturnValue *Web3Balances
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Web3APIService.GetWeb3TokensByChainByAddress")
@@ -301,7 +317,7 @@ func (a *Web3APIService) GetWeb3TokensByChainByAddressExecute(r Web3APIGetWeb3To
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -330,6 +346,14 @@ func (a *Web3APIService) GetWeb3TokensByChainByAddressExecute(r Web3APIGetWeb3To
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -349,15 +373,15 @@ type Web3APIPostWeb3RpcByChainRequest struct {
 	ctx        context.Context
 	ApiService *Web3APIService
 	chain      string
-	rpcIn      *RpcIn
+	web3RpcIn  *Web3RpcIn
 }
 
-func (r Web3APIPostWeb3RpcByChainRequest) RpcIn(rpcIn RpcIn) Web3APIPostWeb3RpcByChainRequest {
-	r.rpcIn = &rpcIn
+func (r Web3APIPostWeb3RpcByChainRequest) Web3RpcIn(web3RpcIn Web3RpcIn) Web3APIPostWeb3RpcByChainRequest {
+	r.web3RpcIn = &web3RpcIn
 	return r
 }
 
-func (r Web3APIPostWeb3RpcByChainRequest) Execute() (*RpcOut, *http.Response, error) {
+func (r Web3APIPostWeb3RpcByChainRequest) Execute() (*Web3RpcOut, *http.Response, error) {
 	return r.ApiService.PostWeb3RpcByChainExecute(r)
 }
 
@@ -382,13 +406,13 @@ func (a *Web3APIService) PostWeb3RpcByChain(ctx context.Context, chain string) W
 
 // Execute executes the request
 //
-//	@return RpcOut
-func (a *Web3APIService) PostWeb3RpcByChainExecute(r Web3APIPostWeb3RpcByChainRequest) (*RpcOut, *http.Response, error) {
+//	@return Web3RpcOut
+func (a *Web3APIService) PostWeb3RpcByChainExecute(r Web3APIPostWeb3RpcByChainRequest) (*Web3RpcOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RpcOut
+		localVarReturnValue *Web3RpcOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "Web3APIService.PostWeb3RpcByChain")
@@ -402,8 +426,8 @@ func (a *Web3APIService) PostWeb3RpcByChainExecute(r Web3APIPostWeb3RpcByChainRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.rpcIn == nil {
-		return localVarReturnValue, nil, reportError("rpcIn is required and must be specified")
+	if r.web3RpcIn == nil {
+		return localVarReturnValue, nil, reportError("web3RpcIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -416,7 +440,7 @@ func (a *Web3APIService) PostWeb3RpcByChainExecute(r Web3APIPostWeb3RpcByChainRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -424,7 +448,7 @@ func (a *Web3APIService) PostWeb3RpcByChainExecute(r Web3APIPostWeb3RpcByChainRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.rpcIn
+	localVarPostBody = r.web3RpcIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -447,6 +471,14 @@ func (a *Web3APIService) PostWeb3RpcByChainExecute(r Web3APIPostWeb3RpcByChainRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -24,8 +24,11 @@ type O11yO11yDashboardListForUser struct {
 	// Tags are all tags in use across the org's dashboards.
 	Tags []O11yO11yDashboardTag `json:"tags,omitempty"`
 	// Total is the count across all pages.
-	Total *int64 `json:"total,omitempty"`
+	Total                *int64 `json:"total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardListForUser O11yO11yDashboardListForUser
 
 // NewO11yO11yDashboardListForUser instantiates a new O11yO11yDashboardListForUser object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yDashboardListForUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardListForUser) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardListForUser := _O11yO11yDashboardListForUser{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardListForUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardListForUser(varO11yO11yDashboardListForUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dashboards")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardListForUser struct {

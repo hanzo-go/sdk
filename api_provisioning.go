@@ -82,7 +82,7 @@ func (a *ProvisioningAPIService) DeleteProvisioningDatastoreByNameExecute(r Prov
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -111,6 +111,14 @@ func (a *ProvisioningAPIService) DeleteProvisioningDatastoreByNameExecute(r Prov
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -128,9 +136,9 @@ func (r ProvisioningAPIDeleteProvisioningDocdbByNameRequest) Execute() (*http.Re
 }
 
 /*
-DeleteProvisioningDocdbByName DropDocDB deprovisions one Hanzo DocDB database.
+DeleteProvisioningDocdbByName Deprovisions one Hanzo DocDB database.
 
-DropDocDB deprovisions one Hanzo DocDB database. It reverts any app instance
+Deprovisions one Hanzo DocDB database. It reverts any app instance
 bound to it back to Base BEFORE tearing down the org's dedicated FerretDB
 instance, then deletes the sealed credential and removes the metadata row.
 Answers 204 with no body; a second call is a 404.
@@ -177,7 +185,7 @@ func (a *ProvisioningAPIService) DeleteProvisioningDocdbByNameExecute(r Provisio
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -206,6 +214,14 @@ func (a *ProvisioningAPIService) DeleteProvisioningDocdbByNameExecute(r Provisio
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -223,9 +239,9 @@ func (r ProvisioningAPIDeleteProvisioningKvByNameRequest) Execute() (*http.Respo
 }
 
 /*
-DeleteProvisioningKvByName DropKV deprovisions one Hanzo KV store.
+DeleteProvisioningKvByName Deprovisions one Hanzo KV store.
 
-DropKV deprovisions one Hanzo KV store. It reverts any app instance bound to
+Deprovisions one Hanzo KV store. It reverts any app instance bound to
 it back to Base BEFORE tearing down the org's dedicated Valkey instance, then
 deletes the sealed credential and removes the metadata row. Answers 204 with
 no body; a second call is a 404.
@@ -272,7 +288,7 @@ func (a *ProvisioningAPIService) DeleteProvisioningKvByNameExecute(r Provisionin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -301,6 +317,14 @@ func (a *ProvisioningAPIService) DeleteProvisioningKvByNameExecute(r Provisionin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -365,7 +389,7 @@ func (a *ProvisioningAPIService) DeleteProvisioningS3ByNameExecute(r Provisionin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -394,6 +418,14 @@ func (a *ProvisioningAPIService) DeleteProvisioningS3ByNameExecute(r Provisionin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -458,7 +490,7 @@ func (a *ProvisioningAPIService) DeleteProvisioningSearchByNameExecute(r Provisi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -487,6 +519,14 @@ func (a *ProvisioningAPIService) DeleteProvisioningSearchByNameExecute(r Provisi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -504,9 +544,9 @@ func (r ProvisioningAPIDeleteProvisioningSqlByNameRequest) Execute() (*http.Resp
 }
 
 /*
-DeleteProvisioningSqlByName DropSQL deprovisions one Hanzo SQL database.
+DeleteProvisioningSqlByName Deprovisions one Hanzo SQL database.
 
-DropSQL deprovisions one Hanzo SQL database. It reverts any app instance
+Deprovisions one Hanzo SQL database. It reverts any app instance
 bound to it back to Base BEFORE tearing down the org's dedicated Postgres
 instance — never a live app pointed at a deleted backend — then deletes the
 sealed credential and removes the metadata row. Answers 204 with no body; a
@@ -554,7 +594,7 @@ func (a *ProvisioningAPIService) DeleteProvisioningSqlByNameExecute(r Provisioni
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -583,6 +623,14 @@ func (a *ProvisioningAPIService) DeleteProvisioningSqlByNameExecute(r Provisioni
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -647,7 +695,7 @@ func (a *ProvisioningAPIService) DeleteProvisioningVectorByNameExecute(r Provisi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -676,6 +724,14 @@ func (a *ProvisioningAPIService) DeleteProvisioningVectorByNameExecute(r Provisi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -687,7 +743,7 @@ type ProvisioningAPIGetProvisioningDatastoreRequest struct {
 	ApiService *ProvisioningAPIService
 }
 
-func (r ProvisioningAPIGetProvisioningDatastoreRequest) Execute() ([]ProvisionedSummary, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningDatastoreRequest) Execute() ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	return r.ApiService.GetProvisioningDatastoreExecute(r)
 }
 
@@ -710,13 +766,13 @@ func (a *ProvisioningAPIService) GetProvisioningDatastore(ctx context.Context) P
 
 // Execute executes the request
 //
-//	@return []ProvisionedSummary
-func (a *ProvisioningAPIService) GetProvisioningDatastoreExecute(r ProvisioningAPIGetProvisioningDatastoreRequest) ([]ProvisionedSummary, *http.Response, error) {
+//	@return []ProvisioningProvisionedSummary
+func (a *ProvisioningAPIService) GetProvisioningDatastoreExecute(r ProvisioningAPIGetProvisioningDatastoreRequest) ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []ProvisionedSummary
+		localVarReturnValue []ProvisioningProvisionedSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningDatastore")
@@ -740,7 +796,7 @@ func (a *ProvisioningAPIService) GetProvisioningDatastoreExecute(r ProvisioningA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -769,6 +825,14 @@ func (a *ProvisioningAPIService) GetProvisioningDatastoreExecute(r ProvisioningA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -790,7 +854,7 @@ type ProvisioningAPIGetProvisioningDatastoreByNameRequest struct {
 	name       string
 }
 
-func (r ProvisioningAPIGetProvisioningDatastoreByNameRequest) Execute() (*ProvisionedResource, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningDatastoreByNameRequest) Execute() (*ProvisioningProvisionedResource, *http.Response, error) {
 	return r.ApiService.GetProvisioningDatastoreByNameExecute(r)
 }
 
@@ -816,13 +880,13 @@ func (a *ProvisioningAPIService) GetProvisioningDatastoreByName(ctx context.Cont
 
 // Execute executes the request
 //
-//	@return ProvisionedResource
-func (a *ProvisioningAPIService) GetProvisioningDatastoreByNameExecute(r ProvisioningAPIGetProvisioningDatastoreByNameRequest) (*ProvisionedResource, *http.Response, error) {
+//	@return ProvisioningProvisionedResource
+func (a *ProvisioningAPIService) GetProvisioningDatastoreByNameExecute(r ProvisioningAPIGetProvisioningDatastoreByNameRequest) (*ProvisioningProvisionedResource, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionedResource
+		localVarReturnValue *ProvisioningProvisionedResource
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningDatastoreByName")
@@ -847,7 +911,7 @@ func (a *ProvisioningAPIService) GetProvisioningDatastoreByNameExecute(r Provisi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -876,6 +940,14 @@ func (a *ProvisioningAPIService) GetProvisioningDatastoreByNameExecute(r Provisi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -896,14 +968,14 @@ type ProvisioningAPIGetProvisioningDocdbRequest struct {
 	ApiService *ProvisioningAPIService
 }
 
-func (r ProvisioningAPIGetProvisioningDocdbRequest) Execute() ([]ProvisionedSummary, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningDocdbRequest) Execute() ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	return r.ApiService.GetProvisioningDocdbExecute(r)
 }
 
 /*
-GetProvisioningDocdb ListDocDB lists the caller org's Hanzo DocDB document databases.
+GetProvisioningDocdb Lists the caller org's Hanzo DocDB document databases.
 
-ListDocDB lists the caller org's Hanzo DocDB document databases. Each one is
+Lists the caller org's Hanzo DocDB document databases. Each one is
 a DEDICATED FerretDB instance the org alone runs, speaking the MongoDB wire
 protocol, so the host is that instance's own in-cluster Service and the port
 is 27017.
@@ -920,13 +992,13 @@ func (a *ProvisioningAPIService) GetProvisioningDocdb(ctx context.Context) Provi
 
 // Execute executes the request
 //
-//	@return []ProvisionedSummary
-func (a *ProvisioningAPIService) GetProvisioningDocdbExecute(r ProvisioningAPIGetProvisioningDocdbRequest) ([]ProvisionedSummary, *http.Response, error) {
+//	@return []ProvisioningProvisionedSummary
+func (a *ProvisioningAPIService) GetProvisioningDocdbExecute(r ProvisioningAPIGetProvisioningDocdbRequest) ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []ProvisionedSummary
+		localVarReturnValue []ProvisioningProvisionedSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningDocdb")
@@ -950,7 +1022,7 @@ func (a *ProvisioningAPIService) GetProvisioningDocdbExecute(r ProvisioningAPIGe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -979,6 +1051,14 @@ func (a *ProvisioningAPIService) GetProvisioningDocdbExecute(r ProvisioningAPIGe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1000,14 +1080,14 @@ type ProvisioningAPIGetProvisioningDocdbByNameRequest struct {
 	name       string
 }
 
-func (r ProvisioningAPIGetProvisioningDocdbByNameRequest) Execute() (*ProvisionedResource, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningDocdbByNameRequest) Execute() (*ProvisioningProvisionedResource, *http.Response, error) {
 	return r.ApiService.GetProvisioningDocdbByNameExecute(r)
 }
 
 /*
-GetProvisioningDocdbByName GetDocDB returns one Hanzo DocDB database's metadata.
+GetProvisioningDocdbByName Returns one Hanzo DocDB database's metadata.
 
-GetDocDB returns one Hanzo DocDB database's metadata. It carries the
+Returns one Hanzo DocDB database's metadata. It carries the
 database's status, its instance address and the SCRAM user the instance was
 set up with — never the password. A still-booting instance reads
 "provisioning", reconciled from the operator's live view.
@@ -1026,13 +1106,13 @@ func (a *ProvisioningAPIService) GetProvisioningDocdbByName(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return ProvisionedResource
-func (a *ProvisioningAPIService) GetProvisioningDocdbByNameExecute(r ProvisioningAPIGetProvisioningDocdbByNameRequest) (*ProvisionedResource, *http.Response, error) {
+//	@return ProvisioningProvisionedResource
+func (a *ProvisioningAPIService) GetProvisioningDocdbByNameExecute(r ProvisioningAPIGetProvisioningDocdbByNameRequest) (*ProvisioningProvisionedResource, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionedResource
+		localVarReturnValue *ProvisioningProvisionedResource
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningDocdbByName")
@@ -1057,7 +1137,7 @@ func (a *ProvisioningAPIService) GetProvisioningDocdbByNameExecute(r Provisionin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1086,6 +1166,14 @@ func (a *ProvisioningAPIService) GetProvisioningDocdbByNameExecute(r Provisionin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1106,14 +1194,14 @@ type ProvisioningAPIGetProvisioningKvRequest struct {
 	ApiService *ProvisioningAPIService
 }
 
-func (r ProvisioningAPIGetProvisioningKvRequest) Execute() ([]ProvisionedSummary, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningKvRequest) Execute() ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	return r.ApiService.GetProvisioningKvExecute(r)
 }
 
 /*
-GetProvisioningKv ListKV lists the caller org's Hanzo KV stores.
+GetProvisioningKv Lists the caller org's Hanzo KV stores.
 
-ListKV lists the caller org's Hanzo KV stores. Each one is a DEDICATED Valkey
+Lists the caller org's Hanzo KV stores. Each one is a DEDICATED Valkey
 instance the org alone runs, so the host is that instance's own in-cluster
 Service and the port is 6379.
 
@@ -1129,13 +1217,13 @@ func (a *ProvisioningAPIService) GetProvisioningKv(ctx context.Context) Provisio
 
 // Execute executes the request
 //
-//	@return []ProvisionedSummary
-func (a *ProvisioningAPIService) GetProvisioningKvExecute(r ProvisioningAPIGetProvisioningKvRequest) ([]ProvisionedSummary, *http.Response, error) {
+//	@return []ProvisioningProvisionedSummary
+func (a *ProvisioningAPIService) GetProvisioningKvExecute(r ProvisioningAPIGetProvisioningKvRequest) ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []ProvisionedSummary
+		localVarReturnValue []ProvisioningProvisionedSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningKv")
@@ -1159,7 +1247,7 @@ func (a *ProvisioningAPIService) GetProvisioningKvExecute(r ProvisioningAPIGetPr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1188,6 +1276,14 @@ func (a *ProvisioningAPIService) GetProvisioningKvExecute(r ProvisioningAPIGetPr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1209,14 +1305,14 @@ type ProvisioningAPIGetProvisioningKvByNameRequest struct {
 	name       string
 }
 
-func (r ProvisioningAPIGetProvisioningKvByNameRequest) Execute() (*ProvisionedResource, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningKvByNameRequest) Execute() (*ProvisioningProvisionedResource, *http.Response, error) {
 	return r.ApiService.GetProvisioningKvByNameExecute(r)
 }
 
 /*
-GetProvisioningKvByName GetKV returns one Hanzo KV store's metadata.
+GetProvisioningKvByName Returns one Hanzo KV store's metadata.
 
-GetKV returns one Hanzo KV store's metadata. It carries the store's status,
+Returns one Hanzo KV store's metadata. It carries the store's status,
 its instance address and the Valkey user it authenticates as ("default", the
 only user a requirepass instance has) — never the password. A still-booting
 instance reads "provisioning", reconciled from the operator's live view.
@@ -1235,13 +1331,13 @@ func (a *ProvisioningAPIService) GetProvisioningKvByName(ctx context.Context, na
 
 // Execute executes the request
 //
-//	@return ProvisionedResource
-func (a *ProvisioningAPIService) GetProvisioningKvByNameExecute(r ProvisioningAPIGetProvisioningKvByNameRequest) (*ProvisionedResource, *http.Response, error) {
+//	@return ProvisioningProvisionedResource
+func (a *ProvisioningAPIService) GetProvisioningKvByNameExecute(r ProvisioningAPIGetProvisioningKvByNameRequest) (*ProvisioningProvisionedResource, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionedResource
+		localVarReturnValue *ProvisioningProvisionedResource
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningKvByName")
@@ -1266,7 +1362,7 @@ func (a *ProvisioningAPIService) GetProvisioningKvByNameExecute(r ProvisioningAP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1295,6 +1391,14 @@ func (a *ProvisioningAPIService) GetProvisioningKvByNameExecute(r ProvisioningAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1315,7 +1419,7 @@ type ProvisioningAPIGetProvisioningS3Request struct {
 	ApiService *ProvisioningAPIService
 }
 
-func (r ProvisioningAPIGetProvisioningS3Request) Execute() ([]ProvisionedSummary, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningS3Request) Execute() ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	return r.ApiService.GetProvisioningS3Execute(r)
 }
 
@@ -1340,13 +1444,13 @@ func (a *ProvisioningAPIService) GetProvisioningS3(ctx context.Context) Provisio
 
 // Execute executes the request
 //
-//	@return []ProvisionedSummary
-func (a *ProvisioningAPIService) GetProvisioningS3Execute(r ProvisioningAPIGetProvisioningS3Request) ([]ProvisionedSummary, *http.Response, error) {
+//	@return []ProvisioningProvisionedSummary
+func (a *ProvisioningAPIService) GetProvisioningS3Execute(r ProvisioningAPIGetProvisioningS3Request) ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []ProvisionedSummary
+		localVarReturnValue []ProvisioningProvisionedSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningS3")
@@ -1370,7 +1474,7 @@ func (a *ProvisioningAPIService) GetProvisioningS3Execute(r ProvisioningAPIGetPr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1399,6 +1503,14 @@ func (a *ProvisioningAPIService) GetProvisioningS3Execute(r ProvisioningAPIGetPr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1420,7 +1532,7 @@ type ProvisioningAPIGetProvisioningS3ByNameRequest struct {
 	name       string
 }
 
-func (r ProvisioningAPIGetProvisioningS3ByNameRequest) Execute() (*ProvisionedResource, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningS3ByNameRequest) Execute() (*ProvisioningProvisionedResource, *http.Response, error) {
 	return r.ApiService.GetProvisioningS3ByNameExecute(r)
 }
 
@@ -1446,13 +1558,13 @@ func (a *ProvisioningAPIService) GetProvisioningS3ByName(ctx context.Context, na
 
 // Execute executes the request
 //
-//	@return ProvisionedResource
-func (a *ProvisioningAPIService) GetProvisioningS3ByNameExecute(r ProvisioningAPIGetProvisioningS3ByNameRequest) (*ProvisionedResource, *http.Response, error) {
+//	@return ProvisioningProvisionedResource
+func (a *ProvisioningAPIService) GetProvisioningS3ByNameExecute(r ProvisioningAPIGetProvisioningS3ByNameRequest) (*ProvisioningProvisionedResource, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionedResource
+		localVarReturnValue *ProvisioningProvisionedResource
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningS3ByName")
@@ -1477,7 +1589,7 @@ func (a *ProvisioningAPIService) GetProvisioningS3ByNameExecute(r ProvisioningAP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1506,6 +1618,14 @@ func (a *ProvisioningAPIService) GetProvisioningS3ByNameExecute(r ProvisioningAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1526,7 +1646,7 @@ type ProvisioningAPIGetProvisioningSearchRequest struct {
 	ApiService *ProvisioningAPIService
 }
 
-func (r ProvisioningAPIGetProvisioningSearchRequest) Execute() ([]ProvisionedSummary, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningSearchRequest) Execute() ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	return r.ApiService.GetProvisioningSearchExecute(r)
 }
 
@@ -1549,13 +1669,13 @@ func (a *ProvisioningAPIService) GetProvisioningSearch(ctx context.Context) Prov
 
 // Execute executes the request
 //
-//	@return []ProvisionedSummary
-func (a *ProvisioningAPIService) GetProvisioningSearchExecute(r ProvisioningAPIGetProvisioningSearchRequest) ([]ProvisionedSummary, *http.Response, error) {
+//	@return []ProvisioningProvisionedSummary
+func (a *ProvisioningAPIService) GetProvisioningSearchExecute(r ProvisioningAPIGetProvisioningSearchRequest) ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []ProvisionedSummary
+		localVarReturnValue []ProvisioningProvisionedSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningSearch")
@@ -1579,7 +1699,7 @@ func (a *ProvisioningAPIService) GetProvisioningSearchExecute(r ProvisioningAPIG
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1608,6 +1728,14 @@ func (a *ProvisioningAPIService) GetProvisioningSearchExecute(r ProvisioningAPIG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1629,7 +1757,7 @@ type ProvisioningAPIGetProvisioningSearchByNameRequest struct {
 	name       string
 }
 
-func (r ProvisioningAPIGetProvisioningSearchByNameRequest) Execute() (*ProvisionedResource, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningSearchByNameRequest) Execute() (*ProvisioningProvisionedResource, *http.Response, error) {
 	return r.ApiService.GetProvisioningSearchByNameExecute(r)
 }
 
@@ -1655,13 +1783,13 @@ func (a *ProvisioningAPIService) GetProvisioningSearchByName(ctx context.Context
 
 // Execute executes the request
 //
-//	@return ProvisionedResource
-func (a *ProvisioningAPIService) GetProvisioningSearchByNameExecute(r ProvisioningAPIGetProvisioningSearchByNameRequest) (*ProvisionedResource, *http.Response, error) {
+//	@return ProvisioningProvisionedResource
+func (a *ProvisioningAPIService) GetProvisioningSearchByNameExecute(r ProvisioningAPIGetProvisioningSearchByNameRequest) (*ProvisioningProvisionedResource, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionedResource
+		localVarReturnValue *ProvisioningProvisionedResource
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningSearchByName")
@@ -1686,7 +1814,7 @@ func (a *ProvisioningAPIService) GetProvisioningSearchByNameExecute(r Provisioni
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1715,6 +1843,14 @@ func (a *ProvisioningAPIService) GetProvisioningSearchByNameExecute(r Provisioni
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1735,14 +1871,14 @@ type ProvisioningAPIGetProvisioningSqlRequest struct {
 	ApiService *ProvisioningAPIService
 }
 
-func (r ProvisioningAPIGetProvisioningSqlRequest) Execute() ([]ProvisionedSummary, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningSqlRequest) Execute() ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	return r.ApiService.GetProvisioningSqlExecute(r)
 }
 
 /*
-GetProvisioningSql ListSQL lists the caller org's Hanzo SQL databases.
+GetProvisioningSql Lists the caller org's Hanzo SQL databases.
 
-ListSQL lists the caller org's Hanzo SQL databases. Each one is a DEDICATED
+Lists the caller org's Hanzo SQL databases. Each one is a DEDICATED
 PostgreSQL instance the org alone runs, so the host is that instance's own
 in-cluster Service and the port is 5432.
 
@@ -1758,13 +1894,13 @@ func (a *ProvisioningAPIService) GetProvisioningSql(ctx context.Context) Provisi
 
 // Execute executes the request
 //
-//	@return []ProvisionedSummary
-func (a *ProvisioningAPIService) GetProvisioningSqlExecute(r ProvisioningAPIGetProvisioningSqlRequest) ([]ProvisionedSummary, *http.Response, error) {
+//	@return []ProvisioningProvisionedSummary
+func (a *ProvisioningAPIService) GetProvisioningSqlExecute(r ProvisioningAPIGetProvisioningSqlRequest) ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []ProvisionedSummary
+		localVarReturnValue []ProvisioningProvisionedSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningSql")
@@ -1788,7 +1924,7 @@ func (a *ProvisioningAPIService) GetProvisioningSqlExecute(r ProvisioningAPIGetP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1817,6 +1953,14 @@ func (a *ProvisioningAPIService) GetProvisioningSqlExecute(r ProvisioningAPIGetP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1838,14 +1982,14 @@ type ProvisioningAPIGetProvisioningSqlByNameRequest struct {
 	name       string
 }
 
-func (r ProvisioningAPIGetProvisioningSqlByNameRequest) Execute() (*ProvisionedResource, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningSqlByNameRequest) Execute() (*ProvisioningProvisionedResource, *http.Response, error) {
 	return r.ApiService.GetProvisioningSqlByNameExecute(r)
 }
 
 /*
-GetProvisioningSqlByName GetSQL returns one Hanzo SQL database's metadata.
+GetProvisioningSqlByName Returns one Hanzo SQL database's metadata.
 
-GetSQL returns one Hanzo SQL database's metadata. It carries the database's
+Returns one Hanzo SQL database's metadata. It carries the database's
 status, its instance address and the admin user Postgres booted with — never
 the password, which is returned once at create and otherwise lives only in
 Hanzo KMS. A still-booting instance reads "provisioning", reconciled from the
@@ -1865,13 +2009,13 @@ func (a *ProvisioningAPIService) GetProvisioningSqlByName(ctx context.Context, n
 
 // Execute executes the request
 //
-//	@return ProvisionedResource
-func (a *ProvisioningAPIService) GetProvisioningSqlByNameExecute(r ProvisioningAPIGetProvisioningSqlByNameRequest) (*ProvisionedResource, *http.Response, error) {
+//	@return ProvisioningProvisionedResource
+func (a *ProvisioningAPIService) GetProvisioningSqlByNameExecute(r ProvisioningAPIGetProvisioningSqlByNameRequest) (*ProvisioningProvisionedResource, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionedResource
+		localVarReturnValue *ProvisioningProvisionedResource
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningSqlByName")
@@ -1896,7 +2040,7 @@ func (a *ProvisioningAPIService) GetProvisioningSqlByNameExecute(r ProvisioningA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1925,6 +2069,14 @@ func (a *ProvisioningAPIService) GetProvisioningSqlByNameExecute(r ProvisioningA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1945,7 +2097,7 @@ type ProvisioningAPIGetProvisioningVectorRequest struct {
 	ApiService *ProvisioningAPIService
 }
 
-func (r ProvisioningAPIGetProvisioningVectorRequest) Execute() ([]ProvisionedSummary, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningVectorRequest) Execute() ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	return r.ApiService.GetProvisioningVectorExecute(r)
 }
 
@@ -1968,13 +2120,13 @@ func (a *ProvisioningAPIService) GetProvisioningVector(ctx context.Context) Prov
 
 // Execute executes the request
 //
-//	@return []ProvisionedSummary
-func (a *ProvisioningAPIService) GetProvisioningVectorExecute(r ProvisioningAPIGetProvisioningVectorRequest) ([]ProvisionedSummary, *http.Response, error) {
+//	@return []ProvisioningProvisionedSummary
+func (a *ProvisioningAPIService) GetProvisioningVectorExecute(r ProvisioningAPIGetProvisioningVectorRequest) ([]ProvisioningProvisionedSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []ProvisionedSummary
+		localVarReturnValue []ProvisioningProvisionedSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningVector")
@@ -1998,7 +2150,7 @@ func (a *ProvisioningAPIService) GetProvisioningVectorExecute(r ProvisioningAPIG
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2027,6 +2179,14 @@ func (a *ProvisioningAPIService) GetProvisioningVectorExecute(r ProvisioningAPIG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2048,7 +2208,7 @@ type ProvisioningAPIGetProvisioningVectorByNameRequest struct {
 	name       string
 }
 
-func (r ProvisioningAPIGetProvisioningVectorByNameRequest) Execute() (*ProvisionedResource, *http.Response, error) {
+func (r ProvisioningAPIGetProvisioningVectorByNameRequest) Execute() (*ProvisioningProvisionedResource, *http.Response, error) {
 	return r.ApiService.GetProvisioningVectorByNameExecute(r)
 }
 
@@ -2074,13 +2234,13 @@ func (a *ProvisioningAPIService) GetProvisioningVectorByName(ctx context.Context
 
 // Execute executes the request
 //
-//	@return ProvisionedResource
-func (a *ProvisioningAPIService) GetProvisioningVectorByNameExecute(r ProvisioningAPIGetProvisioningVectorByNameRequest) (*ProvisionedResource, *http.Response, error) {
+//	@return ProvisioningProvisionedResource
+func (a *ProvisioningAPIService) GetProvisioningVectorByNameExecute(r ProvisioningAPIGetProvisioningVectorByNameRequest) (*ProvisioningProvisionedResource, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionedResource
+		localVarReturnValue *ProvisioningProvisionedResource
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.GetProvisioningVectorByName")
@@ -2105,7 +2265,7 @@ func (a *ProvisioningAPIService) GetProvisioningVectorByNameExecute(r Provisioni
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2134,6 +2294,14 @@ func (a *ProvisioningAPIService) GetProvisioningVectorByNameExecute(r Provisioni
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2150,17 +2318,17 @@ func (a *ProvisioningAPIService) GetProvisioningVectorByNameExecute(r Provisioni
 }
 
 type ProvisioningAPIPostProvisioningDatastoreRequest struct {
-	ctx              context.Context
-	ApiService       *ProvisioningAPIService
-	provisionRequest *ProvisionRequest
+	ctx                          context.Context
+	ApiService                   *ProvisioningAPIService
+	provisioningProvisionRequest *ProvisioningProvisionRequest
 }
 
-func (r ProvisioningAPIPostProvisioningDatastoreRequest) ProvisionRequest(provisionRequest ProvisionRequest) ProvisioningAPIPostProvisioningDatastoreRequest {
-	r.provisionRequest = &provisionRequest
+func (r ProvisioningAPIPostProvisioningDatastoreRequest) ProvisioningProvisionRequest(provisioningProvisionRequest ProvisioningProvisionRequest) ProvisioningAPIPostProvisioningDatastoreRequest {
+	r.provisioningProvisionRequest = &provisioningProvisionRequest
 	return r
 }
 
-func (r ProvisioningAPIPostProvisioningDatastoreRequest) Execute() (*ProvisionResult, *http.Response, error) {
+func (r ProvisioningAPIPostProvisioningDatastoreRequest) Execute() (*ProvisioningProvisionResult, *http.Response, error) {
 	return r.ApiService.PostProvisioningDatastoreExecute(r)
 }
 
@@ -2187,13 +2355,13 @@ func (a *ProvisioningAPIService) PostProvisioningDatastore(ctx context.Context) 
 
 // Execute executes the request
 //
-//	@return ProvisionResult
-func (a *ProvisioningAPIService) PostProvisioningDatastoreExecute(r ProvisioningAPIPostProvisioningDatastoreRequest) (*ProvisionResult, *http.Response, error) {
+//	@return ProvisioningProvisionResult
+func (a *ProvisioningAPIService) PostProvisioningDatastoreExecute(r ProvisioningAPIPostProvisioningDatastoreRequest) (*ProvisioningProvisionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionResult
+		localVarReturnValue *ProvisioningProvisionResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.PostProvisioningDatastore")
@@ -2206,8 +2374,8 @@ func (a *ProvisioningAPIService) PostProvisioningDatastoreExecute(r Provisioning
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.provisionRequest == nil {
-		return localVarReturnValue, nil, reportError("provisionRequest is required and must be specified")
+	if r.provisioningProvisionRequest == nil {
+		return localVarReturnValue, nil, reportError("provisioningProvisionRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2220,7 +2388,7 @@ func (a *ProvisioningAPIService) PostProvisioningDatastoreExecute(r Provisioning
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2228,7 +2396,7 @@ func (a *ProvisioningAPIService) PostProvisioningDatastoreExecute(r Provisioning
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.provisionRequest
+	localVarPostBody = r.provisioningProvisionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2251,6 +2419,14 @@ func (a *ProvisioningAPIService) PostProvisioningDatastoreExecute(r Provisioning
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2267,24 +2443,24 @@ func (a *ProvisioningAPIService) PostProvisioningDatastoreExecute(r Provisioning
 }
 
 type ProvisioningAPIPostProvisioningDocdbRequest struct {
-	ctx              context.Context
-	ApiService       *ProvisioningAPIService
-	provisionRequest *ProvisionRequest
+	ctx                          context.Context
+	ApiService                   *ProvisioningAPIService
+	provisioningProvisionRequest *ProvisioningProvisionRequest
 }
 
-func (r ProvisioningAPIPostProvisioningDocdbRequest) ProvisionRequest(provisionRequest ProvisionRequest) ProvisioningAPIPostProvisioningDocdbRequest {
-	r.provisionRequest = &provisionRequest
+func (r ProvisioningAPIPostProvisioningDocdbRequest) ProvisioningProvisionRequest(provisioningProvisionRequest ProvisioningProvisionRequest) ProvisioningAPIPostProvisioningDocdbRequest {
+	r.provisioningProvisionRequest = &provisioningProvisionRequest
 	return r
 }
 
-func (r ProvisioningAPIPostProvisioningDocdbRequest) Execute() (*ProvisionResult, *http.Response, error) {
+func (r ProvisioningAPIPostProvisioningDocdbRequest) Execute() (*ProvisioningProvisionResult, *http.Response, error) {
 	return r.ApiService.PostProvisioningDocdbExecute(r)
 }
 
 /*
-PostProvisioningDocdb CreateDocDB launches your org's OWN document-database instance and answers with its `mongodb://` connection string.
+PostProvisioningDocdb Launches your org's OWN document-database instance and answers with its `mongodb://` connection string.
 
-CreateDocDB launches your org's OWN document-database instance and answers with
+Launches your org's OWN document-database instance and answers with
 its `mongodb://` connection string. It speaks the MongoDB wire protocol, so
 existing MongoDB drivers connect unchanged.
 
@@ -2305,13 +2481,13 @@ func (a *ProvisioningAPIService) PostProvisioningDocdb(ctx context.Context) Prov
 
 // Execute executes the request
 //
-//	@return ProvisionResult
-func (a *ProvisioningAPIService) PostProvisioningDocdbExecute(r ProvisioningAPIPostProvisioningDocdbRequest) (*ProvisionResult, *http.Response, error) {
+//	@return ProvisioningProvisionResult
+func (a *ProvisioningAPIService) PostProvisioningDocdbExecute(r ProvisioningAPIPostProvisioningDocdbRequest) (*ProvisioningProvisionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionResult
+		localVarReturnValue *ProvisioningProvisionResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.PostProvisioningDocdb")
@@ -2324,8 +2500,8 @@ func (a *ProvisioningAPIService) PostProvisioningDocdbExecute(r ProvisioningAPIP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.provisionRequest == nil {
-		return localVarReturnValue, nil, reportError("provisionRequest is required and must be specified")
+	if r.provisioningProvisionRequest == nil {
+		return localVarReturnValue, nil, reportError("provisioningProvisionRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2338,7 +2514,7 @@ func (a *ProvisioningAPIService) PostProvisioningDocdbExecute(r ProvisioningAPIP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2346,7 +2522,7 @@ func (a *ProvisioningAPIService) PostProvisioningDocdbExecute(r ProvisioningAPIP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.provisionRequest
+	localVarPostBody = r.provisioningProvisionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2369,6 +2545,14 @@ func (a *ProvisioningAPIService) PostProvisioningDocdbExecute(r ProvisioningAPIP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2385,24 +2569,24 @@ func (a *ProvisioningAPIService) PostProvisioningDocdbExecute(r ProvisioningAPIP
 }
 
 type ProvisioningAPIPostProvisioningKvRequest struct {
-	ctx              context.Context
-	ApiService       *ProvisioningAPIService
-	provisionRequest *ProvisionRequest
+	ctx                          context.Context
+	ApiService                   *ProvisioningAPIService
+	provisioningProvisionRequest *ProvisioningProvisionRequest
 }
 
-func (r ProvisioningAPIPostProvisioningKvRequest) ProvisionRequest(provisionRequest ProvisionRequest) ProvisioningAPIPostProvisioningKvRequest {
-	r.provisionRequest = &provisionRequest
+func (r ProvisioningAPIPostProvisioningKvRequest) ProvisioningProvisionRequest(provisioningProvisionRequest ProvisioningProvisionRequest) ProvisioningAPIPostProvisioningKvRequest {
+	r.provisioningProvisionRequest = &provisioningProvisionRequest
 	return r
 }
 
-func (r ProvisioningAPIPostProvisioningKvRequest) Execute() (*ProvisionResult, *http.Response, error) {
+func (r ProvisioningAPIPostProvisioningKvRequest) Execute() (*ProvisioningProvisionResult, *http.Response, error) {
 	return r.ApiService.PostProvisioningKvExecute(r)
 }
 
 /*
-PostProvisioningKv CreateKV launches your org's OWN key-value instance and answers with its `kv://` connection string.
+PostProvisioningKv Launches your org's OWN key-value instance and answers with its `kv://` connection string.
 
-CreateKV launches your org's OWN key-value instance and answers with its `kv://`
+Launches your org's OWN key-value instance and answers with its `kv://`
 connection string.
 
 The instance is yours alone — a deployment in your own tenant namespace, so its
@@ -2422,13 +2606,13 @@ func (a *ProvisioningAPIService) PostProvisioningKv(ctx context.Context) Provisi
 
 // Execute executes the request
 //
-//	@return ProvisionResult
-func (a *ProvisioningAPIService) PostProvisioningKvExecute(r ProvisioningAPIPostProvisioningKvRequest) (*ProvisionResult, *http.Response, error) {
+//	@return ProvisioningProvisionResult
+func (a *ProvisioningAPIService) PostProvisioningKvExecute(r ProvisioningAPIPostProvisioningKvRequest) (*ProvisioningProvisionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionResult
+		localVarReturnValue *ProvisioningProvisionResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.PostProvisioningKv")
@@ -2441,8 +2625,8 @@ func (a *ProvisioningAPIService) PostProvisioningKvExecute(r ProvisioningAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.provisionRequest == nil {
-		return localVarReturnValue, nil, reportError("provisionRequest is required and must be specified")
+	if r.provisioningProvisionRequest == nil {
+		return localVarReturnValue, nil, reportError("provisioningProvisionRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2455,7 +2639,7 @@ func (a *ProvisioningAPIService) PostProvisioningKvExecute(r ProvisioningAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2463,7 +2647,7 @@ func (a *ProvisioningAPIService) PostProvisioningKvExecute(r ProvisioningAPIPost
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.provisionRequest
+	localVarPostBody = r.provisioningProvisionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2486,6 +2670,14 @@ func (a *ProvisioningAPIService) PostProvisioningKvExecute(r ProvisioningAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2502,17 +2694,17 @@ func (a *ProvisioningAPIService) PostProvisioningKvExecute(r ProvisioningAPIPost
 }
 
 type ProvisioningAPIPostProvisioningS3Request struct {
-	ctx              context.Context
-	ApiService       *ProvisioningAPIService
-	provisionRequest *ProvisionRequest
+	ctx                          context.Context
+	ApiService                   *ProvisioningAPIService
+	provisioningProvisionRequest *ProvisioningProvisionRequest
 }
 
-func (r ProvisioningAPIPostProvisioningS3Request) ProvisionRequest(provisionRequest ProvisionRequest) ProvisioningAPIPostProvisioningS3Request {
-	r.provisionRequest = &provisionRequest
+func (r ProvisioningAPIPostProvisioningS3Request) ProvisioningProvisionRequest(provisioningProvisionRequest ProvisioningProvisionRequest) ProvisioningAPIPostProvisioningS3Request {
+	r.provisioningProvisionRequest = &provisioningProvisionRequest
 	return r
 }
 
-func (r ProvisioningAPIPostProvisioningS3Request) Execute() (*ProvisionResult, *http.Response, error) {
+func (r ProvisioningAPIPostProvisioningS3Request) Execute() (*ProvisioningProvisionResult, *http.Response, error) {
 	return r.ApiService.PostProvisioningS3Execute(r)
 }
 
@@ -2534,13 +2726,13 @@ func (a *ProvisioningAPIService) PostProvisioningS3(ctx context.Context) Provisi
 
 // Execute executes the request
 //
-//	@return ProvisionResult
-func (a *ProvisioningAPIService) PostProvisioningS3Execute(r ProvisioningAPIPostProvisioningS3Request) (*ProvisionResult, *http.Response, error) {
+//	@return ProvisioningProvisionResult
+func (a *ProvisioningAPIService) PostProvisioningS3Execute(r ProvisioningAPIPostProvisioningS3Request) (*ProvisioningProvisionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionResult
+		localVarReturnValue *ProvisioningProvisionResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.PostProvisioningS3")
@@ -2553,8 +2745,8 @@ func (a *ProvisioningAPIService) PostProvisioningS3Execute(r ProvisioningAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.provisionRequest == nil {
-		return localVarReturnValue, nil, reportError("provisionRequest is required and must be specified")
+	if r.provisioningProvisionRequest == nil {
+		return localVarReturnValue, nil, reportError("provisioningProvisionRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2567,7 +2759,7 @@ func (a *ProvisioningAPIService) PostProvisioningS3Execute(r ProvisioningAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2575,7 +2767,7 @@ func (a *ProvisioningAPIService) PostProvisioningS3Execute(r ProvisioningAPIPost
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.provisionRequest
+	localVarPostBody = r.provisioningProvisionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2598,6 +2790,14 @@ func (a *ProvisioningAPIService) PostProvisioningS3Execute(r ProvisioningAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2614,17 +2814,17 @@ func (a *ProvisioningAPIService) PostProvisioningS3Execute(r ProvisioningAPIPost
 }
 
 type ProvisioningAPIPostProvisioningSearchRequest struct {
-	ctx              context.Context
-	ApiService       *ProvisioningAPIService
-	provisionRequest *ProvisionRequest
+	ctx                          context.Context
+	ApiService                   *ProvisioningAPIService
+	provisioningProvisionRequest *ProvisioningProvisionRequest
 }
 
-func (r ProvisioningAPIPostProvisioningSearchRequest) ProvisionRequest(provisionRequest ProvisionRequest) ProvisioningAPIPostProvisioningSearchRequest {
-	r.provisionRequest = &provisionRequest
+func (r ProvisioningAPIPostProvisioningSearchRequest) ProvisioningProvisionRequest(provisioningProvisionRequest ProvisioningProvisionRequest) ProvisioningAPIPostProvisioningSearchRequest {
+	r.provisioningProvisionRequest = &provisioningProvisionRequest
 	return r
 }
 
-func (r ProvisioningAPIPostProvisioningSearchRequest) Execute() (*ProvisionResult, *http.Response, error) {
+func (r ProvisioningAPIPostProvisioningSearchRequest) Execute() (*ProvisioningProvisionResult, *http.Response, error) {
 	return r.ApiService.PostProvisioningSearchExecute(r)
 }
 
@@ -2646,13 +2846,13 @@ func (a *ProvisioningAPIService) PostProvisioningSearch(ctx context.Context) Pro
 
 // Execute executes the request
 //
-//	@return ProvisionResult
-func (a *ProvisioningAPIService) PostProvisioningSearchExecute(r ProvisioningAPIPostProvisioningSearchRequest) (*ProvisionResult, *http.Response, error) {
+//	@return ProvisioningProvisionResult
+func (a *ProvisioningAPIService) PostProvisioningSearchExecute(r ProvisioningAPIPostProvisioningSearchRequest) (*ProvisioningProvisionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionResult
+		localVarReturnValue *ProvisioningProvisionResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.PostProvisioningSearch")
@@ -2665,8 +2865,8 @@ func (a *ProvisioningAPIService) PostProvisioningSearchExecute(r ProvisioningAPI
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.provisionRequest == nil {
-		return localVarReturnValue, nil, reportError("provisionRequest is required and must be specified")
+	if r.provisioningProvisionRequest == nil {
+		return localVarReturnValue, nil, reportError("provisioningProvisionRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2679,7 +2879,7 @@ func (a *ProvisioningAPIService) PostProvisioningSearchExecute(r ProvisioningAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2687,7 +2887,7 @@ func (a *ProvisioningAPIService) PostProvisioningSearchExecute(r ProvisioningAPI
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.provisionRequest
+	localVarPostBody = r.provisioningProvisionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2710,6 +2910,14 @@ func (a *ProvisioningAPIService) PostProvisioningSearchExecute(r ProvisioningAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2726,24 +2934,24 @@ func (a *ProvisioningAPIService) PostProvisioningSearchExecute(r ProvisioningAPI
 }
 
 type ProvisioningAPIPostProvisioningSqlRequest struct {
-	ctx              context.Context
-	ApiService       *ProvisioningAPIService
-	provisionRequest *ProvisionRequest
+	ctx                          context.Context
+	ApiService                   *ProvisioningAPIService
+	provisioningProvisionRequest *ProvisioningProvisionRequest
 }
 
-func (r ProvisioningAPIPostProvisioningSqlRequest) ProvisionRequest(provisionRequest ProvisionRequest) ProvisioningAPIPostProvisioningSqlRequest {
-	r.provisionRequest = &provisionRequest
+func (r ProvisioningAPIPostProvisioningSqlRequest) ProvisioningProvisionRequest(provisioningProvisionRequest ProvisioningProvisionRequest) ProvisioningAPIPostProvisioningSqlRequest {
+	r.provisioningProvisionRequest = &provisioningProvisionRequest
 	return r
 }
 
-func (r ProvisioningAPIPostProvisioningSqlRequest) Execute() (*ProvisionResult, *http.Response, error) {
+func (r ProvisioningAPIPostProvisioningSqlRequest) Execute() (*ProvisioningProvisionResult, *http.Response, error) {
 	return r.ApiService.PostProvisioningSqlExecute(r)
 }
 
 /*
-PostProvisioningSql CreateSQL launches your org's OWN PostgreSQL instance and answers with its `postgres://` connection string.
+PostProvisioningSql Launches your org's OWN PostgreSQL instance and answers with its `postgres://` connection string.
 
-CreateSQL launches your org's OWN PostgreSQL instance and answers with its
+Launches your org's OWN PostgreSQL instance and answers with its
 `postgres://` connection string.
 
 The instance is yours alone — a deployment in your own tenant namespace, so its
@@ -2763,13 +2971,13 @@ func (a *ProvisioningAPIService) PostProvisioningSql(ctx context.Context) Provis
 
 // Execute executes the request
 //
-//	@return ProvisionResult
-func (a *ProvisioningAPIService) PostProvisioningSqlExecute(r ProvisioningAPIPostProvisioningSqlRequest) (*ProvisionResult, *http.Response, error) {
+//	@return ProvisioningProvisionResult
+func (a *ProvisioningAPIService) PostProvisioningSqlExecute(r ProvisioningAPIPostProvisioningSqlRequest) (*ProvisioningProvisionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionResult
+		localVarReturnValue *ProvisioningProvisionResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.PostProvisioningSql")
@@ -2782,8 +2990,8 @@ func (a *ProvisioningAPIService) PostProvisioningSqlExecute(r ProvisioningAPIPos
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.provisionRequest == nil {
-		return localVarReturnValue, nil, reportError("provisionRequest is required and must be specified")
+	if r.provisioningProvisionRequest == nil {
+		return localVarReturnValue, nil, reportError("provisioningProvisionRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2796,7 +3004,7 @@ func (a *ProvisioningAPIService) PostProvisioningSqlExecute(r ProvisioningAPIPos
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2804,7 +3012,7 @@ func (a *ProvisioningAPIService) PostProvisioningSqlExecute(r ProvisioningAPIPos
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.provisionRequest
+	localVarPostBody = r.provisioningProvisionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2827,6 +3035,14 @@ func (a *ProvisioningAPIService) PostProvisioningSqlExecute(r ProvisioningAPIPos
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2843,17 +3059,17 @@ func (a *ProvisioningAPIService) PostProvisioningSqlExecute(r ProvisioningAPIPos
 }
 
 type ProvisioningAPIPostProvisioningVectorRequest struct {
-	ctx              context.Context
-	ApiService       *ProvisioningAPIService
-	provisionRequest *ProvisionRequest
+	ctx                          context.Context
+	ApiService                   *ProvisioningAPIService
+	provisioningProvisionRequest *ProvisioningProvisionRequest
 }
 
-func (r ProvisioningAPIPostProvisioningVectorRequest) ProvisionRequest(provisionRequest ProvisionRequest) ProvisioningAPIPostProvisioningVectorRequest {
-	r.provisionRequest = &provisionRequest
+func (r ProvisioningAPIPostProvisioningVectorRequest) ProvisioningProvisionRequest(provisioningProvisionRequest ProvisioningProvisionRequest) ProvisioningAPIPostProvisioningVectorRequest {
+	r.provisioningProvisionRequest = &provisioningProvisionRequest
 	return r
 }
 
-func (r ProvisioningAPIPostProvisioningVectorRequest) Execute() (*ProvisionResult, *http.Response, error) {
+func (r ProvisioningAPIPostProvisioningVectorRequest) Execute() (*ProvisioningProvisionResult, *http.Response, error) {
 	return r.ApiService.PostProvisioningVectorExecute(r)
 }
 
@@ -2875,13 +3091,13 @@ func (a *ProvisioningAPIService) PostProvisioningVector(ctx context.Context) Pro
 
 // Execute executes the request
 //
-//	@return ProvisionResult
-func (a *ProvisioningAPIService) PostProvisioningVectorExecute(r ProvisioningAPIPostProvisioningVectorRequest) (*ProvisionResult, *http.Response, error) {
+//	@return ProvisioningProvisionResult
+func (a *ProvisioningAPIService) PostProvisioningVectorExecute(r ProvisioningAPIPostProvisioningVectorRequest) (*ProvisioningProvisionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProvisionResult
+		localVarReturnValue *ProvisioningProvisionResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProvisioningAPIService.PostProvisioningVector")
@@ -2894,8 +3110,8 @@ func (a *ProvisioningAPIService) PostProvisioningVectorExecute(r ProvisioningAPI
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.provisionRequest == nil {
-		return localVarReturnValue, nil, reportError("provisionRequest is required and must be specified")
+	if r.provisioningProvisionRequest == nil {
+		return localVarReturnValue, nil, reportError("provisioningProvisionRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2908,7 +3124,7 @@ func (a *ProvisioningAPIService) PostProvisioningVectorExecute(r ProvisioningAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2916,7 +3132,7 @@ func (a *ProvisioningAPIService) PostProvisioningVectorExecute(r ProvisioningAPI
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.provisionRequest
+	localVarPostBody = r.provisioningProvisionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2939,6 +3155,14 @@ func (a *ProvisioningAPIService) PostProvisioningVectorExecute(r ProvisioningAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

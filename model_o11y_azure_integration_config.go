@@ -22,7 +22,10 @@ type O11yAzureIntegrationConfig struct {
 	DeploymentRegion            *string                                `json:"deploymentRegion,omitempty"`
 	ResourceGroups              []string                               `json:"resourceGroups,omitempty"`
 	TelemetryCollectionStrategy []O11yAzureTelemetryCollectionStrategy `json:"telemetryCollectionStrategy,omitempty"`
+	AdditionalProperties        map[string]interface{}
 }
+
+type _O11yAzureIntegrationConfig O11yAzureIntegrationConfig
 
 // NewO11yAzureIntegrationConfig instantiates a new O11yAzureIntegrationConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yAzureIntegrationConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TelemetryCollectionStrategy) {
 		toSerialize["telemetryCollectionStrategy"] = o.TelemetryCollectionStrategy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAzureIntegrationConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yAzureIntegrationConfig := _O11yAzureIntegrationConfig{}
+
+	err = json.Unmarshal(data, &varO11yAzureIntegrationConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAzureIntegrationConfig(varO11yAzureIntegrationConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "deploymentRegion")
+		delete(additionalProperties, "resourceGroups")
+		delete(additionalProperties, "telemetryCollectionStrategy")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAzureIntegrationConfig struct {

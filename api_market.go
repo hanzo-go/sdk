@@ -26,7 +26,7 @@ type MarketAPIGetMarketChainsRequest struct {
 	ApiService *MarketAPIService
 }
 
-func (r MarketAPIGetMarketChainsRequest) Execute() (*Roster, *http.Response, error) {
+func (r MarketAPIGetMarketChainsRequest) Execute() (*MarketRoster, *http.Response, error) {
 	return r.ApiService.GetMarketChainsExecute(r)
 }
 
@@ -58,13 +58,13 @@ func (a *MarketAPIService) GetMarketChains(ctx context.Context) MarketAPIGetMark
 
 // Execute executes the request
 //
-//	@return Roster
-func (a *MarketAPIService) GetMarketChainsExecute(r MarketAPIGetMarketChainsRequest) (*Roster, *http.Response, error) {
+//	@return MarketRoster
+func (a *MarketAPIService) GetMarketChainsExecute(r MarketAPIGetMarketChainsRequest) (*MarketRoster, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Roster
+		localVarReturnValue *MarketRoster
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketAPIService.GetMarketChains")
@@ -88,7 +88,7 @@ func (a *MarketAPIService) GetMarketChainsExecute(r MarketAPIGetMarketChainsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -117,6 +117,14 @@ func (a *MarketAPIService) GetMarketChainsExecute(r MarketAPIGetMarketChainsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -144,7 +152,7 @@ func (r MarketAPIGetMarketPoolsRequest) Chain(chain string) MarketAPIGetMarketPo
 	return r
 }
 
-func (r MarketAPIGetMarketPoolsRequest) Execute() (*Pools, *http.Response, error) {
+func (r MarketAPIGetMarketPoolsRequest) Execute() (*MarketPools, *http.Response, error) {
 	return r.ApiService.GetMarketPoolsExecute(r)
 }
 
@@ -174,13 +182,13 @@ func (a *MarketAPIService) GetMarketPools(ctx context.Context) MarketAPIGetMarke
 
 // Execute executes the request
 //
-//	@return Pools
-func (a *MarketAPIService) GetMarketPoolsExecute(r MarketAPIGetMarketPoolsRequest) (*Pools, *http.Response, error) {
+//	@return MarketPools
+func (a *MarketAPIService) GetMarketPoolsExecute(r MarketAPIGetMarketPoolsRequest) (*MarketPools, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Pools
+		localVarReturnValue *MarketPools
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketAPIService.GetMarketPools")
@@ -207,7 +215,7 @@ func (a *MarketAPIService) GetMarketPoolsExecute(r MarketAPIGetMarketPoolsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -236,6 +244,14 @@ func (a *MarketAPIService) GetMarketPoolsExecute(r MarketAPIGetMarketPoolsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -263,7 +279,7 @@ func (r MarketAPIGetMarketSurveyRequest) Chain(chain string) MarketAPIGetMarketS
 	return r
 }
 
-func (r MarketAPIGetMarketSurveyRequest) Execute() (*Survey, *http.Response, error) {
+func (r MarketAPIGetMarketSurveyRequest) Execute() (*MarketSurvey, *http.Response, error) {
 	return r.ApiService.GetMarketSurveyExecute(r)
 }
 
@@ -292,13 +308,13 @@ func (a *MarketAPIService) GetMarketSurvey(ctx context.Context) MarketAPIGetMark
 
 // Execute executes the request
 //
-//	@return Survey
-func (a *MarketAPIService) GetMarketSurveyExecute(r MarketAPIGetMarketSurveyRequest) (*Survey, *http.Response, error) {
+//	@return MarketSurvey
+func (a *MarketAPIService) GetMarketSurveyExecute(r MarketAPIGetMarketSurveyRequest) (*MarketSurvey, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Survey
+		localVarReturnValue *MarketSurvey
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketAPIService.GetMarketSurvey")
@@ -325,7 +341,7 @@ func (a *MarketAPIService) GetMarketSurveyExecute(r MarketAPIGetMarketSurveyRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -354,6 +370,14 @@ func (a *MarketAPIService) GetMarketSurveyExecute(r MarketAPIGetMarketSurveyRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -387,7 +411,7 @@ func (r MarketAPIGetMarketTokenRequest) At(at string) MarketAPIGetMarketTokenReq
 	return r
 }
 
-func (r MarketAPIGetMarketTokenRequest) Execute() (*History, *http.Response, error) {
+func (r MarketAPIGetMarketTokenRequest) Execute() (*MarketHistory, *http.Response, error) {
 	return r.ApiService.GetMarketTokenExecute(r)
 }
 
@@ -414,13 +438,13 @@ func (a *MarketAPIService) GetMarketToken(ctx context.Context) MarketAPIGetMarke
 
 // Execute executes the request
 //
-//	@return History
-func (a *MarketAPIService) GetMarketTokenExecute(r MarketAPIGetMarketTokenRequest) (*History, *http.Response, error) {
+//	@return MarketHistory
+func (a *MarketAPIService) GetMarketTokenExecute(r MarketAPIGetMarketTokenRequest) (*MarketHistory, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *History
+		localVarReturnValue *MarketHistory
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketAPIService.GetMarketToken")
@@ -450,7 +474,7 @@ func (a *MarketAPIService) GetMarketTokenExecute(r MarketAPIGetMarketTokenReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -479,6 +503,14 @@ func (a *MarketAPIService) GetMarketTokenExecute(r MarketAPIGetMarketTokenReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -506,7 +538,7 @@ func (r MarketAPIGetMarketTokensRequest) Chain(chain string) MarketAPIGetMarketT
 	return r
 }
 
-func (r MarketAPIGetMarketTokensRequest) Execute() (*Tokens, *http.Response, error) {
+func (r MarketAPIGetMarketTokensRequest) Execute() (*MarketTokens, *http.Response, error) {
 	return r.ApiService.GetMarketTokensExecute(r)
 }
 
@@ -532,13 +564,13 @@ func (a *MarketAPIService) GetMarketTokens(ctx context.Context) MarketAPIGetMark
 
 // Execute executes the request
 //
-//	@return Tokens
-func (a *MarketAPIService) GetMarketTokensExecute(r MarketAPIGetMarketTokensRequest) (*Tokens, *http.Response, error) {
+//	@return MarketTokens
+func (a *MarketAPIService) GetMarketTokensExecute(r MarketAPIGetMarketTokensRequest) (*MarketTokens, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Tokens
+		localVarReturnValue *MarketTokens
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketAPIService.GetMarketTokens")
@@ -565,7 +597,7 @@ func (a *MarketAPIService) GetMarketTokensExecute(r MarketAPIGetMarketTokensRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -594,6 +626,14 @@ func (a *MarketAPIService) GetMarketTokensExecute(r MarketAPIGetMarketTokensRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

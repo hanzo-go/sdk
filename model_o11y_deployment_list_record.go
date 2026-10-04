@@ -19,18 +19,21 @@ var _ MappedNullable = &O11yDeploymentListRecord{}
 
 // O11yDeploymentListRecord struct for O11yDeploymentListRecord
 type O11yDeploymentListRecord struct {
-	AvailablePods  *int64            `json:"availablePods,omitempty"`
-	CpuLimit       *float64          `json:"cpuLimit,omitempty"`
-	CpuRequest     *float64          `json:"cpuRequest,omitempty"`
-	CpuUsage       *float64          `json:"cpuUsage,omitempty"`
-	DeploymentName *string           `json:"deploymentName,omitempty"`
-	DesiredPods    *int64            `json:"desiredPods,omitempty"`
-	MemoryLimit    *float64          `json:"memoryLimit,omitempty"`
-	MemoryRequest  *float64          `json:"memoryRequest,omitempty"`
-	MemoryUsage    *float64          `json:"memoryUsage,omitempty"`
-	Meta           map[string]string `json:"meta,omitempty"`
-	Restarts       *int64            `json:"restarts,omitempty"`
+	AvailablePods        *int64            `json:"availablePods,omitempty"`
+	CpuLimit             *float64          `json:"cpuLimit,omitempty"`
+	CpuRequest           *float64          `json:"cpuRequest,omitempty"`
+	CpuUsage             *float64          `json:"cpuUsage,omitempty"`
+	DeploymentName       *string           `json:"deploymentName,omitempty"`
+	DesiredPods          *int64            `json:"desiredPods,omitempty"`
+	MemoryLimit          *float64          `json:"memoryLimit,omitempty"`
+	MemoryRequest        *float64          `json:"memoryRequest,omitempty"`
+	MemoryUsage          *float64          `json:"memoryUsage,omitempty"`
+	Meta                 map[string]string `json:"meta,omitempty"`
+	Restarts             *int64            `json:"restarts,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yDeploymentListRecord O11yDeploymentListRecord
 
 // NewO11yDeploymentListRecord instantiates a new O11yDeploymentListRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o O11yDeploymentListRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Restarts) {
 		toSerialize["restarts"] = o.Restarts
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yDeploymentListRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yDeploymentListRecord := _O11yDeploymentListRecord{}
+
+	err = json.Unmarshal(data, &varO11yDeploymentListRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yDeploymentListRecord(varO11yDeploymentListRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "availablePods")
+		delete(additionalProperties, "cpuLimit")
+		delete(additionalProperties, "cpuRequest")
+		delete(additionalProperties, "cpuUsage")
+		delete(additionalProperties, "deploymentName")
+		delete(additionalProperties, "desiredPods")
+		delete(additionalProperties, "memoryLimit")
+		delete(additionalProperties, "memoryRequest")
+		delete(additionalProperties, "memoryUsage")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "restarts")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yDeploymentListRecord struct {

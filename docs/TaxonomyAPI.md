@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteTaxonomyCategoriesById**](TaxonomyAPI.md#DeleteTaxonomyCategoriesById) | **Delete** /v1/taxonomy/categories/{id} | Removes one empty category.
 [**DeleteTaxonomyTaxaById**](TaxonomyAPI.md#DeleteTaxonomyTaxaById) | **Delete** /v1/taxonomy/taxa/{id} | Removes one product from the catalogue.
-[**GetTaxonomy**](TaxonomyAPI.md#GetTaxonomy) | **Get** /v1/taxonomy | Read returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo&#39;s own products, the part that is true for everyone — plus the caller&#39;s own org&#39;s rows, every category in display order and each carrying the products filed under it in theirs.
+[**GetTaxonomy**](TaxonomyAPI.md#GetTaxonomy) | **Get** /v1/taxonomy | Returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo&#39;s own products, the part that is true for everyone — plus the caller&#39;s own org&#39;s rows, every category in display order and each carrying the products filed under it in theirs.
 [**PutTaxonomyCategoriesById**](TaxonomyAPI.md#PutTaxonomyCategoriesById) | **Put** /v1/taxonomy/categories/{id} | Creates or replaces one category and returns it as stored.
 [**PutTaxonomyTaxaById**](TaxonomyAPI.md#PutTaxonomyTaxaById) | **Put** /v1/taxonomy/taxa/{id} | Creates or replaces one product and returns it as stored.
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## DeleteTaxonomyCategoriesById
 
-> Deleted DeleteTaxonomyCategoriesById(ctx, id).Execute()
+> TaxonomyDeleted DeleteTaxonomyCategoriesById(ctx, id).Execute()
 
 Removes one empty category.
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TaxonomyAPI.DeleteTaxonomyCategoriesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteTaxonomyCategoriesById`: Deleted
+	// response from `DeleteTaxonomyCategoriesById`: TaxonomyDeleted
 	fmt.Fprintf(os.Stdout, "Response from `TaxonomyAPI.DeleteTaxonomyCategoriesById`: %v\n", resp)
 }
 ```
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Deleted**](Deleted.md)
+[**TaxonomyDeleted**](TaxonomyDeleted.md)
 
 ### Authorization
 
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 ## DeleteTaxonomyTaxaById
 
-> Deleted DeleteTaxonomyTaxaById(ctx, id).Execute()
+> TaxonomyDeleted DeleteTaxonomyTaxaById(ctx, id).Execute()
 
 Removes one product from the catalogue.
 
@@ -112,7 +112,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TaxonomyAPI.DeleteTaxonomyTaxaById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteTaxonomyTaxaById`: Deleted
+	// response from `DeleteTaxonomyTaxaById`: TaxonomyDeleted
 	fmt.Fprintf(os.Stdout, "Response from `TaxonomyAPI.DeleteTaxonomyTaxaById`: %v\n", resp)
 }
 ```
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Deleted**](Deleted.md)
+[**TaxonomyDeleted**](TaxonomyDeleted.md)
 
 ### Authorization
 
@@ -145,7 +145,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -154,9 +154,9 @@ Name | Type | Description  | Notes
 
 ## GetTaxonomy
 
-> Taxonomy GetTaxonomy(ctx).Brand(brand).Execute()
+> TaxonomyTaxonomy GetTaxonomy(ctx).Brand(brand).Execute()
 
-Read returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo's own products, the part that is true for everyone — plus the caller's own org's rows, every category in display order and each carrying the products filed under it in theirs.
+Returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo's own products, the part that is true for everyone — plus the caller's own org's rows, every category in display order and each carrying the products filed under it in theirs.
 
 
 
@@ -182,7 +182,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TaxonomyAPI.GetTaxonomy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTaxonomy`: Taxonomy
+	// response from `GetTaxonomy`: TaxonomyTaxonomy
 	fmt.Fprintf(os.Stdout, "Response from `TaxonomyAPI.GetTaxonomy`: %v\n", resp)
 }
 ```
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Taxonomy**](Taxonomy.md)
+[**TaxonomyTaxonomy**](TaxonomyTaxonomy.md)
 
 ### Authorization
 
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## PutTaxonomyCategoriesById
 
-> Category PutTaxonomyCategoriesById(ctx, id).CategoryIn(categoryIn).Execute()
+> TaxonomyCategory PutTaxonomyCategoriesById(ctx, id).TaxonomyCategoryIn(taxonomyCategoryIn).Execute()
 
 Creates or replaces one category and returns it as stored.
 
@@ -240,16 +240,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the category slug to write, from the path.
-	categoryIn := *openapiclient.NewCategoryIn() // CategoryIn | 
+	taxonomyCategoryIn := *openapiclient.NewTaxonomyCategoryIn() // TaxonomyCategoryIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TaxonomyAPI.PutTaxonomyCategoriesById(context.Background(), id).CategoryIn(categoryIn).Execute()
+	resp, r, err := apiClient.TaxonomyAPI.PutTaxonomyCategoriesById(context.Background(), id).TaxonomyCategoryIn(taxonomyCategoryIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TaxonomyAPI.PutTaxonomyCategoriesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutTaxonomyCategoriesById`: Category
+	// response from `PutTaxonomyCategoriesById`: TaxonomyCategory
 	fmt.Fprintf(os.Stdout, "Response from `TaxonomyAPI.PutTaxonomyCategoriesById`: %v\n", resp)
 }
 ```
@@ -270,11 +270,11 @@ Other parameters are passed through a pointer to a apiPutTaxonomyCategoriesByIdR
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **categoryIn** | [**CategoryIn**](CategoryIn.md) |  | 
+ **taxonomyCategoryIn** | [**TaxonomyCategoryIn**](TaxonomyCategoryIn.md) |  | 
 
 ### Return type
 
-[**Category**](Category.md)
+[**TaxonomyCategory**](TaxonomyCategory.md)
 
 ### Authorization
 
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -292,7 +292,7 @@ Name | Type | Description  | Notes
 
 ## PutTaxonomyTaxaById
 
-> Taxon PutTaxonomyTaxaById(ctx, id).TaxonIn(taxonIn).Execute()
+> TaxonomyTaxon PutTaxonomyTaxaById(ctx, id).TaxonomyTaxonIn(taxonomyTaxonIn).Execute()
 
 Creates or replaces one product and returns it as stored.
 
@@ -312,16 +312,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the taxon slug to write, from the path.
-	taxonIn := *openapiclient.NewTaxonIn() // TaxonIn | 
+	taxonomyTaxonIn := *openapiclient.NewTaxonomyTaxonIn() // TaxonomyTaxonIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TaxonomyAPI.PutTaxonomyTaxaById(context.Background(), id).TaxonIn(taxonIn).Execute()
+	resp, r, err := apiClient.TaxonomyAPI.PutTaxonomyTaxaById(context.Background(), id).TaxonomyTaxonIn(taxonomyTaxonIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TaxonomyAPI.PutTaxonomyTaxaById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutTaxonomyTaxaById`: Taxon
+	// response from `PutTaxonomyTaxaById`: TaxonomyTaxon
 	fmt.Fprintf(os.Stdout, "Response from `TaxonomyAPI.PutTaxonomyTaxaById`: %v\n", resp)
 }
 ```
@@ -342,11 +342,11 @@ Other parameters are passed through a pointer to a apiPutTaxonomyTaxaByIdRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **taxonIn** | [**TaxonIn**](TaxonIn.md) |  | 
+ **taxonomyTaxonIn** | [**TaxonomyTaxonIn**](TaxonomyTaxonIn.md) |  | 
 
 ### Return type
 
-[**Taxon**](Taxon.md)
+[**TaxonomyTaxon**](TaxonomyTaxon.md)
 
 ### Authorization
 
@@ -355,7 +355,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

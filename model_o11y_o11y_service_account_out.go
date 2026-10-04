@@ -22,8 +22,11 @@ type O11yO11yServiceAccountOut struct {
 	// Data holds the account and its role assignments.
 	Data *O11yO11yServiceAccountDetail `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yServiceAccountOut O11yO11yServiceAccountOut
 
 // NewO11yO11yServiceAccountOut instantiates a new O11yO11yServiceAccountOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yServiceAccountOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yServiceAccountOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yServiceAccountOut := _O11yO11yServiceAccountOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yServiceAccountOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yServiceAccountOut(varO11yO11yServiceAccountOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yServiceAccountOut struct {

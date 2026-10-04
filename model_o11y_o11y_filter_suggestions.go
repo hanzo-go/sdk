@@ -22,8 +22,11 @@ type O11yO11yFilterSuggestions struct {
 	// Attributes are the suggested attribute keys.
 	Attributes []O11yO11yAttributeKey `json:"attributes,omitempty"`
 	// ExampleQueries are ready-to-run filter sets.
-	ExampleQueries []O11yO11yFilterSet `json:"example_queries,omitempty"`
+	ExampleQueries       []O11yO11yFilterSet `json:"example_queries,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFilterSuggestions O11yO11yFilterSuggestions
 
 // NewO11yO11yFilterSuggestions instantiates a new O11yO11yFilterSuggestions object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yFilterSuggestions) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExampleQueries) {
 		toSerialize["example_queries"] = o.ExampleQueries
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFilterSuggestions) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFilterSuggestions := _O11yO11yFilterSuggestions{}
+
+	err = json.Unmarshal(data, &varO11yO11yFilterSuggestions)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFilterSuggestions(varO11yO11yFilterSuggestions)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "example_queries")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFilterSuggestions struct {

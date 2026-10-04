@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yIntegrationConnectionStatus{}
 
 // O11yIntegrationConnectionStatus struct for O11yIntegrationConnectionStatus
 type O11yIntegrationConnectionStatus struct {
-	Logs    *O11ySignalConnectionStatus `json:"logs,omitempty"`
-	Metrics *O11ySignalConnectionStatus `json:"metrics,omitempty"`
+	Logs                 *O11ySignalConnectionStatus `json:"logs,omitempty"`
+	Metrics              *O11ySignalConnectionStatus `json:"metrics,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yIntegrationConnectionStatus O11yIntegrationConnectionStatus
 
 // NewO11yIntegrationConnectionStatus instantiates a new O11yIntegrationConnectionStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yIntegrationConnectionStatus) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.Metrics) {
 		toSerialize["metrics"] = o.Metrics
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yIntegrationConnectionStatus) UnmarshalJSON(data []byte) (err error) {
+	varO11yIntegrationConnectionStatus := _O11yIntegrationConnectionStatus{}
+
+	err = json.Unmarshal(data, &varO11yIntegrationConnectionStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yIntegrationConnectionStatus(varO11yIntegrationConnectionStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "logs")
+		delete(additionalProperties, "metrics")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yIntegrationConnectionStatus struct {

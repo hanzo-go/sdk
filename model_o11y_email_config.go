@@ -38,8 +38,11 @@ type O11yEmailConfig struct {
 	Threading        *O11yThreadingConfig `json:"threading,omitempty"`
 	TlsConfig        *O11yTLSConfig       `json:"tls_config,omitempty"`
 	// Email address to notify.
-	To *string `json:"to,omitempty"`
+	To                   *string `json:"to,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yEmailConfig O11yEmailConfig
 
 // NewO11yEmailConfig instantiates a new O11yEmailConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -701,7 +704,50 @@ func (o O11yEmailConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.To) {
 		toSerialize["to"] = o.To
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yEmailConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yEmailConfig := _O11yEmailConfig{}
+
+	err = json.Unmarshal(data, &varO11yEmailConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yEmailConfig(varO11yEmailConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "auth_identity")
+		delete(additionalProperties, "auth_password")
+		delete(additionalProperties, "auth_password_file")
+		delete(additionalProperties, "auth_secret")
+		delete(additionalProperties, "auth_secret_file")
+		delete(additionalProperties, "auth_username")
+		delete(additionalProperties, "force_implicit_tls")
+		delete(additionalProperties, "from")
+		delete(additionalProperties, "headers")
+		delete(additionalProperties, "hello")
+		delete(additionalProperties, "html")
+		delete(additionalProperties, "require_tls")
+		delete(additionalProperties, "smarthost")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "threading")
+		delete(additionalProperties, "tls_config")
+		delete(additionalProperties, "to")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yEmailConfig struct {

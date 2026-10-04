@@ -19,8 +19,11 @@ var _ MappedNullable = &AiResponsesOutputDetails{}
 
 // AiResponsesOutputDetails struct for AiResponsesOutputDetails
 type AiResponsesOutputDetails struct {
-	ReasoningTokens *int32 `json:"reasoning_tokens,omitempty"`
+	ReasoningTokens      *int32 `json:"reasoning_tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiResponsesOutputDetails AiResponsesOutputDetails
 
 // NewAiResponsesOutputDetails instantiates a new AiResponsesOutputDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o AiResponsesOutputDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ReasoningTokens) {
 		toSerialize["reasoning_tokens"] = o.ReasoningTokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiResponsesOutputDetails) UnmarshalJSON(data []byte) (err error) {
+	varAiResponsesOutputDetails := _AiResponsesOutputDetails{}
+
+	err = json.Unmarshal(data, &varAiResponsesOutputDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiResponsesOutputDetails(varAiResponsesOutputDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "reasoning_tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiResponsesOutputDetails struct {

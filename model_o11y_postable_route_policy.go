@@ -19,13 +19,16 @@ var _ MappedNullable = &O11yPostableRoutePolicy{}
 
 // O11yPostableRoutePolicy struct for O11yPostableRoutePolicy
 type O11yPostableRoutePolicy struct {
-	Channels    []string    `json:"channels,omitempty"`
-	Description *string     `json:"description,omitempty"`
-	Expression  *string     `json:"expression,omitempty"`
-	Kind        interface{} `json:"kind,omitempty"`
-	Name        *string     `json:"name,omitempty"`
-	Tags        []string    `json:"tags,omitempty"`
+	Channels             []string    `json:"channels,omitempty"`
+	Description          *string     `json:"description,omitempty"`
+	Expression           *string     `json:"expression,omitempty"`
+	Kind                 interface{} `json:"kind,omitempty"`
+	Name                 *string     `json:"name,omitempty"`
+	Tags                 []string    `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPostableRoutePolicy O11yPostableRoutePolicy
 
 // NewO11yPostableRoutePolicy instantiates a new O11yPostableRoutePolicy object
 // This constructor will assign default values to properties that have it defined,
@@ -265,7 +268,38 @@ func (o O11yPostableRoutePolicy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPostableRoutePolicy) UnmarshalJSON(data []byte) (err error) {
+	varO11yPostableRoutePolicy := _O11yPostableRoutePolicy{}
+
+	err = json.Unmarshal(data, &varO11yPostableRoutePolicy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPostableRoutePolicy(varO11yPostableRoutePolicy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "channels")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "expression")
+		delete(additionalProperties, "kind")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPostableRoutePolicy struct {

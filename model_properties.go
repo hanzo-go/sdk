@@ -19,9 +19,12 @@ var _ MappedNullable = &Properties{}
 
 // Properties struct for Properties
 type Properties struct {
-	CollectedTime *string `json:"collectedTime,omitempty"`
-	Subject       *string `json:"subject,omitempty"`
+	CollectedTime        *string `json:"collectedTime,omitempty"`
+	Subject              *string `json:"subject,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Properties Properties
 
 // NewProperties instantiates a new Properties object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o Properties) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Subject) {
 		toSerialize["subject"] = o.Subject
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Properties) UnmarshalJSON(data []byte) (err error) {
+	varProperties := _Properties{}
+
+	err = json.Unmarshal(data, &varProperties)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Properties(varProperties)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "collectedTime")
+		delete(additionalProperties, "subject")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableProperties struct {

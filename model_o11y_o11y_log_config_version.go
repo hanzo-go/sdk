@@ -47,8 +47,11 @@ type O11yO11yLogConfigVersion struct {
 	// UpdatedBy is the id of who last changed it.
 	UpdatedBy *string `json:"updatedBy,omitempty"`
 	// Version is the config version number.
-	Version *int64 `json:"version,omitempty"`
+	Version              *int64 `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogConfigVersion O11yO11yLogConfigVersion
 
 // NewO11yO11yLogConfigVersion instantiates a new O11yO11yLogConfigVersion object
 // This constructor will assign default values to properties that have it defined,
@@ -567,7 +570,46 @@ func (o O11yO11yLogConfigVersion) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogConfigVersion) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogConfigVersion := _O11yO11yLogConfigVersion{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogConfigVersion)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogConfigVersion(varO11yO11yLogConfigVersion)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "createdByName")
+		delete(additionalProperties, "deployResult")
+		delete(additionalProperties, "deploySequence")
+		delete(additionalProperties, "deployStatus")
+		delete(additionalProperties, "elementType")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "lastHash")
+		delete(additionalProperties, "orgId")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedBy")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogConfigVersion struct {

@@ -19,21 +19,24 @@ var _ MappedNullable = &O11yMattermostAttachment{}
 
 // O11yMattermostAttachment struct for O11yMattermostAttachment
 type O11yMattermostAttachment struct {
-	AuthorIcon *string               `json:"author_icon,omitempty"`
-	AuthorLink *string               `json:"author_link,omitempty"`
-	AuthorName *string               `json:"author_name,omitempty"`
-	Color      *string               `json:"color,omitempty"`
-	Fallback   *string               `json:"fallback,omitempty"`
-	Fields     []O11yMattermostField `json:"fields,omitempty"`
-	Footer     *string               `json:"footer,omitempty"`
-	FooterIcon *string               `json:"footer_icon,omitempty"`
-	ImageUrl   *string               `json:"image_url,omitempty"`
-	Pretext    *string               `json:"pretext,omitempty"`
-	Text       *string               `json:"text,omitempty"`
-	ThumbUrl   *string               `json:"thumb_url,omitempty"`
-	Title      *string               `json:"title,omitempty"`
-	TitleLink  *string               `json:"title_link,omitempty"`
+	AuthorIcon           *string               `json:"author_icon,omitempty"`
+	AuthorLink           *string               `json:"author_link,omitempty"`
+	AuthorName           *string               `json:"author_name,omitempty"`
+	Color                *string               `json:"color,omitempty"`
+	Fallback             *string               `json:"fallback,omitempty"`
+	Fields               []O11yMattermostField `json:"fields,omitempty"`
+	Footer               *string               `json:"footer,omitempty"`
+	FooterIcon           *string               `json:"footer_icon,omitempty"`
+	ImageUrl             *string               `json:"image_url,omitempty"`
+	Pretext              *string               `json:"pretext,omitempty"`
+	Text                 *string               `json:"text,omitempty"`
+	ThumbUrl             *string               `json:"thumb_url,omitempty"`
+	Title                *string               `json:"title,omitempty"`
+	TitleLink            *string               `json:"title_link,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yMattermostAttachment O11yMattermostAttachment
 
 // NewO11yMattermostAttachment instantiates a new O11yMattermostAttachment object
 // This constructor will assign default values to properties that have it defined,
@@ -552,7 +555,46 @@ func (o O11yMattermostAttachment) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TitleLink) {
 		toSerialize["title_link"] = o.TitleLink
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yMattermostAttachment) UnmarshalJSON(data []byte) (err error) {
+	varO11yMattermostAttachment := _O11yMattermostAttachment{}
+
+	err = json.Unmarshal(data, &varO11yMattermostAttachment)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yMattermostAttachment(varO11yMattermostAttachment)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "author_icon")
+		delete(additionalProperties, "author_link")
+		delete(additionalProperties, "author_name")
+		delete(additionalProperties, "color")
+		delete(additionalProperties, "fallback")
+		delete(additionalProperties, "fields")
+		delete(additionalProperties, "footer")
+		delete(additionalProperties, "footer_icon")
+		delete(additionalProperties, "image_url")
+		delete(additionalProperties, "pretext")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "thumb_url")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "title_link")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yMattermostAttachment struct {

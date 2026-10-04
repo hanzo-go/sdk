@@ -19,12 +19,15 @@ var _ MappedNullable = &AiQualityStats{}
 
 // AiQualityStats struct for AiQualityStats
 type AiQualityStats struct {
-	AvgConfidence   *float32 `json:"avg_confidence,omitempty"`
-	LearnedShare    *float32 `json:"learned_share,omitempty"`
-	RewardRate      *float32 `json:"reward_rate,omitempty"`
-	RewardedEvents  *int32   `json:"rewarded_events,omitempty"`
-	ShadowAgreement *float32 `json:"shadow_agreement,omitempty"`
+	AvgConfidence        *float32 `json:"avg_confidence,omitempty"`
+	LearnedShare         *float32 `json:"learned_share,omitempty"`
+	RewardRate           *float32 `json:"reward_rate,omitempty"`
+	RewardedEvents       *int32   `json:"rewarded_events,omitempty"`
+	ShadowAgreement      *float32 `json:"shadow_agreement,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiQualityStats AiQualityStats
 
 // NewAiQualityStats instantiates a new AiQualityStats object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o AiQualityStats) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ShadowAgreement) {
 		toSerialize["shadow_agreement"] = o.ShadowAgreement
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiQualityStats) UnmarshalJSON(data []byte) (err error) {
+	varAiQualityStats := _AiQualityStats{}
+
+	err = json.Unmarshal(data, &varAiQualityStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiQualityStats(varAiQualityStats)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "avg_confidence")
+		delete(additionalProperties, "learned_share")
+		delete(additionalProperties, "reward_rate")
+		delete(additionalProperties, "rewarded_events")
+		delete(additionalProperties, "shadow_agreement")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiQualityStats struct {

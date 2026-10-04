@@ -54,7 +54,7 @@ func (r UsageAPIGetUsageAnalyticsRequest) Start(start string) UsageAPIGetUsageAn
 	return r
 }
 
-func (r UsageAPIGetUsageAnalyticsRequest) Execute() (*UsageAnalyticsView, *http.Response, error) {
+func (r UsageAPIGetUsageAnalyticsRequest) Execute() (*UsageUsageAnalyticsView, *http.Response, error) {
 	return r.ApiService.GetUsageAnalyticsExecute(r)
 }
 
@@ -88,13 +88,13 @@ func (a *UsageAPIService) GetUsageAnalytics(ctx context.Context) UsageAPIGetUsag
 
 // Execute executes the request
 //
-//	@return UsageAnalyticsView
-func (a *UsageAPIService) GetUsageAnalyticsExecute(r UsageAPIGetUsageAnalyticsRequest) (*UsageAnalyticsView, *http.Response, error) {
+//	@return UsageUsageAnalyticsView
+func (a *UsageAPIService) GetUsageAnalyticsExecute(r UsageAPIGetUsageAnalyticsRequest) (*UsageUsageAnalyticsView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UsageAnalyticsView
+		localVarReturnValue *UsageUsageAnalyticsView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.GetUsageAnalytics")
@@ -130,7 +130,7 @@ func (a *UsageAPIService) GetUsageAnalyticsExecute(r UsageAPIGetUsageAnalyticsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -159,6 +159,14 @@ func (a *UsageAPIService) GetUsageAnalyticsExecute(r UsageAPIGetUsageAnalyticsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -186,7 +194,7 @@ func (r UsageAPIGetUsageAnalyticsAccessRequest) Plan(plan string) UsageAPIGetUsa
 	return r
 }
 
-func (r UsageAPIGetUsageAnalyticsAccessRequest) Execute() (*UsageAnalyticsAccess, *http.Response, error) {
+func (r UsageAPIGetUsageAnalyticsAccessRequest) Execute() (*UsageUsageAnalyticsAccess, *http.Response, error) {
 	return r.ApiService.GetUsageAnalyticsAccessExecute(r)
 }
 
@@ -211,13 +219,13 @@ func (a *UsageAPIService) GetUsageAnalyticsAccess(ctx context.Context) UsageAPIG
 
 // Execute executes the request
 //
-//	@return UsageAnalyticsAccess
-func (a *UsageAPIService) GetUsageAnalyticsAccessExecute(r UsageAPIGetUsageAnalyticsAccessRequest) (*UsageAnalyticsAccess, *http.Response, error) {
+//	@return UsageUsageAnalyticsAccess
+func (a *UsageAPIService) GetUsageAnalyticsAccessExecute(r UsageAPIGetUsageAnalyticsAccessRequest) (*UsageUsageAnalyticsAccess, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UsageAnalyticsAccess
+		localVarReturnValue *UsageUsageAnalyticsAccess
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.GetUsageAnalyticsAccess")
@@ -244,7 +252,7 @@ func (a *UsageAPIService) GetUsageAnalyticsAccessExecute(r UsageAPIGetUsageAnaly
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -273,6 +281,14 @@ func (a *UsageAPIService) GetUsageAnalyticsAccessExecute(r UsageAPIGetUsageAnaly
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -321,7 +337,7 @@ func (r UsageAPIGetUsageSamplesRequest) Window(window string) UsageAPIGetUsageSa
 	return r
 }
 
-func (r UsageAPIGetUsageSamplesRequest) Execute() (*DashResp, *http.Response, error) {
+func (r UsageAPIGetUsageSamplesRequest) Execute() (*UsageDashResp, *http.Response, error) {
 	return r.ApiService.GetUsageSamplesExecute(r)
 }
 
@@ -348,13 +364,13 @@ func (a *UsageAPIService) GetUsageSamples(ctx context.Context) UsageAPIGetUsageS
 
 // Execute executes the request
 //
-//	@return DashResp
-func (a *UsageAPIService) GetUsageSamplesExecute(r UsageAPIGetUsageSamplesRequest) (*DashResp, *http.Response, error) {
+//	@return UsageDashResp
+func (a *UsageAPIService) GetUsageSamplesExecute(r UsageAPIGetUsageSamplesRequest) (*UsageDashResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DashResp
+		localVarReturnValue *UsageDashResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.GetUsageSamples")
@@ -390,7 +406,7 @@ func (a *UsageAPIService) GetUsageSamplesExecute(r UsageAPIGetUsageSamplesReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -419,6 +435,14 @@ func (a *UsageAPIService) GetUsageSamplesExecute(r UsageAPIGetUsageSamplesReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -460,7 +484,7 @@ func (r UsageAPIGetUsageSummaryRequest) End(end string) UsageAPIGetUsageSummaryR
 	return r
 }
 
-func (r UsageAPIGetUsageSummaryRequest) Execute() (*UsageSummary, *http.Response, error) {
+func (r UsageAPIGetUsageSummaryRequest) Execute() (*UsageUsageSummary, *http.Response, error) {
 	return r.ApiService.GetUsageSummaryExecute(r)
 }
 
@@ -492,13 +516,13 @@ func (a *UsageAPIService) GetUsageSummary(ctx context.Context) UsageAPIGetUsageS
 
 // Execute executes the request
 //
-//	@return UsageSummary
-func (a *UsageAPIService) GetUsageSummaryExecute(r UsageAPIGetUsageSummaryRequest) (*UsageSummary, *http.Response, error) {
+//	@return UsageUsageSummary
+func (a *UsageAPIService) GetUsageSummaryExecute(r UsageAPIGetUsageSummaryRequest) (*UsageUsageSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UsageSummary
+		localVarReturnValue *UsageUsageSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.GetUsageSummary")
@@ -531,7 +555,7 @@ func (a *UsageAPIService) GetUsageSummaryExecute(r UsageAPIGetUsageSummaryReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -560,6 +584,14 @@ func (a *UsageAPIService) GetUsageSummaryExecute(r UsageAPIGetUsageSummaryReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -576,17 +608,17 @@ func (a *UsageAPIService) GetUsageSummaryExecute(r UsageAPIGetUsageSummaryReques
 }
 
 type UsageAPIPostUsageRequest struct {
-	ctx        context.Context
-	ApiService *UsageAPIService
-	reportReq  *ReportReq
+	ctx            context.Context
+	ApiService     *UsageAPIService
+	usageReportReq *UsageReportReq
 }
 
-func (r UsageAPIPostUsageRequest) ReportReq(reportReq ReportReq) UsageAPIPostUsageRequest {
-	r.reportReq = &reportReq
+func (r UsageAPIPostUsageRequest) UsageReportReq(usageReportReq UsageReportReq) UsageAPIPostUsageRequest {
+	r.usageReportReq = &usageReportReq
 	return r
 }
 
-func (r UsageAPIPostUsageRequest) Execute() (*ReportResp, *http.Response, error) {
+func (r UsageAPIPostUsageRequest) Execute() (*UsageReportResp, *http.Response, error) {
 	return r.ApiService.PostUsageExecute(r)
 }
 
@@ -621,13 +653,13 @@ func (a *UsageAPIService) PostUsage(ctx context.Context) UsageAPIPostUsageReques
 
 // Execute executes the request
 //
-//	@return ReportResp
-func (a *UsageAPIService) PostUsageExecute(r UsageAPIPostUsageRequest) (*ReportResp, *http.Response, error) {
+//	@return UsageReportResp
+func (a *UsageAPIService) PostUsageExecute(r UsageAPIPostUsageRequest) (*UsageReportResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ReportResp
+		localVarReturnValue *UsageReportResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.PostUsage")
@@ -640,8 +672,8 @@ func (a *UsageAPIService) PostUsageExecute(r UsageAPIPostUsageRequest) (*ReportR
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.reportReq == nil {
-		return localVarReturnValue, nil, reportError("reportReq is required and must be specified")
+	if r.usageReportReq == nil {
+		return localVarReturnValue, nil, reportError("usageReportReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -654,7 +686,7 @@ func (a *UsageAPIService) PostUsageExecute(r UsageAPIPostUsageRequest) (*ReportR
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -662,7 +694,7 @@ func (a *UsageAPIService) PostUsageExecute(r UsageAPIPostUsageRequest) (*ReportR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.reportReq
+	localVarPostBody = r.usageReportReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -685,6 +717,14 @@ func (a *UsageAPIService) PostUsageExecute(r UsageAPIPostUsageRequest) (*ReportR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

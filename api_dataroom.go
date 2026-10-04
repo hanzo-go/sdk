@@ -28,7 +28,7 @@ type DataroomAPIGetDataroomAnalyticsDataroomByDataroomidRequest struct {
 	dataroomId string
 }
 
-func (r DataroomAPIGetDataroomAnalyticsDataroomByDataroomidRequest) Execute() (*DataroomStats, *http.Response, error) {
+func (r DataroomAPIGetDataroomAnalyticsDataroomByDataroomidRequest) Execute() (*DataroomDataroomStats, *http.Response, error) {
 	return r.ApiService.GetDataroomAnalyticsDataroomByDataroomidExecute(r)
 }
 
@@ -57,13 +57,13 @@ func (a *DataroomAPIService) GetDataroomAnalyticsDataroomByDataroomid(ctx contex
 
 // Execute executes the request
 //
-//	@return DataroomStats
-func (a *DataroomAPIService) GetDataroomAnalyticsDataroomByDataroomidExecute(r DataroomAPIGetDataroomAnalyticsDataroomByDataroomidRequest) (*DataroomStats, *http.Response, error) {
+//	@return DataroomDataroomStats
+func (a *DataroomAPIService) GetDataroomAnalyticsDataroomByDataroomidExecute(r DataroomAPIGetDataroomAnalyticsDataroomByDataroomidRequest) (*DataroomDataroomStats, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DataroomStats
+		localVarReturnValue *DataroomDataroomStats
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomAnalyticsDataroomByDataroomid")
@@ -88,7 +88,7 @@ func (a *DataroomAPIService) GetDataroomAnalyticsDataroomByDataroomidExecute(r D
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -117,6 +117,14 @@ func (a *DataroomAPIService) GetDataroomAnalyticsDataroomByDataroomidExecute(r D
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -138,7 +146,7 @@ type DataroomAPIGetDataroomAnalyticsLinkByLinkidRequest struct {
 	linkId     string
 }
 
-func (r DataroomAPIGetDataroomAnalyticsLinkByLinkidRequest) Execute() (*DataroomLinkStats, *http.Response, error) {
+func (r DataroomAPIGetDataroomAnalyticsLinkByLinkidRequest) Execute() (*DataroomDataroomLinkStats, *http.Response, error) {
 	return r.ApiService.GetDataroomAnalyticsLinkByLinkidExecute(r)
 }
 
@@ -167,13 +175,13 @@ func (a *DataroomAPIService) GetDataroomAnalyticsLinkByLinkid(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return DataroomLinkStats
-func (a *DataroomAPIService) GetDataroomAnalyticsLinkByLinkidExecute(r DataroomAPIGetDataroomAnalyticsLinkByLinkidRequest) (*DataroomLinkStats, *http.Response, error) {
+//	@return DataroomDataroomLinkStats
+func (a *DataroomAPIService) GetDataroomAnalyticsLinkByLinkidExecute(r DataroomAPIGetDataroomAnalyticsLinkByLinkidRequest) (*DataroomDataroomLinkStats, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DataroomLinkStats
+		localVarReturnValue *DataroomDataroomLinkStats
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomAnalyticsLinkByLinkid")
@@ -198,7 +206,7 @@ func (a *DataroomAPIService) GetDataroomAnalyticsLinkByLinkidExecute(r DataroomA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -227,6 +235,14 @@ func (a *DataroomAPIService) GetDataroomAnalyticsLinkByLinkidExecute(r DataroomA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -247,7 +263,7 @@ type DataroomAPIGetDataroomDataroomsRequest struct {
 	ApiService *DataroomAPIService
 }
 
-func (r DataroomAPIGetDataroomDataroomsRequest) Execute() (*DataroomRooms, *http.Response, error) {
+func (r DataroomAPIGetDataroomDataroomsRequest) Execute() (*DataroomDataroomRooms, *http.Response, error) {
 	return r.ApiService.GetDataroomDataroomsExecute(r)
 }
 
@@ -272,13 +288,13 @@ func (a *DataroomAPIService) GetDataroomDatarooms(ctx context.Context) DataroomA
 
 // Execute executes the request
 //
-//	@return DataroomRooms
-func (a *DataroomAPIService) GetDataroomDataroomsExecute(r DataroomAPIGetDataroomDataroomsRequest) (*DataroomRooms, *http.Response, error) {
+//	@return DataroomDataroomRooms
+func (a *DataroomAPIService) GetDataroomDataroomsExecute(r DataroomAPIGetDataroomDataroomsRequest) (*DataroomDataroomRooms, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DataroomRooms
+		localVarReturnValue *DataroomDataroomRooms
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomDatarooms")
@@ -302,7 +318,7 @@ func (a *DataroomAPIService) GetDataroomDataroomsExecute(r DataroomAPIGetDataroo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -331,6 +347,14 @@ func (a *DataroomAPIService) GetDataroomDataroomsExecute(r DataroomAPIGetDataroo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -352,7 +376,7 @@ type DataroomAPIGetDataroomDataroomsByIdRequest struct {
 	id         string
 }
 
-func (r DataroomAPIGetDataroomDataroomsByIdRequest) Execute() (*DataroomRoomDetailOne, *http.Response, error) {
+func (r DataroomAPIGetDataroomDataroomsByIdRequest) Execute() (*DataroomDataroomRoomDetailOne, *http.Response, error) {
 	return r.ApiService.GetDataroomDataroomsByIdExecute(r)
 }
 
@@ -381,13 +405,13 @@ func (a *DataroomAPIService) GetDataroomDataroomsById(ctx context.Context, id st
 
 // Execute executes the request
 //
-//	@return DataroomRoomDetailOne
-func (a *DataroomAPIService) GetDataroomDataroomsByIdExecute(r DataroomAPIGetDataroomDataroomsByIdRequest) (*DataroomRoomDetailOne, *http.Response, error) {
+//	@return DataroomDataroomRoomDetailOne
+func (a *DataroomAPIService) GetDataroomDataroomsByIdExecute(r DataroomAPIGetDataroomDataroomsByIdRequest) (*DataroomDataroomRoomDetailOne, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DataroomRoomDetailOne
+		localVarReturnValue *DataroomDataroomRoomDetailOne
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomDataroomsById")
@@ -412,7 +436,7 @@ func (a *DataroomAPIService) GetDataroomDataroomsByIdExecute(r DataroomAPIGetDat
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -441,6 +465,14 @@ func (a *DataroomAPIService) GetDataroomDataroomsByIdExecute(r DataroomAPIGetDat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -461,7 +493,7 @@ type DataroomAPIGetDataroomDocumentsRequest struct {
 	ApiService *DataroomAPIService
 }
 
-func (r DataroomAPIGetDataroomDocumentsRequest) Execute() (*DataroomDocuments, *http.Response, error) {
+func (r DataroomAPIGetDataroomDocumentsRequest) Execute() (*DataroomDataroomDocuments, *http.Response, error) {
 	return r.ApiService.GetDataroomDocumentsExecute(r)
 }
 
@@ -488,13 +520,13 @@ func (a *DataroomAPIService) GetDataroomDocuments(ctx context.Context) DataroomA
 
 // Execute executes the request
 //
-//	@return DataroomDocuments
-func (a *DataroomAPIService) GetDataroomDocumentsExecute(r DataroomAPIGetDataroomDocumentsRequest) (*DataroomDocuments, *http.Response, error) {
+//	@return DataroomDataroomDocuments
+func (a *DataroomAPIService) GetDataroomDocumentsExecute(r DataroomAPIGetDataroomDocumentsRequest) (*DataroomDataroomDocuments, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DataroomDocuments
+		localVarReturnValue *DataroomDataroomDocuments
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomDocuments")
@@ -518,7 +550,7 @@ func (a *DataroomAPIService) GetDataroomDocumentsExecute(r DataroomAPIGetDataroo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -547,6 +579,14 @@ func (a *DataroomAPIService) GetDataroomDocumentsExecute(r DataroomAPIGetDataroo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -568,7 +608,7 @@ type DataroomAPIGetDataroomDocumentsByIdRequest struct {
 	id         string
 }
 
-func (r DataroomAPIGetDataroomDocumentsByIdRequest) Execute() (*DataroomDocumentOne, *http.Response, error) {
+func (r DataroomAPIGetDataroomDocumentsByIdRequest) Execute() (*DataroomDataroomDocumentOne, *http.Response, error) {
 	return r.ApiService.GetDataroomDocumentsByIdExecute(r)
 }
 
@@ -596,13 +636,13 @@ func (a *DataroomAPIService) GetDataroomDocumentsById(ctx context.Context, id st
 
 // Execute executes the request
 //
-//	@return DataroomDocumentOne
-func (a *DataroomAPIService) GetDataroomDocumentsByIdExecute(r DataroomAPIGetDataroomDocumentsByIdRequest) (*DataroomDocumentOne, *http.Response, error) {
+//	@return DataroomDataroomDocumentOne
+func (a *DataroomAPIService) GetDataroomDocumentsByIdExecute(r DataroomAPIGetDataroomDocumentsByIdRequest) (*DataroomDataroomDocumentOne, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DataroomDocumentOne
+		localVarReturnValue *DataroomDataroomDocumentOne
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomDocumentsById")
@@ -627,7 +667,7 @@ func (a *DataroomAPIService) GetDataroomDocumentsByIdExecute(r DataroomAPIGetDat
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -656,6 +696,14 @@ func (a *DataroomAPIService) GetDataroomDocumentsByIdExecute(r DataroomAPIGetDat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -686,7 +734,7 @@ GetDataroomDocumentsByIdFile Download a document's bytes as its owner
 
 Streams the stored file back under the type read from its BYTES — a raster image or a PDF renders in place, and anything else is served as application/octet-stream with an attachment disposition, so a stored file never executes as markup in this origin. Every response carries nosniff, which keeps the declared type binding.
 
-Requires a validated principal; 403 without one, and the document is resolved in the caller's own tenant store, so another org's id is a 404. This is the OWNER's path and applies no link gate at all — the per-link password, email and download controls live on the viewer surface, not here. Bytes that cannot be fetched from object storage are 502, never a truncated or empty file.
+Requires a validated principal; 401 without one, and the document is resolved in the caller's own tenant store, so another org's id is a 404. This is the OWNER's path and applies no link gate at all — the per-link password, email and download controls live on the viewer surface, not here. Bytes that cannot be fetched from object storage are 502, never a truncated or empty file.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -770,14 +818,14 @@ type DataroomAPIGetDataroomHealthRequest struct {
 	ApiService *DataroomAPIService
 }
 
-func (r DataroomAPIGetDataroomHealthRequest) Execute() (*DataroomLiveness, *http.Response, error) {
+func (r DataroomAPIGetDataroomHealthRequest) Execute() (*DataroomDataroomLiveness, *http.Response, error) {
 	return r.ApiService.GetDataroomHealthExecute(r)
 }
 
 /*
-GetDataroomHealth Health reports that the data room subsystem is up.
+GetDataroomHealth Reports that the data room subsystem is up.
 
-Health reports that the data room subsystem is up.
+Reports that the data room subsystem is up.
 
 It answers before the bundle loads, holds no state and touches no store, so it
 stays true in exactly the situation an operator is probing for. It says nothing
@@ -797,13 +845,13 @@ func (a *DataroomAPIService) GetDataroomHealth(ctx context.Context) DataroomAPIG
 
 // Execute executes the request
 //
-//	@return DataroomLiveness
-func (a *DataroomAPIService) GetDataroomHealthExecute(r DataroomAPIGetDataroomHealthRequest) (*DataroomLiveness, *http.Response, error) {
+//	@return DataroomDataroomLiveness
+func (a *DataroomAPIService) GetDataroomHealthExecute(r DataroomAPIGetDataroomHealthRequest) (*DataroomDataroomLiveness, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DataroomLiveness
+		localVarReturnValue *DataroomDataroomLiveness
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomHealth")
@@ -827,7 +875,7 @@ func (a *DataroomAPIService) GetDataroomHealthExecute(r DataroomAPIGetDataroomHe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -856,6 +904,14 @@ func (a *DataroomAPIService) GetDataroomHealthExecute(r DataroomAPIGetDataroomHe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -876,7 +932,7 @@ type DataroomAPIGetDataroomLinksRequest struct {
 	ApiService *DataroomAPIService
 }
 
-func (r DataroomAPIGetDataroomLinksRequest) Execute() (*DataroomLinks, *http.Response, error) {
+func (r DataroomAPIGetDataroomLinksRequest) Execute() (*DataroomDataroomLinks, *http.Response, error) {
 	return r.ApiService.GetDataroomLinksExecute(r)
 }
 
@@ -903,13 +959,13 @@ func (a *DataroomAPIService) GetDataroomLinks(ctx context.Context) DataroomAPIGe
 
 // Execute executes the request
 //
-//	@return DataroomLinks
-func (a *DataroomAPIService) GetDataroomLinksExecute(r DataroomAPIGetDataroomLinksRequest) (*DataroomLinks, *http.Response, error) {
+//	@return DataroomDataroomLinks
+func (a *DataroomAPIService) GetDataroomLinksExecute(r DataroomAPIGetDataroomLinksRequest) (*DataroomDataroomLinks, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DataroomLinks
+		localVarReturnValue *DataroomDataroomLinks
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomLinks")
@@ -933,7 +989,7 @@ func (a *DataroomAPIService) GetDataroomLinksExecute(r DataroomAPIGetDataroomLin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -962,6 +1018,14 @@ func (a *DataroomAPIService) GetDataroomLinksExecute(r DataroomAPIGetDataroomLin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -982,7 +1046,7 @@ type DataroomAPIGetDataroomTrustRequest struct {
 	ApiService *DataroomAPIService
 }
 
-func (r DataroomAPIGetDataroomTrustRequest) Execute() (*TrustDesk, *http.Response, error) {
+func (r DataroomAPIGetDataroomTrustRequest) Execute() (*DataroomTrustDesk, *http.Response, error) {
 	return r.ApiService.GetDataroomTrustExecute(r)
 }
 
@@ -1010,13 +1074,13 @@ func (a *DataroomAPIService) GetDataroomTrust(ctx context.Context) DataroomAPIGe
 
 // Execute executes the request
 //
-//	@return TrustDesk
-func (a *DataroomAPIService) GetDataroomTrustExecute(r DataroomAPIGetDataroomTrustRequest) (*TrustDesk, *http.Response, error) {
+//	@return DataroomTrustDesk
+func (a *DataroomAPIService) GetDataroomTrustExecute(r DataroomAPIGetDataroomTrustRequest) (*DataroomTrustDesk, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrustDesk
+		localVarReturnValue *DataroomTrustDesk
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomTrust")
@@ -1040,7 +1104,7 @@ func (a *DataroomAPIService) GetDataroomTrustExecute(r DataroomAPIGetDataroomTru
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1069,6 +1133,14 @@ func (a *DataroomAPIService) GetDataroomTrustExecute(r DataroomAPIGetDataroomTru
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1090,7 +1162,7 @@ type DataroomAPIGetDataroomTrustCenterBySlugRequest struct {
 	slug       string
 }
 
-func (r DataroomAPIGetDataroomTrustCenterBySlugRequest) Execute() (*TrustPage, *http.Response, error) {
+func (r DataroomAPIGetDataroomTrustCenterBySlugRequest) Execute() (*DataroomTrustPage, *http.Response, error) {
 	return r.ApiService.GetDataroomTrustCenterBySlugExecute(r)
 }
 
@@ -1124,13 +1196,13 @@ func (a *DataroomAPIService) GetDataroomTrustCenterBySlug(ctx context.Context, s
 
 // Execute executes the request
 //
-//	@return TrustPage
-func (a *DataroomAPIService) GetDataroomTrustCenterBySlugExecute(r DataroomAPIGetDataroomTrustCenterBySlugRequest) (*TrustPage, *http.Response, error) {
+//	@return DataroomTrustPage
+func (a *DataroomAPIService) GetDataroomTrustCenterBySlugExecute(r DataroomAPIGetDataroomTrustCenterBySlugRequest) (*DataroomTrustPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrustPage
+		localVarReturnValue *DataroomTrustPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.GetDataroomTrustCenterBySlug")
@@ -1155,7 +1227,7 @@ func (a *DataroomAPIService) GetDataroomTrustCenterBySlugExecute(r DataroomAPIGe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1184,6 +1256,14 @@ func (a *DataroomAPIService) GetDataroomTrustCenterBySlugExecute(r DataroomAPIGe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1496,25 +1576,25 @@ func (a *DataroomAPIService) GetDataroomViewByLinkidDocumentByDocumentidFileExec
 }
 
 type DataroomAPIPatchDataroomTrustArtifactsByIdRequest struct {
-	ctx        context.Context
-	ApiService *DataroomAPIService
-	id         string
-	trustEdit  *TrustEdit
+	ctx               context.Context
+	ApiService        *DataroomAPIService
+	id                string
+	dataroomTrustEdit *DataroomTrustEdit
 }
 
-func (r DataroomAPIPatchDataroomTrustArtifactsByIdRequest) TrustEdit(trustEdit TrustEdit) DataroomAPIPatchDataroomTrustArtifactsByIdRequest {
-	r.trustEdit = &trustEdit
+func (r DataroomAPIPatchDataroomTrustArtifactsByIdRequest) DataroomTrustEdit(dataroomTrustEdit DataroomTrustEdit) DataroomAPIPatchDataroomTrustArtifactsByIdRequest {
+	r.dataroomTrustEdit = &dataroomTrustEdit
 	return r
 }
 
-func (r DataroomAPIPatchDataroomTrustArtifactsByIdRequest) Execute() (*TrustItemView, *http.Response, error) {
+func (r DataroomAPIPatchDataroomTrustArtifactsByIdRequest) Execute() (*DataroomTrustItemView, *http.Response, error) {
 	return r.ApiService.PatchDataroomTrustArtifactsByIdExecute(r)
 }
 
 /*
-PatchDataroomTrustArtifactsById Amend changes an item on the caller org's trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
+PatchDataroomTrustArtifactsById Changes an item on the caller org's trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
 
-Amend changes an item on the caller org's trust centre — replace its file with a
+Changes an item on the caller org's trust centre — replace its file with a
 newer edition, move it between public and gated, rewrite what it says, or retire
 it — and answers with the item as it now stands.
 
@@ -1542,13 +1622,13 @@ func (a *DataroomAPIService) PatchDataroomTrustArtifactsById(ctx context.Context
 
 // Execute executes the request
 //
-//	@return TrustItemView
-func (a *DataroomAPIService) PatchDataroomTrustArtifactsByIdExecute(r DataroomAPIPatchDataroomTrustArtifactsByIdRequest) (*TrustItemView, *http.Response, error) {
+//	@return DataroomTrustItemView
+func (a *DataroomAPIService) PatchDataroomTrustArtifactsByIdExecute(r DataroomAPIPatchDataroomTrustArtifactsByIdRequest) (*DataroomTrustItemView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrustItemView
+		localVarReturnValue *DataroomTrustItemView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PatchDataroomTrustArtifactsById")
@@ -1562,8 +1642,8 @@ func (a *DataroomAPIService) PatchDataroomTrustArtifactsByIdExecute(r DataroomAP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.trustEdit == nil {
-		return localVarReturnValue, nil, reportError("trustEdit is required and must be specified")
+	if r.dataroomTrustEdit == nil {
+		return localVarReturnValue, nil, reportError("dataroomTrustEdit is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1576,7 +1656,7 @@ func (a *DataroomAPIService) PatchDataroomTrustArtifactsByIdExecute(r DataroomAP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1584,7 +1664,7 @@ func (a *DataroomAPIService) PatchDataroomTrustArtifactsByIdExecute(r DataroomAP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.trustEdit
+	localVarPostBody = r.dataroomTrustEdit
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1607,6 +1687,14 @@ func (a *DataroomAPIService) PatchDataroomTrustArtifactsByIdExecute(r DataroomAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1623,17 +1711,17 @@ func (a *DataroomAPIService) PatchDataroomTrustArtifactsByIdExecute(r DataroomAP
 }
 
 type DataroomAPIPostDataroomDataroomsRequest struct {
-	ctx            context.Context
-	ApiService     *DataroomAPIService
-	dataroomCreate *DataroomCreate
+	ctx                    context.Context
+	ApiService             *DataroomAPIService
+	dataroomDataroomCreate *DataroomDataroomCreate
 }
 
-func (r DataroomAPIPostDataroomDataroomsRequest) DataroomCreate(dataroomCreate DataroomCreate) DataroomAPIPostDataroomDataroomsRequest {
-	r.dataroomCreate = &dataroomCreate
+func (r DataroomAPIPostDataroomDataroomsRequest) DataroomDataroomCreate(dataroomDataroomCreate DataroomDataroomCreate) DataroomAPIPostDataroomDataroomsRequest {
+	r.dataroomDataroomCreate = &dataroomDataroomCreate
 	return r
 }
 
-func (r DataroomAPIPostDataroomDataroomsRequest) Execute() (*DataroomRoomOne, *http.Response, error) {
+func (r DataroomAPIPostDataroomDataroomsRequest) Execute() (*DataroomDataroomRoomOne, *http.Response, error) {
 	return r.ApiService.PostDataroomDataroomsExecute(r)
 }
 
@@ -1661,13 +1749,13 @@ func (a *DataroomAPIService) PostDataroomDatarooms(ctx context.Context) Dataroom
 
 // Execute executes the request
 //
-//	@return DataroomRoomOne
-func (a *DataroomAPIService) PostDataroomDataroomsExecute(r DataroomAPIPostDataroomDataroomsRequest) (*DataroomRoomOne, *http.Response, error) {
+//	@return DataroomDataroomRoomOne
+func (a *DataroomAPIService) PostDataroomDataroomsExecute(r DataroomAPIPostDataroomDataroomsRequest) (*DataroomDataroomRoomOne, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DataroomRoomOne
+		localVarReturnValue *DataroomDataroomRoomOne
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PostDataroomDatarooms")
@@ -1680,8 +1768,8 @@ func (a *DataroomAPIService) PostDataroomDataroomsExecute(r DataroomAPIPostDatar
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.dataroomCreate == nil {
-		return localVarReturnValue, nil, reportError("dataroomCreate is required and must be specified")
+	if r.dataroomDataroomCreate == nil {
+		return localVarReturnValue, nil, reportError("dataroomDataroomCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1694,7 +1782,7 @@ func (a *DataroomAPIService) PostDataroomDataroomsExecute(r DataroomAPIPostDatar
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1702,7 +1790,7 @@ func (a *DataroomAPIService) PostDataroomDataroomsExecute(r DataroomAPIPostDatar
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.dataroomCreate
+	localVarPostBody = r.dataroomDataroomCreate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1725,6 +1813,14 @@ func (a *DataroomAPIService) PostDataroomDataroomsExecute(r DataroomAPIPostDatar
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1741,18 +1837,18 @@ func (a *DataroomAPIService) PostDataroomDataroomsExecute(r DataroomAPIPostDatar
 }
 
 type DataroomAPIPostDataroomDataroomsByIdDocumentsRequest struct {
-	ctx                 context.Context
-	ApiService          *DataroomAPIService
-	id                  string
-	dataroomAddDocument *DataroomAddDocument
+	ctx                         context.Context
+	ApiService                  *DataroomAPIService
+	id                          string
+	dataroomDataroomAddDocument *DataroomDataroomAddDocument
 }
 
-func (r DataroomAPIPostDataroomDataroomsByIdDocumentsRequest) DataroomAddDocument(dataroomAddDocument DataroomAddDocument) DataroomAPIPostDataroomDataroomsByIdDocumentsRequest {
-	r.dataroomAddDocument = &dataroomAddDocument
+func (r DataroomAPIPostDataroomDataroomsByIdDocumentsRequest) DataroomDataroomAddDocument(dataroomDataroomAddDocument DataroomDataroomAddDocument) DataroomAPIPostDataroomDataroomsByIdDocumentsRequest {
+	r.dataroomDataroomAddDocument = &dataroomDataroomAddDocument
 	return r
 }
 
-func (r DataroomAPIPostDataroomDataroomsByIdDocumentsRequest) Execute() (*DataroomMembership, *http.Response, error) {
+func (r DataroomAPIPostDataroomDataroomsByIdDocumentsRequest) Execute() (*DataroomDataroomMembership, *http.Response, error) {
 	return r.ApiService.PostDataroomDataroomsByIdDocumentsExecute(r)
 }
 
@@ -1782,13 +1878,13 @@ func (a *DataroomAPIService) PostDataroomDataroomsByIdDocuments(ctx context.Cont
 
 // Execute executes the request
 //
-//	@return DataroomMembership
-func (a *DataroomAPIService) PostDataroomDataroomsByIdDocumentsExecute(r DataroomAPIPostDataroomDataroomsByIdDocumentsRequest) (*DataroomMembership, *http.Response, error) {
+//	@return DataroomDataroomMembership
+func (a *DataroomAPIService) PostDataroomDataroomsByIdDocumentsExecute(r DataroomAPIPostDataroomDataroomsByIdDocumentsRequest) (*DataroomDataroomMembership, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DataroomMembership
+		localVarReturnValue *DataroomDataroomMembership
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PostDataroomDataroomsByIdDocuments")
@@ -1802,8 +1898,8 @@ func (a *DataroomAPIService) PostDataroomDataroomsByIdDocumentsExecute(r Dataroo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.dataroomAddDocument == nil {
-		return localVarReturnValue, nil, reportError("dataroomAddDocument is required and must be specified")
+	if r.dataroomDataroomAddDocument == nil {
+		return localVarReturnValue, nil, reportError("dataroomDataroomAddDocument is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1816,7 +1912,7 @@ func (a *DataroomAPIService) PostDataroomDataroomsByIdDocumentsExecute(r Dataroo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1824,7 +1920,7 @@ func (a *DataroomAPIService) PostDataroomDataroomsByIdDocumentsExecute(r Dataroo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.dataroomAddDocument
+	localVarPostBody = r.dataroomDataroomAddDocument
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1847,6 +1943,14 @@ func (a *DataroomAPIService) PostDataroomDataroomsByIdDocumentsExecute(r Dataroo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1876,7 +1980,7 @@ PostDataroomDocuments Upload a document's bytes and record it
 
 Takes the file ITSELF as the raw request body — not a JSON envelope, not multipart — stores it on the object-storage client, and records the metadata row, answering with the new document. `?name=` names it (default "document"), the request's Content-Type is recorded as the document's mime type, and `?numPages=` is optional. That recorded type is metadata the owner sees; what the file is later SERVED as is read from the bytes.
 
-Requires a validated principal; 403 without one. An empty body is 400 and anything over 64 MiB is 413 — a data room holds decks and PDFs, not a media library.
+Requires a validated principal; 401 without one. An empty body is 400 and anything over 64 MiB is 413 — a data room holds decks and PDFs, not a media library.
 
 The storage key is 128 random bits under the tenant's own key prefix, minted before the bytes are written: if the system's randomness is unavailable the upload fails 500 rather than fall back to a predictable key that could overwrite another document's bytes. A storage write that fails is 502 and no metadata row is recorded, so a document never exists without its file.
 
@@ -1955,17 +2059,17 @@ func (a *DataroomAPIService) PostDataroomDocumentsExecute(r DataroomAPIPostDatar
 }
 
 type DataroomAPIPostDataroomLinksRequest struct {
-	ctx                context.Context
-	ApiService         *DataroomAPIService
-	dataroomLinkCreate *DataroomLinkCreate
+	ctx                        context.Context
+	ApiService                 *DataroomAPIService
+	dataroomDataroomLinkCreate *DataroomDataroomLinkCreate
 }
 
-func (r DataroomAPIPostDataroomLinksRequest) DataroomLinkCreate(dataroomLinkCreate DataroomLinkCreate) DataroomAPIPostDataroomLinksRequest {
-	r.dataroomLinkCreate = &dataroomLinkCreate
+func (r DataroomAPIPostDataroomLinksRequest) DataroomDataroomLinkCreate(dataroomDataroomLinkCreate DataroomDataroomLinkCreate) DataroomAPIPostDataroomLinksRequest {
+	r.dataroomDataroomLinkCreate = &dataroomDataroomLinkCreate
 	return r
 }
 
-func (r DataroomAPIPostDataroomLinksRequest) Execute() (*DataroomLinkOne, *http.Response, error) {
+func (r DataroomAPIPostDataroomLinksRequest) Execute() (*DataroomDataroomLinkOne, *http.Response, error) {
 	return r.ApiService.PostDataroomLinksExecute(r)
 }
 
@@ -2005,13 +2109,13 @@ func (a *DataroomAPIService) PostDataroomLinks(ctx context.Context) DataroomAPIP
 
 // Execute executes the request
 //
-//	@return DataroomLinkOne
-func (a *DataroomAPIService) PostDataroomLinksExecute(r DataroomAPIPostDataroomLinksRequest) (*DataroomLinkOne, *http.Response, error) {
+//	@return DataroomDataroomLinkOne
+func (a *DataroomAPIService) PostDataroomLinksExecute(r DataroomAPIPostDataroomLinksRequest) (*DataroomDataroomLinkOne, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DataroomLinkOne
+		localVarReturnValue *DataroomDataroomLinkOne
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PostDataroomLinks")
@@ -2024,8 +2128,8 @@ func (a *DataroomAPIService) PostDataroomLinksExecute(r DataroomAPIPostDataroomL
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.dataroomLinkCreate == nil {
-		return localVarReturnValue, nil, reportError("dataroomLinkCreate is required and must be specified")
+	if r.dataroomDataroomLinkCreate == nil {
+		return localVarReturnValue, nil, reportError("dataroomDataroomLinkCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2038,7 +2142,7 @@ func (a *DataroomAPIService) PostDataroomLinksExecute(r DataroomAPIPostDataroomL
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2046,7 +2150,7 @@ func (a *DataroomAPIService) PostDataroomLinksExecute(r DataroomAPIPostDataroomL
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.dataroomLinkCreate
+	localVarPostBody = r.dataroomDataroomLinkCreate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2069,6 +2173,14 @@ func (a *DataroomAPIService) PostDataroomLinksExecute(r DataroomAPIPostDataroomL
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2085,24 +2197,24 @@ func (a *DataroomAPIService) PostDataroomLinksExecute(r DataroomAPIPostDataroomL
 }
 
 type DataroomAPIPostDataroomTrustArtifactsRequest struct {
-	ctx          context.Context
-	ApiService   *DataroomAPIService
-	trustPublish *TrustPublish
+	ctx                  context.Context
+	ApiService           *DataroomAPIService
+	dataroomTrustPublish *DataroomTrustPublish
 }
 
-func (r DataroomAPIPostDataroomTrustArtifactsRequest) TrustPublish(trustPublish TrustPublish) DataroomAPIPostDataroomTrustArtifactsRequest {
-	r.trustPublish = &trustPublish
+func (r DataroomAPIPostDataroomTrustArtifactsRequest) DataroomTrustPublish(dataroomTrustPublish DataroomTrustPublish) DataroomAPIPostDataroomTrustArtifactsRequest {
+	r.dataroomTrustPublish = &dataroomTrustPublish
 	return r
 }
 
-func (r DataroomAPIPostDataroomTrustArtifactsRequest) Execute() (*TrustItemView, *http.Response, error) {
+func (r DataroomAPIPostDataroomTrustArtifactsRequest) Execute() (*DataroomTrustItemView, *http.Response, error) {
 	return r.ApiService.PostDataroomTrustArtifactsExecute(r)
 }
 
 /*
-PostDataroomTrustArtifacts Publish puts an item on the caller org's trust centre and answers with it.
+PostDataroomTrustArtifacts Puts an item on the caller org's trust centre and answers with it.
 
-Publish puts an item on the caller org's trust centre and answers with it.
+Puts an item on the caller org's trust centre and answers with it.
 
 The item is GATED unless it says otherwise, so a kind nobody has thought of yet
 arrives private and someone has to release it deliberately — that default is what
@@ -2131,13 +2243,13 @@ func (a *DataroomAPIService) PostDataroomTrustArtifacts(ctx context.Context) Dat
 
 // Execute executes the request
 //
-//	@return TrustItemView
-func (a *DataroomAPIService) PostDataroomTrustArtifactsExecute(r DataroomAPIPostDataroomTrustArtifactsRequest) (*TrustItemView, *http.Response, error) {
+//	@return DataroomTrustItemView
+func (a *DataroomAPIService) PostDataroomTrustArtifactsExecute(r DataroomAPIPostDataroomTrustArtifactsRequest) (*DataroomTrustItemView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrustItemView
+		localVarReturnValue *DataroomTrustItemView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PostDataroomTrustArtifacts")
@@ -2150,8 +2262,8 @@ func (a *DataroomAPIService) PostDataroomTrustArtifactsExecute(r DataroomAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.trustPublish == nil {
-		return localVarReturnValue, nil, reportError("trustPublish is required and must be specified")
+	if r.dataroomTrustPublish == nil {
+		return localVarReturnValue, nil, reportError("dataroomTrustPublish is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2164,7 +2276,7 @@ func (a *DataroomAPIService) PostDataroomTrustArtifactsExecute(r DataroomAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2172,7 +2284,7 @@ func (a *DataroomAPIService) PostDataroomTrustArtifactsExecute(r DataroomAPIPost
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.trustPublish
+	localVarPostBody = r.dataroomTrustPublish
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2195,6 +2307,14 @@ func (a *DataroomAPIService) PostDataroomTrustArtifactsExecute(r DataroomAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2211,18 +2331,18 @@ func (a *DataroomAPIService) PostDataroomTrustArtifactsExecute(r DataroomAPIPost
 }
 
 type DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest struct {
-	ctx        context.Context
-	ApiService *DataroomAPIService
-	slug       string
-	trustAsk   *TrustAsk
+	ctx              context.Context
+	ApiService       *DataroomAPIService
+	slug             string
+	dataroomTrustAsk *DataroomTrustAsk
 }
 
-func (r DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest) TrustAsk(trustAsk TrustAsk) DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest {
-	r.trustAsk = &trustAsk
+func (r DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest) DataroomTrustAsk(dataroomTrustAsk DataroomTrustAsk) DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest {
+	r.dataroomTrustAsk = &dataroomTrustAsk
 	return r
 }
 
-func (r DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest) Execute() (*TrustAsked, *http.Response, error) {
+func (r DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest) Execute() (*DataroomTrustAsked, *http.Response, error) {
 	return r.ApiService.PostDataroomTrustCenterBySlugRequestsExecute(r)
 }
 
@@ -2260,13 +2380,13 @@ func (a *DataroomAPIService) PostDataroomTrustCenterBySlugRequests(ctx context.C
 
 // Execute executes the request
 //
-//	@return TrustAsked
-func (a *DataroomAPIService) PostDataroomTrustCenterBySlugRequestsExecute(r DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest) (*TrustAsked, *http.Response, error) {
+//	@return DataroomTrustAsked
+func (a *DataroomAPIService) PostDataroomTrustCenterBySlugRequestsExecute(r DataroomAPIPostDataroomTrustCenterBySlugRequestsRequest) (*DataroomTrustAsked, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrustAsked
+		localVarReturnValue *DataroomTrustAsked
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PostDataroomTrustCenterBySlugRequests")
@@ -2280,8 +2400,8 @@ func (a *DataroomAPIService) PostDataroomTrustCenterBySlugRequestsExecute(r Data
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.trustAsk == nil {
-		return localVarReturnValue, nil, reportError("trustAsk is required and must be specified")
+	if r.dataroomTrustAsk == nil {
+		return localVarReturnValue, nil, reportError("dataroomTrustAsk is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2294,7 +2414,7 @@ func (a *DataroomAPIService) PostDataroomTrustCenterBySlugRequestsExecute(r Data
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2302,7 +2422,7 @@ func (a *DataroomAPIService) PostDataroomTrustCenterBySlugRequestsExecute(r Data
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.trustAsk
+	localVarPostBody = r.dataroomTrustAsk
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2325,6 +2445,14 @@ func (a *DataroomAPIService) PostDataroomTrustCenterBySlugRequestsExecute(r Data
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2341,25 +2469,25 @@ func (a *DataroomAPIService) PostDataroomTrustCenterBySlugRequestsExecute(r Data
 }
 
 type DataroomAPIPostDataroomTrustRequestsByIdGrantRequest struct {
-	ctx           context.Context
-	ApiService    *DataroomAPIService
-	id            string
-	trustDecision *TrustDecision
+	ctx                   context.Context
+	ApiService            *DataroomAPIService
+	id                    string
+	dataroomTrustDecision *DataroomTrustDecision
 }
 
-func (r DataroomAPIPostDataroomTrustRequestsByIdGrantRequest) TrustDecision(trustDecision TrustDecision) DataroomAPIPostDataroomTrustRequestsByIdGrantRequest {
-	r.trustDecision = &trustDecision
+func (r DataroomAPIPostDataroomTrustRequestsByIdGrantRequest) DataroomTrustDecision(dataroomTrustDecision DataroomTrustDecision) DataroomAPIPostDataroomTrustRequestsByIdGrantRequest {
+	r.dataroomTrustDecision = &dataroomTrustDecision
 	return r
 }
 
-func (r DataroomAPIPostDataroomTrustRequestsByIdGrantRequest) Execute() (*TrustGranted, *http.Response, error) {
+func (r DataroomAPIPostDataroomTrustRequestsByIdGrantRequest) Execute() (*DataroomTrustGranted, *http.Response, error) {
 	return r.ApiService.PostDataroomTrustRequestsByIdGrantExecute(r)
 }
 
 /*
-PostDataroomTrustRequestsByIdGrant Grant answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
+PostDataroomTrustRequestsByIdGrant Answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
 
-Grant answers a request by opening access: it mints a share link over what was
+Answers a request by opening access: it mints a share link over what was
 asked for, addressed to the address that asked and closing at expiry, records the
 decision, and mails the asker.
 
@@ -2392,13 +2520,13 @@ func (a *DataroomAPIService) PostDataroomTrustRequestsByIdGrant(ctx context.Cont
 
 // Execute executes the request
 //
-//	@return TrustGranted
-func (a *DataroomAPIService) PostDataroomTrustRequestsByIdGrantExecute(r DataroomAPIPostDataroomTrustRequestsByIdGrantRequest) (*TrustGranted, *http.Response, error) {
+//	@return DataroomTrustGranted
+func (a *DataroomAPIService) PostDataroomTrustRequestsByIdGrantExecute(r DataroomAPIPostDataroomTrustRequestsByIdGrantRequest) (*DataroomTrustGranted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrustGranted
+		localVarReturnValue *DataroomTrustGranted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PostDataroomTrustRequestsByIdGrant")
@@ -2412,8 +2540,8 @@ func (a *DataroomAPIService) PostDataroomTrustRequestsByIdGrantExecute(r Dataroo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.trustDecision == nil {
-		return localVarReturnValue, nil, reportError("trustDecision is required and must be specified")
+	if r.dataroomTrustDecision == nil {
+		return localVarReturnValue, nil, reportError("dataroomTrustDecision is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2426,7 +2554,7 @@ func (a *DataroomAPIService) PostDataroomTrustRequestsByIdGrantExecute(r Dataroo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2434,7 +2562,7 @@ func (a *DataroomAPIService) PostDataroomTrustRequestsByIdGrantExecute(r Dataroo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.trustDecision
+	localVarPostBody = r.dataroomTrustDecision
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2457,6 +2585,14 @@ func (a *DataroomAPIService) PostDataroomTrustRequestsByIdGrantExecute(r Dataroo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2473,25 +2609,25 @@ func (a *DataroomAPIService) PostDataroomTrustRequestsByIdGrantExecute(r Dataroo
 }
 
 type DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest struct {
-	ctx           context.Context
-	ApiService    *DataroomAPIService
-	id            string
-	trustDecision *TrustDecision
+	ctx                   context.Context
+	ApiService            *DataroomAPIService
+	id                    string
+	dataroomTrustDecision *DataroomTrustDecision
 }
 
-func (r DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest) TrustDecision(trustDecision TrustDecision) DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest {
-	r.trustDecision = &trustDecision
+func (r DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest) DataroomTrustDecision(dataroomTrustDecision DataroomTrustDecision) DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest {
+	r.dataroomTrustDecision = &dataroomTrustDecision
 	return r
 }
 
-func (r DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest) Execute() (*TrustRefused, *http.Response, error) {
+func (r DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest) Execute() (*DataroomTrustRefused, *http.Response, error) {
 	return r.ApiService.PostDataroomTrustRequestsByIdRefuseExecute(r)
 }
 
 /*
-PostDataroomTrustRequestsByIdRefuse Refuse answers a request by declining it, recording who declined and why.
+PostDataroomTrustRequestsByIdRefuse Answers a request by declining it, recording who declined and why.
 
-Refuse answers a request by declining it, recording who declined and why.
+Answers a request by declining it, recording who declined and why.
 
 Nothing is released and no link is minted. The refusal STAYS on the record beside
 the ask — a request that was turned down is part of the access record exactly as
@@ -2516,13 +2652,13 @@ func (a *DataroomAPIService) PostDataroomTrustRequestsByIdRefuse(ctx context.Con
 
 // Execute executes the request
 //
-//	@return TrustRefused
-func (a *DataroomAPIService) PostDataroomTrustRequestsByIdRefuseExecute(r DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest) (*TrustRefused, *http.Response, error) {
+//	@return DataroomTrustRefused
+func (a *DataroomAPIService) PostDataroomTrustRequestsByIdRefuseExecute(r DataroomAPIPostDataroomTrustRequestsByIdRefuseRequest) (*DataroomTrustRefused, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrustRefused
+		localVarReturnValue *DataroomTrustRefused
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PostDataroomTrustRequestsByIdRefuse")
@@ -2536,8 +2672,8 @@ func (a *DataroomAPIService) PostDataroomTrustRequestsByIdRefuseExecute(r Dataro
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.trustDecision == nil {
-		return localVarReturnValue, nil, reportError("trustDecision is required and must be specified")
+	if r.dataroomTrustDecision == nil {
+		return localVarReturnValue, nil, reportError("dataroomTrustDecision is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2550,7 +2686,7 @@ func (a *DataroomAPIService) PostDataroomTrustRequestsByIdRefuseExecute(r Dataro
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2558,7 +2694,7 @@ func (a *DataroomAPIService) PostDataroomTrustRequestsByIdRefuseExecute(r Dataro
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.trustDecision
+	localVarPostBody = r.dataroomTrustDecision
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2581,6 +2717,14 @@ func (a *DataroomAPIService) PostDataroomTrustRequestsByIdRefuseExecute(r Dataro
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2789,17 +2933,17 @@ func (a *DataroomAPIService) PostDataroomViewByLinkidPageviewExecute(r DataroomA
 }
 
 type DataroomAPIPutDataroomTrustRequest struct {
-	ctx           context.Context
-	ApiService    *DataroomAPIService
-	trustSettings *TrustSettings
+	ctx                   context.Context
+	ApiService            *DataroomAPIService
+	dataroomTrustSettings *DataroomTrustSettings
 }
 
-func (r DataroomAPIPutDataroomTrustRequest) TrustSettings(trustSettings TrustSettings) DataroomAPIPutDataroomTrustRequest {
-	r.trustSettings = &trustSettings
+func (r DataroomAPIPutDataroomTrustRequest) DataroomTrustSettings(dataroomTrustSettings DataroomTrustSettings) DataroomAPIPutDataroomTrustRequest {
+	r.dataroomTrustSettings = &dataroomTrustSettings
 	return r
 }
 
-func (r DataroomAPIPutDataroomTrustRequest) Execute() (*TrustDesk, *http.Response, error) {
+func (r DataroomAPIPutDataroomTrustRequest) Execute() (*DataroomTrustDesk, *http.Response, error) {
 	return r.ApiService.PutDataroomTrustExecute(r)
 }
 
@@ -2829,13 +2973,13 @@ func (a *DataroomAPIService) PutDataroomTrust(ctx context.Context) DataroomAPIPu
 
 // Execute executes the request
 //
-//	@return TrustDesk
-func (a *DataroomAPIService) PutDataroomTrustExecute(r DataroomAPIPutDataroomTrustRequest) (*TrustDesk, *http.Response, error) {
+//	@return DataroomTrustDesk
+func (a *DataroomAPIService) PutDataroomTrustExecute(r DataroomAPIPutDataroomTrustRequest) (*DataroomTrustDesk, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrustDesk
+		localVarReturnValue *DataroomTrustDesk
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataroomAPIService.PutDataroomTrust")
@@ -2848,8 +2992,8 @@ func (a *DataroomAPIService) PutDataroomTrustExecute(r DataroomAPIPutDataroomTru
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.trustSettings == nil {
-		return localVarReturnValue, nil, reportError("trustSettings is required and must be specified")
+	if r.dataroomTrustSettings == nil {
+		return localVarReturnValue, nil, reportError("dataroomTrustSettings is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2862,7 +3006,7 @@ func (a *DataroomAPIService) PutDataroomTrustExecute(r DataroomAPIPutDataroomTru
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2870,7 +3014,7 @@ func (a *DataroomAPIService) PutDataroomTrustExecute(r DataroomAPIPutDataroomTru
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.trustSettings
+	localVarPostBody = r.dataroomTrustSettings
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2893,6 +3037,14 @@ func (a *DataroomAPIService) PutDataroomTrustExecute(r DataroomAPIPutDataroomTru
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

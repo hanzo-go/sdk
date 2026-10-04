@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yDashboardVarValues{}
 // O11yO11yDashboardVarValues struct for O11yO11yDashboardVarValues
 type O11yO11yDashboardVarValues struct {
 	// VariableValues are the values, in the order the query produced them.
-	VariableValues []map[string]interface{} `json:"variableValues,omitempty"`
+	VariableValues       []interface{} `json:"variableValues,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardVarValues O11yO11yDashboardVarValues
 
 // NewO11yO11yDashboardVarValues instantiates a new O11yO11yDashboardVarValues object
 // This constructor will assign default values to properties that have it defined,
@@ -41,9 +44,9 @@ func NewO11yO11yDashboardVarValuesWithDefaults() *O11yO11yDashboardVarValues {
 }
 
 // GetVariableValues returns the VariableValues field value if set, zero value otherwise.
-func (o *O11yO11yDashboardVarValues) GetVariableValues() []map[string]interface{} {
+func (o *O11yO11yDashboardVarValues) GetVariableValues() []interface{} {
 	if o == nil || IsNil(o.VariableValues) {
-		var ret []map[string]interface{}
+		var ret []interface{}
 		return ret
 	}
 	return o.VariableValues
@@ -51,7 +54,7 @@ func (o *O11yO11yDashboardVarValues) GetVariableValues() []map[string]interface{
 
 // GetVariableValuesOk returns a tuple with the VariableValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yDashboardVarValues) GetVariableValuesOk() ([]map[string]interface{}, bool) {
+func (o *O11yO11yDashboardVarValues) GetVariableValuesOk() ([]interface{}, bool) {
 	if o == nil || IsNil(o.VariableValues) {
 		return nil, false
 	}
@@ -67,8 +70,8 @@ func (o *O11yO11yDashboardVarValues) HasVariableValues() bool {
 	return false
 }
 
-// SetVariableValues gets a reference to the given []map[string]interface{} and assigns it to the VariableValues field.
-func (o *O11yO11yDashboardVarValues) SetVariableValues(v []map[string]interface{}) {
+// SetVariableValues gets a reference to the given []interface{} and assigns it to the VariableValues field.
+func (o *O11yO11yDashboardVarValues) SetVariableValues(v []interface{}) {
 	o.VariableValues = v
 }
 
@@ -85,7 +88,33 @@ func (o O11yO11yDashboardVarValues) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.VariableValues) {
 		toSerialize["variableValues"] = o.VariableValues
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardVarValues) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardVarValues := _O11yO11yDashboardVarValues{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardVarValues)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardVarValues(varO11yO11yDashboardVarValues)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "variableValues")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardVarValues struct {

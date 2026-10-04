@@ -1,18 +1,9 @@
 // chat — one completion.
 //
 // Operation: POST /v1/chat/completions (post_chat_completions), the gateway's
-// own inference route.
-//
-// The document declares what comes back but not what goes in, so the generated
-// method still takes no prompt and this prints whatever the route answers with.
-// The one thing this example must not do is invent the missing half. A
-// hand-rolled request body inside a generated client is an opinion about the
-// API rather than a projection of it, and that second authority is what these
-// SDKs exist to remove.
-//
-// It used to read the raw body for the same reason. Now that the Out type is
-// declared it reads choices[0].message.content, which arrived by regeneration
-// with no decision taken in this file. The request body follows the same way.
+// own inference route. The document declares both halves now, so the prompt
+// goes in as OpenaiChatCompletionRequest and choices[0].message.content comes
+// back typed, both by regeneration with no decision taken in this file.
 //
 // Non-streaming. Streaming is SSE, a different transport that a generated
 // client hands back as an opaque body, so demonstrating it here would teach the
@@ -25,14 +16,26 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	hanzoai "github.com/hanzoai/go-sdk/v8"
 )
 
 func main() {
+	model := os.Getenv("HANZO_MODEL")
+	if model == "" {
+		model = "enso"
+	}
+
 	client := hanzoai.New(hanzoai.Options{})
 
-	completion, resp, err := client.AiAPI.PostChatCompletions(context.Background()).Execute()
+	completion, resp, err := client.AiAPI.PostChatCompletions(context.Background()).
+		OpenaiChatCompletionRequest(hanzoai.OpenaiChatCompletionRequest{
+			Model: &model,
+			Messages: []hanzoai.OpenaiChatCompletionMessage{
+				{Role: hanzoai.PtrString("user"), Content: hanzoai.PtrString("Say hello in one sentence.")},
+			},
+		}).Execute()
 	if err != nil {
 		log.Fatalf("chat: %v", err)
 	}

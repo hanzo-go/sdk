@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yLimitConfig{}
 
 // O11yLimitConfig struct for O11yLimitConfig
 type O11yLimitConfig struct {
-	Day    *O11yLimitValue `json:"day,omitempty"`
-	Second *O11yLimitValue `json:"second,omitempty"`
+	Day                  *O11yLimitValue `json:"day,omitempty"`
+	Second               *O11yLimitValue `json:"second,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yLimitConfig O11yLimitConfig
 
 // NewO11yLimitConfig instantiates a new O11yLimitConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yLimitConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Second) {
 		toSerialize["second"] = o.Second
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yLimitConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yLimitConfig := _O11yLimitConfig{}
+
+	err = json.Unmarshal(data, &varO11yLimitConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yLimitConfig(varO11yLimitConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "day")
+		delete(additionalProperties, "second")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yLimitConfig struct {

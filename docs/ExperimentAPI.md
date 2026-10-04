@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## GetExperiment
 
-> ExperimentList GetExperiment(ctx).Execute()
+> ExperimentExperimentList GetExperiment(ctx).Execute()
 
 Is every experiment in the caller's org, with its variants, status and decision, ordered by project then id.
 
@@ -43,7 +43,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExperimentAPI.GetExperiment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetExperiment`: ExperimentList
+	// response from `GetExperiment`: ExperimentExperimentList
 	fmt.Fprintf(os.Stdout, "Response from `ExperimentAPI.GetExperiment`: %v\n", resp)
 }
 ```
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiGetExperimentRequest struc
 
 ### Return type
 
-[**ExperimentList**](ExperimentList.md)
+[**ExperimentExperimentList**](ExperimentExperimentList.md)
 
 ### Authorization
 
@@ -68,7 +68,7 @@ Other parameters are passed through a pointer to a apiGetExperimentRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -77,7 +77,7 @@ Other parameters are passed through a pointer to a apiGetExperimentRequest struc
 
 ## GetExperimentById
 
-> Trial GetExperimentById(ctx, id).Execute()
+> ExperimentTrial GetExperimentById(ctx, id).Execute()
 
 Is one experiment's definition and lifecycle: variants, weights, control arm, status and winner.
 
@@ -105,7 +105,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExperimentAPI.GetExperimentById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetExperimentById`: Trial
+	// response from `GetExperimentById`: ExperimentTrial
 	fmt.Fprintf(os.Stdout, "Response from `ExperimentAPI.GetExperimentById`: %v\n", resp)
 }
 ```
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Trial**](Trial.md)
+[**ExperimentTrial**](ExperimentTrial.md)
 
 ### Authorization
 
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 
 ## GetExperimentByIdAssign
 
-> Assignment GetExperimentByIdAssign(ctx, id).Subject(subject).Props(props).Execute()
+> ExperimentAssignment GetExperimentByIdAssign(ctx, id).Subject(subject).Props(props).Execute()
 
 Is the variant one subject is bucketed into, and the payload that variant carries.
 
@@ -177,7 +177,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExperimentAPI.GetExperimentByIdAssign``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetExperimentByIdAssign`: Assignment
+	// response from `GetExperimentByIdAssign`: ExperimentAssignment
 	fmt.Fprintf(os.Stdout, "Response from `ExperimentAPI.GetExperimentByIdAssign`: %v\n", resp)
 }
 ```
@@ -203,7 +203,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Assignment**](Assignment.md)
+[**ExperimentAssignment**](ExperimentAssignment.md)
 
 ### Authorization
 
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ## GetExperimentHealth
 
-> Health GetExperimentHealth(ctx).Execute()
+> ExperimentHealth GetExperimentHealth(ctx).Execute()
 
 Is whether the experiments subsystem is mounted and serving in this process.
 
@@ -248,7 +248,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExperimentAPI.GetExperimentHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetExperimentHealth`: Health
+	// response from `GetExperimentHealth`: ExperimentHealth
 	fmt.Fprintf(os.Stdout, "Response from `ExperimentAPI.GetExperimentHealth`: %v\n", resp)
 }
 ```
@@ -264,7 +264,7 @@ Other parameters are passed through a pointer to a apiGetExperimentHealthRequest
 
 ### Return type
 
-[**Health**](Health.md)
+[**ExperimentHealth**](ExperimentHealth.md)
 
 ### Authorization
 
@@ -273,7 +273,7 @@ Other parameters are passed through a pointer to a apiGetExperimentHealthRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -282,7 +282,7 @@ Other parameters are passed through a pointer to a apiGetExperimentHealthRequest
 
 ## PostExperiment
 
-> Trial PostExperiment(ctx).CreateBody(createBody).Execute()
+> ExperimentTrial PostExperiment(ctx).ExperimentCreateBody(experimentCreateBody).Execute()
 
 Registers a controlled experiment AND puts its assignment flag live, in that order, so the arms start bucketing subjects the moment this returns 201 — the flag is created active at 100% rollout, with each variant weighted as declared.
 
@@ -301,16 +301,16 @@ import (
 )
 
 func main() {
-	createBody := *openapiclient.NewCreateBody("Id_example", "MetricEvent_example", []openapiclient.Arm{*openapiclient.NewArm()}) // CreateBody | 
+	experimentCreateBody := *openapiclient.NewExperimentCreateBody("Id_example", "MetricEvent_example", []openapiclient.ExperimentArm{*openapiclient.NewExperimentArm()}) // ExperimentCreateBody | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExperimentAPI.PostExperiment(context.Background()).CreateBody(createBody).Execute()
+	resp, r, err := apiClient.ExperimentAPI.PostExperiment(context.Background()).ExperimentCreateBody(experimentCreateBody).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExperimentAPI.PostExperiment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostExperiment`: Trial
+	// response from `PostExperiment`: ExperimentTrial
 	fmt.Fprintf(os.Stdout, "Response from `ExperimentAPI.PostExperiment`: %v\n", resp)
 }
 ```
@@ -326,11 +326,11 @@ Other parameters are passed through a pointer to a apiPostExperimentRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createBody** | [**CreateBody**](CreateBody.md) |  | 
+ **experimentCreateBody** | [**ExperimentCreateBody**](ExperimentCreateBody.md) |  | 
 
 ### Return type
 
-[**Trial**](Trial.md)
+[**ExperimentTrial**](ExperimentTrial.md)
 
 ### Authorization
 
@@ -339,7 +339,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -348,7 +348,7 @@ Name | Type | Description  | Notes
 
 ## PostExperimentByIdAnalyze
 
-> Analysis PostExperimentByIdAnalyze(ctx, id).AnalyzeQuery(analyzeQuery).Execute()
+> ExperimentAnalysis PostExperimentByIdAnalyze(ctx, id).ExperimentAnalyzeQuery(experimentAnalyzeQuery).Execute()
 
 Is per-variant conversion, lift and statistical significance against the control arm.
 
@@ -368,16 +368,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the experiment the URL names.
-	analyzeQuery := *openapiclient.NewAnalyzeQuery() // AnalyzeQuery | 
+	experimentAnalyzeQuery := *openapiclient.NewExperimentAnalyzeQuery() // ExperimentAnalyzeQuery | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExperimentAPI.PostExperimentByIdAnalyze(context.Background(), id).AnalyzeQuery(analyzeQuery).Execute()
+	resp, r, err := apiClient.ExperimentAPI.PostExperimentByIdAnalyze(context.Background(), id).ExperimentAnalyzeQuery(experimentAnalyzeQuery).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExperimentAPI.PostExperimentByIdAnalyze``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostExperimentByIdAnalyze`: Analysis
+	// response from `PostExperimentByIdAnalyze`: ExperimentAnalysis
 	fmt.Fprintf(os.Stdout, "Response from `ExperimentAPI.PostExperimentByIdAnalyze`: %v\n", resp)
 }
 ```
@@ -398,11 +398,11 @@ Other parameters are passed through a pointer to a apiPostExperimentByIdAnalyzeR
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **analyzeQuery** | [**AnalyzeQuery**](AnalyzeQuery.md) |  | 
+ **experimentAnalyzeQuery** | [**ExperimentAnalyzeQuery**](ExperimentAnalyzeQuery.md) |  | 
 
 ### Return type
 
-[**Analysis**](Analysis.md)
+[**ExperimentAnalysis**](ExperimentAnalysis.md)
 
 ### Authorization
 
@@ -411,7 +411,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -420,7 +420,7 @@ Name | Type | Description  | Notes
 
 ## PostExperimentByIdDecide
 
-> Trial PostExperimentByIdDecide(ctx, id).DecideBody(decideBody).Execute()
+> ExperimentTrial PostExperimentByIdDecide(ctx, id).ExperimentDecideBody(experimentDecideBody).Execute()
 
 Promotes one variant to the whole rollout and records who decided.
 
@@ -440,16 +440,16 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	decideBody := *openapiclient.NewDecideBody("Winner_example") // DecideBody | 
+	experimentDecideBody := *openapiclient.NewExperimentDecideBody("Winner_example") // ExperimentDecideBody | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExperimentAPI.PostExperimentByIdDecide(context.Background(), id).DecideBody(decideBody).Execute()
+	resp, r, err := apiClient.ExperimentAPI.PostExperimentByIdDecide(context.Background(), id).ExperimentDecideBody(experimentDecideBody).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExperimentAPI.PostExperimentByIdDecide``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostExperimentByIdDecide`: Trial
+	// response from `PostExperimentByIdDecide`: ExperimentTrial
 	fmt.Fprintf(os.Stdout, "Response from `ExperimentAPI.PostExperimentByIdDecide`: %v\n", resp)
 }
 ```
@@ -470,11 +470,11 @@ Other parameters are passed through a pointer to a apiPostExperimentByIdDecideRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **decideBody** | [**DecideBody**](DecideBody.md) |  | 
+ **experimentDecideBody** | [**ExperimentDecideBody**](ExperimentDecideBody.md) |  | 
 
 ### Return type
 
-[**Trial**](Trial.md)
+[**ExperimentTrial**](ExperimentTrial.md)
 
 ### Authorization
 
@@ -483,7 +483,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

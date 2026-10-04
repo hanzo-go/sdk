@@ -19,11 +19,14 @@ var _ MappedNullable = &O11yMetricsResponseSeries{}
 
 // O11yMetricsResponseSeries Series is the RED trend: request rate, error rate and two latency quantiles, bucketed at range.stepSec and oldest bucket first. Latencies are in MILLISECONDS.
 type O11yMetricsResponseSeries struct {
-	Errors       []O11yPoint `json:"errors,omitempty"`
-	LatencyP50Ms []O11yPoint `json:"latencyP50Ms,omitempty"`
-	LatencyP95Ms []O11yPoint `json:"latencyP95Ms,omitempty"`
-	Requests     []O11yPoint `json:"requests,omitempty"`
+	Errors               []O11yPoint `json:"errors,omitempty"`
+	LatencyP50Ms         []O11yPoint `json:"latencyP50Ms,omitempty"`
+	LatencyP95Ms         []O11yPoint `json:"latencyP95Ms,omitempty"`
+	Requests             []O11yPoint `json:"requests,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yMetricsResponseSeries O11yMetricsResponseSeries
 
 // NewO11yMetricsResponseSeries instantiates a new O11yMetricsResponseSeries object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11yMetricsResponseSeries) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Requests) {
 		toSerialize["requests"] = o.Requests
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yMetricsResponseSeries) UnmarshalJSON(data []byte) (err error) {
+	varO11yMetricsResponseSeries := _O11yMetricsResponseSeries{}
+
+	err = json.Unmarshal(data, &varO11yMetricsResponseSeries)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yMetricsResponseSeries(varO11yMetricsResponseSeries)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "errors")
+		delete(additionalProperties, "latencyP50Ms")
+		delete(additionalProperties, "latencyP95Ms")
+		delete(additionalProperties, "requests")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yMetricsResponseSeries struct {

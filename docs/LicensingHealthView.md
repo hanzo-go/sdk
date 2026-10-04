@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Env** | Pointer to **string** | Env is the deployment environment (\&quot;dev\&quot; | \&quot;staging\&quot; | \&quot;prod\&quot;). | [optional] 
 **Service** | Pointer to **string** | Service is always \&quot;licensing\&quot;. | [optional] 
-**Signer** | Pointer to **string** | Signer names the KMS provider signing licenses here. \&quot;local\&quot; means a development key: tokens it mints are not production credentials. | [optional] 
+**Signer** | Pointer to **string** | Signer names where the signing key lives: \&quot;kms\&quot; or \&quot;local\&quot;. \&quot;local\&quot; means a development key: tokens it mints are not production credentials. | [optional] 
 **Status** | Pointer to **string** | Status is \&quot;ok\&quot; whenever the process is up — this is not a dependency probe. | [optional] 
 
 ## Methods

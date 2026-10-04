@@ -71,6 +71,7 @@ type IamUpdateOrganizationInput struct {
 	PasswordOptions        []string         `json:"passwordOptions,omitempty"`
 	PasswordSalt           *string          `json:"passwordSalt,omitempty"`
 	PasswordType           *string          `json:"passwordType,omitempty"`
+	Platform               *bool            `json:"platform,omitempty"`
 	Tags                   []string         `json:"tags,omitempty"`
 	ThemeData              *IamThemeData    `json:"themeData,omitempty"`
 	UpdatedAt              *time.Time       `json:"updatedAt,omitempty"`
@@ -81,7 +82,10 @@ type IamUpdateOrganizationInput struct {
 	UserTypes              []string         `json:"userTypes,omitempty"`
 	WebsiteUrl             *string          `json:"websiteUrl,omitempty"`
 	WidgetItems            []string         `json:"widgetItems,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
+
+type _IamUpdateOrganizationInput IamUpdateOrganizationInput
 
 // NewIamUpdateOrganizationInput instantiates a new IamUpdateOrganizationInput object
 // This constructor will assign default values to properties that have it defined,
@@ -1732,6 +1736,38 @@ func (o *IamUpdateOrganizationInput) SetPasswordType(v string) {
 	o.PasswordType = &v
 }
 
+// GetPlatform returns the Platform field value if set, zero value otherwise.
+func (o *IamUpdateOrganizationInput) GetPlatform() bool {
+	if o == nil || IsNil(o.Platform) {
+		var ret bool
+		return ret
+	}
+	return *o.Platform
+}
+
+// GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamUpdateOrganizationInput) GetPlatformOk() (*bool, bool) {
+	if o == nil || IsNil(o.Platform) {
+		return nil, false
+	}
+	return o.Platform, true
+}
+
+// HasPlatform returns a boolean if a field has been set.
+func (o *IamUpdateOrganizationInput) HasPlatform() bool {
+	if o != nil && !IsNil(o.Platform) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlatform gets a reference to the given bool and assigns it to the Platform field.
+func (o *IamUpdateOrganizationInput) SetPlatform(v bool) {
+	o.Platform = &v
+}
+
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *IamUpdateOrganizationInput) GetTags() []string {
 	if o == nil || IsNil(o.Tags) {
@@ -2215,6 +2251,9 @@ func (o IamUpdateOrganizationInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PasswordType) {
 		toSerialize["passwordType"] = o.PasswordType
 	}
+	if !IsNil(o.Platform) {
+		toSerialize["platform"] = o.Platform
+	}
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
@@ -2245,7 +2284,94 @@ func (o IamUpdateOrganizationInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WidgetItems) {
 		toSerialize["widgetItems"] = o.WidgetItems
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamUpdateOrganizationInput) UnmarshalJSON(data []byte) (err error) {
+	varIamUpdateOrganizationInput := _IamUpdateOrganizationInput{}
+
+	err = json.Unmarshal(data, &varIamUpdateOrganizationInput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamUpdateOrganizationInput(varIamUpdateOrganizationInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accountItems")
+		delete(additionalProperties, "accountMenu")
+		delete(additionalProperties, "avatar")
+		delete(additionalProperties, "balanceCredit")
+		delete(additionalProperties, "balanceCurrency")
+		delete(additionalProperties, "countryCodes")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "dcrPolicy")
+		delete(additionalProperties, "defaultApplication")
+		delete(additionalProperties, "defaultAvatar")
+		delete(additionalProperties, "defaultPassword")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "disableSignin")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "emoji")
+		delete(additionalProperties, "enableSoftDeletion")
+		delete(additionalProperties, "enableTour")
+		delete(additionalProperties, "failedSigninFrozenTime")
+		delete(additionalProperties, "failedSigninLimit")
+		delete(additionalProperties, "favicon")
+		delete(additionalProperties, "founder")
+		delete(additionalProperties, "hasPrivilegeConsent")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "initScore")
+		delete(additionalProperties, "ipRestriction")
+		delete(additionalProperties, "ipWhitelist")
+		delete(additionalProperties, "isPersonal")
+		delete(additionalProperties, "isProfilePublic")
+		delete(additionalProperties, "kerberosKdcHost")
+		delete(additionalProperties, "kerberosKeytab")
+		delete(additionalProperties, "kerberosRealm")
+		delete(additionalProperties, "kerberosServiceName")
+		delete(additionalProperties, "languages")
+		delete(additionalProperties, "ldapAttributes")
+		delete(additionalProperties, "logo")
+		delete(additionalProperties, "logoDark")
+		delete(additionalProperties, "masterPassword")
+		delete(additionalProperties, "masterVerificationCode")
+		delete(additionalProperties, "mfaItems")
+		delete(additionalProperties, "mfaRememberInHours")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "navItems")
+		delete(additionalProperties, "orgBalance")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "passwordExpireDays")
+		delete(additionalProperties, "passwordObfuscatorKey")
+		delete(additionalProperties, "passwordObfuscatorType")
+		delete(additionalProperties, "passwordOptions")
+		delete(additionalProperties, "passwordSalt")
+		delete(additionalProperties, "passwordType")
+		delete(additionalProperties, "platform")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "themeData")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "useEmailAsUsername")
+		delete(additionalProperties, "usePermanentAvatar")
+		delete(additionalProperties, "userBalance")
+		delete(additionalProperties, "userNavItems")
+		delete(additionalProperties, "userTypes")
+		delete(additionalProperties, "websiteUrl")
+		delete(additionalProperties, "widgetItems")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamUpdateOrganizationInput struct {

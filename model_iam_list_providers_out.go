@@ -19,8 +19,11 @@ var _ MappedNullable = &IamListProvidersOut{}
 
 // IamListProvidersOut struct for IamListProvidersOut
 type IamListProvidersOut struct {
-	Providers []IamProvider `json:"providers,omitempty"`
+	Providers            []IamProvider `json:"providers,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamListProvidersOut IamListProvidersOut
 
 // NewIamListProvidersOut instantiates a new IamListProvidersOut object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o IamListProvidersOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Providers) {
 		toSerialize["providers"] = o.Providers
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamListProvidersOut) UnmarshalJSON(data []byte) (err error) {
+	varIamListProvidersOut := _IamListProvidersOut{}
+
+	err = json.Unmarshal(data, &varIamListProvidersOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamListProvidersOut(varIamListProvidersOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "providers")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamListProvidersOut struct {

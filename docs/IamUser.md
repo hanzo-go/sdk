@@ -126,6 +126,7 @@ Name | Type | Description | Notes
 **Microsoftonline** | Pointer to **string** |  | [optional] 
 **MultiFactorAuths** | Pointer to [**[]IamMfaProps**](IamMfaProps.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
+**NameKey** | Pointer to **string** |  | [optional] [readonly] 
 **Naver** | Pointer to **string** |  | [optional] 
 **NeedUpdatePassword** | Pointer to **bool** |  | [optional] 
 **Nextcloud** | Pointer to **string** |  | [optional] 
@@ -3257,6 +3258,31 @@ SetName sets Name field to given value.
 `func (o *IamUser) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetNameKey
+
+`func (o *IamUser) GetNameKey() string`
+
+GetNameKey returns the NameKey field if non-nil, zero value otherwise.
+
+### GetNameKeyOk
+
+`func (o *IamUser) GetNameKeyOk() (*string, bool)`
+
+GetNameKeyOk returns a tuple with the NameKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNameKey
+
+`func (o *IamUser) SetNameKey(v string)`
+
+SetNameKey sets NameKey field to given value.
+
+### HasNameKey
+
+`func (o *IamUser) HasNameKey() bool`
+
+HasNameKey returns a boolean if a field has been set.
 
 ### GetNaver
 

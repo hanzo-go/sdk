@@ -30,7 +30,10 @@ type O11yTelegramConfig struct {
 	ParseMode            *string               `json:"parse_mode,omitempty"`
 	Token                interface{}           `json:"token,omitempty"`
 	TokenFile            *string               `json:"token_file,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yTelegramConfig O11yTelegramConfig
 
 // NewO11yTelegramConfig instantiates a new O11yTelegramConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -446,7 +449,43 @@ func (o O11yTelegramConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TokenFile) {
 		toSerialize["token_file"] = o.TokenFile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yTelegramConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yTelegramConfig := _O11yTelegramConfig{}
+
+	err = json.Unmarshal(data, &varO11yTelegramConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yTelegramConfig(varO11yTelegramConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "api_url")
+		delete(additionalProperties, "chat")
+		delete(additionalProperties, "chat_file")
+		delete(additionalProperties, "disable_notifications")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "message_thread_id")
+		delete(additionalProperties, "parse_mode")
+		delete(additionalProperties, "token")
+		delete(additionalProperties, "token_file")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yTelegramConfig struct {

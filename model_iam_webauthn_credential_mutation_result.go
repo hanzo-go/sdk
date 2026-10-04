@@ -19,9 +19,12 @@ var _ MappedNullable = &IamWebauthnCredentialMutationResult{}
 
 // IamWebauthnCredentialMutationResult struct for IamWebauthnCredentialMutationResult
 type IamWebauthnCredentialMutationResult struct {
-	Affected           *bool                  `json:"affected,omitempty"`
-	WebauthnCredential *IamWebauthnCredential `json:"webauthnCredential,omitempty"`
+	Affected             *bool                  `json:"affected,omitempty"`
+	WebauthnCredential   *IamWebauthnCredential `json:"webauthnCredential,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamWebauthnCredentialMutationResult IamWebauthnCredentialMutationResult
 
 // NewIamWebauthnCredentialMutationResult instantiates a new IamWebauthnCredentialMutationResult object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o IamWebauthnCredentialMutationResult) ToMap() (map[string]interface{}, er
 	if !IsNil(o.WebauthnCredential) {
 		toSerialize["webauthnCredential"] = o.WebauthnCredential
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamWebauthnCredentialMutationResult) UnmarshalJSON(data []byte) (err error) {
+	varIamWebauthnCredentialMutationResult := _IamWebauthnCredentialMutationResult{}
+
+	err = json.Unmarshal(data, &varIamWebauthnCredentialMutationResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamWebauthnCredentialMutationResult(varIamWebauthnCredentialMutationResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "affected")
+		delete(additionalProperties, "webauthnCredential")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamWebauthnCredentialMutationResult struct {

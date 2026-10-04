@@ -20,7 +20,10 @@ var _ MappedNullable = &O11yOldAWSLogsStrategy{}
 // O11yOldAWSLogsStrategy struct for O11yOldAWSLogsStrategy
 type O11yOldAWSLogsStrategy struct {
 	CloudwatchLogsSubscriptions []O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner `json:"cloudwatch_logs_subscriptions,omitempty"`
+	AdditionalProperties        map[string]interface{}
 }
+
+type _O11yOldAWSLogsStrategy O11yOldAWSLogsStrategy
 
 // NewO11yOldAWSLogsStrategy instantiates a new O11yOldAWSLogsStrategy object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yOldAWSLogsStrategy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CloudwatchLogsSubscriptions) {
 		toSerialize["cloudwatch_logs_subscriptions"] = o.CloudwatchLogsSubscriptions
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yOldAWSLogsStrategy) UnmarshalJSON(data []byte) (err error) {
+	varO11yOldAWSLogsStrategy := _O11yOldAWSLogsStrategy{}
+
+	err = json.Unmarshal(data, &varO11yOldAWSLogsStrategy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yOldAWSLogsStrategy(varO11yOldAWSLogsStrategy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cloudwatch_logs_subscriptions")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yOldAWSLogsStrategy struct {

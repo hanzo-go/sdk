@@ -19,14 +19,17 @@ var _ MappedNullable = &AiAnthropicResponse{}
 
 // AiAnthropicResponse struct for AiAnthropicResponse
 type AiAnthropicResponse struct {
-	Content    []AiAnthropicContentBlock `json:"content,omitempty"`
-	Id         *string                   `json:"id,omitempty"`
-	Model      *string                   `json:"model,omitempty"`
-	Role       *string                   `json:"role,omitempty"`
-	StopReason *string                   `json:"stop_reason,omitempty"`
-	Type       *string                   `json:"type,omitempty"`
-	Usage      *AiAnthropicUsage         `json:"usage,omitempty"`
+	Content              []AiAnthropicContentBlock `json:"content,omitempty"`
+	Id                   *string                   `json:"id,omitempty"`
+	Model                *string                   `json:"model,omitempty"`
+	Role                 *string                   `json:"role,omitempty"`
+	StopReason           *string                   `json:"stop_reason,omitempty"`
+	Type                 *string                   `json:"type,omitempty"`
+	Usage                *AiAnthropicUsage         `json:"usage,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiAnthropicResponse AiAnthropicResponse
 
 // NewAiAnthropicResponse instantiates a new AiAnthropicResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o AiAnthropicResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Usage) {
 		toSerialize["usage"] = o.Usage
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiAnthropicResponse) UnmarshalJSON(data []byte) (err error) {
+	varAiAnthropicResponse := _AiAnthropicResponse{}
+
+	err = json.Unmarshal(data, &varAiAnthropicResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiAnthropicResponse(varAiAnthropicResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "content")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "role")
+		delete(additionalProperties, "stop_reason")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "usage")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiAnthropicResponse struct {

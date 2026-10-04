@@ -19,9 +19,12 @@ var _ MappedNullable = &IamListOutput{}
 
 // IamListOutput struct for IamListOutput
 type IamListOutput struct {
-	AuditLogs []IamAuditLog `json:"auditLogs,omitempty"`
-	Total     *int64        `json:"total,omitempty"`
+	Total                *int64    `json:"total,omitempty"`
+	Users                []IamUser `json:"users,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamListOutput IamListOutput
 
 // NewIamListOutput instantiates a new IamListOutput object
 // This constructor will assign default values to properties that have it defined,
@@ -38,38 +41,6 @@ func NewIamListOutput() *IamListOutput {
 func NewIamListOutputWithDefaults() *IamListOutput {
 	this := IamListOutput{}
 	return &this
-}
-
-// GetAuditLogs returns the AuditLogs field value if set, zero value otherwise.
-func (o *IamListOutput) GetAuditLogs() []IamAuditLog {
-	if o == nil || IsNil(o.AuditLogs) {
-		var ret []IamAuditLog
-		return ret
-	}
-	return o.AuditLogs
-}
-
-// GetAuditLogsOk returns a tuple with the AuditLogs field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IamListOutput) GetAuditLogsOk() ([]IamAuditLog, bool) {
-	if o == nil || IsNil(o.AuditLogs) {
-		return nil, false
-	}
-	return o.AuditLogs, true
-}
-
-// HasAuditLogs returns a boolean if a field has been set.
-func (o *IamListOutput) HasAuditLogs() bool {
-	if o != nil && !IsNil(o.AuditLogs) {
-		return true
-	}
-
-	return false
-}
-
-// SetAuditLogs gets a reference to the given []IamAuditLog and assigns it to the AuditLogs field.
-func (o *IamListOutput) SetAuditLogs(v []IamAuditLog) {
-	o.AuditLogs = v
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
@@ -104,6 +75,38 @@ func (o *IamListOutput) SetTotal(v int64) {
 	o.Total = &v
 }
 
+// GetUsers returns the Users field value if set, zero value otherwise.
+func (o *IamListOutput) GetUsers() []IamUser {
+	if o == nil || IsNil(o.Users) {
+		var ret []IamUser
+		return ret
+	}
+	return o.Users
+}
+
+// GetUsersOk returns a tuple with the Users field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IamListOutput) GetUsersOk() ([]IamUser, bool) {
+	if o == nil || IsNil(o.Users) {
+		return nil, false
+	}
+	return o.Users, true
+}
+
+// HasUsers returns a boolean if a field has been set.
+func (o *IamListOutput) HasUsers() bool {
+	if o != nil && !IsNil(o.Users) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsers gets a reference to the given []IamUser and assigns it to the Users field.
+func (o *IamListOutput) SetUsers(v []IamUser) {
+	o.Users = v
+}
+
 func (o IamListOutput) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -114,13 +117,40 @@ func (o IamListOutput) MarshalJSON() ([]byte, error) {
 
 func (o IamListOutput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AuditLogs) {
-		toSerialize["auditLogs"] = o.AuditLogs
-	}
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+	if !IsNil(o.Users) {
+		toSerialize["users"] = o.Users
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamListOutput) UnmarshalJSON(data []byte) (err error) {
+	varIamListOutput := _IamListOutput{}
+
+	err = json.Unmarshal(data, &varIamListOutput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamListOutput(varIamListOutput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "total")
+		delete(additionalProperties, "users")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamListOutput struct {

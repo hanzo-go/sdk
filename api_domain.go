@@ -33,7 +33,7 @@ func (r DomainAPIGetDomainAvailabilityRequest) Domain(domain string) DomainAPIGe
 	return r
 }
 
-func (r DomainAPIGetDomainAvailabilityRequest) Execute() (*QuoteList, *http.Response, error) {
+func (r DomainAPIGetDomainAvailabilityRequest) Execute() (*DomainQuoteList, *http.Response, error) {
 	return r.ApiService.GetDomainAvailabilityExecute(r)
 }
 
@@ -44,7 +44,7 @@ Checks exact names rather than searching for them, and answers the
 same quote shape search does — purchasable, premium, first-term and renewal price
 in cents.
 
-It requires a validated principal; 403 without one. Nothing is charged and
+It requires a validated principal; 401 without one. Nothing is charged and
 nothing is held. A deployment with no registrar credentials answers 503.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -59,13 +59,13 @@ func (a *DomainAPIService) GetDomainAvailability(ctx context.Context) DomainAPIG
 
 // Execute executes the request
 //
-//	@return QuoteList
-func (a *DomainAPIService) GetDomainAvailabilityExecute(r DomainAPIGetDomainAvailabilityRequest) (*QuoteList, *http.Response, error) {
+//	@return DomainQuoteList
+func (a *DomainAPIService) GetDomainAvailabilityExecute(r DomainAPIGetDomainAvailabilityRequest) (*DomainQuoteList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *QuoteList
+		localVarReturnValue *DomainQuoteList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainAPIService.GetDomainAvailability")
@@ -93,7 +93,7 @@ func (a *DomainAPIService) GetDomainAvailabilityExecute(r DomainAPIGetDomainAvai
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -122,6 +122,14 @@ func (a *DomainAPIService) GetDomainAvailabilityExecute(r DomainAPIGetDomainAvai
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -142,7 +150,7 @@ type DomainAPIGetDomainDomainsRequest struct {
 	ApiService *DomainAPIService
 }
 
-func (r DomainAPIGetDomainDomainsRequest) Execute() (*Holdings, *http.Response, error) {
+func (r DomainAPIGetDomainDomainsRequest) Execute() (*DomainHoldings, *http.Response, error) {
 	return r.ApiService.GetDomainDomainsExecute(r)
 }
 
@@ -153,7 +161,7 @@ Is the domains your org has bought here, newest registration first, each
 carrying the name, when it was registered, when it expires, what the org paid,
 the registrar order id and the nameservers it points at.
 
-Scoped to the validated principal's org — 403 without one, and there is no
+Scoped to the validated principal's org — 401 without one, and there is no
 parameter that reaches another org's holdings.
 
 This is the deployment's OWN ownership record, not a query to the registrar: it
@@ -173,13 +181,13 @@ func (a *DomainAPIService) GetDomainDomains(ctx context.Context) DomainAPIGetDom
 
 // Execute executes the request
 //
-//	@return Holdings
-func (a *DomainAPIService) GetDomainDomainsExecute(r DomainAPIGetDomainDomainsRequest) (*Holdings, *http.Response, error) {
+//	@return DomainHoldings
+func (a *DomainAPIService) GetDomainDomainsExecute(r DomainAPIGetDomainDomainsRequest) (*DomainHoldings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Holdings
+		localVarReturnValue *DomainHoldings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainAPIService.GetDomainDomains")
@@ -203,7 +211,7 @@ func (a *DomainAPIService) GetDomainDomainsExecute(r DomainAPIGetDomainDomainsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -232,6 +240,14 @@ func (a *DomainAPIService) GetDomainDomainsExecute(r DomainAPIGetDomainDomainsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -252,7 +268,7 @@ type DomainAPIGetDomainHealthRequest struct {
 	ApiService *DomainAPIService
 }
 
-func (r DomainAPIGetDomainHealthRequest) Execute() (*Reachability, *http.Response, error) {
+func (r DomainAPIGetDomainHealthRequest) Execute() (*DomainReachability, *http.Response, error) {
 	return r.ApiService.GetDomainHealthExecute(r)
 }
 
@@ -279,13 +295,13 @@ func (a *DomainAPIService) GetDomainHealth(ctx context.Context) DomainAPIGetDoma
 
 // Execute executes the request
 //
-//	@return Reachability
-func (a *DomainAPIService) GetDomainHealthExecute(r DomainAPIGetDomainHealthRequest) (*Reachability, *http.Response, error) {
+//	@return DomainReachability
+func (a *DomainAPIService) GetDomainHealthExecute(r DomainAPIGetDomainHealthRequest) (*DomainReachability, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Reachability
+		localVarReturnValue *DomainReachability
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainAPIService.GetDomainHealth")
@@ -309,7 +325,7 @@ func (a *DomainAPIService) GetDomainHealthExecute(r DomainAPIGetDomainHealthRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -339,7 +355,7 @@ func (a *DomainAPIService) GetDomainHealthExecute(r DomainAPIGetDomainHealthRequ
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
-			var v Reachability
+			var v DomainReachability
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -347,7 +363,16 @@ func (a *DomainAPIService) GetDomainHealthExecute(r DomainAPIGetDomainHealthRequ
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -382,7 +407,7 @@ func (r DomainAPIGetDomainSearchRequest) Tld(tld string) DomainAPIGetDomainSearc
 	return r
 }
 
-func (r DomainAPIGetDomainSearchRequest) Execute() (*QuoteList, *http.Response, error) {
+func (r DomainAPIGetDomainSearchRequest) Execute() (*DomainQuoteList, *http.Response, error) {
 	return r.ApiService.GetDomainSearchExecute(r)
 }
 
@@ -396,7 +421,7 @@ whether it is premium, the first-term and renewal price in cents, and the TLD.
 Prices are RETAIL — this deployment's markup is already applied and the wholesale
 cost is never on the wire.
 
-It requires a validated principal; 403 without one. Nothing is charged and
+It requires a validated principal; 401 without one. Nothing is charged and
 nothing is held — a quote is not a reservation, and the price is re-quoted at
 purchase, so a name quoted here can be gone or dearer by the time you buy it. A
 deployment with no registrar credentials answers 503.
@@ -413,13 +438,13 @@ func (a *DomainAPIService) GetDomainSearch(ctx context.Context) DomainAPIGetDoma
 
 // Execute executes the request
 //
-//	@return QuoteList
-func (a *DomainAPIService) GetDomainSearchExecute(r DomainAPIGetDomainSearchRequest) (*QuoteList, *http.Response, error) {
+//	@return DomainQuoteList
+func (a *DomainAPIService) GetDomainSearchExecute(r DomainAPIGetDomainSearchRequest) (*DomainQuoteList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *QuoteList
+		localVarReturnValue *DomainQuoteList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainAPIService.GetDomainSearch")
@@ -450,7 +475,7 @@ func (a *DomainAPIService) GetDomainSearchExecute(r DomainAPIGetDomainSearchRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -479,6 +504,14 @@ func (a *DomainAPIService) GetDomainSearchExecute(r DomainAPIGetDomainSearchRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -495,17 +528,17 @@ func (a *DomainAPIService) GetDomainSearchExecute(r DomainAPIGetDomainSearchRequ
 }
 
 type DomainAPIPostDomainRegisterRequest struct {
-	ctx        context.Context
-	ApiService *DomainAPIService
-	order      *Order
+	ctx         context.Context
+	ApiService  *DomainAPIService
+	domainOrder *DomainOrder
 }
 
-func (r DomainAPIPostDomainRegisterRequest) Order(order Order) DomainAPIPostDomainRegisterRequest {
-	r.order = &order
+func (r DomainAPIPostDomainRegisterRequest) DomainOrder(domainOrder DomainOrder) DomainAPIPostDomainRegisterRequest {
+	r.domainOrder = &domainOrder
 	return r
 }
 
-func (r DomainAPIPostDomainRegisterRequest) Execute() (*RegisterResult, *http.Response, error) {
+func (r DomainAPIPostDomainRegisterRequest) Execute() (*DomainRegisterResult, *http.Response, error) {
 	return r.ApiService.PostDomainRegisterExecute(r)
 }
 
@@ -545,13 +578,13 @@ func (a *DomainAPIService) PostDomainRegister(ctx context.Context) DomainAPIPost
 
 // Execute executes the request
 //
-//	@return RegisterResult
-func (a *DomainAPIService) PostDomainRegisterExecute(r DomainAPIPostDomainRegisterRequest) (*RegisterResult, *http.Response, error) {
+//	@return DomainRegisterResult
+func (a *DomainAPIService) PostDomainRegisterExecute(r DomainAPIPostDomainRegisterRequest) (*DomainRegisterResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RegisterResult
+		localVarReturnValue *DomainRegisterResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainAPIService.PostDomainRegister")
@@ -564,8 +597,8 @@ func (a *DomainAPIService) PostDomainRegisterExecute(r DomainAPIPostDomainRegist
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.order == nil {
-		return localVarReturnValue, nil, reportError("order is required and must be specified")
+	if r.domainOrder == nil {
+		return localVarReturnValue, nil, reportError("domainOrder is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -578,7 +611,7 @@ func (a *DomainAPIService) PostDomainRegisterExecute(r DomainAPIPostDomainRegist
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -586,7 +619,7 @@ func (a *DomainAPIService) PostDomainRegisterExecute(r DomainAPIPostDomainRegist
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.order
+	localVarPostBody = r.domainOrder
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -609,6 +642,14 @@ func (a *DomainAPIService) PostDomainRegisterExecute(r DomainAPIPostDomainRegist
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -625,17 +666,17 @@ func (a *DomainAPIService) PostDomainRegisterExecute(r DomainAPIPostDomainRegist
 }
 
 type DomainAPIPostDomainRenewRequest struct {
-	ctx        context.Context
-	ApiService *DomainAPIService
-	renewReq   *RenewReq
+	ctx            context.Context
+	ApiService     *DomainAPIService
+	domainRenewReq *DomainRenewReq
 }
 
-func (r DomainAPIPostDomainRenewRequest) RenewReq(renewReq RenewReq) DomainAPIPostDomainRenewRequest {
-	r.renewReq = &renewReq
+func (r DomainAPIPostDomainRenewRequest) DomainRenewReq(domainRenewReq DomainRenewReq) DomainAPIPostDomainRenewRequest {
+	r.domainRenewReq = &domainRenewReq
 	return r
 }
 
-func (r DomainAPIPostDomainRenewRequest) Execute() (*RenewResult, *http.Response, error) {
+func (r DomainAPIPostDomainRenewRequest) Execute() (*DomainRenewResult, *http.Response, error) {
 	return r.ApiService.PostDomainRenewExecute(r)
 }
 
@@ -667,13 +708,13 @@ func (a *DomainAPIService) PostDomainRenew(ctx context.Context) DomainAPIPostDom
 
 // Execute executes the request
 //
-//	@return RenewResult
-func (a *DomainAPIService) PostDomainRenewExecute(r DomainAPIPostDomainRenewRequest) (*RenewResult, *http.Response, error) {
+//	@return DomainRenewResult
+func (a *DomainAPIService) PostDomainRenewExecute(r DomainAPIPostDomainRenewRequest) (*DomainRenewResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RenewResult
+		localVarReturnValue *DomainRenewResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainAPIService.PostDomainRenew")
@@ -686,8 +727,8 @@ func (a *DomainAPIService) PostDomainRenewExecute(r DomainAPIPostDomainRenewRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.renewReq == nil {
-		return localVarReturnValue, nil, reportError("renewReq is required and must be specified")
+	if r.domainRenewReq == nil {
+		return localVarReturnValue, nil, reportError("domainRenewReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -700,7 +741,7 @@ func (a *DomainAPIService) PostDomainRenewExecute(r DomainAPIPostDomainRenewRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -708,7 +749,7 @@ func (a *DomainAPIService) PostDomainRenewExecute(r DomainAPIPostDomainRenewRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.renewReq
+	localVarPostBody = r.domainRenewReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -731,6 +772,14 @@ func (a *DomainAPIService) PostDomainRenewExecute(r DomainAPIPostDomainRenewRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -747,17 +796,17 @@ func (a *DomainAPIService) PostDomainRenewExecute(r DomainAPIPostDomainRenewRequ
 }
 
 type DomainAPIPostDomainTransferRequest struct {
-	ctx         context.Context
-	ApiService  *DomainAPIService
-	transferReq *TransferReq
+	ctx               context.Context
+	ApiService        *DomainAPIService
+	domainTransferReq *DomainTransferReq
 }
 
-func (r DomainAPIPostDomainTransferRequest) TransferReq(transferReq TransferReq) DomainAPIPostDomainTransferRequest {
-	r.transferReq = &transferReq
+func (r DomainAPIPostDomainTransferRequest) DomainTransferReq(domainTransferReq DomainTransferReq) DomainAPIPostDomainTransferRequest {
+	r.domainTransferReq = &domainTransferReq
 	return r
 }
 
-func (r DomainAPIPostDomainTransferRequest) Execute() (*RegisterResult, *http.Response, error) {
+func (r DomainAPIPostDomainTransferRequest) Execute() (*DomainRegisterResult, *http.Response, error) {
 	return r.ApiService.PostDomainTransferExecute(r)
 }
 
@@ -789,13 +838,13 @@ func (a *DomainAPIService) PostDomainTransfer(ctx context.Context) DomainAPIPost
 
 // Execute executes the request
 //
-//	@return RegisterResult
-func (a *DomainAPIService) PostDomainTransferExecute(r DomainAPIPostDomainTransferRequest) (*RegisterResult, *http.Response, error) {
+//	@return DomainRegisterResult
+func (a *DomainAPIService) PostDomainTransferExecute(r DomainAPIPostDomainTransferRequest) (*DomainRegisterResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RegisterResult
+		localVarReturnValue *DomainRegisterResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DomainAPIService.PostDomainTransfer")
@@ -808,8 +857,8 @@ func (a *DomainAPIService) PostDomainTransferExecute(r DomainAPIPostDomainTransf
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.transferReq == nil {
-		return localVarReturnValue, nil, reportError("transferReq is required and must be specified")
+	if r.domainTransferReq == nil {
+		return localVarReturnValue, nil, reportError("domainTransferReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -822,7 +871,7 @@ func (a *DomainAPIService) PostDomainTransferExecute(r DomainAPIPostDomainTransf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -830,7 +879,7 @@ func (a *DomainAPIService) PostDomainTransferExecute(r DomainAPIPostDomainTransf
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.transferReq
+	localVarPostBody = r.domainTransferReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -853,6 +902,14 @@ func (a *DomainAPIService) PostDomainTransferExecute(r DomainAPIPostDomainTransf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

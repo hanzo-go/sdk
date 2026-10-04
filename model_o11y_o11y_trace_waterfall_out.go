@@ -22,8 +22,11 @@ type O11yO11yTraceWaterfallOut struct {
 	// Data holds the waterfall.
 	Data *O11yGettableWaterfallTrace `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTraceWaterfallOut O11yO11yTraceWaterfallOut
 
 // NewO11yO11yTraceWaterfallOut instantiates a new O11yO11yTraceWaterfallOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yTraceWaterfallOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTraceWaterfallOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTraceWaterfallOut := _O11yO11yTraceWaterfallOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yTraceWaterfallOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTraceWaterfallOut(varO11yO11yTraceWaterfallOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTraceWaterfallOut struct {

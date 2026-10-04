@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -32,7 +31,8 @@ type O11yO11yFieldSetting struct {
 	// Selected materializes the field as its own column when true.
 	Selected *bool `json:"selected,omitempty"`
 	// Type is where the field lives: attributes or resources. Required.
-	Type string `json:"type"`
+	Type                 string `json:"type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11yFieldSetting O11yO11yFieldSetting
@@ -247,6 +247,11 @@ func (o O11yO11yFieldSetting) ToMap() (map[string]interface{}, error) {
 		toSerialize["selected"] = o.Selected
 	}
 	toSerialize["type"] = o.Type
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -276,15 +281,25 @@ func (o *O11yO11yFieldSetting) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11yFieldSetting := _O11yO11yFieldSetting{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11yFieldSetting)
+	err = json.Unmarshal(data, &varO11yO11yFieldSetting)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11yFieldSetting(varO11yO11yFieldSetting)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dataType")
+		delete(additionalProperties, "index")
+		delete(additionalProperties, "indexGranularity")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "selected")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

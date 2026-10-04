@@ -28,8 +28,11 @@ type O11yO11yAffectedAsset struct {
 	// Type is dashboard or alert_rule.
 	Type *string `json:"type,omitempty"`
 	// Widget is the affected panel, for a dashboard.
-	Widget *O11yO11yAffectedWidget `json:"widget,omitempty"`
+	Widget               *O11yO11yAffectedWidget `json:"widget,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yAffectedAsset O11yO11yAffectedAsset
 
 // NewO11yO11yAffectedAsset instantiates a new O11yO11yAffectedAsset object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yAffectedAsset) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Widget) {
 		toSerialize["widget"] = o.Widget
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yAffectedAsset) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yAffectedAsset := _O11yO11yAffectedAsset{}
+
+	err = json.Unmarshal(data, &varO11yO11yAffectedAsset)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yAffectedAsset(varO11yO11yAffectedAsset)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "impactedLabels")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "widget")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yAffectedAsset struct {

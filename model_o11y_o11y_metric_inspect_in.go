@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -28,7 +27,8 @@ type O11yO11yMetricInspectIn struct {
 	// MetricName is the metric to inspect. Required.
 	MetricName string `json:"metricName"`
 	// Start is the start of the window as a Unix timestamp in milliseconds. Required.
-	Start int64 `json:"start"`
+	Start                int64 `json:"start"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11yMetricInspectIn O11yO11yMetricInspectIn
@@ -173,6 +173,11 @@ func (o O11yO11yMetricInspectIn) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["metricName"] = o.MetricName
 	toSerialize["start"] = o.Start
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -202,15 +207,23 @@ func (o *O11yO11yMetricInspectIn) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11yMetricInspectIn := _O11yO11yMetricInspectIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11yMetricInspectIn)
+	err = json.Unmarshal(data, &varO11yO11yMetricInspectIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11yMetricInspectIn(varO11yO11yMetricInspectIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "metricName")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

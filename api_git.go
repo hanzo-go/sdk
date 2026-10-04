@@ -82,7 +82,7 @@ func (a *GitAPIService) DeleteGitKeysByIdExecute(r GitAPIDeleteGitKeysByIdReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -111,6 +111,14 @@ func (a *GitAPIService) DeleteGitKeysByIdExecute(r GitAPIDeleteGitKeysByIdReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -177,7 +185,7 @@ func (a *GitAPIService) DeleteGitReposByNameExecute(r GitAPIDeleteGitReposByName
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -206,6 +214,14 @@ func (a *GitAPIService) DeleteGitReposByNameExecute(r GitAPIDeleteGitReposByName
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -275,7 +291,7 @@ func (a *GitAPIService) DeleteGitReposByNameSubscriptionsByIdExecute(r GitAPIDel
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -304,6 +320,14 @@ func (a *GitAPIService) DeleteGitReposByNameSubscriptionsByIdExecute(r GitAPIDel
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -373,7 +397,7 @@ func (a *GitAPIService) DeleteGitReposByNameTargetsByIdExecute(r GitAPIDeleteGit
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -402,6 +426,14 @@ func (a *GitAPIService) DeleteGitReposByNameTargetsByIdExecute(r GitAPIDeleteGit
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -981,7 +1013,7 @@ type GitAPIGetGitKeysRequest struct {
 	ApiService *GitAPIService
 }
 
-func (r GitAPIGetGitKeysRequest) Execute() (*KeyList, *http.Response, error) {
+func (r GitAPIGetGitKeysRequest) Execute() (*GitKeyList, *http.Response, error) {
 	return r.ApiService.GetGitKeysExecute(r)
 }
 
@@ -1005,13 +1037,13 @@ func (a *GitAPIService) GetGitKeys(ctx context.Context) GitAPIGetGitKeysRequest 
 
 // Execute executes the request
 //
-//	@return KeyList
-func (a *GitAPIService) GetGitKeysExecute(r GitAPIGetGitKeysRequest) (*KeyList, *http.Response, error) {
+//	@return GitKeyList
+func (a *GitAPIService) GetGitKeysExecute(r GitAPIGetGitKeysRequest) (*GitKeyList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KeyList
+		localVarReturnValue *GitKeyList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitKeys")
@@ -1035,7 +1067,7 @@ func (a *GitAPIService) GetGitKeysExecute(r GitAPIGetGitKeysRequest) (*KeyList, 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1064,6 +1096,123 @@ func (a *GitAPIService) GetGitKeysExecute(r GitAPIGetGitKeysRequest) (*KeyList, 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GitAPIGetGitPoolsRequest struct {
+	ctx        context.Context
+	ApiService *GitAPIService
+}
+
+func (r GitAPIGetGitPoolsRequest) Execute() (*GitPoolList, *http.Response, error) {
+	return r.ApiService.GetGitPoolsExecute(r)
+}
+
+/*
+GetGitPools Returns the capacity this org has declared and how many daemons have entered each pool.
+
+Returns the capacity this org has declared and how many daemons have
+entered each pool.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GitAPIGetGitPoolsRequest
+*/
+func (a *GitAPIService) GetGitPools(ctx context.Context) GitAPIGetGitPoolsRequest {
+	return GitAPIGetGitPoolsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GitPoolList
+func (a *GitAPIService) GetGitPoolsExecute(r GitAPIGetGitPoolsRequest) (*GitPoolList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GitPoolList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitPools")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/git/pools"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1084,7 +1233,7 @@ type GitAPIGetGitReposRequest struct {
 	ApiService *GitAPIService
 }
 
-func (r GitAPIGetGitReposRequest) Execute() (*RepoList, *http.Response, error) {
+func (r GitAPIGetGitReposRequest) Execute() (*GitRepoList, *http.Response, error) {
 	return r.ApiService.GetGitReposExecute(r)
 }
 
@@ -1108,13 +1257,13 @@ func (a *GitAPIService) GetGitRepos(ctx context.Context) GitAPIGetGitReposReques
 
 // Execute executes the request
 //
-//	@return RepoList
-func (a *GitAPIService) GetGitReposExecute(r GitAPIGetGitReposRequest) (*RepoList, *http.Response, error) {
+//	@return GitRepoList
+func (a *GitAPIService) GetGitReposExecute(r GitAPIGetGitReposRequest) (*GitRepoList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RepoList
+		localVarReturnValue *GitRepoList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitRepos")
@@ -1138,7 +1287,7 @@ func (a *GitAPIService) GetGitReposExecute(r GitAPIGetGitReposRequest) (*RepoLis
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1167,6 +1316,14 @@ func (a *GitAPIService) GetGitReposExecute(r GitAPIGetGitReposRequest) (*RepoLis
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1188,7 +1345,7 @@ type GitAPIGetGitReposByNameRequest struct {
 	name       string
 }
 
-func (r GitAPIGetGitReposByNameRequest) Execute() (*RepoView, *http.Response, error) {
+func (r GitAPIGetGitReposByNameRequest) Execute() (*GitRepoView, *http.Response, error) {
 	return r.ApiService.GetGitReposByNameExecute(r)
 }
 
@@ -1214,13 +1371,13 @@ func (a *GitAPIService) GetGitReposByName(ctx context.Context, name string) GitA
 
 // Execute executes the request
 //
-//	@return RepoView
-func (a *GitAPIService) GetGitReposByNameExecute(r GitAPIGetGitReposByNameRequest) (*RepoView, *http.Response, error) {
+//	@return GitRepoView
+func (a *GitAPIService) GetGitReposByNameExecute(r GitAPIGetGitReposByNameRequest) (*GitRepoView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RepoView
+		localVarReturnValue *GitRepoView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByName")
@@ -1245,7 +1402,7 @@ func (a *GitAPIService) GetGitReposByNameExecute(r GitAPIGetGitReposByNameReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1274,6 +1431,14 @@ func (a *GitAPIService) GetGitReposByNameExecute(r GitAPIGetGitReposByNameReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1309,7 +1474,7 @@ func (r GitAPIGetGitReposByNameBlobRequest) Path(path string) GitAPIGetGitReposB
 	return r
 }
 
-func (r GitAPIGetGitReposByNameBlobRequest) Execute() (*BlobJSON, *http.Response, error) {
+func (r GitAPIGetGitReposByNameBlobRequest) Execute() (*GitBlobJSON, *http.Response, error) {
 	return r.ApiService.GetGitReposByNameBlobExecute(r)
 }
 
@@ -1318,7 +1483,9 @@ GetGitReposByNameBlob Returns one file's bytes at one revision.
 
 Returns one file's bytes at one revision. Text comes back verbatim,
 binary comes back base64, and a file past the 1 MiB view cap comes back marked
-truncated with NO content — the client is expected to clone instead.
+truncated with NO content — the client is expected to clone instead. A
+repository in the organization's own code workspace on the forge is read from
+there.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the repo to read, from the :name path segment.
@@ -1334,13 +1501,13 @@ func (a *GitAPIService) GetGitReposByNameBlob(ctx context.Context, name string) 
 
 // Execute executes the request
 //
-//	@return BlobJSON
-func (a *GitAPIService) GetGitReposByNameBlobExecute(r GitAPIGetGitReposByNameBlobRequest) (*BlobJSON, *http.Response, error) {
+//	@return GitBlobJSON
+func (a *GitAPIService) GetGitReposByNameBlobExecute(r GitAPIGetGitReposByNameBlobRequest) (*GitBlobJSON, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BlobJSON
+		localVarReturnValue *GitBlobJSON
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByNameBlob")
@@ -1371,7 +1538,7 @@ func (a *GitAPIService) GetGitReposByNameBlobExecute(r GitAPIGetGitReposByNameBl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1400,6 +1567,14 @@ func (a *GitAPIService) GetGitReposByNameBlobExecute(r GitAPIGetGitReposByNameBl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1442,7 +1617,7 @@ func (r GitAPIGetGitReposByNameCommitsRequest) Limit(limit int64) GitAPIGetGitRe
 	return r
 }
 
-func (r GitAPIGetGitReposByNameCommitsRequest) Execute() (*CommitsJSON, *http.Response, error) {
+func (r GitAPIGetGitReposByNameCommitsRequest) Execute() (*GitCommitsJSON, *http.Response, error) {
 	return r.ApiService.GetGitReposByNameCommitsExecute(r)
 }
 
@@ -1466,13 +1641,13 @@ func (a *GitAPIService) GetGitReposByNameCommits(ctx context.Context, name strin
 
 // Execute executes the request
 //
-//	@return CommitsJSON
-func (a *GitAPIService) GetGitReposByNameCommitsExecute(r GitAPIGetGitReposByNameCommitsRequest) (*CommitsJSON, *http.Response, error) {
+//	@return GitCommitsJSON
+func (a *GitAPIService) GetGitReposByNameCommitsExecute(r GitAPIGetGitReposByNameCommitsRequest) (*GitCommitsJSON, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CommitsJSON
+		localVarReturnValue *GitCommitsJSON
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByNameCommits")
@@ -1506,7 +1681,7 @@ func (a *GitAPIService) GetGitReposByNameCommitsExecute(r GitAPIGetGitReposByNam
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1535,6 +1710,14 @@ func (a *GitAPIService) GetGitReposByNameCommitsExecute(r GitAPIGetGitReposByNam
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1570,7 +1753,7 @@ func (r GitAPIGetGitReposByNameFilesRequest) Glob(glob string) GitAPIGetGitRepos
 	return r
 }
 
-func (r GitAPIGetGitReposByNameFilesRequest) Execute() (*FilesJSON, *http.Response, error) {
+func (r GitAPIGetGitReposByNameFilesRequest) Execute() (*GitFilesJSON, *http.Response, error) {
 	return r.ApiService.GetGitReposByNameFilesExecute(r)
 }
 
@@ -1606,13 +1789,13 @@ func (a *GitAPIService) GetGitReposByNameFiles(ctx context.Context, name string)
 
 // Execute executes the request
 //
-//	@return FilesJSON
-func (a *GitAPIService) GetGitReposByNameFilesExecute(r GitAPIGetGitReposByNameFilesRequest) (*FilesJSON, *http.Response, error) {
+//	@return GitFilesJSON
+func (a *GitAPIService) GetGitReposByNameFilesExecute(r GitAPIGetGitReposByNameFilesRequest) (*GitFilesJSON, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FilesJSON
+		localVarReturnValue *GitFilesJSON
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByNameFiles")
@@ -1643,7 +1826,7 @@ func (a *GitAPIService) GetGitReposByNameFilesExecute(r GitAPIGetGitReposByNameF
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1672,6 +1855,14 @@ func (a *GitAPIService) GetGitReposByNameFilesExecute(r GitAPIGetGitReposByNameF
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1700,7 +1891,7 @@ func (r GitAPIGetGitReposByNamePullsRequest) State(state string) GitAPIGetGitRep
 	return r
 }
 
-func (r GitAPIGetGitReposByNamePullsRequest) Execute() (*PullList, *http.Response, error) {
+func (r GitAPIGetGitReposByNamePullsRequest) Execute() (*GitPullList, *http.Response, error) {
 	return r.ApiService.GetGitReposByNamePullsExecute(r)
 }
 
@@ -1725,13 +1916,13 @@ func (a *GitAPIService) GetGitReposByNamePulls(ctx context.Context, name string)
 
 // Execute executes the request
 //
-//	@return PullList
-func (a *GitAPIService) GetGitReposByNamePullsExecute(r GitAPIGetGitReposByNamePullsRequest) (*PullList, *http.Response, error) {
+//	@return GitPullList
+func (a *GitAPIService) GetGitReposByNamePullsExecute(r GitAPIGetGitReposByNamePullsRequest) (*GitPullList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PullList
+		localVarReturnValue *GitPullList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByNamePulls")
@@ -1759,7 +1950,7 @@ func (a *GitAPIService) GetGitReposByNamePullsExecute(r GitAPIGetGitReposByNameP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1788,6 +1979,14 @@ func (a *GitAPIService) GetGitReposByNamePullsExecute(r GitAPIGetGitReposByNameP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1810,7 +2009,7 @@ type GitAPIGetGitReposByNamePullsByNumberRequest struct {
 	number     int64
 }
 
-func (r GitAPIGetGitReposByNamePullsByNumberRequest) Execute() (*PullView, *http.Response, error) {
+func (r GitAPIGetGitReposByNamePullsByNumberRequest) Execute() (*GitPullView, *http.Response, error) {
 	return r.ApiService.GetGitReposByNamePullsByNumberExecute(r)
 }
 
@@ -1836,13 +2035,13 @@ func (a *GitAPIService) GetGitReposByNamePullsByNumber(ctx context.Context, name
 
 // Execute executes the request
 //
-//	@return PullView
-func (a *GitAPIService) GetGitReposByNamePullsByNumberExecute(r GitAPIGetGitReposByNamePullsByNumberRequest) (*PullView, *http.Response, error) {
+//	@return GitPullView
+func (a *GitAPIService) GetGitReposByNamePullsByNumberExecute(r GitAPIGetGitReposByNamePullsByNumberRequest) (*GitPullView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PullView
+		localVarReturnValue *GitPullView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByNamePullsByNumber")
@@ -1868,7 +2067,7 @@ func (a *GitAPIService) GetGitReposByNamePullsByNumberExecute(r GitAPIGetGitRepo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1897,6 +2096,14 @@ func (a *GitAPIService) GetGitReposByNamePullsByNumberExecute(r GitAPIGetGitRepo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1925,7 +2132,7 @@ func (r GitAPIGetGitReposByNameReadmeRequest) Ref(ref string) GitAPIGetGitReposB
 	return r
 }
 
-func (r GitAPIGetGitReposByNameReadmeRequest) Execute() (*ReadmeJSON, *http.Response, error) {
+func (r GitAPIGetGitReposByNameReadmeRequest) Execute() (*GitReadmeJSON, *http.Response, error) {
 	return r.ApiService.GetGitReposByNameReadmeExecute(r)
 }
 
@@ -1949,13 +2156,13 @@ func (a *GitAPIService) GetGitReposByNameReadme(ctx context.Context, name string
 
 // Execute executes the request
 //
-//	@return ReadmeJSON
-func (a *GitAPIService) GetGitReposByNameReadmeExecute(r GitAPIGetGitReposByNameReadmeRequest) (*ReadmeJSON, *http.Response, error) {
+//	@return GitReadmeJSON
+func (a *GitAPIService) GetGitReposByNameReadmeExecute(r GitAPIGetGitReposByNameReadmeRequest) (*GitReadmeJSON, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ReadmeJSON
+		localVarReturnValue *GitReadmeJSON
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByNameReadme")
@@ -1983,7 +2190,7 @@ func (a *GitAPIService) GetGitReposByNameReadmeExecute(r GitAPIGetGitReposByName
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2012,6 +2219,14 @@ func (a *GitAPIService) GetGitReposByNameReadmeExecute(r GitAPIGetGitReposByName
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2033,7 +2248,7 @@ type GitAPIGetGitReposByNameRefsRequest struct {
 	name       string
 }
 
-func (r GitAPIGetGitReposByNameRefsRequest) Execute() (*RefsJSON, *http.Response, error) {
+func (r GitAPIGetGitReposByNameRefsRequest) Execute() (*GitRefsJSON, *http.Response, error) {
 	return r.ApiService.GetGitReposByNameRefsExecute(r)
 }
 
@@ -2058,13 +2273,13 @@ func (a *GitAPIService) GetGitReposByNameRefs(ctx context.Context, name string) 
 
 // Execute executes the request
 //
-//	@return RefsJSON
-func (a *GitAPIService) GetGitReposByNameRefsExecute(r GitAPIGetGitReposByNameRefsRequest) (*RefsJSON, *http.Response, error) {
+//	@return GitRefsJSON
+func (a *GitAPIService) GetGitReposByNameRefsExecute(r GitAPIGetGitReposByNameRefsRequest) (*GitRefsJSON, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RefsJSON
+		localVarReturnValue *GitRefsJSON
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByNameRefs")
@@ -2089,7 +2304,7 @@ func (a *GitAPIService) GetGitReposByNameRefsExecute(r GitAPIGetGitReposByNameRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2118,6 +2333,14 @@ func (a *GitAPIService) GetGitReposByNameRefsExecute(r GitAPIGetGitReposByNameRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2139,7 +2362,7 @@ type GitAPIGetGitReposByNameSubscriptionsRequest struct {
 	name       string
 }
 
-func (r GitAPIGetGitReposByNameSubscriptionsRequest) Execute() (*SubscriptionList, *http.Response, error) {
+func (r GitAPIGetGitReposByNameSubscriptionsRequest) Execute() (*GitSubscriptionList, *http.Response, error) {
 	return r.ApiService.GetGitReposByNameSubscriptionsExecute(r)
 }
 
@@ -2163,13 +2386,13 @@ func (a *GitAPIService) GetGitReposByNameSubscriptions(ctx context.Context, name
 
 // Execute executes the request
 //
-//	@return SubscriptionList
-func (a *GitAPIService) GetGitReposByNameSubscriptionsExecute(r GitAPIGetGitReposByNameSubscriptionsRequest) (*SubscriptionList, *http.Response, error) {
+//	@return GitSubscriptionList
+func (a *GitAPIService) GetGitReposByNameSubscriptionsExecute(r GitAPIGetGitReposByNameSubscriptionsRequest) (*GitSubscriptionList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SubscriptionList
+		localVarReturnValue *GitSubscriptionList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByNameSubscriptions")
@@ -2194,7 +2417,7 @@ func (a *GitAPIService) GetGitReposByNameSubscriptionsExecute(r GitAPIGetGitRepo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2223,6 +2446,14 @@ func (a *GitAPIService) GetGitReposByNameSubscriptionsExecute(r GitAPIGetGitRepo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2244,7 +2475,7 @@ type GitAPIGetGitReposByNameTargetsRequest struct {
 	name       string
 }
 
-func (r GitAPIGetGitReposByNameTargetsRequest) Execute() (*MirrorList, *http.Response, error) {
+func (r GitAPIGetGitReposByNameTargetsRequest) Execute() (*GitMirrorList, *http.Response, error) {
 	return r.ApiService.GetGitReposByNameTargetsExecute(r)
 }
 
@@ -2268,13 +2499,13 @@ func (a *GitAPIService) GetGitReposByNameTargets(ctx context.Context, name strin
 
 // Execute executes the request
 //
-//	@return MirrorList
-func (a *GitAPIService) GetGitReposByNameTargetsExecute(r GitAPIGetGitReposByNameTargetsRequest) (*MirrorList, *http.Response, error) {
+//	@return GitMirrorList
+func (a *GitAPIService) GetGitReposByNameTargetsExecute(r GitAPIGetGitReposByNameTargetsRequest) (*GitMirrorList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MirrorList
+		localVarReturnValue *GitMirrorList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByNameTargets")
@@ -2299,7 +2530,7 @@ func (a *GitAPIService) GetGitReposByNameTargetsExecute(r GitAPIGetGitReposByNam
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2328,6 +2559,14 @@ func (a *GitAPIService) GetGitReposByNameTargetsExecute(r GitAPIGetGitReposByNam
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2363,7 +2602,7 @@ func (r GitAPIGetGitReposByNameTreeRequest) Path(path string) GitAPIGetGitReposB
 	return r
 }
 
-func (r GitAPIGetGitReposByNameTreeRequest) Execute() (*TreeJSON, *http.Response, error) {
+func (r GitAPIGetGitReposByNameTreeRequest) Execute() (*GitTreeJSON, *http.Response, error) {
 	return r.ApiService.GetGitReposByNameTreeExecute(r)
 }
 
@@ -2372,6 +2611,8 @@ GetGitReposByNameTree Lists the immediate children of one directory at one revis
 
 Lists the immediate children of one directory at one revision,
 directories before files. It does not recurse — walk down a level at a time.
+A repository in the organization's own code workspace on the forge is listed
+from there.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the repo to read, from the :name path segment.
@@ -2387,13 +2628,13 @@ func (a *GitAPIService) GetGitReposByNameTree(ctx context.Context, name string) 
 
 // Execute executes the request
 //
-//	@return TreeJSON
-func (a *GitAPIService) GetGitReposByNameTreeExecute(r GitAPIGetGitReposByNameTreeRequest) (*TreeJSON, *http.Response, error) {
+//	@return GitTreeJSON
+func (a *GitAPIService) GetGitReposByNameTreeExecute(r GitAPIGetGitReposByNameTreeRequest) (*GitTreeJSON, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TreeJSON
+		localVarReturnValue *GitTreeJSON
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitReposByNameTree")
@@ -2424,7 +2665,7 @@ func (a *GitAPIService) GetGitReposByNameTreeExecute(r GitAPIGetGitReposByNameTr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2453,6 +2694,363 @@ func (a *GitAPIService) GetGitReposByNameTreeExecute(r GitAPIGetGitReposByNameTr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GitAPIGetGitRunnersRequest struct {
+	ctx        context.Context
+	ApiService *GitAPIService
+}
+
+func (r GitAPIGetGitRunnersRequest) Execute() (*GitRunnerList, *http.Response, error) {
+	return r.ApiService.GetGitRunnersExecute(r)
+}
+
+/*
+GetGitRunners Returns the daemons registered into this org's pools, newest first, with when each was last heard from.
+
+Returns the daemons registered into this org's pools, newest
+first, with when each was last heard from.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GitAPIGetGitRunnersRequest
+*/
+func (a *GitAPIService) GetGitRunners(ctx context.Context) GitAPIGetGitRunnersRequest {
+	return GitAPIGetGitRunnersRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GitRunnerList
+func (a *GitAPIService) GetGitRunnersExecute(r GitAPIGetGitRunnersRequest) (*GitRunnerList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GitRunnerList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitRunners")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/git/runners"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GitAPIGetGitRunsRequest struct {
+	ctx        context.Context
+	ApiService *GitAPIService
+	repo       *string
+	limit      *int64
+}
+
+// Repo restricts the listing to one repository. Empty lists the whole org.
+func (r GitAPIGetGitRunsRequest) Repo(repo string) GitAPIGetGitRunsRequest {
+	r.repo = &repo
+	return r
+}
+
+// Limit caps the answer; 0 means the default of 50, and 200 is the ceiling.
+func (r GitAPIGetGitRunsRequest) Limit(limit int64) GitAPIGetGitRunsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r GitAPIGetGitRunsRequest) Execute() (*GitWorkflowRuns, *http.Response, error) {
+	return r.ApiService.GetGitRunsExecute(r)
+}
+
+/*
+GetGitRuns Returns this org's runs, newest first.
+
+Returns this org's runs, newest first.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GitAPIGetGitRunsRequest
+*/
+func (a *GitAPIService) GetGitRuns(ctx context.Context) GitAPIGetGitRunsRequest {
+	return GitAPIGetGitRunsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GitWorkflowRuns
+func (a *GitAPIService) GetGitRunsExecute(r GitAPIGetGitRunsRequest) (*GitWorkflowRuns, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GitWorkflowRuns
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitRuns")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/git/runs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.repo != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repo", r.repo, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GitAPIGetGitRunsByIdRequest struct {
+	ctx        context.Context
+	ApiService *GitAPIService
+	id         string
+}
+
+func (r GitAPIGetGitRunsByIdRequest) Execute() (*GitWorkflowRun, *http.Response, error) {
+	return r.ApiService.GetGitRunsByIdExecute(r)
+}
+
+/*
+GetGitRunsById Returns one run.
+
+Returns one run.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the run to read, from the :id path segment.
+	@return GitAPIGetGitRunsByIdRequest
+*/
+func (a *GitAPIService) GetGitRunsById(ctx context.Context, id string) GitAPIGetGitRunsByIdRequest {
+	return GitAPIGetGitRunsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GitWorkflowRun
+func (a *GitAPIService) GetGitRunsByIdExecute(r GitAPIGetGitRunsByIdRequest) (*GitWorkflowRun, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GitWorkflowRun
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitRunsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/git/runs/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2473,7 +3071,7 @@ type GitAPIGetGitUsageRequest struct {
 	ApiService *GitAPIService
 }
 
-func (r GitAPIGetGitUsageRequest) Execute() (*UsageView, *http.Response, error) {
+func (r GitAPIGetGitUsageRequest) Execute() (*GitUsageView, *http.Response, error) {
 	return r.ApiService.GetGitUsageExecute(r)
 }
 
@@ -2498,13 +3096,13 @@ func (a *GitAPIService) GetGitUsage(ctx context.Context) GitAPIGetGitUsageReques
 
 // Execute executes the request
 //
-//	@return UsageView
-func (a *GitAPIService) GetGitUsageExecute(r GitAPIGetGitUsageRequest) (*UsageView, *http.Response, error) {
+//	@return GitUsageView
+func (a *GitAPIService) GetGitUsageExecute(r GitAPIGetGitUsageRequest) (*GitUsageView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UsageView
+		localVarReturnValue *GitUsageView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitUsage")
@@ -2528,7 +3126,7 @@ func (a *GitAPIService) GetGitUsageExecute(r GitAPIGetGitUsageRequest) (*UsageVi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2557,6 +3155,144 @@ func (a *GitAPIService) GetGitUsageExecute(r GitAPIGetGitUsageRequest) (*UsageVi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GitAPIGetGitWorkflowsRequest struct {
+	ctx        context.Context
+	ApiService *GitAPIService
+	repo       *string
+	ref        *string
+}
+
+// Repo is the repository whose workflows to read.
+func (r GitAPIGetGitWorkflowsRequest) Repo(repo string) GitAPIGetGitWorkflowsRequest {
+	r.repo = &repo
+	return r
+}
+
+// Ref is the branch to read them at; empty means the default.
+func (r GitAPIGetGitWorkflowsRequest) Ref(ref string) GitAPIGetGitWorkflowsRequest {
+	r.ref = &ref
+	return r
+}
+
+func (r GitAPIGetGitWorkflowsRequest) Execute() (*GitWorkflowList, *http.Response, error) {
+	return r.ApiService.GetGitWorkflowsExecute(r)
+}
+
+/*
+GetGitWorkflows Reports the workflows a repository declares at a ref and which declared pool would execute each job — the answer to \"would a push here run, and where\".
+
+Reports the workflows a repository declares at a ref and which
+declared pool would execute each job — the answer to "would a push here run,
+and where".
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GitAPIGetGitWorkflowsRequest
+*/
+func (a *GitAPIService) GetGitWorkflows(ctx context.Context) GitAPIGetGitWorkflowsRequest {
+	return GitAPIGetGitWorkflowsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GitWorkflowList
+func (a *GitAPIService) GetGitWorkflowsExecute(r GitAPIGetGitWorkflowsRequest) (*GitWorkflowList, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GitWorkflowList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.GetGitWorkflows")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/git/workflows"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.repo != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repo", r.repo, "form", "")
+	}
+	if r.ref != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ref", r.ref, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2576,15 +3312,15 @@ type GitAPIPatchGitReposByNameRequest struct {
 	ctx        context.Context
 	ApiService *GitAPIService
 	name       string
-	patchIn    *PatchIn
+	gitPatchIn *GitPatchIn
 }
 
-func (r GitAPIPatchGitReposByNameRequest) PatchIn(patchIn PatchIn) GitAPIPatchGitReposByNameRequest {
-	r.patchIn = &patchIn
+func (r GitAPIPatchGitReposByNameRequest) GitPatchIn(gitPatchIn GitPatchIn) GitAPIPatchGitReposByNameRequest {
+	r.gitPatchIn = &gitPatchIn
 	return r
 }
 
-func (r GitAPIPatchGitReposByNameRequest) Execute() (*RepoView, *http.Response, error) {
+func (r GitAPIPatchGitReposByNameRequest) Execute() (*GitRepoView, *http.Response, error) {
 	return r.ApiService.PatchGitReposByNameExecute(r)
 }
 
@@ -2609,13 +3345,13 @@ func (a *GitAPIService) PatchGitReposByName(ctx context.Context, name string) Gi
 
 // Execute executes the request
 //
-//	@return RepoView
-func (a *GitAPIService) PatchGitReposByNameExecute(r GitAPIPatchGitReposByNameRequest) (*RepoView, *http.Response, error) {
+//	@return GitRepoView
+func (a *GitAPIService) PatchGitReposByNameExecute(r GitAPIPatchGitReposByNameRequest) (*GitRepoView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RepoView
+		localVarReturnValue *GitRepoView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PatchGitReposByName")
@@ -2629,8 +3365,8 @@ func (a *GitAPIService) PatchGitReposByNameExecute(r GitAPIPatchGitReposByNameRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.patchIn == nil {
-		return localVarReturnValue, nil, reportError("patchIn is required and must be specified")
+	if r.gitPatchIn == nil {
+		return localVarReturnValue, nil, reportError("gitPatchIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2643,7 +3379,7 @@ func (a *GitAPIService) PatchGitReposByNameExecute(r GitAPIPatchGitReposByNameRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2651,7 +3387,7 @@ func (a *GitAPIService) PatchGitReposByNameExecute(r GitAPIPatchGitReposByNameRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.patchIn
+	localVarPostBody = r.gitPatchIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2674,6 +3410,14 @@ func (a *GitAPIService) PatchGitReposByNameExecute(r GitAPIPatchGitReposByNameRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3126,17 +3870,17 @@ func (a *GitAPIService) PostGitByOrgByRepoGitUploadPackExecute(r GitAPIPostGitBy
 }
 
 type GitAPIPostGitKeysRequest struct {
-	ctx            context.Context
-	ApiService     *GitAPIService
-	registerKeyReq *RegisterKeyReq
+	ctx               context.Context
+	ApiService        *GitAPIService
+	gitRegisterKeyReq *GitRegisterKeyReq
 }
 
-func (r GitAPIPostGitKeysRequest) RegisterKeyReq(registerKeyReq RegisterKeyReq) GitAPIPostGitKeysRequest {
-	r.registerKeyReq = &registerKeyReq
+func (r GitAPIPostGitKeysRequest) GitRegisterKeyReq(gitRegisterKeyReq GitRegisterKeyReq) GitAPIPostGitKeysRequest {
+	r.gitRegisterKeyReq = &gitRegisterKeyReq
 	return r
 }
 
-func (r GitAPIPostGitKeysRequest) Execute() (*KeyView, *http.Response, error) {
+func (r GitAPIPostGitKeysRequest) Execute() (*GitKeyView, *http.Response, error) {
 	return r.ApiService.PostGitKeysExecute(r)
 }
 
@@ -3162,13 +3906,13 @@ func (a *GitAPIService) PostGitKeys(ctx context.Context) GitAPIPostGitKeysReques
 
 // Execute executes the request
 //
-//	@return KeyView
-func (a *GitAPIService) PostGitKeysExecute(r GitAPIPostGitKeysRequest) (*KeyView, *http.Response, error) {
+//	@return GitKeyView
+func (a *GitAPIService) PostGitKeysExecute(r GitAPIPostGitKeysRequest) (*GitKeyView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KeyView
+		localVarReturnValue *GitKeyView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitKeys")
@@ -3181,8 +3925,8 @@ func (a *GitAPIService) PostGitKeysExecute(r GitAPIPostGitKeysRequest) (*KeyView
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.registerKeyReq == nil {
-		return localVarReturnValue, nil, reportError("registerKeyReq is required and must be specified")
+	if r.gitRegisterKeyReq == nil {
+		return localVarReturnValue, nil, reportError("gitRegisterKeyReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3195,7 +3939,7 @@ func (a *GitAPIService) PostGitKeysExecute(r GitAPIPostGitKeysRequest) (*KeyView
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3203,7 +3947,7 @@ func (a *GitAPIService) PostGitKeysExecute(r GitAPIPostGitKeysRequest) (*KeyView
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.registerKeyReq
+	localVarPostBody = r.gitRegisterKeyReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3226,6 +3970,139 @@ func (a *GitAPIService) PostGitKeysExecute(r GitAPIPostGitKeysRequest) (*KeyView
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GitAPIPostGitPoolsRequest struct {
+	ctx            context.Context
+	ApiService     *GitAPIService
+	gitPoolDeclare *GitPoolDeclare
+}
+
+func (r GitAPIPostGitPoolsRequest) GitPoolDeclare(gitPoolDeclare GitPoolDeclare) GitAPIPostGitPoolsRequest {
+	r.gitPoolDeclare = &gitPoolDeclare
+	return r
+}
+
+func (r GitAPIPostGitPoolsRequest) Execute() (*GitPoolDeclared, *http.Response, error) {
+	return r.ApiService.PostGitPoolsExecute(r)
+}
+
+/*
+PostGitPools Records the capacity an org has, and answers with the secret a runner daemon presents to enter it.
+
+Records the capacity an org has, and answers with the secret a
+runner daemon presents to enter it.
+
+Declaring is the ONLY way capacity comes to exist: a daemon cannot register
+against a pool nobody declared, because the secret it would have to present
+does not exist until this runs. Re-declaring an existing pool replaces its
+labels and mints a fresh secret; runners already inside it keep working.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GitAPIPostGitPoolsRequest
+*/
+func (a *GitAPIService) PostGitPools(ctx context.Context) GitAPIPostGitPoolsRequest {
+	return GitAPIPostGitPoolsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GitPoolDeclared
+func (a *GitAPIService) PostGitPoolsExecute(r GitAPIPostGitPoolsRequest) (*GitPoolDeclared, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GitPoolDeclared
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitPools")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/git/pools"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.gitPoolDeclare == nil {
+		return localVarReturnValue, nil, reportError("gitPoolDeclare is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.gitPoolDeclare
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3242,17 +4119,17 @@ func (a *GitAPIService) PostGitKeysExecute(r GitAPIPostGitKeysRequest) (*KeyView
 }
 
 type GitAPIPostGitReposRequest struct {
-	ctx        context.Context
-	ApiService *GitAPIService
-	createReq  *CreateReq
+	ctx          context.Context
+	ApiService   *GitAPIService
+	gitCreateReq *GitCreateReq
 }
 
-func (r GitAPIPostGitReposRequest) CreateReq(createReq CreateReq) GitAPIPostGitReposRequest {
-	r.createReq = &createReq
+func (r GitAPIPostGitReposRequest) GitCreateReq(gitCreateReq GitCreateReq) GitAPIPostGitReposRequest {
+	r.gitCreateReq = &gitCreateReq
 	return r
 }
 
-func (r GitAPIPostGitReposRequest) Execute() (*RepoView, *http.Response, error) {
+func (r GitAPIPostGitReposRequest) Execute() (*GitRepoView, *http.Response, error) {
 	return r.ApiService.PostGitReposExecute(r)
 }
 
@@ -3277,13 +4154,13 @@ func (a *GitAPIService) PostGitRepos(ctx context.Context) GitAPIPostGitReposRequ
 
 // Execute executes the request
 //
-//	@return RepoView
-func (a *GitAPIService) PostGitReposExecute(r GitAPIPostGitReposRequest) (*RepoView, *http.Response, error) {
+//	@return GitRepoView
+func (a *GitAPIService) PostGitReposExecute(r GitAPIPostGitReposRequest) (*GitRepoView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RepoView
+		localVarReturnValue *GitRepoView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitRepos")
@@ -3296,8 +4173,8 @@ func (a *GitAPIService) PostGitReposExecute(r GitAPIPostGitReposRequest) (*RepoV
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createReq == nil {
-		return localVarReturnValue, nil, reportError("createReq is required and must be specified")
+	if r.gitCreateReq == nil {
+		return localVarReturnValue, nil, reportError("gitCreateReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3310,7 +4187,7 @@ func (a *GitAPIService) PostGitReposExecute(r GitAPIPostGitReposRequest) (*RepoV
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3318,7 +4195,7 @@ func (a *GitAPIService) PostGitReposExecute(r GitAPIPostGitReposRequest) (*RepoV
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createReq
+	localVarPostBody = r.gitCreateReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3341,6 +4218,14 @@ func (a *GitAPIService) PostGitReposExecute(r GitAPIPostGitReposRequest) (*RepoV
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3362,7 +4247,7 @@ type GitAPIPostGitReposByNameGcRequest struct {
 	name       string
 }
 
-func (r GitAPIPostGitReposByNameGcRequest) Execute() (*GcOut, *http.Response, error) {
+func (r GitAPIPostGitReposByNameGcRequest) Execute() (*GitGcOut, *http.Response, error) {
 	return r.ApiService.PostGitReposByNameGcExecute(r)
 }
 
@@ -3390,13 +4275,13 @@ func (a *GitAPIService) PostGitReposByNameGc(ctx context.Context, name string) G
 
 // Execute executes the request
 //
-//	@return GcOut
-func (a *GitAPIService) PostGitReposByNameGcExecute(r GitAPIPostGitReposByNameGcRequest) (*GcOut, *http.Response, error) {
+//	@return GitGcOut
+func (a *GitAPIService) PostGitReposByNameGcExecute(r GitAPIPostGitReposByNameGcRequest) (*GitGcOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GcOut
+		localVarReturnValue *GitGcOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitReposByNameGc")
@@ -3421,7 +4306,7 @@ func (a *GitAPIService) PostGitReposByNameGcExecute(r GitAPIPostGitReposByNameGc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3450,6 +4335,14 @@ func (a *GitAPIService) PostGitReposByNameGcExecute(r GitAPIPostGitReposByNameGc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3466,18 +4359,18 @@ func (a *GitAPIService) PostGitReposByNameGcExecute(r GitAPIPostGitReposByNameGc
 }
 
 type GitAPIPostGitReposByNameMirrorRequest struct {
-	ctx        context.Context
-	ApiService *GitAPIService
-	name       string
-	mirrorReq  *MirrorReq
+	ctx          context.Context
+	ApiService   *GitAPIService
+	name         string
+	gitMirrorReq *GitMirrorReq
 }
 
-func (r GitAPIPostGitReposByNameMirrorRequest) MirrorReq(mirrorReq MirrorReq) GitAPIPostGitReposByNameMirrorRequest {
-	r.mirrorReq = &mirrorReq
+func (r GitAPIPostGitReposByNameMirrorRequest) GitMirrorReq(gitMirrorReq GitMirrorReq) GitAPIPostGitReposByNameMirrorRequest {
+	r.gitMirrorReq = &gitMirrorReq
 	return r
 }
 
-func (r GitAPIPostGitReposByNameMirrorRequest) Execute() (*RepoView, *http.Response, error) {
+func (r GitAPIPostGitReposByNameMirrorRequest) Execute() (*GitRepoView, *http.Response, error) {
 	return r.ApiService.PostGitReposByNameMirrorExecute(r)
 }
 
@@ -3504,13 +4397,13 @@ func (a *GitAPIService) PostGitReposByNameMirror(ctx context.Context, name strin
 
 // Execute executes the request
 //
-//	@return RepoView
-func (a *GitAPIService) PostGitReposByNameMirrorExecute(r GitAPIPostGitReposByNameMirrorRequest) (*RepoView, *http.Response, error) {
+//	@return GitRepoView
+func (a *GitAPIService) PostGitReposByNameMirrorExecute(r GitAPIPostGitReposByNameMirrorRequest) (*GitRepoView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RepoView
+		localVarReturnValue *GitRepoView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitReposByNameMirror")
@@ -3524,8 +4417,8 @@ func (a *GitAPIService) PostGitReposByNameMirrorExecute(r GitAPIPostGitReposByNa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.mirrorReq == nil {
-		return localVarReturnValue, nil, reportError("mirrorReq is required and must be specified")
+	if r.gitMirrorReq == nil {
+		return localVarReturnValue, nil, reportError("gitMirrorReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3538,7 +4431,7 @@ func (a *GitAPIService) PostGitReposByNameMirrorExecute(r GitAPIPostGitReposByNa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3546,7 +4439,7 @@ func (a *GitAPIService) PostGitReposByNameMirrorExecute(r GitAPIPostGitReposByNa
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.mirrorReq
+	localVarPostBody = r.gitMirrorReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3569,6 +4462,14 @@ func (a *GitAPIService) PostGitReposByNameMirrorExecute(r GitAPIPostGitReposByNa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3588,15 +4489,15 @@ type GitAPIPostGitReposByNamePullsRequest struct {
 	ctx        context.Context
 	ApiService *GitAPIService
 	name       string
-	openReq    *OpenReq
+	gitOpenReq *GitOpenReq
 }
 
-func (r GitAPIPostGitReposByNamePullsRequest) OpenReq(openReq OpenReq) GitAPIPostGitReposByNamePullsRequest {
-	r.openReq = &openReq
+func (r GitAPIPostGitReposByNamePullsRequest) GitOpenReq(gitOpenReq GitOpenReq) GitAPIPostGitReposByNamePullsRequest {
+	r.gitOpenReq = &gitOpenReq
 	return r
 }
 
-func (r GitAPIPostGitReposByNamePullsRequest) Execute() (*PullView, *http.Response, error) {
+func (r GitAPIPostGitReposByNamePullsRequest) Execute() (*GitPullView, *http.Response, error) {
 	return r.ApiService.PostGitReposByNamePullsExecute(r)
 }
 
@@ -3626,13 +4527,13 @@ func (a *GitAPIService) PostGitReposByNamePulls(ctx context.Context, name string
 
 // Execute executes the request
 //
-//	@return PullView
-func (a *GitAPIService) PostGitReposByNamePullsExecute(r GitAPIPostGitReposByNamePullsRequest) (*PullView, *http.Response, error) {
+//	@return GitPullView
+func (a *GitAPIService) PostGitReposByNamePullsExecute(r GitAPIPostGitReposByNamePullsRequest) (*GitPullView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PullView
+		localVarReturnValue *GitPullView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitReposByNamePulls")
@@ -3646,8 +4547,8 @@ func (a *GitAPIService) PostGitReposByNamePullsExecute(r GitAPIPostGitReposByNam
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.openReq == nil {
-		return localVarReturnValue, nil, reportError("openReq is required and must be specified")
+	if r.gitOpenReq == nil {
+		return localVarReturnValue, nil, reportError("gitOpenReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3660,7 +4561,7 @@ func (a *GitAPIService) PostGitReposByNamePullsExecute(r GitAPIPostGitReposByNam
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3668,7 +4569,7 @@ func (a *GitAPIService) PostGitReposByNamePullsExecute(r GitAPIPostGitReposByNam
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.openReq
+	localVarPostBody = r.gitOpenReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3691,6 +4592,14 @@ func (a *GitAPIService) PostGitReposByNamePullsExecute(r GitAPIPostGitReposByNam
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3713,7 +4622,7 @@ type GitAPIPostGitReposByNamePullsByNumberMergeRequest struct {
 	number     int64
 }
 
-func (r GitAPIPostGitReposByNamePullsByNumberMergeRequest) Execute() (*PullView, *http.Response, error) {
+func (r GitAPIPostGitReposByNamePullsByNumberMergeRequest) Execute() (*GitPullView, *http.Response, error) {
 	return r.ApiService.PostGitReposByNamePullsByNumberMergeExecute(r)
 }
 
@@ -3750,13 +4659,13 @@ func (a *GitAPIService) PostGitReposByNamePullsByNumberMerge(ctx context.Context
 
 // Execute executes the request
 //
-//	@return PullView
-func (a *GitAPIService) PostGitReposByNamePullsByNumberMergeExecute(r GitAPIPostGitReposByNamePullsByNumberMergeRequest) (*PullView, *http.Response, error) {
+//	@return GitPullView
+func (a *GitAPIService) PostGitReposByNamePullsByNumberMergeExecute(r GitAPIPostGitReposByNamePullsByNumberMergeRequest) (*GitPullView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PullView
+		localVarReturnValue *GitPullView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitReposByNamePullsByNumberMerge")
@@ -3782,7 +4691,7 @@ func (a *GitAPIService) PostGitReposByNamePullsByNumberMergeExecute(r GitAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3811,6 +4720,14 @@ func (a *GitAPIService) PostGitReposByNamePullsByNumberMergeExecute(r GitAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3830,15 +4747,15 @@ type GitAPIPostGitReposByNamePushRequest struct {
 	ctx        context.Context
 	ApiService *GitAPIService
 	name       string
-	pushReq    *PushReq
+	gitPushReq *GitPushReq
 }
 
-func (r GitAPIPostGitReposByNamePushRequest) PushReq(pushReq PushReq) GitAPIPostGitReposByNamePushRequest {
-	r.pushReq = &pushReq
+func (r GitAPIPostGitReposByNamePushRequest) GitPushReq(gitPushReq GitPushReq) GitAPIPostGitReposByNamePushRequest {
+	r.gitPushReq = &gitPushReq
 	return r
 }
 
-func (r GitAPIPostGitReposByNamePushRequest) Execute() (*PushResp, *http.Response, error) {
+func (r GitAPIPostGitReposByNamePushRequest) Execute() (*GitPushResp, *http.Response, error) {
 	return r.ApiService.PostGitReposByNamePushExecute(r)
 }
 
@@ -3850,6 +4767,10 @@ hanzo.app builder's push. The repo is CREATED on first push, the files are
 merged onto the branch tip (unlisted files survive), and the same
 push-to-deploy hook a real receive-pack fires is fired, so downstream this is
 indistinguishable from a `git push`.
+
+It is for generated content. Changing CI through it needs an org admin (403
+otherwise), and a workflow whose newest change came in through it is not run
+automatically; CI written through git runs as usual.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param name Name is the repo to push into, from the :name path segment. It is CREATED on first push if it does not exist.
@@ -3865,13 +4786,13 @@ func (a *GitAPIService) PostGitReposByNamePush(ctx context.Context, name string)
 
 // Execute executes the request
 //
-//	@return PushResp
-func (a *GitAPIService) PostGitReposByNamePushExecute(r GitAPIPostGitReposByNamePushRequest) (*PushResp, *http.Response, error) {
+//	@return GitPushResp
+func (a *GitAPIService) PostGitReposByNamePushExecute(r GitAPIPostGitReposByNamePushRequest) (*GitPushResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PushResp
+		localVarReturnValue *GitPushResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitReposByNamePush")
@@ -3885,8 +4806,8 @@ func (a *GitAPIService) PostGitReposByNamePushExecute(r GitAPIPostGitReposByName
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.pushReq == nil {
-		return localVarReturnValue, nil, reportError("pushReq is required and must be specified")
+	if r.gitPushReq == nil {
+		return localVarReturnValue, nil, reportError("gitPushReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3899,7 +4820,7 @@ func (a *GitAPIService) PostGitReposByNamePushExecute(r GitAPIPostGitReposByName
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3907,7 +4828,7 @@ func (a *GitAPIService) PostGitReposByNamePushExecute(r GitAPIPostGitReposByName
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.pushReq
+	localVarPostBody = r.gitPushReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3930,6 +4851,14 @@ func (a *GitAPIService) PostGitReposByNamePushExecute(r GitAPIPostGitReposByName
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3946,18 +4875,18 @@ func (a *GitAPIService) PostGitReposByNamePushExecute(r GitAPIPostGitReposByName
 }
 
 type GitAPIPostGitReposByNameSubscriptionsRequest struct {
-	ctx          context.Context
-	ApiService   *GitAPIService
-	name         string
-	subscribeReq *SubscribeReq
+	ctx             context.Context
+	ApiService      *GitAPIService
+	name            string
+	gitSubscribeReq *GitSubscribeReq
 }
 
-func (r GitAPIPostGitReposByNameSubscriptionsRequest) SubscribeReq(subscribeReq SubscribeReq) GitAPIPostGitReposByNameSubscriptionsRequest {
-	r.subscribeReq = &subscribeReq
+func (r GitAPIPostGitReposByNameSubscriptionsRequest) GitSubscribeReq(gitSubscribeReq GitSubscribeReq) GitAPIPostGitReposByNameSubscriptionsRequest {
+	r.gitSubscribeReq = &gitSubscribeReq
 	return r
 }
 
-func (r GitAPIPostGitReposByNameSubscriptionsRequest) Execute() (*SubscriptionView, *http.Response, error) {
+func (r GitAPIPostGitReposByNameSubscriptionsRequest) Execute() (*GitSubscriptionView, *http.Response, error) {
 	return r.ApiService.PostGitReposByNameSubscriptionsExecute(r)
 }
 
@@ -3983,13 +4912,13 @@ func (a *GitAPIService) PostGitReposByNameSubscriptions(ctx context.Context, nam
 
 // Execute executes the request
 //
-//	@return SubscriptionView
-func (a *GitAPIService) PostGitReposByNameSubscriptionsExecute(r GitAPIPostGitReposByNameSubscriptionsRequest) (*SubscriptionView, *http.Response, error) {
+//	@return GitSubscriptionView
+func (a *GitAPIService) PostGitReposByNameSubscriptionsExecute(r GitAPIPostGitReposByNameSubscriptionsRequest) (*GitSubscriptionView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SubscriptionView
+		localVarReturnValue *GitSubscriptionView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitReposByNameSubscriptions")
@@ -4003,8 +4932,8 @@ func (a *GitAPIService) PostGitReposByNameSubscriptionsExecute(r GitAPIPostGitRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.subscribeReq == nil {
-		return localVarReturnValue, nil, reportError("subscribeReq is required and must be specified")
+	if r.gitSubscribeReq == nil {
+		return localVarReturnValue, nil, reportError("gitSubscribeReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -4017,7 +4946,7 @@ func (a *GitAPIService) PostGitReposByNameSubscriptionsExecute(r GitAPIPostGitRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4025,7 +4954,7 @@ func (a *GitAPIService) PostGitReposByNameSubscriptionsExecute(r GitAPIPostGitRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.subscribeReq
+	localVarPostBody = r.gitSubscribeReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -4048,6 +4977,14 @@ func (a *GitAPIService) PostGitReposByNameSubscriptionsExecute(r GitAPIPostGitRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -4064,18 +5001,18 @@ func (a *GitAPIService) PostGitReposByNameSubscriptionsExecute(r GitAPIPostGitRe
 }
 
 type GitAPIPostGitReposByNameTargetsRequest struct {
-	ctx             context.Context
-	ApiService      *GitAPIService
-	name            string
-	mirrorTargetReq *MirrorTargetReq
+	ctx                context.Context
+	ApiService         *GitAPIService
+	name               string
+	gitMirrorTargetReq *GitMirrorTargetReq
 }
 
-func (r GitAPIPostGitReposByNameTargetsRequest) MirrorTargetReq(mirrorTargetReq MirrorTargetReq) GitAPIPostGitReposByNameTargetsRequest {
-	r.mirrorTargetReq = &mirrorTargetReq
+func (r GitAPIPostGitReposByNameTargetsRequest) GitMirrorTargetReq(gitMirrorTargetReq GitMirrorTargetReq) GitAPIPostGitReposByNameTargetsRequest {
+	r.gitMirrorTargetReq = &gitMirrorTargetReq
 	return r
 }
 
-func (r GitAPIPostGitReposByNameTargetsRequest) Execute() (*MirrorTargetView, *http.Response, error) {
+func (r GitAPIPostGitReposByNameTargetsRequest) Execute() (*GitMirrorTargetView, *http.Response, error) {
 	return r.ApiService.PostGitReposByNameTargetsExecute(r)
 }
 
@@ -4104,13 +5041,13 @@ func (a *GitAPIService) PostGitReposByNameTargets(ctx context.Context, name stri
 
 // Execute executes the request
 //
-//	@return MirrorTargetView
-func (a *GitAPIService) PostGitReposByNameTargetsExecute(r GitAPIPostGitReposByNameTargetsRequest) (*MirrorTargetView, *http.Response, error) {
+//	@return GitMirrorTargetView
+func (a *GitAPIService) PostGitReposByNameTargetsExecute(r GitAPIPostGitReposByNameTargetsRequest) (*GitMirrorTargetView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MirrorTargetView
+		localVarReturnValue *GitMirrorTargetView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitReposByNameTargets")
@@ -4124,8 +5061,8 @@ func (a *GitAPIService) PostGitReposByNameTargetsExecute(r GitAPIPostGitReposByN
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.mirrorTargetReq == nil {
-		return localVarReturnValue, nil, reportError("mirrorTargetReq is required and must be specified")
+	if r.gitMirrorTargetReq == nil {
+		return localVarReturnValue, nil, reportError("gitMirrorTargetReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -4138,7 +5075,7 @@ func (a *GitAPIService) PostGitReposByNameTargetsExecute(r GitAPIPostGitReposByN
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4146,7 +5083,7 @@ func (a *GitAPIService) PostGitReposByNameTargetsExecute(r GitAPIPostGitReposByN
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.mirrorTargetReq
+	localVarPostBody = r.gitMirrorTargetReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -4169,6 +5106,138 @@ func (a *GitAPIService) PostGitReposByNameTargetsExecute(r GitAPIPostGitReposByN
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GitAPIPostGitRunsRequest struct {
+	ctx         context.Context
+	ApiService  *GitAPIService
+	gitRunStart *GitRunStart
+}
+
+func (r GitAPIPostGitRunsRequest) GitRunStart(gitRunStart GitRunStart) GitAPIPostGitRunsRequest {
+	r.gitRunStart = &gitRunStart
+	return r
+}
+
+func (r GitAPIPostGitRunsRequest) Execute() (*GitWorkflowRuns, *http.Response, error) {
+	return r.ApiService.PostGitRunsExecute(r)
+}
+
+/*
+PostGitRuns Runs a repository's workflows at a ref, on demand.
+
+Runs a repository's workflows at a ref, on demand.
+
+It takes the SAME path a push takes: the request is recorded in the journal
+and delivered from there, so an explicit run and a pushed one are one
+mechanism with one idempotency rule and not two that can disagree. Asking
+twice for the same commit yields the same run.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GitAPIPostGitRunsRequest
+*/
+func (a *GitAPIService) PostGitRuns(ctx context.Context) GitAPIPostGitRunsRequest {
+	return GitAPIPostGitRunsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GitWorkflowRuns
+func (a *GitAPIService) PostGitRunsExecute(r GitAPIPostGitRunsRequest) (*GitWorkflowRuns, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GitWorkflowRuns
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostGitRuns")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/git/runs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.gitRunStart == nil {
+		return localVarReturnValue, nil, reportError("gitRunStart is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.gitRunStart
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -4196,7 +5265,7 @@ func (r GitAPIPostGitWebhookRequest) Execute() (*http.Response, error) {
 /*
 PostGitWebhook Retired — push-to-deploy has no inbound webhook
 
-GONE (410). Push-to-deploy is not triggered by an inbound webhook. A push into this host's own git server fires the builder in-process, and a repository whose canonical home is GitHub is delivered by the Hanzo Platform GitHub App to POST /v1/integration/github/webhook. The forge does not report a push over HTTP.
+GONE (410). Push-to-deploy is not triggered by an inbound webhook. A push into this host's own git server fires the builder in-process, and a repository whose canonical home is GitHub is delivered by the Hanzo Platform GitHub App to POST /v1/provider/github/webhook. The forge does not report a push over HTTP.
 
 Every delivery answers 410 whatever it carries — this endpoint reads no body and authenticates nothing.
 
@@ -4274,4 +5343,683 @@ func (a *GitAPIService) PostGitWebhookExecute(r GitAPIPostGitWebhookRequest) (*h
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type GitAPIPostRunnerDeclareRequest struct {
+	ctx             context.Context
+	ApiService      *GitAPIService
+	runnerDeclareIn *RunnerDeclareIn
+	xRunnerUuid     *string
+	xRunnerToken    *string
+}
+
+func (r GitAPIPostRunnerDeclareRequest) RunnerDeclareIn(runnerDeclareIn RunnerDeclareIn) GitAPIPostRunnerDeclareRequest {
+	r.runnerDeclareIn = &runnerDeclareIn
+	return r
+}
+
+func (r GitAPIPostRunnerDeclareRequest) XRunnerUuid(xRunnerUuid string) GitAPIPostRunnerDeclareRequest {
+	r.xRunnerUuid = &xRunnerUuid
+	return r
+}
+
+func (r GitAPIPostRunnerDeclareRequest) XRunnerToken(xRunnerToken string) GitAPIPostRunnerDeclareRequest {
+	r.xRunnerToken = &xRunnerToken
+	return r
+}
+
+func (r GitAPIPostRunnerDeclareRequest) Execute() (*RunnerDeclareOut, *http.Response, error) {
+	return r.ApiService.PostRunnerDeclareExecute(r)
+}
+
+/*
+PostRunnerDeclare Republishes what a registered runner can do, and answers with what this side understands, so the two learn about each other from one exchange.
+
+Republishes what a registered runner can do, and answers with what
+this side understands, so the two learn about each other from one exchange.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GitAPIPostRunnerDeclareRequest
+*/
+func (a *GitAPIService) PostRunnerDeclare(ctx context.Context) GitAPIPostRunnerDeclareRequest {
+	return GitAPIPostRunnerDeclareRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return RunnerDeclareOut
+func (a *GitAPIService) PostRunnerDeclareExecute(r GitAPIPostRunnerDeclareRequest) (*RunnerDeclareOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RunnerDeclareOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostRunnerDeclare")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/runner/declare"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.runnerDeclareIn == nil {
+		return localVarReturnValue, nil, reportError("runnerDeclareIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xRunnerUuid != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-runner-uuid", r.xRunnerUuid, "simple", "")
+	}
+	if r.xRunnerToken != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-runner-token", r.xRunnerToken, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.runnerDeclareIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GitAPIPostRunnerLogRequest struct {
+	ctx          context.Context
+	ApiService   *GitAPIService
+	runnerLogIn  *RunnerLogIn
+	xRunnerUuid  *string
+	xRunnerToken *string
+}
+
+func (r GitAPIPostRunnerLogRequest) RunnerLogIn(runnerLogIn RunnerLogIn) GitAPIPostRunnerLogRequest {
+	r.runnerLogIn = &runnerLogIn
+	return r
+}
+
+func (r GitAPIPostRunnerLogRequest) XRunnerUuid(xRunnerUuid string) GitAPIPostRunnerLogRequest {
+	r.xRunnerUuid = &xRunnerUuid
+	return r
+}
+
+func (r GitAPIPostRunnerLogRequest) XRunnerToken(xRunnerToken string) GitAPIPostRunnerLogRequest {
+	r.xRunnerToken = &xRunnerToken
+	return r
+}
+
+func (r GitAPIPostRunnerLogRequest) Execute() (*RunnerLogOut, *http.Response, error) {
+	return r.ApiService.PostRunnerLogExecute(r)
+}
+
+/*
+PostRunnerLog Adds console output to a task's log and answers with how far that log is durable, so the runner knows where to resend from.
+
+Adds console output to a task's log and answers with how far that log is
+durable, so the runner knows where to resend from.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GitAPIPostRunnerLogRequest
+*/
+func (a *GitAPIService) PostRunnerLog(ctx context.Context) GitAPIPostRunnerLogRequest {
+	return GitAPIPostRunnerLogRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return RunnerLogOut
+func (a *GitAPIService) PostRunnerLogExecute(r GitAPIPostRunnerLogRequest) (*RunnerLogOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RunnerLogOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostRunnerLog")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/runner/log"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.runnerLogIn == nil {
+		return localVarReturnValue, nil, reportError("runnerLogIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xRunnerUuid != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-runner-uuid", r.xRunnerUuid, "simple", "")
+	}
+	if r.xRunnerToken != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-runner-token", r.xRunnerToken, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.runnerLogIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GitAPIPostRunnerRegisterRequest struct {
+	ctx              context.Context
+	ApiService       *GitAPIService
+	runnerRegisterIn *RunnerRegisterIn
+}
+
+func (r GitAPIPostRunnerRegisterRequest) RunnerRegisterIn(runnerRegisterIn RunnerRegisterIn) GitAPIPostRunnerRegisterRequest {
+	r.runnerRegisterIn = &runnerRegisterIn
+	return r
+}
+
+func (r GitAPIPostRunnerRegisterRequest) Execute() (*RunnerRegisterOut, *http.Response, error) {
+	return r.ApiService.PostRunnerRegisterExecute(r)
+}
+
+/*
+PostRunnerRegister Trades a pool's join secret for a runner identity and the token that authenticates every later call.
+
+Trades a pool's join secret for a runner identity and the token that
+authenticates every later call. It is the one operation with no credential to
+check, because a runner has none until this answers.
+
+The secret names the pool it opens, and a pool exists only because somebody
+declared it. A daemon that starts against capacity nobody declared is refused
+here, which is where the rule that pools are declared state actually holds.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GitAPIPostRunnerRegisterRequest
+*/
+func (a *GitAPIService) PostRunnerRegister(ctx context.Context) GitAPIPostRunnerRegisterRequest {
+	return GitAPIPostRunnerRegisterRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return RunnerRegisterOut
+func (a *GitAPIService) PostRunnerRegisterExecute(r GitAPIPostRunnerRegisterRequest) (*RunnerRegisterOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RunnerRegisterOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostRunnerRegister")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/runner/register"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.runnerRegisterIn == nil {
+		return localVarReturnValue, nil, reportError("runnerRegisterIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.runnerRegisterIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GitAPIPostRunnerStateRequest struct {
+	ctx           context.Context
+	ApiService    *GitAPIService
+	runnerStateIn *RunnerStateIn
+	xRunnerUuid   *string
+	xRunnerToken  *string
+}
+
+func (r GitAPIPostRunnerStateRequest) RunnerStateIn(runnerStateIn RunnerStateIn) GitAPIPostRunnerStateRequest {
+	r.runnerStateIn = &runnerStateIn
+	return r
+}
+
+func (r GitAPIPostRunnerStateRequest) XRunnerUuid(xRunnerUuid string) GitAPIPostRunnerStateRequest {
+	r.xRunnerUuid = &xRunnerUuid
+	return r
+}
+
+func (r GitAPIPostRunnerStateRequest) XRunnerToken(xRunnerToken string) GitAPIPostRunnerStateRequest {
+	r.xRunnerToken = &xRunnerToken
+	return r
+}
+
+func (r GitAPIPostRunnerStateRequest) Execute() (*RunnerStateOut, *http.Response, error) {
+	return r.ApiService.PostRunnerStateExecute(r)
+}
+
+/*
+PostRunnerState Records a task's progress and that of its steps, and answers with the result this side now holds — which is how a runner learns its task was stopped from somewhere else.
+
+Records a task's progress and that of its steps, and answers with the
+result this side now holds — which is how a runner learns its task was stopped
+from somewhere else.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GitAPIPostRunnerStateRequest
+*/
+func (a *GitAPIService) PostRunnerState(ctx context.Context) GitAPIPostRunnerStateRequest {
+	return GitAPIPostRunnerStateRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return RunnerStateOut
+func (a *GitAPIService) PostRunnerStateExecute(r GitAPIPostRunnerStateRequest) (*RunnerStateOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RunnerStateOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostRunnerState")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/runner/state"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.runnerStateIn == nil {
+		return localVarReturnValue, nil, reportError("runnerStateIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xRunnerUuid != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-runner-uuid", r.xRunnerUuid, "simple", "")
+	}
+	if r.xRunnerToken != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-runner-token", r.xRunnerToken, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.runnerStateIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type GitAPIPostRunnerTaskRequest struct {
+	ctx          context.Context
+	ApiService   *GitAPIService
+	runnerTaskIn *RunnerTaskIn
+	xRunnerUuid  *string
+	xRunnerToken *string
+}
+
+func (r GitAPIPostRunnerTaskRequest) RunnerTaskIn(runnerTaskIn RunnerTaskIn) GitAPIPostRunnerTaskRequest {
+	r.runnerTaskIn = &runnerTaskIn
+	return r
+}
+
+func (r GitAPIPostRunnerTaskRequest) XRunnerUuid(xRunnerUuid string) GitAPIPostRunnerTaskRequest {
+	r.xRunnerUuid = &xRunnerUuid
+	return r
+}
+
+func (r GitAPIPostRunnerTaskRequest) XRunnerToken(xRunnerToken string) GitAPIPostRunnerTaskRequest {
+	r.xRunnerToken = &xRunnerToken
+	return r
+}
+
+func (r GitAPIPostRunnerTaskRequest) Execute() (*RunnerTaskOut, *http.Response, error) {
+	return r.ApiService.PostRunnerTaskExecute(r)
+}
+
+/*
+PostRunnerTask Hands the runner a job to execute, if its pool has one, and answers immediately either way.
+
+Hands the runner a job to execute, if its pool has one, and answers
+immediately either way. A runner sends the queue version it last saw; when it
+matches, nothing has been queued since and no lease transaction is opened.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return GitAPIPostRunnerTaskRequest
+*/
+func (a *GitAPIService) PostRunnerTask(ctx context.Context) GitAPIPostRunnerTaskRequest {
+	return GitAPIPostRunnerTaskRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return RunnerTaskOut
+func (a *GitAPIService) PostRunnerTaskExecute(r GitAPIPostRunnerTaskRequest) (*RunnerTaskOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RunnerTaskOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GitAPIService.PostRunnerTask")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/runner/task"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.runnerTaskIn == nil {
+		return localVarReturnValue, nil, reportError("runnerTaskIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xRunnerUuid != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-runner-uuid", r.xRunnerUuid, "simple", "")
+	}
+	if r.xRunnerToken != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-runner-token", r.xRunnerToken, "simple", "")
+	}
+	// body params
+	localVarPostBody = r.runnerTaskIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

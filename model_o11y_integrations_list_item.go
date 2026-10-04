@@ -19,13 +19,16 @@ var _ MappedNullable = &O11yIntegrationsListItem{}
 
 // O11yIntegrationsListItem struct for O11yIntegrationsListItem
 type O11yIntegrationsListItem struct {
-	Author      *O11yIntegrationAuthor `json:"author,omitempty"`
-	Description *string                `json:"description,omitempty"`
-	Icon        *string                `json:"icon,omitempty"`
-	Id          *string                `json:"id,omitempty"`
-	IsInstalled *bool                  `json:"is_installed,omitempty"`
-	Title       *string                `json:"title,omitempty"`
+	Author               *O11yIntegrationAuthor `json:"author,omitempty"`
+	Description          *string                `json:"description,omitempty"`
+	Icon                 *string                `json:"icon,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	IsInstalled          *bool                  `json:"is_installed,omitempty"`
+	Title                *string                `json:"title,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yIntegrationsListItem O11yIntegrationsListItem
 
 // NewO11yIntegrationsListItem instantiates a new O11yIntegrationsListItem object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o O11yIntegrationsListItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yIntegrationsListItem) UnmarshalJSON(data []byte) (err error) {
+	varO11yIntegrationsListItem := _O11yIntegrationsListItem{}
+
+	err = json.Unmarshal(data, &varO11yIntegrationsListItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yIntegrationsListItem(varO11yIntegrationsListItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "author")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "icon")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "is_installed")
+		delete(additionalProperties, "title")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yIntegrationsListItem struct {

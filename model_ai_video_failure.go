@@ -19,8 +19,11 @@ var _ MappedNullable = &AiVideoFailure{}
 
 // AiVideoFailure struct for AiVideoFailure
 type AiVideoFailure struct {
-	Message *string `json:"message,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiVideoFailure AiVideoFailure
 
 // NewAiVideoFailure instantiates a new AiVideoFailure object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o AiVideoFailure) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiVideoFailure) UnmarshalJSON(data []byte) (err error) {
+	varAiVideoFailure := _AiVideoFailure{}
+
+	err = json.Unmarshal(data, &varAiVideoFailure)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiVideoFailure(varAiVideoFailure)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "message")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiVideoFailure struct {

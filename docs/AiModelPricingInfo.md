@@ -4,8 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Input** | Pointer to **float32** |  | [optional] 
-**Output** | Pointer to **float32** |  | [optional] 
+**Completion** | Pointer to **string** |  | [optional] 
+**InputPerMillion** | Pointer to **float32** |  | [optional] 
+**OutputPerMillion** | Pointer to **float32** |  | [optional] 
+**Prompt** | Pointer to **string** |  | [optional] 
+**Variable** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -26,55 +29,130 @@ NewAiModelPricingInfoWithDefaults instantiates a new AiModelPricingInfo object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetInput
+### GetCompletion
 
-`func (o *AiModelPricingInfo) GetInput() float32`
+`func (o *AiModelPricingInfo) GetCompletion() string`
 
-GetInput returns the Input field if non-nil, zero value otherwise.
+GetCompletion returns the Completion field if non-nil, zero value otherwise.
 
-### GetInputOk
+### GetCompletionOk
 
-`func (o *AiModelPricingInfo) GetInputOk() (*float32, bool)`
+`func (o *AiModelPricingInfo) GetCompletionOk() (*string, bool)`
 
-GetInputOk returns a tuple with the Input field if it's non-nil, zero value otherwise
+GetCompletionOk returns a tuple with the Completion field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetInput
+### SetCompletion
 
-`func (o *AiModelPricingInfo) SetInput(v float32)`
+`func (o *AiModelPricingInfo) SetCompletion(v string)`
 
-SetInput sets Input field to given value.
+SetCompletion sets Completion field to given value.
 
-### HasInput
+### HasCompletion
 
-`func (o *AiModelPricingInfo) HasInput() bool`
+`func (o *AiModelPricingInfo) HasCompletion() bool`
 
-HasInput returns a boolean if a field has been set.
+HasCompletion returns a boolean if a field has been set.
 
-### GetOutput
+### GetInputPerMillion
 
-`func (o *AiModelPricingInfo) GetOutput() float32`
+`func (o *AiModelPricingInfo) GetInputPerMillion() float32`
 
-GetOutput returns the Output field if non-nil, zero value otherwise.
+GetInputPerMillion returns the InputPerMillion field if non-nil, zero value otherwise.
 
-### GetOutputOk
+### GetInputPerMillionOk
 
-`func (o *AiModelPricingInfo) GetOutputOk() (*float32, bool)`
+`func (o *AiModelPricingInfo) GetInputPerMillionOk() (*float32, bool)`
 
-GetOutputOk returns a tuple with the Output field if it's non-nil, zero value otherwise
+GetInputPerMillionOk returns a tuple with the InputPerMillion field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetOutput
+### SetInputPerMillion
 
-`func (o *AiModelPricingInfo) SetOutput(v float32)`
+`func (o *AiModelPricingInfo) SetInputPerMillion(v float32)`
 
-SetOutput sets Output field to given value.
+SetInputPerMillion sets InputPerMillion field to given value.
 
-### HasOutput
+### HasInputPerMillion
 
-`func (o *AiModelPricingInfo) HasOutput() bool`
+`func (o *AiModelPricingInfo) HasInputPerMillion() bool`
 
-HasOutput returns a boolean if a field has been set.
+HasInputPerMillion returns a boolean if a field has been set.
+
+### GetOutputPerMillion
+
+`func (o *AiModelPricingInfo) GetOutputPerMillion() float32`
+
+GetOutputPerMillion returns the OutputPerMillion field if non-nil, zero value otherwise.
+
+### GetOutputPerMillionOk
+
+`func (o *AiModelPricingInfo) GetOutputPerMillionOk() (*float32, bool)`
+
+GetOutputPerMillionOk returns a tuple with the OutputPerMillion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOutputPerMillion
+
+`func (o *AiModelPricingInfo) SetOutputPerMillion(v float32)`
+
+SetOutputPerMillion sets OutputPerMillion field to given value.
+
+### HasOutputPerMillion
+
+`func (o *AiModelPricingInfo) HasOutputPerMillion() bool`
+
+HasOutputPerMillion returns a boolean if a field has been set.
+
+### GetPrompt
+
+`func (o *AiModelPricingInfo) GetPrompt() string`
+
+GetPrompt returns the Prompt field if non-nil, zero value otherwise.
+
+### GetPromptOk
+
+`func (o *AiModelPricingInfo) GetPromptOk() (*string, bool)`
+
+GetPromptOk returns a tuple with the Prompt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrompt
+
+`func (o *AiModelPricingInfo) SetPrompt(v string)`
+
+SetPrompt sets Prompt field to given value.
+
+### HasPrompt
+
+`func (o *AiModelPricingInfo) HasPrompt() bool`
+
+HasPrompt returns a boolean if a field has been set.
+
+### GetVariable
+
+`func (o *AiModelPricingInfo) GetVariable() bool`
+
+GetVariable returns the Variable field if non-nil, zero value otherwise.
+
+### GetVariableOk
+
+`func (o *AiModelPricingInfo) GetVariableOk() (*bool, bool)`
+
+GetVariableOk returns a tuple with the Variable field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVariable
+
+`func (o *AiModelPricingInfo) SetVariable(v bool)`
+
+SetVariable sets Variable field to given value.
+
+### HasVariable
+
+`func (o *AiModelPricingInfo) HasVariable() bool`
+
+HasVariable returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

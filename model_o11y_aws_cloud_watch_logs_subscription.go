@@ -22,8 +22,11 @@ type O11yAWSCloudWatchLogsSubscription struct {
 	// https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html \"\" implies no filtering is required
 	FilterPattern *string `json:"filterPattern,omitempty"`
 	// subscribe to all logs groups with specified prefix. eg: `/aws/rds/`
-	LogGroupNamePrefix *string `json:"logGroupNamePrefix,omitempty"`
+	LogGroupNamePrefix   *string `json:"logGroupNamePrefix,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAWSCloudWatchLogsSubscription O11yAWSCloudWatchLogsSubscription
 
 // NewO11yAWSCloudWatchLogsSubscription instantiates a new O11yAWSCloudWatchLogsSubscription object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yAWSCloudWatchLogsSubscription) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.LogGroupNamePrefix) {
 		toSerialize["logGroupNamePrefix"] = o.LogGroupNamePrefix
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAWSCloudWatchLogsSubscription) UnmarshalJSON(data []byte) (err error) {
+	varO11yAWSCloudWatchLogsSubscription := _O11yAWSCloudWatchLogsSubscription{}
+
+	err = json.Unmarshal(data, &varO11yAWSCloudWatchLogsSubscription)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAWSCloudWatchLogsSubscription(varO11yAWSCloudWatchLogsSubscription)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "filterPattern")
+		delete(additionalProperties, "logGroupNamePrefix")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAWSCloudWatchLogsSubscription struct {

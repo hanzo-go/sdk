@@ -19,17 +19,12 @@ var _ MappedNullable = &O11yCompositeQuery{}
 
 // O11yCompositeQuery struct for O11yCompositeQuery
 type O11yCompositeQuery struct {
-	BuilderQueries map[string]O11yBuilderQuery   `json:"builderQueries,omitempty"`
-	ChQueries      map[string]O11yDatastoreQuery `json:"chQueries,omitempty"`
-	// FillGaps is used to fill the gaps in the time series data
-	FillGaps    *bool                    `json:"fillGaps,omitempty"`
-	PanelType   *string                  `json:"panelType,omitempty"`
-	PromQueries map[string]O11yPromQuery `json:"promQueries,omitempty"`
-	Queries     []O11yQueryEnvelope      `json:"queries,omitempty"`
-	QueryType   *string                  `json:"queryType,omitempty"`
-	// Unit for the time series data shown in the graph This is used in alerts to format the value and threshold
-	Unit *string `json:"unit,omitempty"`
+	// Queries is the queries to use for the request.
+	Queries              []O11yQueryEnvelope `json:"queries,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yCompositeQuery O11yCompositeQuery
 
 // NewO11yCompositeQuery instantiates a new O11yCompositeQuery object
 // This constructor will assign default values to properties that have it defined,
@@ -46,166 +41,6 @@ func NewO11yCompositeQuery() *O11yCompositeQuery {
 func NewO11yCompositeQueryWithDefaults() *O11yCompositeQuery {
 	this := O11yCompositeQuery{}
 	return &this
-}
-
-// GetBuilderQueries returns the BuilderQueries field value if set, zero value otherwise.
-func (o *O11yCompositeQuery) GetBuilderQueries() map[string]O11yBuilderQuery {
-	if o == nil || IsNil(o.BuilderQueries) {
-		var ret map[string]O11yBuilderQuery
-		return ret
-	}
-	return o.BuilderQueries
-}
-
-// GetBuilderQueriesOk returns a tuple with the BuilderQueries field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11yCompositeQuery) GetBuilderQueriesOk() (map[string]O11yBuilderQuery, bool) {
-	if o == nil || IsNil(o.BuilderQueries) {
-		return map[string]O11yBuilderQuery{}, false
-	}
-	return o.BuilderQueries, true
-}
-
-// HasBuilderQueries returns a boolean if a field has been set.
-func (o *O11yCompositeQuery) HasBuilderQueries() bool {
-	if o != nil && !IsNil(o.BuilderQueries) {
-		return true
-	}
-
-	return false
-}
-
-// SetBuilderQueries gets a reference to the given map[string]O11yBuilderQuery and assigns it to the BuilderQueries field.
-func (o *O11yCompositeQuery) SetBuilderQueries(v map[string]O11yBuilderQuery) {
-	o.BuilderQueries = v
-}
-
-// GetChQueries returns the ChQueries field value if set, zero value otherwise.
-func (o *O11yCompositeQuery) GetChQueries() map[string]O11yDatastoreQuery {
-	if o == nil || IsNil(o.ChQueries) {
-		var ret map[string]O11yDatastoreQuery
-		return ret
-	}
-	return o.ChQueries
-}
-
-// GetChQueriesOk returns a tuple with the ChQueries field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11yCompositeQuery) GetChQueriesOk() (map[string]O11yDatastoreQuery, bool) {
-	if o == nil || IsNil(o.ChQueries) {
-		return map[string]O11yDatastoreQuery{}, false
-	}
-	return o.ChQueries, true
-}
-
-// HasChQueries returns a boolean if a field has been set.
-func (o *O11yCompositeQuery) HasChQueries() bool {
-	if o != nil && !IsNil(o.ChQueries) {
-		return true
-	}
-
-	return false
-}
-
-// SetChQueries gets a reference to the given map[string]O11yDatastoreQuery and assigns it to the ChQueries field.
-func (o *O11yCompositeQuery) SetChQueries(v map[string]O11yDatastoreQuery) {
-	o.ChQueries = v
-}
-
-// GetFillGaps returns the FillGaps field value if set, zero value otherwise.
-func (o *O11yCompositeQuery) GetFillGaps() bool {
-	if o == nil || IsNil(o.FillGaps) {
-		var ret bool
-		return ret
-	}
-	return *o.FillGaps
-}
-
-// GetFillGapsOk returns a tuple with the FillGaps field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11yCompositeQuery) GetFillGapsOk() (*bool, bool) {
-	if o == nil || IsNil(o.FillGaps) {
-		return nil, false
-	}
-	return o.FillGaps, true
-}
-
-// HasFillGaps returns a boolean if a field has been set.
-func (o *O11yCompositeQuery) HasFillGaps() bool {
-	if o != nil && !IsNil(o.FillGaps) {
-		return true
-	}
-
-	return false
-}
-
-// SetFillGaps gets a reference to the given bool and assigns it to the FillGaps field.
-func (o *O11yCompositeQuery) SetFillGaps(v bool) {
-	o.FillGaps = &v
-}
-
-// GetPanelType returns the PanelType field value if set, zero value otherwise.
-func (o *O11yCompositeQuery) GetPanelType() string {
-	if o == nil || IsNil(o.PanelType) {
-		var ret string
-		return ret
-	}
-	return *o.PanelType
-}
-
-// GetPanelTypeOk returns a tuple with the PanelType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11yCompositeQuery) GetPanelTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.PanelType) {
-		return nil, false
-	}
-	return o.PanelType, true
-}
-
-// HasPanelType returns a boolean if a field has been set.
-func (o *O11yCompositeQuery) HasPanelType() bool {
-	if o != nil && !IsNil(o.PanelType) {
-		return true
-	}
-
-	return false
-}
-
-// SetPanelType gets a reference to the given string and assigns it to the PanelType field.
-func (o *O11yCompositeQuery) SetPanelType(v string) {
-	o.PanelType = &v
-}
-
-// GetPromQueries returns the PromQueries field value if set, zero value otherwise.
-func (o *O11yCompositeQuery) GetPromQueries() map[string]O11yPromQuery {
-	if o == nil || IsNil(o.PromQueries) {
-		var ret map[string]O11yPromQuery
-		return ret
-	}
-	return o.PromQueries
-}
-
-// GetPromQueriesOk returns a tuple with the PromQueries field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11yCompositeQuery) GetPromQueriesOk() (map[string]O11yPromQuery, bool) {
-	if o == nil || IsNil(o.PromQueries) {
-		return map[string]O11yPromQuery{}, false
-	}
-	return o.PromQueries, true
-}
-
-// HasPromQueries returns a boolean if a field has been set.
-func (o *O11yCompositeQuery) HasPromQueries() bool {
-	if o != nil && !IsNil(o.PromQueries) {
-		return true
-	}
-
-	return false
-}
-
-// SetPromQueries gets a reference to the given map[string]O11yPromQuery and assigns it to the PromQueries field.
-func (o *O11yCompositeQuery) SetPromQueries(v map[string]O11yPromQuery) {
-	o.PromQueries = v
 }
 
 // GetQueries returns the Queries field value if set, zero value otherwise.
@@ -240,70 +75,6 @@ func (o *O11yCompositeQuery) SetQueries(v []O11yQueryEnvelope) {
 	o.Queries = v
 }
 
-// GetQueryType returns the QueryType field value if set, zero value otherwise.
-func (o *O11yCompositeQuery) GetQueryType() string {
-	if o == nil || IsNil(o.QueryType) {
-		var ret string
-		return ret
-	}
-	return *o.QueryType
-}
-
-// GetQueryTypeOk returns a tuple with the QueryType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11yCompositeQuery) GetQueryTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.QueryType) {
-		return nil, false
-	}
-	return o.QueryType, true
-}
-
-// HasQueryType returns a boolean if a field has been set.
-func (o *O11yCompositeQuery) HasQueryType() bool {
-	if o != nil && !IsNil(o.QueryType) {
-		return true
-	}
-
-	return false
-}
-
-// SetQueryType gets a reference to the given string and assigns it to the QueryType field.
-func (o *O11yCompositeQuery) SetQueryType(v string) {
-	o.QueryType = &v
-}
-
-// GetUnit returns the Unit field value if set, zero value otherwise.
-func (o *O11yCompositeQuery) GetUnit() string {
-	if o == nil || IsNil(o.Unit) {
-		var ret string
-		return ret
-	}
-	return *o.Unit
-}
-
-// GetUnitOk returns a tuple with the Unit field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *O11yCompositeQuery) GetUnitOk() (*string, bool) {
-	if o == nil || IsNil(o.Unit) {
-		return nil, false
-	}
-	return o.Unit, true
-}
-
-// HasUnit returns a boolean if a field has been set.
-func (o *O11yCompositeQuery) HasUnit() bool {
-	if o != nil && !IsNil(o.Unit) {
-		return true
-	}
-
-	return false
-}
-
-// SetUnit gets a reference to the given string and assigns it to the Unit field.
-func (o *O11yCompositeQuery) SetUnit(v string) {
-	o.Unit = &v
-}
-
 func (o O11yCompositeQuery) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -314,31 +85,36 @@ func (o O11yCompositeQuery) MarshalJSON() ([]byte, error) {
 
 func (o O11yCompositeQuery) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.BuilderQueries) {
-		toSerialize["builderQueries"] = o.BuilderQueries
-	}
-	if !IsNil(o.ChQueries) {
-		toSerialize["chQueries"] = o.ChQueries
-	}
-	if !IsNil(o.FillGaps) {
-		toSerialize["fillGaps"] = o.FillGaps
-	}
-	if !IsNil(o.PanelType) {
-		toSerialize["panelType"] = o.PanelType
-	}
-	if !IsNil(o.PromQueries) {
-		toSerialize["promQueries"] = o.PromQueries
-	}
 	if !IsNil(o.Queries) {
 		toSerialize["queries"] = o.Queries
 	}
-	if !IsNil(o.QueryType) {
-		toSerialize["queryType"] = o.QueryType
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Unit) {
-		toSerialize["unit"] = o.Unit
-	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yCompositeQuery) UnmarshalJSON(data []byte) (err error) {
+	varO11yCompositeQuery := _O11yCompositeQuery{}
+
+	err = json.Unmarshal(data, &varO11yCompositeQuery)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yCompositeQuery(varO11yCompositeQuery)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "queries")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yCompositeQuery struct {

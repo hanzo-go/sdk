@@ -19,11 +19,13 @@ var _ MappedNullable = &DeclareEnv{}
 
 // DeclareEnv struct for DeclareEnv
 type DeclareEnv struct {
-	Name *string `json:"name,omitempty"`
-	// Public marks a value that may be WRITTEN INTO GIT. Absent, it is false, and the value is sealed into KMS and referenced.  ★ THE DEFAULT IS SECRET, AND THE POLARITY IS THE WHOLE DESIGN. This lane's output is a commit in a repository replicated to every clone, so a misclassification is not a bug to fix later — it is a credential published forever. A heuristic classifier fails in both directions; what decides is which direction it fails IN. Seal-by-default makes the failure mode \"an operator cannot read back a config value\", which is a support ticket. Classify-by-shape made it \"a password is in git history\", which is an incident with no rollback.  It is also the only rule that needs no list. PGPASSWORD, *_PW, a symbol-rich password, a KUBECONFIG, a base32 MFA seed — every one of them slipped a shape classifier, and each miss was a different reason. There is no reason left when the default is to seal.
-	Public *bool   `json:"public,omitempty"`
-	Value  *string `json:"value,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Public               *bool   `json:"public,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeclareEnv DeclareEnv
 
 // NewDeclareEnv instantiates a new DeclareEnv object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +159,35 @@ func (o DeclareEnv) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeclareEnv) UnmarshalJSON(data []byte) (err error) {
+	varDeclareEnv := _DeclareEnv{}
+
+	err = json.Unmarshal(data, &varDeclareEnv)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeclareEnv(varDeclareEnv)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "public")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeclareEnv struct {

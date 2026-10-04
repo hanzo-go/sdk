@@ -30,8 +30,11 @@ type O11yO11yMetricPanel struct {
 	// PanelID is the panel's id.
 	PanelId *string `json:"panelId,omitempty"`
 	// PanelName is the panel's name.
-	PanelName *string `json:"panelName,omitempty"`
+	PanelName            *string `json:"panelName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricPanel O11yO11yMetricPanel
 
 // NewO11yO11yMetricPanel instantiates a new O11yO11yMetricPanel object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o O11yO11yMetricPanel) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PanelName) {
 		toSerialize["panelName"] = o.PanelName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricPanel) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricPanel := _O11yO11yMetricPanel{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricPanel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricPanel(varO11yO11yMetricPanel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dashboardId")
+		delete(additionalProperties, "dashboardName")
+		delete(additionalProperties, "filterBy")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "panelId")
+		delete(additionalProperties, "panelName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricPanel struct {

@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 ## GetSocialAccounts
 
-> SocialAccounts GetSocialAccounts(ctx).Provider(provider).Limit(limit).Execute()
+> SocialSocialAccounts GetSocialAccounts(ctx).Provider(provider).Limit(limit).Execute()
 
 Returns the org's connected accounts — each one's id, network, handle, status and timestamps, most-recently-updated first.
 
@@ -187,7 +187,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSocialAccounts`: SocialAccounts
+	// response from `GetSocialAccounts`: SocialSocialAccounts
 	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.GetSocialAccounts`: %v\n", resp)
 }
 ```
@@ -208,7 +208,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SocialAccounts**](SocialAccounts.md)
+[**SocialSocialAccounts**](SocialSocialAccounts.md)
 
 ### Authorization
 
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 
 ## GetSocialAccountsById
 
-> SocialAccount GetSocialAccountsById(ctx, id).Execute()
+> SocialSocialAccount GetSocialAccountsById(ctx, id).Execute()
 
 Returns one of the org's connected accounts by id — its network, handle, status and timestamps — or 404.
 
@@ -254,7 +254,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialAccountsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSocialAccountsById`: SocialAccount
+	// response from `GetSocialAccountsById`: SocialSocialAccount
 	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.GetSocialAccountsById`: %v\n", resp)
 }
 ```
@@ -278,7 +278,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SocialAccount**](SocialAccount.md)
+[**SocialSocialAccount**](SocialSocialAccount.md)
 
 ### Authorization
 
@@ -287,7 +287,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -296,7 +296,7 @@ Name | Type | Description  | Notes
 
 ## GetSocialPosts
 
-> SocialPosts GetSocialPosts(ctx).Status(status).Limit(limit).Execute()
+> SocialSocialPosts GetSocialPosts(ctx).Status(status).Limit(limit).Execute()
 
 Returns the org's posts — content, channel, status, scheduled time, media and timestamps — most-recently-updated first.
 
@@ -325,7 +325,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialPosts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSocialPosts`: SocialPosts
+	// response from `GetSocialPosts`: SocialSocialPosts
 	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.GetSocialPosts`: %v\n", resp)
 }
 ```
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SocialPosts**](SocialPosts.md)
+[**SocialSocialPosts**](SocialSocialPosts.md)
 
 ### Authorization
 
@@ -355,7 +355,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -364,7 +364,7 @@ Name | Type | Description  | Notes
 
 ## GetSocialPostsById
 
-> SocialPost GetSocialPostsById(ctx, id).Execute()
+> SocialSocialPost GetSocialPostsById(ctx, id).Execute()
 
 Returns one of the org's posts by id, with its current status, scheduled time, media and — once it has published — the account and external id it published under.
 
@@ -392,7 +392,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialPostsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSocialPostsById`: SocialPost
+	// response from `GetSocialPostsById`: SocialSocialPost
 	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.GetSocialPostsById`: %v\n", resp)
 }
 ```
@@ -416,7 +416,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SocialPost**](SocialPost.md)
+[**SocialSocialPost**](SocialSocialPost.md)
 
 ### Authorization
 
@@ -425,7 +425,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -434,7 +434,7 @@ Name | Type | Description  | Notes
 
 ## GetSocialProviders
 
-> SocialProviders GetSocialProviders(ctx).Execute()
+> SocialSocialProviders GetSocialProviders(ctx).Execute()
 
 Reports each supported network's publish-readiness: whether this deployment holds the OAuth application credentials for it and, when it does not, exactly which environment variables are missing.
 
@@ -461,7 +461,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialProviders``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSocialProviders`: SocialProviders
+	// response from `GetSocialProviders`: SocialSocialProviders
 	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.GetSocialProviders`: %v\n", resp)
 }
 ```
@@ -477,7 +477,7 @@ Other parameters are passed through a pointer to a apiGetSocialProvidersRequest 
 
 ### Return type
 
-[**SocialProviders**](SocialProviders.md)
+[**SocialSocialProviders**](SocialSocialProviders.md)
 
 ### Authorization
 
@@ -486,7 +486,7 @@ Other parameters are passed through a pointer to a apiGetSocialProvidersRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -495,7 +495,7 @@ Other parameters are passed through a pointer to a apiGetSocialProvidersRequest 
 
 ## GetSocialSummary
 
-> SocialSummary GetSocialSummary(ctx).Execute()
+> SocialSocialSummary GetSocialSummary(ctx).Execute()
 
 Returns four counts for the caller's org: total posts, how many are scheduled, how many have published, and how many accounts are connected.
 
@@ -522,7 +522,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.GetSocialSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSocialSummary`: SocialSummary
+	// response from `GetSocialSummary`: SocialSocialSummary
 	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.GetSocialSummary`: %v\n", resp)
 }
 ```
@@ -538,7 +538,7 @@ Other parameters are passed through a pointer to a apiGetSocialSummaryRequest st
 
 ### Return type
 
-[**SocialSummary**](SocialSummary.md)
+[**SocialSocialSummary**](SocialSocialSummary.md)
 
 ### Authorization
 
@@ -547,7 +547,7 @@ Other parameters are passed through a pointer to a apiGetSocialSummaryRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -556,7 +556,7 @@ Other parameters are passed through a pointer to a apiGetSocialSummaryRequest st
 
 ## PostSocialAccounts
 
-> SocialAccount PostSocialAccounts(ctx).SocialAccountBody(socialAccountBody).Execute()
+> SocialSocialAccount PostSocialAccounts(ctx).SocialSocialAccountBody(socialSocialAccountBody).Execute()
 
 Records a social account for the org and answers 201 with the stored row, including the generated id later calls address it by.
 
@@ -575,16 +575,16 @@ import (
 )
 
 func main() {
-	socialAccountBody := *openapiclient.NewSocialAccountBody() // SocialAccountBody | 
+	socialSocialAccountBody := *openapiclient.NewSocialSocialAccountBody() // SocialSocialAccountBody | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SocialAPI.PostSocialAccounts(context.Background()).SocialAccountBody(socialAccountBody).Execute()
+	resp, r, err := apiClient.SocialAPI.PostSocialAccounts(context.Background()).SocialSocialAccountBody(socialSocialAccountBody).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.PostSocialAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostSocialAccounts`: SocialAccount
+	// response from `PostSocialAccounts`: SocialSocialAccount
 	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.PostSocialAccounts`: %v\n", resp)
 }
 ```
@@ -600,11 +600,11 @@ Other parameters are passed through a pointer to a apiPostSocialAccountsRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **socialAccountBody** | [**SocialAccountBody**](SocialAccountBody.md) |  | 
+ **socialSocialAccountBody** | [**SocialSocialAccountBody**](SocialSocialAccountBody.md) |  | 
 
 ### Return type
 
-[**SocialAccount**](SocialAccount.md)
+[**SocialSocialAccount**](SocialSocialAccount.md)
 
 ### Authorization
 
@@ -613,7 +613,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -622,7 +622,7 @@ Name | Type | Description  | Notes
 
 ## PostSocialPosts
 
-> SocialPost PostSocialPosts(ctx).SocialPostBody(socialPostBody).Execute()
+> SocialSocialPost PostSocialPosts(ctx).SocialSocialPostBody(socialSocialPostBody).Execute()
 
 Stores a post for the org and answers 201 with the stored row.
 
@@ -641,16 +641,16 @@ import (
 )
 
 func main() {
-	socialPostBody := *openapiclient.NewSocialPostBody() // SocialPostBody | 
+	socialSocialPostBody := *openapiclient.NewSocialSocialPostBody() // SocialSocialPostBody | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SocialAPI.PostSocialPosts(context.Background()).SocialPostBody(socialPostBody).Execute()
+	resp, r, err := apiClient.SocialAPI.PostSocialPosts(context.Background()).SocialSocialPostBody(socialSocialPostBody).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.PostSocialPosts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostSocialPosts`: SocialPost
+	// response from `PostSocialPosts`: SocialSocialPost
 	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.PostSocialPosts`: %v\n", resp)
 }
 ```
@@ -666,11 +666,11 @@ Other parameters are passed through a pointer to a apiPostSocialPostsRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **socialPostBody** | [**SocialPostBody**](SocialPostBody.md) |  | 
+ **socialSocialPostBody** | [**SocialSocialPostBody**](SocialSocialPostBody.md) |  | 
 
 ### Return type
 
-[**SocialPost**](SocialPost.md)
+[**SocialSocialPost**](SocialSocialPost.md)
 
 ### Authorization
 
@@ -679,7 +679,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -688,7 +688,7 @@ Name | Type | Description  | Notes
 
 ## PostSocialPostsByIdPublish
 
-> SocialPost PostSocialPostsByIdPublish(ctx, id).Execute()
+> SocialSocialPost PostSocialPostsByIdPublish(ctx, id).Execute()
 
 Publishes the post immediately to the connected accounts on its channel and answers with the updated row, carrying the account and external id it published under.
 
@@ -716,7 +716,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.PostSocialPostsByIdPublish``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostSocialPostsByIdPublish`: SocialPost
+	// response from `PostSocialPostsByIdPublish`: SocialSocialPost
 	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.PostSocialPostsByIdPublish`: %v\n", resp)
 }
 ```
@@ -740,7 +740,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SocialPost**](SocialPost.md)
+[**SocialSocialPost**](SocialSocialPost.md)
 
 ### Authorization
 
@@ -749,7 +749,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -758,7 +758,7 @@ Name | Type | Description  | Notes
 
 ## PutSocialAccountsById
 
-> SocialAccount PutSocialAccountsById(ctx, id).SocialAccountWrite(socialAccountWrite).Execute()
+> SocialSocialAccount PutSocialAccountsById(ctx, id).SocialSocialAccountWrite(socialSocialAccountWrite).Execute()
 
 Replaces the account's network, handle and status with what the body carries, and answers with the stored row.
 
@@ -778,16 +778,16 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	socialAccountWrite := *openapiclient.NewSocialAccountWrite() // SocialAccountWrite | 
+	socialSocialAccountWrite := *openapiclient.NewSocialSocialAccountWrite() // SocialSocialAccountWrite | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SocialAPI.PutSocialAccountsById(context.Background(), id).SocialAccountWrite(socialAccountWrite).Execute()
+	resp, r, err := apiClient.SocialAPI.PutSocialAccountsById(context.Background(), id).SocialSocialAccountWrite(socialSocialAccountWrite).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.PutSocialAccountsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutSocialAccountsById`: SocialAccount
+	// response from `PutSocialAccountsById`: SocialSocialAccount
 	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.PutSocialAccountsById`: %v\n", resp)
 }
 ```
@@ -808,11 +808,11 @@ Other parameters are passed through a pointer to a apiPutSocialAccountsByIdReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **socialAccountWrite** | [**SocialAccountWrite**](SocialAccountWrite.md) |  | 
+ **socialSocialAccountWrite** | [**SocialSocialAccountWrite**](SocialSocialAccountWrite.md) |  | 
 
 ### Return type
 
-[**SocialAccount**](SocialAccount.md)
+[**SocialSocialAccount**](SocialSocialAccount.md)
 
 ### Authorization
 
@@ -821,7 +821,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -830,7 +830,7 @@ Name | Type | Description  | Notes
 
 ## PutSocialPostsById
 
-> SocialPost PutSocialPostsById(ctx, id).SocialPostWrite(socialPostWrite).Execute()
+> SocialSocialPost PutSocialPostsById(ctx, id).SocialSocialPostWrite(socialSocialPostWrite).Execute()
 
 Replaces the post's content, channel, status, scheduled time and media with what the body carries, and answers with the stored row.
 
@@ -850,16 +850,16 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	socialPostWrite := *openapiclient.NewSocialPostWrite() // SocialPostWrite | 
+	socialSocialPostWrite := *openapiclient.NewSocialSocialPostWrite() // SocialSocialPostWrite | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SocialAPI.PutSocialPostsById(context.Background(), id).SocialPostWrite(socialPostWrite).Execute()
+	resp, r, err := apiClient.SocialAPI.PutSocialPostsById(context.Background(), id).SocialSocialPostWrite(socialSocialPostWrite).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SocialAPI.PutSocialPostsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutSocialPostsById`: SocialPost
+	// response from `PutSocialPostsById`: SocialSocialPost
 	fmt.Fprintf(os.Stdout, "Response from `SocialAPI.PutSocialPostsById`: %v\n", resp)
 }
 ```
@@ -880,11 +880,11 @@ Other parameters are passed through a pointer to a apiPutSocialPostsByIdRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **socialPostWrite** | [**SocialPostWrite**](SocialPostWrite.md) |  | 
+ **socialSocialPostWrite** | [**SocialSocialPostWrite**](SocialSocialPostWrite.md) |  | 
 
 ### Return type
 
-[**SocialPost**](SocialPost.md)
+[**SocialSocialPost**](SocialSocialPost.md)
 
 ### Authorization
 
@@ -893,7 +893,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

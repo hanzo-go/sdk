@@ -27,7 +27,7 @@ type ExperimentAPIGetExperimentRequest struct {
 	ApiService *ExperimentAPIService
 }
 
-func (r ExperimentAPIGetExperimentRequest) Execute() (*ExperimentList, *http.Response, error) {
+func (r ExperimentAPIGetExperimentRequest) Execute() (*ExperimentExperimentList, *http.Response, error) {
 	return r.ApiService.GetExperimentExecute(r)
 }
 
@@ -59,13 +59,13 @@ func (a *ExperimentAPIService) GetExperiment(ctx context.Context) ExperimentAPIG
 
 // Execute executes the request
 //
-//	@return ExperimentList
-func (a *ExperimentAPIService) GetExperimentExecute(r ExperimentAPIGetExperimentRequest) (*ExperimentList, *http.Response, error) {
+//	@return ExperimentExperimentList
+func (a *ExperimentAPIService) GetExperimentExecute(r ExperimentAPIGetExperimentRequest) (*ExperimentExperimentList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ExperimentList
+		localVarReturnValue *ExperimentExperimentList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExperimentAPIService.GetExperiment")
@@ -89,7 +89,7 @@ func (a *ExperimentAPIService) GetExperimentExecute(r ExperimentAPIGetExperiment
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -118,6 +118,14 @@ func (a *ExperimentAPIService) GetExperimentExecute(r ExperimentAPIGetExperiment
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -139,7 +147,7 @@ type ExperimentAPIGetExperimentByIdRequest struct {
 	id         string
 }
 
-func (r ExperimentAPIGetExperimentByIdRequest) Execute() (*Trial, *http.Response, error) {
+func (r ExperimentAPIGetExperimentByIdRequest) Execute() (*ExperimentTrial, *http.Response, error) {
 	return r.ApiService.GetExperimentByIdExecute(r)
 }
 
@@ -172,13 +180,13 @@ func (a *ExperimentAPIService) GetExperimentById(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return Trial
-func (a *ExperimentAPIService) GetExperimentByIdExecute(r ExperimentAPIGetExperimentByIdRequest) (*Trial, *http.Response, error) {
+//	@return ExperimentTrial
+func (a *ExperimentAPIService) GetExperimentByIdExecute(r ExperimentAPIGetExperimentByIdRequest) (*ExperimentTrial, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Trial
+		localVarReturnValue *ExperimentTrial
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExperimentAPIService.GetExperimentById")
@@ -203,7 +211,7 @@ func (a *ExperimentAPIService) GetExperimentByIdExecute(r ExperimentAPIGetExperi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -232,6 +240,14 @@ func (a *ExperimentAPIService) GetExperimentByIdExecute(r ExperimentAPIGetExperi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -267,7 +283,7 @@ func (r ExperimentAPIGetExperimentByIdAssignRequest) Props(props string) Experim
 	return r
 }
 
-func (r ExperimentAPIGetExperimentByIdAssignRequest) Execute() (*Assignment, *http.Response, error) {
+func (r ExperimentAPIGetExperimentByIdAssignRequest) Execute() (*ExperimentAssignment, *http.Response, error) {
 	return r.ApiService.GetExperimentByIdAssignExecute(r)
 }
 
@@ -302,13 +318,13 @@ func (a *ExperimentAPIService) GetExperimentByIdAssign(ctx context.Context, id s
 
 // Execute executes the request
 //
-//	@return Assignment
-func (a *ExperimentAPIService) GetExperimentByIdAssignExecute(r ExperimentAPIGetExperimentByIdAssignRequest) (*Assignment, *http.Response, error) {
+//	@return ExperimentAssignment
+func (a *ExperimentAPIService) GetExperimentByIdAssignExecute(r ExperimentAPIGetExperimentByIdAssignRequest) (*ExperimentAssignment, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Assignment
+		localVarReturnValue *ExperimentAssignment
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExperimentAPIService.GetExperimentByIdAssign")
@@ -340,7 +356,7 @@ func (a *ExperimentAPIService) GetExperimentByIdAssignExecute(r ExperimentAPIGet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -369,6 +385,14 @@ func (a *ExperimentAPIService) GetExperimentByIdAssignExecute(r ExperimentAPIGet
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -389,7 +413,7 @@ type ExperimentAPIGetExperimentHealthRequest struct {
 	ApiService *ExperimentAPIService
 }
 
-func (r ExperimentAPIGetExperimentHealthRequest) Execute() (*Health, *http.Response, error) {
+func (r ExperimentAPIGetExperimentHealthRequest) Execute() (*ExperimentHealth, *http.Response, error) {
 	return r.ApiService.GetExperimentHealthExecute(r)
 }
 
@@ -422,13 +446,13 @@ func (a *ExperimentAPIService) GetExperimentHealth(ctx context.Context) Experime
 
 // Execute executes the request
 //
-//	@return Health
-func (a *ExperimentAPIService) GetExperimentHealthExecute(r ExperimentAPIGetExperimentHealthRequest) (*Health, *http.Response, error) {
+//	@return ExperimentHealth
+func (a *ExperimentAPIService) GetExperimentHealthExecute(r ExperimentAPIGetExperimentHealthRequest) (*ExperimentHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Health
+		localVarReturnValue *ExperimentHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExperimentAPIService.GetExperimentHealth")
@@ -452,7 +476,7 @@ func (a *ExperimentAPIService) GetExperimentHealthExecute(r ExperimentAPIGetExpe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -481,6 +505,14 @@ func (a *ExperimentAPIService) GetExperimentHealthExecute(r ExperimentAPIGetExpe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -497,17 +529,17 @@ func (a *ExperimentAPIService) GetExperimentHealthExecute(r ExperimentAPIGetExpe
 }
 
 type ExperimentAPIPostExperimentRequest struct {
-	ctx        context.Context
-	ApiService *ExperimentAPIService
-	createBody *CreateBody
+	ctx                  context.Context
+	ApiService           *ExperimentAPIService
+	experimentCreateBody *ExperimentCreateBody
 }
 
-func (r ExperimentAPIPostExperimentRequest) CreateBody(createBody CreateBody) ExperimentAPIPostExperimentRequest {
-	r.createBody = &createBody
+func (r ExperimentAPIPostExperimentRequest) ExperimentCreateBody(experimentCreateBody ExperimentCreateBody) ExperimentAPIPostExperimentRequest {
+	r.experimentCreateBody = &experimentCreateBody
 	return r
 }
 
-func (r ExperimentAPIPostExperimentRequest) Execute() (*Trial, *http.Response, error) {
+func (r ExperimentAPIPostExperimentRequest) Execute() (*ExperimentTrial, *http.Response, error) {
 	return r.ApiService.PostExperimentExecute(r)
 }
 
@@ -543,13 +575,13 @@ func (a *ExperimentAPIService) PostExperiment(ctx context.Context) ExperimentAPI
 
 // Execute executes the request
 //
-//	@return Trial
-func (a *ExperimentAPIService) PostExperimentExecute(r ExperimentAPIPostExperimentRequest) (*Trial, *http.Response, error) {
+//	@return ExperimentTrial
+func (a *ExperimentAPIService) PostExperimentExecute(r ExperimentAPIPostExperimentRequest) (*ExperimentTrial, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Trial
+		localVarReturnValue *ExperimentTrial
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExperimentAPIService.PostExperiment")
@@ -562,8 +594,8 @@ func (a *ExperimentAPIService) PostExperimentExecute(r ExperimentAPIPostExperime
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createBody == nil {
-		return localVarReturnValue, nil, reportError("createBody is required and must be specified")
+	if r.experimentCreateBody == nil {
+		return localVarReturnValue, nil, reportError("experimentCreateBody is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -576,7 +608,7 @@ func (a *ExperimentAPIService) PostExperimentExecute(r ExperimentAPIPostExperime
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -584,7 +616,7 @@ func (a *ExperimentAPIService) PostExperimentExecute(r ExperimentAPIPostExperime
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createBody
+	localVarPostBody = r.experimentCreateBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -607,6 +639,14 @@ func (a *ExperimentAPIService) PostExperimentExecute(r ExperimentAPIPostExperime
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -623,18 +663,18 @@ func (a *ExperimentAPIService) PostExperimentExecute(r ExperimentAPIPostExperime
 }
 
 type ExperimentAPIPostExperimentByIdAnalyzeRequest struct {
-	ctx          context.Context
-	ApiService   *ExperimentAPIService
-	id           string
-	analyzeQuery *AnalyzeQuery
+	ctx                    context.Context
+	ApiService             *ExperimentAPIService
+	id                     string
+	experimentAnalyzeQuery *ExperimentAnalyzeQuery
 }
 
-func (r ExperimentAPIPostExperimentByIdAnalyzeRequest) AnalyzeQuery(analyzeQuery AnalyzeQuery) ExperimentAPIPostExperimentByIdAnalyzeRequest {
-	r.analyzeQuery = &analyzeQuery
+func (r ExperimentAPIPostExperimentByIdAnalyzeRequest) ExperimentAnalyzeQuery(experimentAnalyzeQuery ExperimentAnalyzeQuery) ExperimentAPIPostExperimentByIdAnalyzeRequest {
+	r.experimentAnalyzeQuery = &experimentAnalyzeQuery
 	return r
 }
 
-func (r ExperimentAPIPostExperimentByIdAnalyzeRequest) Execute() (*Analysis, *http.Response, error) {
+func (r ExperimentAPIPostExperimentByIdAnalyzeRequest) Execute() (*ExperimentAnalysis, *http.Response, error) {
 	return r.ApiService.PostExperimentByIdAnalyzeExecute(r)
 }
 
@@ -684,13 +724,13 @@ func (a *ExperimentAPIService) PostExperimentByIdAnalyze(ctx context.Context, id
 
 // Execute executes the request
 //
-//	@return Analysis
-func (a *ExperimentAPIService) PostExperimentByIdAnalyzeExecute(r ExperimentAPIPostExperimentByIdAnalyzeRequest) (*Analysis, *http.Response, error) {
+//	@return ExperimentAnalysis
+func (a *ExperimentAPIService) PostExperimentByIdAnalyzeExecute(r ExperimentAPIPostExperimentByIdAnalyzeRequest) (*ExperimentAnalysis, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Analysis
+		localVarReturnValue *ExperimentAnalysis
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExperimentAPIService.PostExperimentByIdAnalyze")
@@ -704,8 +744,8 @@ func (a *ExperimentAPIService) PostExperimentByIdAnalyzeExecute(r ExperimentAPIP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.analyzeQuery == nil {
-		return localVarReturnValue, nil, reportError("analyzeQuery is required and must be specified")
+	if r.experimentAnalyzeQuery == nil {
+		return localVarReturnValue, nil, reportError("experimentAnalyzeQuery is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -718,7 +758,7 @@ func (a *ExperimentAPIService) PostExperimentByIdAnalyzeExecute(r ExperimentAPIP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -726,7 +766,7 @@ func (a *ExperimentAPIService) PostExperimentByIdAnalyzeExecute(r ExperimentAPIP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.analyzeQuery
+	localVarPostBody = r.experimentAnalyzeQuery
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -749,6 +789,14 @@ func (a *ExperimentAPIService) PostExperimentByIdAnalyzeExecute(r ExperimentAPIP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -765,18 +813,18 @@ func (a *ExperimentAPIService) PostExperimentByIdAnalyzeExecute(r ExperimentAPIP
 }
 
 type ExperimentAPIPostExperimentByIdDecideRequest struct {
-	ctx        context.Context
-	ApiService *ExperimentAPIService
-	id         string
-	decideBody *DecideBody
+	ctx                  context.Context
+	ApiService           *ExperimentAPIService
+	id                   string
+	experimentDecideBody *ExperimentDecideBody
 }
 
-func (r ExperimentAPIPostExperimentByIdDecideRequest) DecideBody(decideBody DecideBody) ExperimentAPIPostExperimentByIdDecideRequest {
-	r.decideBody = &decideBody
+func (r ExperimentAPIPostExperimentByIdDecideRequest) ExperimentDecideBody(experimentDecideBody ExperimentDecideBody) ExperimentAPIPostExperimentByIdDecideRequest {
+	r.experimentDecideBody = &experimentDecideBody
 	return r
 }
 
-func (r ExperimentAPIPostExperimentByIdDecideRequest) Execute() (*Trial, *http.Response, error) {
+func (r ExperimentAPIPostExperimentByIdDecideRequest) Execute() (*ExperimentTrial, *http.Response, error) {
 	return r.ApiService.PostExperimentByIdDecideExecute(r)
 }
 
@@ -821,13 +869,13 @@ func (a *ExperimentAPIService) PostExperimentByIdDecide(ctx context.Context, id 
 
 // Execute executes the request
 //
-//	@return Trial
-func (a *ExperimentAPIService) PostExperimentByIdDecideExecute(r ExperimentAPIPostExperimentByIdDecideRequest) (*Trial, *http.Response, error) {
+//	@return ExperimentTrial
+func (a *ExperimentAPIService) PostExperimentByIdDecideExecute(r ExperimentAPIPostExperimentByIdDecideRequest) (*ExperimentTrial, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Trial
+		localVarReturnValue *ExperimentTrial
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExperimentAPIService.PostExperimentByIdDecide")
@@ -841,8 +889,8 @@ func (a *ExperimentAPIService) PostExperimentByIdDecideExecute(r ExperimentAPIPo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.decideBody == nil {
-		return localVarReturnValue, nil, reportError("decideBody is required and must be specified")
+	if r.experimentDecideBody == nil {
+		return localVarReturnValue, nil, reportError("experimentDecideBody is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -855,7 +903,7 @@ func (a *ExperimentAPIService) PostExperimentByIdDecideExecute(r ExperimentAPIPo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -863,7 +911,7 @@ func (a *ExperimentAPIService) PostExperimentByIdDecideExecute(r ExperimentAPIPo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.decideBody
+	localVarPostBody = r.experimentDecideBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -886,6 +934,14 @@ func (a *ExperimentAPIService) PostExperimentByIdDecideExecute(r ExperimentAPIPo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

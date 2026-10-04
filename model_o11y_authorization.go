@@ -22,9 +22,12 @@ type O11yAuthorization struct {
 	Credentials     interface{} `json:"credentials,omitempty"`
 	CredentialsFile *string     `json:"credentials_file,omitempty"`
 	// CredentialsRef is the name of the secret within the secret manager to use as credentials.
-	CredentialsRef *string `json:"credentials_ref,omitempty"`
-	Type           *string `json:"type,omitempty"`
+	CredentialsRef       *string `json:"credentials_ref,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAuthorization O11yAuthorization
 
 // NewO11yAuthorization instantiates a new O11yAuthorization object
 // This constructor will assign default values to properties that have it defined,
@@ -194,7 +197,36 @@ func (o O11yAuthorization) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAuthorization) UnmarshalJSON(data []byte) (err error) {
+	varO11yAuthorization := _O11yAuthorization{}
+
+	err = json.Unmarshal(data, &varO11yAuthorization)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAuthorization(varO11yAuthorization)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "credentials")
+		delete(additionalProperties, "credentials_file")
+		delete(additionalProperties, "credentials_ref")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAuthorization struct {

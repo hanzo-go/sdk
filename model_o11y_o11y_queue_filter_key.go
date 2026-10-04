@@ -28,8 +28,11 @@ type O11yO11yQueueFilterKey struct {
 	// Key is the attribute name.
 	Key *string `json:"key,omitempty"`
 	// Type says which plane the attribute lives on: tag or resource.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueueFilterKey O11yO11yQueueFilterKey
 
 // NewO11yO11yQueueFilterKey instantiates a new O11yO11yQueueFilterKey object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yQueueFilterKey) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueueFilterKey) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueueFilterKey := _O11yO11yQueueFilterKey{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueueFilterKey)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueueFilterKey(varO11yO11yQueueFilterKey)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dataType")
+		delete(additionalProperties, "isColumn")
+		delete(additionalProperties, "isJSON")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueueFilterKey struct {

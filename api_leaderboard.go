@@ -54,14 +54,14 @@ func (r LeaderboardAPIGetLeaderboardRequest) Limit(limit int64) LeaderboardAPIGe
 	return r
 }
 
-func (r LeaderboardAPIGetLeaderboardRequest) Execute() (*LeaderboardView, *http.Response, error) {
+func (r LeaderboardAPIGetLeaderboardRequest) Execute() (*LeaderboardLeaderboardView, *http.Response, error) {
 	return r.ApiService.GetLeaderboardExecute(r)
 }
 
 /*
-GetLeaderboard Leaderboard ranks AI usage over a window, either the users of the caller's own org or organizations against each other, and always reports the caller's own standing even when it falls outside the returned page.
+GetLeaderboard Ranks AI usage over a window, either the users of the caller's own org or organizations against each other, and always reports the caller's own standing even when it falls outside the returned page.
 
-Leaderboard ranks AI usage over a window, either the users of the caller's own org
+Ranks AI usage over a window, either the users of the caller's own org
 or organizations against each other, and always reports the caller's own standing
 even when it falls outside the returned page. Identities are private by default: a
 caller sees themselves, plus the peers or orgs that opted into public listing, and
@@ -81,13 +81,13 @@ func (a *LeaderboardAPIService) GetLeaderboard(ctx context.Context) LeaderboardA
 
 // Execute executes the request
 //
-//	@return LeaderboardView
-func (a *LeaderboardAPIService) GetLeaderboardExecute(r LeaderboardAPIGetLeaderboardRequest) (*LeaderboardView, *http.Response, error) {
+//	@return LeaderboardLeaderboardView
+func (a *LeaderboardAPIService) GetLeaderboardExecute(r LeaderboardAPIGetLeaderboardRequest) (*LeaderboardLeaderboardView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *LeaderboardView
+		localVarReturnValue *LeaderboardLeaderboardView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LeaderboardAPIService.GetLeaderboard")
@@ -123,7 +123,7 @@ func (a *LeaderboardAPIService) GetLeaderboardExecute(r LeaderboardAPIGetLeaderb
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -152,6 +152,14 @@ func (a *LeaderboardAPIService) GetLeaderboardExecute(r LeaderboardAPIGetLeaderb
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -200,14 +208,14 @@ func (r LeaderboardAPIGetLeaderboardActivityRequest) To(to string) LeaderboardAP
 	return r
 }
 
-func (r LeaderboardAPIGetLeaderboardActivityRequest) Execute() (*ActivityView, *http.Response, error) {
+func (r LeaderboardAPIGetLeaderboardActivityRequest) Execute() (*LeaderboardActivityView, *http.Response, error) {
 	return r.ApiService.GetLeaderboardActivityExecute(r)
 }
 
 /*
-GetLeaderboardActivity Activity returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
+GetLeaderboardActivity Returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
 
-Activity returns the per-day usage series for ONE authorized subject — the points a
+Returns the per-day usage series for ONE authorized subject — the points a
 contribution heatmap and a timeline are drawn from, gap-filled so every day in the
 range is present. Authorization is resolved server-side from the validated
 principal, so a caller can never widen the subject past what they are entitled to:
@@ -228,13 +236,13 @@ func (a *LeaderboardAPIService) GetLeaderboardActivity(ctx context.Context) Lead
 
 // Execute executes the request
 //
-//	@return ActivityView
-func (a *LeaderboardAPIService) GetLeaderboardActivityExecute(r LeaderboardAPIGetLeaderboardActivityRequest) (*ActivityView, *http.Response, error) {
+//	@return LeaderboardActivityView
+func (a *LeaderboardAPIService) GetLeaderboardActivityExecute(r LeaderboardAPIGetLeaderboardActivityRequest) (*LeaderboardActivityView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ActivityView
+		localVarReturnValue *LeaderboardActivityView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LeaderboardAPIService.GetLeaderboardActivity")
@@ -270,7 +278,7 @@ func (a *LeaderboardAPIService) GetLeaderboardActivityExecute(r LeaderboardAPIGe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -299,6 +307,14 @@ func (a *LeaderboardAPIService) GetLeaderboardActivityExecute(r LeaderboardAPIGe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -319,7 +335,7 @@ type LeaderboardAPIGetLeaderboardOptinRequest struct {
 	ApiService *LeaderboardAPIService
 }
 
-func (r LeaderboardAPIGetLeaderboardOptinRequest) Execute() (*OptinView, *http.Response, error) {
+func (r LeaderboardAPIGetLeaderboardOptinRequest) Execute() (*LeaderboardOptinView, *http.Response, error) {
 	return r.ApiService.GetLeaderboardOptinExecute(r)
 }
 
@@ -342,13 +358,13 @@ func (a *LeaderboardAPIService) GetLeaderboardOptin(ctx context.Context) Leaderb
 
 // Execute executes the request
 //
-//	@return OptinView
-func (a *LeaderboardAPIService) GetLeaderboardOptinExecute(r LeaderboardAPIGetLeaderboardOptinRequest) (*OptinView, *http.Response, error) {
+//	@return LeaderboardOptinView
+func (a *LeaderboardAPIService) GetLeaderboardOptinExecute(r LeaderboardAPIGetLeaderboardOptinRequest) (*LeaderboardOptinView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *OptinView
+		localVarReturnValue *LeaderboardOptinView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LeaderboardAPIService.GetLeaderboardOptin")
@@ -372,7 +388,7 @@ func (a *LeaderboardAPIService) GetLeaderboardOptinExecute(r LeaderboardAPIGetLe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -401,6 +417,14 @@ func (a *LeaderboardAPIService) GetLeaderboardOptinExecute(r LeaderboardAPIGetLe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -417,17 +441,17 @@ func (a *LeaderboardAPIService) GetLeaderboardOptinExecute(r LeaderboardAPIGetLe
 }
 
 type LeaderboardAPIPutLeaderboardOptinRequest struct {
-	ctx          context.Context
-	ApiService   *LeaderboardAPIService
-	userOptinReq *UserOptinReq
+	ctx                     context.Context
+	ApiService              *LeaderboardAPIService
+	leaderboardUserOptinReq *LeaderboardUserOptinReq
 }
 
-func (r LeaderboardAPIPutLeaderboardOptinRequest) UserOptinReq(userOptinReq UserOptinReq) LeaderboardAPIPutLeaderboardOptinRequest {
-	r.userOptinReq = &userOptinReq
+func (r LeaderboardAPIPutLeaderboardOptinRequest) LeaderboardUserOptinReq(leaderboardUserOptinReq LeaderboardUserOptinReq) LeaderboardAPIPutLeaderboardOptinRequest {
+	r.leaderboardUserOptinReq = &leaderboardUserOptinReq
 	return r
 }
 
-func (r LeaderboardAPIPutLeaderboardOptinRequest) Execute() (*UserOptinView, *http.Response, error) {
+func (r LeaderboardAPIPutLeaderboardOptinRequest) Execute() (*LeaderboardUserOptinView, *http.Response, error) {
 	return r.ApiService.PutLeaderboardOptinExecute(r)
 }
 
@@ -452,13 +476,13 @@ func (a *LeaderboardAPIService) PutLeaderboardOptin(ctx context.Context) Leaderb
 
 // Execute executes the request
 //
-//	@return UserOptinView
-func (a *LeaderboardAPIService) PutLeaderboardOptinExecute(r LeaderboardAPIPutLeaderboardOptinRequest) (*UserOptinView, *http.Response, error) {
+//	@return LeaderboardUserOptinView
+func (a *LeaderboardAPIService) PutLeaderboardOptinExecute(r LeaderboardAPIPutLeaderboardOptinRequest) (*LeaderboardUserOptinView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UserOptinView
+		localVarReturnValue *LeaderboardUserOptinView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LeaderboardAPIService.PutLeaderboardOptin")
@@ -471,8 +495,8 @@ func (a *LeaderboardAPIService) PutLeaderboardOptinExecute(r LeaderboardAPIPutLe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.userOptinReq == nil {
-		return localVarReturnValue, nil, reportError("userOptinReq is required and must be specified")
+	if r.leaderboardUserOptinReq == nil {
+		return localVarReturnValue, nil, reportError("leaderboardUserOptinReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -485,7 +509,7 @@ func (a *LeaderboardAPIService) PutLeaderboardOptinExecute(r LeaderboardAPIPutLe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -493,7 +517,7 @@ func (a *LeaderboardAPIService) PutLeaderboardOptinExecute(r LeaderboardAPIPutLe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.userOptinReq
+	localVarPostBody = r.leaderboardUserOptinReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -516,6 +540,14 @@ func (a *LeaderboardAPIService) PutLeaderboardOptinExecute(r LeaderboardAPIPutLe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -532,17 +564,17 @@ func (a *LeaderboardAPIService) PutLeaderboardOptinExecute(r LeaderboardAPIPutLe
 }
 
 type LeaderboardAPIPutLeaderboardOptinOrgRequest struct {
-	ctx         context.Context
-	ApiService  *LeaderboardAPIService
-	orgOptinReq *OrgOptinReq
+	ctx                    context.Context
+	ApiService             *LeaderboardAPIService
+	leaderboardOrgOptinReq *LeaderboardOrgOptinReq
 }
 
-func (r LeaderboardAPIPutLeaderboardOptinOrgRequest) OrgOptinReq(orgOptinReq OrgOptinReq) LeaderboardAPIPutLeaderboardOptinOrgRequest {
-	r.orgOptinReq = &orgOptinReq
+func (r LeaderboardAPIPutLeaderboardOptinOrgRequest) LeaderboardOrgOptinReq(leaderboardOrgOptinReq LeaderboardOrgOptinReq) LeaderboardAPIPutLeaderboardOptinOrgRequest {
+	r.leaderboardOrgOptinReq = &leaderboardOrgOptinReq
 	return r
 }
 
-func (r LeaderboardAPIPutLeaderboardOptinOrgRequest) Execute() (*OrgOptinView, *http.Response, error) {
+func (r LeaderboardAPIPutLeaderboardOptinOrgRequest) Execute() (*LeaderboardOrgOptinView, *http.Response, error) {
 	return r.ApiService.PutLeaderboardOptinOrgExecute(r)
 }
 
@@ -567,13 +599,13 @@ func (a *LeaderboardAPIService) PutLeaderboardOptinOrg(ctx context.Context) Lead
 
 // Execute executes the request
 //
-//	@return OrgOptinView
-func (a *LeaderboardAPIService) PutLeaderboardOptinOrgExecute(r LeaderboardAPIPutLeaderboardOptinOrgRequest) (*OrgOptinView, *http.Response, error) {
+//	@return LeaderboardOrgOptinView
+func (a *LeaderboardAPIService) PutLeaderboardOptinOrgExecute(r LeaderboardAPIPutLeaderboardOptinOrgRequest) (*LeaderboardOrgOptinView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *OrgOptinView
+		localVarReturnValue *LeaderboardOrgOptinView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LeaderboardAPIService.PutLeaderboardOptinOrg")
@@ -586,8 +618,8 @@ func (a *LeaderboardAPIService) PutLeaderboardOptinOrgExecute(r LeaderboardAPIPu
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.orgOptinReq == nil {
-		return localVarReturnValue, nil, reportError("orgOptinReq is required and must be specified")
+	if r.leaderboardOrgOptinReq == nil {
+		return localVarReturnValue, nil, reportError("leaderboardOrgOptinReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -600,7 +632,7 @@ func (a *LeaderboardAPIService) PutLeaderboardOptinOrgExecute(r LeaderboardAPIPu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -608,7 +640,7 @@ func (a *LeaderboardAPIService) PutLeaderboardOptinOrgExecute(r LeaderboardAPIPu
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.orgOptinReq
+	localVarPostBody = r.leaderboardOrgOptinReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -631,6 +663,14 @@ func (a *LeaderboardAPIService) PutLeaderboardOptinOrgExecute(r LeaderboardAPIPu
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

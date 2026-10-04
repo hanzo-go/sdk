@@ -26,8 +26,11 @@ type O11yBasicAuth struct {
 	Username     *string `json:"username,omitempty"`
 	UsernameFile *string `json:"username_file,omitempty"`
 	// UsernameRef is the name of the secret within the secret manager to use as the username.
-	UsernameRef *string `json:"username_ref,omitempty"`
+	UsernameRef          *string `json:"username_ref,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yBasicAuth O11yBasicAuth
 
 // NewO11yBasicAuth instantiates a new O11yBasicAuth object
 // This constructor will assign default values to properties that have it defined,
@@ -267,7 +270,38 @@ func (o O11yBasicAuth) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UsernameRef) {
 		toSerialize["username_ref"] = o.UsernameRef
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yBasicAuth) UnmarshalJSON(data []byte) (err error) {
+	varO11yBasicAuth := _O11yBasicAuth{}
+
+	err = json.Unmarshal(data, &varO11yBasicAuth)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yBasicAuth(varO11yBasicAuth)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "password_file")
+		delete(additionalProperties, "password_ref")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "username_file")
+		delete(additionalProperties, "username_ref")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yBasicAuth struct {

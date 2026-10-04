@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## GetEvalDatasets
 
-> DatasetList GetEvalDatasets(ctx).Limit(limit).Execute()
+> EvalDatasetList GetEvalDatasets(ctx).Limit(limit).Execute()
 
 Is the datasets your org has, each with its name, description, metadata and timestamps.
 
@@ -121,7 +121,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.GetEvalDatasets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEvalDatasets`: DatasetList
+	// response from `GetEvalDatasets`: EvalDatasetList
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.GetEvalDatasets`: %v\n", resp)
 }
 ```
@@ -141,7 +141,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DatasetList**](DatasetList.md)
+[**EvalDatasetList**](EvalDatasetList.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 
 ## GetEvalDatasetsByName
 
-> DatasetView GetEvalDatasetsByName(ctx, name).Execute()
+> EvalDatasetView GetEvalDatasetsByName(ctx, name).Execute()
 
 Returns one dataset of the caller's org by name, together with its live item count — the one read that answers how big the set actually is.
 
@@ -187,7 +187,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.GetEvalDatasetsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEvalDatasetsByName`: DatasetView
+	// response from `GetEvalDatasetsByName`: EvalDatasetView
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.GetEvalDatasetsByName`: %v\n", resp)
 }
 ```
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DatasetView**](DatasetView.md)
+[**EvalDatasetView**](EvalDatasetView.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 ## GetEvalDatasetsByNameItems
 
-> ItemList GetEvalDatasetsByNameItems(ctx, name).Limit(limit).Execute()
+> EvalItemList GetEvalDatasetsByNameItems(ctx, name).Limit(limit).Execute()
 
 Is the examples in one of your datasets — the set is named in the path, because this collection only exists inside one.
 
@@ -258,7 +258,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.GetEvalDatasetsByNameItems``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEvalDatasetsByNameItems`: ItemList
+	// response from `GetEvalDatasetsByNameItems`: EvalItemList
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.GetEvalDatasetsByNameItems`: %v\n", resp)
 }
 ```
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ItemList**](ItemList.md)
+[**EvalItemList**](EvalItemList.md)
 
 ### Authorization
 
@@ -292,7 +292,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -301,7 +301,7 @@ Name | Type | Description  | Notes
 
 ## GetEvalEvaluators
 
-> EvaluatorList GetEvalEvaluators(ctx).Limit(limit).Execute()
+> EvalEvaluatorList GetEvalEvaluators(ctx).Limit(limit).Execute()
 
 Is the judges your org has defined, each with its judge model, criteria and the score name it writes under.
 
@@ -329,7 +329,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.GetEvalEvaluators``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEvalEvaluators`: EvaluatorList
+	// response from `GetEvalEvaluators`: EvalEvaluatorList
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.GetEvalEvaluators`: %v\n", resp)
 }
 ```
@@ -349,7 +349,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EvaluatorList**](EvaluatorList.md)
+[**EvalEvaluatorList**](EvalEvaluatorList.md)
 
 ### Authorization
 
@@ -358,7 +358,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -367,7 +367,7 @@ Name | Type | Description  | Notes
 
 ## GetEvalMetrics
 
-> Board GetEvalMetrics(ctx).Range_(range_).Interval(interval).Execute()
+> EvalBoard GetEvalMetrics(ctx).Range_(range_).Interval(interval).Execute()
 
 Is your org's AI overview board over a window: totals (generations, prompt and completion tokens, cost in cents, errors, success rate, distinct models and users), a gap-filled time series, a per-model breakdown with the long tail folded into \"other\", and latency percentiles read from the GenAI spans.
 
@@ -396,7 +396,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.GetEvalMetrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEvalMetrics`: Board
+	// response from `GetEvalMetrics`: EvalBoard
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.GetEvalMetrics`: %v\n", resp)
 }
 ```
@@ -417,7 +417,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Board**](Board.md)
+[**EvalBoard**](EvalBoard.md)
 
 ### Authorization
 
@@ -426,7 +426,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -435,7 +435,7 @@ Name | Type | Description  | Notes
 
 ## GetEvalRubrics
 
-> ScoreConfigList GetEvalRubrics(ctx).Limit(limit).Execute()
+> EvalScoreConfigList GetEvalRubrics(ctx).Limit(limit).Execute()
 
 Is the score shapes your org has declared — each name's data type, its numeric bounds and its allowed categories.
 
@@ -463,7 +463,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.GetEvalRubrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEvalRubrics`: ScoreConfigList
+	// response from `GetEvalRubrics`: EvalScoreConfigList
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.GetEvalRubrics`: %v\n", resp)
 }
 ```
@@ -483,7 +483,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ScoreConfigList**](ScoreConfigList.md)
+[**EvalScoreConfigList**](EvalScoreConfigList.md)
 
 ### Authorization
 
@@ -492,7 +492,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -501,7 +501,7 @@ Name | Type | Description  | Notes
 
 ## GetEvalRuns
 
-> Runs GetEvalRuns(ctx).DatasetName(datasetName).Limit(limit).Execute()
+> EvalRuns GetEvalRuns(ctx).DatasetName(datasetName).Limit(limit).Execute()
 
 Is your past runs and how they scored — the dataset and model, the judge model, how many examples were attempted and how many scored, the average score, and when it happened.
 
@@ -530,7 +530,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.GetEvalRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEvalRuns`: Runs
+	// response from `GetEvalRuns`: EvalRuns
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.GetEvalRuns`: %v\n", resp)
 }
 ```
@@ -551,7 +551,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Runs**](Runs.md)
+[**EvalRuns**](EvalRuns.md)
 
 ### Authorization
 
@@ -560,7 +560,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -569,7 +569,7 @@ Name | Type | Description  | Notes
 
 ## GetEvalScores
 
-> ScoreList GetEvalScores(ctx).Name(name).RunName(runName).TraceId(traceId).Limit(limit).Execute()
+> EvalScoreList GetEvalScores(ctx).Name(name).RunName(runName).TraceId(traceId).Limit(limit).Execute()
 
 Is the score events your org has recorded, narrowed by any of name, runName and traceId.
 
@@ -600,7 +600,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.GetEvalScores``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEvalScores`: ScoreList
+	// response from `GetEvalScores`: EvalScoreList
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.GetEvalScores`: %v\n", resp)
 }
 ```
@@ -623,7 +623,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ScoreList**](ScoreList.md)
+[**EvalScoreList**](EvalScoreList.md)
 
 ### Authorization
 
@@ -632,7 +632,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -641,7 +641,7 @@ Name | Type | Description  | Notes
 
 ## GetEvalTraces
 
-> TraceList GetEvalTraces(ctx).SessionId(sessionId).RunName(runName).DatasetName(datasetName).Limit(limit).Execute()
+> EvalTraceList GetEvalTraces(ctx).SessionId(sessionId).RunName(runName).DatasetName(datasetName).Limit(limit).Execute()
 
 Is the traces behind your evaluations — one per model call an evaluation made, carrying its input, output, model and timing — narrowed by any of sessionId, runName and datasetName.
 
@@ -672,7 +672,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.GetEvalTraces``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEvalTraces`: TraceList
+	// response from `GetEvalTraces`: EvalTraceList
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.GetEvalTraces`: %v\n", resp)
 }
 ```
@@ -695,7 +695,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TraceList**](TraceList.md)
+[**EvalTraceList**](EvalTraceList.md)
 
 ### Authorization
 
@@ -704,7 +704,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -713,7 +713,7 @@ Name | Type | Description  | Notes
 
 ## PostEvalDatasets
 
-> DatasetView PostEvalDatasets(ctx).DatasetReq(datasetReq).Execute()
+> EvalDatasetView PostEvalDatasets(ctx).EvalDatasetReq(evalDatasetReq).Execute()
 
 Writes a dataset — the named set of graded examples a run scores a model against — under the caller's org and answers 201 with it.
 
@@ -732,16 +732,16 @@ import (
 )
 
 func main() {
-	datasetReq := *openapiclient.NewDatasetReq("Name_example") // DatasetReq | 
+	evalDatasetReq := *openapiclient.NewEvalDatasetReq("Name_example") // EvalDatasetReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EvalAPI.PostEvalDatasets(context.Background()).DatasetReq(datasetReq).Execute()
+	resp, r, err := apiClient.EvalAPI.PostEvalDatasets(context.Background()).EvalDatasetReq(evalDatasetReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.PostEvalDatasets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEvalDatasets`: DatasetView
+	// response from `PostEvalDatasets`: EvalDatasetView
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.PostEvalDatasets`: %v\n", resp)
 }
 ```
@@ -757,11 +757,11 @@ Other parameters are passed through a pointer to a apiPostEvalDatasetsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **datasetReq** | [**DatasetReq**](DatasetReq.md) |  | 
+ **evalDatasetReq** | [**EvalDatasetReq**](EvalDatasetReq.md) |  | 
 
 ### Return type
 
-[**DatasetView**](DatasetView.md)
+[**EvalDatasetView**](EvalDatasetView.md)
 
 ### Authorization
 
@@ -770,7 +770,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -779,7 +779,7 @@ Name | Type | Description  | Notes
 
 ## PostEvalDatasetsByNameItems
 
-> ItemView PostEvalDatasetsByNameItems(ctx, name).ItemReq(itemReq).Execute()
+> EvalItemView PostEvalDatasetsByNameItems(ctx, name).EvalItemReq(evalItemReq).Execute()
 
 Writes one graded example — its input, its expected output, free-form metadata and a status — into the dataset named in the path, and answers 201 with it.
 
@@ -799,16 +799,16 @@ import (
 
 func main() {
 	name := "name_example" // string | 
-	itemReq := *openapiclient.NewItemReq() // ItemReq | 
+	evalItemReq := *openapiclient.NewEvalItemReq() // EvalItemReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EvalAPI.PostEvalDatasetsByNameItems(context.Background(), name).ItemReq(itemReq).Execute()
+	resp, r, err := apiClient.EvalAPI.PostEvalDatasetsByNameItems(context.Background(), name).EvalItemReq(evalItemReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.PostEvalDatasetsByNameItems``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEvalDatasetsByNameItems`: ItemView
+	// response from `PostEvalDatasetsByNameItems`: EvalItemView
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.PostEvalDatasetsByNameItems`: %v\n", resp)
 }
 ```
@@ -829,11 +829,11 @@ Other parameters are passed through a pointer to a apiPostEvalDatasetsByNameItem
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **itemReq** | [**ItemReq**](ItemReq.md) |  | 
+ **evalItemReq** | [**EvalItemReq**](EvalItemReq.md) |  | 
 
 ### Return type
 
-[**ItemView**](ItemView.md)
+[**EvalItemView**](EvalItemView.md)
 
 ### Authorization
 
@@ -842,7 +842,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -851,7 +851,7 @@ Name | Type | Description  | Notes
 
 ## PostEvalEvaluators
 
-> EvaluatorView PostEvalEvaluators(ctx).EvaluatorReq(evaluatorReq).Execute()
+> EvalEvaluatorView PostEvalEvaluators(ctx).EvalEvaluatorReq(evalEvaluatorReq).Execute()
 
 Saves a reusable judge for the caller's org — the judge model and the written criteria it grades against — and answers 201 with it.
 
@@ -870,16 +870,16 @@ import (
 )
 
 func main() {
-	evaluatorReq := *openapiclient.NewEvaluatorReq("Name_example") // EvaluatorReq | 
+	evalEvaluatorReq := *openapiclient.NewEvalEvaluatorReq("Name_example") // EvalEvaluatorReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EvalAPI.PostEvalEvaluators(context.Background()).EvaluatorReq(evaluatorReq).Execute()
+	resp, r, err := apiClient.EvalAPI.PostEvalEvaluators(context.Background()).EvalEvaluatorReq(evalEvaluatorReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.PostEvalEvaluators``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEvalEvaluators`: EvaluatorView
+	// response from `PostEvalEvaluators`: EvalEvaluatorView
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.PostEvalEvaluators`: %v\n", resp)
 }
 ```
@@ -895,11 +895,11 @@ Other parameters are passed through a pointer to a apiPostEvalEvaluatorsRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **evaluatorReq** | [**EvaluatorReq**](EvaluatorReq.md) |  | 
+ **evalEvaluatorReq** | [**EvalEvaluatorReq**](EvalEvaluatorReq.md) |  | 
 
 ### Return type
 
-[**EvaluatorView**](EvaluatorView.md)
+[**EvalEvaluatorView**](EvalEvaluatorView.md)
 
 ### Authorization
 
@@ -908,7 +908,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -917,7 +917,7 @@ Name | Type | Description  | Notes
 
 ## PostEvalRubrics
 
-> ScoreConfigView PostEvalRubrics(ctx).ScoreConfigReq(scoreConfigReq).Execute()
+> EvalScoreConfigView PostEvalRubrics(ctx).EvalScoreConfigReq(evalScoreConfigReq).Execute()
 
 Defines the shape of one score name for the caller's org and answers 201 with it.
 
@@ -936,16 +936,16 @@ import (
 )
 
 func main() {
-	scoreConfigReq := *openapiclient.NewScoreConfigReq("Name_example") // ScoreConfigReq | 
+	evalScoreConfigReq := *openapiclient.NewEvalScoreConfigReq("Name_example") // EvalScoreConfigReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EvalAPI.PostEvalRubrics(context.Background()).ScoreConfigReq(scoreConfigReq).Execute()
+	resp, r, err := apiClient.EvalAPI.PostEvalRubrics(context.Background()).EvalScoreConfigReq(evalScoreConfigReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.PostEvalRubrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEvalRubrics`: ScoreConfigView
+	// response from `PostEvalRubrics`: EvalScoreConfigView
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.PostEvalRubrics`: %v\n", resp)
 }
 ```
@@ -961,11 +961,11 @@ Other parameters are passed through a pointer to a apiPostEvalRubricsRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **scoreConfigReq** | [**ScoreConfigReq**](ScoreConfigReq.md) |  | 
+ **evalScoreConfigReq** | [**EvalScoreConfigReq**](EvalScoreConfigReq.md) |  | 
 
 ### Return type
 
-[**ScoreConfigView**](ScoreConfigView.md)
+[**EvalScoreConfigView**](EvalScoreConfigView.md)
 
 ### Authorization
 
@@ -974,7 +974,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -983,7 +983,7 @@ Name | Type | Description  | Notes
 
 ## PostEvalRuns
 
-> RunSummary PostEvalRuns(ctx).RunRequest(runRequest).Authorization(authorization).Execute()
+> EvalRunSummary PostEvalRuns(ctx).EvalRunRequest(evalRunRequest).Authorization(authorization).Execute()
 
 Runs a real evaluation and answers the summary when it is finished — this is synchronous work, not a job id.
 
@@ -1002,17 +1002,17 @@ import (
 )
 
 func main() {
-	runRequest := *openapiclient.NewRunRequest("Dataset_example", "Model_example") // RunRequest | 
+	evalRunRequest := *openapiclient.NewEvalRunRequest("Dataset_example", "Model_example") // EvalRunRequest | 
 	authorization := "authorization_example" // string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EvalAPI.PostEvalRuns(context.Background()).RunRequest(runRequest).Authorization(authorization).Execute()
+	resp, r, err := apiClient.EvalAPI.PostEvalRuns(context.Background()).EvalRunRequest(evalRunRequest).Authorization(authorization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.PostEvalRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEvalRuns`: RunSummary
+	// response from `PostEvalRuns`: EvalRunSummary
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.PostEvalRuns`: %v\n", resp)
 }
 ```
@@ -1028,12 +1028,12 @@ Other parameters are passed through a pointer to a apiPostEvalRunsRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **runRequest** | [**RunRequest**](RunRequest.md) |  | 
+ **evalRunRequest** | [**EvalRunRequest**](EvalRunRequest.md) |  | 
  **authorization** | **string** |  | 
 
 ### Return type
 
-[**RunSummary**](RunSummary.md)
+[**EvalRunSummary**](EvalRunSummary.md)
 
 ### Authorization
 
@@ -1042,7 +1042,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1051,7 +1051,7 @@ Name | Type | Description  | Notes
 
 ## PostEvalScores
 
-> ScoreView PostEvalScores(ctx).ScoreReq(scoreReq).Execute()
+> EvalScoreView PostEvalScores(ctx).EvalScoreReq(evalScoreReq).Execute()
 
 Files one score event for the caller's org and answers 201 with it.
 
@@ -1070,16 +1070,16 @@ import (
 )
 
 func main() {
-	scoreReq := *openapiclient.NewScoreReq("Name_example") // ScoreReq | 
+	evalScoreReq := *openapiclient.NewEvalScoreReq("Name_example") // EvalScoreReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EvalAPI.PostEvalScores(context.Background()).ScoreReq(scoreReq).Execute()
+	resp, r, err := apiClient.EvalAPI.PostEvalScores(context.Background()).EvalScoreReq(evalScoreReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EvalAPI.PostEvalScores``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostEvalScores`: ScoreView
+	// response from `PostEvalScores`: EvalScoreView
 	fmt.Fprintf(os.Stdout, "Response from `EvalAPI.PostEvalScores`: %v\n", resp)
 }
 ```
@@ -1095,11 +1095,11 @@ Other parameters are passed through a pointer to a apiPostEvalScoresRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **scoreReq** | [**ScoreReq**](ScoreReq.md) |  | 
+ **evalScoreReq** | [**EvalScoreReq**](EvalScoreReq.md) |  | 
 
 ### Return type
 
-[**ScoreView**](ScoreView.md)
+[**EvalScoreView**](EvalScoreView.md)
 
 ### Authorization
 
@@ -1108,7 +1108,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

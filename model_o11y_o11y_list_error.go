@@ -33,8 +33,11 @@ type O11yO11yListError struct {
 	// LastSeen is when the latest instance was recorded.
 	LastSeen *time.Time `json:"lastSeen,omitempty"`
 	// ServiceName is the service that reported them.
-	ServiceName *string `json:"serviceName,omitempty"`
+	ServiceName          *string `json:"serviceName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yListError O11yO11yListError
 
 // NewO11yO11yListError instantiates a new O11yO11yListError object
 // This constructor will assign default values to properties that have it defined,
@@ -308,7 +311,39 @@ func (o O11yO11yListError) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ServiceName) {
 		toSerialize["serviceName"] = o.ServiceName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yListError) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yListError := _O11yO11yListError{}
+
+	err = json.Unmarshal(data, &varO11yO11yListError)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yListError(varO11yO11yListError)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "exceptionCount")
+		delete(additionalProperties, "exceptionMessage")
+		delete(additionalProperties, "exceptionType")
+		delete(additionalProperties, "firstSeen")
+		delete(additionalProperties, "groupID")
+		delete(additionalProperties, "lastSeen")
+		delete(additionalProperties, "serviceName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yListError struct {

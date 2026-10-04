@@ -26,7 +26,7 @@ type AuthorAPIGetAuthorRequest struct {
 	ApiService *AuthorAPIService
 }
 
-func (r AuthorAPIGetAuthorRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r AuthorAPIGetAuthorRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetAuthorExecute(r)
 }
 
@@ -60,13 +60,13 @@ func (a *AuthorAPIService) GetAuthor(ctx context.Context) AuthorAPIGetAuthorRequ
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *AuthorAPIService) GetAuthorExecute(r AuthorAPIGetAuthorRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *AuthorAPIService) GetAuthorExecute(r AuthorAPIGetAuthorRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorAPIService.GetAuthor")
@@ -90,7 +90,7 @@ func (a *AuthorAPIService) GetAuthorExecute(r AuthorAPIGetAuthorRequest) (map[st
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -119,6 +119,14 @@ func (a *AuthorAPIService) GetAuthorExecute(r AuthorAPIGetAuthorRequest) (map[st
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -146,7 +154,7 @@ func (r AuthorAPIGetAuthorBasisRequest) Period(period string) AuthorAPIGetAuthor
 	return r
 }
 
-func (r AuthorAPIGetAuthorBasisRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r AuthorAPIGetAuthorBasisRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetAuthorBasisExecute(r)
 }
 
@@ -181,13 +189,13 @@ func (a *AuthorAPIService) GetAuthorBasis(ctx context.Context) AuthorAPIGetAutho
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *AuthorAPIService) GetAuthorBasisExecute(r AuthorAPIGetAuthorBasisRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *AuthorAPIService) GetAuthorBasisExecute(r AuthorAPIGetAuthorBasisRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorAPIService.GetAuthorBasis")
@@ -214,7 +222,7 @@ func (a *AuthorAPIService) GetAuthorBasisExecute(r AuthorAPIGetAuthorBasisReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -243,6 +251,14 @@ func (a *AuthorAPIService) GetAuthorBasisExecute(r AuthorAPIGetAuthorBasisReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -259,17 +275,17 @@ func (a *AuthorAPIService) GetAuthorBasisExecute(r AuthorAPIGetAuthorBasisReques
 }
 
 type AuthorAPIPostAuthorConnectRequest struct {
-	ctx            context.Context
-	ApiService     *AuthorAPIService
-	connectRequest *ConnectRequest
+	ctx                  context.Context
+	ApiService           *AuthorAPIService
+	authorConnectRequest *AuthorConnectRequest
 }
 
-func (r AuthorAPIPostAuthorConnectRequest) ConnectRequest(connectRequest ConnectRequest) AuthorAPIPostAuthorConnectRequest {
-	r.connectRequest = &connectRequest
+func (r AuthorAPIPostAuthorConnectRequest) AuthorConnectRequest(authorConnectRequest AuthorConnectRequest) AuthorAPIPostAuthorConnectRequest {
+	r.authorConnectRequest = &authorConnectRequest
 	return r
 }
 
-func (r AuthorAPIPostAuthorConnectRequest) Execute() (*Enrolment, *http.Response, error) {
+func (r AuthorAPIPostAuthorConnectRequest) Execute() (*AuthorEnrolment, *http.Response, error) {
 	return r.ApiService.PostAuthorConnectExecute(r)
 }
 
@@ -299,13 +315,13 @@ func (a *AuthorAPIService) PostAuthorConnect(ctx context.Context) AuthorAPIPostA
 
 // Execute executes the request
 //
-//	@return Enrolment
-func (a *AuthorAPIService) PostAuthorConnectExecute(r AuthorAPIPostAuthorConnectRequest) (*Enrolment, *http.Response, error) {
+//	@return AuthorEnrolment
+func (a *AuthorAPIService) PostAuthorConnectExecute(r AuthorAPIPostAuthorConnectRequest) (*AuthorEnrolment, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Enrolment
+		localVarReturnValue *AuthorEnrolment
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorAPIService.PostAuthorConnect")
@@ -318,8 +334,8 @@ func (a *AuthorAPIService) PostAuthorConnectExecute(r AuthorAPIPostAuthorConnect
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.connectRequest == nil {
-		return localVarReturnValue, nil, reportError("connectRequest is required and must be specified")
+	if r.authorConnectRequest == nil {
+		return localVarReturnValue, nil, reportError("authorConnectRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -332,7 +348,7 @@ func (a *AuthorAPIService) PostAuthorConnectExecute(r AuthorAPIPostAuthorConnect
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -340,7 +356,7 @@ func (a *AuthorAPIService) PostAuthorConnectExecute(r AuthorAPIPostAuthorConnect
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.connectRequest
+	localVarPostBody = r.authorConnectRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -363,6 +379,14 @@ func (a *AuthorAPIService) PostAuthorConnectExecute(r AuthorAPIPostAuthorConnect
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -379,17 +403,17 @@ func (a *AuthorAPIService) PostAuthorConnectExecute(r AuthorAPIPostAuthorConnect
 }
 
 type AuthorAPIPostAuthorDeploysRecordRequest struct {
-	ctx           context.Context
-	ApiService    *AuthorAPIService
-	deployRequest *DeployRequest
+	ctx                 context.Context
+	ApiService          *AuthorAPIService
+	authorDeployRequest *AuthorDeployRequest
 }
 
-func (r AuthorAPIPostAuthorDeploysRecordRequest) DeployRequest(deployRequest DeployRequest) AuthorAPIPostAuthorDeploysRecordRequest {
-	r.deployRequest = &deployRequest
+func (r AuthorAPIPostAuthorDeploysRecordRequest) AuthorDeployRequest(authorDeployRequest AuthorDeployRequest) AuthorAPIPostAuthorDeploysRecordRequest {
+	r.authorDeployRequest = &authorDeployRequest
 	return r
 }
 
-func (r AuthorAPIPostAuthorDeploysRecordRequest) Execute() (*DeployRecord, *http.Response, error) {
+func (r AuthorAPIPostAuthorDeploysRecordRequest) Execute() (*AuthorDeployRecord, *http.Response, error) {
 	return r.ApiService.PostAuthorDeploysRecordExecute(r)
 }
 
@@ -424,13 +448,13 @@ func (a *AuthorAPIService) PostAuthorDeploysRecord(ctx context.Context) AuthorAP
 
 // Execute executes the request
 //
-//	@return DeployRecord
-func (a *AuthorAPIService) PostAuthorDeploysRecordExecute(r AuthorAPIPostAuthorDeploysRecordRequest) (*DeployRecord, *http.Response, error) {
+//	@return AuthorDeployRecord
+func (a *AuthorAPIService) PostAuthorDeploysRecordExecute(r AuthorAPIPostAuthorDeploysRecordRequest) (*AuthorDeployRecord, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeployRecord
+		localVarReturnValue *AuthorDeployRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorAPIService.PostAuthorDeploysRecord")
@@ -443,8 +467,8 @@ func (a *AuthorAPIService) PostAuthorDeploysRecordExecute(r AuthorAPIPostAuthorD
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.deployRequest == nil {
-		return localVarReturnValue, nil, reportError("deployRequest is required and must be specified")
+	if r.authorDeployRequest == nil {
+		return localVarReturnValue, nil, reportError("authorDeployRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -457,7 +481,7 @@ func (a *AuthorAPIService) PostAuthorDeploysRecordExecute(r AuthorAPIPostAuthorD
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -465,7 +489,7 @@ func (a *AuthorAPIService) PostAuthorDeploysRecordExecute(r AuthorAPIPostAuthorD
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.deployRequest
+	localVarPostBody = r.authorDeployRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -488,6 +512,14 @@ func (a *AuthorAPIService) PostAuthorDeploysRecordExecute(r AuthorAPIPostAuthorD
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -504,17 +536,17 @@ func (a *AuthorAPIService) PostAuthorDeploysRecordExecute(r AuthorAPIPostAuthorD
 }
 
 type AuthorAPIPostAuthorReposVerifyRequest struct {
-	ctx           context.Context
-	ApiService    *AuthorAPIService
-	verifyRequest *VerifyRequest
+	ctx                 context.Context
+	ApiService          *AuthorAPIService
+	authorVerifyRequest *AuthorVerifyRequest
 }
 
-func (r AuthorAPIPostAuthorReposVerifyRequest) VerifyRequest(verifyRequest VerifyRequest) AuthorAPIPostAuthorReposVerifyRequest {
-	r.verifyRequest = &verifyRequest
+func (r AuthorAPIPostAuthorReposVerifyRequest) AuthorVerifyRequest(authorVerifyRequest AuthorVerifyRequest) AuthorAPIPostAuthorReposVerifyRequest {
+	r.authorVerifyRequest = &authorVerifyRequest
 	return r
 }
 
-func (r AuthorAPIPostAuthorReposVerifyRequest) Execute() (*Claim, *http.Response, error) {
+func (r AuthorAPIPostAuthorReposVerifyRequest) Execute() (*AuthorClaim, *http.Response, error) {
 	return r.ApiService.PostAuthorReposVerifyExecute(r)
 }
 
@@ -548,13 +580,13 @@ func (a *AuthorAPIService) PostAuthorReposVerify(ctx context.Context) AuthorAPIP
 
 // Execute executes the request
 //
-//	@return Claim
-func (a *AuthorAPIService) PostAuthorReposVerifyExecute(r AuthorAPIPostAuthorReposVerifyRequest) (*Claim, *http.Response, error) {
+//	@return AuthorClaim
+func (a *AuthorAPIService) PostAuthorReposVerifyExecute(r AuthorAPIPostAuthorReposVerifyRequest) (*AuthorClaim, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Claim
+		localVarReturnValue *AuthorClaim
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorAPIService.PostAuthorReposVerify")
@@ -567,8 +599,8 @@ func (a *AuthorAPIService) PostAuthorReposVerifyExecute(r AuthorAPIPostAuthorRep
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.verifyRequest == nil {
-		return localVarReturnValue, nil, reportError("verifyRequest is required and must be specified")
+	if r.authorVerifyRequest == nil {
+		return localVarReturnValue, nil, reportError("authorVerifyRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -581,7 +613,7 @@ func (a *AuthorAPIService) PostAuthorReposVerifyExecute(r AuthorAPIPostAuthorRep
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -589,7 +621,7 @@ func (a *AuthorAPIService) PostAuthorReposVerifyExecute(r AuthorAPIPostAuthorRep
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.verifyRequest
+	localVarPostBody = r.authorVerifyRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -612,6 +644,14 @@ func (a *AuthorAPIService) PostAuthorReposVerifyExecute(r AuthorAPIPostAuthorRep
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

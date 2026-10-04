@@ -19,9 +19,12 @@ var _ MappedNullable = &IamMfaItem{}
 
 // IamMfaItem struct for IamMfaItem
 type IamMfaItem struct {
-	Name *string `json:"name,omitempty"`
-	Rule *string `json:"rule,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Rule                 *string `json:"rule,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamMfaItem IamMfaItem
 
 // NewIamMfaItem instantiates a new IamMfaItem object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o IamMfaItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Rule) {
 		toSerialize["rule"] = o.Rule
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamMfaItem) UnmarshalJSON(data []byte) (err error) {
+	varIamMfaItem := _IamMfaItem{}
+
+	err = json.Unmarshal(data, &varIamMfaItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamMfaItem(varIamMfaItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "rule")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamMfaItem struct {

@@ -4,7 +4,7 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetMeetHealth**](MeetAPI.md#GetMeetHealth) | **Get** /v1/meet/health | Health reports whether the office can mint join tokens.
+[**GetMeetHealth**](MeetAPI.md#GetMeetHealth) | **Get** /v1/meet/health | Reports whether the office can mint join tokens.
 [**GetMeetSession**](MeetAPI.md#GetMeetSession) | **Get** /v1/meet/session | What this caller may open a room in
 [**MeetCall**](MeetAPI.md#MeetCall) | **Get** /v1/meet/call | Where a room&#39;s call happens
 [**MeetRecordRead**](MeetAPI.md#MeetRecordRead) | **Get** /v1/meet/record | What is being recorded in a room, and where the file goes
@@ -16,9 +16,9 @@ Method | HTTP request | Description
 
 ## GetMeetHealth
 
-> MeetHealth GetMeetHealth(ctx).Execute()
+> MeetMeetHealth GetMeetHealth(ctx).Execute()
 
-Health reports whether the office can mint join tokens.
+Reports whether the office can mint join tokens.
 
 
 
@@ -43,7 +43,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MeetAPI.GetMeetHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMeetHealth`: MeetHealth
+	// response from `GetMeetHealth`: MeetMeetHealth
 	fmt.Fprintf(os.Stdout, "Response from `MeetAPI.GetMeetHealth`: %v\n", resp)
 }
 ```
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiGetMeetHealthRequest struc
 
 ### Return type
 
-[**MeetHealth**](MeetHealth.md)
+[**MeetMeetHealth**](MeetMeetHealth.md)
 
 ### Authorization
 
@@ -68,7 +68,7 @@ Other parameters are passed through a pointer to a apiGetMeetHealthRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -136,7 +136,7 @@ Other parameters are passed through a pointer to a apiGetMeetSessionRequest stru
 
 ## MeetCall
 
-> Venue MeetCall(ctx).Space(space).Room(room).Execute()
+> MeetVenue MeetCall(ctx).Space(space).Room(room).Execute()
 
 Where a room's call happens
 
@@ -165,7 +165,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MeetAPI.MeetCall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `MeetCall`: Venue
+	// response from `MeetCall`: MeetVenue
 	fmt.Fprintf(os.Stdout, "Response from `MeetAPI.MeetCall`: %v\n", resp)
 }
 ```
@@ -186,7 +186,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Venue**](Venue.md)
+[**MeetVenue**](MeetVenue.md)
 
 ### Authorization
 
@@ -195,7 +195,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -204,7 +204,7 @@ Name | Type | Description  | Notes
 
 ## MeetRecordRead
 
-> Recording MeetRecordRead(ctx).Room(room).Execute()
+> MeetRecording MeetRecordRead(ctx).Room(room).Execute()
 
 What is being recorded in a room, and where the file goes
 
@@ -232,7 +232,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MeetAPI.MeetRecordRead``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `MeetRecordRead`: Recording
+	// response from `MeetRecordRead`: MeetRecording
 	fmt.Fprintf(os.Stdout, "Response from `MeetAPI.MeetRecordRead`: %v\n", resp)
 }
 ```
@@ -252,7 +252,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Recording**](Recording.md)
+[**MeetRecording**](MeetRecording.md)
 
 ### Authorization
 
@@ -261,7 +261,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -270,7 +270,7 @@ Name | Type | Description  | Notes
 
 ## MeetRecordStart
 
-> Recording MeetRecordStart(ctx).RecordIn(recordIn).Execute()
+> MeetRecording MeetRecordStart(ctx).MeetRecordIn(meetRecordIn).Execute()
 
 Start recording a room, or return the recording already running
 
@@ -289,16 +289,16 @@ import (
 )
 
 func main() {
-	recordIn := *openapiclient.NewRecordIn("Room_example") // RecordIn | 
+	meetRecordIn := *openapiclient.NewMeetRecordIn("Room_example") // MeetRecordIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MeetAPI.MeetRecordStart(context.Background()).RecordIn(recordIn).Execute()
+	resp, r, err := apiClient.MeetAPI.MeetRecordStart(context.Background()).MeetRecordIn(meetRecordIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MeetAPI.MeetRecordStart``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `MeetRecordStart`: Recording
+	// response from `MeetRecordStart`: MeetRecording
 	fmt.Fprintf(os.Stdout, "Response from `MeetAPI.MeetRecordStart`: %v\n", resp)
 }
 ```
@@ -314,11 +314,11 @@ Other parameters are passed through a pointer to a apiMeetRecordStartRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **recordIn** | [**RecordIn**](RecordIn.md) |  | 
+ **meetRecordIn** | [**MeetRecordIn**](MeetRecordIn.md) |  | 
 
 ### Return type
 
-[**Recording**](Recording.md)
+[**MeetRecording**](MeetRecording.md)
 
 ### Authorization
 
@@ -327,7 +327,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -336,7 +336,7 @@ Name | Type | Description  | Notes
 
 ## MeetRecordStop
 
-> Recording MeetRecordStop(ctx).Room(room).Execute()
+> MeetRecording MeetRecordStop(ctx).Room(room).Execute()
 
 Stop a room's recording
 
@@ -364,7 +364,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MeetAPI.MeetRecordStop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `MeetRecordStop`: Recording
+	// response from `MeetRecordStop`: MeetRecording
 	fmt.Fprintf(os.Stdout, "Response from `MeetAPI.MeetRecordStop`: %v\n", resp)
 }
 ```
@@ -384,7 +384,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Recording**](Recording.md)
+[**MeetRecording**](MeetRecording.md)
 
 ### Authorization
 
@@ -393,7 +393,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

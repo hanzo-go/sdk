@@ -19,11 +19,14 @@ var _ MappedNullable = &RemoteApp{}
 
 // RemoteApp struct for RemoteApp
 type RemoteApp struct {
-	No            *int32  `json:"no,omitempty"`
-	RemoteAppArgs *string `json:"remoteAppArgs,omitempty"`
-	RemoteAppDir  *string `json:"remoteAppDir,omitempty"`
-	RemoteAppName *string `json:"remoteAppName,omitempty"`
+	No                   *int32  `json:"no,omitempty"`
+	RemoteAppArgs        *string `json:"remoteAppArgs,omitempty"`
+	RemoteAppDir         *string `json:"remoteAppDir,omitempty"`
+	RemoteAppName        *string `json:"remoteAppName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RemoteApp RemoteApp
 
 // NewRemoteApp instantiates a new RemoteApp object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o RemoteApp) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RemoteAppName) {
 		toSerialize["remoteAppName"] = o.RemoteAppName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RemoteApp) UnmarshalJSON(data []byte) (err error) {
+	varRemoteApp := _RemoteApp{}
+
+	err = json.Unmarshal(data, &varRemoteApp)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RemoteApp(varRemoteApp)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "no")
+		delete(additionalProperties, "remoteAppArgs")
+		delete(additionalProperties, "remoteAppDir")
+		delete(additionalProperties, "remoteAppName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRemoteApp struct {

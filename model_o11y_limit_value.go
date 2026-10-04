@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yLimitValue{}
 
 // O11yLimitValue struct for O11yLimitValue
 type O11yLimitValue struct {
-	Count *int64 `json:"count,omitempty"`
-	Size  *int64 `json:"size,omitempty"`
+	Count                *int64 `json:"count,omitempty"`
+	Size                 *int64 `json:"size,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yLimitValue O11yLimitValue
 
 // NewO11yLimitValue instantiates a new O11yLimitValue object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yLimitValue) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Size) {
 		toSerialize["size"] = o.Size
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yLimitValue) UnmarshalJSON(data []byte) (err error) {
+	varO11yLimitValue := _O11yLimitValue{}
+
+	err = json.Unmarshal(data, &varO11yLimitValue)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yLimitValue(varO11yLimitValue)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "size")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yLimitValue struct {

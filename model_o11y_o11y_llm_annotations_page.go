@@ -26,8 +26,11 @@ type O11yO11yLLMAnnotationsPage struct {
 	// Offset is the row offset this page started at.
 	Offset *int64 `json:"offset,omitempty"`
 	// Total is how many annotations match, across all pages.
-	Total *int64 `json:"total,omitempty"`
+	Total                *int64 `json:"total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMAnnotationsPage O11yO11yLLMAnnotationsPage
 
 // NewO11yO11yLLMAnnotationsPage instantiates a new O11yO11yLLMAnnotationsPage object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yLLMAnnotationsPage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMAnnotationsPage) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMAnnotationsPage := _O11yO11yLLMAnnotationsPage{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMAnnotationsPage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMAnnotationsPage(varO11yO11yLLMAnnotationsPage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMAnnotationsPage struct {

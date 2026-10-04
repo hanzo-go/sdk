@@ -55,7 +55,7 @@ func (r ContentAPIGetContentBoardRequest) Limit(limit int64) ContentAPIGetConten
 	return r
 }
 
-func (r ContentAPIGetContentBoardRequest) Execute() (*BoardPage, *http.Response, error) {
+func (r ContentAPIGetContentBoardRequest) Execute() (*ContentBoardPage, *http.Response, error) {
 	return r.ApiService.GetContentBoardExecute(r)
 }
 
@@ -80,13 +80,13 @@ func (a *ContentAPIService) GetContentBoard(ctx context.Context) ContentAPIGetCo
 
 // Execute executes the request
 //
-//	@return BoardPage
-func (a *ContentAPIService) GetContentBoardExecute(r ContentAPIGetContentBoardRequest) (*BoardPage, *http.Response, error) {
+//	@return ContentBoardPage
+func (a *ContentAPIService) GetContentBoardExecute(r ContentAPIGetContentBoardRequest) (*ContentBoardPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BoardPage
+		localVarReturnValue *ContentBoardPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentAPIService.GetContentBoard")
@@ -122,7 +122,7 @@ func (a *ContentAPIService) GetContentBoardExecute(r ContentAPIGetContentBoardRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -151,6 +151,14 @@ func (a *ContentAPIService) GetContentBoardExecute(r ContentAPIGetContentBoardRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -171,7 +179,7 @@ type ContentAPIGetContentChannelsRequest struct {
 	ApiService *ContentAPIService
 }
 
-func (r ContentAPIGetContentChannelsRequest) Execute() (*ChannelList, *http.Response, error) {
+func (r ContentAPIGetContentChannelsRequest) Execute() (*ContentChannelList, *http.Response, error) {
 	return r.ApiService.GetContentChannelsExecute(r)
 }
 
@@ -194,13 +202,13 @@ func (a *ContentAPIService) GetContentChannels(ctx context.Context) ContentAPIGe
 
 // Execute executes the request
 //
-//	@return ChannelList
-func (a *ContentAPIService) GetContentChannelsExecute(r ContentAPIGetContentChannelsRequest) (*ChannelList, *http.Response, error) {
+//	@return ContentChannelList
+func (a *ContentAPIService) GetContentChannelsExecute(r ContentAPIGetContentChannelsRequest) (*ContentChannelList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ChannelList
+		localVarReturnValue *ContentChannelList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentAPIService.GetContentChannels")
@@ -224,7 +232,7 @@ func (a *ContentAPIService) GetContentChannelsExecute(r ContentAPIGetContentChan
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -253,6 +261,14 @@ func (a *ContentAPIService) GetContentChannelsExecute(r ContentAPIGetContentChan
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -273,7 +289,7 @@ type ContentAPIGetContentLifecycleRequest struct {
 	ApiService *ContentAPIService
 }
 
-func (r ContentAPIGetContentLifecycleRequest) Execute() (*StateGraph, *http.Response, error) {
+func (r ContentAPIGetContentLifecycleRequest) Execute() (*ContentStateGraph, *http.Response, error) {
 	return r.ApiService.GetContentLifecycleExecute(r)
 }
 
@@ -298,13 +314,13 @@ func (a *ContentAPIService) GetContentLifecycle(ctx context.Context) ContentAPIG
 
 // Execute executes the request
 //
-//	@return StateGraph
-func (a *ContentAPIService) GetContentLifecycleExecute(r ContentAPIGetContentLifecycleRequest) (*StateGraph, *http.Response, error) {
+//	@return ContentStateGraph
+func (a *ContentAPIService) GetContentLifecycleExecute(r ContentAPIGetContentLifecycleRequest) (*ContentStateGraph, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *StateGraph
+		localVarReturnValue *ContentStateGraph
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentAPIService.GetContentLifecycle")
@@ -328,7 +344,7 @@ func (a *ContentAPIService) GetContentLifecycleExecute(r ContentAPIGetContentLif
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -357,6 +373,14 @@ func (a *ContentAPIService) GetContentLifecycleExecute(r ContentAPIGetContentLif
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -373,19 +397,19 @@ func (a *ContentAPIService) GetContentLifecycleExecute(r ContentAPIGetContentLif
 }
 
 type ContentAPIPostContentByDoctypeByNameTransitionRequest struct {
-	ctx          context.Context
-	ApiService   *ContentAPIService
-	doctype      string
-	name         string
-	transitionIn *TransitionIn
+	ctx                 context.Context
+	ApiService          *ContentAPIService
+	doctype             string
+	name                string
+	contentTransitionIn *ContentTransitionIn
 }
 
-func (r ContentAPIPostContentByDoctypeByNameTransitionRequest) TransitionIn(transitionIn TransitionIn) ContentAPIPostContentByDoctypeByNameTransitionRequest {
-	r.transitionIn = &transitionIn
+func (r ContentAPIPostContentByDoctypeByNameTransitionRequest) ContentTransitionIn(contentTransitionIn ContentTransitionIn) ContentAPIPostContentByDoctypeByNameTransitionRequest {
+	r.contentTransitionIn = &contentTransitionIn
 	return r
 }
 
-func (r ContentAPIPostContentByDoctypeByNameTransitionRequest) Execute() (*TransitionResult, *http.Response, error) {
+func (r ContentAPIPostContentByDoctypeByNameTransitionRequest) Execute() (*ContentTransitionResult, *http.Response, error) {
 	return r.ApiService.PostContentByDoctypeByNameTransitionExecute(r)
 }
 
@@ -415,13 +439,13 @@ func (a *ContentAPIService) PostContentByDoctypeByNameTransition(ctx context.Con
 
 // Execute executes the request
 //
-//	@return TransitionResult
-func (a *ContentAPIService) PostContentByDoctypeByNameTransitionExecute(r ContentAPIPostContentByDoctypeByNameTransitionRequest) (*TransitionResult, *http.Response, error) {
+//	@return ContentTransitionResult
+func (a *ContentAPIService) PostContentByDoctypeByNameTransitionExecute(r ContentAPIPostContentByDoctypeByNameTransitionRequest) (*ContentTransitionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TransitionResult
+		localVarReturnValue *ContentTransitionResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentAPIService.PostContentByDoctypeByNameTransition")
@@ -436,8 +460,8 @@ func (a *ContentAPIService) PostContentByDoctypeByNameTransitionExecute(r Conten
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.transitionIn == nil {
-		return localVarReturnValue, nil, reportError("transitionIn is required and must be specified")
+	if r.contentTransitionIn == nil {
+		return localVarReturnValue, nil, reportError("contentTransitionIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -450,7 +474,7 @@ func (a *ContentAPIService) PostContentByDoctypeByNameTransitionExecute(r Conten
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -458,7 +482,7 @@ func (a *ContentAPIService) PostContentByDoctypeByNameTransitionExecute(r Conten
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.transitionIn
+	localVarPostBody = r.contentTransitionIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -481,6 +505,14 @@ func (a *ContentAPIService) PostContentByDoctypeByNameTransitionExecute(r Conten
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -497,24 +529,24 @@ func (a *ContentAPIService) PostContentByDoctypeByNameTransitionExecute(r Conten
 }
 
 type ContentAPIPostContentGenerateRequest struct {
-	ctx           context.Context
-	ApiService    *ContentAPIService
-	generateInput *GenerateInput
+	ctx                  context.Context
+	ApiService           *ContentAPIService
+	contentGenerateInput *ContentGenerateInput
 }
 
-func (r ContentAPIPostContentGenerateRequest) GenerateInput(generateInput GenerateInput) ContentAPIPostContentGenerateRequest {
-	r.generateInput = &generateInput
+func (r ContentAPIPostContentGenerateRequest) ContentGenerateInput(contentGenerateInput ContentGenerateInput) ContentAPIPostContentGenerateRequest {
+	r.contentGenerateInput = &contentGenerateInput
 	return r
 }
 
-func (r ContentAPIPostContentGenerateRequest) Execute() (*GenerateResult, *http.Response, error) {
+func (r ContentAPIPostContentGenerateRequest) Execute() (*ContentGenerateResult, *http.Response, error) {
 	return r.ApiService.PostContentGenerateExecute(r)
 }
 
 /*
-PostContentGenerate Draft a piece of marketing content and file it in the CMS as a draft.
+PostContentGenerate Draft a provider of marketing content and file it in the CMS as a draft.
 
-Draft a piece of marketing content and file it in the CMS as a draft.
+Draft a provider of marketing content and file it in the CMS as a draft.
 
 Answers 201 with the created draft's identity — {doctype, name, status} — and the
 document itself lands in the CMS through the SAME validate and lifecycle-hook
@@ -537,7 +569,7 @@ BODY rather than a server-minted identity claim, so it attributes spend but a
 project-scoped cap stays soft on it — the org is the value that is enforced.
 
 The org is the caller's own, resolved once from the validated principal and never
-read from the body; a caller without one is refused 403. Status is not the
+read from the body; a caller without one is refused 401. Status is not the
 generator's to choose: a generated item is ALWAYS a draft, and the storage-boundary
 hook enforces that a second time.
 
@@ -561,13 +593,13 @@ func (a *ContentAPIService) PostContentGenerate(ctx context.Context) ContentAPIP
 
 // Execute executes the request
 //
-//	@return GenerateResult
-func (a *ContentAPIService) PostContentGenerateExecute(r ContentAPIPostContentGenerateRequest) (*GenerateResult, *http.Response, error) {
+//	@return ContentGenerateResult
+func (a *ContentAPIService) PostContentGenerateExecute(r ContentAPIPostContentGenerateRequest) (*ContentGenerateResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GenerateResult
+		localVarReturnValue *ContentGenerateResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentAPIService.PostContentGenerate")
@@ -580,8 +612,8 @@ func (a *ContentAPIService) PostContentGenerateExecute(r ContentAPIPostContentGe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.generateInput == nil {
-		return localVarReturnValue, nil, reportError("generateInput is required and must be specified")
+	if r.contentGenerateInput == nil {
+		return localVarReturnValue, nil, reportError("contentGenerateInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -594,7 +626,7 @@ func (a *ContentAPIService) PostContentGenerateExecute(r ContentAPIPostContentGe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -602,7 +634,7 @@ func (a *ContentAPIService) PostContentGenerateExecute(r ContentAPIPostContentGe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.generateInput
+	localVarPostBody = r.contentGenerateInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -626,7 +658,7 @@ func (a *ContentAPIService) PostContentGenerateExecute(r ContentAPIPostContentGe
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 402 {
-			var v GenerateResult
+			var v ContentGenerateResult
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -634,7 +666,16 @@ func (a *ContentAPIService) PostContentGenerateExecute(r ContentAPIPostContentGe
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -651,17 +692,17 @@ func (a *ContentAPIService) PostContentGenerateExecute(r ContentAPIPostContentGe
 }
 
 type ContentAPIPostContentPublishRequest struct {
-	ctx          context.Context
-	ApiService   *ContentAPIService
-	publishInput *PublishInput
+	ctx                 context.Context
+	ApiService          *ContentAPIService
+	contentPublishInput *ContentPublishInput
 }
 
-func (r ContentAPIPostContentPublishRequest) PublishInput(publishInput PublishInput) ContentAPIPostContentPublishRequest {
-	r.publishInput = &publishInput
+func (r ContentAPIPostContentPublishRequest) ContentPublishInput(contentPublishInput ContentPublishInput) ContentAPIPostContentPublishRequest {
+	r.contentPublishInput = &contentPublishInput
 	return r
 }
 
-func (r ContentAPIPostContentPublishRequest) Execute() (*PublishResult, *http.Response, error) {
+func (r ContentAPIPostContentPublishRequest) Execute() (*ContentPublishResult, *http.Response, error) {
 	return r.ApiService.PostContentPublishExecute(r)
 }
 
@@ -687,13 +728,13 @@ func (a *ContentAPIService) PostContentPublish(ctx context.Context) ContentAPIPo
 
 // Execute executes the request
 //
-//	@return PublishResult
-func (a *ContentAPIService) PostContentPublishExecute(r ContentAPIPostContentPublishRequest) (*PublishResult, *http.Response, error) {
+//	@return ContentPublishResult
+func (a *ContentAPIService) PostContentPublishExecute(r ContentAPIPostContentPublishRequest) (*ContentPublishResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PublishResult
+		localVarReturnValue *ContentPublishResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentAPIService.PostContentPublish")
@@ -706,8 +747,8 @@ func (a *ContentAPIService) PostContentPublishExecute(r ContentAPIPostContentPub
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.publishInput == nil {
-		return localVarReturnValue, nil, reportError("publishInput is required and must be specified")
+	if r.contentPublishInput == nil {
+		return localVarReturnValue, nil, reportError("contentPublishInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -720,7 +761,7 @@ func (a *ContentAPIService) PostContentPublishExecute(r ContentAPIPostContentPub
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -728,7 +769,7 @@ func (a *ContentAPIService) PostContentPublishExecute(r ContentAPIPostContentPub
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.publishInput
+	localVarPostBody = r.contentPublishInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -751,6 +792,14 @@ func (a *ContentAPIService) PostContentPublishExecute(r ContentAPIPostContentPub
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

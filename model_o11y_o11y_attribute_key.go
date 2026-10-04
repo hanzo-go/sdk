@@ -28,8 +28,11 @@ type O11yO11yAttributeKey struct {
 	// Key is the attribute's name.
 	Key *string `json:"key,omitempty"`
 	// Type says where the attribute lives: tag or resource.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yAttributeKey O11yO11yAttributeKey
 
 // NewO11yO11yAttributeKey instantiates a new O11yO11yAttributeKey object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yAttributeKey) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yAttributeKey) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yAttributeKey := _O11yO11yAttributeKey{}
+
+	err = json.Unmarshal(data, &varO11yO11yAttributeKey)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yAttributeKey(varO11yO11yAttributeKey)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dataType")
+		delete(additionalProperties, "isColumn")
+		delete(additionalProperties, "isJSON")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yAttributeKey struct {

@@ -29,7 +29,10 @@ type O11yGettableWaterfallTrace struct {
 	TotalErrorSpansCount  *int32              `json:"totalErrorSpansCount,omitempty"`
 	TotalSpansCount       *int32              `json:"totalSpansCount,omitempty"`
 	UncollapsedSpans      []string            `json:"uncollapsedSpans,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
+
+type _O11yGettableWaterfallTrace O11yGettableWaterfallTrace
 
 // NewO11yGettableWaterfallTrace instantiates a new O11yGettableWaterfallTrace object
 // This constructor will assign default values to properties that have it defined,
@@ -408,7 +411,42 @@ func (o O11yGettableWaterfallTrace) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UncollapsedSpans) {
 		toSerialize["uncollapsedSpans"] = o.UncollapsedSpans
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableWaterfallTrace) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableWaterfallTrace := _O11yGettableWaterfallTrace{}
+
+	err = json.Unmarshal(data, &varO11yGettableWaterfallTrace)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableWaterfallTrace(varO11yGettableWaterfallTrace)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "endTimestampMillis")
+		delete(additionalProperties, "hasMissingSpans")
+		delete(additionalProperties, "hasMore")
+		delete(additionalProperties, "rootServiceEntryPoint")
+		delete(additionalProperties, "rootServiceName")
+		delete(additionalProperties, "spans")
+		delete(additionalProperties, "startTimestampMillis")
+		delete(additionalProperties, "totalErrorSpansCount")
+		delete(additionalProperties, "totalSpansCount")
+		delete(additionalProperties, "uncollapsedSpans")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableWaterfallTrace struct {

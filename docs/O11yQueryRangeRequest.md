@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CompositeQuery** | Pointer to [**O11yQuerybuildertypesv5CompositeQuery**](O11yQuerybuildertypesv5CompositeQuery.md) | CompositeQuery is the composite query to use for the request. | [optional] 
+**CompositeQuery** | Pointer to [**O11yCompositeQuery**](O11yCompositeQuery.md) | CompositeQuery is the composite query to use for the request. | [optional] 
 **End** | Pointer to **int32** | End is the end time of the query in epoch milliseconds. | [optional] 
 **FormatOptions** | Pointer to [**O11yFormatOptions**](O11yFormatOptions.md) |  | [optional] 
 **NoCache** | Pointer to **bool** | NoCache is a flag to disable caching for the request. | [optional] 
@@ -34,20 +34,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCompositeQuery
 
-`func (o *O11yQueryRangeRequest) GetCompositeQuery() O11yQuerybuildertypesv5CompositeQuery`
+`func (o *O11yQueryRangeRequest) GetCompositeQuery() O11yCompositeQuery`
 
 GetCompositeQuery returns the CompositeQuery field if non-nil, zero value otherwise.
 
 ### GetCompositeQueryOk
 
-`func (o *O11yQueryRangeRequest) GetCompositeQueryOk() (*O11yQuerybuildertypesv5CompositeQuery, bool)`
+`func (o *O11yQueryRangeRequest) GetCompositeQueryOk() (*O11yCompositeQuery, bool)`
 
 GetCompositeQueryOk returns a tuple with the CompositeQuery field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompositeQuery
 
-`func (o *O11yQueryRangeRequest) SetCompositeQuery(v O11yQuerybuildertypesv5CompositeQuery)`
+`func (o *O11yQueryRangeRequest) SetCompositeQuery(v O11yCompositeQuery)`
 
 SetCompositeQuery sets CompositeQuery field to given value.
 

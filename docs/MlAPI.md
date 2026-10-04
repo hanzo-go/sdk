@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -143,7 +143,7 @@ Other parameters are passed through a pointer to a apiGetMlHealthRequest struct 
 
 ## GetMlModels
 
-> MlResourceList GetMlModels(ctx).Execute()
+> MlMlResourceList GetMlModels(ctx).Execute()
 
 Lists the inference models deployed in the caller's org.
 
@@ -170,7 +170,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.GetMlModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMlModels`: MlResourceList
+	// response from `GetMlModels`: MlMlResourceList
 	fmt.Fprintf(os.Stdout, "Response from `MlAPI.GetMlModels`: %v\n", resp)
 }
 ```
@@ -186,7 +186,7 @@ Other parameters are passed through a pointer to a apiGetMlModelsRequest struct 
 
 ### Return type
 
-[**MlResourceList**](MlResourceList.md)
+[**MlMlResourceList**](MlMlResourceList.md)
 
 ### Authorization
 
@@ -195,7 +195,7 @@ Other parameters are passed through a pointer to a apiGetMlModelsRequest struct 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -204,7 +204,7 @@ Other parameters are passed through a pointer to a apiGetMlModelsRequest struct 
 
 ## GetMlModelsByName
 
-> MlResource GetMlModelsByName(ctx, name).Execute()
+> MlMlResource GetMlModelsByName(ctx, name).Execute()
 
 Returns one deployed inference model.
 
@@ -232,7 +232,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.GetMlModelsByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMlModelsByName`: MlResource
+	// response from `GetMlModelsByName`: MlMlResource
 	fmt.Fprintf(os.Stdout, "Response from `MlAPI.GetMlModelsByName`: %v\n", resp)
 }
 ```
@@ -256,7 +256,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MlResource**](MlResource.md)
+[**MlMlResource**](MlMlResource.md)
 
 ### Authorization
 
@@ -265,7 +265,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -342,7 +342,7 @@ Name | Type | Description  | Notes
 
 ## PostMlModels
 
-> MlResource PostMlModels(ctx).MlCreate(mlCreate).Execute()
+> MlMlResource PostMlModels(ctx).MlMlCreate(mlMlCreate).Execute()
 
 Deploys one inference model for the caller's org, and answers 201 with the model as Kubernetes admitted it.
 
@@ -361,16 +361,16 @@ import (
 )
 
 func main() {
-	mlCreate := *openapiclient.NewMlCreate() // MlCreate | 
+	mlMlCreate := *openapiclient.NewMlMlCreate() // MlMlCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MlAPI.PostMlModels(context.Background()).MlCreate(mlCreate).Execute()
+	resp, r, err := apiClient.MlAPI.PostMlModels(context.Background()).MlMlCreate(mlMlCreate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MlAPI.PostMlModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMlModels`: MlResource
+	// response from `PostMlModels`: MlMlResource
 	fmt.Fprintf(os.Stdout, "Response from `MlAPI.PostMlModels`: %v\n", resp)
 }
 ```
@@ -386,11 +386,11 @@ Other parameters are passed through a pointer to a apiPostMlModelsRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **mlCreate** | [**MlCreate**](MlCreate.md) |  | 
+ **mlMlCreate** | [**MlMlCreate**](MlMlCreate.md) |  | 
 
 ### Return type
 
-[**MlResource**](MlResource.md)
+[**MlMlResource**](MlMlResource.md)
 
 ### Authorization
 
@@ -399,7 +399,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yDashboardViewList{}
 // O11yO11yDashboardViewList struct for O11yO11yDashboardViewList
 type O11yO11yDashboardViewList struct {
 	// Views are the saved views, shared org-wide.
-	Views []O11yO11yDashboardView `json:"views,omitempty"`
+	Views                []O11yO11yDashboardView `json:"views,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardViewList O11yO11yDashboardViewList
 
 // NewO11yO11yDashboardViewList instantiates a new O11yO11yDashboardViewList object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yDashboardViewList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Views) {
 		toSerialize["views"] = o.Views
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardViewList) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardViewList := _O11yO11yDashboardViewList{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardViewList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardViewList(varO11yO11yDashboardViewList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "views")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardViewList struct {

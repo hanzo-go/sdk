@@ -22,61 +22,77 @@ import (
 // X402APIService X402API service
 type X402APIService service
 
-type X402APIGetX402SettlementsByIdRequest struct {
+type X402APIGetX402SettlementsRequest struct {
 	ctx        context.Context
 	ApiService *X402APIService
-	id         string
+	role       *string
+	year       *int64
 }
 
-func (r X402APIGetX402SettlementsByIdRequest) Execute() (*Receipt, *http.Response, error) {
-	return r.ApiService.GetX402SettlementsByIdExecute(r)
+// Role is payer — what the caller&#39;s org paid — or payee — what it was paid. Payer when empty.
+func (r X402APIGetX402SettlementsRequest) Role(role string) X402APIGetX402SettlementsRequest {
+	r.role = &role
+	return r
+}
+
+// Year keeps the calendar year (UTC) the payments settled in. Zero keeps every year.
+func (r X402APIGetX402SettlementsRequest) Year(year int64) X402APIGetX402SettlementsRequest {
+	r.year = &year
+	return r
+}
+
+func (r X402APIGetX402SettlementsRequest) Execute() (*X402SettlementList, *http.Response, error) {
+	return r.ApiService.GetX402SettlementsExecute(r)
 }
 
 /*
-GetX402SettlementsById Settlement reads one x402 payment receipt by id.
+GetX402Settlements Lists the caller's x402 receipts, newest first: as payer, what its ledger paid; as payee, what it was paid — each settled payment with what it bought, both parties, the exact amount and when.
 
-Settlement reads one x402 payment receipt by id.
-
-It is scoped to the caller's PAYER org — the ledger that was debited — so one
-tenant can never read another's settlement, and an id that exists but belongs
-to somebody else is a 404 exactly like one that does not exist. A caller with
-no billable identity is refused outright.
+Lists the caller's x402 receipts, newest first: as payer, what its
+ledger paid; as payee, what it was paid — each settled payment with what it
+bought, both parties, the exact amount and when. A payer is the org whose ledger
+is debited, which for a SuperAdmin inspecting another org is still its own; a
+payee is the caller's own org. An unsettled claim is not a receipt and is never
+listed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the settlement id from the URL — the deterministic keccak(from|nonce) key an x402 receipt is issued under (the `id` field of a Receipt, and the `transaction` of the SettlementResponse on the PAYMENT-RESPONSE header a paid request answers with).
-	@return X402APIGetX402SettlementsByIdRequest
+	@return X402APIGetX402SettlementsRequest
 */
-func (a *X402APIService) GetX402SettlementsById(ctx context.Context, id string) X402APIGetX402SettlementsByIdRequest {
-	return X402APIGetX402SettlementsByIdRequest{
+func (a *X402APIService) GetX402Settlements(ctx context.Context) X402APIGetX402SettlementsRequest {
+	return X402APIGetX402SettlementsRequest{
 		ApiService: a,
 		ctx:        ctx,
-		id:         id,
 	}
 }
 
 // Execute executes the request
 //
-//	@return Receipt
-func (a *X402APIService) GetX402SettlementsByIdExecute(r X402APIGetX402SettlementsByIdRequest) (*Receipt, *http.Response, error) {
+//	@return X402SettlementList
+func (a *X402APIService) GetX402SettlementsExecute(r X402APIGetX402SettlementsRequest) (*X402SettlementList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Receipt
+		localVarReturnValue *X402SettlementList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "X402APIService.GetX402SettlementsById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "X402APIService.GetX402Settlements")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/x402/settlements/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath := localBasePath + "/v1/x402/settlements"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.role != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "role", r.role, "form", "")
+	}
+	if r.year != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "year", r.year, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -87,7 +103,7 @@ func (a *X402APIService) GetX402SettlementsByIdExecute(r X402APIGetX402Settlemen
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -116,6 +132,131 @@ func (a *X402APIService) GetX402SettlementsByIdExecute(r X402APIGetX402Settlemen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type X402APIGetX402SettlementsByIdRequest struct {
+	ctx        context.Context
+	ApiService *X402APIService
+	id         string
+}
+
+func (r X402APIGetX402SettlementsByIdRequest) Execute() (*X402Receipt, *http.Response, error) {
+	return r.ApiService.GetX402SettlementsByIdExecute(r)
+}
+
+/*
+GetX402SettlementsById Reads one x402 payment receipt by id.
+
+Reads one x402 payment receipt by id.
+
+It is scoped to the caller's PAYER org — the ledger that was debited — so one
+tenant can never read another's settlement, and an id that exists but belongs
+to somebody else is a 404 exactly like one that does not exist. A caller with
+no billable identity is refused outright.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the settlement id from the URL — the deterministic keccak(from|nonce) key an x402 receipt is issued under (the `id` field of a Receipt, and the `transaction` of the SettlementResponse on the PAYMENT-RESPONSE header a paid request answers with).
+	@return X402APIGetX402SettlementsByIdRequest
+*/
+func (a *X402APIService) GetX402SettlementsById(ctx context.Context, id string) X402APIGetX402SettlementsByIdRequest {
+	return X402APIGetX402SettlementsByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return X402Receipt
+func (a *X402APIService) GetX402SettlementsByIdExecute(r X402APIGetX402SettlementsByIdRequest) (*X402Receipt, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *X402Receipt
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "X402APIService.GetX402SettlementsById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/x402/settlements/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

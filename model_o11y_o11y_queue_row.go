@@ -23,8 +23,11 @@ type O11yO11yQueueRow struct {
 	// Data holds the row's cells keyed by column name; each cell's JSON type is the column's own, so the bytes pass through verbatim.
 	Data map[string]interface{} `json:"data,omitempty"`
 	// Timestamp anchors the row in time.
-	Timestamp *time.Time `json:"timestamp,omitempty"`
+	Timestamp            *time.Time `json:"timestamp,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueueRow O11yO11yQueueRow
 
 // NewO11yO11yQueueRow instantiates a new O11yO11yQueueRow object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o O11yO11yQueueRow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Timestamp) {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueueRow) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueueRow := _O11yO11yQueueRow{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueueRow)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueueRow(varO11yO11yQueueRow)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "timestamp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueueRow struct {

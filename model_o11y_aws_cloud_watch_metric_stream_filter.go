@@ -21,8 +21,11 @@ var _ MappedNullable = &O11yAWSCloudWatchMetricStreamFilter{}
 type O11yAWSCloudWatchMetricStreamFilter struct {
 	MetricNames []string `json:"metricNames,omitempty"`
 	// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-metricstream-metricstreamfilter.html
-	Namespace *string `json:"namespace,omitempty"`
+	Namespace            *string `json:"namespace,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAWSCloudWatchMetricStreamFilter O11yAWSCloudWatchMetricStreamFilter
 
 // NewO11yAWSCloudWatchMetricStreamFilter instantiates a new O11yAWSCloudWatchMetricStreamFilter object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o O11yAWSCloudWatchMetricStreamFilter) ToMap() (map[string]interface{}, er
 	if !IsNil(o.Namespace) {
 		toSerialize["namespace"] = o.Namespace
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAWSCloudWatchMetricStreamFilter) UnmarshalJSON(data []byte) (err error) {
+	varO11yAWSCloudWatchMetricStreamFilter := _O11yAWSCloudWatchMetricStreamFilter{}
+
+	err = json.Unmarshal(data, &varO11yAWSCloudWatchMetricStreamFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAWSCloudWatchMetricStreamFilter(varO11yAWSCloudWatchMetricStreamFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "metricNames")
+		delete(additionalProperties, "namespace")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAWSCloudWatchMetricStreamFilter struct {

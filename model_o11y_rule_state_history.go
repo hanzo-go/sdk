@@ -19,19 +19,22 @@ var _ MappedNullable = &O11yRuleStateHistory{}
 
 // O11yRuleStateHistory struct for O11yRuleStateHistory
 type O11yRuleStateHistory struct {
-	Fingerprint         *int32      `json:"fingerprint,omitempty"`
-	Labels              interface{} `json:"labels,omitempty"`
-	OverallState        interface{} `json:"overallState,omitempty"`
-	OverallStateChanged *bool       `json:"overallStateChanged,omitempty"`
-	RelatedLogsLink     *string     `json:"relatedLogsLink,omitempty"`
-	RelatedTracesLink   *string     `json:"relatedTracesLink,omitempty"`
-	RuleID              *string     `json:"ruleID,omitempty"`
-	RuleName            *string     `json:"ruleName,omitempty"`
-	State               interface{} `json:"state,omitempty"`
-	StateChanged        *bool       `json:"stateChanged,omitempty"`
-	UnixMilli           *int64      `json:"unixMilli,omitempty"`
-	Value               *float64    `json:"value,omitempty"`
+	Fingerprint          *int32      `json:"fingerprint,omitempty"`
+	Labels               interface{} `json:"labels,omitempty"`
+	OverallState         interface{} `json:"overallState,omitempty"`
+	OverallStateChanged  *bool       `json:"overallStateChanged,omitempty"`
+	RelatedLogsLink      *string     `json:"relatedLogsLink,omitempty"`
+	RelatedTracesLink    *string     `json:"relatedTracesLink,omitempty"`
+	RuleID               *string     `json:"ruleID,omitempty"`
+	RuleName             *string     `json:"ruleName,omitempty"`
+	State                interface{} `json:"state,omitempty"`
+	StateChanged         *bool       `json:"stateChanged,omitempty"`
+	UnixMilli            *int64      `json:"unixMilli,omitempty"`
+	Value                *float64    `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yRuleStateHistory O11yRuleStateHistory
 
 // NewO11yRuleStateHistory instantiates a new O11yRuleStateHistory object
 // This constructor will assign default values to properties that have it defined,
@@ -483,7 +486,44 @@ func (o O11yRuleStateHistory) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yRuleStateHistory) UnmarshalJSON(data []byte) (err error) {
+	varO11yRuleStateHistory := _O11yRuleStateHistory{}
+
+	err = json.Unmarshal(data, &varO11yRuleStateHistory)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yRuleStateHistory(varO11yRuleStateHistory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fingerprint")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "overallState")
+		delete(additionalProperties, "overallStateChanged")
+		delete(additionalProperties, "relatedLogsLink")
+		delete(additionalProperties, "relatedTracesLink")
+		delete(additionalProperties, "ruleID")
+		delete(additionalProperties, "ruleName")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "stateChanged")
+		delete(additionalProperties, "unixMilli")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yRuleStateHistory struct {

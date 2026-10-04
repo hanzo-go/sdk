@@ -22,8 +22,11 @@ type O11yIntegrationConfig struct {
 	// backward compatible
 	EnabledRegions []string `json:"enabled_regions,omitempty"`
 	// backward compatible
-	Telemetry *O11yOldAWSCollectionStrategy `json:"telemetry,omitempty"`
+	Telemetry            *O11yOldAWSCollectionStrategy `json:"telemetry,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yIntegrationConfig O11yIntegrationConfig
 
 // NewO11yIntegrationConfig instantiates a new O11yIntegrationConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yIntegrationConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Telemetry) {
 		toSerialize["telemetry"] = o.Telemetry
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yIntegrationConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yIntegrationConfig := _O11yIntegrationConfig{}
+
+	err = json.Unmarshal(data, &varO11yIntegrationConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yIntegrationConfig(varO11yIntegrationConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enabled_regions")
+		delete(additionalProperties, "telemetry")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yIntegrationConfig struct {

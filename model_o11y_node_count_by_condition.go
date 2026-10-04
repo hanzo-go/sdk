@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yNodeCountByCondition{}
 
 // O11yNodeCountByCondition struct for O11yNodeCountByCondition
 type O11yNodeCountByCondition struct {
-	NotReady *int64 `json:"notReady,omitempty"`
-	Ready    *int64 `json:"ready,omitempty"`
-	Unknown  *int64 `json:"unknown,omitempty"`
+	NotReady             *int64 `json:"notReady,omitempty"`
+	Ready                *int64 `json:"ready,omitempty"`
+	Unknown              *int64 `json:"unknown,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yNodeCountByCondition O11yNodeCountByCondition
 
 // NewO11yNodeCountByCondition instantiates a new O11yNodeCountByCondition object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yNodeCountByCondition) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Unknown) {
 		toSerialize["unknown"] = o.Unknown
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yNodeCountByCondition) UnmarshalJSON(data []byte) (err error) {
+	varO11yNodeCountByCondition := _O11yNodeCountByCondition{}
+
+	err = json.Unmarshal(data, &varO11yNodeCountByCondition)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yNodeCountByCondition(varO11yNodeCountByCondition)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "notReady")
+		delete(additionalProperties, "ready")
+		delete(additionalProperties, "unknown")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yNodeCountByCondition struct {

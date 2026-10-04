@@ -26,7 +26,7 @@ type AffiliateAPIGetAffiliateRequest struct {
 	ApiService *AffiliateAPIService
 }
 
-func (r AffiliateAPIGetAffiliateRequest) Execute() (*AffiliateStanding, *http.Response, error) {
+func (r AffiliateAPIGetAffiliateRequest) Execute() (*AffiliateAffiliateStanding, *http.Response, error) {
 	return r.ApiService.GetAffiliateExecute(r)
 }
 
@@ -59,13 +59,13 @@ func (a *AffiliateAPIService) GetAffiliate(ctx context.Context) AffiliateAPIGetA
 
 // Execute executes the request
 //
-//	@return AffiliateStanding
-func (a *AffiliateAPIService) GetAffiliateExecute(r AffiliateAPIGetAffiliateRequest) (*AffiliateStanding, *http.Response, error) {
+//	@return AffiliateAffiliateStanding
+func (a *AffiliateAPIService) GetAffiliateExecute(r AffiliateAPIGetAffiliateRequest) (*AffiliateAffiliateStanding, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AffiliateStanding
+		localVarReturnValue *AffiliateAffiliateStanding
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AffiliateAPIService.GetAffiliate")
@@ -89,7 +89,7 @@ func (a *AffiliateAPIService) GetAffiliateExecute(r AffiliateAPIGetAffiliateRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -118,6 +118,14 @@ func (a *AffiliateAPIService) GetAffiliateExecute(r AffiliateAPIGetAffiliateRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -138,7 +146,7 @@ type AffiliateAPIGetAffiliateLeaderboardRequest struct {
 	ApiService *AffiliateAPIService
 }
 
-func (r AffiliateAPIGetAffiliateLeaderboardRequest) Execute() (*AffiliateBoard, *http.Response, error) {
+func (r AffiliateAPIGetAffiliateLeaderboardRequest) Execute() (*AffiliateAffiliateBoard, *http.Response, error) {
 	return r.ApiService.GetAffiliateLeaderboardExecute(r)
 }
 
@@ -171,13 +179,13 @@ func (a *AffiliateAPIService) GetAffiliateLeaderboard(ctx context.Context) Affil
 
 // Execute executes the request
 //
-//	@return AffiliateBoard
-func (a *AffiliateAPIService) GetAffiliateLeaderboardExecute(r AffiliateAPIGetAffiliateLeaderboardRequest) (*AffiliateBoard, *http.Response, error) {
+//	@return AffiliateAffiliateBoard
+func (a *AffiliateAPIService) GetAffiliateLeaderboardExecute(r AffiliateAPIGetAffiliateLeaderboardRequest) (*AffiliateAffiliateBoard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AffiliateBoard
+		localVarReturnValue *AffiliateAffiliateBoard
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AffiliateAPIService.GetAffiliateLeaderboard")
@@ -201,7 +209,7 @@ func (a *AffiliateAPIService) GetAffiliateLeaderboardExecute(r AffiliateAPIGetAf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -230,6 +238,14 @@ func (a *AffiliateAPIService) GetAffiliateLeaderboardExecute(r AffiliateAPIGetAf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -250,7 +266,7 @@ type AffiliateAPIGetAffiliateMeRequest struct {
 	ApiService *AffiliateAPIService
 }
 
-func (r AffiliateAPIGetAffiliateMeRequest) Execute() (*AffiliateSelf, *http.Response, error) {
+func (r AffiliateAPIGetAffiliateMeRequest) Execute() (*AffiliateAffiliateSelf, *http.Response, error) {
 	return r.ApiService.GetAffiliateMeExecute(r)
 }
 
@@ -284,13 +300,13 @@ func (a *AffiliateAPIService) GetAffiliateMe(ctx context.Context) AffiliateAPIGe
 
 // Execute executes the request
 //
-//	@return AffiliateSelf
-func (a *AffiliateAPIService) GetAffiliateMeExecute(r AffiliateAPIGetAffiliateMeRequest) (*AffiliateSelf, *http.Response, error) {
+//	@return AffiliateAffiliateSelf
+func (a *AffiliateAPIService) GetAffiliateMeExecute(r AffiliateAPIGetAffiliateMeRequest) (*AffiliateAffiliateSelf, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AffiliateSelf
+		localVarReturnValue *AffiliateAffiliateSelf
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AffiliateAPIService.GetAffiliateMe")
@@ -314,7 +330,7 @@ func (a *AffiliateAPIService) GetAffiliateMeExecute(r AffiliateAPIGetAffiliateMe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -343,6 +359,14 @@ func (a *AffiliateAPIService) GetAffiliateMeExecute(r AffiliateAPIGetAffiliateMe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -363,7 +387,7 @@ type AffiliateAPIGetAffiliateMeEarningsRequest struct {
 	ApiService *AffiliateAPIService
 }
 
-func (r AffiliateAPIGetAffiliateMeEarningsRequest) Execute() (*AffiliateEarnings, *http.Response, error) {
+func (r AffiliateAPIGetAffiliateMeEarningsRequest) Execute() (*AffiliateAffiliateEarnings, *http.Response, error) {
 	return r.ApiService.GetAffiliateMeEarningsExecute(r)
 }
 
@@ -394,13 +418,13 @@ func (a *AffiliateAPIService) GetAffiliateMeEarnings(ctx context.Context) Affili
 
 // Execute executes the request
 //
-//	@return AffiliateEarnings
-func (a *AffiliateAPIService) GetAffiliateMeEarningsExecute(r AffiliateAPIGetAffiliateMeEarningsRequest) (*AffiliateEarnings, *http.Response, error) {
+//	@return AffiliateAffiliateEarnings
+func (a *AffiliateAPIService) GetAffiliateMeEarningsExecute(r AffiliateAPIGetAffiliateMeEarningsRequest) (*AffiliateAffiliateEarnings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AffiliateEarnings
+		localVarReturnValue *AffiliateAffiliateEarnings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AffiliateAPIService.GetAffiliateMeEarnings")
@@ -424,7 +448,7 @@ func (a *AffiliateAPIService) GetAffiliateMeEarningsExecute(r AffiliateAPIGetAff
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -453,6 +477,14 @@ func (a *AffiliateAPIService) GetAffiliateMeEarningsExecute(r AffiliateAPIGetAff
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -473,7 +505,7 @@ type AffiliateAPIGetAffiliateMeLinksRequest struct {
 	ApiService *AffiliateAPIService
 }
 
-func (r AffiliateAPIGetAffiliateMeLinksRequest) Execute() (*AffiliateLinks, *http.Response, error) {
+func (r AffiliateAPIGetAffiliateMeLinksRequest) Execute() (*AffiliateAffiliateLinks, *http.Response, error) {
 	return r.ApiService.GetAffiliateMeLinksExecute(r)
 }
 
@@ -505,13 +537,13 @@ func (a *AffiliateAPIService) GetAffiliateMeLinks(ctx context.Context) Affiliate
 
 // Execute executes the request
 //
-//	@return AffiliateLinks
-func (a *AffiliateAPIService) GetAffiliateMeLinksExecute(r AffiliateAPIGetAffiliateMeLinksRequest) (*AffiliateLinks, *http.Response, error) {
+//	@return AffiliateAffiliateLinks
+func (a *AffiliateAPIService) GetAffiliateMeLinksExecute(r AffiliateAPIGetAffiliateMeLinksRequest) (*AffiliateAffiliateLinks, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AffiliateLinks
+		localVarReturnValue *AffiliateAffiliateLinks
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AffiliateAPIService.GetAffiliateMeLinks")
@@ -535,7 +567,7 @@ func (a *AffiliateAPIService) GetAffiliateMeLinksExecute(r AffiliateAPIGetAffili
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -564,6 +596,14 @@ func (a *AffiliateAPIService) GetAffiliateMeLinksExecute(r AffiliateAPIGetAffili
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -580,17 +620,17 @@ func (a *AffiliateAPIService) GetAffiliateMeLinksExecute(r AffiliateAPIGetAffili
 }
 
 type AffiliateAPIPostAffiliateApplyRequest struct {
-	ctx          context.Context
-	ApiService   *AffiliateAPIService
-	applyRequest *ApplyRequest
+	ctx                   context.Context
+	ApiService            *AffiliateAPIService
+	affiliateApplyRequest *AffiliateApplyRequest
 }
 
-func (r AffiliateAPIPostAffiliateApplyRequest) ApplyRequest(applyRequest ApplyRequest) AffiliateAPIPostAffiliateApplyRequest {
-	r.applyRequest = &applyRequest
+func (r AffiliateAPIPostAffiliateApplyRequest) AffiliateApplyRequest(affiliateApplyRequest AffiliateApplyRequest) AffiliateAPIPostAffiliateApplyRequest {
+	r.affiliateApplyRequest = &affiliateApplyRequest
 	return r
 }
 
-func (r AffiliateAPIPostAffiliateApplyRequest) Execute() (*Application, *http.Response, error) {
+func (r AffiliateAPIPostAffiliateApplyRequest) Execute() (*AffiliateApplication, *http.Response, error) {
 	return r.ApiService.PostAffiliateApplyExecute(r)
 }
 
@@ -622,13 +662,13 @@ func (a *AffiliateAPIService) PostAffiliateApply(ctx context.Context) AffiliateA
 
 // Execute executes the request
 //
-//	@return Application
-func (a *AffiliateAPIService) PostAffiliateApplyExecute(r AffiliateAPIPostAffiliateApplyRequest) (*Application, *http.Response, error) {
+//	@return AffiliateApplication
+func (a *AffiliateAPIService) PostAffiliateApplyExecute(r AffiliateAPIPostAffiliateApplyRequest) (*AffiliateApplication, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Application
+		localVarReturnValue *AffiliateApplication
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AffiliateAPIService.PostAffiliateApply")
@@ -641,8 +681,8 @@ func (a *AffiliateAPIService) PostAffiliateApplyExecute(r AffiliateAPIPostAffili
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.applyRequest == nil {
-		return localVarReturnValue, nil, reportError("applyRequest is required and must be specified")
+	if r.affiliateApplyRequest == nil {
+		return localVarReturnValue, nil, reportError("affiliateApplyRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -655,7 +695,7 @@ func (a *AffiliateAPIService) PostAffiliateApplyExecute(r AffiliateAPIPostAffili
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -663,7 +703,7 @@ func (a *AffiliateAPIService) PostAffiliateApplyExecute(r AffiliateAPIPostAffili
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.applyRequest
+	localVarPostBody = r.affiliateApplyRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -686,6 +726,14 @@ func (a *AffiliateAPIService) PostAffiliateApplyExecute(r AffiliateAPIPostAffili
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -702,17 +750,17 @@ func (a *AffiliateAPIService) PostAffiliateApplyExecute(r AffiliateAPIPostAffili
 }
 
 type AffiliateAPIPostAffiliateAttributeRequest struct {
-	ctx              context.Context
-	ApiService       *AffiliateAPIService
-	attributeRequest *AttributeRequest
+	ctx                       context.Context
+	ApiService                *AffiliateAPIService
+	affiliateAttributeRequest *AffiliateAttributeRequest
 }
 
-func (r AffiliateAPIPostAffiliateAttributeRequest) AttributeRequest(attributeRequest AttributeRequest) AffiliateAPIPostAffiliateAttributeRequest {
-	r.attributeRequest = &attributeRequest
+func (r AffiliateAPIPostAffiliateAttributeRequest) AffiliateAttributeRequest(affiliateAttributeRequest AffiliateAttributeRequest) AffiliateAPIPostAffiliateAttributeRequest {
+	r.affiliateAttributeRequest = &affiliateAttributeRequest
 	return r
 }
 
-func (r AffiliateAPIPostAffiliateAttributeRequest) Execute() (*Attribution, *http.Response, error) {
+func (r AffiliateAPIPostAffiliateAttributeRequest) Execute() (*AffiliateAttribution, *http.Response, error) {
 	return r.ApiService.PostAffiliateAttributeExecute(r)
 }
 
@@ -749,13 +797,13 @@ func (a *AffiliateAPIService) PostAffiliateAttribute(ctx context.Context) Affili
 
 // Execute executes the request
 //
-//	@return Attribution
-func (a *AffiliateAPIService) PostAffiliateAttributeExecute(r AffiliateAPIPostAffiliateAttributeRequest) (*Attribution, *http.Response, error) {
+//	@return AffiliateAttribution
+func (a *AffiliateAPIService) PostAffiliateAttributeExecute(r AffiliateAPIPostAffiliateAttributeRequest) (*AffiliateAttribution, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Attribution
+		localVarReturnValue *AffiliateAttribution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AffiliateAPIService.PostAffiliateAttribute")
@@ -768,8 +816,8 @@ func (a *AffiliateAPIService) PostAffiliateAttributeExecute(r AffiliateAPIPostAf
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.attributeRequest == nil {
-		return localVarReturnValue, nil, reportError("attributeRequest is required and must be specified")
+	if r.affiliateAttributeRequest == nil {
+		return localVarReturnValue, nil, reportError("affiliateAttributeRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -782,7 +830,7 @@ func (a *AffiliateAPIService) PostAffiliateAttributeExecute(r AffiliateAPIPostAf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -790,7 +838,7 @@ func (a *AffiliateAPIService) PostAffiliateAttributeExecute(r AffiliateAPIPostAf
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.attributeRequest
+	localVarPostBody = r.affiliateAttributeRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -813,6 +861,14 @@ func (a *AffiliateAPIService) PostAffiliateAttributeExecute(r AffiliateAPIPostAf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -829,17 +885,17 @@ func (a *AffiliateAPIService) PostAffiliateAttributeExecute(r AffiliateAPIPostAf
 }
 
 type AffiliateAPIPostAffiliateClickRequest struct {
-	ctx          context.Context
-	ApiService   *AffiliateAPIService
-	clickRequest *ClickRequest
+	ctx                   context.Context
+	ApiService            *AffiliateAPIService
+	affiliateClickRequest *AffiliateClickRequest
 }
 
-func (r AffiliateAPIPostAffiliateClickRequest) ClickRequest(clickRequest ClickRequest) AffiliateAPIPostAffiliateClickRequest {
-	r.clickRequest = &clickRequest
+func (r AffiliateAPIPostAffiliateClickRequest) AffiliateClickRequest(affiliateClickRequest AffiliateClickRequest) AffiliateAPIPostAffiliateClickRequest {
+	r.affiliateClickRequest = &affiliateClickRequest
 	return r
 }
 
-func (r AffiliateAPIPostAffiliateClickRequest) Execute() (*ClickCount, *http.Response, error) {
+func (r AffiliateAPIPostAffiliateClickRequest) Execute() (*AffiliateClickCount, *http.Response, error) {
 	return r.ApiService.PostAffiliateClickExecute(r)
 }
 
@@ -873,13 +929,13 @@ func (a *AffiliateAPIService) PostAffiliateClick(ctx context.Context) AffiliateA
 
 // Execute executes the request
 //
-//	@return ClickCount
-func (a *AffiliateAPIService) PostAffiliateClickExecute(r AffiliateAPIPostAffiliateClickRequest) (*ClickCount, *http.Response, error) {
+//	@return AffiliateClickCount
+func (a *AffiliateAPIService) PostAffiliateClickExecute(r AffiliateAPIPostAffiliateClickRequest) (*AffiliateClickCount, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClickCount
+		localVarReturnValue *AffiliateClickCount
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AffiliateAPIService.PostAffiliateClick")
@@ -892,8 +948,8 @@ func (a *AffiliateAPIService) PostAffiliateClickExecute(r AffiliateAPIPostAffili
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.clickRequest == nil {
-		return localVarReturnValue, nil, reportError("clickRequest is required and must be specified")
+	if r.affiliateClickRequest == nil {
+		return localVarReturnValue, nil, reportError("affiliateClickRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -906,7 +962,7 @@ func (a *AffiliateAPIService) PostAffiliateClickExecute(r AffiliateAPIPostAffili
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -914,7 +970,7 @@ func (a *AffiliateAPIService) PostAffiliateClickExecute(r AffiliateAPIPostAffili
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.clickRequest
+	localVarPostBody = r.affiliateClickRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -937,6 +993,14 @@ func (a *AffiliateAPIService) PostAffiliateClickExecute(r AffiliateAPIPostAffili
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -953,17 +1017,17 @@ func (a *AffiliateAPIService) PostAffiliateClickExecute(r AffiliateAPIPostAffili
 }
 
 type AffiliateAPIPostAffiliateMeHandleRequest struct {
-	ctx           context.Context
-	ApiService    *AffiliateAPIService
-	handleRequest *HandleRequest
+	ctx                    context.Context
+	ApiService             *AffiliateAPIService
+	affiliateHandleRequest *AffiliateHandleRequest
 }
 
-func (r AffiliateAPIPostAffiliateMeHandleRequest) HandleRequest(handleRequest HandleRequest) AffiliateAPIPostAffiliateMeHandleRequest {
-	r.handleRequest = &handleRequest
+func (r AffiliateAPIPostAffiliateMeHandleRequest) AffiliateHandleRequest(affiliateHandleRequest AffiliateHandleRequest) AffiliateAPIPostAffiliateMeHandleRequest {
+	r.affiliateHandleRequest = &affiliateHandleRequest
 	return r
 }
 
-func (r AffiliateAPIPostAffiliateMeHandleRequest) Execute() (*HandleSet, *http.Response, error) {
+func (r AffiliateAPIPostAffiliateMeHandleRequest) Execute() (*AffiliateHandleSet, *http.Response, error) {
 	return r.ApiService.PostAffiliateMeHandleExecute(r)
 }
 
@@ -993,13 +1057,13 @@ func (a *AffiliateAPIService) PostAffiliateMeHandle(ctx context.Context) Affilia
 
 // Execute executes the request
 //
-//	@return HandleSet
-func (a *AffiliateAPIService) PostAffiliateMeHandleExecute(r AffiliateAPIPostAffiliateMeHandleRequest) (*HandleSet, *http.Response, error) {
+//	@return AffiliateHandleSet
+func (a *AffiliateAPIService) PostAffiliateMeHandleExecute(r AffiliateAPIPostAffiliateMeHandleRequest) (*AffiliateHandleSet, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *HandleSet
+		localVarReturnValue *AffiliateHandleSet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AffiliateAPIService.PostAffiliateMeHandle")
@@ -1012,8 +1076,8 @@ func (a *AffiliateAPIService) PostAffiliateMeHandleExecute(r AffiliateAPIPostAff
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.handleRequest == nil {
-		return localVarReturnValue, nil, reportError("handleRequest is required and must be specified")
+	if r.affiliateHandleRequest == nil {
+		return localVarReturnValue, nil, reportError("affiliateHandleRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1026,7 +1090,7 @@ func (a *AffiliateAPIService) PostAffiliateMeHandleExecute(r AffiliateAPIPostAff
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1034,7 +1098,7 @@ func (a *AffiliateAPIService) PostAffiliateMeHandleExecute(r AffiliateAPIPostAff
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.handleRequest
+	localVarPostBody = r.affiliateHandleRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1057,6 +1121,14 @@ func (a *AffiliateAPIService) PostAffiliateMeHandleExecute(r AffiliateAPIPostAff
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1073,17 +1145,17 @@ func (a *AffiliateAPIService) PostAffiliateMeHandleExecute(r AffiliateAPIPostAff
 }
 
 type AffiliateAPIPostAffiliateMeLinksRequest struct {
-	ctx               context.Context
-	ApiService        *AffiliateAPIService
-	createLinkRequest *CreateLinkRequest
+	ctx                        context.Context
+	ApiService                 *AffiliateAPIService
+	affiliateCreateLinkRequest *AffiliateCreateLinkRequest
 }
 
-func (r AffiliateAPIPostAffiliateMeLinksRequest) CreateLinkRequest(createLinkRequest CreateLinkRequest) AffiliateAPIPostAffiliateMeLinksRequest {
-	r.createLinkRequest = &createLinkRequest
+func (r AffiliateAPIPostAffiliateMeLinksRequest) AffiliateCreateLinkRequest(affiliateCreateLinkRequest AffiliateCreateLinkRequest) AffiliateAPIPostAffiliateMeLinksRequest {
+	r.affiliateCreateLinkRequest = &affiliateCreateLinkRequest
 	return r
 }
 
-func (r AffiliateAPIPostAffiliateMeLinksRequest) Execute() (*LinkMint, *http.Response, error) {
+func (r AffiliateAPIPostAffiliateMeLinksRequest) Execute() (*AffiliateLinkMint, *http.Response, error) {
 	return r.ApiService.PostAffiliateMeLinksExecute(r)
 }
 
@@ -1114,13 +1186,13 @@ func (a *AffiliateAPIService) PostAffiliateMeLinks(ctx context.Context) Affiliat
 
 // Execute executes the request
 //
-//	@return LinkMint
-func (a *AffiliateAPIService) PostAffiliateMeLinksExecute(r AffiliateAPIPostAffiliateMeLinksRequest) (*LinkMint, *http.Response, error) {
+//	@return AffiliateLinkMint
+func (a *AffiliateAPIService) PostAffiliateMeLinksExecute(r AffiliateAPIPostAffiliateMeLinksRequest) (*AffiliateLinkMint, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *LinkMint
+		localVarReturnValue *AffiliateLinkMint
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AffiliateAPIService.PostAffiliateMeLinks")
@@ -1133,8 +1205,8 @@ func (a *AffiliateAPIService) PostAffiliateMeLinksExecute(r AffiliateAPIPostAffi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createLinkRequest == nil {
-		return localVarReturnValue, nil, reportError("createLinkRequest is required and must be specified")
+	if r.affiliateCreateLinkRequest == nil {
+		return localVarReturnValue, nil, reportError("affiliateCreateLinkRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1147,7 +1219,7 @@ func (a *AffiliateAPIService) PostAffiliateMeLinksExecute(r AffiliateAPIPostAffi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1155,7 +1227,7 @@ func (a *AffiliateAPIService) PostAffiliateMeLinksExecute(r AffiliateAPIPostAffi
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createLinkRequest
+	localVarPostBody = r.affiliateCreateLinkRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1178,6 +1250,14 @@ func (a *AffiliateAPIService) PostAffiliateMeLinksExecute(r AffiliateAPIPostAffi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

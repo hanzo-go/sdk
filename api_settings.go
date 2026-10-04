@@ -86,7 +86,7 @@ func (a *SettingsAPIService) GetSettingsByProductExecute(r SettingsAPIGetSetting
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -115,6 +115,14 @@ func (a *SettingsAPIService) GetSettingsByProductExecute(r SettingsAPIGetSetting
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -131,14 +139,14 @@ func (a *SettingsAPIService) GetSettingsByProductExecute(r SettingsAPIGetSetting
 }
 
 type SettingsAPIPutSettingsByProductRequest struct {
-	ctx         context.Context
-	ApiService  *SettingsAPIService
-	product     string
-	settingsReq *SettingsReq
+	ctx                 context.Context
+	ApiService          *SettingsAPIService
+	product             string
+	settingsSettingsReq *SettingsSettingsReq
 }
 
-func (r SettingsAPIPutSettingsByProductRequest) SettingsReq(settingsReq SettingsReq) SettingsAPIPutSettingsByProductRequest {
-	r.settingsReq = &settingsReq
+func (r SettingsAPIPutSettingsByProductRequest) SettingsSettingsReq(settingsSettingsReq SettingsSettingsReq) SettingsAPIPutSettingsByProductRequest {
+	r.settingsSettingsReq = &settingsSettingsReq
 	return r
 }
 
@@ -190,8 +198,8 @@ func (a *SettingsAPIService) PutSettingsByProductExecute(r SettingsAPIPutSetting
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.settingsReq == nil {
-		return localVarReturnValue, nil, reportError("settingsReq is required and must be specified")
+	if r.settingsSettingsReq == nil {
+		return localVarReturnValue, nil, reportError("settingsSettingsReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -204,7 +212,7 @@ func (a *SettingsAPIService) PutSettingsByProductExecute(r SettingsAPIPutSetting
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -212,7 +220,7 @@ func (a *SettingsAPIService) PutSettingsByProductExecute(r SettingsAPIPutSetting
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.settingsReq
+	localVarPostBody = r.settingsSettingsReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -235,6 +243,14 @@ func (a *SettingsAPIService) PutSettingsByProductExecute(r SettingsAPIPutSetting
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

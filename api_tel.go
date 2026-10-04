@@ -81,7 +81,7 @@ func (a *TelAPIService) DeleteTelCallsByIdExecute(r TelAPIDeleteTelCallsByIdRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -110,6 +110,14 @@ func (a *TelAPIService) DeleteTelCallsByIdExecute(r TelAPIDeleteTelCallsByIdRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -175,7 +183,7 @@ func (a *TelAPIService) DeleteTelNumbersByIdExecute(r TelAPIDeleteTelNumbersById
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -204,6 +212,14 @@ func (a *TelAPIService) DeleteTelNumbersByIdExecute(r TelAPIDeleteTelNumbersById
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -215,7 +231,7 @@ type TelAPIGetTelCallsRequest struct {
 	ApiService *TelAPIService
 }
 
-func (r TelAPIGetTelCallsRequest) Execute() (*CallList, *http.Response, error) {
+func (r TelAPIGetTelCallsRequest) Execute() (*TelCallList, *http.Response, error) {
 	return r.ApiService.GetTelCallsExecute(r)
 }
 
@@ -237,13 +253,13 @@ func (a *TelAPIService) GetTelCalls(ctx context.Context) TelAPIGetTelCallsReques
 
 // Execute executes the request
 //
-//	@return CallList
-func (a *TelAPIService) GetTelCallsExecute(r TelAPIGetTelCallsRequest) (*CallList, *http.Response, error) {
+//	@return TelCallList
+func (a *TelAPIService) GetTelCallsExecute(r TelAPIGetTelCallsRequest) (*TelCallList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CallList
+		localVarReturnValue *TelCallList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TelAPIService.GetTelCalls")
@@ -267,7 +283,7 @@ func (a *TelAPIService) GetTelCallsExecute(r TelAPIGetTelCallsRequest) (*CallLis
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -296,6 +312,14 @@ func (a *TelAPIService) GetTelCallsExecute(r TelAPIGetTelCallsRequest) (*CallLis
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -316,7 +340,7 @@ type TelAPIGetTelMessagesRequest struct {
 	ApiService *TelAPIService
 }
 
-func (r TelAPIGetTelMessagesRequest) Execute() (*MessageList, *http.Response, error) {
+func (r TelAPIGetTelMessagesRequest) Execute() (*TelMessageList, *http.Response, error) {
 	return r.ApiService.GetTelMessagesExecute(r)
 }
 
@@ -339,13 +363,13 @@ func (a *TelAPIService) GetTelMessages(ctx context.Context) TelAPIGetTelMessages
 
 // Execute executes the request
 //
-//	@return MessageList
-func (a *TelAPIService) GetTelMessagesExecute(r TelAPIGetTelMessagesRequest) (*MessageList, *http.Response, error) {
+//	@return TelMessageList
+func (a *TelAPIService) GetTelMessagesExecute(r TelAPIGetTelMessagesRequest) (*TelMessageList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MessageList
+		localVarReturnValue *TelMessageList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TelAPIService.GetTelMessages")
@@ -369,7 +393,7 @@ func (a *TelAPIService) GetTelMessagesExecute(r TelAPIGetTelMessagesRequest) (*M
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -398,6 +422,14 @@ func (a *TelAPIService) GetTelMessagesExecute(r TelAPIGetTelMessagesRequest) (*M
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -418,7 +450,7 @@ type TelAPIGetTelNumbersRequest struct {
 	ApiService *TelAPIService
 }
 
-func (r TelAPIGetTelNumbersRequest) Execute() (*NumberList, *http.Response, error) {
+func (r TelAPIGetTelNumbersRequest) Execute() (*TelNumberList, *http.Response, error) {
 	return r.ApiService.GetTelNumbersExecute(r)
 }
 
@@ -443,13 +475,13 @@ func (a *TelAPIService) GetTelNumbers(ctx context.Context) TelAPIGetTelNumbersRe
 
 // Execute executes the request
 //
-//	@return NumberList
-func (a *TelAPIService) GetTelNumbersExecute(r TelAPIGetTelNumbersRequest) (*NumberList, *http.Response, error) {
+//	@return TelNumberList
+func (a *TelAPIService) GetTelNumbersExecute(r TelAPIGetTelNumbersRequest) (*TelNumberList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *NumberList
+		localVarReturnValue *TelNumberList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TelAPIService.GetTelNumbers")
@@ -473,7 +505,7 @@ func (a *TelAPIService) GetTelNumbersExecute(r TelAPIGetTelNumbersRequest) (*Num
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -502,6 +534,14 @@ func (a *TelAPIService) GetTelNumbersExecute(r TelAPIGetTelNumbersRequest) (*Num
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -546,7 +586,7 @@ func (r TelAPIGetTelNumbersAvailableRequest) Limit(limit int64) TelAPIGetTelNumb
 	return r
 }
 
-func (r TelAPIGetTelNumbersAvailableRequest) Execute() (*NumberList, *http.Response, error) {
+func (r TelAPIGetTelNumbersAvailableRequest) Execute() (*TelNumberList, *http.Response, error) {
 	return r.ApiService.GetTelNumbersAvailableExecute(r)
 }
 
@@ -568,13 +608,13 @@ func (a *TelAPIService) GetTelNumbersAvailable(ctx context.Context) TelAPIGetTel
 
 // Execute executes the request
 //
-//	@return NumberList
-func (a *TelAPIService) GetTelNumbersAvailableExecute(r TelAPIGetTelNumbersAvailableRequest) (*NumberList, *http.Response, error) {
+//	@return TelNumberList
+func (a *TelAPIService) GetTelNumbersAvailableExecute(r TelAPIGetTelNumbersAvailableRequest) (*TelNumberList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *NumberList
+		localVarReturnValue *TelNumberList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TelAPIService.GetTelNumbersAvailable")
@@ -610,7 +650,7 @@ func (a *TelAPIService) GetTelNumbersAvailableExecute(r TelAPIGetTelNumbersAvail
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -639,6 +679,14 @@ func (a *TelAPIService) GetTelNumbersAvailableExecute(r TelAPIGetTelNumbersAvail
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -659,7 +707,7 @@ type TelAPIGetTelSummaryRequest struct {
 	ApiService *TelAPIService
 }
 
-func (r TelAPIGetTelSummaryRequest) Execute() (*Summary, *http.Response, error) {
+func (r TelAPIGetTelSummaryRequest) Execute() (*TelSummary, *http.Response, error) {
 	return r.ApiService.GetTelSummaryExecute(r)
 }
 
@@ -682,13 +730,13 @@ func (a *TelAPIService) GetTelSummary(ctx context.Context) TelAPIGetTelSummaryRe
 
 // Execute executes the request
 //
-//	@return Summary
-func (a *TelAPIService) GetTelSummaryExecute(r TelAPIGetTelSummaryRequest) (*Summary, *http.Response, error) {
+//	@return TelSummary
+func (a *TelAPIService) GetTelSummaryExecute(r TelAPIGetTelSummaryRequest) (*TelSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Summary
+		localVarReturnValue *TelSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TelAPIService.GetTelSummary")
@@ -712,7 +760,7 @@ func (a *TelAPIService) GetTelSummaryExecute(r TelAPIGetTelSummaryRequest) (*Sum
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -741,6 +789,14 @@ func (a *TelAPIService) GetTelSummaryExecute(r TelAPIGetTelSummaryRequest) (*Sum
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -757,17 +813,17 @@ func (a *TelAPIService) GetTelSummaryExecute(r TelAPIGetTelSummaryRequest) (*Sum
 }
 
 type TelAPIPostTelCallsRequest struct {
-	ctx        context.Context
-	ApiService *TelAPIService
-	callInput  *CallInput
+	ctx          context.Context
+	ApiService   *TelAPIService
+	telCallInput *TelCallInput
 }
 
-func (r TelAPIPostTelCallsRequest) CallInput(callInput CallInput) TelAPIPostTelCallsRequest {
-	r.callInput = &callInput
+func (r TelAPIPostTelCallsRequest) TelCallInput(telCallInput TelCallInput) TelAPIPostTelCallsRequest {
+	r.telCallInput = &telCallInput
 	return r
 }
 
-func (r TelAPIPostTelCallsRequest) Execute() (*Call, *http.Response, error) {
+func (r TelAPIPostTelCallsRequest) Execute() (*TelCall, *http.Response, error) {
 	return r.ApiService.PostTelCallsExecute(r)
 }
 
@@ -790,13 +846,13 @@ func (a *TelAPIService) PostTelCalls(ctx context.Context) TelAPIPostTelCallsRequ
 
 // Execute executes the request
 //
-//	@return Call
-func (a *TelAPIService) PostTelCallsExecute(r TelAPIPostTelCallsRequest) (*Call, *http.Response, error) {
+//	@return TelCall
+func (a *TelAPIService) PostTelCallsExecute(r TelAPIPostTelCallsRequest) (*TelCall, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Call
+		localVarReturnValue *TelCall
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TelAPIService.PostTelCalls")
@@ -809,8 +865,8 @@ func (a *TelAPIService) PostTelCallsExecute(r TelAPIPostTelCallsRequest) (*Call,
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.callInput == nil {
-		return localVarReturnValue, nil, reportError("callInput is required and must be specified")
+	if r.telCallInput == nil {
+		return localVarReturnValue, nil, reportError("telCallInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -823,7 +879,7 @@ func (a *TelAPIService) PostTelCallsExecute(r TelAPIPostTelCallsRequest) (*Call,
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -831,7 +887,7 @@ func (a *TelAPIService) PostTelCallsExecute(r TelAPIPostTelCallsRequest) (*Call,
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.callInput
+	localVarPostBody = r.telCallInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -854,6 +910,14 @@ func (a *TelAPIService) PostTelCallsExecute(r TelAPIPostTelCallsRequest) (*Call,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -870,17 +934,17 @@ func (a *TelAPIService) PostTelCallsExecute(r TelAPIPostTelCallsRequest) (*Call,
 }
 
 type TelAPIPostTelMessagesRequest struct {
-	ctx          context.Context
-	ApiService   *TelAPIService
-	messageInput *MessageInput
+	ctx             context.Context
+	ApiService      *TelAPIService
+	telMessageInput *TelMessageInput
 }
 
-func (r TelAPIPostTelMessagesRequest) MessageInput(messageInput MessageInput) TelAPIPostTelMessagesRequest {
-	r.messageInput = &messageInput
+func (r TelAPIPostTelMessagesRequest) TelMessageInput(telMessageInput TelMessageInput) TelAPIPostTelMessagesRequest {
+	r.telMessageInput = &telMessageInput
 	return r
 }
 
-func (r TelAPIPostTelMessagesRequest) Execute() (*SMS, *http.Response, error) {
+func (r TelAPIPostTelMessagesRequest) Execute() (*TelSMS, *http.Response, error) {
 	return r.ApiService.PostTelMessagesExecute(r)
 }
 
@@ -907,13 +971,13 @@ func (a *TelAPIService) PostTelMessages(ctx context.Context) TelAPIPostTelMessag
 
 // Execute executes the request
 //
-//	@return SMS
-func (a *TelAPIService) PostTelMessagesExecute(r TelAPIPostTelMessagesRequest) (*SMS, *http.Response, error) {
+//	@return TelSMS
+func (a *TelAPIService) PostTelMessagesExecute(r TelAPIPostTelMessagesRequest) (*TelSMS, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SMS
+		localVarReturnValue *TelSMS
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TelAPIService.PostTelMessages")
@@ -926,8 +990,8 @@ func (a *TelAPIService) PostTelMessagesExecute(r TelAPIPostTelMessagesRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.messageInput == nil {
-		return localVarReturnValue, nil, reportError("messageInput is required and must be specified")
+	if r.telMessageInput == nil {
+		return localVarReturnValue, nil, reportError("telMessageInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -940,7 +1004,7 @@ func (a *TelAPIService) PostTelMessagesExecute(r TelAPIPostTelMessagesRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -948,7 +1012,7 @@ func (a *TelAPIService) PostTelMessagesExecute(r TelAPIPostTelMessagesRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.messageInput
+	localVarPostBody = r.telMessageInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -971,6 +1035,14 @@ func (a *TelAPIService) PostTelMessagesExecute(r TelAPIPostTelMessagesRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -987,17 +1059,17 @@ func (a *TelAPIService) PostTelMessagesExecute(r TelAPIPostTelMessagesRequest) (
 }
 
 type TelAPIPostTelNumbersRequest struct {
-	ctx        context.Context
-	ApiService *TelAPIService
-	buyInput   *BuyInput
+	ctx         context.Context
+	ApiService  *TelAPIService
+	telBuyInput *TelBuyInput
 }
 
-func (r TelAPIPostTelNumbersRequest) BuyInput(buyInput BuyInput) TelAPIPostTelNumbersRequest {
-	r.buyInput = &buyInput
+func (r TelAPIPostTelNumbersRequest) TelBuyInput(telBuyInput TelBuyInput) TelAPIPostTelNumbersRequest {
+	r.telBuyInput = &telBuyInput
 	return r
 }
 
-func (r TelAPIPostTelNumbersRequest) Execute() (*Number, *http.Response, error) {
+func (r TelAPIPostTelNumbersRequest) Execute() (*TelNumber, *http.Response, error) {
 	return r.ApiService.PostTelNumbersExecute(r)
 }
 
@@ -1020,13 +1092,13 @@ func (a *TelAPIService) PostTelNumbers(ctx context.Context) TelAPIPostTelNumbers
 
 // Execute executes the request
 //
-//	@return Number
-func (a *TelAPIService) PostTelNumbersExecute(r TelAPIPostTelNumbersRequest) (*Number, *http.Response, error) {
+//	@return TelNumber
+func (a *TelAPIService) PostTelNumbersExecute(r TelAPIPostTelNumbersRequest) (*TelNumber, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Number
+		localVarReturnValue *TelNumber
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TelAPIService.PostTelNumbers")
@@ -1039,8 +1111,8 @@ func (a *TelAPIService) PostTelNumbersExecute(r TelAPIPostTelNumbersRequest) (*N
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.buyInput == nil {
-		return localVarReturnValue, nil, reportError("buyInput is required and must be specified")
+	if r.telBuyInput == nil {
+		return localVarReturnValue, nil, reportError("telBuyInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1053,7 +1125,7 @@ func (a *TelAPIService) PostTelNumbersExecute(r TelAPIPostTelNumbersRequest) (*N
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1061,7 +1133,7 @@ func (a *TelAPIService) PostTelNumbersExecute(r TelAPIPostTelNumbersRequest) (*N
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.buyInput
+	localVarPostBody = r.telBuyInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1084,6 +1156,14 @@ func (a *TelAPIService) PostTelNumbersExecute(r TelAPIPostTelNumbersRequest) (*N
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

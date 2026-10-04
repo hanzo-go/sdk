@@ -22,9 +22,12 @@ type LicensingReleaseAsset struct {
 	CosignCert      *string `json:"cosign_cert,omitempty"`
 	CosignSignature *string `json:"cosign_signature,omitempty"`
 	// DownloadURL is a short-lived signed URL to the artifact bytes. The scaffold returns the ArtifactRef as-is; production issues a signed URL.
-	DownloadUrl *string           `json:"download_url,omitempty"`
-	Release     *LicensingRelease `json:"release,omitempty"`
+	DownloadUrl          *string           `json:"download_url,omitempty"`
+	Release              *LicensingRelease `json:"release,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicensingReleaseAsset LicensingReleaseAsset
 
 // NewLicensingReleaseAsset instantiates a new LicensingReleaseAsset object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o LicensingReleaseAsset) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Release) {
 		toSerialize["release"] = o.Release
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicensingReleaseAsset) UnmarshalJSON(data []byte) (err error) {
+	varLicensingReleaseAsset := _LicensingReleaseAsset{}
+
+	err = json.Unmarshal(data, &varLicensingReleaseAsset)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicensingReleaseAsset(varLicensingReleaseAsset)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cosign_cert")
+		delete(additionalProperties, "cosign_signature")
+		delete(additionalProperties, "download_url")
+		delete(additionalProperties, "release")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicensingReleaseAsset struct {

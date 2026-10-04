@@ -79,7 +79,7 @@ Other parameters are passed through a pointer to a apiGetRiskHealthRequest struc
 
 ## RiskAdoptModel
 
-> RiskModelState RiskAdoptModel(ctx).RiskAdoptIn(riskAdoptIn).Execute()
+> RiskRiskModelState RiskAdoptModel(ctx).RiskRiskAdoptIn(riskRiskAdoptIn).Execute()
 
 Put one of your organisation's own published model values in force
 
@@ -98,16 +98,16 @@ import (
 )
 
 func main() {
-	riskAdoptIn := *openapiclient.NewRiskAdoptIn() // RiskAdoptIn | 
+	riskRiskAdoptIn := *openapiclient.NewRiskRiskAdoptIn() // RiskRiskAdoptIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RiskAPI.RiskAdoptModel(context.Background()).RiskAdoptIn(riskAdoptIn).Execute()
+	resp, r, err := apiClient.RiskAPI.RiskAdoptModel(context.Background()).RiskRiskAdoptIn(riskRiskAdoptIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RiskAPI.RiskAdoptModel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskAdoptModel`: RiskModelState
+	// response from `RiskAdoptModel`: RiskRiskModelState
 	fmt.Fprintf(os.Stdout, "Response from `RiskAPI.RiskAdoptModel`: %v\n", resp)
 }
 ```
@@ -123,11 +123,11 @@ Other parameters are passed through a pointer to a apiRiskAdoptModelRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **riskAdoptIn** | [**RiskAdoptIn**](RiskAdoptIn.md) |  | 
+ **riskRiskAdoptIn** | [**RiskRiskAdoptIn**](RiskRiskAdoptIn.md) |  | 
 
 ### Return type
 
-[**RiskModelState**](RiskModelState.md)
+[**RiskRiskModelState**](RiskRiskModelState.md)
 
 ### Authorization
 
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -145,7 +145,7 @@ Name | Type | Description  | Notes
 
 ## RiskFeatures
 
-> RiskCatalog RiskFeatures(ctx).Days(days).Execute()
+> RiskRiskCatalog RiskFeatures(ctx).Days(days).Execute()
 
 The feature catalogue: what the model reads, and what your surface carries
 
@@ -173,7 +173,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RiskAPI.RiskFeatures``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskFeatures`: RiskCatalog
+	// response from `RiskFeatures`: RiskRiskCatalog
 	fmt.Fprintf(os.Stdout, "Response from `RiskAPI.RiskFeatures`: %v\n", resp)
 }
 ```
@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RiskCatalog**](RiskCatalog.md)
+[**RiskRiskCatalog**](RiskRiskCatalog.md)
 
 ### Authorization
 
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 ## RiskLearn
 
-> RiskLearnOut RiskLearn(ctx).RiskLearnIn(riskLearnIn).Execute()
+> RiskRiskLearnOut RiskLearn(ctx).RiskRiskLearnIn(riskRiskLearnIn).Execute()
 
 Teach your organisation's own model from its own events
 
@@ -230,16 +230,16 @@ import (
 )
 
 func main() {
-	riskLearnIn := *openapiclient.NewRiskLearnIn() // RiskLearnIn | 
+	riskRiskLearnIn := *openapiclient.NewRiskRiskLearnIn() // RiskRiskLearnIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RiskAPI.RiskLearn(context.Background()).RiskLearnIn(riskLearnIn).Execute()
+	resp, r, err := apiClient.RiskAPI.RiskLearn(context.Background()).RiskRiskLearnIn(riskRiskLearnIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RiskAPI.RiskLearn``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskLearn`: RiskLearnOut
+	// response from `RiskLearn`: RiskRiskLearnOut
 	fmt.Fprintf(os.Stdout, "Response from `RiskAPI.RiskLearn`: %v\n", resp)
 }
 ```
@@ -255,11 +255,11 @@ Other parameters are passed through a pointer to a apiRiskLearnRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **riskLearnIn** | [**RiskLearnIn**](RiskLearnIn.md) |  | 
+ **riskRiskLearnIn** | [**RiskRiskLearnIn**](RiskRiskLearnIn.md) |  | 
 
 ### Return type
 
-[**RiskLearnOut**](RiskLearnOut.md)
+[**RiskRiskLearnOut**](RiskRiskLearnOut.md)
 
 ### Authorization
 
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -277,7 +277,7 @@ Name | Type | Description  | Notes
 
 ## RiskPolicy
 
-> RiskPolicyOut RiskPolicy(ctx).Execute()
+> RiskRiskPolicyOut RiskPolicy(ctx).Execute()
 
 Your organisation's decision-regime history, and which version is in force
 
@@ -304,7 +304,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RiskAPI.RiskPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskPolicy`: RiskPolicyOut
+	// response from `RiskPolicy`: RiskRiskPolicyOut
 	fmt.Fprintf(os.Stdout, "Response from `RiskAPI.RiskPolicy`: %v\n", resp)
 }
 ```
@@ -320,7 +320,7 @@ Other parameters are passed through a pointer to a apiRiskPolicyRequest struct v
 
 ### Return type
 
-[**RiskPolicyOut**](RiskPolicyOut.md)
+[**RiskRiskPolicyOut**](RiskRiskPolicyOut.md)
 
 ### Authorization
 
@@ -329,7 +329,7 @@ Other parameters are passed through a pointer to a apiRiskPolicyRequest struct v
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -338,7 +338,7 @@ Other parameters are passed through a pointer to a apiRiskPolicyRequest struct v
 
 ## RiskPublishModel
 
-> RiskPublishOut RiskPublishModel(ctx).Execute()
+> RiskRiskPublishOut RiskPublishModel(ctx).Execute()
 
 Publish your organisation's model as a named, immutable value
 
@@ -365,7 +365,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RiskAPI.RiskPublishModel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskPublishModel`: RiskPublishOut
+	// response from `RiskPublishModel`: RiskRiskPublishOut
 	fmt.Fprintf(os.Stdout, "Response from `RiskAPI.RiskPublishModel`: %v\n", resp)
 }
 ```
@@ -381,7 +381,7 @@ Other parameters are passed through a pointer to a apiRiskPublishModelRequest st
 
 ### Return type
 
-[**RiskPublishOut**](RiskPublishOut.md)
+[**RiskRiskPublishOut**](RiskRiskPublishOut.md)
 
 ### Authorization
 
@@ -390,7 +390,7 @@ Other parameters are passed through a pointer to a apiRiskPublishModelRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -399,7 +399,7 @@ Other parameters are passed through a pointer to a apiRiskPublishModelRequest st
 
 ## RiskScore
 
-> RiskScoreOut RiskScore(ctx).RiskScoreIn(riskScoreIn).Execute()
+> RiskRiskScoreOut RiskScore(ctx).RiskRiskScoreIn(riskRiskScoreIn).Execute()
 
 Score one event against your organisation's own model
 
@@ -418,16 +418,16 @@ import (
 )
 
 func main() {
-	riskScoreIn := *openapiclient.NewRiskScoreIn() // RiskScoreIn | 
+	riskRiskScoreIn := *openapiclient.NewRiskRiskScoreIn() // RiskRiskScoreIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RiskAPI.RiskScore(context.Background()).RiskScoreIn(riskScoreIn).Execute()
+	resp, r, err := apiClient.RiskAPI.RiskScore(context.Background()).RiskRiskScoreIn(riskRiskScoreIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RiskAPI.RiskScore``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskScore`: RiskScoreOut
+	// response from `RiskScore`: RiskRiskScoreOut
 	fmt.Fprintf(os.Stdout, "Response from `RiskAPI.RiskScore`: %v\n", resp)
 }
 ```
@@ -443,11 +443,11 @@ Other parameters are passed through a pointer to a apiRiskScoreRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **riskScoreIn** | [**RiskScoreIn**](RiskScoreIn.md) |  | 
+ **riskRiskScoreIn** | [**RiskRiskScoreIn**](RiskRiskScoreIn.md) |  | 
 
 ### Return type
 
-[**RiskScoreOut**](RiskScoreOut.md)
+[**RiskRiskScoreOut**](RiskRiskScoreOut.md)
 
 ### Authorization
 
@@ -456,7 +456,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -465,7 +465,7 @@ Name | Type | Description  | Notes
 
 ## RiskSearch
 
-> RiskSearchRun RiskSearch(ctx).RiskSearchIn(riskSearchIn).Execute()
+> RiskRiskSearchRun RiskSearch(ctx).RiskRiskSearchIn(riskRiskSearchIn).Execute()
 
 Search exhaustively for the model shape that fits your own history
 
@@ -484,16 +484,16 @@ import (
 )
 
 func main() {
-	riskSearchIn := *openapiclient.NewRiskSearchIn() // RiskSearchIn | 
+	riskRiskSearchIn := *openapiclient.NewRiskRiskSearchIn() // RiskRiskSearchIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RiskAPI.RiskSearch(context.Background()).RiskSearchIn(riskSearchIn).Execute()
+	resp, r, err := apiClient.RiskAPI.RiskSearch(context.Background()).RiskRiskSearchIn(riskRiskSearchIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RiskAPI.RiskSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskSearch`: RiskSearchRun
+	// response from `RiskSearch`: RiskRiskSearchRun
 	fmt.Fprintf(os.Stdout, "Response from `RiskAPI.RiskSearch`: %v\n", resp)
 }
 ```
@@ -509,11 +509,11 @@ Other parameters are passed through a pointer to a apiRiskSearchRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **riskSearchIn** | [**RiskSearchIn**](RiskSearchIn.md) |  | 
+ **riskRiskSearchIn** | [**RiskRiskSearchIn**](RiskRiskSearchIn.md) |  | 
 
 ### Return type
 
-[**RiskSearchRun**](RiskSearchRun.md)
+[**RiskRiskSearchRun**](RiskRiskSearchRun.md)
 
 ### Authorization
 
@@ -522,7 +522,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -531,7 +531,7 @@ Name | Type | Description  | Notes
 
 ## RiskSearchResult
 
-> RiskSearchReport RiskSearchResult(ctx, id).Execute()
+> RiskRiskSearchReport RiskSearchResult(ctx, id).Execute()
 
 Read back one exhaustive search
 
@@ -559,7 +559,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RiskAPI.RiskSearchResult``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskSearchResult`: RiskSearchReport
+	// response from `RiskSearchResult`: RiskRiskSearchReport
 	fmt.Fprintf(os.Stdout, "Response from `RiskAPI.RiskSearchResult`: %v\n", resp)
 }
 ```
@@ -583,7 +583,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RiskSearchReport**](RiskSearchReport.md)
+[**RiskRiskSearchReport**](RiskRiskSearchReport.md)
 
 ### Authorization
 
@@ -592,7 +592,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -601,7 +601,7 @@ Name | Type | Description  | Notes
 
 ## RiskSetPolicy
 
-> RiskPolicyOut RiskSetPolicy(ctx).RiskAppetiteIn(riskAppetiteIn).Execute()
+> RiskRiskPolicyOut RiskSetPolicy(ctx).RiskRiskAppetiteIn(riskRiskAppetiteIn).Execute()
 
 State the decision regime: the appetite, the sample, and whether the model is live
 
@@ -620,16 +620,16 @@ import (
 )
 
 func main() {
-	riskAppetiteIn := *openapiclient.NewRiskAppetiteIn() // RiskAppetiteIn | 
+	riskRiskAppetiteIn := *openapiclient.NewRiskRiskAppetiteIn() // RiskRiskAppetiteIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RiskAPI.RiskSetPolicy(context.Background()).RiskAppetiteIn(riskAppetiteIn).Execute()
+	resp, r, err := apiClient.RiskAPI.RiskSetPolicy(context.Background()).RiskRiskAppetiteIn(riskRiskAppetiteIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RiskAPI.RiskSetPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskSetPolicy`: RiskPolicyOut
+	// response from `RiskSetPolicy`: RiskRiskPolicyOut
 	fmt.Fprintf(os.Stdout, "Response from `RiskAPI.RiskSetPolicy`: %v\n", resp)
 }
 ```
@@ -645,11 +645,11 @@ Other parameters are passed through a pointer to a apiRiskSetPolicyRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **riskAppetiteIn** | [**RiskAppetiteIn**](RiskAppetiteIn.md) |  | 
+ **riskRiskAppetiteIn** | [**RiskRiskAppetiteIn**](RiskRiskAppetiteIn.md) |  | 
 
 ### Return type
 
-[**RiskPolicyOut**](RiskPolicyOut.md)
+[**RiskRiskPolicyOut**](RiskRiskPolicyOut.md)
 
 ### Authorization
 
@@ -658,7 +658,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -667,7 +667,7 @@ Name | Type | Description  | Notes
 
 ## RiskState
 
-> RiskModelState RiskState(ctx).Execute()
+> RiskRiskModelState RiskState(ctx).Execute()
 
 Report your organisation's model: what it learned, and what it realised
 
@@ -694,7 +694,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RiskAPI.RiskState``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskState`: RiskModelState
+	// response from `RiskState`: RiskRiskModelState
 	fmt.Fprintf(os.Stdout, "Response from `RiskAPI.RiskState`: %v\n", resp)
 }
 ```
@@ -710,7 +710,7 @@ Other parameters are passed through a pointer to a apiRiskStateRequest struct vi
 
 ### Return type
 
-[**RiskModelState**](RiskModelState.md)
+[**RiskRiskModelState**](RiskRiskModelState.md)
 
 ### Authorization
 
@@ -719,7 +719,7 @@ Other parameters are passed through a pointer to a apiRiskStateRequest struct vi
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

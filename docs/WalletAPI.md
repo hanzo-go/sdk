@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## GetWallet
 
-> WalletList GetWallet(ctx).Project(project).Agent(agent).Account(account).Execute()
+> WalletWalletList GetWallet(ctx).Project(project).Agent(agent).Account(account).Execute()
 
 Returns the caller org's wallets, newest first, optionally NARROWED within the org by project, agent or account.
 
@@ -47,7 +47,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WalletAPI.GetWallet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWallet`: WalletList
+	// response from `GetWallet`: WalletWalletList
 	fmt.Fprintf(os.Stdout, "Response from `WalletAPI.GetWallet`: %v\n", resp)
 }
 ```
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WalletList**](WalletList.md)
+[**WalletWalletList**](WalletWalletList.md)
 
 ### Authorization
 
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## GetWalletAccounts
 
-> AccountList GetWalletAccounts(ctx).Execute()
+> WalletAccountList GetWalletAccounts(ctx).Execute()
 
 Returns the caller org's wallet accounts, newest first.
 
@@ -114,7 +114,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WalletAPI.GetWalletAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWalletAccounts`: AccountList
+	// response from `GetWalletAccounts`: WalletAccountList
 	fmt.Fprintf(os.Stdout, "Response from `WalletAPI.GetWalletAccounts`: %v\n", resp)
 }
 ```
@@ -130,7 +130,7 @@ Other parameters are passed through a pointer to a apiGetWalletAccountsRequest s
 
 ### Return type
 
-[**AccountList**](AccountList.md)
+[**WalletAccountList**](WalletAccountList.md)
 
 ### Authorization
 
@@ -139,7 +139,7 @@ Other parameters are passed through a pointer to a apiGetWalletAccountsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -148,7 +148,7 @@ Other parameters are passed through a pointer to a apiGetWalletAccountsRequest s
 
 ## GetWalletById
 
-> Wallet GetWalletById(ctx, id).Execute()
+> WalletWallet GetWalletById(ctx, id).Execute()
 
 Returns one of the caller org's wallets: its scope, custody kind, tier, chain and on-chain address.
 
@@ -176,7 +176,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WalletAPI.GetWalletById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWalletById`: Wallet
+	// response from `GetWalletById`: WalletWallet
 	fmt.Fprintf(os.Stdout, "Response from `WalletAPI.GetWalletById`: %v\n", resp)
 }
 ```
@@ -200,7 +200,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Wallet**](Wallet.md)
+[**WalletWallet**](WalletWallet.md)
 
 ### Authorization
 
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ## PostWallet
 
-> Wallet PostWallet(ctx).CreateWalletIn(createWalletIn).Execute()
+> WalletWallet PostWallet(ctx).WalletCreateWalletIn(walletCreateWalletIn).Execute()
 
 Provisions a new signing identity under one of the caller org's accounts and answers the stored wallet including its on-chain address.
 
@@ -237,16 +237,16 @@ import (
 )
 
 func main() {
-	createWalletIn := *openapiclient.NewCreateWalletIn() // CreateWalletIn | 
+	walletCreateWalletIn := *openapiclient.NewWalletCreateWalletIn() // WalletCreateWalletIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletAPI.PostWallet(context.Background()).CreateWalletIn(createWalletIn).Execute()
+	resp, r, err := apiClient.WalletAPI.PostWallet(context.Background()).WalletCreateWalletIn(walletCreateWalletIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WalletAPI.PostWallet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostWallet`: Wallet
+	// response from `PostWallet`: WalletWallet
 	fmt.Fprintf(os.Stdout, "Response from `WalletAPI.PostWallet`: %v\n", resp)
 }
 ```
@@ -262,11 +262,11 @@ Other parameters are passed through a pointer to a apiPostWalletRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createWalletIn** | [**CreateWalletIn**](CreateWalletIn.md) |  | 
+ **walletCreateWalletIn** | [**WalletCreateWalletIn**](WalletCreateWalletIn.md) |  | 
 
 ### Return type
 
-[**Wallet**](Wallet.md)
+[**WalletWallet**](WalletWallet.md)
 
 ### Authorization
 
@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -284,7 +284,7 @@ Name | Type | Description  | Notes
 
 ## PostWalletAccounts
 
-> WalletAccount PostWalletAccounts(ctx).CreateAccountIn(createAccountIn).Execute()
+> WalletWalletAccount PostWalletAccounts(ctx).WalletCreateAccountIn(walletCreateAccountIn).Execute()
 
 Opens a named wallet account for the caller's org.
 
@@ -303,16 +303,16 @@ import (
 )
 
 func main() {
-	createAccountIn := *openapiclient.NewCreateAccountIn() // CreateAccountIn | 
+	walletCreateAccountIn := *openapiclient.NewWalletCreateAccountIn() // WalletCreateAccountIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletAPI.PostWalletAccounts(context.Background()).CreateAccountIn(createAccountIn).Execute()
+	resp, r, err := apiClient.WalletAPI.PostWalletAccounts(context.Background()).WalletCreateAccountIn(walletCreateAccountIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WalletAPI.PostWalletAccounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostWalletAccounts`: WalletAccount
+	// response from `PostWalletAccounts`: WalletWalletAccount
 	fmt.Fprintf(os.Stdout, "Response from `WalletAPI.PostWalletAccounts`: %v\n", resp)
 }
 ```
@@ -328,11 +328,11 @@ Other parameters are passed through a pointer to a apiPostWalletAccountsRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createAccountIn** | [**CreateAccountIn**](CreateAccountIn.md) |  | 
+ **walletCreateAccountIn** | [**WalletCreateAccountIn**](WalletCreateAccountIn.md) |  | 
 
 ### Return type
 
-[**WalletAccount**](WalletAccount.md)
+[**WalletWalletAccount**](WalletWalletAccount.md)
 
 ### Authorization
 
@@ -341,7 +341,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -350,7 +350,7 @@ Name | Type | Description  | Notes
 
 ## PostWalletByIdKeys
 
-> Wallet PostWalletByIdKeys(ctx, id).Execute()
+> WalletWallet PostWalletByIdKeys(ctx, id).Execute()
 
 Rolls one wallet's signing material through its own custody backend and answers the wallet with whatever address that produced.
 
@@ -378,7 +378,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WalletAPI.PostWalletByIdKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostWalletByIdKeys`: Wallet
+	// response from `PostWalletByIdKeys`: WalletWallet
 	fmt.Fprintf(os.Stdout, "Response from `WalletAPI.PostWalletByIdKeys`: %v\n", resp)
 }
 ```
@@ -402,7 +402,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Wallet**](Wallet.md)
+[**WalletWallet**](WalletWallet.md)
 
 ### Authorization
 
@@ -411,7 +411,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -420,7 +420,7 @@ Name | Type | Description  | Notes
 
 ## PostWalletByIdSign
 
-> Signature PostWalletByIdSign(ctx, id).SignIn(signIn).Execute()
+> WalletSignature PostWalletByIdSign(ctx, id).WalletSignIn(walletSignIn).Execute()
 
 Produces a secp256k1 signature from one of the caller org's wallets over a 32-byte digest, through whichever custody backend that wallet uses.
 
@@ -440,16 +440,16 @@ import (
 
 func main() {
 	id := "wal_4b1e77" // string | 
-	signIn := *openapiclient.NewSignIn() // SignIn | 
+	walletSignIn := *openapiclient.NewWalletSignIn() // WalletSignIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletAPI.PostWalletByIdSign(context.Background(), id).SignIn(signIn).Execute()
+	resp, r, err := apiClient.WalletAPI.PostWalletByIdSign(context.Background(), id).WalletSignIn(walletSignIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WalletAPI.PostWalletByIdSign``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostWalletByIdSign`: Signature
+	// response from `PostWalletByIdSign`: WalletSignature
 	fmt.Fprintf(os.Stdout, "Response from `WalletAPI.PostWalletByIdSign`: %v\n", resp)
 }
 ```
@@ -470,11 +470,11 @@ Other parameters are passed through a pointer to a apiPostWalletByIdSignRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **signIn** | [**SignIn**](SignIn.md) |  | 
+ **walletSignIn** | [**WalletSignIn**](WalletSignIn.md) |  | 
 
 ### Return type
 
-[**Signature**](Signature.md)
+[**WalletSignature**](WalletSignature.md)
 
 ### Authorization
 
@@ -483,7 +483,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -492,7 +492,7 @@ Name | Type | Description  | Notes
 
 ## PostWalletByIdTransactions
 
-> SafeProposal PostWalletByIdTransactions(ctx, id).SafeTxIn(safeTxIn).Execute()
+> WalletSafeProposal PostWalletByIdTransactions(ctx, id).WalletSafeTxIn(walletSafeTxIn).Execute()
 
 Composes a Safe transaction on the MPC ring and answers its EIP-712 hash together with the owner approval the ring's threshold signature produced.
 
@@ -512,16 +512,16 @@ import (
 
 func main() {
 	id := "wal_4b1e77" // string | 
-	safeTxIn := *openapiclient.NewSafeTxIn() // SafeTxIn | 
+	walletSafeTxIn := *openapiclient.NewWalletSafeTxIn() // WalletSafeTxIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletAPI.PostWalletByIdTransactions(context.Background(), id).SafeTxIn(safeTxIn).Execute()
+	resp, r, err := apiClient.WalletAPI.PostWalletByIdTransactions(context.Background(), id).WalletSafeTxIn(walletSafeTxIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WalletAPI.PostWalletByIdTransactions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostWalletByIdTransactions`: SafeProposal
+	// response from `PostWalletByIdTransactions`: WalletSafeProposal
 	fmt.Fprintf(os.Stdout, "Response from `WalletAPI.PostWalletByIdTransactions`: %v\n", resp)
 }
 ```
@@ -542,11 +542,11 @@ Other parameters are passed through a pointer to a apiPostWalletByIdTransactions
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **safeTxIn** | [**SafeTxIn**](SafeTxIn.md) |  | 
+ **walletSafeTxIn** | [**WalletSafeTxIn**](WalletSafeTxIn.md) |  | 
 
 ### Return type
 
-[**SafeProposal**](SafeProposal.md)
+[**WalletSafeProposal**](WalletSafeProposal.md)
 
 ### Authorization
 
@@ -555,7 +555,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

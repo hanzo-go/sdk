@@ -27,22 +27,22 @@ type EntitlementAPIGetEntitlementRequest struct {
 	ApiService *EntitlementAPIService
 }
 
-func (r EntitlementAPIGetEntitlementRequest) Execute() (*ProjectionView, *http.Response, error) {
+func (r EntitlementAPIGetEntitlementRequest) Execute() (*EntitlementProjectionView, *http.Response, error) {
 	return r.ApiService.GetEntitlementExecute(r)
 }
 
 /*
-GetEntitlement Projection reports which console apps the CALLER's org may open, and the plan slug that decides it.
+GetEntitlement Reports which console apps the CALLER's org may open, and the plan slug that decides it.
 
-Projection reports which console apps the CALLER's org may open, and the plan slug
+Reports which console apps the CALLER's org may open, and the plan slug
 that decides it. It is the READ side of the unified paywall: the org's plan tier
 resolved from commerce, which is a different authority from the enablement store
 behind GET /v1/entitlement/orgs/{org} (that one is the org's own on/off intent).
 
-It fails SAFE-TO-LOCKED, never 500: an unvalidated principal is a 403, but a
-commerce outage reports every app locked at 200 rather than breaking the shell.
-The ENFORCEMENT path still fails open, so functionality survives the same outage
-even while the UI conservatively shows locked.
+It never answers 500: an unvalidated principal is a 403, and an app whose plan
+cannot be confirmed is reported locked at 200, so the shell always renders. The
+paywall applies the same rule when it enforces: access follows a confirmed
+standing.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return EntitlementAPIGetEntitlementRequest
@@ -56,13 +56,13 @@ func (a *EntitlementAPIService) GetEntitlement(ctx context.Context) EntitlementA
 
 // Execute executes the request
 //
-//	@return ProjectionView
-func (a *EntitlementAPIService) GetEntitlementExecute(r EntitlementAPIGetEntitlementRequest) (*ProjectionView, *http.Response, error) {
+//	@return EntitlementProjectionView
+func (a *EntitlementAPIService) GetEntitlementExecute(r EntitlementAPIGetEntitlementRequest) (*EntitlementProjectionView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProjectionView
+		localVarReturnValue *EntitlementProjectionView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EntitlementAPIService.GetEntitlement")
@@ -86,7 +86,7 @@ func (a *EntitlementAPIService) GetEntitlementExecute(r EntitlementAPIGetEntitle
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -115,6 +115,14 @@ func (a *EntitlementAPIService) GetEntitlementExecute(r EntitlementAPIGetEntitle
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -136,14 +144,14 @@ type EntitlementAPIGetEntitlementOrgsByOrgRequest struct {
 	org        string
 }
 
-func (r EntitlementAPIGetEntitlementOrgsByOrgRequest) Execute() (*EntitlementsView, *http.Response, error) {
+func (r EntitlementAPIGetEntitlementOrgsByOrgRequest) Execute() (*EntitlementEntitlementsView, *http.Response, error) {
 	return r.ApiService.GetEntitlementOrgsByOrgExecute(r)
 }
 
 /*
-GetEntitlementOrgsByOrg Get lists the products an org has ENABLED — its own intent, which the console's paid-product sidebar reads to decide what to show.
+GetEntitlementOrgsByOrg Lists the products an org has ENABLED — its own intent, which the console's paid-product sidebar reads to decide what to show.
 
-Get lists the products an org has ENABLED — its own intent, which the console's
+Lists the products an org has ENABLED — its own intent, which the console's
 paid-product sidebar reads to decide what to show. It is distinct from what the
 org's plan ENTITLES it to (that is GET /v1/entitlement, resolved from commerce).
 
@@ -163,13 +171,13 @@ func (a *EntitlementAPIService) GetEntitlementOrgsByOrg(ctx context.Context, org
 
 // Execute executes the request
 //
-//	@return EntitlementsView
-func (a *EntitlementAPIService) GetEntitlementOrgsByOrgExecute(r EntitlementAPIGetEntitlementOrgsByOrgRequest) (*EntitlementsView, *http.Response, error) {
+//	@return EntitlementEntitlementsView
+func (a *EntitlementAPIService) GetEntitlementOrgsByOrgExecute(r EntitlementAPIGetEntitlementOrgsByOrgRequest) (*EntitlementEntitlementsView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EntitlementsView
+		localVarReturnValue *EntitlementEntitlementsView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EntitlementAPIService.GetEntitlementOrgsByOrg")
@@ -194,7 +202,7 @@ func (a *EntitlementAPIService) GetEntitlementOrgsByOrgExecute(r EntitlementAPIG
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -223,6 +231,14 @@ func (a *EntitlementAPIService) GetEntitlementOrgsByOrgExecute(r EntitlementAPIG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -239,25 +255,25 @@ func (a *EntitlementAPIService) GetEntitlementOrgsByOrgExecute(r EntitlementAPIG
 }
 
 type EntitlementAPIPostEntitlementOrgsByOrgRequest struct {
-	ctx        context.Context
-	ApiService *EntitlementAPIService
-	org        string
-	mutateReq  *MutateReq
+	ctx                  context.Context
+	ApiService           *EntitlementAPIService
+	org                  string
+	entitlementMutateReq *EntitlementMutateReq
 }
 
-func (r EntitlementAPIPostEntitlementOrgsByOrgRequest) MutateReq(mutateReq MutateReq) EntitlementAPIPostEntitlementOrgsByOrgRequest {
-	r.mutateReq = &mutateReq
+func (r EntitlementAPIPostEntitlementOrgsByOrgRequest) EntitlementMutateReq(entitlementMutateReq EntitlementMutateReq) EntitlementAPIPostEntitlementOrgsByOrgRequest {
+	r.entitlementMutateReq = &entitlementMutateReq
 	return r
 }
 
-func (r EntitlementAPIPostEntitlementOrgsByOrgRequest) Execute() (*EntitlementsView, *http.Response, error) {
+func (r EntitlementAPIPostEntitlementOrgsByOrgRequest) Execute() (*EntitlementEntitlementsView, *http.Response, error) {
 	return r.ApiService.PostEntitlementOrgsByOrgExecute(r)
 }
 
 /*
-PostEntitlementOrgsByOrg Post turns products on or off for an org and returns the enabled set afterwards.
+PostEntitlementOrgsByOrg Turns products on or off for an org and returns the enabled set afterwards.
 
-Post turns products on or off for an org and returns the enabled set afterwards.
+Turns products on or off for an org and returns the enabled set afterwards.
 
 A product may only be ENABLED if the org's plan already ENTITLES it, so enabling
 never spends new money — a product the plan does not grant answers 402 and the
@@ -280,13 +296,13 @@ func (a *EntitlementAPIService) PostEntitlementOrgsByOrg(ctx context.Context, or
 
 // Execute executes the request
 //
-//	@return EntitlementsView
-func (a *EntitlementAPIService) PostEntitlementOrgsByOrgExecute(r EntitlementAPIPostEntitlementOrgsByOrgRequest) (*EntitlementsView, *http.Response, error) {
+//	@return EntitlementEntitlementsView
+func (a *EntitlementAPIService) PostEntitlementOrgsByOrgExecute(r EntitlementAPIPostEntitlementOrgsByOrgRequest) (*EntitlementEntitlementsView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EntitlementsView
+		localVarReturnValue *EntitlementEntitlementsView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EntitlementAPIService.PostEntitlementOrgsByOrg")
@@ -300,8 +316,8 @@ func (a *EntitlementAPIService) PostEntitlementOrgsByOrgExecute(r EntitlementAPI
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.mutateReq == nil {
-		return localVarReturnValue, nil, reportError("mutateReq is required and must be specified")
+	if r.entitlementMutateReq == nil {
+		return localVarReturnValue, nil, reportError("entitlementMutateReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -314,7 +330,7 @@ func (a *EntitlementAPIService) PostEntitlementOrgsByOrgExecute(r EntitlementAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -322,7 +338,7 @@ func (a *EntitlementAPIService) PostEntitlementOrgsByOrgExecute(r EntitlementAPI
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.mutateReq
+	localVarPostBody = r.entitlementMutateReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -345,6 +361,14 @@ func (a *EntitlementAPIService) PostEntitlementOrgsByOrgExecute(r EntitlementAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

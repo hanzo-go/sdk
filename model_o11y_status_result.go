@@ -30,8 +30,11 @@ type O11yStatusResult struct {
 	// Source is where the verdict came from: \"probe\" (we asked and it answered), \"datastore\" (the probe did not answer and the replica inventory decided it), \"unreachable\" (neither), or \"unknown-service\" for a well-formed product name nothing backs — which is answered without probing, since dialling an arbitrary host on a caller's say-so is the request forgery this refuses.
 	Source *string `json:"source,omitempty"`
 	// Up is true when the health probe succeeded OR any replica reports up, so a service reachable by either route reads up. Read Source to know which.
-	Up *bool `json:"up,omitempty"`
+	Up                   *bool `json:"up,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yStatusResult O11yStatusResult
 
 // NewO11yStatusResult instantiates a new O11yStatusResult object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o O11yStatusResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Up) {
 		toSerialize["up"] = o.Up
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yStatusResult) UnmarshalJSON(data []byte) (err error) {
+	varO11yStatusResult := _O11yStatusResult{}
+
+	err = json.Unmarshal(data, &varO11yStatusResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yStatusResult(varO11yStatusResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "checkedAt")
+		delete(additionalProperties, "deployments")
+		delete(additionalProperties, "latencyMs")
+		delete(additionalProperties, "product")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "up")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yStatusResult struct {

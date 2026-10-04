@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Example** | Pointer to **string** | a sample value of the right shape (\&quot;G-XXXXXXX\&quot;), when one helps | [optional] 
-**Key** | Pointer to **string** | the camelCase key on both the connect body and the stored config | [optional] 
-**Label** | Pointer to **string** | human label for the console card&#39;s input | [optional] 
-**Required** | Pointer to **bool** | when true, a connect that leaves it empty is refused 400 | [optional] 
+**Example** | Pointer to **string** |  | [optional] 
+**Key** | Pointer to **string** |  | [optional] 
+**Label** | Pointer to **string** |  | [optional] 
+**Required** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 

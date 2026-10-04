@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yOrderBy{}
 
 // O11yOrderBy struct for O11yOrderBy
 type O11yOrderBy struct {
-	ColumnName *string `json:"columnName,omitempty"`
-	Order      *string `json:"order,omitempty"`
+	ColumnName           *string `json:"columnName,omitempty"`
+	Order                *string `json:"order,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yOrderBy O11yOrderBy
 
 // NewO11yOrderBy instantiates a new O11yOrderBy object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yOrderBy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Order) {
 		toSerialize["order"] = o.Order
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yOrderBy) UnmarshalJSON(data []byte) (err error) {
+	varO11yOrderBy := _O11yOrderBy{}
+
+	err = json.Unmarshal(data, &varO11yOrderBy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yOrderBy(varO11yOrderBy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "columnName")
+		delete(additionalProperties, "order")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yOrderBy struct {

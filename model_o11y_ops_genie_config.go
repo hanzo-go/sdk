@@ -19,23 +19,26 @@ var _ MappedNullable = &O11yOpsGenieConfig{}
 
 // O11yOpsGenieConfig struct for O11yOpsGenieConfig
 type O11yOpsGenieConfig struct {
-	NotifierConfig *O11yNotifierConfig           `json:"NotifierConfig,omitempty"`
-	Actions        *string                       `json:"actions,omitempty"`
-	ApiKey         interface{}                   `json:"api_key,omitempty"`
-	ApiKeyFile     *string                       `json:"api_key_file,omitempty"`
-	ApiUrl         interface{}                   `json:"api_url,omitempty"`
-	Description    *string                       `json:"description,omitempty"`
-	Details        map[string]string             `json:"details,omitempty"`
-	Entity         *string                       `json:"entity,omitempty"`
-	HttpConfig     *O11yHTTPClientConfig         `json:"http_config,omitempty"`
-	Message        *string                       `json:"message,omitempty"`
-	Note           *string                       `json:"note,omitempty"`
-	Priority       *string                       `json:"priority,omitempty"`
-	Responders     []O11yOpsGenieConfigResponder `json:"responders,omitempty"`
-	Source         *string                       `json:"source,omitempty"`
-	Tags           *string                       `json:"tags,omitempty"`
-	UpdateAlerts   *bool                         `json:"update_alerts,omitempty"`
+	NotifierConfig       *O11yNotifierConfig           `json:"NotifierConfig,omitempty"`
+	Actions              *string                       `json:"actions,omitempty"`
+	ApiKey               interface{}                   `json:"api_key,omitempty"`
+	ApiKeyFile           *string                       `json:"api_key_file,omitempty"`
+	ApiUrl               interface{}                   `json:"api_url,omitempty"`
+	Description          *string                       `json:"description,omitempty"`
+	Details              map[string]string             `json:"details,omitempty"`
+	Entity               *string                       `json:"entity,omitempty"`
+	HttpConfig           *O11yHTTPClientConfig         `json:"http_config,omitempty"`
+	Message              *string                       `json:"message,omitempty"`
+	Note                 *string                       `json:"note,omitempty"`
+	Priority             *string                       `json:"priority,omitempty"`
+	Responders           []O11yOpsGenieConfigResponder `json:"responders,omitempty"`
+	Source               *string                       `json:"source,omitempty"`
+	Tags                 *string                       `json:"tags,omitempty"`
+	UpdateAlerts         *bool                         `json:"update_alerts,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yOpsGenieConfig O11yOpsGenieConfig
 
 // NewO11yOpsGenieConfig instantiates a new O11yOpsGenieConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -626,7 +629,48 @@ func (o O11yOpsGenieConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdateAlerts) {
 		toSerialize["update_alerts"] = o.UpdateAlerts
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yOpsGenieConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yOpsGenieConfig := _O11yOpsGenieConfig{}
+
+	err = json.Unmarshal(data, &varO11yOpsGenieConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yOpsGenieConfig(varO11yOpsGenieConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "actions")
+		delete(additionalProperties, "api_key")
+		delete(additionalProperties, "api_key_file")
+		delete(additionalProperties, "api_url")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "details")
+		delete(additionalProperties, "entity")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "note")
+		delete(additionalProperties, "priority")
+		delete(additionalProperties, "responders")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "update_alerts")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yOpsGenieConfig struct {

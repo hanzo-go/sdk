@@ -81,7 +81,7 @@ func (a *KvAPIService) DeleteKvByBucketExecute(r KvAPIDeleteKvByBucketRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -110,6 +110,14 @@ func (a *KvAPIService) DeleteKvByBucketExecute(r KvAPIDeleteKvByBucketRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -179,7 +187,7 @@ func (a *KvAPIService) DeleteKvByBucketByKeyExecute(r KvAPIDeleteKvByBucketByKey
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -208,6 +216,14 @@ func (a *KvAPIService) DeleteKvByBucketByKeyExecute(r KvAPIDeleteKvByBucketByKey
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -221,14 +237,14 @@ type KvAPIGetKvByBucketByKeyRequest struct {
 	key        string
 }
 
-func (r KvAPIGetKvByBucketByKeyRequest) Execute() (*KvEntry, *http.Response, error) {
+func (r KvAPIGetKvByBucketByKeyRequest) Execute() (*KvKvEntry, *http.Response, error) {
 	return r.ApiService.GetKvByBucketByKeyExecute(r)
 }
 
 /*
-GetKvByBucketByKey Get returns one key's current value and revision.
+GetKvByBucketByKey Returns one key's current value and revision.
 
-Get returns one key's current value and revision. 404 when the bucket does
+Returns one key's current value and revision. 404 when the bucket does
 not exist, the key was never written, or its latest revision is a delete.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -247,13 +263,13 @@ func (a *KvAPIService) GetKvByBucketByKey(ctx context.Context, bucket string, ke
 
 // Execute executes the request
 //
-//	@return KvEntry
-func (a *KvAPIService) GetKvByBucketByKeyExecute(r KvAPIGetKvByBucketByKeyRequest) (*KvEntry, *http.Response, error) {
+//	@return KvKvEntry
+func (a *KvAPIService) GetKvByBucketByKeyExecute(r KvAPIGetKvByBucketByKeyRequest) (*KvKvEntry, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KvEntry
+		localVarReturnValue *KvKvEntry
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KvAPIService.GetKvByBucketByKey")
@@ -279,7 +295,7 @@ func (a *KvAPIService) GetKvByBucketByKeyExecute(r KvAPIGetKvByBucketByKeyReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -308,6 +324,14 @@ func (a *KvAPIService) GetKvByBucketByKeyExecute(r KvAPIGetKvByBucketByKeyReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -330,14 +354,14 @@ type KvAPIGetKvByBucketByKeyHistoryRequest struct {
 	key        string
 }
 
-func (r KvAPIGetKvByBucketByKeyHistoryRequest) Execute() (*KvPage, *http.Response, error) {
+func (r KvAPIGetKvByBucketByKeyHistoryRequest) Execute() (*KvKvPage, *http.Response, error) {
 	return r.ApiService.GetKvByBucketByKeyHistoryExecute(r)
 }
 
 /*
-GetKvByBucketByKeyHistory History returns one key's retained revisions, oldest first — every put and every delete marker up to the bucket's History depth.
+GetKvByBucketByKeyHistory Returns one key's retained revisions, oldest first — every put and every delete marker up to the bucket's History depth.
 
-History returns one key's retained revisions, oldest first — every put and
+Returns one key's retained revisions, oldest first — every put and
 every delete marker up to the bucket's History depth. 404 when the bucket
 does not exist or the key was never written.
 
@@ -357,13 +381,13 @@ func (a *KvAPIService) GetKvByBucketByKeyHistory(ctx context.Context, bucket str
 
 // Execute executes the request
 //
-//	@return KvPage
-func (a *KvAPIService) GetKvByBucketByKeyHistoryExecute(r KvAPIGetKvByBucketByKeyHistoryRequest) (*KvPage, *http.Response, error) {
+//	@return KvKvPage
+func (a *KvAPIService) GetKvByBucketByKeyHistoryExecute(r KvAPIGetKvByBucketByKeyHistoryRequest) (*KvKvPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KvPage
+		localVarReturnValue *KvKvPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KvAPIService.GetKvByBucketByKeyHistory")
@@ -389,7 +413,7 @@ func (a *KvAPIService) GetKvByBucketByKeyHistoryExecute(r KvAPIGetKvByBucketByKe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -418,6 +442,14 @@ func (a *KvAPIService) GetKvByBucketByKeyHistoryExecute(r KvAPIGetKvByBucketByKe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -434,18 +466,18 @@ func (a *KvAPIService) GetKvByBucketByKeyHistoryExecute(r KvAPIGetKvByBucketByKe
 }
 
 type KvAPIPostKvByBucketRequest struct {
-	ctx         context.Context
-	ApiService  *KvAPIService
-	bucket      string
-	bucketWrite *BucketWrite
+	ctx           context.Context
+	ApiService    *KvAPIService
+	bucket        string
+	kvBucketWrite *KvBucketWrite
 }
 
-func (r KvAPIPostKvByBucketRequest) BucketWrite(bucketWrite BucketWrite) KvAPIPostKvByBucketRequest {
-	r.bucketWrite = &bucketWrite
+func (r KvAPIPostKvByBucketRequest) KvBucketWrite(kvBucketWrite KvBucketWrite) KvAPIPostKvByBucketRequest {
+	r.kvBucketWrite = &kvBucketWrite
 	return r
 }
 
-func (r KvAPIPostKvByBucketRequest) Execute() (*BucketRecord, *http.Response, error) {
+func (r KvAPIPostKvByBucketRequest) Execute() (*KvBucketRecord, *http.Response, error) {
 	return r.ApiService.PostKvByBucketExecute(r)
 }
 
@@ -471,13 +503,13 @@ func (a *KvAPIService) PostKvByBucket(ctx context.Context, bucket string) KvAPIP
 
 // Execute executes the request
 //
-//	@return BucketRecord
-func (a *KvAPIService) PostKvByBucketExecute(r KvAPIPostKvByBucketRequest) (*BucketRecord, *http.Response, error) {
+//	@return KvBucketRecord
+func (a *KvAPIService) PostKvByBucketExecute(r KvAPIPostKvByBucketRequest) (*KvBucketRecord, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BucketRecord
+		localVarReturnValue *KvBucketRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KvAPIService.PostKvByBucket")
@@ -491,8 +523,8 @@ func (a *KvAPIService) PostKvByBucketExecute(r KvAPIPostKvByBucketRequest) (*Buc
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.bucketWrite == nil {
-		return localVarReturnValue, nil, reportError("bucketWrite is required and must be specified")
+	if r.kvBucketWrite == nil {
+		return localVarReturnValue, nil, reportError("kvBucketWrite is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -505,7 +537,7 @@ func (a *KvAPIService) PostKvByBucketExecute(r KvAPIPostKvByBucketRequest) (*Buc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -513,7 +545,7 @@ func (a *KvAPIService) PostKvByBucketExecute(r KvAPIPostKvByBucketRequest) (*Buc
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.bucketWrite
+	localVarPostBody = r.kvBucketWrite
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -536,6 +568,14 @@ func (a *KvAPIService) PostKvByBucketExecute(r KvAPIPostKvByBucketRequest) (*Buc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -556,22 +596,22 @@ type KvAPIPutKvByBucketByKeyRequest struct {
 	ApiService *KvAPIService
 	bucket     string
 	key        string
-	kvWrite    *KvWrite
+	kvKvWrite  *KvKvWrite
 }
 
-func (r KvAPIPutKvByBucketByKeyRequest) KvWrite(kvWrite KvWrite) KvAPIPutKvByBucketByKeyRequest {
-	r.kvWrite = &kvWrite
+func (r KvAPIPutKvByBucketByKeyRequest) KvKvWrite(kvKvWrite KvKvWrite) KvAPIPutKvByBucketByKeyRequest {
+	r.kvKvWrite = &kvKvWrite
 	return r
 }
 
-func (r KvAPIPutKvByBucketByKeyRequest) Execute() (*KvAck, *http.Response, error) {
+func (r KvAPIPutKvByBucketByKeyRequest) Execute() (*KvKvAck, *http.Response, error) {
 	return r.ApiService.PutKvByBucketByKeyExecute(r)
 }
 
 /*
-PutKvByBucketByKey Put sets one key to one value and returns the revision the write created.
+PutKvByBucketByKey Sets one key to one value and returns the revision the write created.
 
-Put sets one key to one value and returns the revision the write created.
+Sets one key to one value and returns the revision the write created.
 Writes are versioned: each put is a new revision and the bucket retains up to
 its History of them per key.
 
@@ -591,13 +631,13 @@ func (a *KvAPIService) PutKvByBucketByKey(ctx context.Context, bucket string, ke
 
 // Execute executes the request
 //
-//	@return KvAck
-func (a *KvAPIService) PutKvByBucketByKeyExecute(r KvAPIPutKvByBucketByKeyRequest) (*KvAck, *http.Response, error) {
+//	@return KvKvAck
+func (a *KvAPIService) PutKvByBucketByKeyExecute(r KvAPIPutKvByBucketByKeyRequest) (*KvKvAck, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KvAck
+		localVarReturnValue *KvKvAck
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KvAPIService.PutKvByBucketByKey")
@@ -612,8 +652,8 @@ func (a *KvAPIService) PutKvByBucketByKeyExecute(r KvAPIPutKvByBucketByKeyReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.kvWrite == nil {
-		return localVarReturnValue, nil, reportError("kvWrite is required and must be specified")
+	if r.kvKvWrite == nil {
+		return localVarReturnValue, nil, reportError("kvKvWrite is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -626,7 +666,7 @@ func (a *KvAPIService) PutKvByBucketByKeyExecute(r KvAPIPutKvByBucketByKeyReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -634,7 +674,7 @@ func (a *KvAPIService) PutKvByBucketByKeyExecute(r KvAPIPutKvByBucketByKeyReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.kvWrite
+	localVarPostBody = r.kvKvWrite
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -657,6 +697,14 @@ func (a *KvAPIService) PutKvByBucketByKeyExecute(r KvAPIPutKvByBucketByKeyReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

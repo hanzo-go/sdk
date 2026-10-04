@@ -30,8 +30,11 @@ type O11yO11yServiceTag struct {
 	// StringValues are the string operands, when the attribute is a string.
 	StringValues []string `json:"StringValues,omitempty"`
 	// TagType says which plane the attribute lives on, e.g. tag or resource.
-	TagType *string `json:"TagType,omitempty"`
+	TagType              *string `json:"TagType,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yServiceTag O11yO11yServiceTag
 
 // NewO11yO11yServiceTag instantiates a new O11yO11yServiceTag object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o O11yO11yServiceTag) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TagType) {
 		toSerialize["TagType"] = o.TagType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yServiceTag) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yServiceTag := _O11yO11yServiceTag{}
+
+	err = json.Unmarshal(data, &varO11yO11yServiceTag)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yServiceTag(varO11yO11yServiceTag)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "BoolValues")
+		delete(additionalProperties, "Key")
+		delete(additionalProperties, "NumberValues")
+		delete(additionalProperties, "Operator")
+		delete(additionalProperties, "StringValues")
+		delete(additionalProperties, "TagType")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yServiceTag struct {

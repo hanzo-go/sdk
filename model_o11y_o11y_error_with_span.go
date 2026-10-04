@@ -39,8 +39,11 @@ type O11yO11yErrorWithSpan struct {
 	// Timestamp is when it happened.
 	Timestamp *time.Time `json:"timestamp,omitempty"`
 	// TraceID is the trace the span belonged to.
-	TraceID *string `json:"traceID,omitempty"`
+	TraceID              *string `json:"traceID,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yErrorWithSpan O11yO11yErrorWithSpan
 
 // NewO11yO11yErrorWithSpan instantiates a new O11yO11yErrorWithSpan object
 // This constructor will assign default values to properties that have it defined,
@@ -419,7 +422,42 @@ func (o O11yO11yErrorWithSpan) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TraceID) {
 		toSerialize["traceID"] = o.TraceID
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yErrorWithSpan) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yErrorWithSpan := _O11yO11yErrorWithSpan{}
+
+	err = json.Unmarshal(data, &varO11yO11yErrorWithSpan)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yErrorWithSpan(varO11yO11yErrorWithSpan)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "errorId")
+		delete(additionalProperties, "exceptionEscaped")
+		delete(additionalProperties, "exceptionMessage")
+		delete(additionalProperties, "exceptionStacktrace")
+		delete(additionalProperties, "exceptionType")
+		delete(additionalProperties, "groupID")
+		delete(additionalProperties, "serviceName")
+		delete(additionalProperties, "spanID")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "traceID")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yErrorWithSpan struct {

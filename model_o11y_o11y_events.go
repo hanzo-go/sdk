@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yEvents{}
 // O11yO11yEvents struct for O11yO11yEvents
 type O11yO11yEvents struct {
 	// Items are the events, newest first.
-	Items []O11yO11yEvent `json:"items,omitempty"`
+	Items                []O11yO11yEvent `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yEvents O11yO11yEvents
 
 // NewO11yO11yEvents instantiates a new O11yO11yEvents object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yEvents) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yEvents) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yEvents := _O11yO11yEvents{}
+
+	err = json.Unmarshal(data, &varO11yO11yEvents)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yEvents(varO11yO11yEvents)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yEvents struct {

@@ -26,8 +26,11 @@ type O11yO11yEventUser struct {
 	// IP is that user's address.
 	IpAddress *string `json:"ipAddress,omitempty"`
 	// Username is that user's name.
-	Username *string `json:"username,omitempty"`
+	Username             *string `json:"username,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yEventUser O11yO11yEventUser
 
 // NewO11yO11yEventUser instantiates a new O11yO11yEventUser object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yEventUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yEventUser) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yEventUser := _O11yO11yEventUser{}
+
+	err = json.Unmarshal(data, &varO11yO11yEventUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yEventUser(varO11yO11yEventUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "ipAddress")
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yEventUser struct {

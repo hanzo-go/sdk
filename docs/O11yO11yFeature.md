@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Description says what the flag gates. | [optional] 
 **Kind** | Pointer to **string** | Kind is the flag&#39;s value kind, e.g. boolean. | [optional] 
 **Name** | Pointer to **string** | Name is the flag&#39;s name. | [optional] 
-**ResolvedValue** | Pointer to **map[string]interface{}** | ResolvedValue is the value resolved for the caller&#39;s org. | [optional] 
+**ResolvedValue** | Pointer to **interface{}** |  | [optional] 
 **Stage** | Pointer to **string** | Stage is the flag&#39;s lifecycle stage, e.g. stable. | [optional] 
-**Variants** | Pointer to **map[string]map[string]interface{}** | Variants are the flag&#39;s possible values, by variant name. | [optional] 
+**Variants** | Pointer to **map[string]interface{}** | Variants are the flag&#39;s possible values, by variant name. | [optional] 
 
 ## Methods
 
@@ -133,20 +133,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetResolvedValue
 
-`func (o *O11yO11yFeature) GetResolvedValue() map[string]interface{}`
+`func (o *O11yO11yFeature) GetResolvedValue() interface{}`
 
 GetResolvedValue returns the ResolvedValue field if non-nil, zero value otherwise.
 
 ### GetResolvedValueOk
 
-`func (o *O11yO11yFeature) GetResolvedValueOk() (*map[string]interface{}, bool)`
+`func (o *O11yO11yFeature) GetResolvedValueOk() (*interface{}, bool)`
 
 GetResolvedValueOk returns a tuple with the ResolvedValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResolvedValue
 
-`func (o *O11yO11yFeature) SetResolvedValue(v map[string]interface{})`
+`func (o *O11yO11yFeature) SetResolvedValue(v interface{})`
 
 SetResolvedValue sets ResolvedValue field to given value.
 
@@ -156,6 +156,16 @@ SetResolvedValue sets ResolvedValue field to given value.
 
 HasResolvedValue returns a boolean if a field has been set.
 
+### SetResolvedValueNil
+
+`func (o *O11yO11yFeature) SetResolvedValueNil(b bool)`
+
+ SetResolvedValueNil sets the value for ResolvedValue to be an explicit nil
+
+### UnsetResolvedValue
+`func (o *O11yO11yFeature) UnsetResolvedValue()`
+
+UnsetResolvedValue ensures that no value is present for ResolvedValue, not even an explicit nil
 ### GetStage
 
 `func (o *O11yO11yFeature) GetStage() string`
@@ -183,20 +193,20 @@ HasStage returns a boolean if a field has been set.
 
 ### GetVariants
 
-`func (o *O11yO11yFeature) GetVariants() map[string]map[string]interface{}`
+`func (o *O11yO11yFeature) GetVariants() map[string]interface{}`
 
 GetVariants returns the Variants field if non-nil, zero value otherwise.
 
 ### GetVariantsOk
 
-`func (o *O11yO11yFeature) GetVariantsOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yO11yFeature) GetVariantsOk() (*map[string]interface{}, bool)`
 
 GetVariantsOk returns a tuple with the Variants field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariants
 
-`func (o *O11yO11yFeature) SetVariants(v map[string]map[string]interface{})`
+`func (o *O11yO11yFeature) SetVariants(v map[string]interface{})`
 
 SetVariants sets Variants field to given value.
 

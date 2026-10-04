@@ -22,8 +22,11 @@ type O11yO11yPercentilePosition struct {
 	// Description says the same in words.
 	Description *string `json:"description,omitempty"`
 	// Percentile is the percentile the duration lands at.
-	Percentile *float64 `json:"percentile,omitempty"`
+	Percentile           *float64 `json:"percentile,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yPercentilePosition O11yO11yPercentilePosition
 
 // NewO11yO11yPercentilePosition instantiates a new O11yO11yPercentilePosition object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yPercentilePosition) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Percentile) {
 		toSerialize["percentile"] = o.Percentile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yPercentilePosition) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yPercentilePosition := _O11yO11yPercentilePosition{}
+
+	err = json.Unmarshal(data, &varO11yO11yPercentilePosition)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yPercentilePosition(varO11yO11yPercentilePosition)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "percentile")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yPercentilePosition struct {

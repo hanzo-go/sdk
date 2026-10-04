@@ -19,11 +19,14 @@ var _ MappedNullable = &IamScheme{}
 
 // IamScheme struct for IamScheme
 type IamScheme struct {
-	Description *string `json:"description,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Primary     *bool   `json:"primary,omitempty"`
-	Type        *string `json:"type,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Primary              *bool   `json:"primary,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamScheme IamScheme
 
 // NewIamScheme instantiates a new IamScheme object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o IamScheme) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamScheme) UnmarshalJSON(data []byte) (err error) {
+	varIamScheme := _IamScheme{}
+
+	err = json.Unmarshal(data, &varIamScheme)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamScheme(varIamScheme)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "primary")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamScheme struct {

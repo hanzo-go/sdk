@@ -26,7 +26,7 @@ type WorldAPIGetWorldRequest struct {
 	ApiService *WorldAPIService
 }
 
-func (r WorldAPIGetWorldRequest) Execute() (*WorldIndex, *http.Response, error) {
+func (r WorldAPIGetWorldRequest) Execute() (*WorldWorldIndex, *http.Response, error) {
 	return r.ApiService.GetWorldExecute(r)
 }
 
@@ -61,13 +61,13 @@ func (a *WorldAPIService) GetWorld(ctx context.Context) WorldAPIGetWorldRequest 
 
 // Execute executes the request
 //
-//	@return WorldIndex
-func (a *WorldAPIService) GetWorldExecute(r WorldAPIGetWorldRequest) (*WorldIndex, *http.Response, error) {
+//	@return WorldWorldIndex
+func (a *WorldAPIService) GetWorldExecute(r WorldAPIGetWorldRequest) (*WorldWorldIndex, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *WorldIndex
+		localVarReturnValue *WorldWorldIndex
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorldAPIService.GetWorld")
@@ -91,7 +91,7 @@ func (a *WorldAPIService) GetWorldExecute(r WorldAPIGetWorldRequest) (*WorldInde
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -120,6 +120,14 @@ func (a *WorldAPIService) GetWorldExecute(r WorldAPIGetWorldRequest) (*WorldInde
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -147,7 +155,7 @@ func (r WorldAPIGetWorldLimitsRequest) Plan(plan string) WorldAPIGetWorldLimitsR
 	return r
 }
 
-func (r WorldAPIGetWorldLimitsRequest) Execute() (*LimitsView, *http.Response, error) {
+func (r WorldAPIGetWorldLimitsRequest) Execute() (*WorldLimitsView, *http.Response, error) {
 	return r.ApiService.GetWorldLimitsExecute(r)
 }
 
@@ -174,13 +182,13 @@ func (a *WorldAPIService) GetWorldLimits(ctx context.Context) WorldAPIGetWorldLi
 
 // Execute executes the request
 //
-//	@return LimitsView
-func (a *WorldAPIService) GetWorldLimitsExecute(r WorldAPIGetWorldLimitsRequest) (*LimitsView, *http.Response, error) {
+//	@return WorldLimitsView
+func (a *WorldAPIService) GetWorldLimitsExecute(r WorldAPIGetWorldLimitsRequest) (*WorldLimitsView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *LimitsView
+		localVarReturnValue *WorldLimitsView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorldAPIService.GetWorldLimits")
@@ -207,7 +215,7 @@ func (a *WorldAPIService) GetWorldLimitsExecute(r WorldAPIGetWorldLimitsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -236,6 +244,14 @@ func (a *WorldAPIService) GetWorldLimitsExecute(r WorldAPIGetWorldLimitsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -256,7 +272,7 @@ type WorldAPIGetWorldNewsRequest struct {
 	ApiService *WorldAPIService
 }
 
-func (r WorldAPIGetWorldNewsRequest) Execute() (*NewsResponse, *http.Response, error) {
+func (r WorldAPIGetWorldNewsRequest) Execute() (*WorldNewsResponse, *http.Response, error) {
 	return r.ApiService.GetWorldNewsExecute(r)
 }
 
@@ -286,13 +302,13 @@ func (a *WorldAPIService) GetWorldNews(ctx context.Context) WorldAPIGetWorldNews
 
 // Execute executes the request
 //
-//	@return NewsResponse
-func (a *WorldAPIService) GetWorldNewsExecute(r WorldAPIGetWorldNewsRequest) (*NewsResponse, *http.Response, error) {
+//	@return WorldNewsResponse
+func (a *WorldAPIService) GetWorldNewsExecute(r WorldAPIGetWorldNewsRequest) (*WorldNewsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *NewsResponse
+		localVarReturnValue *WorldNewsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorldAPIService.GetWorldNews")
@@ -316,7 +332,7 @@ func (a *WorldAPIService) GetWorldNewsExecute(r WorldAPIGetWorldNewsRequest) (*N
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -345,6 +361,14 @@ func (a *WorldAPIService) GetWorldNewsExecute(r WorldAPIGetWorldNewsRequest) (*N
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -365,7 +389,7 @@ type WorldAPIGetWorldPipelineRequest struct {
 	ApiService *WorldAPIService
 }
 
-func (r WorldAPIGetWorldPipelineRequest) Execute() (*PipelineView, *http.Response, error) {
+func (r WorldAPIGetWorldPipelineRequest) Execute() (*WorldPipelineView, *http.Response, error) {
 	return r.ApiService.GetWorldPipelineExecute(r)
 }
 
@@ -389,13 +413,13 @@ func (a *WorldAPIService) GetWorldPipeline(ctx context.Context) WorldAPIGetWorld
 
 // Execute executes the request
 //
-//	@return PipelineView
-func (a *WorldAPIService) GetWorldPipelineExecute(r WorldAPIGetWorldPipelineRequest) (*PipelineView, *http.Response, error) {
+//	@return WorldPipelineView
+func (a *WorldAPIService) GetWorldPipelineExecute(r WorldAPIGetWorldPipelineRequest) (*WorldPipelineView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PipelineView
+		localVarReturnValue *WorldPipelineView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorldAPIService.GetWorldPipeline")
@@ -419,7 +443,7 @@ func (a *WorldAPIService) GetWorldPipelineExecute(r WorldAPIGetWorldPipelineRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -448,6 +472,14 @@ func (a *WorldAPIService) GetWorldPipelineExecute(r WorldAPIGetWorldPipelineRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -475,7 +507,7 @@ func (r WorldAPIGetWorldStreamRequest) Execute() (*http.Response, error) {
 /*
 GetWorldStream Live news refreshes for the caller's org and project, as Server-Sent Events.
 
-Holds the connection open as text/event-stream and pushes a `news` event — the same {items:[…]} body GET /v1/world/news answers — each time the caller's (org, project) feed refreshes, with a `: ping` heartbeat comment every 25s. Delivery is best-effort: a slow consumer is dropped on buffer overrun and reconnects, re-fetching GET /v1/world/news, which stays the source of truth. Requires a validated principal; 403 without one.
+Holds the connection open as text/event-stream and pushes a `news` event — the same {items:[…]} body GET /v1/world/news answers — each time the caller's (org, project) feed refreshes, with a `: ping` heartbeat comment every 25s. Delivery is best-effort: a slow consumer is dropped on buffer overrun and reconnects, re-fetching GET /v1/world/news, which stays the source of truth. Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return WorldAPIGetWorldStreamRequest
@@ -552,17 +584,17 @@ func (a *WorldAPIService) GetWorldStreamExecute(r WorldAPIGetWorldStreamRequest)
 }
 
 type WorldAPIPutWorldPipelineRequest struct {
-	ctx         context.Context
-	ApiService  *WorldAPIService
-	pipelineReq *PipelineReq
+	ctx              context.Context
+	ApiService       *WorldAPIService
+	worldPipelineReq *WorldPipelineReq
 }
 
-func (r WorldAPIPutWorldPipelineRequest) PipelineReq(pipelineReq PipelineReq) WorldAPIPutWorldPipelineRequest {
-	r.pipelineReq = &pipelineReq
+func (r WorldAPIPutWorldPipelineRequest) WorldPipelineReq(worldPipelineReq WorldPipelineReq) WorldAPIPutWorldPipelineRequest {
+	r.worldPipelineReq = &worldPipelineReq
 	return r
 }
 
-func (r WorldAPIPutWorldPipelineRequest) Execute() (*PipelineView, *http.Response, error) {
+func (r WorldAPIPutWorldPipelineRequest) Execute() (*WorldPipelineView, *http.Response, error) {
 	return r.ApiService.PutWorldPipelineExecute(r)
 }
 
@@ -590,13 +622,13 @@ func (a *WorldAPIService) PutWorldPipeline(ctx context.Context) WorldAPIPutWorld
 
 // Execute executes the request
 //
-//	@return PipelineView
-func (a *WorldAPIService) PutWorldPipelineExecute(r WorldAPIPutWorldPipelineRequest) (*PipelineView, *http.Response, error) {
+//	@return WorldPipelineView
+func (a *WorldAPIService) PutWorldPipelineExecute(r WorldAPIPutWorldPipelineRequest) (*WorldPipelineView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PipelineView
+		localVarReturnValue *WorldPipelineView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorldAPIService.PutWorldPipeline")
@@ -609,8 +641,8 @@ func (a *WorldAPIService) PutWorldPipelineExecute(r WorldAPIPutWorldPipelineRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.pipelineReq == nil {
-		return localVarReturnValue, nil, reportError("pipelineReq is required and must be specified")
+	if r.worldPipelineReq == nil {
+		return localVarReturnValue, nil, reportError("worldPipelineReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -623,7 +655,7 @@ func (a *WorldAPIService) PutWorldPipelineExecute(r WorldAPIPutWorldPipelineRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -631,7 +663,7 @@ func (a *WorldAPIService) PutWorldPipelineExecute(r WorldAPIPutWorldPipelineRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.pipelineReq
+	localVarPostBody = r.worldPipelineReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -654,6 +686,14 @@ func (a *WorldAPIService) PutWorldPipelineExecute(r WorldAPIPutWorldPipelineRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -19,10 +19,13 @@ var _ MappedNullable = &IamManagedAccount{}
 
 // IamManagedAccount struct for IamManagedAccount
 type IamManagedAccount struct {
-	Application *string `json:"application,omitempty"`
-	SigninUrl   *string `json:"signinUrl,omitempty"`
-	Username    *string `json:"username,omitempty"`
+	Application          *string `json:"application,omitempty"`
+	SigninUrl            *string `json:"signinUrl,omitempty"`
+	Username             *string `json:"username,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamManagedAccount IamManagedAccount
 
 // NewIamManagedAccount instantiates a new IamManagedAccount object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o IamManagedAccount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamManagedAccount) UnmarshalJSON(data []byte) (err error) {
+	varIamManagedAccount := _IamManagedAccount{}
+
+	err = json.Unmarshal(data, &varIamManagedAccount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamManagedAccount(varIamManagedAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "application")
+		delete(additionalProperties, "signinUrl")
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamManagedAccount struct {

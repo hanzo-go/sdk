@@ -22,8 +22,11 @@ type O11yO11yPublicDashboardData struct {
 	// Dashboard is the sanitized dashboard.
 	Dashboard *O11yO11yPublicDashboardV1 `json:"dashboard,omitempty"`
 	// PublicDashboard is the public-sharing config.
-	PublicDashboard *O11yO11yPublicDashboard `json:"publicDashboard,omitempty"`
+	PublicDashboard      *O11yO11yPublicDashboard `json:"publicDashboard,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yPublicDashboardData O11yO11yPublicDashboardData
 
 // NewO11yO11yPublicDashboardData instantiates a new O11yO11yPublicDashboardData object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yPublicDashboardData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PublicDashboard) {
 		toSerialize["publicDashboard"] = o.PublicDashboard
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yPublicDashboardData) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yPublicDashboardData := _O11yO11yPublicDashboardData{}
+
+	err = json.Unmarshal(data, &varO11yO11yPublicDashboardData)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yPublicDashboardData(varO11yO11yPublicDashboardData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dashboard")
+		delete(additionalProperties, "publicDashboard")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yPublicDashboardData struct {

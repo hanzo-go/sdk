@@ -19,12 +19,15 @@ var _ MappedNullable = &ClusterServing{}
 
 // ClusterServing struct for ClusterServing
 type ClusterServing struct {
-	ModelId   *string `json:"modelId,omitempty"`
-	Namespace *string `json:"namespace,omitempty"`
-	Provider  *string `json:"provider,omitempty"`
-	Service   *string `json:"service,omitempty"`
-	Url       *string `json:"url,omitempty"`
+	ModelId              *string `json:"modelId,omitempty"`
+	Namespace            *string `json:"namespace,omitempty"`
+	Provider             *string `json:"provider,omitempty"`
+	Service              *string `json:"service,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ClusterServing ClusterServing
 
 // NewClusterServing instantiates a new ClusterServing object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o ClusterServing) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ClusterServing) UnmarshalJSON(data []byte) (err error) {
+	varClusterServing := _ClusterServing{}
+
+	err = json.Unmarshal(data, &varClusterServing)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ClusterServing(varClusterServing)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "modelId")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "service")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableClusterServing struct {

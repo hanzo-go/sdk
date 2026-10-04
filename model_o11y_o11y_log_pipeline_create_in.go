@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yLogPipelineCreateIn{}
 // O11yO11yLogPipelineCreateIn struct for O11yO11yLogPipelineCreateIn
 type O11yO11yLogPipelineCreateIn struct {
 	// Pipelines are the pipelines the new version holds, in order.
-	Pipelines []O11yO11yLogPostablePipeline `json:"pipelines,omitempty"`
+	Pipelines            []O11yO11yLogPostablePipeline `json:"pipelines,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogPipelineCreateIn O11yO11yLogPipelineCreateIn
 
 // NewO11yO11yLogPipelineCreateIn instantiates a new O11yO11yLogPipelineCreateIn object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yLogPipelineCreateIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Pipelines) {
 		toSerialize["pipelines"] = o.Pipelines
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogPipelineCreateIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogPipelineCreateIn := _O11yO11yLogPipelineCreateIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogPipelineCreateIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogPipelineCreateIn(varO11yO11yLogPipelineCreateIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "pipelines")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogPipelineCreateIn struct {

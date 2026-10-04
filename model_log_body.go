@@ -19,10 +19,13 @@ var _ MappedNullable = &LogBody{}
 
 // LogBody struct for LogBody
 type LogBody struct {
-	Body     *string `json:"body,omitempty"`
-	Number   *int32  `json:"number,omitempty"`
-	Severity *string `json:"severity,omitempty"`
+	Body                 *string `json:"body,omitempty"`
+	Number               *int32  `json:"number,omitempty"`
+	Severity             *string `json:"severity,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LogBody LogBody
 
 // NewLogBody instantiates a new LogBody object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o LogBody) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Severity) {
 		toSerialize["severity"] = o.Severity
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LogBody) UnmarshalJSON(data []byte) (err error) {
+	varLogBody := _LogBody{}
+
+	err = json.Unmarshal(data, &varLogBody)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LogBody(varLogBody)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "body")
+		delete(additionalProperties, "number")
+		delete(additionalProperties, "severity")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLogBody struct {

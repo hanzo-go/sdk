@@ -26,8 +26,11 @@ type O11yO11yLLMPricingRulesPage struct {
 	// Offset is the row offset this page started at.
 	Offset *int64 `json:"offset,omitempty"`
 	// Total is how many rules match, across all pages.
-	Total *int64 `json:"total,omitempty"`
+	Total                *int64 `json:"total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMPricingRulesPage O11yO11yLLMPricingRulesPage
 
 // NewO11yO11yLLMPricingRulesPage instantiates a new O11yO11yLLMPricingRulesPage object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yLLMPricingRulesPage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMPricingRulesPage) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMPricingRulesPage := _O11yO11yLLMPricingRulesPage{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMPricingRulesPage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMPricingRulesPage(varO11yO11yLLMPricingRulesPage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMPricingRulesPage struct {

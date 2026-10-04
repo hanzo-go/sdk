@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yAggregateAttributeResponse{}
 
 // O11yAggregateAttributeResponse struct for O11yAggregateAttributeResponse
 type O11yAggregateAttributeResponse struct {
-	AttributeKeys []O11yAttributeKey `json:"attributeKeys,omitempty"`
+	AttributeKeys        []O11yAttributeKey `json:"attributeKeys,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAggregateAttributeResponse O11yAggregateAttributeResponse
 
 // NewO11yAggregateAttributeResponse instantiates a new O11yAggregateAttributeResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yAggregateAttributeResponse) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.AttributeKeys) {
 		toSerialize["attributeKeys"] = o.AttributeKeys
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAggregateAttributeResponse) UnmarshalJSON(data []byte) (err error) {
+	varO11yAggregateAttributeResponse := _O11yAggregateAttributeResponse{}
+
+	err = json.Unmarshal(data, &varO11yAggregateAttributeResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAggregateAttributeResponse(varO11yAggregateAttributeResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributeKeys")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAggregateAttributeResponse struct {

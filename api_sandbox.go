@@ -96,7 +96,7 @@ func (a *SandboxAPIService) DeleteSandboxByIdExecute(r SandboxAPIDeleteSandboxBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -125,6 +125,14 @@ func (a *SandboxAPIService) DeleteSandboxByIdExecute(r SandboxAPIDeleteSandboxBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -132,13 +140,13 @@ func (a *SandboxAPIService) DeleteSandboxByIdExecute(r SandboxAPIDeleteSandboxBy
 }
 
 type SandboxAPIEndSandboxRequest struct {
-	ctx        context.Context
-	ApiService *SandboxAPIService
-	endIn      *EndIn
+	ctx          context.Context
+	ApiService   *SandboxAPIService
+	sandboxEndIn *SandboxEndIn
 }
 
-func (r SandboxAPIEndSandboxRequest) EndIn(endIn EndIn) SandboxAPIEndSandboxRequest {
-	r.endIn = &endIn
+func (r SandboxAPIEndSandboxRequest) SandboxEndIn(sandboxEndIn SandboxEndIn) SandboxAPIEndSandboxRequest {
+	r.sandboxEndIn = &sandboxEndIn
 	return r
 }
 
@@ -180,8 +188,8 @@ func (a *SandboxAPIService) EndSandboxExecute(r SandboxAPIEndSandboxRequest) (*h
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.endIn == nil {
-		return nil, reportError("endIn is required and must be specified")
+	if r.sandboxEndIn == nil {
+		return nil, reportError("sandboxEndIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -194,7 +202,7 @@ func (a *SandboxAPIService) EndSandboxExecute(r SandboxAPIEndSandboxRequest) (*h
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -202,7 +210,7 @@ func (a *SandboxAPIService) EndSandboxExecute(r SandboxAPIEndSandboxRequest) (*h
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.endIn
+	localVarPostBody = r.sandboxEndIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -225,6 +233,14 @@ func (a *SandboxAPIService) EndSandboxExecute(r SandboxAPIEndSandboxRequest) (*h
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -248,18 +264,19 @@ func (r SandboxAPIGetSandboxRequest) Status(status string) SandboxAPIGetSandboxR
 	return r
 }
 
-func (r SandboxAPIGetSandboxRequest) Execute() (*SandboxList, *http.Response, error) {
+func (r SandboxAPIGetSandboxRequest) Execute() (*SandboxSandboxList, *http.Response, error) {
 	return r.ApiService.GetSandboxExecute(r)
 }
 
 /*
-GetSandbox Lists the caller org's sandboxes, newest first.
+GetSandbox Lists the sandboxes the caller holds, newest first.
 
-Lists the caller org's sandboxes, newest first.
+Lists the sandboxes the caller holds, newest first.
 
-`?project=` and `?status=` narrow it. Only the caller's org's: the store is
-keyed on the validated org, so another tenant's sandbox is not something this
-operation can return.
+A member holds the sandboxes they leased; an admin of the org, or a SuperAdmin,
+holds every one in it. `?project=` and `?status=` narrow it. Only the caller's
+org's: the store is keyed on the validated org, so another tenant's sandbox is
+not something this operation can return.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return SandboxAPIGetSandboxRequest
@@ -273,13 +290,13 @@ func (a *SandboxAPIService) GetSandbox(ctx context.Context) SandboxAPIGetSandbox
 
 // Execute executes the request
 //
-//	@return SandboxList
-func (a *SandboxAPIService) GetSandboxExecute(r SandboxAPIGetSandboxRequest) (*SandboxList, *http.Response, error) {
+//	@return SandboxSandboxList
+func (a *SandboxAPIService) GetSandboxExecute(r SandboxAPIGetSandboxRequest) (*SandboxSandboxList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SandboxList
+		localVarReturnValue *SandboxSandboxList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.GetSandbox")
@@ -309,7 +326,7 @@ func (a *SandboxAPIService) GetSandboxExecute(r SandboxAPIGetSandboxRequest) (*S
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -338,6 +355,14 @@ func (a *SandboxAPIService) GetSandboxExecute(r SandboxAPIGetSandboxRequest) (*S
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -359,7 +384,7 @@ type SandboxAPIGetSandboxByIdRequest struct {
 	id         string
 }
 
-func (r SandboxAPIGetSandboxByIdRequest) Execute() (*Sandbox, *http.Response, error) {
+func (r SandboxAPIGetSandboxByIdRequest) Execute() (*SandboxSandbox, *http.Response, error) {
 	return r.ApiService.GetSandboxByIdExecute(r)
 }
 
@@ -369,8 +394,8 @@ GetSandboxById Returns one sandbox: its class, project, image, the runtime it wa
 Returns one sandbox: its class, project, image, the runtime it was
 given, its status and when its lease ends.
 
-An id the caller's org does not hold is the same 404 an unknown id gives — the
-store is keyed on the org, so a cross-tenant id simply is not there.
+A sandbox is its lessee's and its org admins'. An id the caller does not hold —
+another org's, or another member's — is the same 404 an unknown id gives.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the sandbox to address, from the path.
@@ -386,13 +411,13 @@ func (a *SandboxAPIService) GetSandboxById(ctx context.Context, id string) Sandb
 
 // Execute executes the request
 //
-//	@return Sandbox
-func (a *SandboxAPIService) GetSandboxByIdExecute(r SandboxAPIGetSandboxByIdRequest) (*Sandbox, *http.Response, error) {
+//	@return SandboxSandbox
+func (a *SandboxAPIService) GetSandboxByIdExecute(r SandboxAPIGetSandboxByIdRequest) (*SandboxSandbox, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Sandbox
+		localVarReturnValue *SandboxSandbox
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.GetSandboxById")
@@ -417,7 +442,7 @@ func (a *SandboxAPIService) GetSandboxByIdExecute(r SandboxAPIGetSandboxByIdRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -446,6 +471,14 @@ func (a *SandboxAPIService) GetSandboxByIdExecute(r SandboxAPIGetSandboxByIdRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -551,6 +584,120 @@ func (a *SandboxAPIService) GetSandboxByIdFsExecute(r SandboxAPIGetSandboxByIdFs
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type SandboxAPIGetSandboxByIdPortsRequest struct {
+	ctx        context.Context
+	ApiService *SandboxAPIService
+	id         string
+}
+
+func (r SandboxAPIGetSandboxByIdPortsRequest) Execute() (*SandboxPorts, *http.Response, error) {
+	return r.ApiService.GetSandboxByIdPortsExecute(r)
+}
+
+/*
+GetSandboxByIdPorts Lists the TCP ports something listens on in a sandbox the caller holds, each with the preview host that serves it — what the sandbox's Browser can open.
+
+Lists the TCP ports something listens on in a sandbox the caller
+holds, each with the preview host that serves it — what the sandbox's Browser
+can open. A dev server started in the sandbox appears here once it listens.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the sandbox, from the path.
+	@return SandboxAPIGetSandboxByIdPortsRequest
+*/
+func (a *SandboxAPIService) GetSandboxByIdPorts(ctx context.Context, id string) SandboxAPIGetSandboxByIdPortsRequest {
+	return SandboxAPIGetSandboxByIdPortsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SandboxPorts
+func (a *SandboxAPIService) GetSandboxByIdPortsExecute(r SandboxAPIGetSandboxByIdPortsRequest) (*SandboxPorts, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SandboxPorts
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.GetSandboxByIdPorts")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/sandbox/{id}/ports"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type SandboxAPIGetSandboxByIdScreenRequest struct {
@@ -942,17 +1089,17 @@ func (a *SandboxAPIService) GetSandboxByIdTerminalWsExecute(r SandboxAPIGetSandb
 }
 
 type SandboxAPILeaseSandboxRequest struct {
-	ctx        context.Context
-	ApiService *SandboxAPIService
-	leaseIn    *LeaseIn
+	ctx            context.Context
+	ApiService     *SandboxAPIService
+	sandboxLeaseIn *SandboxLeaseIn
 }
 
-func (r SandboxAPILeaseSandboxRequest) LeaseIn(leaseIn LeaseIn) SandboxAPILeaseSandboxRequest {
-	r.leaseIn = &leaseIn
+func (r SandboxAPILeaseSandboxRequest) SandboxLeaseIn(sandboxLeaseIn SandboxLeaseIn) SandboxAPILeaseSandboxRequest {
+	r.sandboxLeaseIn = &sandboxLeaseIn
 	return r
 }
 
-func (r SandboxAPILeaseSandboxRequest) Execute() (*Leased, *http.Response, error) {
+func (r SandboxAPILeaseSandboxRequest) Execute() (*SandboxLeased, *http.Response, error) {
 	return r.ApiService.LeaseSandboxExecute(r)
 }
 
@@ -960,7 +1107,8 @@ func (r SandboxAPILeaseSandboxRequest) Execute() (*Leased, *http.Response, error
 LeaseSandbox Lease a sandbox — a real computer — or resume one you hold
 
 Leases the caller's sandbox, or returns the one it named if that
-lease is still running.
+lease is still running, or gives it a pod again if it is parked — with its
+disk as it was left.
 
 What comes back is a real computer: a pod under a runtime boundary with a
 toolchain already in it, its own filesystem, and a lease that ends it. Every
@@ -978,13 +1126,13 @@ func (a *SandboxAPIService) LeaseSandbox(ctx context.Context) SandboxAPILeaseSan
 
 // Execute executes the request
 //
-//	@return Leased
-func (a *SandboxAPIService) LeaseSandboxExecute(r SandboxAPILeaseSandboxRequest) (*Leased, *http.Response, error) {
+//	@return SandboxLeased
+func (a *SandboxAPIService) LeaseSandboxExecute(r SandboxAPILeaseSandboxRequest) (*SandboxLeased, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Leased
+		localVarReturnValue *SandboxLeased
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.LeaseSandbox")
@@ -997,8 +1145,8 @@ func (a *SandboxAPIService) LeaseSandboxExecute(r SandboxAPILeaseSandboxRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.leaseIn == nil {
-		return localVarReturnValue, nil, reportError("leaseIn is required and must be specified")
+	if r.sandboxLeaseIn == nil {
+		return localVarReturnValue, nil, reportError("sandboxLeaseIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1011,7 +1159,7 @@ func (a *SandboxAPIService) LeaseSandboxExecute(r SandboxAPILeaseSandboxRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1019,7 +1167,7 @@ func (a *SandboxAPIService) LeaseSandboxExecute(r SandboxAPILeaseSandboxRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.leaseIn
+	localVarPostBody = r.sandboxLeaseIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1042,6 +1190,14 @@ func (a *SandboxAPIService) LeaseSandboxExecute(r SandboxAPILeaseSandboxRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1058,17 +1214,17 @@ func (a *SandboxAPIService) LeaseSandboxExecute(r SandboxAPILeaseSandboxRequest)
 }
 
 type SandboxAPIPostSandboxRequest struct {
-	ctx        context.Context
-	ApiService *SandboxAPIService
-	leaseIn    *LeaseIn
+	ctx              context.Context
+	ApiService       *SandboxAPIService
+	sandboxSandboxIn *SandboxSandboxIn
 }
 
-func (r SandboxAPIPostSandboxRequest) LeaseIn(leaseIn LeaseIn) SandboxAPIPostSandboxRequest {
-	r.leaseIn = &leaseIn
+func (r SandboxAPIPostSandboxRequest) SandboxSandboxIn(sandboxSandboxIn SandboxSandboxIn) SandboxAPIPostSandboxRequest {
+	r.sandboxSandboxIn = &sandboxSandboxIn
 	return r
 }
 
-func (r SandboxAPIPostSandboxRequest) Execute() (*Sandbox, *http.Response, error) {
+func (r SandboxAPIPostSandboxRequest) Execute() (*SandboxSandbox, *http.Response, error) {
 	return r.ApiService.PostSandboxExecute(r)
 }
 
@@ -1099,13 +1255,13 @@ func (a *SandboxAPIService) PostSandbox(ctx context.Context) SandboxAPIPostSandb
 
 // Execute executes the request
 //
-//	@return Sandbox
-func (a *SandboxAPIService) PostSandboxExecute(r SandboxAPIPostSandboxRequest) (*Sandbox, *http.Response, error) {
+//	@return SandboxSandbox
+func (a *SandboxAPIService) PostSandboxExecute(r SandboxAPIPostSandboxRequest) (*SandboxSandbox, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Sandbox
+		localVarReturnValue *SandboxSandbox
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.PostSandbox")
@@ -1118,8 +1274,8 @@ func (a *SandboxAPIService) PostSandboxExecute(r SandboxAPIPostSandboxRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.leaseIn == nil {
-		return localVarReturnValue, nil, reportError("leaseIn is required and must be specified")
+	if r.sandboxSandboxIn == nil {
+		return localVarReturnValue, nil, reportError("sandboxSandboxIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1132,7 +1288,7 @@ func (a *SandboxAPIService) PostSandboxExecute(r SandboxAPIPostSandboxRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1140,7 +1296,7 @@ func (a *SandboxAPIService) PostSandboxExecute(r SandboxAPIPostSandboxRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.leaseIn
+	localVarPostBody = r.sandboxSandboxIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1163,6 +1319,14 @@ func (a *SandboxAPIService) PostSandboxExecute(r SandboxAPIPostSandboxRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1179,18 +1343,18 @@ func (a *SandboxAPIService) PostSandboxExecute(r SandboxAPIPostSandboxRequest) (
 }
 
 type SandboxAPIPostSandboxByIdExecRequest struct {
-	ctx         context.Context
-	ApiService  *SandboxAPIService
-	id          string
-	execRequest *ExecRequest
+	ctx                context.Context
+	ApiService         *SandboxAPIService
+	id                 string
+	sandboxExecRequest *SandboxExecRequest
 }
 
-func (r SandboxAPIPostSandboxByIdExecRequest) ExecRequest(execRequest ExecRequest) SandboxAPIPostSandboxByIdExecRequest {
-	r.execRequest = &execRequest
+func (r SandboxAPIPostSandboxByIdExecRequest) SandboxExecRequest(sandboxExecRequest SandboxExecRequest) SandboxAPIPostSandboxByIdExecRequest {
+	r.sandboxExecRequest = &sandboxExecRequest
 	return r
 }
 
-func (r SandboxAPIPostSandboxByIdExecRequest) Execute() (*ExecResult, *http.Response, error) {
+func (r SandboxAPIPostSandboxByIdExecRequest) Execute() (*SandboxExecResult, *http.Response, error) {
 	return r.ApiService.PostSandboxByIdExecExecute(r)
 }
 
@@ -1220,13 +1384,13 @@ func (a *SandboxAPIService) PostSandboxByIdExec(ctx context.Context, id string) 
 
 // Execute executes the request
 //
-//	@return ExecResult
-func (a *SandboxAPIService) PostSandboxByIdExecExecute(r SandboxAPIPostSandboxByIdExecRequest) (*ExecResult, *http.Response, error) {
+//	@return SandboxExecResult
+func (a *SandboxAPIService) PostSandboxByIdExecExecute(r SandboxAPIPostSandboxByIdExecRequest) (*SandboxExecResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ExecResult
+		localVarReturnValue *SandboxExecResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.PostSandboxByIdExec")
@@ -1240,8 +1404,8 @@ func (a *SandboxAPIService) PostSandboxByIdExecExecute(r SandboxAPIPostSandboxBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.execRequest == nil {
-		return localVarReturnValue, nil, reportError("execRequest is required and must be specified")
+	if r.sandboxExecRequest == nil {
+		return localVarReturnValue, nil, reportError("sandboxExecRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1254,7 +1418,7 @@ func (a *SandboxAPIService) PostSandboxByIdExecExecute(r SandboxAPIPostSandboxBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1262,7 +1426,7 @@ func (a *SandboxAPIService) PostSandboxByIdExecExecute(r SandboxAPIPostSandboxBy
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.execRequest
+	localVarPostBody = r.sandboxExecRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1285,6 +1449,14 @@ func (a *SandboxAPIService) PostSandboxByIdExecExecute(r SandboxAPIPostSandboxBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1392,28 +1564,33 @@ func (a *SandboxAPIService) PostSandboxByIdFsExecute(r SandboxAPIPostSandboxById
 	return localVarHTTPResponse, nil
 }
 
-type SandboxAPIPostSandboxByIdScreenTicketRequest struct {
+type SandboxAPIPostSandboxByIdPauseRequest struct {
 	ctx        context.Context
 	ApiService *SandboxAPIService
 	id         string
 }
 
-func (r SandboxAPIPostSandboxByIdScreenTicketRequest) Execute() (*TicketGrant, *http.Response, error) {
-	return r.ApiService.PostSandboxByIdScreenTicketExecute(r)
+func (r SandboxAPIPostSandboxByIdPauseRequest) Execute() (*SandboxSandbox, *http.Response, error) {
+	return r.ApiService.PostSandboxByIdPauseExecute(r)
 }
 
 /*
-PostSandboxByIdScreenTicket Mints a short-lived grant to open the screen of a desktop sandbox.
+PostSandboxByIdPause Stops the pod, keeps the row and the volume, and settles the tail: POST /v1/sandbox/:id/pause.
 
-Mints a short-lived grant to open the screen of a desktop
-sandbox. Same properties as the terminal ticket, for the other endpoint.
+Stops the pod, keeps the row and the volume, and settles the tail: POST
+/v1/sandbox/:id/pause.
+
+The claim, the stop and the ship are ONE settlement for the same reason a
+retirement is — the snapshot that carries the advanced watermark has to carry
+the new state, or a successor hydrates a running row for a pod that is gone
+and bills for it until the reaper notices.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the sandbox to address, from the path.
-	@return SandboxAPIPostSandboxByIdScreenTicketRequest
+	@return SandboxAPIPostSandboxByIdPauseRequest
 */
-func (a *SandboxAPIService) PostSandboxByIdScreenTicket(ctx context.Context, id string) SandboxAPIPostSandboxByIdScreenTicketRequest {
-	return SandboxAPIPostSandboxByIdScreenTicketRequest{
+func (a *SandboxAPIService) PostSandboxByIdPause(ctx context.Context, id string) SandboxAPIPostSandboxByIdPauseRequest {
+	return SandboxAPIPostSandboxByIdPauseRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -1422,21 +1599,21 @@ func (a *SandboxAPIService) PostSandboxByIdScreenTicket(ctx context.Context, id 
 
 // Execute executes the request
 //
-//	@return TicketGrant
-func (a *SandboxAPIService) PostSandboxByIdScreenTicketExecute(r SandboxAPIPostSandboxByIdScreenTicketRequest) (*TicketGrant, *http.Response, error) {
+//	@return SandboxSandbox
+func (a *SandboxAPIService) PostSandboxByIdPauseExecute(r SandboxAPIPostSandboxByIdPauseRequest) (*SandboxSandbox, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TicketGrant
+		localVarReturnValue *SandboxSandbox
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.PostSandboxByIdScreenTicket")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.PostSandboxByIdPause")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/sandbox/{id}/screen/ticket"
+	localVarPath := localBasePath + "/v1/sandbox/{id}/pause"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1453,7 +1630,7 @@ func (a *SandboxAPIService) PostSandboxByIdScreenTicketExecute(r SandboxAPIPostS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1482,6 +1659,376 @@ func (a *SandboxAPIService) PostSandboxByIdScreenTicketExecute(r SandboxAPIPostS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type SandboxAPIPostSandboxByIdPreviewRequest struct {
+	ctx              context.Context
+	ApiService       *SandboxAPIService
+	id               string
+	sandboxPreviewIn *SandboxPreviewIn
+}
+
+func (r SandboxAPIPostSandboxByIdPreviewRequest) SandboxPreviewIn(sandboxPreviewIn SandboxPreviewIn) SandboxAPIPostSandboxByIdPreviewRequest {
+	r.sandboxPreviewIn = &sandboxPreviewIn
+	return r
+}
+
+func (r SandboxAPIPostSandboxByIdPreviewRequest) Execute() (*SandboxPreviewGrant, *http.Response, error) {
+	return r.ApiService.PostSandboxByIdPreviewExecute(r)
+}
+
+/*
+PostSandboxByIdPreview Opens a port of a sandbox the caller holds in a browser.
+
+Opens a port of a sandbox the caller holds in a browser.
+
+It answers a URL at an origin of the preview's own —
+https://sandbox-<id>-preview-<port>.<apex>/ — carrying a single-use ticket.
+Opening it sets a cookie on that origin and lands on its root, and from then on
+every request there is carried to the port inside the sandbox: pages, assets,
+APIs and WebSockets, as the app serves them on localhost. The preview stays open
+for twelve hours or until the sandbox stops running; a preview answering 401 is
+opened again by asking for another URL. A sandbox that is not running is 409.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the sandbox, from the path.
+	@return SandboxAPIPostSandboxByIdPreviewRequest
+*/
+func (a *SandboxAPIService) PostSandboxByIdPreview(ctx context.Context, id string) SandboxAPIPostSandboxByIdPreviewRequest {
+	return SandboxAPIPostSandboxByIdPreviewRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SandboxPreviewGrant
+func (a *SandboxAPIService) PostSandboxByIdPreviewExecute(r SandboxAPIPostSandboxByIdPreviewRequest) (*SandboxPreviewGrant, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SandboxPreviewGrant
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.PostSandboxByIdPreview")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/sandbox/{id}/preview"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.sandboxPreviewIn == nil {
+		return localVarReturnValue, nil, reportError("sandboxPreviewIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.sandboxPreviewIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type SandboxAPIPostSandboxByIdResumeRequest struct {
+	ctx        context.Context
+	ApiService *SandboxAPIService
+	id         string
+}
+
+func (r SandboxAPIPostSandboxByIdResumeRequest) Execute() (*SandboxSandbox, *http.Response, error) {
+	return r.ApiService.PostSandboxByIdResumeExecute(r)
+}
+
+/*
+PostSandboxByIdResume Gives a parked sandbox a pod again: POST /v1/sandbox/:id/resume.
+
+Gives a parked sandbox a pod again: POST /v1/sandbox/:id/resume.
+
+The pod is NEW and so is its lease: a fresh pod name, because a pod name is
+never reused (store.go), the volume the row already names, a lease of the
+class's own length from now, and the RESUMING caller's credential rather than
+the one that took the lease — a session is short-lived and the one that parked
+it is gone.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the sandbox to address, from the path.
+	@return SandboxAPIPostSandboxByIdResumeRequest
+*/
+func (a *SandboxAPIService) PostSandboxByIdResume(ctx context.Context, id string) SandboxAPIPostSandboxByIdResumeRequest {
+	return SandboxAPIPostSandboxByIdResumeRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SandboxSandbox
+func (a *SandboxAPIService) PostSandboxByIdResumeExecute(r SandboxAPIPostSandboxByIdResumeRequest) (*SandboxSandbox, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SandboxSandbox
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.PostSandboxByIdResume")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/sandbox/{id}/resume"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type SandboxAPIPostSandboxByIdScreenTicketRequest struct {
+	ctx        context.Context
+	ApiService *SandboxAPIService
+	id         string
+}
+
+func (r SandboxAPIPostSandboxByIdScreenTicketRequest) Execute() (*SandboxTicketGrant, *http.Response, error) {
+	return r.ApiService.PostSandboxByIdScreenTicketExecute(r)
+}
+
+/*
+PostSandboxByIdScreenTicket Mints a short-lived grant to open the screen of a desktop sandbox.
+
+Mints a short-lived grant to open the screen of a desktop
+sandbox. Same properties as the terminal ticket, for the other endpoint.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the sandbox to address, from the path.
+	@return SandboxAPIPostSandboxByIdScreenTicketRequest
+*/
+func (a *SandboxAPIService) PostSandboxByIdScreenTicket(ctx context.Context, id string) SandboxAPIPostSandboxByIdScreenTicketRequest {
+	return SandboxAPIPostSandboxByIdScreenTicketRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SandboxTicketGrant
+func (a *SandboxAPIService) PostSandboxByIdScreenTicketExecute(r SandboxAPIPostSandboxByIdScreenTicketRequest) (*SandboxTicketGrant, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SandboxTicketGrant
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.PostSandboxByIdScreenTicket")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/sandbox/{id}/screen/ticket"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1503,7 +2050,7 @@ type SandboxAPIPostSandboxByIdTerminalTicketRequest struct {
 	id         string
 }
 
-func (r SandboxAPIPostSandboxByIdTerminalTicketRequest) Execute() (*TicketGrant, *http.Response, error) {
+func (r SandboxAPIPostSandboxByIdTerminalTicketRequest) Execute() (*SandboxTicketGrant, *http.Response, error) {
 	return r.ApiService.PostSandboxByIdTerminalTicketExecute(r)
 }
 
@@ -1531,13 +2078,13 @@ func (a *SandboxAPIService) PostSandboxByIdTerminalTicket(ctx context.Context, i
 
 // Execute executes the request
 //
-//	@return TicketGrant
-func (a *SandboxAPIService) PostSandboxByIdTerminalTicketExecute(r SandboxAPIPostSandboxByIdTerminalTicketRequest) (*TicketGrant, *http.Response, error) {
+//	@return SandboxTicketGrant
+func (a *SandboxAPIService) PostSandboxByIdTerminalTicketExecute(r SandboxAPIPostSandboxByIdTerminalTicketRequest) (*SandboxTicketGrant, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TicketGrant
+		localVarReturnValue *SandboxTicketGrant
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.PostSandboxByIdTerminalTicket")
@@ -1562,7 +2109,7 @@ func (a *SandboxAPIService) PostSandboxByIdTerminalTicketExecute(r SandboxAPIPos
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1591,6 +2138,14 @@ func (a *SandboxAPIService) PostSandboxByIdTerminalTicketExecute(r SandboxAPIPos
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1607,17 +2162,17 @@ func (a *SandboxAPIService) PostSandboxByIdTerminalTicketExecute(r SandboxAPIPos
 }
 
 type SandboxAPIReadSandboxFileRequest struct {
-	ctx        context.Context
-	ApiService *SandboxAPIService
-	pathIn     *PathIn
+	ctx           context.Context
+	ApiService    *SandboxAPIService
+	sandboxPathIn *SandboxPathIn
 }
 
-func (r SandboxAPIReadSandboxFileRequest) PathIn(pathIn PathIn) SandboxAPIReadSandboxFileRequest {
-	r.pathIn = &pathIn
+func (r SandboxAPIReadSandboxFileRequest) SandboxPathIn(sandboxPathIn SandboxPathIn) SandboxAPIReadSandboxFileRequest {
+	r.sandboxPathIn = &sandboxPathIn
 	return r
 }
 
-func (r SandboxAPIReadSandboxFileRequest) Execute() (*Blob, *http.Response, error) {
+func (r SandboxAPIReadSandboxFileRequest) Execute() (*SandboxBlob, *http.Response, error) {
 	return r.ApiService.ReadSandboxFileExecute(r)
 }
 
@@ -1639,13 +2194,13 @@ func (a *SandboxAPIService) ReadSandboxFile(ctx context.Context) SandboxAPIReadS
 
 // Execute executes the request
 //
-//	@return Blob
-func (a *SandboxAPIService) ReadSandboxFileExecute(r SandboxAPIReadSandboxFileRequest) (*Blob, *http.Response, error) {
+//	@return SandboxBlob
+func (a *SandboxAPIService) ReadSandboxFileExecute(r SandboxAPIReadSandboxFileRequest) (*SandboxBlob, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Blob
+		localVarReturnValue *SandboxBlob
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.ReadSandboxFile")
@@ -1658,8 +2213,8 @@ func (a *SandboxAPIService) ReadSandboxFileExecute(r SandboxAPIReadSandboxFileRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.pathIn == nil {
-		return localVarReturnValue, nil, reportError("pathIn is required and must be specified")
+	if r.sandboxPathIn == nil {
+		return localVarReturnValue, nil, reportError("sandboxPathIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1672,7 +2227,7 @@ func (a *SandboxAPIService) ReadSandboxFileExecute(r SandboxAPIReadSandboxFileRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1680,7 +2235,7 @@ func (a *SandboxAPIService) ReadSandboxFileExecute(r SandboxAPIReadSandboxFileRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.pathIn
+	localVarPostBody = r.sandboxPathIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1703,6 +2258,14 @@ func (a *SandboxAPIService) ReadSandboxFileExecute(r SandboxAPIReadSandboxFileRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1719,17 +2282,17 @@ func (a *SandboxAPIService) ReadSandboxFileExecute(r SandboxAPIReadSandboxFileRe
 }
 
 type SandboxAPIRunInSandboxRequest struct {
-	ctx        context.Context
-	ApiService *SandboxAPIService
-	runIn      *RunIn
+	ctx          context.Context
+	ApiService   *SandboxAPIService
+	sandboxRunIn *SandboxRunIn
 }
 
-func (r SandboxAPIRunInSandboxRequest) RunIn(runIn RunIn) SandboxAPIRunInSandboxRequest {
-	r.runIn = &runIn
+func (r SandboxAPIRunInSandboxRequest) SandboxRunIn(sandboxRunIn SandboxRunIn) SandboxAPIRunInSandboxRequest {
+	r.sandboxRunIn = &sandboxRunIn
 	return r
 }
 
-func (r SandboxAPIRunInSandboxRequest) Execute() (*Ran, *http.Response, error) {
+func (r SandboxAPIRunInSandboxRequest) Execute() (*SandboxRan, *http.Response, error) {
 	return r.ApiService.RunInSandboxExecute(r)
 }
 
@@ -1763,13 +2326,13 @@ func (a *SandboxAPIService) RunInSandbox(ctx context.Context) SandboxAPIRunInSan
 
 // Execute executes the request
 //
-//	@return Ran
-func (a *SandboxAPIService) RunInSandboxExecute(r SandboxAPIRunInSandboxRequest) (*Ran, *http.Response, error) {
+//	@return SandboxRan
+func (a *SandboxAPIService) RunInSandboxExecute(r SandboxAPIRunInSandboxRequest) (*SandboxRan, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Ran
+		localVarReturnValue *SandboxRan
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.RunInSandbox")
@@ -1782,8 +2345,8 @@ func (a *SandboxAPIService) RunInSandboxExecute(r SandboxAPIRunInSandboxRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.runIn == nil {
-		return localVarReturnValue, nil, reportError("runIn is required and must be specified")
+	if r.sandboxRunIn == nil {
+		return localVarReturnValue, nil, reportError("sandboxRunIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1796,7 +2359,7 @@ func (a *SandboxAPIService) RunInSandboxExecute(r SandboxAPIRunInSandboxRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1804,7 +2367,7 @@ func (a *SandboxAPIService) RunInSandboxExecute(r SandboxAPIRunInSandboxRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.runIn
+	localVarPostBody = r.sandboxRunIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1827,6 +2390,14 @@ func (a *SandboxAPIService) RunInSandboxExecute(r SandboxAPIRunInSandboxRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1843,17 +2414,17 @@ func (a *SandboxAPIService) RunInSandboxExecute(r SandboxAPIRunInSandboxRequest)
 }
 
 type SandboxAPIStopRunRequest struct {
-	ctx        context.Context
-	ApiService *SandboxAPIService
-	stopIn     *StopIn
+	ctx           context.Context
+	ApiService    *SandboxAPIService
+	sandboxStopIn *SandboxStopIn
 }
 
-func (r SandboxAPIStopRunRequest) StopIn(stopIn StopIn) SandboxAPIStopRunRequest {
-	r.stopIn = &stopIn
+func (r SandboxAPIStopRunRequest) SandboxStopIn(sandboxStopIn SandboxStopIn) SandboxAPIStopRunRequest {
+	r.sandboxStopIn = &sandboxStopIn
 	return r
 }
 
-func (r SandboxAPIStopRunRequest) Execute() (*Stopped, *http.Response, error) {
+func (r SandboxAPIStopRunRequest) Execute() (*SandboxStopped, *http.Response, error) {
 	return r.ApiService.StopRunExecute(r)
 }
 
@@ -1876,13 +2447,13 @@ func (a *SandboxAPIService) StopRun(ctx context.Context) SandboxAPIStopRunReques
 
 // Execute executes the request
 //
-//	@return Stopped
-func (a *SandboxAPIService) StopRunExecute(r SandboxAPIStopRunRequest) (*Stopped, *http.Response, error) {
+//	@return SandboxStopped
+func (a *SandboxAPIService) StopRunExecute(r SandboxAPIStopRunRequest) (*SandboxStopped, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Stopped
+		localVarReturnValue *SandboxStopped
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.StopRun")
@@ -1895,8 +2466,8 @@ func (a *SandboxAPIService) StopRunExecute(r SandboxAPIStopRunRequest) (*Stopped
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.stopIn == nil {
-		return localVarReturnValue, nil, reportError("stopIn is required and must be specified")
+	if r.sandboxStopIn == nil {
+		return localVarReturnValue, nil, reportError("sandboxStopIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1909,7 +2480,7 @@ func (a *SandboxAPIService) StopRunExecute(r SandboxAPIStopRunRequest) (*Stopped
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1917,7 +2488,7 @@ func (a *SandboxAPIService) StopRunExecute(r SandboxAPIStopRunRequest) (*Stopped
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.stopIn
+	localVarPostBody = r.sandboxStopIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1940,6 +2511,14 @@ func (a *SandboxAPIService) StopRunExecute(r SandboxAPIStopRunRequest) (*Stopped
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1956,17 +2535,17 @@ func (a *SandboxAPIService) StopRunExecute(r SandboxAPIStopRunRequest) (*Stopped
 }
 
 type SandboxAPIWriteSandboxFileRequest struct {
-	ctx        context.Context
-	ApiService *SandboxAPIService
-	writeIn    *WriteIn
+	ctx            context.Context
+	ApiService     *SandboxAPIService
+	sandboxWriteIn *SandboxWriteIn
 }
 
-func (r SandboxAPIWriteSandboxFileRequest) WriteIn(writeIn WriteIn) SandboxAPIWriteSandboxFileRequest {
-	r.writeIn = &writeIn
+func (r SandboxAPIWriteSandboxFileRequest) SandboxWriteIn(sandboxWriteIn SandboxWriteIn) SandboxAPIWriteSandboxFileRequest {
+	r.sandboxWriteIn = &sandboxWriteIn
 	return r
 }
 
-func (r SandboxAPIWriteSandboxFileRequest) Execute() (*Wrote, *http.Response, error) {
+func (r SandboxAPIWriteSandboxFileRequest) Execute() (*SandboxWrote, *http.Response, error) {
 	return r.ApiService.WriteSandboxFileExecute(r)
 }
 
@@ -1988,13 +2567,13 @@ func (a *SandboxAPIService) WriteSandboxFile(ctx context.Context) SandboxAPIWrit
 
 // Execute executes the request
 //
-//	@return Wrote
-func (a *SandboxAPIService) WriteSandboxFileExecute(r SandboxAPIWriteSandboxFileRequest) (*Wrote, *http.Response, error) {
+//	@return SandboxWrote
+func (a *SandboxAPIService) WriteSandboxFileExecute(r SandboxAPIWriteSandboxFileRequest) (*SandboxWrote, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Wrote
+		localVarReturnValue *SandboxWrote
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SandboxAPIService.WriteSandboxFile")
@@ -2007,8 +2586,8 @@ func (a *SandboxAPIService) WriteSandboxFileExecute(r SandboxAPIWriteSandboxFile
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.writeIn == nil {
-		return localVarReturnValue, nil, reportError("writeIn is required and must be specified")
+	if r.sandboxWriteIn == nil {
+		return localVarReturnValue, nil, reportError("sandboxWriteIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2021,7 +2600,7 @@ func (a *SandboxAPIService) WriteSandboxFileExecute(r SandboxAPIWriteSandboxFile
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2029,7 +2608,7 @@ func (a *SandboxAPIService) WriteSandboxFileExecute(r SandboxAPIWriteSandboxFile
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.writeIn
+	localVarPostBody = r.sandboxWriteIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2052,6 +2631,14 @@ func (a *SandboxAPIService) WriteSandboxFileExecute(r SandboxAPIWriteSandboxFile
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

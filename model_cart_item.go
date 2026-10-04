@@ -32,8 +32,11 @@ type CartItem struct {
 	// Quantity is how many units of this item the cart holds.
 	Quantity *int64 `json:"quantity,omitempty"`
 	// SKU is the line's stock-keeping unit — the variant's when it has one, otherwise the product's. Empty when neither carries one.
-	Sku *string `json:"sku,omitempty"`
+	Sku                  *string `json:"sku,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CartItem CartItem
 
 // NewCartItem instantiates a new CartItem object
 // This constructor will assign default values to properties that have it defined,
@@ -307,7 +310,39 @@ func (o CartItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Sku) {
 		toSerialize["sku"] = o.Sku
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CartItem) UnmarshalJSON(data []byte) (err error) {
+	varCartItem := _CartItem{}
+
+	err = json.Unmarshal(data, &varCartItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CartItem(varCartItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "free")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "kind")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "priceCents")
+		delete(additionalProperties, "quantity")
+		delete(additionalProperties, "sku")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCartItem struct {

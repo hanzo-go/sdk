@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetReferral
 
-> MyReferrals GetReferral(ctx).Execute()
+> ReferralMyReferrals GetReferral(ctx).Execute()
 
 Returns the caller's referral code, share link and the referrals they have made.
 
@@ -38,7 +38,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ReferralAPI.GetReferral``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetReferral`: MyReferrals
+	// response from `GetReferral`: ReferralMyReferrals
 	fmt.Fprintf(os.Stdout, "Response from `ReferralAPI.GetReferral`: %v\n", resp)
 }
 ```
@@ -54,7 +54,7 @@ Other parameters are passed through a pointer to a apiGetReferralRequest struct 
 
 ### Return type
 
-[**MyReferrals**](MyReferrals.md)
+[**ReferralMyReferrals**](ReferralMyReferrals.md)
 
 ### Authorization
 
@@ -63,7 +63,7 @@ Other parameters are passed through a pointer to a apiGetReferralRequest struct 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -72,7 +72,7 @@ Other parameters are passed through a pointer to a apiGetReferralRequest struct 
 
 ## PostReferralClaim
 
-> ClaimView PostReferralClaim(ctx).ClaimRequest(claimRequest).Execute()
+> ReferralClaimView PostReferralClaim(ctx).ReferralClaimRequest(referralClaimRequest).Execute()
 
 Records that the caller's org signed up through a referral code.
 
@@ -91,16 +91,16 @@ import (
 )
 
 func main() {
-	claimRequest := *openapiclient.NewClaimRequest() // ClaimRequest | 
+	referralClaimRequest := *openapiclient.NewReferralClaimRequest() // ReferralClaimRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ReferralAPI.PostReferralClaim(context.Background()).ClaimRequest(claimRequest).Execute()
+	resp, r, err := apiClient.ReferralAPI.PostReferralClaim(context.Background()).ReferralClaimRequest(referralClaimRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ReferralAPI.PostReferralClaim``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostReferralClaim`: ClaimView
+	// response from `PostReferralClaim`: ReferralClaimView
 	fmt.Fprintf(os.Stdout, "Response from `ReferralAPI.PostReferralClaim`: %v\n", resp)
 }
 ```
@@ -116,11 +116,11 @@ Other parameters are passed through a pointer to a apiPostReferralClaimRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **claimRequest** | [**ClaimRequest**](ClaimRequest.md) |  | 
+ **referralClaimRequest** | [**ReferralClaimRequest**](ReferralClaimRequest.md) |  | 
 
 ### Return type
 
-[**ClaimView**](ClaimView.md)
+[**ReferralClaimView**](ReferralClaimView.md)
 
 ### Authorization
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

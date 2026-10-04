@@ -19,10 +19,12 @@ var _ MappedNullable = &O11yQueryEnvelope{}
 
 // O11yQueryEnvelope struct for O11yQueryEnvelope
 type O11yQueryEnvelope struct {
-	// Spec is the deferred decoding of the query if any.
-	Spec map[string]interface{} `json:"spec,omitempty"`
-	Type interface{}            `json:"type,omitempty"`
+	Spec                 interface{} `json:"spec,omitempty"`
+	Type                 interface{} `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yQueryEnvelope O11yQueryEnvelope
 
 // NewO11yQueryEnvelope instantiates a new O11yQueryEnvelope object
 // This constructor will assign default values to properties that have it defined,
@@ -41,10 +43,10 @@ func NewO11yQueryEnvelopeWithDefaults() *O11yQueryEnvelope {
 	return &this
 }
 
-// GetSpec returns the Spec field value if set, zero value otherwise.
-func (o *O11yQueryEnvelope) GetSpec() map[string]interface{} {
-	if o == nil || IsNil(o.Spec) {
-		var ret map[string]interface{}
+// GetSpec returns the Spec field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *O11yQueryEnvelope) GetSpec() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Spec
@@ -52,11 +54,12 @@ func (o *O11yQueryEnvelope) GetSpec() map[string]interface{} {
 
 // GetSpecOk returns a tuple with the Spec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yQueryEnvelope) GetSpecOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *O11yQueryEnvelope) GetSpecOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Spec) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Spec, true
+	return &o.Spec, true
 }
 
 // HasSpec returns a boolean if a field has been set.
@@ -68,8 +71,8 @@ func (o *O11yQueryEnvelope) HasSpec() bool {
 	return false
 }
 
-// SetSpec gets a reference to the given map[string]interface{} and assigns it to the Spec field.
-func (o *O11yQueryEnvelope) SetSpec(v map[string]interface{}) {
+// SetSpec gets a reference to the given interface{} and assigns it to the Spec field.
+func (o *O11yQueryEnvelope) SetSpec(v interface{}) {
 	o.Spec = v
 }
 
@@ -116,13 +119,40 @@ func (o O11yQueryEnvelope) MarshalJSON() ([]byte, error) {
 
 func (o O11yQueryEnvelope) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Spec) {
+	if o.Spec != nil {
 		toSerialize["spec"] = o.Spec
 	}
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yQueryEnvelope) UnmarshalJSON(data []byte) (err error) {
+	varO11yQueryEnvelope := _O11yQueryEnvelope{}
+
+	err = json.Unmarshal(data, &varO11yQueryEnvelope)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yQueryEnvelope(varO11yQueryEnvelope)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "spec")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yQueryEnvelope struct {

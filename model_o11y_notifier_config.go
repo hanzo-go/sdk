@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yNotifierConfig{}
 
 // O11yNotifierConfig struct for O11yNotifierConfig
 type O11yNotifierConfig struct {
-	SendResolved *bool `json:"send_resolved,omitempty"`
+	SendResolved         *bool `json:"send_resolved,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yNotifierConfig O11yNotifierConfig
 
 // NewO11yNotifierConfig instantiates a new O11yNotifierConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yNotifierConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SendResolved) {
 		toSerialize["send_resolved"] = o.SendResolved
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yNotifierConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yNotifierConfig := _O11yNotifierConfig{}
+
+	err = json.Unmarshal(data, &varO11yNotifierConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yNotifierConfig(varO11yNotifierConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "send_resolved")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yNotifierConfig struct {

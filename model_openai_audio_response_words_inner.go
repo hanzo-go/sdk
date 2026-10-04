@@ -19,10 +19,13 @@ var _ MappedNullable = &OpenaiAudioResponseWordsInner{}
 
 // OpenaiAudioResponseWordsInner struct for OpenaiAudioResponseWordsInner
 type OpenaiAudioResponseWordsInner struct {
-	End   *float32 `json:"end,omitempty"`
-	Start *float32 `json:"start,omitempty"`
-	Word  *string  `json:"word,omitempty"`
+	End                  *float32 `json:"end,omitempty"`
+	Start                *float32 `json:"start,omitempty"`
+	Word                 *string  `json:"word,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiAudioResponseWordsInner OpenaiAudioResponseWordsInner
 
 // NewOpenaiAudioResponseWordsInner instantiates a new OpenaiAudioResponseWordsInner object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o OpenaiAudioResponseWordsInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Word) {
 		toSerialize["word"] = o.Word
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiAudioResponseWordsInner) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiAudioResponseWordsInner := _OpenaiAudioResponseWordsInner{}
+
+	err = json.Unmarshal(data, &varOpenaiAudioResponseWordsInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiAudioResponseWordsInner(varOpenaiAudioResponseWordsInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "word")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiAudioResponseWordsInner struct {

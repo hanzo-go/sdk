@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**VariableValues** | Pointer to **[]map[string]interface{}** | VariableValues are the values, in the order the query produced them. | [optional] 
+**VariableValues** | Pointer to **[]interface{}** | VariableValues are the values, in the order the query produced them. | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetVariableValues
 
-`func (o *O11yO11yDashboardVarValues) GetVariableValues() []map[string]interface{}`
+`func (o *O11yO11yDashboardVarValues) GetVariableValues() []interface{}`
 
 GetVariableValues returns the VariableValues field if non-nil, zero value otherwise.
 
 ### GetVariableValuesOk
 
-`func (o *O11yO11yDashboardVarValues) GetVariableValuesOk() (*[]map[string]interface{}, bool)`
+`func (o *O11yO11yDashboardVarValues) GetVariableValuesOk() (*[]interface{}, bool)`
 
 GetVariableValuesOk returns a tuple with the VariableValues field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariableValues
 
-`func (o *O11yO11yDashboardVarValues) SetVariableValues(v []map[string]interface{})`
+`func (o *O11yO11yDashboardVarValues) SetVariableValues(v []interface{})`
 
 SetVariableValues sets VariableValues field to given value.
 

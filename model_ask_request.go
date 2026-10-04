@@ -19,18 +19,21 @@ var _ MappedNullable = &AskRequest{}
 
 // AskRequest struct for AskRequest
 type AskRequest struct {
-	FollowUps  *bool    `json:"followUps,omitempty"`
-	Language   *string  `json:"language,omitempty"`
-	MaxQueries *int32   `json:"maxQueries,omitempty"`
-	MaxSources *int32   `json:"maxSources,omitempty"`
-	Mode       *string  `json:"mode,omitempty"`
-	Model      *string  `json:"model,omitempty"`
-	Q          *string  `json:"q,omitempty"`
-	Question   *string  `json:"question,omitempty"`
-	Sources    []string `json:"sources,omitempty"`
-	Stream     *bool    `json:"stream,omitempty"`
-	System     *string  `json:"system,omitempty"`
+	FollowUps            *bool    `json:"followUps,omitempty"`
+	Language             *string  `json:"language,omitempty"`
+	MaxQueries           *int32   `json:"maxQueries,omitempty"`
+	MaxSources           *int32   `json:"maxSources,omitempty"`
+	Mode                 *string  `json:"mode,omitempty"`
+	Model                *string  `json:"model,omitempty"`
+	Q                    *string  `json:"q,omitempty"`
+	Question             *string  `json:"question,omitempty"`
+	Sources              []string `json:"sources,omitempty"`
+	Stream               *bool    `json:"stream,omitempty"`
+	System               *string  `json:"system,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AskRequest AskRequest
 
 // NewAskRequest instantiates a new AskRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o AskRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.System) {
 		toSerialize["system"] = o.System
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AskRequest) UnmarshalJSON(data []byte) (err error) {
+	varAskRequest := _AskRequest{}
+
+	err = json.Unmarshal(data, &varAskRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AskRequest(varAskRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "followUps")
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "maxQueries")
+		delete(additionalProperties, "maxSources")
+		delete(additionalProperties, "mode")
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "q")
+		delete(additionalProperties, "question")
+		delete(additionalProperties, "sources")
+		delete(additionalProperties, "stream")
+		delete(additionalProperties, "system")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAskRequest struct {

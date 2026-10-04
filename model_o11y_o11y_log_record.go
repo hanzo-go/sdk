@@ -44,8 +44,11 @@ type O11yO11yLogRecord struct {
 	// TraceFlags are the record's trace flags.
 	TraceFlags *int32 `json:"trace_flags,omitempty"`
 	// TraceID is the trace the record belongs to.
-	TraceId *string `json:"trace_id,omitempty"`
+	TraceId              *string `json:"trace_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogRecord O11yO11yLogRecord
 
 // NewO11yO11yLogRecord instantiates a new O11yO11yLogRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -529,7 +532,45 @@ func (o O11yO11yLogRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TraceId) {
 		toSerialize["trace_id"] = o.TraceId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogRecord := _O11yO11yLogRecord{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogRecord(varO11yO11yLogRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes_bool")
+		delete(additionalProperties, "attributes_float")
+		delete(additionalProperties, "attributes_int")
+		delete(additionalProperties, "attributes_string")
+		delete(additionalProperties, "body")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "resources_string")
+		delete(additionalProperties, "severity_number")
+		delete(additionalProperties, "severity_text")
+		delete(additionalProperties, "span_id")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "trace_flags")
+		delete(additionalProperties, "trace_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogRecord struct {

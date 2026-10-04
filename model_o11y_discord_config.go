@@ -19,16 +19,19 @@ var _ MappedNullable = &O11yDiscordConfig{}
 
 // O11yDiscordConfig struct for O11yDiscordConfig
 type O11yDiscordConfig struct {
-	NotifierConfig *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
-	AvatarUrl      *string               `json:"avatar_url,omitempty"`
-	Content        *string               `json:"content,omitempty"`
-	HttpConfig     *O11yHTTPClientConfig `json:"http_config,omitempty"`
-	Message        *string               `json:"message,omitempty"`
-	Title          *string               `json:"title,omitempty"`
-	Username       *string               `json:"username,omitempty"`
-	WebhookUrl     interface{}           `json:"webhook_url,omitempty"`
-	WebhookUrlFile *string               `json:"webhook_url_file,omitempty"`
+	NotifierConfig       *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
+	AvatarUrl            *string               `json:"avatar_url,omitempty"`
+	Content              *string               `json:"content,omitempty"`
+	HttpConfig           *O11yHTTPClientConfig `json:"http_config,omitempty"`
+	Message              *string               `json:"message,omitempty"`
+	Title                *string               `json:"title,omitempty"`
+	Username             *string               `json:"username,omitempty"`
+	WebhookUrl           interface{}           `json:"webhook_url,omitempty"`
+	WebhookUrlFile       *string               `json:"webhook_url_file,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yDiscordConfig O11yDiscordConfig
 
 // NewO11yDiscordConfig instantiates a new O11yDiscordConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -373,7 +376,41 @@ func (o O11yDiscordConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WebhookUrlFile) {
 		toSerialize["webhook_url_file"] = o.WebhookUrlFile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yDiscordConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yDiscordConfig := _O11yDiscordConfig{}
+
+	err = json.Unmarshal(data, &varO11yDiscordConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yDiscordConfig(varO11yDiscordConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "avatar_url")
+		delete(additionalProperties, "content")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "webhook_url")
+		delete(additionalProperties, "webhook_url_file")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yDiscordConfig struct {

@@ -19,8 +19,11 @@ var _ MappedNullable = &AiModelAccessInfo{}
 
 // AiModelAccessInfo struct for AiModelAccessInfo
 type AiModelAccessInfo struct {
-	State *string `json:"state,omitempty"`
+	State                *string `json:"state,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiModelAccessInfo AiModelAccessInfo
 
 // NewAiModelAccessInfo instantiates a new AiModelAccessInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o AiModelAccessInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiModelAccessInfo) UnmarshalJSON(data []byte) (err error) {
+	varAiModelAccessInfo := _AiModelAccessInfo{}
+
+	err = json.Unmarshal(data, &varAiModelAccessInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiModelAccessInfo(varAiModelAccessInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "state")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiModelAccessInfo struct {

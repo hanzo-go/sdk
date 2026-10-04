@@ -48,8 +48,11 @@ type IamPermission struct {
 	Teams     []string   `json:"teams,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	// Subjects the grant is evaluated for.
-	Users []string `json:"users,omitempty"`
+	Users                []string `json:"users,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamPermission IamPermission
 
 // NewIamPermission instantiates a new IamPermission object
 // This constructor will assign default values to properties that have it defined,
@@ -918,7 +921,56 @@ func (o IamPermission) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamPermission) UnmarshalJSON(data []byte) (err error) {
+	varIamPermission := _IamPermission{}
+
+	err = json.Unmarshal(data, &varIamPermission)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamPermission(varIamPermission)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "actions")
+		delete(additionalProperties, "adapter")
+		delete(additionalProperties, "approveTime")
+		delete(additionalProperties, "approver")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "domains")
+		delete(additionalProperties, "effect")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "isEnabled")
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "resourceType")
+		delete(additionalProperties, "resources")
+		delete(additionalProperties, "roles")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "submitter")
+		delete(additionalProperties, "teams")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "users")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamPermission struct {

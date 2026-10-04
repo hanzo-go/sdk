@@ -27,7 +27,10 @@ type O11yGettableRuleStateHistoryStats struct {
 	PastTriggersSeries             *O11yTimeSeries `json:"pastTriggersSeries,omitempty"`
 	TotalCurrentTriggers           *int32          `json:"totalCurrentTriggers,omitempty"`
 	TotalPastTriggers              *int32          `json:"totalPastTriggers,omitempty"`
+	AdditionalProperties           map[string]interface{}
 }
+
+type _O11yGettableRuleStateHistoryStats O11yGettableRuleStateHistoryStats
 
 // NewO11yGettableRuleStateHistoryStats instantiates a new O11yGettableRuleStateHistoryStats object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o O11yGettableRuleStateHistoryStats) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.TotalPastTriggers) {
 		toSerialize["totalPastTriggers"] = o.TotalPastTriggers
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableRuleStateHistoryStats) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableRuleStateHistoryStats := _O11yGettableRuleStateHistoryStats{}
+
+	err = json.Unmarshal(data, &varO11yGettableRuleStateHistoryStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableRuleStateHistoryStats(varO11yGettableRuleStateHistoryStats)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "currentAvgResolutionTime")
+		delete(additionalProperties, "currentAvgResolutionTimeSeries")
+		delete(additionalProperties, "currentTriggersSeries")
+		delete(additionalProperties, "pastAvgResolutionTime")
+		delete(additionalProperties, "pastAvgResolutionTimeSeries")
+		delete(additionalProperties, "pastTriggersSeries")
+		delete(additionalProperties, "totalCurrentTriggers")
+		delete(additionalProperties, "totalPastTriggers")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableRuleStateHistoryStats struct {

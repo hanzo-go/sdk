@@ -236,7 +236,7 @@ func TestUnauthorizedMintsOnceAndReplays(t *testing.T) {
 
 	name := "scribe"
 	agent, _, err := e.client().AgentAPI.PostAgent(context.Background()).
-		CreateAgentIn(CreateAgentIn{Name: &name}).Execute()
+		AgentCreateAgentIn(AgentCreateAgentIn{Name: &name}).Execute()
 	if err != nil {
 		t.Fatalf("PostAgent: %v", err)
 	}

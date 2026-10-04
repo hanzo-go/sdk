@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## GetAllowance
 
-> Allowance GetAllowance(ctx).Execute()
+> AllowanceAllowance GetAllowance(ctx).Execute()
 
 Answers what the CALLER has left of their plan's free-call allowance this period, and the instant the count starts again.
 
@@ -37,7 +37,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AllowanceAPI.GetAllowance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAllowance`: Allowance
+	// response from `GetAllowance`: AllowanceAllowance
 	fmt.Fprintf(os.Stdout, "Response from `AllowanceAPI.GetAllowance`: %v\n", resp)
 }
 ```
@@ -53,7 +53,7 @@ Other parameters are passed through a pointer to a apiGetAllowanceRequest struct
 
 ### Return type
 
-[**Allowance**](Allowance.md)
+[**AllowanceAllowance**](AllowanceAllowance.md)
 
 ### Authorization
 
@@ -62,7 +62,7 @@ Other parameters are passed through a pointer to a apiGetAllowanceRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

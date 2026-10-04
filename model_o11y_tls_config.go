@@ -41,8 +41,11 @@ type O11yTLSConfig struct {
 	MaxVersion interface{} `json:"max_version,omitempty"`
 	MinVersion interface{} `json:"min_version,omitempty"`
 	// Used to verify the hostname for the targets.
-	ServerName *string `json:"server_name,omitempty"`
+	ServerName           *string `json:"server_name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yTLSConfig O11yTLSConfig
 
 // NewO11yTLSConfig instantiates a new O11yTLSConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -529,7 +532,45 @@ func (o O11yTLSConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ServerName) {
 		toSerialize["server_name"] = o.ServerName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yTLSConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yTLSConfig := _O11yTLSConfig{}
+
+	err = json.Unmarshal(data, &varO11yTLSConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yTLSConfig(varO11yTLSConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ca")
+		delete(additionalProperties, "ca_file")
+		delete(additionalProperties, "ca_ref")
+		delete(additionalProperties, "cert")
+		delete(additionalProperties, "cert_file")
+		delete(additionalProperties, "cert_ref")
+		delete(additionalProperties, "insecure_skip_verify")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "key_file")
+		delete(additionalProperties, "key_ref")
+		delete(additionalProperties, "max_version")
+		delete(additionalProperties, "min_version")
+		delete(additionalProperties, "server_name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yTLSConfig struct {

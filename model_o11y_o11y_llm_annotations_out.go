@@ -22,8 +22,11 @@ type O11yO11yLLMAnnotationsOut struct {
 	// Data is the page.
 	Data *O11yO11yLLMAnnotationsPage `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMAnnotationsOut O11yO11yLLMAnnotationsOut
 
 // NewO11yO11yLLMAnnotationsOut instantiates a new O11yO11yLLMAnnotationsOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yLLMAnnotationsOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMAnnotationsOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMAnnotationsOut := _O11yO11yLLMAnnotationsOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMAnnotationsOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMAnnotationsOut(varO11yO11yLLMAnnotationsOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMAnnotationsOut struct {

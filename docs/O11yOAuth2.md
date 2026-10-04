@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **TLSConfig** | Pointer to [**O11yTLSConfig**](O11yTLSConfig.md) |  | [optional] 
 **Audience** | Pointer to **string** | Audience optionally specifies the intended audience of the request.  If empty, the value of TokenURL is used as the intended audience. Only used if GrantType is set to \&quot;urn:ietf:params:oauth:grant-type:jwt-bearer\&quot;. | [optional] 
-**Claims** | Pointer to **map[string]map[string]interface{}** | Claims is a map of claims to be added to the JWT token. Only used if GrantType is set to \&quot;urn:ietf:params:oauth:grant-type:jwt-bearer\&quot;. | [optional] 
+**Claims** | Pointer to **map[string]interface{}** | Claims is a map of claims to be added to the JWT token. Only used if GrantType is set to \&quot;urn:ietf:params:oauth:grant-type:jwt-bearer\&quot;. | [optional] 
 **ClientCertificateKey** | Pointer to **interface{}** |  | [optional] 
 **ClientCertificateKeyFile** | Pointer to **string** |  | [optional] 
 **ClientCertificateKeyId** | Pointer to **string** |  | [optional] 
@@ -97,20 +97,20 @@ HasAudience returns a boolean if a field has been set.
 
 ### GetClaims
 
-`func (o *O11yOAuth2) GetClaims() map[string]map[string]interface{}`
+`func (o *O11yOAuth2) GetClaims() map[string]interface{}`
 
 GetClaims returns the Claims field if non-nil, zero value otherwise.
 
 ### GetClaimsOk
 
-`func (o *O11yOAuth2) GetClaimsOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yOAuth2) GetClaimsOk() (*map[string]interface{}, bool)`
 
 GetClaimsOk returns a tuple with the Claims field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClaims
 
-`func (o *O11yOAuth2) SetClaims(v map[string]map[string]interface{})`
+`func (o *O11yOAuth2) SetClaims(v map[string]interface{})`
 
 SetClaims sets Claims field to given value.
 

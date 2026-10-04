@@ -20,8 +20,11 @@ var _ MappedNullable = &LicensingReleaseList{}
 // LicensingReleaseList struct for LicensingReleaseList
 type LicensingReleaseList struct {
 	// Releases is the published releases, always an array and never null.
-	Releases []LicensingRelease `json:"releases,omitempty"`
+	Releases             []LicensingRelease `json:"releases,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicensingReleaseList LicensingReleaseList
 
 // NewLicensingReleaseList instantiates a new LicensingReleaseList object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o LicensingReleaseList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Releases) {
 		toSerialize["releases"] = o.Releases
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicensingReleaseList) UnmarshalJSON(data []byte) (err error) {
+	varLicensingReleaseList := _LicensingReleaseList{}
+
+	err = json.Unmarshal(data, &varLicensingReleaseList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicensingReleaseList(varLicensingReleaseList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "releases")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicensingReleaseList struct {

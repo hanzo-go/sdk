@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetExplorerIndexers
 
-> IndexersOut GetExplorerIndexers(ctx).Execute()
+> ExplorerIndexersOut GetExplorerIndexers(ctx).Execute()
 
 Reports the deployment's chain indexer(s) and how far each has indexed.
 
@@ -38,7 +38,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExplorerAPI.GetExplorerIndexers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetExplorerIndexers`: IndexersOut
+	// response from `GetExplorerIndexers`: ExplorerIndexersOut
 	fmt.Fprintf(os.Stdout, "Response from `ExplorerAPI.GetExplorerIndexers`: %v\n", resp)
 }
 ```
@@ -54,7 +54,7 @@ Other parameters are passed through a pointer to a apiGetExplorerIndexersRequest
 
 ### Return type
 
-[**IndexersOut**](IndexersOut.md)
+[**ExplorerIndexersOut**](ExplorerIndexersOut.md)
 
 ### Authorization
 
@@ -63,7 +63,7 @@ Other parameters are passed through a pointer to a apiGetExplorerIndexersRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -72,7 +72,7 @@ Other parameters are passed through a pointer to a apiGetExplorerIndexersRequest
 
 ## GetExplorerOracles
 
-> OraclesOut GetExplorerOracles(ctx).Execute()
+> ExplorerOraclesOut GetExplorerOracles(ctx).Execute()
 
 Reports the on-chain price/data oracles from the graph's O-Chain PriceFeed registry.
 
@@ -99,7 +99,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExplorerAPI.GetExplorerOracles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetExplorerOracles`: OraclesOut
+	// response from `GetExplorerOracles`: ExplorerOraclesOut
 	fmt.Fprintf(os.Stdout, "Response from `ExplorerAPI.GetExplorerOracles`: %v\n", resp)
 }
 ```
@@ -115,7 +115,7 @@ Other parameters are passed through a pointer to a apiGetExplorerOraclesRequest 
 
 ### Return type
 
-[**OraclesOut**](OraclesOut.md)
+[**ExplorerOraclesOut**](ExplorerOraclesOut.md)
 
 ### Authorization
 
@@ -124,7 +124,7 @@ Other parameters are passed through a pointer to a apiGetExplorerOraclesRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

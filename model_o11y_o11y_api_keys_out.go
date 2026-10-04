@@ -22,8 +22,11 @@ type O11yO11yAPIKeysOut struct {
 	// Data holds the keys.
 	Data []O11yO11yAPIKey `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yAPIKeysOut O11yO11yAPIKeysOut
 
 // NewO11yO11yAPIKeysOut instantiates a new O11yO11yAPIKeysOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yAPIKeysOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yAPIKeysOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yAPIKeysOut := _O11yO11yAPIKeysOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yAPIKeysOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yAPIKeysOut(varO11yO11yAPIKeysOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yAPIKeysOut struct {

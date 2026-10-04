@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## GetValidator
 
-> ValidatorList GetValidator(ctx).Limit(limit).Execute()
+> ValidatorValidatorList GetValidator(ctx).Limit(limit).Execute()
 
 Returns the validator slots the caller's org has claimed.
 
@@ -41,7 +41,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorAPI.GetValidator``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetValidator`: ValidatorList
+	// response from `GetValidator`: ValidatorValidatorList
 	fmt.Fprintf(os.Stdout, "Response from `ValidatorAPI.GetValidator`: %v\n", resp)
 }
 ```
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ValidatorList**](ValidatorList.md)
+[**ValidatorValidatorList**](ValidatorValidatorList.md)
 
 ### Authorization
 
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 
 ## GetValidatorByTokenid
 
-> SlotView GetValidatorByTokenid(ctx, tokenId).Execute()
+> ValidatorSlotView GetValidatorByTokenid(ctx, tokenId).Execute()
 
 Returns one claimed validator slot, scoped to the caller's org.
 
@@ -107,7 +107,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorAPI.GetValidatorByTokenid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetValidatorByTokenid`: SlotView
+	// response from `GetValidatorByTokenid`: ValidatorSlotView
 	fmt.Fprintf(os.Stdout, "Response from `ValidatorAPI.GetValidatorByTokenid`: %v\n", resp)
 }
 ```
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SlotView**](SlotView.md)
+[**ValidatorSlotView**](ValidatorSlotView.md)
 
 ### Authorization
 
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ## GetValidatorChallenge
 
-> ChallengeView GetValidatorChallenge(ctx).TokenId(tokenId).Execute()
+> ValidatorChallengeView GetValidatorChallenge(ctx).TokenId(tokenId).Execute()
 
 Issues the single-use nonce and the exact message a wallet must sign to claim a validator slot.
 
@@ -177,7 +177,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorAPI.GetValidatorChallenge``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetValidatorChallenge`: ChallengeView
+	// response from `GetValidatorChallenge`: ValidatorChallengeView
 	fmt.Fprintf(os.Stdout, "Response from `ValidatorAPI.GetValidatorChallenge`: %v\n", resp)
 }
 ```
@@ -197,7 +197,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChallengeView**](ChallengeView.md)
+[**ValidatorChallengeView**](ValidatorChallengeView.md)
 
 ### Authorization
 
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 
 ## PostValidator
 
-> SlotView PostValidator(ctx).ValidatorClaim(validatorClaim).Execute()
+> ValidatorSlotView PostValidator(ctx).ValidatorValidatorClaim(validatorValidatorClaim).Execute()
 
 Claims a validator slot and provisions its node, after proving the caller's wallet owns the slot's NFT.
 
@@ -234,16 +234,16 @@ import (
 )
 
 func main() {
-	validatorClaim := *openapiclient.NewValidatorClaim() // ValidatorClaim | 
+	validatorValidatorClaim := *openapiclient.NewValidatorValidatorClaim() // ValidatorValidatorClaim | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ValidatorAPI.PostValidator(context.Background()).ValidatorClaim(validatorClaim).Execute()
+	resp, r, err := apiClient.ValidatorAPI.PostValidator(context.Background()).ValidatorValidatorClaim(validatorValidatorClaim).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ValidatorAPI.PostValidator``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostValidator`: SlotView
+	// response from `PostValidator`: ValidatorSlotView
 	fmt.Fprintf(os.Stdout, "Response from `ValidatorAPI.PostValidator`: %v\n", resp)
 }
 ```
@@ -259,11 +259,11 @@ Other parameters are passed through a pointer to a apiPostValidatorRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **validatorClaim** | [**ValidatorClaim**](ValidatorClaim.md) |  | 
+ **validatorValidatorClaim** | [**ValidatorValidatorClaim**](ValidatorValidatorClaim.md) |  | 
 
 ### Return type
 
-[**SlotView**](SlotView.md)
+[**ValidatorSlotView**](ValidatorSlotView.md)
 
 ### Authorization
 
@@ -272,7 +272,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yQueryWarnDataAdditional{}
 
 // O11yQueryWarnDataAdditional struct for O11yQueryWarnDataAdditional
 type O11yQueryWarnDataAdditional struct {
-	Message *string `json:"message,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yQueryWarnDataAdditional O11yQueryWarnDataAdditional
 
 // NewO11yQueryWarnDataAdditional instantiates a new O11yQueryWarnDataAdditional object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yQueryWarnDataAdditional) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yQueryWarnDataAdditional) UnmarshalJSON(data []byte) (err error) {
+	varO11yQueryWarnDataAdditional := _O11yQueryWarnDataAdditional{}
+
+	err = json.Unmarshal(data, &varO11yQueryWarnDataAdditional)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yQueryWarnDataAdditional(varO11yQueryWarnDataAdditional)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "message")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yQueryWarnDataAdditional struct {

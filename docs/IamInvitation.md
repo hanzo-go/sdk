@@ -12,12 +12,14 @@ Name | Type | Description | Notes
 **Deleted** | Pointer to **bool** |  | [optional] 
 **DisplayName** | Pointer to **string** |  | [optional] 
 **Email** | Pointer to **string** |  | [optional] 
+**Generated** | Pointer to **bool** | Generated reports that IAM minted Code itself, from crypto/rand, when the invitation was created. Only such a code is compared without limit; any code a caller wrote is compared only while the org is not being guessed at, however it looks, because a code that looks random need not be. | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **IsRegexp** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
 **Phone** | Pointer to **string** |  | [optional] 
 **Quota** | Pointer to **int64** |  | [optional] 
+**SentTime** | Pointer to **string** | SentTime is when an email about this invitation last went to its pinned address (RFC 3339), \&quot;\&quot; when none has. It paces resends, so the send endpoint cannot be used to mail one address over and over. | [optional] 
 **SignupGroup** | Pointer to **string** |  | [optional] 
 **State** | Pointer to **string** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -244,6 +246,31 @@ SetEmail sets Email field to given value.
 
 HasEmail returns a boolean if a field has been set.
 
+### GetGenerated
+
+`func (o *IamInvitation) GetGenerated() bool`
+
+GetGenerated returns the Generated field if non-nil, zero value otherwise.
+
+### GetGeneratedOk
+
+`func (o *IamInvitation) GetGeneratedOk() (*bool, bool)`
+
+GetGeneratedOk returns a tuple with the Generated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGenerated
+
+`func (o *IamInvitation) SetGenerated(v bool)`
+
+SetGenerated sets Generated field to given value.
+
+### HasGenerated
+
+`func (o *IamInvitation) HasGenerated() bool`
+
+HasGenerated returns a boolean if a field has been set.
+
 ### GetId
 
 `func (o *IamInvitation) GetId() string`
@@ -393,6 +420,31 @@ SetQuota sets Quota field to given value.
 `func (o *IamInvitation) HasQuota() bool`
 
 HasQuota returns a boolean if a field has been set.
+
+### GetSentTime
+
+`func (o *IamInvitation) GetSentTime() string`
+
+GetSentTime returns the SentTime field if non-nil, zero value otherwise.
+
+### GetSentTimeOk
+
+`func (o *IamInvitation) GetSentTimeOk() (*string, bool)`
+
+GetSentTimeOk returns a tuple with the SentTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSentTime
+
+`func (o *IamInvitation) SetSentTime(v string)`
+
+SetSentTime sets SentTime field to given value.
+
+### HasSentTime
+
+`func (o *IamInvitation) HasSentTime() bool`
+
+HasSentTime returns a boolean if a field has been set.
 
 ### GetSignupGroup
 

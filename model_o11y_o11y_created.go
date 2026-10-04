@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yCreated{}
 // O11yO11yCreated struct for O11yO11yCreated
 type O11yO11yCreated struct {
 	// ID is the new record's id.
-	Id *string `json:"id,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yCreated O11yO11yCreated
 
 // NewO11yO11yCreated instantiates a new O11yO11yCreated object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yCreated) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yCreated) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yCreated := _O11yO11yCreated{}
+
+	err = json.Unmarshal(data, &varO11yO11yCreated)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yCreated(varO11yO11yCreated)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yCreated struct {

@@ -24,8 +24,11 @@ type O11yO11yFunnelUpdateIn struct {
 	// Name replaces the funnel's name. Empty leaves it as it was.
 	FunnelName *string `json:"funnel_name,omitempty"`
 	// Timestamp is when the change was made, as a millisecond epoch.
-	Timestamp *int64 `json:"timestamp,omitempty"`
+	Timestamp            *int64 `json:"timestamp,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFunnelUpdateIn O11yO11yFunnelUpdateIn
 
 // NewO11yO11yFunnelUpdateIn instantiates a new O11yO11yFunnelUpdateIn object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yFunnelUpdateIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Timestamp) {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFunnelUpdateIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFunnelUpdateIn := _O11yO11yFunnelUpdateIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yFunnelUpdateIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFunnelUpdateIn(varO11yO11yFunnelUpdateIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "funnel_name")
+		delete(additionalProperties, "timestamp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFunnelUpdateIn struct {

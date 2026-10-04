@@ -67,7 +67,10 @@ type Store struct {
 	Welcome              *string               `json:"welcome,omitempty"`
 	WelcomeText          *string               `json:"welcomeText,omitempty"`
 	WelcomeTitle         *string               `json:"welcomeTitle,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Store Store
 
 // NewStore instantiates a new Store object
 // This constructor will assign default values to properties that have it defined,
@@ -1776,7 +1779,80 @@ func (o Store) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WelcomeTitle) {
 		toSerialize["welcomeTitle"] = o.WelcomeTitle
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Store) UnmarshalJSON(data []byte) (err error) {
+	varStore := _Store{}
+
+	err = json.Unmarshal(data, &varStore)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Store(varStore)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "agentProvider")
+		delete(additionalProperties, "avatar")
+		delete(additionalProperties, "builtinTools")
+		delete(additionalProperties, "chatCount")
+		delete(additionalProperties, "childModelProviders")
+		delete(additionalProperties, "childStores")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "disableFileUpload")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "embeddingProvider")
+		delete(additionalProperties, "enableTtsStreaming")
+		delete(additionalProperties, "exampleQuestions")
+		delete(additionalProperties, "faviconUrl")
+		delete(additionalProperties, "fileTree")
+		delete(additionalProperties, "footerHtml")
+		delete(additionalProperties, "forbiddenWords")
+		delete(additionalProperties, "frequency")
+		delete(additionalProperties, "hideThinking")
+		delete(additionalProperties, "htmlTitle")
+		delete(additionalProperties, "imageProvider")
+		delete(additionalProperties, "isDefault")
+		delete(additionalProperties, "knowledgeCount")
+		delete(additionalProperties, "limitMinutes")
+		delete(additionalProperties, "logoUrl")
+		delete(additionalProperties, "memoryLimit")
+		delete(additionalProperties, "messageCount")
+		delete(additionalProperties, "modelProvider")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "navItems")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "prompt")
+		delete(additionalProperties, "propertiesMap")
+		delete(additionalProperties, "searchProvider")
+		delete(additionalProperties, "showAutoRead")
+		delete(additionalProperties, "speechToTextProvider")
+		delete(additionalProperties, "splitProvider")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "storageProvider")
+		delete(additionalProperties, "storageSubpath")
+		delete(additionalProperties, "suggestionCount")
+		delete(additionalProperties, "textToSpeechProvider")
+		delete(additionalProperties, "themeColor")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "vectorStoreId")
+		delete(additionalProperties, "vectorStores")
+		delete(additionalProperties, "welcome")
+		delete(additionalProperties, "welcomeText")
+		delete(additionalProperties, "welcomeTitle")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableStore struct {

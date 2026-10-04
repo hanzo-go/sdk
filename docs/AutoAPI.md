@@ -4,15 +4,22 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**DeleteAutoAutomationsById**](AutoAPI.md#DeleteAutoAutomationsById) | **Delete** /v1/auto/automations/{id} | Deletes an automation, its schedule and its run history, and stops a Dev run it has going.
 [**DeleteAutoFlowsById**](AutoAPI.md#DeleteAutoFlowsById) | **Delete** /v1/auto/flows/{id} | Deletes one automation, its versions and its run history.
-[**GetAutoConnectors**](AutoAPI.md#GetAutoConnectors) | **Get** /v1/auto/connectors | Connectors returns the connector catalogue.
+[**GetAutoAutomations**](AutoAPI.md#GetAutoAutomations) | **Get** /v1/auto/automations | Returns the org&#39;s automations.
+[**GetAutoAutomationsById**](AutoAPI.md#GetAutoAutomationsById) | **Get** /v1/auto/automations/{id} | Returns one automation.
+[**GetAutoAutomationsByIdRuns**](AutoAPI.md#GetAutoAutomationsByIdRuns) | **Get** /v1/auto/automations/{id}/runs | Returns one automation&#39;s runs, newest first, to the person it runs as or an admin of the org.
 [**GetAutoFlows**](AutoAPI.md#GetAutoFlows) | **Get** /v1/auto/flows | Returns the caller org&#39;s automations, most-recently-updated first.
 [**GetAutoFlowsById**](AutoAPI.md#GetAutoFlowsById) | **Get** /v1/auto/flows/{id} | Returns one automation and its latest version.
 [**GetAutoFlowsByIdVersions**](AutoAPI.md#GetAutoFlowsByIdVersions) | **Get** /v1/auto/flows/{id}/versions | Returns one flow&#39;s versions, newest first.
+[**GetAutoProvider**](AutoAPI.md#GetAutoProvider) | **Get** /v1/auto/provider | Returns the connector catalogue.
 [**GetAutoRuns**](AutoAPI.md#GetAutoRuns) | **Get** /v1/auto/runs | Returns the caller org&#39;s run history, newest first.
 [**GetAutoRunsById**](AutoAPI.md#GetAutoRunsById) | **Get** /v1/auto/runs/{id} | Returns one run.
+[**GetAutoTemplates**](AutoAPI.md#GetAutoTemplates) | **Get** /v1/auto/templates | Returns the starter automations: a name, what it does, the instructions it runs and the schedule it suggests, in the caller&#39;s own zone.
+[**PatchAutoAutomationsById**](AutoAPI.md#PatchAutoAutomationsById) | **Patch** /v1/auto/automations/{id} | Changes an automation, for the person it runs as or an admin of the org: any field it was created with, and &#x60;enabled&#x60;, which arms or disarms its schedule.
 [**PatchAutoFlowsById**](AutoAPI.md#PatchAutoFlowsById) | **Patch** /v1/auto/flows/{id} | Updates one automation&#39;s metadata in place.
-[**PostAutoConnectorsByIdRun**](AutoAPI.md#PostAutoConnectorsByIdRun) | **Post** /v1/auto/connectors/{id}/run | Run executes one connector action in-process and answers the outcome.
+[**PostAutoAutomations**](AutoAPI.md#PostAutoAutomations) | **Post** /v1/auto/automations | Creates an automation and arms its schedule.
+[**PostAutoAutomationsByIdRun**](AutoAPI.md#PostAutoAutomationsByIdRun) | **Post** /v1/auto/automations/{id}/run | Starts one run now, whether or not its schedule is armed.
 [**PostAutoFlows**](AutoAPI.md#PostAutoFlows) | **Post** /v1/auto/flows | Creates an automation and its initial DRAFT version in one call.
 [**PostAutoFlowsByIdDisable**](AutoAPI.md#PostAutoFlowsByIdDisable) | **Post** /v1/auto/flows/{id}/disable | Disarms a flow&#39;s trigger and marks it DISABLED.
 [**PostAutoFlowsByIdEnable**](AutoAPI.md#PostAutoFlowsByIdEnable) | **Post** /v1/auto/flows/{id}/enable | Arms a flow&#39;s trigger and marks it ENABLED.
@@ -20,8 +27,77 @@ Method | HTTP request | Description
 [**PostAutoFlowsByIdRun**](AutoAPI.md#PostAutoFlowsByIdRun) | **Post** /v1/auto/flows/{id}/run | Starts one durable run of a flow now.
 [**PostAutoFlowsByIdVersions**](AutoAPI.md#PostAutoFlowsByIdVersions) | **Post** /v1/auto/flows/{id}/versions | Adds a new DRAFT version to a flow.
 [**PostAutoHooksBySourceByEvent**](AutoAPI.md#PostAutoHooksBySourceByEvent) | **Post** /v1/auto/hooks/{source}/{event} | Fire an event that starts every enabled flow subscribed to it
+[**PostAutoProviderByIdRun**](AutoAPI.md#PostAutoProviderByIdRun) | **Post** /v1/auto/provider/{id}/run | Executes one provider action in-process and answers the outcome.
 [**PostAutoRunsByIdResume**](AutoAPI.md#PostAutoRunsByIdResume) | **Post** /v1/auto/runs/{id}/resume | Release a run waiting at an approval step, with the approval payload
 
+
+
+## DeleteAutoAutomationsById
+
+> DeleteAutoAutomationsById(ctx, id).Execute()
+
+Deletes an automation, its schedule and its run history, and stops a Dev run it has going.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "flow_1" // string | ID is the automation, from the path.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AutoAPI.DeleteAutoAutomationsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.DeleteAutoAutomationsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the automation, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteAutoAutomationsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteAutoFlowsById
@@ -85,18 +161,18 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## GetAutoConnectors
+## GetAutoAutomations
 
-> Catalog GetAutoConnectors(ctx).Execute()
+> AutoAutomationPage GetAutoAutomations(ctx).Q(q).Sort(sort).Execute()
 
-Connectors returns the connector catalogue.
+Returns the org's automations.
 
 
 
@@ -113,31 +189,38 @@ import (
 )
 
 func main() {
+	q := "q_example" // string | Q keeps the automations whose name or instructions contain it, ignoring case. (optional)
+	sort := "sort_example" // string | Sort is name, next or updated (the default, newest first). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.GetAutoConnectors(context.Background()).Execute()
+	resp, r, err := apiClient.AutoAPI.GetAutoAutomations(context.Background()).Q(q).Sort(sort).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoConnectors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoAutomations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAutoConnectors`: Catalog
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoConnectors`: %v\n", resp)
+	// response from `GetAutoAutomations`: AutoAutomationPage
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoAutomations`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetAutoConnectorsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetAutoAutomationsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **q** | **string** | Q keeps the automations whose name or instructions contain it, ignoring case. | 
+ **sort** | **string** | Sort is name, next or updated (the default, newest first). | 
 
 ### Return type
 
-[**Catalog**](Catalog.md)
+[**AutoAutomationPage**](AutoAutomationPage.md)
 
 ### Authorization
 
@@ -146,7 +229,149 @@ Other parameters are passed through a pointer to a apiGetAutoConnectorsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAutoAutomationsById
+
+> AutoAutomation GetAutoAutomationsById(ctx, id).Execute()
+
+Returns one automation.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "flow_1" // string | ID is the automation, from the path.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoAPI.GetAutoAutomationsById(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoAutomationsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAutoAutomationsById`: AutoAutomation
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoAutomationsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the automation, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAutoAutomationsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**AutoAutomation**](AutoAutomation.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAutoAutomationsByIdRuns
+
+> AutoAutomationRunPage GetAutoAutomationsByIdRuns(ctx, id).Limit(limit).Execute()
+
+Returns one automation's runs, newest first, to the person it runs as or an admin of the org.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "flow_1" // string | ID is the automation, from the path.
+	limit := int64(789) // int64 | Limit bounds the page (default 200, maximum 1000). (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoAPI.GetAutoAutomationsByIdRuns(context.Background(), id).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoAutomationsByIdRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAutoAutomationsByIdRuns`: AutoAutomationRunPage
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoAutomationsByIdRuns`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the automation, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAutoAutomationsByIdRunsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **limit** | **int64** | Limit bounds the page (default 200, maximum 1000). | 
+
+### Return type
+
+[**AutoAutomationRunPage**](AutoAutomationRunPage.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -155,7 +380,7 @@ Other parameters are passed through a pointer to a apiGetAutoConnectorsRequest s
 
 ## GetAutoFlows
 
-> FlowPage GetAutoFlows(ctx).Limit(limit).Execute()
+> AutoFlowPage GetAutoFlows(ctx).Limit(limit).Execute()
 
 Returns the caller org's automations, most-recently-updated first.
 
@@ -183,7 +408,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoFlows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAutoFlows`: FlowPage
+	// response from `GetAutoFlows`: AutoFlowPage
 	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoFlows`: %v\n", resp)
 }
 ```
@@ -203,7 +428,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlowPage**](FlowPage.md)
+[**AutoFlowPage**](AutoFlowPage.md)
 
 ### Authorization
 
@@ -212,7 +437,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -221,7 +446,7 @@ Name | Type | Description  | Notes
 
 ## GetAutoFlowsById
 
-> PopulatedFlow GetAutoFlowsById(ctx, id).Execute()
+> AutoPopulatedFlow GetAutoFlowsById(ctx, id).Execute()
 
 Returns one automation and its latest version.
 
@@ -249,7 +474,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoFlowsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAutoFlowsById`: PopulatedFlow
+	// response from `GetAutoFlowsById`: AutoPopulatedFlow
 	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoFlowsById`: %v\n", resp)
 }
 ```
@@ -273,7 +498,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PopulatedFlow**](PopulatedFlow.md)
+[**AutoPopulatedFlow**](AutoPopulatedFlow.md)
 
 ### Authorization
 
@@ -282,7 +507,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -291,7 +516,7 @@ Name | Type | Description  | Notes
 
 ## GetAutoFlowsByIdVersions
 
-> VersionPage GetAutoFlowsByIdVersions(ctx, id).Limit(limit).Execute()
+> AutoVersionPage GetAutoFlowsByIdVersions(ctx, id).Limit(limit).Execute()
 
 Returns one flow's versions, newest first.
 
@@ -320,7 +545,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoFlowsByIdVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAutoFlowsByIdVersions`: VersionPage
+	// response from `GetAutoFlowsByIdVersions`: AutoVersionPage
 	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoFlowsByIdVersions`: %v\n", resp)
 }
 ```
@@ -345,7 +570,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VersionPage**](VersionPage.md)
+[**AutoVersionPage**](AutoVersionPage.md)
 
 ### Authorization
 
@@ -354,7 +579,68 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAutoProvider
+
+> AutoCatalog GetAutoProvider(ctx).Execute()
+
+Returns the connector catalogue.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoAPI.GetAutoProvider(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoProvider``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAutoProvider`: AutoCatalog
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoProvider`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAutoProviderRequest struct via the builder pattern
+
+
+### Return type
+
+[**AutoCatalog**](AutoCatalog.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -363,7 +649,7 @@ Name | Type | Description  | Notes
 
 ## GetAutoRuns
 
-> RunPage GetAutoRuns(ctx).FlowId(flowId).Limit(limit).Execute()
+> AutoRunPage GetAutoRuns(ctx).FlowId(flowId).Limit(limit).Execute()
 
 Returns the caller org's run history, newest first.
 
@@ -392,7 +678,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAutoRuns`: RunPage
+	// response from `GetAutoRuns`: AutoRunPage
 	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoRuns`: %v\n", resp)
 }
 ```
@@ -413,7 +699,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RunPage**](RunPage.md)
+[**AutoRunPage**](AutoRunPage.md)
 
 ### Authorization
 
@@ -422,7 +708,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -431,7 +717,7 @@ Name | Type | Description  | Notes
 
 ## GetAutoRunsById
 
-> FlowRun GetAutoRunsById(ctx, id).Execute()
+> AutoFlowRun GetAutoRunsById(ctx, id).Execute()
 
 Returns one run.
 
@@ -459,7 +745,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoRunsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAutoRunsById`: FlowRun
+	// response from `GetAutoRunsById`: AutoFlowRun
 	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoRunsById`: %v\n", resp)
 }
 ```
@@ -483,7 +769,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlowRun**](FlowRun.md)
+[**AutoFlowRun**](AutoFlowRun.md)
 
 ### Authorization
 
@@ -492,7 +778,140 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAutoTemplates
+
+> AutoStarterPage GetAutoTemplates(ctx).Execute()
+
+Returns the starter automations: a name, what it does, the instructions it runs and the schedule it suggests, in the caller's own zone.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoAPI.GetAutoTemplates(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.GetAutoTemplates``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAutoTemplates`: AutoStarterPage
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.GetAutoTemplates`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAutoTemplatesRequest struct via the builder pattern
+
+
+### Return type
+
+[**AutoStarterPage**](AutoStarterPage.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchAutoAutomationsById
+
+> AutoAutomation PatchAutoAutomationsById(ctx, id).AutoAutomationPatch(autoAutomationPatch).Execute()
+
+Changes an automation, for the person it runs as or an admin of the org: any field it was created with, and `enabled`, which arms or disarms its schedule.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "flow_1" // string | ID is the automation, from the path.
+	autoAutomationPatch := *openapiclient.NewAutoAutomationPatch() // AutoAutomationPatch | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoAPI.PatchAutoAutomationsById(context.Background(), id).AutoAutomationPatch(autoAutomationPatch).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PatchAutoAutomationsById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchAutoAutomationsById`: AutoAutomation
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PatchAutoAutomationsById`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the automation, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchAutoAutomationsByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **autoAutomationPatch** | [**AutoAutomationPatch**](AutoAutomationPatch.md) |  | 
+
+### Return type
+
+[**AutoAutomation**](AutoAutomation.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -501,7 +920,7 @@ Name | Type | Description  | Notes
 
 ## PatchAutoFlowsById
 
-> Flow PatchAutoFlowsById(ctx, id).PatchFlowIn(patchFlowIn).Execute()
+> AutoFlow PatchAutoFlowsById(ctx, id).AutoPatchFlowIn(autoPatchFlowIn).Execute()
 
 Updates one automation's metadata in place.
 
@@ -521,16 +940,16 @@ import (
 
 func main() {
 	id := "flow_1" // string | ID is the flow to update, from the path.
-	patchFlowIn := *openapiclient.NewPatchFlowIn() // PatchFlowIn | 
+	autoPatchFlowIn := *openapiclient.NewAutoPatchFlowIn() // AutoPatchFlowIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.PatchAutoFlowsById(context.Background(), id).PatchFlowIn(patchFlowIn).Execute()
+	resp, r, err := apiClient.AutoAPI.PatchAutoFlowsById(context.Background(), id).AutoPatchFlowIn(autoPatchFlowIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PatchAutoFlowsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchAutoFlowsById`: Flow
+	// response from `PatchAutoFlowsById`: AutoFlow
 	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PatchAutoFlowsById`: %v\n", resp)
 }
 ```
@@ -551,11 +970,11 @@ Other parameters are passed through a pointer to a apiPatchAutoFlowsByIdRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **patchFlowIn** | [**PatchFlowIn**](PatchFlowIn.md) |  | 
+ **autoPatchFlowIn** | [**AutoPatchFlowIn**](AutoPatchFlowIn.md) |  | 
 
 ### Return type
 
-[**Flow**](Flow.md)
+[**AutoFlow**](AutoFlow.md)
 
 ### Authorization
 
@@ -564,18 +983,18 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## PostAutoConnectorsByIdRun
+## PostAutoAutomations
 
-> RunResp PostAutoConnectorsByIdRun(ctx, id).RunIn(runIn).Execute()
+> AutoAutomation PostAutoAutomations(ctx).AutoAutomationIn(autoAutomationIn).Execute()
 
-Run executes one connector action in-process and answers the outcome.
+Creates an automation and arms its schedule.
 
 
 
@@ -592,18 +1011,83 @@ import (
 )
 
 func main() {
-	id := "notion" // string | ID is the connector to run, from the path.
-	runIn := *openapiclient.NewRunIn() // RunIn | 
+	autoAutomationIn := *openapiclient.NewAutoAutomationIn() // AutoAutomationIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.PostAutoConnectorsByIdRun(context.Background(), id).RunIn(runIn).Execute()
+	resp, r, err := apiClient.AutoAPI.PostAutoAutomations(context.Background()).AutoAutomationIn(autoAutomationIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoConnectorsByIdRun``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoAutomations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAutoConnectorsByIdRun`: RunResp
-	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoConnectorsByIdRun`: %v\n", resp)
+	// response from `PostAutoAutomations`: AutoAutomation
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoAutomations`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAutoAutomationsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **autoAutomationIn** | [**AutoAutomationIn**](AutoAutomationIn.md) |  | 
+
+### Return type
+
+[**AutoAutomation**](AutoAutomation.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAutoAutomationsByIdRun
+
+> AutoRunStarted PostAutoAutomationsByIdRun(ctx, id).Execute()
+
+Starts one run now, whether or not its schedule is armed.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "flow_1" // string | ID is the automation, from the path.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoAPI.PostAutoAutomationsByIdRun(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoAutomationsByIdRun``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAutoAutomationsByIdRun`: AutoRunStarted
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoAutomationsByIdRun`: %v\n", resp)
 }
 ```
 
@@ -613,21 +1097,20 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the connector to run, from the path. | 
+**id** | **string** | ID is the automation, from the path. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostAutoConnectorsByIdRunRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostAutoAutomationsByIdRunRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **runIn** | [**RunIn**](RunIn.md) |  | 
 
 ### Return type
 
-[**RunResp**](RunResp.md)
+[**AutoRunStarted**](AutoRunStarted.md)
 
 ### Authorization
 
@@ -635,8 +1118,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -645,7 +1128,7 @@ Name | Type | Description  | Notes
 
 ## PostAutoFlows
 
-> PopulatedFlow PostAutoFlows(ctx).CreateFlowReq(createFlowReq).Execute()
+> AutoPopulatedFlow PostAutoFlows(ctx).AutoCreateFlowReq(autoCreateFlowReq).Execute()
 
 Creates an automation and its initial DRAFT version in one call.
 
@@ -664,16 +1147,16 @@ import (
 )
 
 func main() {
-	createFlowReq := *openapiclient.NewCreateFlowReq() // CreateFlowReq | 
+	autoCreateFlowReq := *openapiclient.NewAutoCreateFlowReq() // AutoCreateFlowReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.PostAutoFlows(context.Background()).CreateFlowReq(createFlowReq).Execute()
+	resp, r, err := apiClient.AutoAPI.PostAutoFlows(context.Background()).AutoCreateFlowReq(autoCreateFlowReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoFlows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAutoFlows`: PopulatedFlow
+	// response from `PostAutoFlows`: AutoPopulatedFlow
 	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoFlows`: %v\n", resp)
 }
 ```
@@ -689,11 +1172,11 @@ Other parameters are passed through a pointer to a apiPostAutoFlowsRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createFlowReq** | [**CreateFlowReq**](CreateFlowReq.md) |  | 
+ **autoCreateFlowReq** | [**AutoCreateFlowReq**](AutoCreateFlowReq.md) |  | 
 
 ### Return type
 
-[**PopulatedFlow**](PopulatedFlow.md)
+[**AutoPopulatedFlow**](AutoPopulatedFlow.md)
 
 ### Authorization
 
@@ -702,7 +1185,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -711,7 +1194,7 @@ Name | Type | Description  | Notes
 
 ## PostAutoFlowsByIdDisable
 
-> Flow PostAutoFlowsByIdDisable(ctx, id).Execute()
+> AutoFlow PostAutoFlowsByIdDisable(ctx, id).Execute()
 
 Disarms a flow's trigger and marks it DISABLED.
 
@@ -739,7 +1222,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoFlowsByIdDisable``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAutoFlowsByIdDisable`: Flow
+	// response from `PostAutoFlowsByIdDisable`: AutoFlow
 	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoFlowsByIdDisable`: %v\n", resp)
 }
 ```
@@ -763,7 +1246,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Flow**](Flow.md)
+[**AutoFlow**](AutoFlow.md)
 
 ### Authorization
 
@@ -772,7 +1255,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -781,7 +1264,7 @@ Name | Type | Description  | Notes
 
 ## PostAutoFlowsByIdEnable
 
-> Flow PostAutoFlowsByIdEnable(ctx, id).Execute()
+> AutoFlow PostAutoFlowsByIdEnable(ctx, id).Execute()
 
 Arms a flow's trigger and marks it ENABLED.
 
@@ -809,7 +1292,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoFlowsByIdEnable``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAutoFlowsByIdEnable`: Flow
+	// response from `PostAutoFlowsByIdEnable`: AutoFlow
 	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoFlowsByIdEnable`: %v\n", resp)
 }
 ```
@@ -833,7 +1316,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Flow**](Flow.md)
+[**AutoFlow**](AutoFlow.md)
 
 ### Authorization
 
@@ -842,7 +1325,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -919,7 +1402,7 @@ Name | Type | Description  | Notes
 
 ## PostAutoFlowsByIdRun
 
-> FlowRun PostAutoFlowsByIdRun(ctx, id).Execute()
+> AutoFlowRun PostAutoFlowsByIdRun(ctx, id).Execute()
 
 Starts one durable run of a flow now.
 
@@ -947,7 +1430,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoFlowsByIdRun``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAutoFlowsByIdRun`: FlowRun
+	// response from `PostAutoFlowsByIdRun`: AutoFlowRun
 	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoFlowsByIdRun`: %v\n", resp)
 }
 ```
@@ -971,7 +1454,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FlowRun**](FlowRun.md)
+[**AutoFlowRun**](AutoFlowRun.md)
 
 ### Authorization
 
@@ -980,7 +1463,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -989,7 +1472,7 @@ Name | Type | Description  | Notes
 
 ## PostAutoFlowsByIdVersions
 
-> FlowVersion PostAutoFlowsByIdVersions(ctx, id).CreateVersionIn(createVersionIn).Execute()
+> AutoFlowVersion PostAutoFlowsByIdVersions(ctx, id).AutoCreateVersionIn(autoCreateVersionIn).Execute()
 
 Adds a new DRAFT version to a flow.
 
@@ -1009,16 +1492,16 @@ import (
 
 func main() {
 	id := "flow_1" // string | ID is the flow to add a version to, from the path.
-	createVersionIn := *openapiclient.NewCreateVersionIn() // CreateVersionIn | 
+	autoCreateVersionIn := *openapiclient.NewAutoCreateVersionIn() // AutoCreateVersionIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AutoAPI.PostAutoFlowsByIdVersions(context.Background(), id).CreateVersionIn(createVersionIn).Execute()
+	resp, r, err := apiClient.AutoAPI.PostAutoFlowsByIdVersions(context.Background(), id).AutoCreateVersionIn(autoCreateVersionIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoFlowsByIdVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAutoFlowsByIdVersions`: FlowVersion
+	// response from `PostAutoFlowsByIdVersions`: AutoFlowVersion
 	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoFlowsByIdVersions`: %v\n", resp)
 }
 ```
@@ -1039,11 +1522,11 @@ Other parameters are passed through a pointer to a apiPostAutoFlowsByIdVersionsR
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **createVersionIn** | [**CreateVersionIn**](CreateVersionIn.md) |  | 
+ **autoCreateVersionIn** | [**AutoCreateVersionIn**](AutoCreateVersionIn.md) |  | 
 
 ### Return type
 
-[**FlowVersion**](FlowVersion.md)
+[**AutoFlowVersion**](AutoFlowVersion.md)
 
 ### Authorization
 
@@ -1052,7 +1535,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1124,6 +1607,78 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAutoProviderByIdRun
+
+> AutoRunResp PostAutoProviderByIdRun(ctx, id).AutoRunIn(autoRunIn).Execute()
+
+Executes one provider action in-process and answers the outcome.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	id := "notion" // string | ID is the provider to run, from the path.
+	autoRunIn := *openapiclient.NewAutoRunIn() // AutoRunIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AutoAPI.PostAutoProviderByIdRun(context.Background(), id).AutoRunIn(autoRunIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AutoAPI.PostAutoProviderByIdRun``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAutoProviderByIdRun`: AutoRunResp
+	fmt.Fprintf(os.Stdout, "Response from `AutoAPI.PostAutoProviderByIdRun`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID is the provider to run, from the path. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAutoProviderByIdRunRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **autoRunIn** | [**AutoRunIn**](AutoRunIn.md) |  | 
+
+### Return type
+
+[**AutoRunResp**](AutoRunResp.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

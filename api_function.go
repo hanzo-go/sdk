@@ -83,7 +83,7 @@ func (a *FunctionAPIService) DeleteFunctionByNameExecute(r FunctionAPIDeleteFunc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -112,6 +112,14 @@ func (a *FunctionAPIService) DeleteFunctionByNameExecute(r FunctionAPIDeleteFunc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -123,7 +131,7 @@ type FunctionAPIGetFunctionRequest struct {
 	ApiService *FunctionAPIService
 }
 
-func (r FunctionAPIGetFunctionRequest) Execute() (*FnList, *http.Response, error) {
+func (r FunctionAPIGetFunctionRequest) Execute() (*FunctionFnList, *http.Response, error) {
 	return r.ApiService.GetFunctionExecute(r)
 }
 
@@ -152,13 +160,13 @@ func (a *FunctionAPIService) GetFunction(ctx context.Context) FunctionAPIGetFunc
 
 // Execute executes the request
 //
-//	@return FnList
-func (a *FunctionAPIService) GetFunctionExecute(r FunctionAPIGetFunctionRequest) (*FnList, *http.Response, error) {
+//	@return FunctionFnList
+func (a *FunctionAPIService) GetFunctionExecute(r FunctionAPIGetFunctionRequest) (*FunctionFnList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FnList
+		localVarReturnValue *FunctionFnList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunction")
@@ -182,7 +190,7 @@ func (a *FunctionAPIService) GetFunctionExecute(r FunctionAPIGetFunctionRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -211,6 +219,14 @@ func (a *FunctionAPIService) GetFunctionExecute(r FunctionAPIGetFunctionRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -232,7 +248,7 @@ type FunctionAPIGetFunctionByNameRequest struct {
 	name       string
 }
 
-func (r FunctionAPIGetFunctionByNameRequest) Execute() (*FunctionDetail, *http.Response, error) {
+func (r FunctionAPIGetFunctionByNameRequest) Execute() (*FunctionFunctionDetail, *http.Response, error) {
 	return r.ApiService.GetFunctionByNameExecute(r)
 }
 
@@ -260,13 +276,13 @@ func (a *FunctionAPIService) GetFunctionByName(ctx context.Context, name string)
 
 // Execute executes the request
 //
-//	@return FunctionDetail
-func (a *FunctionAPIService) GetFunctionByNameExecute(r FunctionAPIGetFunctionByNameRequest) (*FunctionDetail, *http.Response, error) {
+//	@return FunctionFunctionDetail
+func (a *FunctionAPIService) GetFunctionByNameExecute(r FunctionAPIGetFunctionByNameRequest) (*FunctionFunctionDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FunctionDetail
+		localVarReturnValue *FunctionFunctionDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionByName")
@@ -291,7 +307,7 @@ func (a *FunctionAPIService) GetFunctionByNameExecute(r FunctionAPIGetFunctionBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -320,6 +336,14 @@ func (a *FunctionAPIService) GetFunctionByNameExecute(r FunctionAPIGetFunctionBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -348,7 +372,7 @@ func (r FunctionAPIGetFunctionByNameInvocationsRequest) Limit(limit int64) Funct
 	return r
 }
 
-func (r FunctionAPIGetFunctionByNameInvocationsRequest) Execute() (*InvocationList, *http.Response, error) {
+func (r FunctionAPIGetFunctionByNameInvocationsRequest) Execute() (*FunctionInvocationList, *http.Response, error) {
 	return r.ApiService.GetFunctionByNameInvocationsExecute(r)
 }
 
@@ -376,13 +400,13 @@ func (a *FunctionAPIService) GetFunctionByNameInvocations(ctx context.Context, n
 
 // Execute executes the request
 //
-//	@return InvocationList
-func (a *FunctionAPIService) GetFunctionByNameInvocationsExecute(r FunctionAPIGetFunctionByNameInvocationsRequest) (*InvocationList, *http.Response, error) {
+//	@return FunctionInvocationList
+func (a *FunctionAPIService) GetFunctionByNameInvocationsExecute(r FunctionAPIGetFunctionByNameInvocationsRequest) (*FunctionInvocationList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InvocationList
+		localVarReturnValue *FunctionInvocationList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionByNameInvocations")
@@ -410,7 +434,7 @@ func (a *FunctionAPIService) GetFunctionByNameInvocationsExecute(r FunctionAPIGe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -439,6 +463,14 @@ func (a *FunctionAPIService) GetFunctionByNameInvocationsExecute(r FunctionAPIGe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -460,7 +492,7 @@ type FunctionAPIGetFunctionByNameLogsRequest struct {
 	name       string
 }
 
-func (r FunctionAPIGetFunctionByNameLogsRequest) Execute() (*LogLines, *http.Response, error) {
+func (r FunctionAPIGetFunctionByNameLogsRequest) Execute() (*FunctionLogLines, *http.Response, error) {
 	return r.ApiService.GetFunctionByNameLogsExecute(r)
 }
 
@@ -487,13 +519,13 @@ func (a *FunctionAPIService) GetFunctionByNameLogs(ctx context.Context, name str
 
 // Execute executes the request
 //
-//	@return LogLines
-func (a *FunctionAPIService) GetFunctionByNameLogsExecute(r FunctionAPIGetFunctionByNameLogsRequest) (*LogLines, *http.Response, error) {
+//	@return FunctionLogLines
+func (a *FunctionAPIService) GetFunctionByNameLogsExecute(r FunctionAPIGetFunctionByNameLogsRequest) (*FunctionLogLines, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *LogLines
+		localVarReturnValue *FunctionLogLines
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionByNameLogs")
@@ -518,7 +550,7 @@ func (a *FunctionAPIService) GetFunctionByNameLogsExecute(r FunctionAPIGetFuncti
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -547,6 +579,14 @@ func (a *FunctionAPIService) GetFunctionByNameLogsExecute(r FunctionAPIGetFuncti
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -567,7 +607,7 @@ type FunctionAPIGetFunctionDeploymentsRequest struct {
 	ApiService *FunctionAPIService
 }
 
-func (r FunctionAPIGetFunctionDeploymentsRequest) Execute() (*FnList, *http.Response, error) {
+func (r FunctionAPIGetFunctionDeploymentsRequest) Execute() (*FunctionFnList, *http.Response, error) {
 	return r.ApiService.GetFunctionDeploymentsExecute(r)
 }
 
@@ -593,13 +633,13 @@ func (a *FunctionAPIService) GetFunctionDeployments(ctx context.Context) Functio
 
 // Execute executes the request
 //
-//	@return FnList
-func (a *FunctionAPIService) GetFunctionDeploymentsExecute(r FunctionAPIGetFunctionDeploymentsRequest) (*FnList, *http.Response, error) {
+//	@return FunctionFnList
+func (a *FunctionAPIService) GetFunctionDeploymentsExecute(r FunctionAPIGetFunctionDeploymentsRequest) (*FunctionFnList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FnList
+		localVarReturnValue *FunctionFnList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionDeployments")
@@ -623,7 +663,7 @@ func (a *FunctionAPIService) GetFunctionDeploymentsExecute(r FunctionAPIGetFunct
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -652,6 +692,14 @@ func (a *FunctionAPIService) GetFunctionDeploymentsExecute(r FunctionAPIGetFunct
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -679,7 +727,7 @@ func (r FunctionAPIGetFunctionMetricsRequest) Range_(range_ string) FunctionAPIG
 	return r
 }
 
-func (r FunctionAPIGetFunctionMetricsRequest) Execute() (*Usage, *http.Response, error) {
+func (r FunctionAPIGetFunctionMetricsRequest) Execute() (*FunctionUsage, *http.Response, error) {
 	return r.ApiService.GetFunctionMetricsExecute(r)
 }
 
@@ -709,13 +757,13 @@ func (a *FunctionAPIService) GetFunctionMetrics(ctx context.Context) FunctionAPI
 
 // Execute executes the request
 //
-//	@return Usage
-func (a *FunctionAPIService) GetFunctionMetricsExecute(r FunctionAPIGetFunctionMetricsRequest) (*Usage, *http.Response, error) {
+//	@return FunctionUsage
+func (a *FunctionAPIService) GetFunctionMetricsExecute(r FunctionAPIGetFunctionMetricsRequest) (*FunctionUsage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Usage
+		localVarReturnValue *FunctionUsage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionMetrics")
@@ -742,7 +790,7 @@ func (a *FunctionAPIService) GetFunctionMetricsExecute(r FunctionAPIGetFunctionM
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -771,6 +819,14 @@ func (a *FunctionAPIService) GetFunctionMetricsExecute(r FunctionAPIGetFunctionM
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -791,7 +847,7 @@ type FunctionAPIGetFunctionSecretsRequest struct {
 	ApiService *FunctionAPIService
 }
 
-func (r FunctionAPIGetFunctionSecretsRequest) Execute() (*SecretList, *http.Response, error) {
+func (r FunctionAPIGetFunctionSecretsRequest) Execute() (*FunctionSecretList, *http.Response, error) {
 	return r.ApiService.GetFunctionSecretsExecute(r)
 }
 
@@ -816,13 +872,13 @@ func (a *FunctionAPIService) GetFunctionSecrets(ctx context.Context) FunctionAPI
 
 // Execute executes the request
 //
-//	@return SecretList
-func (a *FunctionAPIService) GetFunctionSecretsExecute(r FunctionAPIGetFunctionSecretsRequest) (*SecretList, *http.Response, error) {
+//	@return FunctionSecretList
+func (a *FunctionAPIService) GetFunctionSecretsExecute(r FunctionAPIGetFunctionSecretsRequest) (*FunctionSecretList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SecretList
+		localVarReturnValue *FunctionSecretList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionSecrets")
@@ -846,7 +902,7 @@ func (a *FunctionAPIService) GetFunctionSecretsExecute(r FunctionAPIGetFunctionS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -875,6 +931,14 @@ func (a *FunctionAPIService) GetFunctionSecretsExecute(r FunctionAPIGetFunctionS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -895,7 +959,7 @@ type FunctionAPIGetFunctionTriggersRequest struct {
 	ApiService *FunctionAPIService
 }
 
-func (r FunctionAPIGetFunctionTriggersRequest) Execute() (*TriggerList, *http.Response, error) {
+func (r FunctionAPIGetFunctionTriggersRequest) Execute() (*FunctionTriggerList, *http.Response, error) {
 	return r.ApiService.GetFunctionTriggersExecute(r)
 }
 
@@ -919,13 +983,13 @@ func (a *FunctionAPIService) GetFunctionTriggers(ctx context.Context) FunctionAP
 
 // Execute executes the request
 //
-//	@return TriggerList
-func (a *FunctionAPIService) GetFunctionTriggersExecute(r FunctionAPIGetFunctionTriggersRequest) (*TriggerList, *http.Response, error) {
+//	@return FunctionTriggerList
+func (a *FunctionAPIService) GetFunctionTriggersExecute(r FunctionAPIGetFunctionTriggersRequest) (*FunctionTriggerList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TriggerList
+		localVarReturnValue *FunctionTriggerList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.GetFunctionTriggers")
@@ -949,7 +1013,7 @@ func (a *FunctionAPIService) GetFunctionTriggersExecute(r FunctionAPIGetFunction
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -978,6 +1042,14 @@ func (a *FunctionAPIService) GetFunctionTriggersExecute(r FunctionAPIGetFunction
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -994,17 +1066,17 @@ func (a *FunctionAPIService) GetFunctionTriggersExecute(r FunctionAPIGetFunction
 }
 
 type FunctionAPIPostFunctionRequest struct {
-	ctx        context.Context
-	ApiService *FunctionAPIService
-	definition *Definition
+	ctx                context.Context
+	ApiService         *FunctionAPIService
+	functionDefinition *FunctionDefinition
 }
 
-func (r FunctionAPIPostFunctionRequest) Definition(definition Definition) FunctionAPIPostFunctionRequest {
-	r.definition = &definition
+func (r FunctionAPIPostFunctionRequest) FunctionDefinition(functionDefinition FunctionDefinition) FunctionAPIPostFunctionRequest {
+	r.functionDefinition = &functionDefinition
 	return r
 }
 
-func (r FunctionAPIPostFunctionRequest) Execute() (*FunctionView, *http.Response, error) {
+func (r FunctionAPIPostFunctionRequest) Execute() (*FunctionFunctionView, *http.Response, error) {
 	return r.ApiService.PostFunctionExecute(r)
 }
 
@@ -1037,13 +1109,13 @@ func (a *FunctionAPIService) PostFunction(ctx context.Context) FunctionAPIPostFu
 
 // Execute executes the request
 //
-//	@return FunctionView
-func (a *FunctionAPIService) PostFunctionExecute(r FunctionAPIPostFunctionRequest) (*FunctionView, *http.Response, error) {
+//	@return FunctionFunctionView
+func (a *FunctionAPIService) PostFunctionExecute(r FunctionAPIPostFunctionRequest) (*FunctionFunctionView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FunctionView
+		localVarReturnValue *FunctionFunctionView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.PostFunction")
@@ -1056,8 +1128,8 @@ func (a *FunctionAPIService) PostFunctionExecute(r FunctionAPIPostFunctionReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.definition == nil {
-		return localVarReturnValue, nil, reportError("definition is required and must be specified")
+	if r.functionDefinition == nil {
+		return localVarReturnValue, nil, reportError("functionDefinition is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1070,7 +1142,7 @@ func (a *FunctionAPIService) PostFunctionExecute(r FunctionAPIPostFunctionReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1078,7 +1150,7 @@ func (a *FunctionAPIService) PostFunctionExecute(r FunctionAPIPostFunctionReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.definition
+	localVarPostBody = r.functionDefinition
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1101,6 +1173,14 @@ func (a *FunctionAPIService) PostFunctionExecute(r FunctionAPIPostFunctionReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1117,18 +1197,18 @@ func (a *FunctionAPIService) PostFunctionExecute(r FunctionAPIPostFunctionReques
 }
 
 type FunctionAPIPostFunctionByNameInvokeRequest struct {
-	ctx        context.Context
-	ApiService *FunctionAPIService
-	name       string
-	invokeReq  *InvokeReq
+	ctx               context.Context
+	ApiService        *FunctionAPIService
+	name              string
+	functionInvokeReq *FunctionInvokeReq
 }
 
-func (r FunctionAPIPostFunctionByNameInvokeRequest) InvokeReq(invokeReq InvokeReq) FunctionAPIPostFunctionByNameInvokeRequest {
-	r.invokeReq = &invokeReq
+func (r FunctionAPIPostFunctionByNameInvokeRequest) FunctionInvokeReq(functionInvokeReq FunctionInvokeReq) FunctionAPIPostFunctionByNameInvokeRequest {
+	r.functionInvokeReq = &functionInvokeReq
 	return r
 }
 
-func (r FunctionAPIPostFunctionByNameInvokeRequest) Execute() (*InvocationView, *http.Response, error) {
+func (r FunctionAPIPostFunctionByNameInvokeRequest) Execute() (*FunctionInvocationView, *http.Response, error) {
 	return r.ApiService.PostFunctionByNameInvokeExecute(r)
 }
 
@@ -1171,13 +1251,13 @@ func (a *FunctionAPIService) PostFunctionByNameInvoke(ctx context.Context, name 
 
 // Execute executes the request
 //
-//	@return InvocationView
-func (a *FunctionAPIService) PostFunctionByNameInvokeExecute(r FunctionAPIPostFunctionByNameInvokeRequest) (*InvocationView, *http.Response, error) {
+//	@return FunctionInvocationView
+func (a *FunctionAPIService) PostFunctionByNameInvokeExecute(r FunctionAPIPostFunctionByNameInvokeRequest) (*FunctionInvocationView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InvocationView
+		localVarReturnValue *FunctionInvocationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionAPIService.PostFunctionByNameInvoke")
@@ -1191,8 +1271,8 @@ func (a *FunctionAPIService) PostFunctionByNameInvokeExecute(r FunctionAPIPostFu
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.invokeReq == nil {
-		return localVarReturnValue, nil, reportError("invokeReq is required and must be specified")
+	if r.functionInvokeReq == nil {
+		return localVarReturnValue, nil, reportError("functionInvokeReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1205,7 +1285,7 @@ func (a *FunctionAPIService) PostFunctionByNameInvokeExecute(r FunctionAPIPostFu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1213,7 +1293,7 @@ func (a *FunctionAPIService) PostFunctionByNameInvokeExecute(r FunctionAPIPostFu
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.invokeReq
+	localVarPostBody = r.functionInvokeReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1237,7 +1317,7 @@ func (a *FunctionAPIService) PostFunctionByNameInvokeExecute(r FunctionAPIPostFu
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
-			var v InvocationView
+			var v FunctionInvocationView
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1248,7 +1328,7 @@ func (a *FunctionAPIService) PostFunctionByNameInvokeExecute(r FunctionAPIPostFu
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
-			var v InvocationView
+			var v FunctionInvocationView
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1256,7 +1336,16 @@ func (a *FunctionAPIService) PostFunctionByNameInvokeExecute(r FunctionAPIPostFu
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

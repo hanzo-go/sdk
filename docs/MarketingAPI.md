@@ -27,9 +27,9 @@ Method | HTTP request | Description
 [**GetMarketingUnsubscribe**](MarketingAPI.md#GetMarketingUnsubscribe) | **Get** /v1/marketing/unsubscribe | Is the PUBLIC one-click endpoint (no principal): a recipient clicks the signed link in an email footer.
 [**PostMarketingAudiences**](MarketingAPI.md#PostMarketingAudiences) | **Post** /v1/marketing/audiences | Saves a cohort filter for the caller&#39;s org.
 [**PostMarketingCalendar**](MarketingAPI.md#PostMarketingCalendar) | **Post** /v1/marketing/calendar | Adds a post to the content calendar.
-[**PostMarketingCalendarByIdPublish**](MarketingAPI.md#PostMarketingCalendarByIdPublish) | **Post** /v1/marketing/calendar/{id}/publish | Publishes a post NOW, synchronously, whatever its schedule.
 [**PostMarketingCampaigns**](MarketingAPI.md#PostMarketingCampaigns) | **Post** /v1/marketing/campaigns | Registers a campaign in the caller&#39;s org.
 [**PostMarketingCampaignsByIdSchedule**](MarketingAPI.md#PostMarketingCampaignsByIdSchedule) | **Post** /v1/marketing/campaigns/{id}/schedule | Sets a campaign&#39;s send time and moves it to \&quot;scheduled\&quot;.
+[**PostMarketingLeads**](MarketingAPI.md#PostMarketingLeads) | **Post** /v1/marketing/leads | Files a sales inquiry as a new lead in the deployment&#39;s own CRM and states it on the event plane.
 [**PostMarketingPromosByCodeRedeem**](MarketingAPI.md#PostMarketingPromosByCodeRedeem) | **Post** /v1/marketing/promos/{code}/redeem | Records the caller org&#39;s claim on a promo.
 [**PostMarketingSequences**](MarketingAPI.md#PostMarketingSequences) | **Post** /v1/marketing/sequences | Registers a drip sequence in the caller&#39;s org.
 [**PostMarketingSequencesByIdEnroll**](MarketingAPI.md#PostMarketingSequencesByIdEnroll) | **Post** /v1/marketing/sequences/{id}/enroll | Adds one contact or a whole audience to a sequence and schedules the first step for each.
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -171,7 +171,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -239,7 +239,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -318,7 +318,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingAudiences
 
-> AudienceList GetMarketingAudiences(ctx).Limit(limit).Execute()
+> MarketingAudienceList GetMarketingAudiences(ctx).Limit(limit).Execute()
 
 Returns the org's saved audiences, most recently updated first.
 
@@ -346,7 +346,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingAudiences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingAudiences`: AudienceList
+	// response from `GetMarketingAudiences`: MarketingAudienceList
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingAudiences`: %v\n", resp)
 }
 ```
@@ -366,7 +366,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AudienceList**](AudienceList.md)
+[**MarketingAudienceList**](MarketingAudienceList.md)
 
 ### Authorization
 
@@ -375,7 +375,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -384,7 +384,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingAudiencesById
 
-> Audience GetMarketingAudiencesById(ctx, id).Execute()
+> MarketingAudience GetMarketingAudiencesById(ctx, id).Execute()
 
 Returns one of the caller org's saved audiences.
 
@@ -412,7 +412,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingAudiencesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingAudiencesById`: Audience
+	// response from `GetMarketingAudiencesById`: MarketingAudience
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingAudiencesById`: %v\n", resp)
 }
 ```
@@ -436,7 +436,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Audience**](Audience.md)
+[**MarketingAudience**](MarketingAudience.md)
 
 ### Authorization
 
@@ -445,7 +445,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -454,7 +454,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingAudiencesByIdPreview
 
-> AudiencePreview GetMarketingAudiencesByIdPreview(ctx, id).Execute()
+> MarketingAudiencePreview GetMarketingAudiencesByIdPreview(ctx, id).Execute()
 
 Evaluates the cohort LIVE — the same resolution an enrollment would run — and reports how big it is and how many real mailboxes it reaches.
 
@@ -482,7 +482,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingAudiencesByIdPreview``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingAudiencesByIdPreview`: AudiencePreview
+	// response from `GetMarketingAudiencesByIdPreview`: MarketingAudiencePreview
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingAudiencesByIdPreview`: %v\n", resp)
 }
 ```
@@ -506,7 +506,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AudiencePreview**](AudiencePreview.md)
+[**MarketingAudiencePreview**](MarketingAudiencePreview.md)
 
 ### Authorization
 
@@ -515,7 +515,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -524,7 +524,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingCalendar
 
-> PostList GetMarketingCalendar(ctx).Status(status).Limit(limit).Execute()
+> MarketingPostList GetMarketingCalendar(ctx).Status(status).Limit(limit).Execute()
 
 Returns the org's calendar, latest scheduled first, optionally narrowed to one status.
 
@@ -553,7 +553,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingCalendar``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingCalendar`: PostList
+	// response from `GetMarketingCalendar`: MarketingPostList
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingCalendar`: %v\n", resp)
 }
 ```
@@ -574,7 +574,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PostList**](PostList.md)
+[**MarketingPostList**](MarketingPostList.md)
 
 ### Authorization
 
@@ -583,7 +583,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -592,7 +592,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingCalendarById
 
-> CalendarPost GetMarketingCalendarById(ctx, id).Execute()
+> MarketingCalendarPost GetMarketingCalendarById(ctx, id).Execute()
 
 Returns one of the caller org's posts, including the exact error behind a failed publish.
 
@@ -620,7 +620,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingCalendarById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingCalendarById`: CalendarPost
+	// response from `GetMarketingCalendarById`: MarketingCalendarPost
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingCalendarById`: %v\n", resp)
 }
 ```
@@ -644,7 +644,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CalendarPost**](CalendarPost.md)
+[**MarketingCalendarPost**](MarketingCalendarPost.md)
 
 ### Authorization
 
@@ -653,7 +653,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -662,7 +662,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingCampaigns
 
-> CampaignList GetMarketingCampaigns(ctx).Status(status).Limit(limit).Execute()
+> MarketingCampaignList GetMarketingCampaigns(ctx).Status(status).Limit(limit).Execute()
 
 Returns the org's campaigns, most recently updated first, optionally narrowed to one lifecycle status.
 
@@ -691,7 +691,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingCampaigns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingCampaigns`: CampaignList
+	// response from `GetMarketingCampaigns`: MarketingCampaignList
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingCampaigns`: %v\n", resp)
 }
 ```
@@ -712,7 +712,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CampaignList**](CampaignList.md)
+[**MarketingCampaignList**](MarketingCampaignList.md)
 
 ### Authorization
 
@@ -721,7 +721,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -730,7 +730,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingCampaignsById
 
-> Campaign GetMarketingCampaignsById(ctx, id).Execute()
+> MarketingCampaign GetMarketingCampaignsById(ctx, id).Execute()
 
 Returns one of the caller org's campaigns.
 
@@ -758,7 +758,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingCampaignsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingCampaignsById`: Campaign
+	// response from `GetMarketingCampaignsById`: MarketingCampaign
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingCampaignsById`: %v\n", resp)
 }
 ```
@@ -782,7 +782,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Campaign**](Campaign.md)
+[**MarketingCampaign**](MarketingCampaign.md)
 
 ### Authorization
 
@@ -791,7 +791,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -800,7 +800,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingPromos
 
-> PromoList GetMarketingPromos(ctx).Execute()
+> MarketingPromoList GetMarketingPromos(ctx).Execute()
 
 Returns every promo the deployment offers with its live counters: how many orgs have redeemed it and how many redemptions remain under the cap.
 
@@ -827,7 +827,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingPromos``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingPromos`: PromoList
+	// response from `GetMarketingPromos`: MarketingPromoList
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingPromos`: %v\n", resp)
 }
 ```
@@ -843,7 +843,7 @@ Other parameters are passed through a pointer to a apiGetMarketingPromosRequest 
 
 ### Return type
 
-[**PromoList**](PromoList.md)
+[**MarketingPromoList**](MarketingPromoList.md)
 
 ### Authorization
 
@@ -852,7 +852,7 @@ Other parameters are passed through a pointer to a apiGetMarketingPromosRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -861,7 +861,7 @@ Other parameters are passed through a pointer to a apiGetMarketingPromosRequest 
 
 ## GetMarketingPromosByCodeEligibility
 
-> Quote GetMarketingPromosByCodeEligibility(ctx, code).Plan(plan).Seats(seats).Execute()
+> MarketingQuote GetMarketingPromosByCodeEligibility(ctx, code).Plan(plan).Seats(seats).Execute()
 
 Prices a promo against a plan and seat count.
 
@@ -891,7 +891,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingPromosByCodeEligibility``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingPromosByCodeEligibility`: Quote
+	// response from `GetMarketingPromosByCodeEligibility`: MarketingQuote
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingPromosByCodeEligibility`: %v\n", resp)
 }
 ```
@@ -917,7 +917,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Quote**](Quote.md)
+[**MarketingQuote**](MarketingQuote.md)
 
 ### Authorization
 
@@ -926,7 +926,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -935,7 +935,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingPromosByCodeRedemption
 
-> Redemption GetMarketingPromosByCodeRedemption(ctx, code).Execute()
+> MarketingRedemption GetMarketingPromosByCodeRedemption(ctx, code).Execute()
 
 Returns the caller org's OWN redemption of a promo — an org-scoped read, so it can never surface another tenant's.
 
@@ -963,7 +963,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingPromosByCodeRedemption``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingPromosByCodeRedemption`: Redemption
+	// response from `GetMarketingPromosByCodeRedemption`: MarketingRedemption
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingPromosByCodeRedemption`: %v\n", resp)
 }
 ```
@@ -987,7 +987,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Redemption**](Redemption.md)
+[**MarketingRedemption**](MarketingRedemption.md)
 
 ### Authorization
 
@@ -996,7 +996,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1005,7 +1005,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingSequences
 
-> SequenceList GetMarketingSequences(ctx).Limit(limit).Execute()
+> MarketingSequenceList GetMarketingSequences(ctx).Limit(limit).Execute()
 
 Returns the org's drip sequences, most recently updated first.
 
@@ -1033,7 +1033,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSequences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingSequences`: SequenceList
+	// response from `GetMarketingSequences`: MarketingSequenceList
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSequences`: %v\n", resp)
 }
 ```
@@ -1053,7 +1053,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SequenceList**](SequenceList.md)
+[**MarketingSequenceList**](MarketingSequenceList.md)
 
 ### Authorization
 
@@ -1062,7 +1062,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1071,7 +1071,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingSequencesById
 
-> SequenceView GetMarketingSequencesById(ctx, id).Execute()
+> MarketingSequenceView GetMarketingSequencesById(ctx, id).Execute()
 
 Returns one of the caller org's sequences together with its steps in send order.
 
@@ -1099,7 +1099,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSequencesById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingSequencesById`: SequenceView
+	// response from `GetMarketingSequencesById`: MarketingSequenceView
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSequencesById`: %v\n", resp)
 }
 ```
@@ -1123,7 +1123,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SequenceView**](SequenceView.md)
+[**MarketingSequenceView**](MarketingSequenceView.md)
 
 ### Authorization
 
@@ -1132,7 +1132,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1141,7 +1141,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingSequencesByIdEnrollments
 
-> EnrollmentList GetMarketingSequencesByIdEnrollments(ctx, id).Limit(limit).Execute()
+> MarketingEnrollmentList GetMarketingSequencesByIdEnrollments(ctx, id).Limit(limit).Execute()
 
 Returns who is walking one sequence, most recently enrolled first, with each walk's current step and next due time.
 
@@ -1170,7 +1170,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSequencesByIdEnrollments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingSequencesByIdEnrollments`: EnrollmentList
+	// response from `GetMarketingSequencesByIdEnrollments`: MarketingEnrollmentList
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSequencesByIdEnrollments`: %v\n", resp)
 }
 ```
@@ -1195,7 +1195,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EnrollmentList**](EnrollmentList.md)
+[**MarketingEnrollmentList**](MarketingEnrollmentList.md)
 
 ### Authorization
 
@@ -1204,7 +1204,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1213,7 +1213,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingSequencesByIdSteps
 
-> StepList GetMarketingSequencesByIdSteps(ctx, id).Execute()
+> MarketingStepList GetMarketingSequencesByIdSteps(ctx, id).Execute()
 
 Returns one sequence's steps in send order.
 
@@ -1241,7 +1241,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSequencesByIdSteps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingSequencesByIdSteps`: StepList
+	// response from `GetMarketingSequencesByIdSteps`: MarketingStepList
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSequencesByIdSteps`: %v\n", resp)
 }
 ```
@@ -1265,7 +1265,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StepList**](StepList.md)
+[**MarketingStepList**](MarketingStepList.md)
 
 ### Authorization
 
@@ -1274,7 +1274,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1283,7 +1283,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingSummary
 
-> Summary GetMarketingSummary(ctx).Execute()
+> MarketingSummary GetMarketingSummary(ctx).Execute()
 
 Rolls up the caller org's campaigns: how many there are, how many are active, and the summed budget and spend in cents.
 
@@ -1310,7 +1310,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingSummary`: Summary
+	// response from `GetMarketingSummary`: MarketingSummary
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSummary`: %v\n", resp)
 }
 ```
@@ -1326,7 +1326,7 @@ Other parameters are passed through a pointer to a apiGetMarketingSummaryRequest
 
 ### Return type
 
-[**Summary**](Summary.md)
+[**MarketingSummary**](MarketingSummary.md)
 
 ### Authorization
 
@@ -1335,7 +1335,7 @@ Other parameters are passed through a pointer to a apiGetMarketingSummaryRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1344,7 +1344,7 @@ Other parameters are passed through a pointer to a apiGetMarketingSummaryRequest
 
 ## GetMarketingSuppressions
 
-> SuppressionList GetMarketingSuppressions(ctx).Limit(limit).Execute()
+> MarketingSuppressionList GetMarketingSuppressions(ctx).Limit(limit).Execute()
 
 Returns the org's opt-out list, newest first — everyone the send gate will refuse to deliver to.
 
@@ -1372,7 +1372,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingSuppressions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingSuppressions`: SuppressionList
+	// response from `GetMarketingSuppressions`: MarketingSuppressionList
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingSuppressions`: %v\n", resp)
 }
 ```
@@ -1392,7 +1392,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SuppressionList**](SuppressionList.md)
+[**MarketingSuppressionList**](MarketingSuppressionList.md)
 
 ### Authorization
 
@@ -1401,7 +1401,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1410,7 +1410,7 @@ Name | Type | Description  | Notes
 
 ## GetMarketingUnsubscribe
 
-> Unsubscribed GetMarketingUnsubscribe(ctx).Org(org).Channel(channel).Address(address).Token(token).Execute()
+> MarketingUnsubscribed GetMarketingUnsubscribe(ctx).Org(org).Channel(channel).Address(address).Token(token).Execute()
 
 Is the PUBLIC one-click endpoint (no principal): a recipient clicks the signed link in an email footer.
 
@@ -1441,7 +1441,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.GetMarketingUnsubscribe``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMarketingUnsubscribe`: Unsubscribed
+	// response from `GetMarketingUnsubscribe`: MarketingUnsubscribed
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.GetMarketingUnsubscribe`: %v\n", resp)
 }
 ```
@@ -1464,7 +1464,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Unsubscribed**](Unsubscribed.md)
+[**MarketingUnsubscribed**](MarketingUnsubscribed.md)
 
 ### Authorization
 
@@ -1473,7 +1473,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1482,7 +1482,7 @@ Name | Type | Description  | Notes
 
 ## PostMarketingAudiences
 
-> Audience PostMarketingAudiences(ctx).Audience(audience).Execute()
+> MarketingAudience PostMarketingAudiences(ctx).MarketingAudience(marketingAudience).Execute()
 
 Saves a cohort filter for the caller's org.
 
@@ -1501,16 +1501,16 @@ import (
 )
 
 func main() {
-	audience := *openapiclient.NewAudience() // Audience | 
+	marketingAudience := *openapiclient.NewMarketingAudience() // MarketingAudience | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PostMarketingAudiences(context.Background()).Audience(audience).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingAudiences(context.Background()).MarketingAudience(marketingAudience).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingAudiences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMarketingAudiences`: Audience
+	// response from `PostMarketingAudiences`: MarketingAudience
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingAudiences`: %v\n", resp)
 }
 ```
@@ -1526,11 +1526,11 @@ Other parameters are passed through a pointer to a apiPostMarketingAudiencesRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **audience** | [**Audience**](Audience.md) |  | 
+ **marketingAudience** | [**MarketingAudience**](MarketingAudience.md) |  | 
 
 ### Return type
 
-[**Audience**](Audience.md)
+[**MarketingAudience**](MarketingAudience.md)
 
 ### Authorization
 
@@ -1539,7 +1539,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1548,7 +1548,7 @@ Name | Type | Description  | Notes
 
 ## PostMarketingCalendar
 
-> CalendarPost PostMarketingCalendar(ctx).CalendarPost(calendarPost).Execute()
+> MarketingCalendarPost PostMarketingCalendar(ctx).MarketingCalendarPost(marketingCalendarPost).Execute()
 
 Adds a post to the content calendar.
 
@@ -1567,16 +1567,16 @@ import (
 )
 
 func main() {
-	calendarPost := *openapiclient.NewCalendarPost() // CalendarPost | 
+	marketingCalendarPost := *openapiclient.NewMarketingCalendarPost() // MarketingCalendarPost | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PostMarketingCalendar(context.Background()).CalendarPost(calendarPost).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingCalendar(context.Background()).MarketingCalendarPost(marketingCalendarPost).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingCalendar``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMarketingCalendar`: CalendarPost
+	// response from `PostMarketingCalendar`: MarketingCalendarPost
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingCalendar`: %v\n", resp)
 }
 ```
@@ -1592,11 +1592,11 @@ Other parameters are passed through a pointer to a apiPostMarketingCalendarReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **calendarPost** | [**CalendarPost**](CalendarPost.md) |  | 
+ **marketingCalendarPost** | [**MarketingCalendarPost**](MarketingCalendarPost.md) |  | 
 
 ### Return type
 
-[**CalendarPost**](CalendarPost.md)
+[**MarketingCalendarPost**](MarketingCalendarPost.md)
 
 ### Authorization
 
@@ -1605,77 +1605,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostMarketingCalendarByIdPublish
-
-> CalendarPost PostMarketingCalendarByIdPublish(ctx, id).Execute()
-
-Publishes a post NOW, synchronously, whatever its schedule.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	id := "cal_1d7f3b9e5a2c8046f1b3d5a7c9e02468" // string | ID is the post id from the path, as returned by create.
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PostMarketingCalendarByIdPublish(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingCalendarByIdPublish``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostMarketingCalendarByIdPublish`: CalendarPost
-	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingCalendarByIdPublish`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | ID is the post id from the path, as returned by create. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostMarketingCalendarByIdPublishRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**CalendarPost**](CalendarPost.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1684,7 +1614,7 @@ Name | Type | Description  | Notes
 
 ## PostMarketingCampaigns
 
-> Campaign PostMarketingCampaigns(ctx).Campaign(campaign).Execute()
+> MarketingCampaign PostMarketingCampaigns(ctx).MarketingCampaign(marketingCampaign).Execute()
 
 Registers a campaign in the caller's org.
 
@@ -1703,16 +1633,16 @@ import (
 )
 
 func main() {
-	campaign := *openapiclient.NewCampaign() // Campaign | 
+	marketingCampaign := *openapiclient.NewMarketingCampaign() // MarketingCampaign | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PostMarketingCampaigns(context.Background()).Campaign(campaign).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingCampaigns(context.Background()).MarketingCampaign(marketingCampaign).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingCampaigns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMarketingCampaigns`: Campaign
+	// response from `PostMarketingCampaigns`: MarketingCampaign
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingCampaigns`: %v\n", resp)
 }
 ```
@@ -1728,11 +1658,11 @@ Other parameters are passed through a pointer to a apiPostMarketingCampaignsRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **campaign** | [**Campaign**](Campaign.md) |  | 
+ **marketingCampaign** | [**MarketingCampaign**](MarketingCampaign.md) |  | 
 
 ### Return type
 
-[**Campaign**](Campaign.md)
+[**MarketingCampaign**](MarketingCampaign.md)
 
 ### Authorization
 
@@ -1741,7 +1671,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1750,7 +1680,7 @@ Name | Type | Description  | Notes
 
 ## PostMarketingCampaignsByIdSchedule
 
-> Campaign PostMarketingCampaignsByIdSchedule(ctx, id).ScheduleInput(scheduleInput).Execute()
+> MarketingCampaign PostMarketingCampaignsByIdSchedule(ctx, id).MarketingScheduleInput(marketingScheduleInput).Execute()
 
 Sets a campaign's send time and moves it to \"scheduled\".
 
@@ -1770,16 +1700,16 @@ import (
 
 func main() {
 	id := "camp_9f2a1c7d4e8b0a6f3d2c5b1e7a9f4c60" // string | ID is the campaign id from the path.
-	scheduleInput := *openapiclient.NewScheduleInput() // ScheduleInput | 
+	marketingScheduleInput := *openapiclient.NewMarketingScheduleInput() // MarketingScheduleInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PostMarketingCampaignsByIdSchedule(context.Background(), id).ScheduleInput(scheduleInput).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingCampaignsByIdSchedule(context.Background(), id).MarketingScheduleInput(marketingScheduleInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingCampaignsByIdSchedule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMarketingCampaignsByIdSchedule`: Campaign
+	// response from `PostMarketingCampaignsByIdSchedule`: MarketingCampaign
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingCampaignsByIdSchedule`: %v\n", resp)
 }
 ```
@@ -1800,11 +1730,11 @@ Other parameters are passed through a pointer to a apiPostMarketingCampaignsById
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **scheduleInput** | [**ScheduleInput**](ScheduleInput.md) |  | 
+ **marketingScheduleInput** | [**MarketingScheduleInput**](MarketingScheduleInput.md) |  | 
 
 ### Return type
 
-[**Campaign**](Campaign.md)
+[**MarketingCampaign**](MarketingCampaign.md)
 
 ### Authorization
 
@@ -1813,7 +1743,73 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMarketingLeads
+
+> MarketingLead PostMarketingLeads(ctx).MarketingLeadIn(marketingLeadIn).Execute()
+
+Files a sales inquiry as a new lead in the deployment's own CRM and states it on the event plane.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	marketingLeadIn := *openapiclient.NewMarketingLeadIn() // MarketingLeadIn | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingAPI.PostMarketingLeads(context.Background()).MarketingLeadIn(marketingLeadIn).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingLeads``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMarketingLeads`: MarketingLead
+	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingLeads`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMarketingLeadsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **marketingLeadIn** | [**MarketingLeadIn**](MarketingLeadIn.md) |  | 
+
+### Return type
+
+[**MarketingLead**](MarketingLead.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1822,7 +1818,7 @@ Name | Type | Description  | Notes
 
 ## PostMarketingPromosByCodeRedeem
 
-> RedeemResult PostMarketingPromosByCodeRedeem(ctx, code).RedeemInput(redeemInput).Execute()
+> MarketingRedeemResult PostMarketingPromosByCodeRedeem(ctx, code).MarketingRedeemInput(marketingRedeemInput).Execute()
 
 Records the caller org's claim on a promo.
 
@@ -1842,16 +1838,16 @@ import (
 
 func main() {
 	code := "first1000" // string | Code is the promo code from the path.
-	redeemInput := *openapiclient.NewRedeemInput() // RedeemInput | 
+	marketingRedeemInput := *openapiclient.NewMarketingRedeemInput() // MarketingRedeemInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PostMarketingPromosByCodeRedeem(context.Background(), code).RedeemInput(redeemInput).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingPromosByCodeRedeem(context.Background(), code).MarketingRedeemInput(marketingRedeemInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingPromosByCodeRedeem``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMarketingPromosByCodeRedeem`: RedeemResult
+	// response from `PostMarketingPromosByCodeRedeem`: MarketingRedeemResult
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingPromosByCodeRedeem`: %v\n", resp)
 }
 ```
@@ -1872,11 +1868,11 @@ Other parameters are passed through a pointer to a apiPostMarketingPromosByCodeR
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **redeemInput** | [**RedeemInput**](RedeemInput.md) |  | 
+ **marketingRedeemInput** | [**MarketingRedeemInput**](MarketingRedeemInput.md) |  | 
 
 ### Return type
 
-[**RedeemResult**](RedeemResult.md)
+[**MarketingRedeemResult**](MarketingRedeemResult.md)
 
 ### Authorization
 
@@ -1885,7 +1881,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1894,7 +1890,7 @@ Name | Type | Description  | Notes
 
 ## PostMarketingSequences
 
-> Sequence PostMarketingSequences(ctx).Sequence(sequence).Execute()
+> MarketingSequence PostMarketingSequences(ctx).MarketingSequence(marketingSequence).Execute()
 
 Registers a drip sequence in the caller's org.
 
@@ -1913,16 +1909,16 @@ import (
 )
 
 func main() {
-	sequence := *openapiclient.NewSequence() // Sequence | 
+	marketingSequence := *openapiclient.NewMarketingSequence() // MarketingSequence | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PostMarketingSequences(context.Background()).Sequence(sequence).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingSequences(context.Background()).MarketingSequence(marketingSequence).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSequences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMarketingSequences`: Sequence
+	// response from `PostMarketingSequences`: MarketingSequence
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingSequences`: %v\n", resp)
 }
 ```
@@ -1938,11 +1934,11 @@ Other parameters are passed through a pointer to a apiPostMarketingSequencesRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sequence** | [**Sequence**](Sequence.md) |  | 
+ **marketingSequence** | [**MarketingSequence**](MarketingSequence.md) |  | 
 
 ### Return type
 
-[**Sequence**](Sequence.md)
+[**MarketingSequence**](MarketingSequence.md)
 
 ### Authorization
 
@@ -1951,7 +1947,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1960,7 +1956,7 @@ Name | Type | Description  | Notes
 
 ## PostMarketingSequencesByIdEnroll
 
-> EnrollResult PostMarketingSequencesByIdEnroll(ctx, id).EnrollInput(enrollInput).Execute()
+> MarketingEnrollResult PostMarketingSequencesByIdEnroll(ctx, id).MarketingEnrollInput(marketingEnrollInput).Execute()
 
 Adds one contact or a whole audience to a sequence and schedules the first step for each.
 
@@ -1980,16 +1976,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the sequence id from the path.
-	enrollInput := *openapiclient.NewEnrollInput() // EnrollInput | 
+	marketingEnrollInput := *openapiclient.NewMarketingEnrollInput() // MarketingEnrollInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PostMarketingSequencesByIdEnroll(context.Background(), id).EnrollInput(enrollInput).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingSequencesByIdEnroll(context.Background(), id).MarketingEnrollInput(marketingEnrollInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSequencesByIdEnroll``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMarketingSequencesByIdEnroll`: EnrollResult
+	// response from `PostMarketingSequencesByIdEnroll`: MarketingEnrollResult
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingSequencesByIdEnroll`: %v\n", resp)
 }
 ```
@@ -2010,11 +2006,11 @@ Other parameters are passed through a pointer to a apiPostMarketingSequencesById
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **enrollInput** | [**EnrollInput**](EnrollInput.md) |  | 
+ **marketingEnrollInput** | [**MarketingEnrollInput**](MarketingEnrollInput.md) |  | 
 
 ### Return type
 
-[**EnrollResult**](EnrollResult.md)
+[**MarketingEnrollResult**](MarketingEnrollResult.md)
 
 ### Authorization
 
@@ -2023,7 +2019,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2094,7 +2090,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2103,7 +2099,7 @@ Name | Type | Description  | Notes
 
 ## PostMarketingSequencesByIdStatus
 
-> SequenceStatus PostMarketingSequencesByIdStatus(ctx, id).SequenceStatus(sequenceStatus).Execute()
+> MarketingSequenceStatus PostMarketingSequencesByIdStatus(ctx, id).MarketingSequenceStatus(marketingSequenceStatus).Execute()
 
 Flips draft/active/archived — the activation gate for sending, since only an active sequence accepts enrollments.
 
@@ -2123,16 +2119,16 @@ import (
 
 func main() {
 	id := "seq_7b3e5a1c9d024f68b0a3e7c5d9f1a248" // string | ID is the sequence id from the path.
-	sequenceStatus := *openapiclient.NewSequenceStatus() // SequenceStatus | 
+	marketingSequenceStatus := *openapiclient.NewMarketingSequenceStatus() // MarketingSequenceStatus | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PostMarketingSequencesByIdStatus(context.Background(), id).SequenceStatus(sequenceStatus).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingSequencesByIdStatus(context.Background(), id).MarketingSequenceStatus(marketingSequenceStatus).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSequencesByIdStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMarketingSequencesByIdStatus`: SequenceStatus
+	// response from `PostMarketingSequencesByIdStatus`: MarketingSequenceStatus
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingSequencesByIdStatus`: %v\n", resp)
 }
 ```
@@ -2153,11 +2149,11 @@ Other parameters are passed through a pointer to a apiPostMarketingSequencesById
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **sequenceStatus** | [**SequenceStatus**](SequenceStatus.md) |  | 
+ **marketingSequenceStatus** | [**MarketingSequenceStatus**](MarketingSequenceStatus.md) |  | 
 
 ### Return type
 
-[**SequenceStatus**](SequenceStatus.md)
+[**MarketingSequenceStatus**](MarketingSequenceStatus.md)
 
 ### Authorization
 
@@ -2166,7 +2162,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2175,7 +2171,7 @@ Name | Type | Description  | Notes
 
 ## PostMarketingSequencesByIdSteps
 
-> Step PostMarketingSequencesByIdSteps(ctx, id).StepInput(stepInput).Execute()
+> MarketingStep PostMarketingSequencesByIdSteps(ctx, id).MarketingStepInput(marketingStepInput).Execute()
 
 Appends a message to the END of a sequence: the new step's idx is one past the last, so steps arrive in the order they are added.
 
@@ -2195,16 +2191,16 @@ import (
 
 func main() {
 	id := "id_example" // string | SequenceID is the sequence id from the path (the route's :id).
-	stepInput := *openapiclient.NewStepInput() // StepInput | 
+	marketingStepInput := *openapiclient.NewMarketingStepInput() // MarketingStepInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PostMarketingSequencesByIdSteps(context.Background(), id).StepInput(stepInput).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingSequencesByIdSteps(context.Background(), id).MarketingStepInput(marketingStepInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSequencesByIdSteps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMarketingSequencesByIdSteps`: Step
+	// response from `PostMarketingSequencesByIdSteps`: MarketingStep
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingSequencesByIdSteps`: %v\n", resp)
 }
 ```
@@ -2225,11 +2221,11 @@ Other parameters are passed through a pointer to a apiPostMarketingSequencesById
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **stepInput** | [**StepInput**](StepInput.md) |  | 
+ **marketingStepInput** | [**MarketingStepInput**](MarketingStepInput.md) |  | 
 
 ### Return type
 
-[**Step**](Step.md)
+[**MarketingStep**](MarketingStep.md)
 
 ### Authorization
 
@@ -2238,7 +2234,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2247,7 +2243,7 @@ Name | Type | Description  | Notes
 
 ## PostMarketingSuppressions
 
-> Suppression PostMarketingSuppressions(ctx).Suppression(suppression).Execute()
+> MarketingSuppression PostMarketingSuppressions(ctx).MarketingSuppression(marketingSuppression).Execute()
 
 Records an opt-out for the org (admin / self-service management).
 
@@ -2266,16 +2262,16 @@ import (
 )
 
 func main() {
-	suppression := *openapiclient.NewSuppression() // Suppression | 
+	marketingSuppression := *openapiclient.NewMarketingSuppression() // MarketingSuppression | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PostMarketingSuppressions(context.Background()).Suppression(suppression).Execute()
+	resp, r, err := apiClient.MarketingAPI.PostMarketingSuppressions(context.Background()).MarketingSuppression(marketingSuppression).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PostMarketingSuppressions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostMarketingSuppressions`: Suppression
+	// response from `PostMarketingSuppressions`: MarketingSuppression
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PostMarketingSuppressions`: %v\n", resp)
 }
 ```
@@ -2291,11 +2287,11 @@ Other parameters are passed through a pointer to a apiPostMarketingSuppressionsR
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **suppression** | [**Suppression**](Suppression.md) |  | 
+ **marketingSuppression** | [**MarketingSuppression**](MarketingSuppression.md) |  | 
 
 ### Return type
 
-[**Suppression**](Suppression.md)
+[**MarketingSuppression**](MarketingSuppression.md)
 
 ### Authorization
 
@@ -2304,7 +2300,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2313,7 +2309,7 @@ Name | Type | Description  | Notes
 
 ## PutMarketingCalendarById
 
-> CalendarPost PutMarketingCalendarById(ctx, id).CalendarPost(calendarPost).Execute()
+> MarketingCalendarPost PutMarketingCalendarById(ctx, id).MarketingCalendarPost(marketingCalendarPost).Execute()
 
 Replaces a post's editable fields.
 
@@ -2333,16 +2329,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the server-assigned post id (\"cal_\" + 128 random bits).
-	calendarPost := *openapiclient.NewCalendarPost() // CalendarPost | 
+	marketingCalendarPost := *openapiclient.NewMarketingCalendarPost() // MarketingCalendarPost | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PutMarketingCalendarById(context.Background(), id).CalendarPost(calendarPost).Execute()
+	resp, r, err := apiClient.MarketingAPI.PutMarketingCalendarById(context.Background(), id).MarketingCalendarPost(marketingCalendarPost).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PutMarketingCalendarById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutMarketingCalendarById`: CalendarPost
+	// response from `PutMarketingCalendarById`: MarketingCalendarPost
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PutMarketingCalendarById`: %v\n", resp)
 }
 ```
@@ -2363,11 +2359,11 @@ Other parameters are passed through a pointer to a apiPutMarketingCalendarByIdRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **calendarPost** | [**CalendarPost**](CalendarPost.md) |  | 
+ **marketingCalendarPost** | [**MarketingCalendarPost**](MarketingCalendarPost.md) |  | 
 
 ### Return type
 
-[**CalendarPost**](CalendarPost.md)
+[**MarketingCalendarPost**](MarketingCalendarPost.md)
 
 ### Authorization
 
@@ -2376,7 +2372,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2385,7 +2381,7 @@ Name | Type | Description  | Notes
 
 ## PutMarketingCampaignsById
 
-> Campaign PutMarketingCampaignsById(ctx, id).Campaign(campaign).Execute()
+> MarketingCampaign PutMarketingCampaignsById(ctx, id).MarketingCampaign(marketingCampaign).Execute()
 
 Replaces a campaign's editable fields.
 
@@ -2405,16 +2401,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the server-assigned campaign id (\"camp_\" + 128 random bits).
-	campaign := *openapiclient.NewCampaign() // Campaign | 
+	marketingCampaign := *openapiclient.NewMarketingCampaign() // MarketingCampaign | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MarketingAPI.PutMarketingCampaignsById(context.Background(), id).Campaign(campaign).Execute()
+	resp, r, err := apiClient.MarketingAPI.PutMarketingCampaignsById(context.Background(), id).MarketingCampaign(marketingCampaign).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MarketingAPI.PutMarketingCampaignsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutMarketingCampaignsById`: Campaign
+	// response from `PutMarketingCampaignsById`: MarketingCampaign
 	fmt.Fprintf(os.Stdout, "Response from `MarketingAPI.PutMarketingCampaignsById`: %v\n", resp)
 }
 ```
@@ -2435,11 +2431,11 @@ Other parameters are passed through a pointer to a apiPutMarketingCampaignsByIdR
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **campaign** | [**Campaign**](Campaign.md) |  | 
+ **marketingCampaign** | [**MarketingCampaign**](MarketingCampaign.md) |  | 
 
 ### Return type
 
-[**Campaign**](Campaign.md)
+[**MarketingCampaign**](MarketingCampaign.md)
 
 ### Authorization
 
@@ -2448,7 +2444,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

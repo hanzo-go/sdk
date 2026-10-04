@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **ClientUrl** | Pointer to **string** |  | [optional] 
 **Component** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
-**Details** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Details** | Pointer to **map[string]interface{}** |  | [optional] 
 **Group** | Pointer to **string** |  | [optional] 
 **HttpConfig** | Pointer to [**O11yHTTPClientConfig**](O11yHTTPClientConfig.md) |  | [optional] 
 **Images** | Pointer to [**[]O11yPagerdutyImage**](O11yPagerdutyImage.md) |  | [optional] 
@@ -195,20 +195,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetDetails
 
-`func (o *O11yPagerdutyConfig) GetDetails() map[string]map[string]interface{}`
+`func (o *O11yPagerdutyConfig) GetDetails() map[string]interface{}`
 
 GetDetails returns the Details field if non-nil, zero value otherwise.
 
 ### GetDetailsOk
 
-`func (o *O11yPagerdutyConfig) GetDetailsOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yPagerdutyConfig) GetDetailsOk() (*map[string]interface{}, bool)`
 
 GetDetailsOk returns a tuple with the Details field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDetails
 
-`func (o *O11yPagerdutyConfig) SetDetails(v map[string]map[string]interface{})`
+`func (o *O11yPagerdutyConfig) SetDetails(v map[string]interface{})`
 
 SetDetails sets Details field to given value.
 

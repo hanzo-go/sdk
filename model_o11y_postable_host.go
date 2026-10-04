@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yPostableHost{}
 
 // O11yPostableHost struct for O11yPostableHost
 type O11yPostableHost struct {
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPostableHost O11yPostableHost
 
 // NewO11yPostableHost instantiates a new O11yPostableHost object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yPostableHost) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPostableHost) UnmarshalJSON(data []byte) (err error) {
+	varO11yPostableHost := _O11yPostableHost{}
+
+	err = json.Unmarshal(data, &varO11yPostableHost)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPostableHost(varO11yPostableHost)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPostableHost struct {

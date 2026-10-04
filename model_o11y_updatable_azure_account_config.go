@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yUpdatableAzureAccountConfig{}
 
 // O11yUpdatableAzureAccountConfig struct for O11yUpdatableAzureAccountConfig
 type O11yUpdatableAzureAccountConfig struct {
-	ResourceGroups []string `json:"resourceGroups,omitempty"`
+	ResourceGroups       []string `json:"resourceGroups,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yUpdatableAzureAccountConfig O11yUpdatableAzureAccountConfig
 
 // NewO11yUpdatableAzureAccountConfig instantiates a new O11yUpdatableAzureAccountConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yUpdatableAzureAccountConfig) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.ResourceGroups) {
 		toSerialize["resourceGroups"] = o.ResourceGroups
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yUpdatableAzureAccountConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yUpdatableAzureAccountConfig := _O11yUpdatableAzureAccountConfig{}
+
+	err = json.Unmarshal(data, &varO11yUpdatableAzureAccountConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yUpdatableAzureAccountConfig(varO11yUpdatableAzureAccountConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "resourceGroups")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yUpdatableAzureAccountConfig struct {

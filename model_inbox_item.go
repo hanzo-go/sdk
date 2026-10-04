@@ -19,23 +19,18 @@ var _ MappedNullable = &InboxItem{}
 
 // InboxItem struct for InboxItem
 type InboxItem struct {
-	// Category is the expense account the scanner proposed, as a chart number — a PROPOSAL, not a posting: nothing is booked until it is accepted.
-	Category *string `json:"category,omitempty"`
-	// Confidence is how sure the scanner is of that reading, and is the signal for whether a person needs to check it before it is booked.
-	Confidence *string `json:"confidence,omitempty"`
-	// CreatedAt is when the document was uploaded.
-	CreatedAt *string `json:"createdAt,omitempty"`
-	// Extracted is what the scanner read off the document. Absent until it has been scanned, so its absence is \"not read yet\", never \"nothing on it\".
-	Extracted *Extracted `json:"extracted,omitempty"`
-	// Filename is the name the document was uploaded under, for a person to recognise it by. It is not part of the item's identity.
-	Filename *string `json:"filename,omitempty"`
-	// ID is the CONTENT HASH of the uploaded bytes, which is what makes the queue idempotent: re-uploading the same document returns this item rather than adding a second one. It is also the id the scan of this document carries.
-	Id *string `json:"id,omitempty"`
-	// Status is where the document is in the queue — unsorted until the scanner has read it, and thereafter whether it is waiting on a person or has been booked.
-	Status *string `json:"status,omitempty"`
-	// Vendor is the supplier the scanner identified, surfaced beside the item so a queue renders without opening each document.
-	Vendor *string `json:"vendor,omitempty"`
+	Category             *string    `json:"category,omitempty"`
+	Confidence           *string    `json:"confidence,omitempty"`
+	CreatedAt            *string    `json:"createdAt,omitempty"`
+	Extracted            *Extracted `json:"extracted,omitempty"`
+	Filename             *string    `json:"filename,omitempty"`
+	Id                   *string    `json:"id,omitempty"`
+	Status               *string    `json:"status,omitempty"`
+	Vendor               *string    `json:"vendor,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _InboxItem InboxItem
 
 // NewInboxItem instantiates a new InboxItem object
 // This constructor will assign default values to properties that have it defined,
@@ -344,7 +339,40 @@ func (o InboxItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Vendor) {
 		toSerialize["vendor"] = o.Vendor
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *InboxItem) UnmarshalJSON(data []byte) (err error) {
+	varInboxItem := _InboxItem{}
+
+	err = json.Unmarshal(data, &varInboxItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InboxItem(varInboxItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "confidence")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "extracted")
+		delete(additionalProperties, "filename")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "vendor")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInboxItem struct {

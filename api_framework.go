@@ -84,7 +84,7 @@ func (a *FrameworkAPIService) DeleteFrameworkByDoctypeByNameExecute(r FrameworkA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -113,6 +113,14 @@ func (a *FrameworkAPIService) DeleteFrameworkByDoctypeByNameExecute(r FrameworkA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -178,7 +186,7 @@ func (a *FrameworkAPIService) DeleteFrameworkDoctypesByNameExecute(r FrameworkAP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -207,6 +215,14 @@ func (a *FrameworkAPIService) DeleteFrameworkDoctypesByNameExecute(r FrameworkAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -247,7 +263,7 @@ func (r FrameworkAPIGetFrameworkByDoctypeRequest) Limit(limit string) FrameworkA
 	return r
 }
 
-func (r FrameworkAPIGetFrameworkByDoctypeRequest) Execute() (*DocumentList, *http.Response, error) {
+func (r FrameworkAPIGetFrameworkByDoctypeRequest) Execute() (*FrameworkDocumentList, *http.Response, error) {
 	return r.ApiService.GetFrameworkByDoctypeExecute(r)
 }
 
@@ -274,13 +290,13 @@ func (a *FrameworkAPIService) GetFrameworkByDoctype(ctx context.Context, doctype
 
 // Execute executes the request
 //
-//	@return DocumentList
-func (a *FrameworkAPIService) GetFrameworkByDoctypeExecute(r FrameworkAPIGetFrameworkByDoctypeRequest) (*DocumentList, *http.Response, error) {
+//	@return FrameworkDocumentList
+func (a *FrameworkAPIService) GetFrameworkByDoctypeExecute(r FrameworkAPIGetFrameworkByDoctypeRequest) (*FrameworkDocumentList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DocumentList
+		localVarReturnValue *FrameworkDocumentList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.GetFrameworkByDoctype")
@@ -317,7 +333,7 @@ func (a *FrameworkAPIService) GetFrameworkByDoctypeExecute(r FrameworkAPIGetFram
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -346,6 +362,14 @@ func (a *FrameworkAPIService) GetFrameworkByDoctypeExecute(r FrameworkAPIGetFram
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -368,7 +392,7 @@ type FrameworkAPIGetFrameworkByDoctypeByNameRequest struct {
 	name       string
 }
 
-func (r FrameworkAPIGetFrameworkByDoctypeByNameRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r FrameworkAPIGetFrameworkByDoctypeByNameRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetFrameworkByDoctypeByNameExecute(r)
 }
 
@@ -393,13 +417,13 @@ func (a *FrameworkAPIService) GetFrameworkByDoctypeByName(ctx context.Context, d
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *FrameworkAPIService) GetFrameworkByDoctypeByNameExecute(r FrameworkAPIGetFrameworkByDoctypeByNameRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *FrameworkAPIService) GetFrameworkByDoctypeByNameExecute(r FrameworkAPIGetFrameworkByDoctypeByNameRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.GetFrameworkByDoctypeByName")
@@ -425,7 +449,7 @@ func (a *FrameworkAPIService) GetFrameworkByDoctypeByNameExecute(r FrameworkAPIG
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -454,6 +478,14 @@ func (a *FrameworkAPIService) GetFrameworkByDoctypeByNameExecute(r FrameworkAPIG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -474,7 +506,7 @@ type FrameworkAPIGetFrameworkDoctypesRequest struct {
 	ApiService *FrameworkAPIService
 }
 
-func (r FrameworkAPIGetFrameworkDoctypesRequest) Execute() (*DocTypeList, *http.Response, error) {
+func (r FrameworkAPIGetFrameworkDoctypesRequest) Execute() (*FrameworkDocTypeList, *http.Response, error) {
 	return r.ApiService.GetFrameworkDoctypesExecute(r)
 }
 
@@ -496,13 +528,13 @@ func (a *FrameworkAPIService) GetFrameworkDoctypes(ctx context.Context) Framewor
 
 // Execute executes the request
 //
-//	@return DocTypeList
-func (a *FrameworkAPIService) GetFrameworkDoctypesExecute(r FrameworkAPIGetFrameworkDoctypesRequest) (*DocTypeList, *http.Response, error) {
+//	@return FrameworkDocTypeList
+func (a *FrameworkAPIService) GetFrameworkDoctypesExecute(r FrameworkAPIGetFrameworkDoctypesRequest) (*FrameworkDocTypeList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DocTypeList
+		localVarReturnValue *FrameworkDocTypeList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.GetFrameworkDoctypes")
@@ -526,7 +558,7 @@ func (a *FrameworkAPIService) GetFrameworkDoctypesExecute(r FrameworkAPIGetFrame
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -555,6 +587,14 @@ func (a *FrameworkAPIService) GetFrameworkDoctypesExecute(r FrameworkAPIGetFrame
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -576,7 +616,7 @@ type FrameworkAPIGetFrameworkDoctypesByNameRequest struct {
 	name       string
 }
 
-func (r FrameworkAPIGetFrameworkDoctypesByNameRequest) Execute() (*DocType, *http.Response, error) {
+func (r FrameworkAPIGetFrameworkDoctypesByNameRequest) Execute() (*FrameworkDocType, *http.Response, error) {
 	return r.ApiService.GetFrameworkDoctypesByNameExecute(r)
 }
 
@@ -601,13 +641,13 @@ func (a *FrameworkAPIService) GetFrameworkDoctypesByName(ctx context.Context, na
 
 // Execute executes the request
 //
-//	@return DocType
-func (a *FrameworkAPIService) GetFrameworkDoctypesByNameExecute(r FrameworkAPIGetFrameworkDoctypesByNameRequest) (*DocType, *http.Response, error) {
+//	@return FrameworkDocType
+func (a *FrameworkAPIService) GetFrameworkDoctypesByNameExecute(r FrameworkAPIGetFrameworkDoctypesByNameRequest) (*FrameworkDocType, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DocType
+		localVarReturnValue *FrameworkDocType
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.GetFrameworkDoctypesByName")
@@ -632,7 +672,7 @@ func (a *FrameworkAPIService) GetFrameworkDoctypesByNameExecute(r FrameworkAPIGe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -661,6 +701,14 @@ func (a *FrameworkAPIService) GetFrameworkDoctypesByNameExecute(r FrameworkAPIGe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -681,7 +729,7 @@ type FrameworkAPIGetFrameworkModulesRequest struct {
 	ApiService *FrameworkAPIService
 }
 
-func (r FrameworkAPIGetFrameworkModulesRequest) Execute() (*ModuleList, *http.Response, error) {
+func (r FrameworkAPIGetFrameworkModulesRequest) Execute() (*FrameworkModuleList, *http.Response, error) {
 	return r.ApiService.GetFrameworkModulesExecute(r)
 }
 
@@ -704,13 +752,13 @@ func (a *FrameworkAPIService) GetFrameworkModules(ctx context.Context) Framework
 
 // Execute executes the request
 //
-//	@return ModuleList
-func (a *FrameworkAPIService) GetFrameworkModulesExecute(r FrameworkAPIGetFrameworkModulesRequest) (*ModuleList, *http.Response, error) {
+//	@return FrameworkModuleList
+func (a *FrameworkAPIService) GetFrameworkModulesExecute(r FrameworkAPIGetFrameworkModulesRequest) (*FrameworkModuleList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ModuleList
+		localVarReturnValue *FrameworkModuleList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.GetFrameworkModules")
@@ -734,7 +782,7 @@ func (a *FrameworkAPIService) GetFrameworkModulesExecute(r FrameworkAPIGetFramew
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -763,6 +811,14 @@ func (a *FrameworkAPIService) GetFrameworkModulesExecute(r FrameworkAPIGetFramew
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -784,7 +840,7 @@ type FrameworkAPIGetFrameworkModulesByModuleRequest struct {
 	module     string
 }
 
-func (r FrameworkAPIGetFrameworkModulesByModuleRequest) Execute() (*ModuleState, *http.Response, error) {
+func (r FrameworkAPIGetFrameworkModulesByModuleRequest) Execute() (*FrameworkModuleState, *http.Response, error) {
 	return r.ApiService.GetFrameworkModulesByModuleExecute(r)
 }
 
@@ -809,13 +865,13 @@ func (a *FrameworkAPIService) GetFrameworkModulesByModule(ctx context.Context, m
 
 // Execute executes the request
 //
-//	@return ModuleState
-func (a *FrameworkAPIService) GetFrameworkModulesByModuleExecute(r FrameworkAPIGetFrameworkModulesByModuleRequest) (*ModuleState, *http.Response, error) {
+//	@return FrameworkModuleState
+func (a *FrameworkAPIService) GetFrameworkModulesByModuleExecute(r FrameworkAPIGetFrameworkModulesByModuleRequest) (*FrameworkModuleState, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ModuleState
+		localVarReturnValue *FrameworkModuleState
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.GetFrameworkModulesByModule")
@@ -840,7 +896,7 @@ func (a *FrameworkAPIService) GetFrameworkModulesByModuleExecute(r FrameworkAPIG
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -869,6 +925,14 @@ func (a *FrameworkAPIService) GetFrameworkModulesByModuleExecute(r FrameworkAPIG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -889,7 +953,7 @@ type FrameworkAPIGetFrameworkSummaryRequest struct {
 	ApiService *FrameworkAPIService
 }
 
-func (r FrameworkAPIGetFrameworkSummaryRequest) Execute() (*SummaryView, *http.Response, error) {
+func (r FrameworkAPIGetFrameworkSummaryRequest) Execute() (*FrameworkSummaryView, *http.Response, error) {
 	return r.ApiService.GetFrameworkSummaryExecute(r)
 }
 
@@ -911,13 +975,13 @@ func (a *FrameworkAPIService) GetFrameworkSummary(ctx context.Context) Framework
 
 // Execute executes the request
 //
-//	@return SummaryView
-func (a *FrameworkAPIService) GetFrameworkSummaryExecute(r FrameworkAPIGetFrameworkSummaryRequest) (*SummaryView, *http.Response, error) {
+//	@return FrameworkSummaryView
+func (a *FrameworkAPIService) GetFrameworkSummaryExecute(r FrameworkAPIGetFrameworkSummaryRequest) (*FrameworkSummaryView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SummaryView
+		localVarReturnValue *FrameworkSummaryView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.GetFrameworkSummary")
@@ -941,7 +1005,7 @@ func (a *FrameworkAPIService) GetFrameworkSummaryExecute(r FrameworkAPIGetFramew
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -970,6 +1034,14 @@ func (a *FrameworkAPIService) GetFrameworkSummaryExecute(r FrameworkAPIGetFramew
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1092,7 +1164,7 @@ type FrameworkAPIPostFrameworkByDoctypeByNameCancelRequest struct {
 	name       string
 }
 
-func (r FrameworkAPIPostFrameworkByDoctypeByNameCancelRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r FrameworkAPIPostFrameworkByDoctypeByNameCancelRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.PostFrameworkByDoctypeByNameCancelExecute(r)
 }
 
@@ -1119,13 +1191,13 @@ func (a *FrameworkAPIService) PostFrameworkByDoctypeByNameCancel(ctx context.Con
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *FrameworkAPIService) PostFrameworkByDoctypeByNameCancelExecute(r FrameworkAPIPostFrameworkByDoctypeByNameCancelRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *FrameworkAPIService) PostFrameworkByDoctypeByNameCancelExecute(r FrameworkAPIPostFrameworkByDoctypeByNameCancelRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.PostFrameworkByDoctypeByNameCancel")
@@ -1151,7 +1223,7 @@ func (a *FrameworkAPIService) PostFrameworkByDoctypeByNameCancelExecute(r Framew
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1180,6 +1252,14 @@ func (a *FrameworkAPIService) PostFrameworkByDoctypeByNameCancelExecute(r Framew
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1202,7 +1282,7 @@ type FrameworkAPIPostFrameworkByDoctypeByNameSubmitRequest struct {
 	name       string
 }
 
-func (r FrameworkAPIPostFrameworkByDoctypeByNameSubmitRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r FrameworkAPIPostFrameworkByDoctypeByNameSubmitRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.PostFrameworkByDoctypeByNameSubmitExecute(r)
 }
 
@@ -1230,13 +1310,13 @@ func (a *FrameworkAPIService) PostFrameworkByDoctypeByNameSubmit(ctx context.Con
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *FrameworkAPIService) PostFrameworkByDoctypeByNameSubmitExecute(r FrameworkAPIPostFrameworkByDoctypeByNameSubmitRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *FrameworkAPIService) PostFrameworkByDoctypeByNameSubmitExecute(r FrameworkAPIPostFrameworkByDoctypeByNameSubmitRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.PostFrameworkByDoctypeByNameSubmit")
@@ -1262,7 +1342,7 @@ func (a *FrameworkAPIService) PostFrameworkByDoctypeByNameSubmitExecute(r Framew
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1291,6 +1371,14 @@ func (a *FrameworkAPIService) PostFrameworkByDoctypeByNameSubmitExecute(r Framew
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1307,17 +1395,17 @@ func (a *FrameworkAPIService) PostFrameworkByDoctypeByNameSubmitExecute(r Framew
 }
 
 type FrameworkAPIPostFrameworkDoctypesRequest struct {
-	ctx        context.Context
-	ApiService *FrameworkAPIService
-	docType    *DocType
+	ctx              context.Context
+	ApiService       *FrameworkAPIService
+	frameworkDocType *FrameworkDocType
 }
 
-func (r FrameworkAPIPostFrameworkDoctypesRequest) DocType(docType DocType) FrameworkAPIPostFrameworkDoctypesRequest {
-	r.docType = &docType
+func (r FrameworkAPIPostFrameworkDoctypesRequest) FrameworkDocType(frameworkDocType FrameworkDocType) FrameworkAPIPostFrameworkDoctypesRequest {
+	r.frameworkDocType = &frameworkDocType
 	return r
 }
 
-func (r FrameworkAPIPostFrameworkDoctypesRequest) Execute() (*DocType, *http.Response, error) {
+func (r FrameworkAPIPostFrameworkDoctypesRequest) Execute() (*FrameworkDocType, *http.Response, error) {
 	return r.ApiService.PostFrameworkDoctypesExecute(r)
 }
 
@@ -1342,13 +1430,13 @@ func (a *FrameworkAPIService) PostFrameworkDoctypes(ctx context.Context) Framewo
 
 // Execute executes the request
 //
-//	@return DocType
-func (a *FrameworkAPIService) PostFrameworkDoctypesExecute(r FrameworkAPIPostFrameworkDoctypesRequest) (*DocType, *http.Response, error) {
+//	@return FrameworkDocType
+func (a *FrameworkAPIService) PostFrameworkDoctypesExecute(r FrameworkAPIPostFrameworkDoctypesRequest) (*FrameworkDocType, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DocType
+		localVarReturnValue *FrameworkDocType
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.PostFrameworkDoctypes")
@@ -1361,8 +1449,8 @@ func (a *FrameworkAPIService) PostFrameworkDoctypesExecute(r FrameworkAPIPostFra
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.docType == nil {
-		return localVarReturnValue, nil, reportError("docType is required and must be specified")
+	if r.frameworkDocType == nil {
+		return localVarReturnValue, nil, reportError("frameworkDocType is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1375,7 +1463,7 @@ func (a *FrameworkAPIService) PostFrameworkDoctypesExecute(r FrameworkAPIPostFra
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1383,7 +1471,7 @@ func (a *FrameworkAPIService) PostFrameworkDoctypesExecute(r FrameworkAPIPostFra
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.docType
+	localVarPostBody = r.frameworkDocType
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1406,6 +1494,14 @@ func (a *FrameworkAPIService) PostFrameworkDoctypesExecute(r FrameworkAPIPostFra
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1427,7 +1523,7 @@ type FrameworkAPIPostFrameworkModulesByModuleInstallRequest struct {
 	module     string
 }
 
-func (r FrameworkAPIPostFrameworkModulesByModuleInstallRequest) Execute() (*Install, *http.Response, error) {
+func (r FrameworkAPIPostFrameworkModulesByModuleInstallRequest) Execute() (*FrameworkInstall, *http.Response, error) {
 	return r.ApiService.PostFrameworkModulesByModuleInstallExecute(r)
 }
 
@@ -1453,13 +1549,13 @@ func (a *FrameworkAPIService) PostFrameworkModulesByModuleInstall(ctx context.Co
 
 // Execute executes the request
 //
-//	@return Install
-func (a *FrameworkAPIService) PostFrameworkModulesByModuleInstallExecute(r FrameworkAPIPostFrameworkModulesByModuleInstallRequest) (*Install, *http.Response, error) {
+//	@return FrameworkInstall
+func (a *FrameworkAPIService) PostFrameworkModulesByModuleInstallExecute(r FrameworkAPIPostFrameworkModulesByModuleInstallRequest) (*FrameworkInstall, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Install
+		localVarReturnValue *FrameworkInstall
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.PostFrameworkModulesByModuleInstall")
@@ -1484,7 +1580,7 @@ func (a *FrameworkAPIService) PostFrameworkModulesByModuleInstallExecute(r Frame
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1513,6 +1609,14 @@ func (a *FrameworkAPIService) PostFrameworkModulesByModuleInstallExecute(r Frame
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1631,18 +1735,18 @@ func (a *FrameworkAPIService) PutFrameworkByDoctypeByNameExecute(r FrameworkAPIP
 }
 
 type FrameworkAPIPutFrameworkDoctypesByNameRequest struct {
-	ctx        context.Context
-	ApiService *FrameworkAPIService
-	name       string
-	docType    *DocType
+	ctx              context.Context
+	ApiService       *FrameworkAPIService
+	name             string
+	frameworkDocType *FrameworkDocType
 }
 
-func (r FrameworkAPIPutFrameworkDoctypesByNameRequest) DocType(docType DocType) FrameworkAPIPutFrameworkDoctypesByNameRequest {
-	r.docType = &docType
+func (r FrameworkAPIPutFrameworkDoctypesByNameRequest) FrameworkDocType(frameworkDocType FrameworkDocType) FrameworkAPIPutFrameworkDoctypesByNameRequest {
+	r.frameworkDocType = &frameworkDocType
 	return r
 }
 
-func (r FrameworkAPIPutFrameworkDoctypesByNameRequest) Execute() (*DocType, *http.Response, error) {
+func (r FrameworkAPIPutFrameworkDoctypesByNameRequest) Execute() (*FrameworkDocType, *http.Response, error) {
 	return r.ApiService.PutFrameworkDoctypesByNameExecute(r)
 }
 
@@ -1668,13 +1772,13 @@ func (a *FrameworkAPIService) PutFrameworkDoctypesByName(ctx context.Context, na
 
 // Execute executes the request
 //
-//	@return DocType
-func (a *FrameworkAPIService) PutFrameworkDoctypesByNameExecute(r FrameworkAPIPutFrameworkDoctypesByNameRequest) (*DocType, *http.Response, error) {
+//	@return FrameworkDocType
+func (a *FrameworkAPIService) PutFrameworkDoctypesByNameExecute(r FrameworkAPIPutFrameworkDoctypesByNameRequest) (*FrameworkDocType, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DocType
+		localVarReturnValue *FrameworkDocType
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FrameworkAPIService.PutFrameworkDoctypesByName")
@@ -1688,8 +1792,8 @@ func (a *FrameworkAPIService) PutFrameworkDoctypesByNameExecute(r FrameworkAPIPu
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.docType == nil {
-		return localVarReturnValue, nil, reportError("docType is required and must be specified")
+	if r.frameworkDocType == nil {
+		return localVarReturnValue, nil, reportError("frameworkDocType is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1702,7 +1806,7 @@ func (a *FrameworkAPIService) PutFrameworkDoctypesByNameExecute(r FrameworkAPIPu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1710,7 +1814,7 @@ func (a *FrameworkAPIService) PutFrameworkDoctypesByNameExecute(r FrameworkAPIPu
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.docType
+	localVarPostBody = r.frameworkDocType
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1733,6 +1837,14 @@ func (a *FrameworkAPIService) PutFrameworkDoctypesByNameExecute(r FrameworkAPIPu
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

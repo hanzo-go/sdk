@@ -22,8 +22,11 @@ type O11yO11yRetentionMatch struct {
 	// Key is the label to test.
 	Key *string `json:"key,omitempty"`
 	// Values are the label values the rule matches.
-	Values []string `json:"values,omitempty"`
+	Values               []string `json:"values,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yRetentionMatch O11yO11yRetentionMatch
 
 // NewO11yO11yRetentionMatch instantiates a new O11yO11yRetentionMatch object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yRetentionMatch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Values) {
 		toSerialize["values"] = o.Values
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yRetentionMatch) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yRetentionMatch := _O11yO11yRetentionMatch{}
+
+	err = json.Unmarshal(data, &varO11yO11yRetentionMatch)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yRetentionMatch(varO11yO11yRetentionMatch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "values")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yRetentionMatch struct {

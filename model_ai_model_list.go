@@ -19,10 +19,13 @@ var _ MappedNullable = &AiModelList{}
 
 // AiModelList struct for AiModelList
 type AiModelList struct {
-	Data   []AiModelInfo `json:"data,omitempty"`
-	Models []AiModelInfo `json:"models,omitempty"`
-	Object *string       `json:"object,omitempty"`
+	Data                 []AiModelInfo `json:"data,omitempty"`
+	Models               []AiModelInfo `json:"models,omitempty"`
+	Object               *string       `json:"object,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiModelList AiModelList
 
 // NewAiModelList instantiates a new AiModelList object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o AiModelList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Object) {
 		toSerialize["object"] = o.Object
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiModelList) UnmarshalJSON(data []byte) (err error) {
+	varAiModelList := _AiModelList{}
+
+	err = json.Unmarshal(data, &varAiModelList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiModelList(varAiModelList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "models")
+		delete(additionalProperties, "object")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiModelList struct {

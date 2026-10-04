@@ -108,7 +108,7 @@ func (a *LicensingAPIService) GetLicensingDownloadByReleaseExecute(r LicensingAP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -140,6 +140,14 @@ func (a *LicensingAPIService) GetLicensingDownloadByReleaseExecute(r LicensingAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -170,7 +178,7 @@ GetLicensingHealthz Health reports which signer this deployment mints with, and 
 Health reports which signer this deployment mints with, and in which env.
 
 It answers 200 whenever the process is up: there is nothing downstream to
-probe, since the KMS is reached only when a token is actually minted. Its
+probe, since KMS is read only when a token is actually minted. Its
 value is the `signer` field — `"signer":"local"` on a production host says
 that deployment is signing licenses with a development key, which is a
 misconfiguration worth paging on rather than a healthy 200.
@@ -217,7 +225,7 @@ func (a *LicensingAPIService) GetLicensingHealthzExecute(r LicensingAPIGetLicens
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -246,6 +254,14 @@ func (a *LicensingAPIService) GetLicensingHealthzExecute(r LicensingAPIGetLicens
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -278,9 +294,9 @@ Pubkey publishes the Ed25519 PUBLIC verification key, at both /pubkey and
 
 This is the only public-safe surface here and the reason the whole scheme
 works offline: the engine embeds or fetches this key once and then verifies
-every license itself, with no call home per launch. The private half never
-enters this process — it lives in the KMS — so nothing served here is a
-secret. `provider` names the KMS holding that half; `"local"` means a
+every license itself, with no call home per launch. The private half lives in
+KMS, so nothing served here is a secret. `provider` names where that half
+lives: `"kms"` is the production key every engine embeds; `"local"` is a
 development key, and a token signed by one is not a production credential.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -325,7 +341,7 @@ func (a *LicensingAPIService) GetLicensingJwksExecute(r LicensingAPIGetLicensing
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -354,6 +370,14 @@ func (a *LicensingAPIService) GetLicensingJwksExecute(r LicensingAPIGetLicensing
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -386,9 +410,9 @@ Pubkey publishes the Ed25519 PUBLIC verification key, at both /pubkey and
 
 This is the only public-safe surface here and the reason the whole scheme
 works offline: the engine embeds or fetches this key once and then verifies
-every license itself, with no call home per launch. The private half never
-enters this process — it lives in the KMS — so nothing served here is a
-secret. `provider` names the KMS holding that half; `"local"` means a
+every license itself, with no call home per launch. The private half lives in
+KMS, so nothing served here is a secret. `provider` names where that half
+lives: `"kms"` is the production key every engine embeds; `"local"` is a
 development key, and a token signed by one is not a production credential.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -433,7 +457,7 @@ func (a *LicensingAPIService) GetLicensingPubkeyExecute(r LicensingAPIGetLicensi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -462,6 +486,14 @@ func (a *LicensingAPIService) GetLicensingPubkeyExecute(r LicensingAPIGetLicensi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -538,7 +570,7 @@ func (a *LicensingAPIService) GetLicensingReleasesExecute(r LicensingAPIGetLicen
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -567,6 +599,14 @@ func (a *LicensingAPIService) GetLicensingReleasesExecute(r LicensingAPIGetLicen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -646,7 +686,7 @@ func (a *LicensingAPIService) GetLicensingReleasesByReleaseExecute(r LicensingAP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -675,6 +715,14 @@ func (a *LicensingAPIService) GetLicensingReleasesByReleaseExecute(r LicensingAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -763,7 +811,7 @@ func (a *LicensingAPIService) PostLicensingFingerprintExecute(r LicensingAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -794,6 +842,14 @@ func (a *LicensingAPIService) PostLicensingFingerprintExecute(r LicensingAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -832,8 +888,8 @@ for.
 
 The order is the whole security argument: the caller is an IAM-validated
 principal, commerce is then asked whether that principal's ORG holds an ACTIVE
-entitlement for the product, and only then is a token signed — by the KMS,
-never by key material in this process. A product the org does not own answers
+entitlement for the product, and only then is a token signed, with the
+production key KMS holds. A product the org does not own answers
 403 and no token. The signed features are the plan's features verbatim, so the
 engine enforces exactly what was bought, and the expiry is clamped to the
 entitlement's so a token cannot outlive the subscription that paid for it.
@@ -885,7 +941,7 @@ func (a *LicensingAPIService) PostLicensingIssueExecute(r LicensingAPIPostLicens
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -916,243 +972,14 @@ func (a *LicensingAPIService) PostLicensingIssueExecute(r LicensingAPIPostLicens
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type LicensingAPIPostLicensingReleasesRequest struct {
-	ctx              context.Context
-	ApiService       *LicensingAPIService
-	licensingRelease *LicensingRelease
-}
-
-func (r LicensingAPIPostLicensingReleasesRequest) LicensingRelease(licensingRelease LicensingRelease) LicensingAPIPostLicensingReleasesRequest {
-	r.licensingRelease = &licensingRelease
-	return r
-}
-
-func (r LicensingAPIPostLicensingReleasesRequest) Execute() (*LicensingRelease, *http.Response, error) {
-	return r.ApiService.PostLicensingReleasesExecute(r)
-}
-
-/*
-PostLicensingReleases Publishes a signed binary release, answering 201 Created.
-
-Publishes a signed binary release, answering 201 Created.
-
-Outside dev a release MUST carry its cosign signature: this is how a binary
-becomes downloadable, so accepting an unsigned one would let an unverifiable
-artifact into the distribution path. Org-admin only — publishing is an
-operator action, not something a licensee does.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return LicensingAPIPostLicensingReleasesRequest
-*/
-func (a *LicensingAPIService) PostLicensingReleases(ctx context.Context) LicensingAPIPostLicensingReleasesRequest {
-	return LicensingAPIPostLicensingReleasesRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return LicensingRelease
-func (a *LicensingAPIService) PostLicensingReleasesExecute(r LicensingAPIPostLicensingReleasesRequest) (*LicensingRelease, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *LicensingRelease
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LicensingAPIService.PostLicensingReleases")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/licensing/releases"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.licensingRelease == nil {
-		return localVarReturnValue, nil, reportError("licensingRelease is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.licensingRelease
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type LicensingAPIPostLicensingRevokeRequest struct {
-	ctx                    context.Context
-	ApiService             *LicensingAPIService
-	licensingRevokeRequest *LicensingRevokeRequest
-}
-
-func (r LicensingAPIPostLicensingRevokeRequest) LicensingRevokeRequest(licensingRevokeRequest LicensingRevokeRequest) LicensingAPIPostLicensingRevokeRequest {
-	r.licensingRevokeRequest = &licensingRevokeRequest
-	return r
-}
-
-func (r LicensingAPIPostLicensingRevokeRequest) Execute() (*LicensingRevokeResponse, *http.Response, error) {
-	return r.ApiService.PostLicensingRevokeExecute(r)
-}
-
-/*
-PostLicensingRevoke Revoke turns off tokens that have already been issued.
-
-Revoke turns off tokens that have already been issued.
-
-A signed token cannot be un-signed, so revocation is the only way to withdraw
-one: this appends an entry that verify and the license-gated download both
-consult. It is a POST rather than a DELETE because it APPENDS a durable,
-attributed record — the entry names the admin who recorded it and when —
-rather than removing one.
-
-Org-admin only. Scope it as narrowly as the incident allows: "nonce" for one
-leaked token, "holder" for one compromised account, "fingerprint" for one
-stolen machine, "release" when a whole build is bad.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return LicensingAPIPostLicensingRevokeRequest
-*/
-func (a *LicensingAPIService) PostLicensingRevoke(ctx context.Context) LicensingAPIPostLicensingRevokeRequest {
-	return LicensingAPIPostLicensingRevokeRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return LicensingRevokeResponse
-func (a *LicensingAPIService) PostLicensingRevokeExecute(r LicensingAPIPostLicensingRevokeRequest) (*LicensingRevokeResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *LicensingRevokeResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LicensingAPIService.PostLicensingRevoke")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/licensing/revoke"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.licensingRevokeRequest == nil {
-		return localVarReturnValue, nil, reportError("licensingRevokeRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.licensingRevokeRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1242,7 +1069,7 @@ func (a *LicensingAPIService) PostLicensingVerifyExecute(r LicensingAPIPostLicen
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1273,6 +1100,14 @@ func (a *LicensingAPIService) PostLicensingVerifyExecute(r LicensingAPIPostLicen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

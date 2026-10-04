@@ -19,17 +19,20 @@ var _ MappedNullable = &AiHistoryRetrain{}
 
 // AiHistoryRetrain struct for AiHistoryRetrain
 type AiHistoryRetrain struct {
-	Date            *string  `json:"date,omitempty"`
-	Events          *int32   `json:"events,omitempty"`
-	GateBase        *float32 `json:"gate_base,omitempty"`
-	GateMetric      *string  `json:"gate_metric,omitempty"`
-	GatePass        *bool    `json:"gate_pass,omitempty"`
-	GateValue       *float32 `json:"gate_value,omitempty"`
-	HoldoutAccuracy *float32 `json:"holdout_accuracy,omitempty"`
-	Published       *bool    `json:"published,omitempty"`
-	TrainedTime     *string  `json:"trained_time,omitempty"`
-	Version         *string  `json:"version,omitempty"`
+	Date                 *string  `json:"date,omitempty"`
+	Events               *int32   `json:"events,omitempty"`
+	GateBase             *float32 `json:"gate_base,omitempty"`
+	GateMetric           *string  `json:"gate_metric,omitempty"`
+	GatePass             *bool    `json:"gate_pass,omitempty"`
+	GateValue            *float32 `json:"gate_value,omitempty"`
+	HoldoutAccuracy      *float32 `json:"holdout_accuracy,omitempty"`
+	Published            *bool    `json:"published,omitempty"`
+	TrainedTime          *string  `json:"trained_time,omitempty"`
+	Version              *string  `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiHistoryRetrain AiHistoryRetrain
 
 // NewAiHistoryRetrain instantiates a new AiHistoryRetrain object
 // This constructor will assign default values to properties that have it defined,
@@ -408,7 +411,42 @@ func (o AiHistoryRetrain) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiHistoryRetrain) UnmarshalJSON(data []byte) (err error) {
+	varAiHistoryRetrain := _AiHistoryRetrain{}
+
+	err = json.Unmarshal(data, &varAiHistoryRetrain)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiHistoryRetrain(varAiHistoryRetrain)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "gate_base")
+		delete(additionalProperties, "gate_metric")
+		delete(additionalProperties, "gate_pass")
+		delete(additionalProperties, "gate_value")
+		delete(additionalProperties, "holdout_accuracy")
+		delete(additionalProperties, "published")
+		delete(additionalProperties, "trained_time")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiHistoryRetrain struct {

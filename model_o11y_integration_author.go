@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yIntegrationAuthor{}
 
 // O11yIntegrationAuthor struct for O11yIntegrationAuthor
 type O11yIntegrationAuthor struct {
-	Email    *string `json:"email,omitempty"`
-	Homepage *string `json:"homepage,omitempty"`
-	Name     *string `json:"name,omitempty"`
+	Email                *string `json:"email,omitempty"`
+	Homepage             *string `json:"homepage,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yIntegrationAuthor O11yIntegrationAuthor
 
 // NewO11yIntegrationAuthor instantiates a new O11yIntegrationAuthor object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yIntegrationAuthor) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yIntegrationAuthor) UnmarshalJSON(data []byte) (err error) {
+	varO11yIntegrationAuthor := _O11yIntegrationAuthor{}
+
+	err = json.Unmarshal(data, &varO11yIntegrationAuthor)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yIntegrationAuthor(varO11yIntegrationAuthor)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "homepage")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yIntegrationAuthor struct {

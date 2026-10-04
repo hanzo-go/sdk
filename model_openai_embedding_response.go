@@ -19,11 +19,14 @@ var _ MappedNullable = &OpenaiEmbeddingResponse{}
 
 // OpenaiEmbeddingResponse struct for OpenaiEmbeddingResponse
 type OpenaiEmbeddingResponse struct {
-	Data   []OpenaiEmbedding `json:"data,omitempty"`
-	Model  *string           `json:"model,omitempty"`
-	Object *string           `json:"object,omitempty"`
-	Usage  *OpenaiUsage      `json:"usage,omitempty"`
+	Data                 []OpenaiEmbedding `json:"data,omitempty"`
+	Model                *string           `json:"model,omitempty"`
+	Object               *string           `json:"object,omitempty"`
+	Usage                *OpenaiUsage      `json:"usage,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiEmbeddingResponse OpenaiEmbeddingResponse
 
 // NewOpenaiEmbeddingResponse instantiates a new OpenaiEmbeddingResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o OpenaiEmbeddingResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Usage) {
 		toSerialize["usage"] = o.Usage
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiEmbeddingResponse) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiEmbeddingResponse := _OpenaiEmbeddingResponse{}
+
+	err = json.Unmarshal(data, &varOpenaiEmbeddingResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiEmbeddingResponse(varOpenaiEmbeddingResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "object")
+		delete(additionalProperties, "usage")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiEmbeddingResponse struct {

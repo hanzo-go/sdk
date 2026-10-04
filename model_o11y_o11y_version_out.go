@@ -24,8 +24,11 @@ type O11yO11yVersionOut struct {
 	// SetupCompleted says whether the first user has been created.
 	SetupCompleted *bool `json:"setupCompleted,omitempty"`
 	// Version is the build version.
-	Version *string `json:"version,omitempty"`
+	Version              *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yVersionOut O11yO11yVersionOut
 
 // NewO11yO11yVersionOut instantiates a new O11yO11yVersionOut object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yVersionOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yVersionOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yVersionOut := _O11yO11yVersionOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yVersionOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yVersionOut(varO11yO11yVersionOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ee")
+		delete(additionalProperties, "setupCompleted")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yVersionOut struct {

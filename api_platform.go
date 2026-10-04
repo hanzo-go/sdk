@@ -22,6 +22,153 @@ import (
 // PlatformAPIService PlatformAPI service
 type PlatformAPIService service
 
+type PlatformAPIDeletePlatformProjectsByProjectRequest struct {
+	ctx        context.Context
+	ApiService *PlatformAPIService
+	project    string
+	into       *string
+	org        *string
+	mode       *string
+}
+
+// Into is the existing project its apps move into. Required: an app always belongs to exactly one project.
+func (r PlatformAPIDeletePlatformProjectsByProjectRequest) Into(into string) PlatformAPIDeletePlatformProjectsByProjectRequest {
+	r.into = &into
+	return r
+}
+
+// Org names the projects&#39; owner, defaulting to the caller&#39;s own scope.
+func (r PlatformAPIDeletePlatformProjectsByProjectRequest) Org(org string) PlatformAPIDeletePlatformProjectsByProjectRequest {
+	r.org = &org
+	return r
+}
+
+// Mode is &#x60;branch&#x60; (the default) or &#x60;commit&#x60;.
+func (r PlatformAPIDeletePlatformProjectsByProjectRequest) Mode(mode string) PlatformAPIDeletePlatformProjectsByProjectRequest {
+	r.mode = &mode
+	return r
+}
+
+func (r PlatformAPIDeletePlatformProjectsByProjectRequest) Execute() (*PlatformProjectWrite, *http.Response, error) {
+	return r.ApiService.DeletePlatformProjectsByProjectExecute(r)
+}
+
+/*
+DeletePlatformProjectsByProject Folds a project into another.
+
+Folds a project into another.
+
+An app always belongs to exactly one project, so a project ends by moving its
+apps: `into` names the existing project they move to, and the project is gone
+once no file names it. One commit to `hanzoai/universe`; `mode` as for create.
+404 when `into` is not a project.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param project Project is the project to delete, from the path.
+	@return PlatformAPIDeletePlatformProjectsByProjectRequest
+*/
+func (a *PlatformAPIService) DeletePlatformProjectsByProject(ctx context.Context, project string) PlatformAPIDeletePlatformProjectsByProjectRequest {
+	return PlatformAPIDeletePlatformProjectsByProjectRequest{
+		ApiService: a,
+		ctx:        ctx,
+		project:    project,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformProjectWrite
+func (a *PlatformAPIService) DeletePlatformProjectsByProjectExecute(r PlatformAPIDeletePlatformProjectsByProjectRequest) (*PlatformProjectWrite, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformProjectWrite
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.DeletePlatformProjectsByProject")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/projects/{project}"
+	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.into != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "into", r.into, "form", "")
+	}
+	if r.org != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "org", r.org, "form", "")
+	}
+	if r.mode != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "mode", r.mode, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type PlatformAPIDeletePlatformProjectsByProjectAppsByAppRequest struct {
 	ctx        context.Context
 	ApiService *PlatformAPIService
@@ -45,7 +192,7 @@ An app this org and project do not have is 404, never a silent success.
 Teardown is best-effort by design: a cluster that refuses or is unreachable does
 not block the delete, so the record cannot be left orphaned behind a broken
 cluster; the failure is logged for operators and the orphan reaper reconciles
-it. Requires a validated principal; 403 without one.
+it. Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param project Project is the project the application lives under, from the path.
@@ -92,7 +239,7 @@ func (a *PlatformAPIService) DeletePlatformProjectsByProjectAppsByAppExecute(r P
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -121,6 +268,14 @@ func (a *PlatformAPIService) DeletePlatformProjectsByProjectAppsByAppExecute(r P
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -149,7 +304,7 @@ the name becomes claimable again — by this org or any other. Answers 204.
 
 The default host is permanent and cannot be removed: that is 400, not 404. A host
 that is neither attached nor claimed here is 404. Requires a validated principal;
-403 without one.
+401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param project Project is the project the application lives under, from the path.
@@ -199,7 +354,7 @@ func (a *PlatformAPIService) DeletePlatformProjectsByProjectAppsByAppDomainsByHo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -228,75 +383,74 @@ func (a *PlatformAPIService) DeletePlatformProjectsByProjectAppsByAppDomainsByHo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
 	return localVarHTTPResponse, nil
 }
 
-type PlatformAPIGetPlatformAppsRequest struct {
+type PlatformAPIGetBuildByIdRequest struct {
 	ctx        context.Context
 	ApiService *PlatformAPIService
-	org        *string
+	id         string
 }
 
-// Org names the organisation whose declarations to read, defaulting to the caller&#39;s own. Only a SuperAdmin may name one that is not theirs; anyone else naming a foreign org is refused, so this widens nothing by itself.
-func (r PlatformAPIGetPlatformAppsRequest) Org(org string) PlatformAPIGetPlatformAppsRequest {
-	r.org = &org
-	return r
-}
-
-func (r PlatformAPIGetPlatformAppsRequest) Execute() (*DeclaredResp, *http.Response, error) {
-	return r.ApiService.GetPlatformAppsExecute(r)
+func (r PlatformAPIGetBuildByIdRequest) Execute() (*PlatformRunnerBuildResp, *http.Response, error) {
+	return r.ApiService.GetBuildByIdExecute(r)
 }
 
 /*
-GetPlatformApps Answers what this organisation has declared, joined with what the delivery plane has done about it.
+GetBuildById Answers one build: its status, and for a failed build the reason.
 
-Answers what this organisation has declared, joined with what
-the delivery plane has done about it.
+Answers one build: its status, and for a failed build the reason.
 
-The join is best-effort BY DESIGN and says so when it is missing: the
-declarations ARE the answer to "what have I deployed", so refusing the whole
-board because the cluster is unreadable would lose the half that is readable.
-What must never happen is a silent null — an unreadable plane is reported as
-`cd.unavailable` carrying the reason, never as an app with no reconciliation.
+A build belongs to the organization its credential names, so it is read by the
+credential that could have asked for it, and another organization's build is
+404 rather than 403: whether an id exists is not said to anyone it is not for.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return PlatformAPIGetPlatformAppsRequest
+	@param id ID is the build's id, from the path.
+	@return PlatformAPIGetBuildByIdRequest
 */
-func (a *PlatformAPIService) GetPlatformApps(ctx context.Context) PlatformAPIGetPlatformAppsRequest {
-	return PlatformAPIGetPlatformAppsRequest{
+func (a *PlatformAPIService) GetBuildById(ctx context.Context, id string) PlatformAPIGetBuildByIdRequest {
+	return PlatformAPIGetBuildByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
 //
-//	@return DeclaredResp
-func (a *PlatformAPIService) GetPlatformAppsExecute(r PlatformAPIGetPlatformAppsRequest) (*DeclaredResp, *http.Response, error) {
+//	@return PlatformRunnerBuildResp
+func (a *PlatformAPIService) GetBuildByIdExecute(r PlatformAPIGetBuildByIdRequest) (*PlatformRunnerBuildResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeclaredResp
+		localVarReturnValue *PlatformRunnerBuildResp
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformApps")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetBuildById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/platform/apps"
+	localVarPath := localBasePath + "/v1/build/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.org != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "org", r.org, "form", "")
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -307,7 +461,7 @@ func (a *PlatformAPIService) GetPlatformAppsExecute(r PlatformAPIGetPlatformApps
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -336,6 +490,140 @@ func (a *PlatformAPIService) GetPlatformAppsExecute(r PlatformAPIGetPlatformApps
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIGetPlatformAppsRequest struct {
+	ctx        context.Context
+	ApiService *PlatformAPIService
+	org        *string
+}
+
+// Org names the organisation whose declarations to read, defaulting to the caller&#39;s own. Only a SuperAdmin may name one that is not theirs; anyone else naming a foreign org is refused, so this widens nothing by itself.
+func (r PlatformAPIGetPlatformAppsRequest) Org(org string) PlatformAPIGetPlatformAppsRequest {
+	r.org = &org
+	return r
+}
+
+func (r PlatformAPIGetPlatformAppsRequest) Execute() (*PlatformDeclaredResp, *http.Response, error) {
+	return r.ApiService.GetPlatformAppsExecute(r)
+}
+
+/*
+GetPlatformApps Answers what this organisation has declared, joined with what the delivery plane has done about it.
+
+Answers what this organisation has declared, joined with what
+the delivery plane has done about it.
+
+The join is best-effort BY DESIGN and says so when it is missing: the
+declarations ARE the answer to "what have I deployed", so refusing the whole
+board because the cluster is unreadable would lose the half that is readable.
+What must never happen is a silent null — an unreadable plane is reported as
+`cd.unavailable` carrying the reason, never as an app with no reconciliation,
+and a values file that does not parse is listed in `unreadable`, never dropped.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return PlatformAPIGetPlatformAppsRequest
+*/
+func (a *PlatformAPIService) GetPlatformApps(ctx context.Context) PlatformAPIGetPlatformAppsRequest {
+	return PlatformAPIGetPlatformAppsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformDeclaredResp
+func (a *PlatformAPIService) GetPlatformAppsExecute(r PlatformAPIGetPlatformAppsRequest) (*PlatformDeclaredResp, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformDeclaredResp
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformApps")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/apps"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.org != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "org", r.org, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -364,7 +652,7 @@ func (r PlatformAPIGetPlatformAppsByAppRequest) Org(org string) PlatformAPIGetPl
 	return r
 }
 
-func (r PlatformAPIGetPlatformAppsByAppRequest) Execute() (*Declaration, *http.Response, error) {
+func (r PlatformAPIGetPlatformAppsByAppRequest) Execute() (*PlatformDeclaration, *http.Response, error) {
 	return r.ApiService.GetPlatformAppsByAppExecute(r)
 }
 
@@ -388,13 +676,13 @@ func (a *PlatformAPIService) GetPlatformAppsByApp(ctx context.Context, app strin
 
 // Execute executes the request
 //
-//	@return Declaration
-func (a *PlatformAPIService) GetPlatformAppsByAppExecute(r PlatformAPIGetPlatformAppsByAppRequest) (*Declaration, *http.Response, error) {
+//	@return PlatformDeclaration
+func (a *PlatformAPIService) GetPlatformAppsByAppExecute(r PlatformAPIGetPlatformAppsByAppRequest) (*PlatformDeclaration, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Declaration
+		localVarReturnValue *PlatformDeclaration
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformAppsByApp")
@@ -422,7 +710,7 @@ func (a *PlatformAPIService) GetPlatformAppsByAppExecute(r PlatformAPIGetPlatfor
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -451,6 +739,14 @@ func (a *PlatformAPIService) GetPlatformAppsByAppExecute(r PlatformAPIGetPlatfor
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -479,7 +775,7 @@ func (r PlatformAPIGetPlatformAppsByAppCdRequest) Org(org string) PlatformAPIGet
 	return r
 }
 
-func (r PlatformAPIGetPlatformAppsByAppCdRequest) Execute() (*CDApp, *http.Response, error) {
+func (r PlatformAPIGetPlatformAppsByAppCdRequest) Execute() (*PlatformCDApp, *http.Response, error) {
 	return r.ApiService.GetPlatformAppsByAppCdExecute(r)
 }
 
@@ -503,13 +799,13 @@ func (a *PlatformAPIService) GetPlatformAppsByAppCd(ctx context.Context, app str
 
 // Execute executes the request
 //
-//	@return CDApp
-func (a *PlatformAPIService) GetPlatformAppsByAppCdExecute(r PlatformAPIGetPlatformAppsByAppCdRequest) (*CDApp, *http.Response, error) {
+//	@return PlatformCDApp
+func (a *PlatformAPIService) GetPlatformAppsByAppCdExecute(r PlatformAPIGetPlatformAppsByAppCdRequest) (*PlatformCDApp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CDApp
+		localVarReturnValue *PlatformCDApp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformAppsByAppCd")
@@ -537,7 +833,7 @@ func (a *PlatformAPIService) GetPlatformAppsByAppCdExecute(r PlatformAPIGetPlatf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -566,6 +862,14 @@ func (a *PlatformAPIService) GetPlatformAppsByAppCdExecute(r PlatformAPIGetPlatf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -586,7 +890,7 @@ type PlatformAPIGetPlatformBuildsRequest struct {
 	ApiService *PlatformAPIService
 }
 
-func (r PlatformAPIGetPlatformBuildsRequest) Execute() (*BuildBoard, *http.Response, error) {
+func (r PlatformAPIGetPlatformBuildsRequest) Execute() (*PlatformBuildBoard, *http.Response, error) {
 	return r.ApiService.GetPlatformBuildsExecute(r)
 }
 
@@ -597,10 +901,10 @@ Returns real build records for your org.
 
 It lists the org's BuildKit build records — the git build step behind a deploy —
 each with the repo it built, the short commit, its status, when it started and
-how long it took. These are real records or an honest empty list; a build appears
-here because one ran, never because a page needed a row. Builds are created only
-by /deploy and the push-to-deploy hook. Requires a validated principal; 403
-without one.
+how long it took, followed by its site builds: a project in the org's own code
+workspace built from its repository in a sandbox, newest first. These are real
+records or an honest empty list; a build appears here because one ran, never
+because a page needed a row. Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PlatformAPIGetPlatformBuildsRequest
@@ -614,13 +918,13 @@ func (a *PlatformAPIService) GetPlatformBuilds(ctx context.Context) PlatformAPIG
 
 // Execute executes the request
 //
-//	@return BuildBoard
-func (a *PlatformAPIService) GetPlatformBuildsExecute(r PlatformAPIGetPlatformBuildsRequest) (*BuildBoard, *http.Response, error) {
+//	@return PlatformBuildBoard
+func (a *PlatformAPIService) GetPlatformBuildsExecute(r PlatformAPIGetPlatformBuildsRequest) (*PlatformBuildBoard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BuildBoard
+		localVarReturnValue *PlatformBuildBoard
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformBuilds")
@@ -644,7 +948,7 @@ func (a *PlatformAPIService) GetPlatformBuildsExecute(r PlatformAPIGetPlatformBu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -673,6 +977,14 @@ func (a *PlatformAPIService) GetPlatformBuildsExecute(r PlatformAPIGetPlatformBu
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -693,7 +1005,7 @@ type PlatformAPIGetPlatformCdRequest struct {
 	ApiService *PlatformAPIService
 }
 
-func (r PlatformAPIGetPlatformCdRequest) Execute() (*CdResp, *http.Response, error) {
+func (r PlatformAPIGetPlatformCdRequest) Execute() (*PlatformCdResp, *http.Response, error) {
 	return r.ApiService.GetPlatformCdExecute(r)
 }
 
@@ -718,13 +1030,13 @@ func (a *PlatformAPIService) GetPlatformCd(ctx context.Context) PlatformAPIGetPl
 
 // Execute executes the request
 //
-//	@return CdResp
-func (a *PlatformAPIService) GetPlatformCdExecute(r PlatformAPIGetPlatformCdRequest) (*CdResp, *http.Response, error) {
+//	@return PlatformCdResp
+func (a *PlatformAPIService) GetPlatformCdExecute(r PlatformAPIGetPlatformCdRequest) (*PlatformCdResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CdResp
+		localVarReturnValue *PlatformCdResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformCd")
@@ -748,7 +1060,7 @@ func (a *PlatformAPIService) GetPlatformCdExecute(r PlatformAPIGetPlatformCdRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -777,6 +1089,14 @@ func (a *PlatformAPIService) GetPlatformCdExecute(r PlatformAPIGetPlatformCdRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -792,100 +1112,12 @@ func (a *PlatformAPIService) GetPlatformCdExecute(r PlatformAPIGetPlatformCdRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PlatformAPIGetPlatformCiRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-}
-
-func (r PlatformAPIGetPlatformCiRequest) Execute() (*http.Response, error) {
-	return r.ApiService.GetPlatformCiExecute(r)
-}
-
-/*
-GetPlatformCi Continuous integration (not wired)
-
-Answers 501. The forge's Actions runs need a Forgejo API client and this deployment has none; an empty run list would be indistinguishable from a forge with no runs.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return PlatformAPIGetPlatformCiRequest
-*/
-func (a *PlatformAPIService) GetPlatformCi(ctx context.Context) PlatformAPIGetPlatformCiRequest {
-	return PlatformAPIGetPlatformCiRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *PlatformAPIService) GetPlatformCiExecute(r PlatformAPIGetPlatformCiRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformCi")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/ci"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type PlatformAPIGetPlatformEnvironmentsRequest struct {
 	ctx        context.Context
 	ApiService *PlatformAPIService
 }
 
-func (r PlatformAPIGetPlatformEnvironmentsRequest) Execute() (*EnvironmentBoard, *http.Response, error) {
+func (r PlatformAPIGetPlatformEnvironmentsRequest) Execute() (*PlatformEnvironmentBoard, *http.Response, error) {
 	return r.ApiService.GetPlatformEnvironmentsExecute(r)
 }
 
@@ -900,7 +1132,7 @@ target it, a rolled-up status and when it last changed.
 
 An environment is DERIVED, not stored: there is nothing to create or delete here,
 and an environment exists exactly as long as an app points at it. Requires a
-validated principal; 403 without one.
+validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PlatformAPIGetPlatformEnvironmentsRequest
@@ -914,13 +1146,13 @@ func (a *PlatformAPIService) GetPlatformEnvironments(ctx context.Context) Platfo
 
 // Execute executes the request
 //
-//	@return EnvironmentBoard
-func (a *PlatformAPIService) GetPlatformEnvironmentsExecute(r PlatformAPIGetPlatformEnvironmentsRequest) (*EnvironmentBoard, *http.Response, error) {
+//	@return PlatformEnvironmentBoard
+func (a *PlatformAPIService) GetPlatformEnvironmentsExecute(r PlatformAPIGetPlatformEnvironmentsRequest) (*PlatformEnvironmentBoard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EnvironmentBoard
+		localVarReturnValue *PlatformEnvironmentBoard
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformEnvironments")
@@ -944,7 +1176,7 @@ func (a *PlatformAPIService) GetPlatformEnvironmentsExecute(r PlatformAPIGetPlat
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -973,6 +1205,14 @@ func (a *PlatformAPIService) GetPlatformEnvironmentsExecute(r PlatformAPIGetPlat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1021,7 +1261,7 @@ func (r PlatformAPIGetPlatformFleetRequest) Drift(drift string) PlatformAPIGetPl
 	return r
 }
 
-func (r PlatformAPIGetPlatformFleetRequest) Execute() (*DriftBoard, *http.Response, error) {
+func (r PlatformAPIGetPlatformFleetRequest) Execute() (*PlatformDriftBoard, *http.Response, error) {
 	return r.ApiService.GetPlatformFleetExecute(r)
 }
 
@@ -1062,13 +1302,13 @@ func (a *PlatformAPIService) GetPlatformFleet(ctx context.Context) PlatformAPIGe
 
 // Execute executes the request
 //
-//	@return DriftBoard
-func (a *PlatformAPIService) GetPlatformFleetExecute(r PlatformAPIGetPlatformFleetRequest) (*DriftBoard, *http.Response, error) {
+//	@return PlatformDriftBoard
+func (a *PlatformAPIService) GetPlatformFleetExecute(r PlatformAPIGetPlatformFleetRequest) (*PlatformDriftBoard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DriftBoard
+		localVarReturnValue *PlatformDriftBoard
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformFleet")
@@ -1104,7 +1344,7 @@ func (a *PlatformAPIService) GetPlatformFleetExecute(r PlatformAPIGetPlatformFle
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1133,6 +1373,14 @@ func (a *PlatformAPIService) GetPlatformFleetExecute(r PlatformAPIGetPlatformFle
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1161,7 +1409,7 @@ func (r PlatformAPIGetPlatformFleetByAppRequest) Env(env string) PlatformAPIGetP
 	return r
 }
 
-func (r PlatformAPIGetPlatformFleetByAppRequest) Execute() (*AppView, *http.Response, error) {
+func (r PlatformAPIGetPlatformFleetByAppRequest) Execute() (*PlatformAppView, *http.Response, error) {
 	return r.ApiService.GetPlatformFleetByAppExecute(r)
 }
 
@@ -1193,13 +1441,13 @@ func (a *PlatformAPIService) GetPlatformFleetByApp(ctx context.Context, app stri
 
 // Execute executes the request
 //
-//	@return AppView
-func (a *PlatformAPIService) GetPlatformFleetByAppExecute(r PlatformAPIGetPlatformFleetByAppRequest) (*AppView, *http.Response, error) {
+//	@return PlatformAppView
+func (a *PlatformAPIService) GetPlatformFleetByAppExecute(r PlatformAPIGetPlatformFleetByAppRequest) (*PlatformAppView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AppView
+		localVarReturnValue *PlatformAppView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformFleetByApp")
@@ -1227,7 +1475,7 @@ func (a *PlatformAPIService) GetPlatformFleetByAppExecute(r PlatformAPIGetPlatfo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1256,6 +1504,14 @@ func (a *PlatformAPIService) GetPlatformFleetByAppExecute(r PlatformAPIGetPlatfo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1276,7 +1532,7 @@ type PlatformAPIGetPlatformHealthRequest struct {
 	ApiService *PlatformAPIService
 }
 
-func (r PlatformAPIGetPlatformHealthRequest) Execute() (*Readiness, *http.Response, error) {
+func (r PlatformAPIGetPlatformHealthRequest) Execute() (*PlatformReadiness, *http.Response, error) {
 	return r.ApiService.GetPlatformHealthExecute(r)
 }
 
@@ -1308,13 +1564,13 @@ func (a *PlatformAPIService) GetPlatformHealth(ctx context.Context) PlatformAPIG
 
 // Execute executes the request
 //
-//	@return Readiness
-func (a *PlatformAPIService) GetPlatformHealthExecute(r PlatformAPIGetPlatformHealthRequest) (*Readiness, *http.Response, error) {
+//	@return PlatformReadiness
+func (a *PlatformAPIService) GetPlatformHealthExecute(r PlatformAPIGetPlatformHealthRequest) (*PlatformReadiness, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Readiness
+		localVarReturnValue *PlatformReadiness
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformHealth")
@@ -1338,7 +1594,7 @@ func (a *PlatformAPIService) GetPlatformHealthExecute(r PlatformAPIGetPlatformHe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1368,7 +1624,7 @@ func (a *PlatformAPIService) GetPlatformHealthExecute(r PlatformAPIGetPlatformHe
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
-			var v Readiness
+			var v PlatformReadiness
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1376,7 +1632,16 @@ func (a *PlatformAPIService) GetPlatformHealthExecute(r PlatformAPIGetPlatformHe
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1397,7 +1662,7 @@ type PlatformAPIGetPlatformPipelinesRequest struct {
 	ApiService *PlatformAPIService
 }
 
-func (r PlatformAPIGetPlatformPipelinesRequest) Execute() (*PipelineBoard, *http.Response, error) {
+func (r PlatformAPIGetPlatformPipelinesRequest) Execute() (*PlatformPipelineBoard, *http.Response, error) {
 	return r.ApiService.GetPlatformPipelinesExecute(r)
 }
 
@@ -1410,7 +1675,7 @@ It returns one pipeline per application in the caller's org — its repo or imag
 source, its current status, and when its most recent deployment ran and how long
 it took. A pipeline is a PROJECTION of an app plus its newest deployment, not a
 separate record: it comes into existence with the app and is triggered only
-through /deploy, never here. Requires a validated principal; 403 without one.
+through /deploy, never here. Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PlatformAPIGetPlatformPipelinesRequest
@@ -1424,13 +1689,13 @@ func (a *PlatformAPIService) GetPlatformPipelines(ctx context.Context) PlatformA
 
 // Execute executes the request
 //
-//	@return PipelineBoard
-func (a *PlatformAPIService) GetPlatformPipelinesExecute(r PlatformAPIGetPlatformPipelinesRequest) (*PipelineBoard, *http.Response, error) {
+//	@return PlatformPipelineBoard
+func (a *PlatformAPIService) GetPlatformPipelinesExecute(r PlatformAPIGetPlatformPipelinesRequest) (*PlatformPipelineBoard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PipelineBoard
+		localVarReturnValue *PlatformPipelineBoard
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformPipelines")
@@ -1454,7 +1719,7 @@ func (a *PlatformAPIService) GetPlatformPipelinesExecute(r PlatformAPIGetPlatfor
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1483,6 +1748,14 @@ func (a *PlatformAPIService) GetPlatformPipelinesExecute(r PlatformAPIGetPlatfor
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1501,27 +1774,37 @@ func (a *PlatformAPIService) GetPlatformPipelinesExecute(r PlatformAPIGetPlatfor
 type PlatformAPIGetPlatformProjectsRequest struct {
 	ctx        context.Context
 	ApiService *PlatformAPIService
+	org        *string
 }
 
-func (r PlatformAPIGetPlatformProjectsRequest) Execute() ([]ProjectView, *http.Response, error) {
+// Org names whose projects to read. Omitted, a SuperAdmin reads every owner&#39;s and anyone else reads their own; naming another org is an act-as only a SuperAdmin has, and naming a platform directory reads the platform&#39;s own.
+func (r PlatformAPIGetPlatformProjectsRequest) Org(org string) PlatformAPIGetPlatformProjectsRequest {
+	r.org = &org
+	return r
+}
+
+func (r PlatformAPIGetPlatformProjectsRequest) Execute() (*PlatformProjectBoard, *http.Response, error) {
 	return r.ApiService.GetPlatformProjectsExecute(r)
 }
 
 /*
-GetPlatformProjects Returns your org's projects, each with how many apps live under it.
+GetPlatformProjects Answers every project the caller may see, with how its apps stand.
 
-Returns your org's projects, each with how many apps live under it.
+Answers every project the caller may see, with how its apps
+stand.
 
-It lists the caller org's projects with the number of platform applications in
-each. A project is IAM's resource — it is created and deleted at
-/v1/iam/projects, never here — so this is the ONE projection IAM cannot serve:
-the project plus what the platform has put under it.
+A project is the `partOf` its apps' values files name, so this is the
+declaration inventory grouped by that key, joined per app with CD's
+reconciliation, the pods the cluster runs and the newest release the registry
+publishes, and folded into counts: apps, namespaces, sync, health and drift.
+Declarations that name no project are listed separately, because each one is
+drift in git.
 
-Requires a validated principal; 403 without one, and the org comes from that
-validated identity rather than a request header. This is the console's first
-authenticated read, so a project store that is not yet initialised degrades to
-an EMPTY list rather than a 500 — a new org genuinely has zero projects — and
-the real cause is surfaced to operators instead of to the caller.
+A SuperAdmin sees every owner's projects, the platform's own among them; an
+org admin sees only its own org's. `org` narrows a SuperAdmin to one owner.
+A plane that cannot be read leaves its counts at unknown and says why in
+cdUnavailable or clusterUnavailable; it never empties the board. A values file
+that does not parse is listed in unreadable and costs only its own row.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PlatformAPIGetPlatformProjectsRequest
@@ -1535,13 +1818,13 @@ func (a *PlatformAPIService) GetPlatformProjects(ctx context.Context) PlatformAP
 
 // Execute executes the request
 //
-//	@return []ProjectView
-func (a *PlatformAPIService) GetPlatformProjectsExecute(r PlatformAPIGetPlatformProjectsRequest) ([]ProjectView, *http.Response, error) {
+//	@return PlatformProjectBoard
+func (a *PlatformAPIService) GetPlatformProjectsExecute(r PlatformAPIGetPlatformProjectsRequest) (*PlatformProjectBoard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []ProjectView
+		localVarReturnValue *PlatformProjectBoard
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformProjects")
@@ -1555,6 +1838,9 @@ func (a *PlatformAPIService) GetPlatformProjectsExecute(r PlatformAPIGetPlatform
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.org != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "org", r.org, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1565,7 +1851,7 @@ func (a *PlatformAPIService) GetPlatformProjectsExecute(r PlatformAPIGetPlatform
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1594,6 +1880,14 @@ func (a *PlatformAPIService) GetPlatformProjectsExecute(r PlatformAPIGetPlatform
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1613,21 +1907,28 @@ type PlatformAPIGetPlatformProjectsByProjectRequest struct {
 	ctx        context.Context
 	ApiService *PlatformAPIService
 	project    string
+	org        *string
 }
 
-func (r PlatformAPIGetPlatformProjectsByProjectRequest) Execute() (*ProjectView, *http.Response, error) {
+// Org names the project&#39;s owner, defaulting to the caller&#39;s own scope — which for a SuperAdmin whose home is a brand org is the platform&#39;s.
+func (r PlatformAPIGetPlatformProjectsByProjectRequest) Org(org string) PlatformAPIGetPlatformProjectsByProjectRequest {
+	r.org = &org
+	return r
+}
+
+func (r PlatformAPIGetPlatformProjectsByProjectRequest) Execute() (*PlatformProjectView, *http.Response, error) {
 	return r.ApiService.GetPlatformProjectsByProjectExecute(r)
 }
 
 /*
-GetPlatformProjectsByProject Returns one project and its app count.
+GetPlatformProjectsByProject Answers one project and every app in it.
 
-Returns one project and its app count.
+Answers one project and every app in it.
 
-It returns a single project of the caller's org with the number of platform
-applications under it. A project this org does not have is 404, which is also
-what another tenant's project looks like from here. Requires a validated
-principal; 403 without one.
+Each app carries its declaration — image, hosts, replicas, the KMS paths it
+reads (never a value) — together with the CD Application reconciling it, what
+its pods run, the newest release its registry publishes, and the drift between
+those four. 404 when no declaration in the caller's scope names the project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param project Project is the project's name, from the path.
@@ -1643,13 +1944,13 @@ func (a *PlatformAPIService) GetPlatformProjectsByProject(ctx context.Context, p
 
 // Execute executes the request
 //
-//	@return ProjectView
-func (a *PlatformAPIService) GetPlatformProjectsByProjectExecute(r PlatformAPIGetPlatformProjectsByProjectRequest) (*ProjectView, *http.Response, error) {
+//	@return PlatformProjectView
+func (a *PlatformAPIService) GetPlatformProjectsByProjectExecute(r PlatformAPIGetPlatformProjectsByProjectRequest) (*PlatformProjectView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProjectView
+		localVarReturnValue *PlatformProjectView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformProjectsByProject")
@@ -1664,6 +1965,9 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectExecute(r PlatformAPIGe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.org != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "org", r.org, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1674,7 +1978,7 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectExecute(r PlatformAPIGe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1703,6 +2007,14 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectExecute(r PlatformAPIGe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1724,7 +2036,7 @@ type PlatformAPIGetPlatformProjectsByProjectAppsRequest struct {
 	project    string
 }
 
-func (r PlatformAPIGetPlatformProjectsByProjectAppsRequest) Execute() ([]AppView, *http.Response, error) {
+func (r PlatformAPIGetPlatformProjectsByProjectAppsRequest) Execute() ([]PlatformAppOut, *http.Response, error) {
 	return r.ApiService.GetPlatformProjectsByProjectAppsExecute(r)
 }
 
@@ -1742,7 +2054,7 @@ cluster leaves those fields empty and never blocks the listing.
 
 The project must exist in IAM for this org, or the answer is 404; the `default`
 project is implicit and always accepted, because it is part of what an org IS.
-Requires a validated principal; 403 without one.
+Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param project Project is the project's name, from the path.
@@ -1758,13 +2070,13 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectApps(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return []AppView
-func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsExecute(r PlatformAPIGetPlatformProjectsByProjectAppsRequest) ([]AppView, *http.Response, error) {
+//	@return []PlatformAppOut
+func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsExecute(r PlatformAPIGetPlatformProjectsByProjectAppsRequest) ([]PlatformAppOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []AppView
+		localVarReturnValue []PlatformAppOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformProjectsByProjectApps")
@@ -1789,7 +2101,7 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsExecute(r PlatformA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1818,6 +2130,14 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsExecute(r PlatformA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1840,7 +2160,7 @@ type PlatformAPIGetPlatformProjectsByProjectAppsByAppRequest struct {
 	app        string
 }
 
-func (r PlatformAPIGetPlatformProjectsByProjectAppsByAppRequest) Execute() (*AppView, *http.Response, error) {
+func (r PlatformAPIGetPlatformProjectsByProjectAppsByAppRequest) Execute() (*PlatformAppOut, *http.Response, error) {
 	return r.ApiService.GetPlatformProjectsByProjectAppsByAppExecute(r)
 }
 
@@ -1852,7 +2172,7 @@ Returns one application, with its live phase, health and secret sync.
 It returns a single application of the caller's org together with what the
 cluster currently reports for it: the operator Service CR's phase and health,
 and whether its sealed env has synced. An app this org and project do not have
-is 404. Requires a validated principal; 403 without one.
+is 404. Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param project Project is the project the application lives under, from the path.
@@ -1870,13 +2190,13 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByApp(ctx context.C
 
 // Execute executes the request
 //
-//	@return AppView
-func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppExecute(r PlatformAPIGetPlatformProjectsByProjectAppsByAppRequest) (*AppView, *http.Response, error) {
+//	@return PlatformAppOut
+func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppExecute(r PlatformAPIGetPlatformProjectsByProjectAppsByAppRequest) (*PlatformAppOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AppView
+		localVarReturnValue *PlatformAppOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformProjectsByProjectAppsByApp")
@@ -1902,7 +2222,7 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppExecute(r Plat
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1931,6 +2251,14 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppExecute(r Plat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1953,7 +2281,7 @@ type PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsRequest struct {
 	app        string
 }
 
-func (r PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsRequest) Execute() ([]DeploymentView, *http.Response, error) {
+func (r PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsRequest) Execute() ([]PlatformDeploymentView, *http.Response, error) {
 	return r.ApiService.GetPlatformProjectsByProjectAppsByAppDeploymentsExecute(r)
 }
 
@@ -1965,7 +2293,7 @@ Returns an app's deployment history.
 It lists every deployment recorded for one of the caller org's applications,
 newest version first, each with its version, status, source, commit and image.
 Failed and superseded attempts are included — that is the point of a history.
-Requires a validated principal; 403 without one.
+Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param project Project is the project the application lives under, from the path.
@@ -1983,13 +2311,13 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeployments(ct
 
 // Execute executes the request
 //
-//	@return []DeploymentView
-func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsExecute(r PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsRequest) ([]DeploymentView, *http.Response, error) {
+//	@return []PlatformDeploymentView
+func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsExecute(r PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsRequest) ([]PlatformDeploymentView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []DeploymentView
+		localVarReturnValue []PlatformDeploymentView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformProjectsByProjectAppsByAppDeployments")
@@ -2015,7 +2343,7 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsExe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2044,6 +2372,14 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsExe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2067,7 +2403,7 @@ type PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsByIdRequest stru
 	id         string
 }
 
-func (r PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsByIdRequest) Execute() (*DeploymentView, *http.Response, error) {
+func (r PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsByIdRequest) Execute() (*PlatformDeploymentView, *http.Response, error) {
 	return r.ApiService.GetPlatformProjectsByProjectAppsByAppDeploymentsByIdExecute(r)
 }
 
@@ -2078,7 +2414,7 @@ Returns one deployment of one app.
 
 It returns a single deployment by id, scoped to the named application of the
 caller's org — so an id belonging to another app or another tenant is 404, not a
-read. Requires a validated principal; 403 without one.
+read. Requires a validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param project Project is the project the application lives under, from the path.
@@ -2098,13 +2434,13 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsByI
 
 // Execute executes the request
 //
-//	@return DeploymentView
-func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsByIdExecute(r PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsByIdRequest) (*DeploymentView, *http.Response, error) {
+//	@return PlatformDeploymentView
+func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsByIdExecute(r PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsByIdRequest) (*PlatformDeploymentView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeploymentView
+		localVarReturnValue *PlatformDeploymentView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformProjectsByProjectAppsByAppDeploymentsById")
@@ -2131,7 +2467,7 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsByI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2160,6 +2496,14 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsByI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2183,7 +2527,7 @@ type PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogsRequest 
 	id         string
 }
 
-func (r PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogsRequest) Execute() (*DeployLogs, *http.Response, error) {
+func (r PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogsRequest) Execute() (*PlatformDeployLogs, *http.Response, error) {
 	return r.ApiService.GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogsExecute(r)
 }
 
@@ -2201,7 +2545,7 @@ honestly.
 It never fabricates log content. When no pod exists yet, or the cluster is
 unreachable, it degrades to the recorded timeline and says so. Every cluster read
 is confined to the caller org's own namespaces and time-boxed. Requires a
-validated principal; 403 without one.
+validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param project Project is the project the application lives under, from the path.
@@ -2221,13 +2565,13 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsByI
 
 // Execute executes the request
 //
-//	@return DeployLogs
-func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogsExecute(r PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogsRequest) (*DeployLogs, *http.Response, error) {
+//	@return PlatformDeployLogs
+func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogsExecute(r PlatformAPIGetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogsRequest) (*PlatformDeployLogs, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeployLogs
+		localVarReturnValue *PlatformDeployLogs
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs")
@@ -2254,7 +2598,7 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsByI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2283,6 +2627,14 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDeploymentsByI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2305,7 +2657,7 @@ type PlatformAPIGetPlatformProjectsByProjectAppsByAppDomainsRequest struct {
 	app        string
 }
 
-func (r PlatformAPIGetPlatformProjectsByProjectAppsByAppDomainsRequest) Execute() ([]DomainView, *http.Response, error) {
+func (r PlatformAPIGetPlatformProjectsByProjectAppsByAppDomainsRequest) Execute() ([]PlatformDomainView, *http.Response, error) {
 	return r.ApiService.GetPlatformProjectsByProjectAppsByAppDomainsExecute(r)
 }
 
@@ -2318,7 +2670,7 @@ It lists the app's hosts: the permanent default host it was born with, any
 org-subtree hosts attached to it, and every custom host claimed for it with its
 verification state and, while pending, the DNS challenge records to publish. Live
 endpoint status for each host is observed from the cluster. Requires a validated
-principal; 403 without one.
+principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param project Project is the project the application lives under, from the path.
@@ -2336,13 +2688,13 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDomains(ctx co
 
 // Execute executes the request
 //
-//	@return []DomainView
-func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDomainsExecute(r PlatformAPIGetPlatformProjectsByProjectAppsByAppDomainsRequest) ([]DomainView, *http.Response, error) {
+//	@return []PlatformDomainView
+func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDomainsExecute(r PlatformAPIGetPlatformProjectsByProjectAppsByAppDomainsRequest) ([]PlatformDomainView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []DomainView
+		localVarReturnValue []PlatformDomainView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformProjectsByProjectAppsByAppDomains")
@@ -2368,7 +2720,7 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDomainsExecute
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2397,6 +2749,14 @@ func (a *PlatformAPIService) GetPlatformProjectsByProjectAppsByAppDomainsExecute
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2417,7 +2777,7 @@ type PlatformAPIGetPlatformReleasesRequest struct {
 	ApiService *PlatformAPIService
 }
 
-func (r PlatformAPIGetPlatformReleasesRequest) Execute() (*ReleaseBoard, *http.Response, error) {
+func (r PlatformAPIGetPlatformReleasesRequest) Execute() (*PlatformReleaseBoard, *http.Response, error) {
 	return r.ApiService.GetPlatformReleasesExecute(r)
 }
 
@@ -2430,7 +2790,7 @@ It lists the org's releases: the deployments that were genuinely applied to the
 cluster, with the app they belong to, their version, environment, status and when
 they were released. A deployment that failed or is still building is NOT a
 release and is excluded — reaching the cluster is what makes one. Requires a
-validated principal; 403 without one.
+validated principal; 401 without one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return PlatformAPIGetPlatformReleasesRequest
@@ -2444,13 +2804,13 @@ func (a *PlatformAPIService) GetPlatformReleases(ctx context.Context) PlatformAP
 
 // Execute executes the request
 //
-//	@return ReleaseBoard
-func (a *PlatformAPIService) GetPlatformReleasesExecute(r PlatformAPIGetPlatformReleasesRequest) (*ReleaseBoard, *http.Response, error) {
+//	@return PlatformReleaseBoard
+func (a *PlatformAPIService) GetPlatformReleasesExecute(r PlatformAPIGetPlatformReleasesRequest) (*PlatformReleaseBoard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ReleaseBoard
+		localVarReturnValue *PlatformReleaseBoard
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.GetPlatformReleases")
@@ -2474,7 +2834,7 @@ func (a *PlatformAPIService) GetPlatformReleasesExecute(r PlatformAPIGetPlatform
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2503,6 +2863,14 @@ func (a *PlatformAPIService) GetPlatformReleasesExecute(r PlatformAPIGetPlatform
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2518,1554 +2886,23 @@ func (a *PlatformAPIService) GetPlatformReleasesExecute(r PlatformAPIGetPlatform
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PlatformAPIPostPlatformAppsRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
+type PlatformAPIPostBuildRequest struct {
+	ctx                    context.Context
+	ApiService             *PlatformAPIService
+	platformRunnerBuildReq *PlatformRunnerBuildReq
 }
 
-func (r PlatformAPIPostPlatformAppsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostPlatformAppsExecute(r)
-}
-
-/*
-PostPlatformApps Deploy an app through cd.hanzo.ai
-
-Builds a git repository into an image and writes the declaration that names it — a values file in `hanzoai/universe` under `charts/app/values/<namespace>/<name>.yaml`, which the `fleet` ApplicationSet renders as one Application. That file IS the deployment: nothing else has to be applied.
-
-`mode` decides whether anything can go live. The default, `branch`, pushes to `deploy/<namespace>/<name>/<tag>` and returns a review URL; the generator reads main, so a branch declaration deploys NOTHING and merging the review is the deliberate act. `commit` writes main, and proves the image is pullable first — a declaration naming an image the registry cannot serve is an ImagePullBackOff with no rollback path.
-
-Omit `tag` to build; give it to declare an image an earlier call already built, which is how a green build is released without rebuilding it.
-
-An org is its name: the values DIRECTORY, the destination NAMESPACE and the AppProject FENCE are all `<org>`, and the image is `<registry>/<org>/<app>`. None of them is a request field — the directory decides what CD admits the sync under and the repository decides what the cluster pulls, so a caller who could name either could reach outside its own org.
-
-`org` is an ACT-AS, not a placement field: it defaults to the caller's own, and naming another requires SuperAdmin. So does naming a RESERVED org — the platform's own namespace family (the brands and their environments, the control and delivery planes, `admin`) — even when it is the caller's own, because an IAM org named `kube-system` does not own Kubernetes. Both refuse rather than downgrade, so an escape attempt is never indistinguishable from a normal request.
-
-A host outside the caller's org subtree is refused: claim and verify a custom domain first.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return PlatformAPIPostPlatformAppsRequest
-*/
-func (a *PlatformAPIService) PostPlatformApps(ctx context.Context) PlatformAPIPostPlatformAppsRequest {
-	return PlatformAPIPostPlatformAppsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *PlatformAPIService) PostPlatformAppsExecute(r PlatformAPIPostPlatformAppsRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformApps")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/apps"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformFleetByAppDeployRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	app        string
-	restartRef *RestartRef
-}
-
-func (r PlatformAPIPostPlatformFleetByAppDeployRequest) RestartRef(restartRef RestartRef) PlatformAPIPostPlatformFleetByAppDeployRequest {
-	r.restartRef = &restartRef
+func (r PlatformAPIPostBuildRequest) PlatformRunnerBuildReq(platformRunnerBuildReq PlatformRunnerBuildReq) PlatformAPIPostBuildRequest {
+	r.platformRunnerBuildReq = &platformRunnerBuildReq
 	return r
 }
 
-func (r PlatformAPIPostPlatformFleetByAppDeployRequest) Execute() (*Restarted, *http.Response, error) {
-	return r.ApiService.PostPlatformFleetByAppDeployExecute(r)
+func (r PlatformAPIPostBuildRequest) Execute() (*PlatformRunnerBuildResp, *http.Response, error) {
+	return r.ApiService.PostBuildExecute(r)
 }
 
 /*
-PostPlatformFleetByAppDeploy Rolls a platform service's pods, in a named environment.
-
-Rolls a platform service's pods, in a named environment.
-
-It triggers a rolling restart of one platform service's Deployment by stamping a
-fresh restart annotation, and answers 202 with the app, the namespace, the
-environment and the timestamp. It restarts pods; it does NOT change the image — a
-version change is the release path, not this.
-
-SuperAdmin ONLY, and deliberately narrower than the read gate beside it. The only
-namespaces this board touches are the platform's own tier, so a restart here
-recycles a SHARED service every tenant depends on. A brand-org admin is a
-customer-org admin, not a platform operator: observing the board is bounded and
-audited, and restarting production identity is not.
-
-`?env=main|test|dev` is REQUIRED — a bare call does not default to production,
-which is what closes the fat-finger and confused-deputy hazard — and any other
-value is 400. A service with no Deployment to restart in that environment is 404.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param app App is the service's CR name, from the path. It must be a DNS-1123 label.
-	@return PlatformAPIPostPlatformFleetByAppDeployRequest
-*/
-func (a *PlatformAPIService) PostPlatformFleetByAppDeploy(ctx context.Context, app string) PlatformAPIPostPlatformFleetByAppDeployRequest {
-	return PlatformAPIPostPlatformFleetByAppDeployRequest{
-		ApiService: a,
-		ctx:        ctx,
-		app:        app,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Restarted
-func (a *PlatformAPIService) PostPlatformFleetByAppDeployExecute(r PlatformAPIPostPlatformFleetByAppDeployRequest) (*Restarted, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Restarted
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformFleetByAppDeploy")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/fleet/{app}/deploy"
-	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.restartRef == nil {
-		return localVarReturnValue, nil, reportError("restartRef is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.restartRef
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformProjectsByProjectAppsRequest struct {
-	ctx          context.Context
-	ApiService   *PlatformAPIService
-	project      string
-	createAppReq *CreateAppReq
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsRequest) CreateAppReq(createAppReq CreateAppReq) PlatformAPIPostPlatformProjectsByProjectAppsRequest {
-	r.createAppReq = &createAppReq
-	return r
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsRequest) Execute() (*AppView, *http.Response, error) {
-	return r.ApiService.PostPlatformProjectsByProjectAppsExecute(r)
-}
-
-/*
-PostPlatformProjectsByProjectApps Creates an application from a git repo or a container image.
-
-Creates an application from a git repo or a container image.
-
-It registers a new application under one of the caller org's projects and
-answers 201 with it. Creating does NOT deploy: the app lands in `draft` and
-nothing reaches the cluster until /deploy.
-
-`source` is `git` — which requires `repo.url` — or `image`, which requires
-`image.repository`; anything else is 400. A git app builds with zero-config
-`pack` by default and may opt into `dockerfile`; an image app never builds. The
-repo URL and Dockerfile path are validated here against the SAME allowlist the
-privileged build enforces, so an unsafe source is refused before it is ever
-persisted.
-
-The `slug` is the app's identity in the cluster: given or derived from `name`,
-it must match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`, and a slug already used in
-this project is 409. `replicas` and `storageGb` are clamped to the deployment's
-limits rather than refused.
-
-Env keys must match `^[A-Za-z_][A-Za-z0-9_]*$`. A variable marked `secret: true`
-is SEALED into KMS and its plaintext is never written to the database — and if
-KMS is unavailable the create fails 503 rather than falling back to storing a
-secret in the clear.
-
-The app is seeded with its canonical default host, so it has a working HTTPS URL
-the moment it deploys. A bare custom domain cannot be attached here — it has to
-go through add-domain and DNS verification first. Requires a validated
-principal; 403 without one, and every cluster object it will later create lands
-in that org's own `tenant-<org>` namespace.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param project Project is the project to create the application under, from the path.
-	@return PlatformAPIPostPlatformProjectsByProjectAppsRequest
-*/
-func (a *PlatformAPIService) PostPlatformProjectsByProjectApps(ctx context.Context, project string) PlatformAPIPostPlatformProjectsByProjectAppsRequest {
-	return PlatformAPIPostPlatformProjectsByProjectAppsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		project:    project,
-	}
-}
-
-// Execute executes the request
-//
-//	@return AppView
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsExecute(r PlatformAPIPostPlatformProjectsByProjectAppsRequest) (*AppView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AppView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectApps")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps"
-	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.createAppReq == nil {
-		return localVarReturnValue, nil, reportError("createAppReq is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.createAppReq
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	project    string
-	app        string
-	deployReq  *DeployReq
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest) DeployReq(deployReq DeployReq) PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest {
-	r.deployReq = &deployReq
-	return r
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest) Execute() (*DeploymentView, *http.Response, error) {
-	return r.ApiService.PostPlatformProjectsByProjectAppsByAppDeployExecute(r)
-}
-
-/*
-PostPlatformProjectsByProjectAppsByAppDeploy Deploys the app — building it first if it comes from git.
-
-Deploys the app — building it first if it comes from git.
-
-It starts a new, monotonically versioned deployment of the app and answers 202
-with the deployment record. A 202 is an ACCEPTED deployment, not a live one.
-
-An IMAGE app deploys the tag you name (falling back to the app's tag, then
-`latest`) by writing its operator Service CR; the operator reconciles it to
-running. A GIT app launches an in-cluster BuildKit Job at `commit` — or the app's
-branch — and comes back in `building`; the Service CR is applied later, by the
-reconciler, once the Job succeeds. The reconciler is restart-safe, so a build in
-flight survives a cloud restart.
-
-Deploys are bounded per org: over the concurrent-deploy cap is 429 and NOTHING is
-recorded, so a rejected deploy leaves no phantom in the history. An unreachable
-cluster is 503 but still records an honest `error` deployment, because a deploy
-that was attempted and failed must not be indistinguishable from one never made.
-Every other failure is likewise recorded in its real terminal state.
-
-This is metered work: a git build is billed to the org's ledger in wall-clock
-build minutes once the Job finishes, and the running deployment is billed for its
-compute per tick for as long as it stays live. Requires a validated principal; 403
-without one, and everything is written into that org's own `tenant-<org>`
-namespace.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param project Project is the project the application lives under, from the path.
-	@param app App is the application's slug, from the path.
-	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest
-*/
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppDeploy(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest {
-	return PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest{
-		ApiService: a,
-		ctx:        ctx,
-		project:    project,
-		app:        app,
-	}
-}
-
-// Execute executes the request
-//
-//	@return DeploymentView
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppDeployExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest) (*DeploymentView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DeploymentView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppDeploy")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/deploy"
-	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.deployReq == nil {
-		return localVarReturnValue, nil, reportError("deployReq is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.deployReq
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest struct {
-	ctx          context.Context
-	ApiService   *PlatformAPIService
-	project      string
-	app          string
-	addDomainReq *AddDomainReq
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest) AddDomainReq(addDomainReq AddDomainReq) PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest {
-	r.addDomainReq = &addDomainReq
-	return r
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest) Execute() (*DomainView, *http.Response, error) {
-	return r.ApiService.PostPlatformProjectsByProjectAppsByAppDomainsExecute(r)
-}
-
-/*
-PostPlatformProjectsByProjectAppsByAppDomains Attaches a hostname — instantly if you already own it, otherwise with a DNS challenge.
-
-Attaches a hostname — instantly if you already own it, otherwise with a
-DNS challenge.
-
-It attaches `host` to the app, and which of two things happens depends on who
-owns the name. A host inside the caller org's own subtree is structurally owned,
-so it goes ACTIVE immediately and answers 201. A bring-your-own host is claimed
-as PENDING and answers the DNS challenge records to publish; it is NOT rendered
-into the app's ingress until /verify passes.
-
-Claims are globally unique. A host already claimed by another organization is
-409, and so is one claimed by a different app in your own; re-adding this app's
-OWN claim is idempotent and answers its current state at 200. The default host is
-always attached and re-adding it is 409. A host under the platform's shared apex
-that is not the caller's own subtree is 403 — it belongs to whoever owns that
-subtree and can never be grabbed through the custom path.
-
-`host` must be a valid DNS hostname; anything else is 400. Requires a validated
-principal; 403 without one.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param project Project is the project the application lives under, from the path.
-	@param app App is the application's slug, from the path.
-	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest
-*/
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppDomains(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest {
-	return PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		project:    project,
-		app:        app,
-	}
-}
-
-// Execute executes the request
-//
-//	@return DomainView
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppDomainsExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest) (*DomainView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DomainView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppDomains")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/domains"
-	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.addDomainReq == nil {
-		return localVarReturnValue, nil, reportError("addDomainReq is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.addDomainReq
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	project    string
-	app        string
-	host       string
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest) Execute() (*DomainView, *http.Response, error) {
-	return r.ApiService.PostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyExecute(r)
-}
-
-/*
-PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify Checks a custom domain's DNS and turns it on if it passes.
-
-Checks a custom domain's DNS and turns it on if it passes.
-
-It runs the DNS challenge check for a pending custom host and, when it passes,
-marks the host verified and renders it into the app's ingress so it starts
-serving.
-
-A check that RAN and did not pass is not an error: it answers 200 with the host
-still pending and the reason in `detail`, so a console can show the operator what
-DNS is actually returning. An already-verified host answers as-is without
-re-checking. A host not claimed by this app is 404. Requires a validated
-principal; 403 without one.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param project Project is the project the application lives under, from the path.
-	@param app App is the application's slug, from the path.
-	@param host Host is the hostname, from the path.
-	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest
-*/
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify(ctx context.Context, project string, app string, host string) PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest {
-	return PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest{
-		ApiService: a,
-		ctx:        ctx,
-		project:    project,
-		app:        app,
-		host:       host,
-	}
-}
-
-// Execute executes the request
-//
-//	@return DomainView
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest) (*DomainView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DomainView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/domains/{host}/verify"
-	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"host"+"}", url.PathEscape(parameterValueToString(r.host, "host")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	project    string
-	app        string
-	previewReq *PreviewReq
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest) PreviewReq(previewReq PreviewReq) PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest {
-	r.previewReq = &previewReq
-	return r
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest) Execute() (*PreviewView, *http.Response, error) {
-	return r.ApiService.PostPlatformProjectsByProjectAppsByAppPreviewExecute(r)
-}
-
-/*
-PostPlatformProjectsByProjectAppsByAppPreview Puts a branch on its own URL.
-
-Puts a branch on its own URL.
-
-It deploys an already-built `image` to a per-branch preview and answers its URL,
-the branch, the preview's slug and the deployment. The preview is a FIRST-CLASS
-application named `<app>-<branch>` in the same project and tenant namespace, with
-its own default host — so it is completely isolated from production while reusing
-the same deploy mechanic. Re-previewing a branch converges that same target in
-place rather than stacking another one.
-
-It carries NO environment variables, deliberately: a preview never inherits
-production's secrets. It also does not build — `image` is required and must
-already exist, and `branch` defaults to the parent app's. A branch that does not
-resolve to a valid slug distinct from the parent's is 400. Requires a validated
-principal; 403 without one.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param project Project is the project the parent application lives under, from the path.
-	@param app App is the parent application's slug, from the path.
-	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest
-*/
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppPreview(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest {
-	return PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest{
-		ApiService: a,
-		ctx:        ctx,
-		project:    project,
-		app:        app,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PreviewView
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppPreviewExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest) (*PreviewView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PreviewView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppPreview")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/preview"
-	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.previewReq == nil {
-		return localVarReturnValue, nil, reportError("previewReq is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.previewReq
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	project    string
-	app        string
-	promoteReq *PromoteReq
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest) PromoteReq(promoteReq PromoteReq) PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest {
-	r.promoteReq = &promoteReq
-	return r
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest) Execute() (*DeploymentView, *http.Response, error) {
-	return r.ApiService.PostPlatformProjectsByProjectAppsByAppPromoteExecute(r)
-}
-
-/*
-PostPlatformProjectsByProjectAppsByAppPromote Promotes an already-built release to the app.
-
-Promotes an already-built release to the app.
-
-It redeploys an image that already exists — named either by `deploymentId`, which
-promotes that deployment's exact built image, or by `tag`, resolved the same way
-a deploy resolves one. One of the two is required; neither is 400.
-
-Promotion never builds. A deployment that carries no built image cannot be
-promoted and is 400, and a deployment id outside this app is 404. It runs through
-the same deploy core as everything else, so it takes a NEW version number and is
-subject to the same per-org concurrency cap. Requires a validated principal; 403
-without one.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param project Project is the project the application lives under, from the path.
-	@param app App is the application's slug, from the path.
-	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest
-*/
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppPromote(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest {
-	return PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest{
-		ApiService: a,
-		ctx:        ctx,
-		project:    project,
-		app:        app,
-	}
-}
-
-// Execute executes the request
-//
-//	@return DeploymentView
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppPromoteExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest) (*DeploymentView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DeploymentView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppPromote")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/promote"
-	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.promoteReq == nil {
-		return localVarReturnValue, nil, reportError("promoteReq is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.promoteReq
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest struct {
-	ctx         context.Context
-	ApiService  *PlatformAPIService
-	project     string
-	app         string
-	rollbackReq *RollbackReq
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest) RollbackReq(rollbackReq RollbackReq) PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest {
-	r.rollbackReq = &rollbackReq
-	return r
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest) Execute() (*DeploymentView, *http.Response, error) {
-	return r.ApiService.PostPlatformProjectsByProjectAppsByAppRollbackExecute(r)
-}
-
-/*
-PostPlatformProjectsByProjectAppsByAppRollback Goes back to the previous release.
-
-Goes back to the previous release.
-
-It redeploys a prior image: the one named by `deploymentId`, or — with no body —
-the newest earlier deployment that carries a real built image and did not error,
-skipping the release currently live. An app with nothing earlier to return to is
-400.
-
-A rollback is a deploy of an old image, not a rewind: it takes a NEW version
-number and appends to the history rather than erasing what came after. Both
-lookups are scoped to this app and org, so another tenant's image can never be
-rolled in. Requires a validated principal; 403 without one.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param project Project is the project the application lives under, from the path.
-	@param app App is the application's slug, from the path.
-	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest
-*/
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppRollback(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest {
-	return PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest{
-		ApiService: a,
-		ctx:        ctx,
-		project:    project,
-		app:        app,
-	}
-}
-
-// Execute executes the request
-//
-//	@return DeploymentView
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppRollbackExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest) (*DeploymentView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DeploymentView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppRollback")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/rollback"
-	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.rollbackReq == nil {
-		return localVarReturnValue, nil, reportError("rollbackReq is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.rollbackReq
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformProjectsByProjectAppsByAppStartRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	project    string
-	app        string
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppStartRequest) Execute() (*AppView, *http.Response, error) {
-	return r.ApiService.PostPlatformProjectsByProjectAppsByAppStartExecute(r)
-}
-
-/*
-PostPlatformProjectsByProjectAppsByAppStart Starts a stopped app back up.
-
-Starts a stopped app back up.
-
-It scales the app's Service back to its configured replica count and marks it
-live, answering the updated application. It does not redeploy: the image already
-on the Service CR is what comes back.
-
-The billing watermark is reset to now as part of starting, so the org is charged
-for THIS live span and never for the gap the app spent stopped. An app with no
-Service CR is 404, an unreachable cluster is 503, and a cluster that refuses the
-scale is 502. Requires a validated principal; 403 without one.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param project Project is the project the application lives under, from the path.
-	@param app App is the application's slug, from the path.
-	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppStartRequest
-*/
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppStart(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppStartRequest {
-	return PlatformAPIPostPlatformProjectsByProjectAppsByAppStartRequest{
-		ApiService: a,
-		ctx:        ctx,
-		project:    project,
-		app:        app,
-	}
-}
-
-// Execute executes the request
-//
-//	@return AppView
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppStartExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppStartRequest) (*AppView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AppView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppStart")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/start"
-	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformProjectsByProjectAppsByAppStopRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	project    string
-	app        string
-}
-
-func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppStopRequest) Execute() (*AppView, *http.Response, error) {
-	return r.ApiService.PostPlatformProjectsByProjectAppsByAppStopExecute(r)
-}
-
-/*
-PostPlatformProjectsByProjectAppsByAppStop Stops an app without deleting it.
-
-Stops an app without deleting it.
-
-It scales the app's Service to zero replicas and marks it stopped, answering the
-updated application. Nothing else is removed — the record, its env, its domains
-and its deployment history all survive, and /start brings it back at the same
-replica count.
-
-An app that is not deployed has no Service CR to scale and is 404. An
-unreachable cluster is 503 and a cluster that refuses the scale is 502. Because
-the pods stop, so does the compute metering. Requires a validated principal; 403
-without one.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param project Project is the project the application lives under, from the path.
-	@param app App is the application's slug, from the path.
-	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppStopRequest
-*/
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppStop(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppStopRequest {
-	return PlatformAPIPostPlatformProjectsByProjectAppsByAppStopRequest{
-		ApiService: a,
-		ctx:        ctx,
-		project:    project,
-		app:        app,
-	}
-}
-
-// Execute executes the request
-//
-//	@return AppView
-func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppStopExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppStopRequest) (*AppView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AppView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppStop")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/stop"
-	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformRunRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	runReq     *RunReq
-}
-
-func (r PlatformAPIPostPlatformRunRequest) RunReq(runReq RunReq) PlatformAPIPostPlatformRunRequest {
-	r.runReq = &runReq
-	return r
-}
-
-func (r PlatformAPIPostPlatformRunRequest) Execute() (*RunView, *http.Response, error) {
-	return r.ApiService.PostPlatformRunExecute(r)
-}
-
-/*
-PostPlatformRun Runs a container image and gives back a URL.
-
-Runs a container image and gives back a URL.
-
-The one-call shortcut over project → app → deploy: give it a `name` and an
-`image` and it creates or updates an image-source application in your org's
-DEFAULT project, deploys it through the same operator Service-CR writer
-everything else uses, and answers its id, name, live URL, status and shape.
-Re-running the same name UPDATES it in place, so the call is idempotent by name.
-
-What it produces is a first-class application, not a special object: it is
-listable, stoppable and redeployable through the /v1/platform routes like any
-other app.
-
-`minScale` is the replica floor. `maxScale` above it declares an autoscaling
-ceiling; `maxScale: 0` means no autoscaler at all — a fixed run at the floor.
-Both are clamped to the deployment's limits. `runtime` and `shape` are accepted
-for the client contract and echoed back: the image is the runtime unit and sizing
-is the operator's default.
-
-It is BILLING-GATED before it touches the cluster: a flat per-run fee is
-authorized against the org's own prepaid balance first, so an org that cannot pay
-is refused without anything being created. An unreachable cluster is 503 — a run
-never reports a URL it did not create. Secret env is sealed into KMS and fails
-closed without it.
-
-Requires a validated principal; 403 without one. The org is resolved from that
-validated identity and is what both pays and owns the namespace — it is never
-read from the body.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return PlatformAPIPostPlatformRunRequest
-*/
-func (a *PlatformAPIService) PostPlatformRun(ctx context.Context) PlatformAPIPostPlatformRunRequest {
-	return PlatformAPIPostPlatformRunRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return RunView
-func (a *PlatformAPIService) PostPlatformRunExecute(r PlatformAPIPostPlatformRunRequest) (*RunView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *RunView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformRun")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/platform/run"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.runReq == nil {
-		return localVarReturnValue, nil, reportError("runReq is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.runReq
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PlatformAPIPostPlatformRunnerRequest struct {
-	ctx            context.Context
-	ApiService     *PlatformAPIService
-	runnerBuildReq *RunnerBuildReq
-}
-
-func (r PlatformAPIPostPlatformRunnerRequest) RunnerBuildReq(runnerBuildReq RunnerBuildReq) PlatformAPIPostPlatformRunnerRequest {
-	r.runnerBuildReq = &runnerBuildReq
-	return r
-}
-
-func (r PlatformAPIPostPlatformRunnerRequest) Execute() (*RunnerBuildResp, *http.Response, error) {
-	return r.ApiService.PostPlatformRunnerExecute(r)
-}
-
-/*
-PostPlatformRunner Triggers a native build — an image, or the binaries a repo declares.
+PostBuild Triggers a native build — an image, or the binaries a repo declares.
 
 Triggers a native build — an image, or the binaries a repo declares.
 
@@ -4102,10 +2939,10 @@ any authorization decision reads it, so a crafted ref cannot smuggle a
 build-exporter attribute past the check.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return PlatformAPIPostPlatformRunnerRequest
+	@return PlatformAPIPostBuildRequest
 */
-func (a *PlatformAPIService) PostPlatformRunner(ctx context.Context) PlatformAPIPostPlatformRunnerRequest {
-	return PlatformAPIPostPlatformRunnerRequest{
+func (a *PlatformAPIService) PostBuild(ctx context.Context) PlatformAPIPostBuildRequest {
+	return PlatformAPIPostBuildRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -4113,28 +2950,162 @@ func (a *PlatformAPIService) PostPlatformRunner(ctx context.Context) PlatformAPI
 
 // Execute executes the request
 //
-//	@return RunnerBuildResp
-func (a *PlatformAPIService) PostPlatformRunnerExecute(r PlatformAPIPostPlatformRunnerRequest) (*RunnerBuildResp, *http.Response, error) {
+//	@return PlatformRunnerBuildResp
+func (a *PlatformAPIService) PostBuildExecute(r PlatformAPIPostBuildRequest) (*PlatformRunnerBuildResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RunnerBuildResp
+		localVarReturnValue *PlatformRunnerBuildResp
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformRunner")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostBuild")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/platform/runner"
+	localVarPath := localBasePath + "/v1/build"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.runnerBuildReq == nil {
-		return localVarReturnValue, nil, reportError("runnerBuildReq is required and must be specified")
+	if r.platformRunnerBuildReq == nil {
+		return localVarReturnValue, nil, reportError("platformRunnerBuildReq is required and must be specified")
 	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.platformRunnerBuildReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformAppsRequest struct {
+	ctx        context.Context
+	ApiService *PlatformAPIService
+	declareReq *DeclareReq
+}
+
+func (r PlatformAPIPostPlatformAppsRequest) DeclareReq(declareReq DeclareReq) PlatformAPIPostPlatformAppsRequest {
+	r.declareReq = &declareReq
+	return r
+}
+
+func (r PlatformAPIPostPlatformAppsRequest) Execute() (*DeclareResp, *http.Response, error) {
+	return r.ApiService.PostPlatformAppsExecute(r)
+}
+
+/*
+PostPlatformApps Deploy an app through cd.hanzo.ai
+
+Builds a git repository into an image and writes the declaration that names it — a values file in `hanzoai/universe` under `charts/app/values/<namespace>/<name>.yaml`, which the `fleet` ApplicationSet renders as one Application. That file IS the deployment: nothing else has to be applied.
+
+`repo` is a GitHub repository — `owner/name` or `https://github.com/owner/name` — or another https clone URL. A GitHub repository must be one the caller may see: their own connected GitHub, or the installations their org holds for an org admin (the same set `GET /v1/provider/github/repos` lists); anything else is 404. It is built at the name GitHub gives it now, from `ref`, which defaults to its default branch. Any other URL is an org admin's to build.
+
+`partOf` names the project the app belongs to, and defaults to the app's own name.
+
+Every member of the org may deploy; WHERE it lands is the difference. An org admin commits to universe main and CD applies it — in one call, naming the tag its own build will push, which CD pulls once the build lands. Anyone else opens a review: the declaration is pushed to `deploy/<namespace>/<name>/<tag>`, `declaration.review` is the link that opens the pull request, and nothing deploys until it is merged. `mode` may say `branch` to make an admin's deploy a review too; a non-admin naming `commit` is refused, never downgraded.
+
+A member's deploy is bounded by who asked: one build at a time and never the org's last build slot, which is kept for its admins; ten deploys an hour; five open review branches. Past a bound it answers 429. A review branch is deleted once main declares its tag, or after seven days unmerged; `notice` says so, and that the public `env` values the branch carries are cleartext in universe, where deleting the branch does not unpublish them.
+
+A release of an image an earlier call built (`tag` given) is proven pullable before main is pointed at it — a declaration naming an image the registry cannot serve is an ImagePullBackOff with no rollback path.
+
+Omit `tag` to build; give it to declare an image an earlier call already built, which is how a green build is released without rebuilding it. That release is an org admin's: a member's deploy always builds, and carries public `env` only — a sealed value would write the running app's secrets before the review is merged, so a member naming one is refused.
+
+An org is its name: the values DIRECTORY, the destination NAMESPACE and the AppProject FENCE are all `<org>`, and the image is `<registry>/<org>/<app>`. None of them is a request field — the directory decides what CD admits the sync under and the repository decides what the cluster pulls, so a caller who could name either could reach outside its own org.
+
+`org` is an ACT-AS, not a placement field: it defaults to the caller's own, and naming another requires SuperAdmin. So does naming a RESERVED org — the platform's own namespace family (the brands and their environments, the control and delivery planes, `admin`) — even when it is the caller's own, because an IAM org named `kube-system` does not own Kubernetes. Both refuse rather than downgrade, so an escape attempt is never indistinguishable from a normal request.
+
+A host outside the caller's org subtree is refused: claim and verify a custom domain first.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return PlatformAPIPostPlatformAppsRequest
+*/
+func (a *PlatformAPIService) PostPlatformApps(ctx context.Context) PlatformAPIPostPlatformAppsRequest {
+	return PlatformAPIPostPlatformAppsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return DeclareResp
+func (a *PlatformAPIService) PostPlatformAppsExecute(r PlatformAPIPostPlatformAppsRequest) (*DeclareResp, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeclareResp
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformApps")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/apps"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -4154,7 +3125,7 @@ func (a *PlatformAPIService) PostPlatformRunnerExecute(r PlatformAPIPostPlatform
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.runnerBuildReq
+	localVarPostBody = r.declareReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -4192,83 +3163,70 @@ func (a *PlatformAPIService) PostPlatformRunnerExecute(r PlatformAPIPostPlatform
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest struct {
-	ctx        context.Context
-	ApiService *PlatformAPIService
-	project    string
-	app        string
-	setEnvReq  *SetEnvReq
+type PlatformAPIPostPlatformProjectsRequest struct {
+	ctx                   context.Context
+	ApiService            *PlatformAPIService
+	platformProjectCreate *PlatformProjectCreate
 }
 
-func (r PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest) SetEnvReq(setEnvReq SetEnvReq) PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest {
-	r.setEnvReq = &setEnvReq
+func (r PlatformAPIPostPlatformProjectsRequest) PlatformProjectCreate(platformProjectCreate PlatformProjectCreate) PlatformAPIPostPlatformProjectsRequest {
+	r.platformProjectCreate = &platformProjectCreate
 	return r
 }
 
-func (r PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest) Execute() (*AppView, *http.Response, error) {
-	return r.ApiService.PutPlatformProjectsByProjectAppsByAppEnvExecute(r)
+func (r PlatformAPIPostPlatformProjectsRequest) Execute() (*PlatformProjectWrite, *http.Response, error) {
+	return r.ApiService.PostPlatformProjectsExecute(r)
 }
 
 /*
-PutPlatformProjectsByProjectAppsByAppEnv Replaces an app's environment variables.
+PostPlatformProjects Creates a project from the apps it starts with.
 
-Replaces an app's environment variables.
+Creates a project from the apps it starts with.
 
-It writes the app's whole environment set and answers the updated application.
-This is the one post-create write path for env, and it REPLACES rather than
-merges: a variable absent from the body is gone, and a secret dropped from the
-set leaves the app's Secret on its next deploy.
+A project is the `partOf` its apps' values files name, so creating one names it
+on the listed apps: one commit to `hanzoai/universe` that moves each file's
+`partOf` scalar and touches nothing else. There is no empty project; to start
+one with a new app, create the app with `partOf` (POST /v1/platform/apps).
 
-Keys must match `^[A-Za-z_][A-Za-z0-9_]*$`. A value marked `secret: true` is
-sealed into KMS and blanked in the database, so plaintext is never persisted —
-and the write fails 503 if KMS is unavailable rather than storing one in the
-clear.
-
-The rule worth knowing: this does not restart anything. Once the app has been
-deployed the secret sync is re-declared immediately so the operator
-re-materialises the Secret, but RUNNING pods keep the environment they started
-with until their next deploy or restart. Requires a validated principal; 403
-without one.
+`mode` is `branch` (the default: a review branch, nothing deploys) or `commit`
+(main). A `partOf` change relabels the app's pods, so the sync that applies it
+rolls them. 409 when the name already names apps — move apps into an existing
+project with PUT /v1/platform/apps/{app}/project. An org admin changes its own
+org's projects; the platform's own, and another org's, are SuperAdmin.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param project Project is the project the application lives under, from the path.
-	@param app App is the application's slug, from the path.
-	@return PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest
+	@return PlatformAPIPostPlatformProjectsRequest
 */
-func (a *PlatformAPIService) PutPlatformProjectsByProjectAppsByAppEnv(ctx context.Context, project string, app string) PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest {
-	return PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest{
+func (a *PlatformAPIService) PostPlatformProjects(ctx context.Context) PlatformAPIPostPlatformProjectsRequest {
+	return PlatformAPIPostPlatformProjectsRequest{
 		ApiService: a,
 		ctx:        ctx,
-		project:    project,
-		app:        app,
 	}
 }
 
 // Execute executes the request
 //
-//	@return AppView
-func (a *PlatformAPIService) PutPlatformProjectsByProjectAppsByAppEnvExecute(r PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest) (*AppView, *http.Response, error) {
+//	@return PlatformProjectWrite
+func (a *PlatformAPIService) PostPlatformProjectsExecute(r PlatformAPIPostPlatformProjectsRequest) (*PlatformProjectWrite, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
+		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AppView
+		localVarReturnValue *PlatformProjectWrite
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PutPlatformProjectsByProjectAppsByAppEnv")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjects")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/env"
-	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
+	localVarPath := localBasePath + "/v1/platform/projects"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.setEnvReq == nil {
-		return localVarReturnValue, nil, reportError("setEnvReq is required and must be specified")
+	if r.platformProjectCreate == nil {
+		return localVarReturnValue, nil, reportError("platformProjectCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -4281,7 +3239,7 @@ func (a *PlatformAPIService) PutPlatformProjectsByProjectAppsByAppEnvExecute(r P
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4289,7 +3247,7 @@ func (a *PlatformAPIService) PutPlatformProjectsByProjectAppsByAppEnvExecute(r P
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.setEnvReq
+	localVarPostBody = r.platformProjectCreate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -4312,6 +3270,1795 @@ func (a *PlatformAPIService) PutPlatformProjectsByProjectAppsByAppEnvExecute(r P
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformProjectsByProjectAppsRequest struct {
+	ctx                  context.Context
+	ApiService           *PlatformAPIService
+	project              string
+	platformCreateAppReq *PlatformCreateAppReq
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsRequest) PlatformCreateAppReq(platformCreateAppReq PlatformCreateAppReq) PlatformAPIPostPlatformProjectsByProjectAppsRequest {
+	r.platformCreateAppReq = &platformCreateAppReq
+	return r
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsRequest) Execute() (*PlatformAppOut, *http.Response, error) {
+	return r.ApiService.PostPlatformProjectsByProjectAppsExecute(r)
+}
+
+/*
+PostPlatformProjectsByProjectApps Creates an application from a git repo or a container image.
+
+Creates an application from a git repo or a container image.
+
+It registers a new application under one of the caller org's projects and
+answers 201 with it. Creating does NOT deploy: the app lands in `draft` and
+nothing reaches the cluster until /deploy.
+
+`source` is `git` — which requires `repo.url` — or `image`, which requires
+`image.repository`; anything else is 400. A git app builds with zero-config
+`pack` by default and may opt into `dockerfile`; an image app never builds. The
+repo URL and Dockerfile path are validated here against the SAME allowlist the
+privileged build enforces, so an unsafe source is refused before it is ever
+persisted.
+
+The `slug` is the app's identity in the cluster: given or derived from `name`,
+it must match `^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$`, and a slug already used in
+this project is 409. `replicas` and `storageGb` are clamped to the deployment's
+limits rather than refused.
+
+Env keys must match `^[A-Za-z_][A-Za-z0-9_]*$`. A variable marked `secret: true`
+is SEALED into KMS and its plaintext is never written to the database — and if
+KMS is unavailable the create fails 503 rather than falling back to storing a
+secret in the clear.
+
+The app is seeded with its canonical default host, so it has a working HTTPS URL
+the moment it deploys. A bare custom domain cannot be attached here — it has to
+go through add-domain and DNS verification first. Requires a validated
+principal; 401 without one, and every cluster object it will later create lands
+in that org's own `tenant-<org>` namespace.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param project Project is the project to create the application under, from the path.
+	@return PlatformAPIPostPlatformProjectsByProjectAppsRequest
+*/
+func (a *PlatformAPIService) PostPlatformProjectsByProjectApps(ctx context.Context, project string) PlatformAPIPostPlatformProjectsByProjectAppsRequest {
+	return PlatformAPIPostPlatformProjectsByProjectAppsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		project:    project,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformAppOut
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsExecute(r PlatformAPIPostPlatformProjectsByProjectAppsRequest) (*PlatformAppOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformAppOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectApps")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps"
+	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.platformCreateAppReq == nil {
+		return localVarReturnValue, nil, reportError("platformCreateAppReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.platformCreateAppReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest struct {
+	ctx               context.Context
+	ApiService        *PlatformAPIService
+	project           string
+	app               string
+	platformDeployReq *PlatformDeployReq
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest) PlatformDeployReq(platformDeployReq PlatformDeployReq) PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest {
+	r.platformDeployReq = &platformDeployReq
+	return r
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest) Execute() (*PlatformDeploymentView, *http.Response, error) {
+	return r.ApiService.PostPlatformProjectsByProjectAppsByAppDeployExecute(r)
+}
+
+/*
+PostPlatformProjectsByProjectAppsByAppDeploy Deploys the app — building it first if it comes from git.
+
+Deploys the app — building it first if it comes from git.
+
+It starts a new, monotonically versioned deployment of the app and answers 202
+with the deployment record. A 202 is an ACCEPTED deployment, not a live one.
+
+An IMAGE app deploys the tag you name (falling back to the app's tag, then
+`latest`) by writing its operator Service CR; the operator reconciles it to
+running. A GIT app launches an in-cluster BuildKit Job at `commit` — or the app's
+branch — and comes back in `building`; the Service CR is applied later, by the
+reconciler, once the Job succeeds. The reconciler is restart-safe, so a build in
+flight survives a cloud restart.
+
+Deploys are bounded per org: over the concurrent-deploy cap is 429 and NOTHING is
+recorded, so a rejected deploy leaves no phantom in the history. An unreachable
+cluster is 503 but still records an honest `error` deployment, because a deploy
+that was attempted and failed must not be indistinguishable from one never made.
+Every other failure is likewise recorded in its real terminal state.
+
+This is metered work: a git build is billed to the org's ledger in wall-clock
+build minutes once the Job finishes, and the running deployment is billed for its
+compute per tick for as long as it stays live. Requires a validated principal; 401
+without one, and everything is written into that org's own `tenant-<org>`
+namespace.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param project Project is the project the application lives under, from the path.
+	@param app App is the application's slug, from the path.
+	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest
+*/
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppDeploy(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest {
+	return PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest{
+		ApiService: a,
+		ctx:        ctx,
+		project:    project,
+		app:        app,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformDeploymentView
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppDeployExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppDeployRequest) (*PlatformDeploymentView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformDeploymentView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppDeploy")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/deploy"
+	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.platformDeployReq == nil {
+		return localVarReturnValue, nil, reportError("platformDeployReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.platformDeployReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest struct {
+	ctx                  context.Context
+	ApiService           *PlatformAPIService
+	project              string
+	app                  string
+	platformAddDomainReq *PlatformAddDomainReq
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest) PlatformAddDomainReq(platformAddDomainReq PlatformAddDomainReq) PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest {
+	r.platformAddDomainReq = &platformAddDomainReq
+	return r
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest) Execute() (*PlatformDomainView, *http.Response, error) {
+	return r.ApiService.PostPlatformProjectsByProjectAppsByAppDomainsExecute(r)
+}
+
+/*
+PostPlatformProjectsByProjectAppsByAppDomains Attaches a hostname — instantly if you already own it, otherwise with a DNS challenge.
+
+Attaches a hostname — instantly if you already own it, otherwise with a
+DNS challenge.
+
+It attaches `host` to the app, and which of two things happens depends on who
+owns the name. A host inside the caller org's own subtree is structurally owned,
+so it goes ACTIVE immediately and answers 201. A bring-your-own host is claimed
+as PENDING and answers the DNS challenge records to publish; it is NOT rendered
+into the app's ingress until /verify passes.
+
+Claims are globally unique. A host already claimed by another organization is
+409, and so is one claimed by a different app in your own; re-adding this app's
+OWN claim is idempotent and answers its current state at 200. The default host is
+always attached and re-adding it is 409. A host under the platform's shared apex
+that is not the caller's own subtree is 403 — it belongs to whoever owns that
+subtree and can never be grabbed through the custom path.
+
+`host` must be a valid DNS hostname; anything else is 400. Requires a validated
+principal; 401 without one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param project Project is the project the application lives under, from the path.
+	@param app App is the application's slug, from the path.
+	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest
+*/
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppDomains(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest {
+	return PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		project:    project,
+		app:        app,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformDomainView
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppDomainsExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsRequest) (*PlatformDomainView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformDomainView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppDomains")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/domains"
+	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.platformAddDomainReq == nil {
+		return localVarReturnValue, nil, reportError("platformAddDomainReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.platformAddDomainReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest struct {
+	ctx        context.Context
+	ApiService *PlatformAPIService
+	project    string
+	app        string
+	host       string
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest) Execute() (*PlatformDomainView, *http.Response, error) {
+	return r.ApiService.PostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyExecute(r)
+}
+
+/*
+PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify Checks a custom domain's DNS and turns it on if it passes.
+
+Checks a custom domain's DNS and turns it on if it passes.
+
+It runs the DNS challenge check for a pending custom host and, when it passes,
+marks the host verified and renders it into the app's ingress so it starts
+serving.
+
+A check that RAN and did not pass is not an error: it answers 200 with the host
+still pending and the reason in `detail`, so a console can show the operator what
+DNS is actually returning. An already-verified host answers as-is without
+re-checking. A host not claimed by this app is 404. Requires a validated
+principal; 401 without one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param project Project is the project the application lives under, from the path.
+	@param app App is the application's slug, from the path.
+	@param host Host is the hostname, from the path.
+	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest
+*/
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify(ctx context.Context, project string, app string, host string) PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest {
+	return PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		project:    project,
+		app:        app,
+		host:       host,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformDomainView
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest) (*PlatformDomainView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformDomainView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppDomainsByHostVerify")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/domains/{host}/verify"
+	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"host"+"}", url.PathEscape(parameterValueToString(r.host, "host")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest struct {
+	ctx                context.Context
+	ApiService         *PlatformAPIService
+	project            string
+	app                string
+	platformPreviewReq *PlatformPreviewReq
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest) PlatformPreviewReq(platformPreviewReq PlatformPreviewReq) PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest {
+	r.platformPreviewReq = &platformPreviewReq
+	return r
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest) Execute() (*PlatformPreviewView, *http.Response, error) {
+	return r.ApiService.PostPlatformProjectsByProjectAppsByAppPreviewExecute(r)
+}
+
+/*
+PostPlatformProjectsByProjectAppsByAppPreview Puts a branch on its own URL.
+
+Puts a branch on its own URL.
+
+It deploys an already-built `image` to a per-branch preview and answers its URL,
+the branch, the preview's slug and the deployment. The preview is a FIRST-CLASS
+application named `<app>-<branch>` in the same project and tenant namespace, with
+its own default host — so it is completely isolated from production while reusing
+the same deploy mechanic. Re-previewing a branch converges that same target in
+place rather than stacking another one.
+
+It carries NO environment variables, deliberately: a preview never inherits
+production's secrets. It also does not build — `image` is required and must
+already exist, and `branch` defaults to the parent app's. A branch that does not
+resolve to a valid slug distinct from the parent's is 400. Requires a validated
+principal; 401 without one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param project Project is the project the parent application lives under, from the path.
+	@param app App is the parent application's slug, from the path.
+	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest
+*/
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppPreview(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest {
+	return PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest{
+		ApiService: a,
+		ctx:        ctx,
+		project:    project,
+		app:        app,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformPreviewView
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppPreviewExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppPreviewRequest) (*PlatformPreviewView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformPreviewView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppPreview")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/preview"
+	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.platformPreviewReq == nil {
+		return localVarReturnValue, nil, reportError("platformPreviewReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.platformPreviewReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest struct {
+	ctx                context.Context
+	ApiService         *PlatformAPIService
+	project            string
+	app                string
+	platformPromoteReq *PlatformPromoteReq
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest) PlatformPromoteReq(platformPromoteReq PlatformPromoteReq) PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest {
+	r.platformPromoteReq = &platformPromoteReq
+	return r
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest) Execute() (*PlatformDeploymentView, *http.Response, error) {
+	return r.ApiService.PostPlatformProjectsByProjectAppsByAppPromoteExecute(r)
+}
+
+/*
+PostPlatformProjectsByProjectAppsByAppPromote Promotes an already-built release to the app.
+
+Promotes an already-built release to the app.
+
+It redeploys an image that already exists — named either by `deploymentId`, which
+promotes that deployment's exact built image, or by `tag`, resolved the same way
+a deploy resolves one. One of the two is required; neither is 400.
+
+Promotion never builds. A deployment that carries no built image cannot be
+promoted and is 400, and a deployment id outside this app is 404. It runs through
+the same deploy core as everything else, so it takes a NEW version number and is
+subject to the same per-org concurrency cap. Requires a validated principal; 401
+without one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param project Project is the project the application lives under, from the path.
+	@param app App is the application's slug, from the path.
+	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest
+*/
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppPromote(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest {
+	return PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest{
+		ApiService: a,
+		ctx:        ctx,
+		project:    project,
+		app:        app,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformDeploymentView
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppPromoteExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppPromoteRequest) (*PlatformDeploymentView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformDeploymentView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppPromote")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/promote"
+	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.platformPromoteReq == nil {
+		return localVarReturnValue, nil, reportError("platformPromoteReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.platformPromoteReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest struct {
+	ctx                 context.Context
+	ApiService          *PlatformAPIService
+	project             string
+	app                 string
+	platformRollbackReq *PlatformRollbackReq
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest) PlatformRollbackReq(platformRollbackReq PlatformRollbackReq) PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest {
+	r.platformRollbackReq = &platformRollbackReq
+	return r
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest) Execute() (*PlatformDeploymentView, *http.Response, error) {
+	return r.ApiService.PostPlatformProjectsByProjectAppsByAppRollbackExecute(r)
+}
+
+/*
+PostPlatformProjectsByProjectAppsByAppRollback Goes back to the previous release.
+
+Goes back to the previous release.
+
+It redeploys a prior image: the one named by `deploymentId`, or — with no body —
+the newest earlier deployment that carries a real built image and did not error,
+skipping the release currently live. An app with nothing earlier to return to is
+400.
+
+A rollback is a deploy of an old image, not a rewind: it takes a NEW version
+number and appends to the history rather than erasing what came after. Both
+lookups are scoped to this app and org, so another tenant's image can never be
+rolled in. Requires a validated principal; 401 without one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param project Project is the project the application lives under, from the path.
+	@param app App is the application's slug, from the path.
+	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest
+*/
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppRollback(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest {
+	return PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest{
+		ApiService: a,
+		ctx:        ctx,
+		project:    project,
+		app:        app,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformDeploymentView
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppRollbackExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppRollbackRequest) (*PlatformDeploymentView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformDeploymentView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppRollback")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/rollback"
+	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.platformRollbackReq == nil {
+		return localVarReturnValue, nil, reportError("platformRollbackReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.platformRollbackReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformProjectsByProjectAppsByAppStartRequest struct {
+	ctx        context.Context
+	ApiService *PlatformAPIService
+	project    string
+	app        string
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppStartRequest) Execute() (*PlatformAppOut, *http.Response, error) {
+	return r.ApiService.PostPlatformProjectsByProjectAppsByAppStartExecute(r)
+}
+
+/*
+PostPlatformProjectsByProjectAppsByAppStart Starts a stopped app back up.
+
+Starts a stopped app back up.
+
+It scales the app's Service back to its configured replica count and marks it
+live, answering the updated application. It does not redeploy: the image already
+on the Service CR is what comes back.
+
+The billing watermark is reset to now as part of starting, so the org is charged
+for THIS live span and never for the gap the app spent stopped. An app with no
+Service CR is 404, an unreachable cluster is 503, and a cluster that refuses the
+scale is 502. Requires a validated principal; 401 without one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param project Project is the project the application lives under, from the path.
+	@param app App is the application's slug, from the path.
+	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppStartRequest
+*/
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppStart(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppStartRequest {
+	return PlatformAPIPostPlatformProjectsByProjectAppsByAppStartRequest{
+		ApiService: a,
+		ctx:        ctx,
+		project:    project,
+		app:        app,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformAppOut
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppStartExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppStartRequest) (*PlatformAppOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformAppOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppStart")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/start"
+	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformProjectsByProjectAppsByAppStopRequest struct {
+	ctx        context.Context
+	ApiService *PlatformAPIService
+	project    string
+	app        string
+}
+
+func (r PlatformAPIPostPlatformProjectsByProjectAppsByAppStopRequest) Execute() (*PlatformAppOut, *http.Response, error) {
+	return r.ApiService.PostPlatformProjectsByProjectAppsByAppStopExecute(r)
+}
+
+/*
+PostPlatformProjectsByProjectAppsByAppStop Stops an app without deleting it.
+
+Stops an app without deleting it.
+
+It scales the app's Service to zero replicas and marks it stopped, answering the
+updated application. Nothing else is removed — the record, its env, its domains
+and its deployment history all survive, and /start brings it back at the same
+replica count.
+
+An app that is not deployed has no Service CR to scale and is 404. An
+unreachable cluster is 503 and a cluster that refuses the scale is 502. Because
+the pods stop, so does the compute metering. Requires a validated principal; 401
+without one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param project Project is the project the application lives under, from the path.
+	@param app App is the application's slug, from the path.
+	@return PlatformAPIPostPlatformProjectsByProjectAppsByAppStopRequest
+*/
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppStop(ctx context.Context, project string, app string) PlatformAPIPostPlatformProjectsByProjectAppsByAppStopRequest {
+	return PlatformAPIPostPlatformProjectsByProjectAppsByAppStopRequest{
+		ApiService: a,
+		ctx:        ctx,
+		project:    project,
+		app:        app,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformAppOut
+func (a *PlatformAPIService) PostPlatformProjectsByProjectAppsByAppStopExecute(r PlatformAPIPostPlatformProjectsByProjectAppsByAppStopRequest) (*PlatformAppOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformAppOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformProjectsByProjectAppsByAppStop")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/stop"
+	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPostPlatformRunRequest struct {
+	ctx            context.Context
+	ApiService     *PlatformAPIService
+	platformRunReq *PlatformRunReq
+}
+
+func (r PlatformAPIPostPlatformRunRequest) PlatformRunReq(platformRunReq PlatformRunReq) PlatformAPIPostPlatformRunRequest {
+	r.platformRunReq = &platformRunReq
+	return r
+}
+
+func (r PlatformAPIPostPlatformRunRequest) Execute() (*PlatformRunView, *http.Response, error) {
+	return r.ApiService.PostPlatformRunExecute(r)
+}
+
+/*
+PostPlatformRun Runs a container image and gives back a URL.
+
+Runs a container image and gives back a URL.
+
+The one-call shortcut over project → app → deploy: give it a `name` and an
+`image` and it creates or updates an image-source application in your org's
+DEFAULT project, deploys it through the same operator Service-CR writer
+everything else uses, and answers its id, name, live URL, status and shape.
+Re-running the same name UPDATES it in place, so the call is idempotent by name.
+
+What it produces is a first-class application, not a special object: it is
+listable, stoppable and redeployable through the /v1/platform routes like any
+other app.
+
+`minScale` is the replica floor. `maxScale` above it declares an autoscaling
+ceiling; `maxScale: 0` means no autoscaler at all — a fixed run at the floor.
+Both are clamped to the deployment's limits. `runtime` and `shape` are accepted
+for the client contract and echoed back: the image is the runtime unit and sizing
+is the operator's default.
+
+It is BILLING-GATED before it touches the cluster: a flat per-run fee is
+authorized against the org's own prepaid balance first, so an org that cannot pay
+is refused without anything being created. An unreachable cluster is 503 — a run
+never reports a URL it did not create. Secret env is sealed into KMS and fails
+closed without it.
+
+Requires a validated principal; 401 without one. The org is resolved from that
+validated identity and is what both pays and owns the namespace — it is never
+read from the body.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return PlatformAPIPostPlatformRunRequest
+*/
+func (a *PlatformAPIService) PostPlatformRun(ctx context.Context) PlatformAPIPostPlatformRunRequest {
+	return PlatformAPIPostPlatformRunRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformRunView
+func (a *PlatformAPIService) PostPlatformRunExecute(r PlatformAPIPostPlatformRunRequest) (*PlatformRunView, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformRunView
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PostPlatformRun")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/run"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.platformRunReq == nil {
+		return localVarReturnValue, nil, reportError("platformRunReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.platformRunReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPutPlatformAppsByAppProjectRequest struct {
+	ctx             context.Context
+	ApiService      *PlatformAPIService
+	app             string
+	platformAppMove *PlatformAppMove
+}
+
+func (r PlatformAPIPutPlatformAppsByAppProjectRequest) PlatformAppMove(platformAppMove PlatformAppMove) PlatformAPIPutPlatformAppsByAppProjectRequest {
+	r.platformAppMove = &platformAppMove
+	return r
+}
+
+func (r PlatformAPIPutPlatformAppsByAppProjectRequest) Execute() (*PlatformProjectWrite, *http.Response, error) {
+	return r.ApiService.PutPlatformAppsByAppProjectExecute(r)
+}
+
+/*
+PutPlatformAppsByAppProject Moves an app to a project.
+
+Moves an app to a project.
+
+It sets the declaration's `partOf` — in its cluster overlay when the overlay
+sets the key, else in its values file — and nothing else. Naming a project
+nothing names yet creates it. `org` is the values directory the app lives in;
+`mode` as for create.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param app App is the declaration's name, from the path.
+	@return PlatformAPIPutPlatformAppsByAppProjectRequest
+*/
+func (a *PlatformAPIService) PutPlatformAppsByAppProject(ctx context.Context, app string) PlatformAPIPutPlatformAppsByAppProjectRequest {
+	return PlatformAPIPutPlatformAppsByAppProjectRequest{
+		ApiService: a,
+		ctx:        ctx,
+		app:        app,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformProjectWrite
+func (a *PlatformAPIService) PutPlatformAppsByAppProjectExecute(r PlatformAPIPutPlatformAppsByAppProjectRequest) (*PlatformProjectWrite, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformProjectWrite
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PutPlatformAppsByAppProject")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/apps/{app}/project"
+	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.platformAppMove == nil {
+		return localVarReturnValue, nil, reportError("platformAppMove is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.platformAppMove
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPutPlatformProjectsByProjectRequest struct {
+	ctx                   context.Context
+	ApiService            *PlatformAPIService
+	project               string
+	platformProjectRename *PlatformProjectRename
+}
+
+func (r PlatformAPIPutPlatformProjectsByProjectRequest) PlatformProjectRename(platformProjectRename PlatformProjectRename) PlatformAPIPutPlatformProjectsByProjectRequest {
+	r.platformProjectRename = &platformProjectRename
+	return r
+}
+
+func (r PlatformAPIPutPlatformProjectsByProjectRequest) Execute() (*PlatformProjectWrite, *http.Response, error) {
+	return r.ApiService.PutPlatformProjectsByProjectExecute(r)
+}
+
+/*
+PutPlatformProjectsByProject Renames a project.
+
+Renames a project.
+
+It rewrites `partOf` on every declaration that names the project, in one commit
+to `hanzoai/universe`. 409 when the new name is already a project: fold into it
+with DELETE /v1/platform/projects/{project}?into=. `mode` as for create.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param project Project is the project to rename, from the path.
+	@return PlatformAPIPutPlatformProjectsByProjectRequest
+*/
+func (a *PlatformAPIService) PutPlatformProjectsByProject(ctx context.Context, project string) PlatformAPIPutPlatformProjectsByProjectRequest {
+	return PlatformAPIPutPlatformProjectsByProjectRequest{
+		ApiService: a,
+		ctx:        ctx,
+		project:    project,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformProjectWrite
+func (a *PlatformAPIService) PutPlatformProjectsByProjectExecute(r PlatformAPIPutPlatformProjectsByProjectRequest) (*PlatformProjectWrite, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformProjectWrite
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PutPlatformProjectsByProject")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/projects/{project}"
+	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.platformProjectRename == nil {
+		return localVarReturnValue, nil, reportError("platformProjectRename is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.platformProjectRename
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest struct {
+	ctx               context.Context
+	ApiService        *PlatformAPIService
+	project           string
+	app               string
+	platformSetEnvReq *PlatformSetEnvReq
+}
+
+func (r PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest) PlatformSetEnvReq(platformSetEnvReq PlatformSetEnvReq) PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest {
+	r.platformSetEnvReq = &platformSetEnvReq
+	return r
+}
+
+func (r PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest) Execute() (*PlatformAppOut, *http.Response, error) {
+	return r.ApiService.PutPlatformProjectsByProjectAppsByAppEnvExecute(r)
+}
+
+/*
+PutPlatformProjectsByProjectAppsByAppEnv Replaces an app's environment variables.
+
+Replaces an app's environment variables.
+
+It writes the app's whole environment set and answers the updated application.
+This is the one post-create write path for env, and it REPLACES rather than
+merges: a variable absent from the body is gone, and a secret dropped from the
+set leaves the app's Secret on its next deploy.
+
+Keys must match `^[A-Za-z_][A-Za-z0-9_]*$`. A value marked `secret: true` is
+sealed into KMS and blanked in the database, so plaintext is never persisted —
+and the write fails 503 if KMS is unavailable rather than storing one in the
+clear.
+
+The rule worth knowing: this does not restart anything. Once the app has been
+deployed the secret sync is re-declared immediately so the operator
+re-materialises the Secret, but RUNNING pods keep the environment they started
+with until their next deploy or restart. Requires a validated principal; 401
+without one.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param project Project is the project the application lives under, from the path.
+	@param app App is the application's slug, from the path.
+	@return PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest
+*/
+func (a *PlatformAPIService) PutPlatformProjectsByProjectAppsByAppEnv(ctx context.Context, project string, app string) PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest {
+	return PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest{
+		ApiService: a,
+		ctx:        ctx,
+		project:    project,
+		app:        app,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformAppOut
+func (a *PlatformAPIService) PutPlatformProjectsByProjectAppsByAppEnvExecute(r PlatformAPIPutPlatformProjectsByProjectAppsByAppEnvRequest) (*PlatformAppOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformAppOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformAPIService.PutPlatformProjectsByProjectAppsByAppEnv")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/platform/projects/{project}/apps/{app}/env"
+	localVarPath = strings.Replace(localVarPath, "{"+"project"+"}", url.PathEscape(parameterValueToString(r.project, "project")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"app"+"}", url.PathEscape(parameterValueToString(r.app, "app")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.platformSetEnvReq == nil {
+		return localVarReturnValue, nil, reportError("platformSetEnvReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.platformSetEnvReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

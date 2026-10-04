@@ -22,8 +22,11 @@ type O11yO11yFieldKeysOut struct {
 	// Data holds the field keys grouped by name, and whether the catalog is complete.
 	Data *O11yGettableFieldKeys `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFieldKeysOut O11yO11yFieldKeysOut
 
 // NewO11yO11yFieldKeysOut instantiates a new O11yO11yFieldKeysOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yFieldKeysOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFieldKeysOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFieldKeysOut := _O11yO11yFieldKeysOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yFieldKeysOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFieldKeysOut(varO11yO11yFieldKeysOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFieldKeysOut struct {

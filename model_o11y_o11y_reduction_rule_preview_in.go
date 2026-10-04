@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -28,7 +27,8 @@ type O11yO11yReductionRulePreviewIn struct {
 	// MatchType is drop or keep. Required.
 	MatchType string `json:"matchType"`
 	// MetricName is the metric the rule would govern. Required.
-	MetricName string `json:"metricName"`
+	MetricName           string `json:"metricName"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11yReductionRulePreviewIn O11yO11yReductionRulePreviewIn
@@ -173,6 +173,11 @@ func (o O11yO11yReductionRulePreviewIn) ToMap() (map[string]interface{}, error) 
 	}
 	toSerialize["matchType"] = o.MatchType
 	toSerialize["metricName"] = o.MetricName
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -202,15 +207,23 @@ func (o *O11yO11yReductionRulePreviewIn) UnmarshalJSON(data []byte) (err error) 
 
 	varO11yO11yReductionRulePreviewIn := _O11yO11yReductionRulePreviewIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11yReductionRulePreviewIn)
+	err = json.Unmarshal(data, &varO11yO11yReductionRulePreviewIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11yReductionRulePreviewIn(varO11yO11yReductionRulePreviewIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "lookbackMs")
+		delete(additionalProperties, "matchType")
+		delete(additionalProperties, "metricName")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

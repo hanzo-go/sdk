@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -32,7 +31,8 @@ type O11yO11ySpanPercentileIn struct {
 	// SpanDuration is the span's duration in nanoseconds.
 	SpanDuration *int64 `json:"spanDuration,omitempty"`
 	// Start is the window start, as epoch nanoseconds.
-	Start *int32 `json:"start,omitempty"`
+	Start                *int32 `json:"start,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11ySpanPercentileIn O11yO11ySpanPercentileIn
@@ -256,6 +256,11 @@ func (o O11yO11ySpanPercentileIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Start) {
 		toSerialize["start"] = o.Start
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -284,15 +289,25 @@ func (o *O11yO11ySpanPercentileIn) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11ySpanPercentileIn := _O11yO11ySpanPercentileIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11ySpanPercentileIn)
+	err = json.Unmarshal(data, &varO11yO11ySpanPercentileIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11ySpanPercentileIn(varO11yO11ySpanPercentileIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "resourceAttributes")
+		delete(additionalProperties, "serviceName")
+		delete(additionalProperties, "spanDuration")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

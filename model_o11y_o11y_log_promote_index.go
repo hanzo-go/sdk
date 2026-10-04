@@ -24,8 +24,11 @@ type O11yO11yLogPromoteIndex struct {
 	// Granularity is the index granularity in rows.
 	Granularity *int64 `json:"granularity,omitempty"`
 	// Type is the index type, e.g. minmax, set(N), bloom_filter(P).
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogPromoteIndex O11yO11yLogPromoteIndex
 
 // NewO11yO11yLogPromoteIndex instantiates a new O11yO11yLogPromoteIndex object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yLogPromoteIndex) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogPromoteIndex) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogPromoteIndex := _O11yO11yLogPromoteIndex{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogPromoteIndex)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogPromoteIndex(varO11yO11yLogPromoteIndex)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fieldDataType")
+		delete(additionalProperties, "granularity")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogPromoteIndex struct {

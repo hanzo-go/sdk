@@ -19,12 +19,15 @@ var _ MappedNullable = &O11yPodCountByPhase{}
 
 // O11yPodCountByPhase struct for O11yPodCountByPhase
 type O11yPodCountByPhase struct {
-	Failed    *int64 `json:"failed,omitempty"`
-	Pending   *int64 `json:"pending,omitempty"`
-	Running   *int64 `json:"running,omitempty"`
-	Succeeded *int64 `json:"succeeded,omitempty"`
-	Unknown   *int64 `json:"unknown,omitempty"`
+	Failed               *int64 `json:"failed,omitempty"`
+	Pending              *int64 `json:"pending,omitempty"`
+	Running              *int64 `json:"running,omitempty"`
+	Succeeded            *int64 `json:"succeeded,omitempty"`
+	Unknown              *int64 `json:"unknown,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPodCountByPhase O11yPodCountByPhase
 
 // NewO11yPodCountByPhase instantiates a new O11yPodCountByPhase object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o O11yPodCountByPhase) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Unknown) {
 		toSerialize["unknown"] = o.Unknown
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPodCountByPhase) UnmarshalJSON(data []byte) (err error) {
+	varO11yPodCountByPhase := _O11yPodCountByPhase{}
+
+	err = json.Unmarshal(data, &varO11yPodCountByPhase)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPodCountByPhase(varO11yPodCountByPhase)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "failed")
+		delete(additionalProperties, "pending")
+		delete(additionalProperties, "running")
+		delete(additionalProperties, "succeeded")
+		delete(additionalProperties, "unknown")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPodCountByPhase struct {

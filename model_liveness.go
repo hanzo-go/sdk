@@ -22,8 +22,11 @@ type Liveness struct {
 	// Service names the answering subsystem; it is always commerce.
 	Service *string `json:"service,omitempty"`
 	// Status is always ok: mounted is the only state that can answer.
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Liveness Liveness
 
 // NewLiveness instantiates a new Liveness object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o Liveness) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Liveness) UnmarshalJSON(data []byte) (err error) {
+	varLiveness := _Liveness{}
+
+	err = json.Unmarshal(data, &varLiveness)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Liveness(varLiveness)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "service")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLiveness struct {

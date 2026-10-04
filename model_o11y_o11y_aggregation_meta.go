@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yAggregationMeta{}
 // O11yO11yAggregationMeta struct for O11yO11yAggregationMeta
 type O11yO11yAggregationMeta struct {
 	// Unit is the aggregation's unit.
-	Unit *string `json:"unit,omitempty"`
+	Unit                 *string `json:"unit,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yAggregationMeta O11yO11yAggregationMeta
 
 // NewO11yO11yAggregationMeta instantiates a new O11yO11yAggregationMeta object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yAggregationMeta) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Unit) {
 		toSerialize["unit"] = o.Unit
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yAggregationMeta) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yAggregationMeta := _O11yO11yAggregationMeta{}
+
+	err = json.Unmarshal(data, &varO11yO11yAggregationMeta)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yAggregationMeta(varO11yO11yAggregationMeta)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "unit")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yAggregationMeta struct {

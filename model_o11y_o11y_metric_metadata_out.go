@@ -22,8 +22,11 @@ type O11yO11yMetricMetadataOut struct {
 	// Data holds the metadata.
 	Data *O11yO11yMetricMetadata `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricMetadataOut O11yO11yMetricMetadataOut
 
 // NewO11yO11yMetricMetadataOut instantiates a new O11yO11yMetricMetadataOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yMetricMetadataOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricMetadataOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricMetadataOut := _O11yO11yMetricMetadataOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricMetadataOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricMetadataOut(varO11yO11yMetricMetadataOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricMetadataOut struct {

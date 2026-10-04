@@ -19,11 +19,14 @@ var _ MappedNullable = &IamAccountBody{}
 
 // IamAccountBody struct for IamAccountBody
 type IamAccountBody struct {
-	Avatar      *string `json:"avatar,omitempty"`
-	Bio         *string `json:"bio,omitempty"`
-	DisplayName *string `json:"displayName,omitempty"`
-	Homepage    *string `json:"homepage,omitempty"`
+	Avatar               *string `json:"avatar,omitempty"`
+	Bio                  *string `json:"bio,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
+	Homepage             *string `json:"homepage,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamAccountBody IamAccountBody
 
 // NewIamAccountBody instantiates a new IamAccountBody object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o IamAccountBody) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Homepage) {
 		toSerialize["homepage"] = o.Homepage
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamAccountBody) UnmarshalJSON(data []byte) (err error) {
+	varIamAccountBody := _IamAccountBody{}
+
+	err = json.Unmarshal(data, &varIamAccountBody)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamAccountBody(varIamAccountBody)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "avatar")
+		delete(additionalProperties, "bio")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "homepage")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamAccountBody struct {

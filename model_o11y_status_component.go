@@ -24,8 +24,11 @@ type O11yStatusComponent struct {
 	// ID is the component's stable handle, which on this platform IS the service name — there is no separate component registry to allocate ids from.
 	Id *string `json:"id,omitempty"`
 	// Name is the service as the fleet prober knows it (the `service` label on hanzo_service_up), so a reader can match a component to what is being probed.
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yStatusComponent O11yStatusComponent
 
 // NewO11yStatusComponent instantiates a new O11yStatusComponent object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yStatusComponent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yStatusComponent) UnmarshalJSON(data []byte) (err error) {
+	varO11yStatusComponent := _O11yStatusComponent{}
+
+	err = json.Unmarshal(data, &varO11yStatusComponent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yStatusComponent(varO11yStatusComponent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "current_status")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yStatusComponent struct {

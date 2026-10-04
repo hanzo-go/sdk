@@ -22,9 +22,12 @@ type O11yCredentials struct {
 	IngestionKey *string `json:"ingestionKey,omitempty"`
 	IngestionUrl *string `json:"ingestionUrl,omitempty"`
 	// PAT
-	O11yApiKey *string `json:"o11yApiKey,omitempty"`
-	O11yApiUrl *string `json:"o11yApiUrl,omitempty"`
+	O11yApiKey           *string `json:"o11yApiKey,omitempty"`
+	O11yApiUrl           *string `json:"o11yApiUrl,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yCredentials O11yCredentials
 
 // NewO11yCredentials instantiates a new O11yCredentials object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o O11yCredentials) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.O11yApiUrl) {
 		toSerialize["o11yApiUrl"] = o.O11yApiUrl
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yCredentials) UnmarshalJSON(data []byte) (err error) {
+	varO11yCredentials := _O11yCredentials{}
+
+	err = json.Unmarshal(data, &varO11yCredentials)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yCredentials(varO11yCredentials)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ingestionKey")
+		delete(additionalProperties, "ingestionUrl")
+		delete(additionalProperties, "o11yApiKey")
+		delete(additionalProperties, "o11yApiUrl")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yCredentials struct {

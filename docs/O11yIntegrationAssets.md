@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Alerts** | Pointer to **[]interface{}** |  | [optional] 
-**Dashboards** | Pointer to **[]map[string]map[string]interface{}** |  | [optional] 
+**Dashboards** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **Logs** | Pointer to [**O11yLogsAssets**](O11yLogsAssets.md) |  | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasAlerts returns a boolean if a field has been set.
 
 ### GetDashboards
 
-`func (o *O11yIntegrationAssets) GetDashboards() []map[string]map[string]interface{}`
+`func (o *O11yIntegrationAssets) GetDashboards() []map[string]interface{}`
 
 GetDashboards returns the Dashboards field if non-nil, zero value otherwise.
 
 ### GetDashboardsOk
 
-`func (o *O11yIntegrationAssets) GetDashboardsOk() (*[]map[string]map[string]interface{}, bool)`
+`func (o *O11yIntegrationAssets) GetDashboardsOk() (*[]map[string]interface{}, bool)`
 
 GetDashboardsOk returns a tuple with the Dashboards field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDashboards
 
-`func (o *O11yIntegrationAssets) SetDashboards(v []map[string]map[string]interface{})`
+`func (o *O11yIntegrationAssets) SetDashboards(v []map[string]interface{})`
 
 SetDashboards sets Dashboards field to given value.
 

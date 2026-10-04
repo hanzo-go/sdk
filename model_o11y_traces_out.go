@@ -26,8 +26,11 @@ type O11yTracesOut struct {
 	// SinceSec is the window actually read, in seconds, after clamping.
 	SinceSec *int64 `json:"sinceSec,omitempty"`
 	// Traces are the caller org's traces, most recently active first.
-	Traces []O11yTraceRow `json:"traces,omitempty"`
+	Traces               []O11yTraceRow `json:"traces,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yTracesOut O11yTracesOut
 
 // NewO11yTracesOut instantiates a new O11yTracesOut object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yTracesOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Traces) {
 		toSerialize["traces"] = o.Traces
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yTracesOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yTracesOut := _O11yTracesOut{}
+
+	err = json.Unmarshal(data, &varO11yTracesOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yTracesOut(varO11yTracesOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "sinceSec")
+		delete(additionalProperties, "traces")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yTracesOut struct {

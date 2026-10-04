@@ -81,7 +81,7 @@ func (a *PromptAPIService) DeletePromptByNameExecute(r PromptAPIDeletePromptByNa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -110,6 +110,14 @@ func (a *PromptAPIService) DeletePromptByNameExecute(r PromptAPIDeletePromptByNa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -121,14 +129,14 @@ type PromptAPIGetPromptRequest struct {
 	ApiService *PromptAPIService
 }
 
-func (r PromptAPIGetPromptRequest) Execute() (*PromptList, *http.Response, error) {
+func (r PromptAPIGetPromptRequest) Execute() (*PromptPromptList, *http.Response, error) {
 	return r.ApiService.GetPromptExecute(r)
 }
 
 /*
-GetPrompt List returns the caller org's prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
+GetPrompt Returns the caller org's prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
 
-List returns the caller org's prompt library as one row per prompt: its name,
+Returns the caller org's prompt library as one row per prompt: its name,
 type, every version number it has, its taxonomy and when it last changed. The
 template bodies are deliberately absent — fetch one prompt to read its text.
 
@@ -144,13 +152,13 @@ func (a *PromptAPIService) GetPrompt(ctx context.Context) PromptAPIGetPromptRequ
 
 // Execute executes the request
 //
-//	@return PromptList
-func (a *PromptAPIService) GetPromptExecute(r PromptAPIGetPromptRequest) (*PromptList, *http.Response, error) {
+//	@return PromptPromptList
+func (a *PromptAPIService) GetPromptExecute(r PromptAPIGetPromptRequest) (*PromptPromptList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PromptList
+		localVarReturnValue *PromptPromptList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PromptAPIService.GetPrompt")
@@ -174,7 +182,7 @@ func (a *PromptAPIService) GetPromptExecute(r PromptAPIGetPromptRequest) (*Promp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -203,6 +211,14 @@ func (a *PromptAPIService) GetPromptExecute(r PromptAPIGetPromptRequest) (*Promp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -224,14 +240,14 @@ type PromptAPIGetPromptByNameRequest struct {
 	name       string
 }
 
-func (r PromptAPIGetPromptByNameRequest) Execute() (*PromptDetail, *http.Response, error) {
+func (r PromptAPIGetPromptByNameRequest) Execute() (*PromptPromptDetail, *http.Response, error) {
 	return r.ApiService.GetPromptByNameExecute(r)
 }
 
 /*
-GetPromptByName Get returns one of the caller org's prompts: its CURRENT template text plus the metadata of every version it has had.
+GetPromptByName Returns one of the caller org's prompts: its CURRENT template text plus the metadata of every version it has had.
 
-Get returns one of the caller org's prompts: its CURRENT template text plus the
+Returns one of the caller org's prompts: its CURRENT template text plus the
 metadata of every version it has had. The history carries version numbers, types
 and timestamps only — not each version's body — so a long history cannot inflate
 this response. A name the caller's org does not own is 404, whoever owns it.
@@ -250,13 +266,13 @@ func (a *PromptAPIService) GetPromptByName(ctx context.Context, name string) Pro
 
 // Execute executes the request
 //
-//	@return PromptDetail
-func (a *PromptAPIService) GetPromptByNameExecute(r PromptAPIGetPromptByNameRequest) (*PromptDetail, *http.Response, error) {
+//	@return PromptPromptDetail
+func (a *PromptAPIService) GetPromptByNameExecute(r PromptAPIGetPromptByNameRequest) (*PromptPromptDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PromptDetail
+		localVarReturnValue *PromptPromptDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PromptAPIService.GetPromptByName")
@@ -281,7 +297,7 @@ func (a *PromptAPIService) GetPromptByNameExecute(r PromptAPIGetPromptByNameRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -310,6 +326,14 @@ func (a *PromptAPIService) GetPromptByNameExecute(r PromptAPIGetPromptByNameRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -330,14 +354,14 @@ type PromptAPIGetPromptCatalogRequest struct {
 	ApiService *PromptAPIService
 }
 
-func (r PromptAPIGetPromptCatalogRequest) Execute() (*CatalogList, *http.Response, error) {
+func (r PromptAPIGetPromptCatalogRequest) Execute() (*PromptCatalogList, *http.Response, error) {
 	return r.ApiService.GetPromptCatalogExecute(r)
 }
 
 /*
-GetPromptCatalog Catalog returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller's own prompts and never mixed into them.
+GetPromptCatalog Returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller's own prompts and never mixed into them.
 
-Catalog returns the read-only starter prompt library shipped with the binary —
+Returns the read-only starter prompt library shipped with the binary —
 reference content every tenant sees the same, NOT the caller's own prompts and
 never mixed into them. An org's library stays honestly empty until someone
 explicitly imports a starter, which is an ordinary POST /v1/prompt. Entries that
@@ -356,13 +380,13 @@ func (a *PromptAPIService) GetPromptCatalog(ctx context.Context) PromptAPIGetPro
 
 // Execute executes the request
 //
-//	@return CatalogList
-func (a *PromptAPIService) GetPromptCatalogExecute(r PromptAPIGetPromptCatalogRequest) (*CatalogList, *http.Response, error) {
+//	@return PromptCatalogList
+func (a *PromptAPIService) GetPromptCatalogExecute(r PromptAPIGetPromptCatalogRequest) (*PromptCatalogList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CatalogList
+		localVarReturnValue *PromptCatalogList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PromptAPIService.GetPromptCatalog")
@@ -386,7 +410,7 @@ func (a *PromptAPIService) GetPromptCatalogExecute(r PromptAPIGetPromptCatalogRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -415,6 +439,14 @@ func (a *PromptAPIService) GetPromptCatalogExecute(r PromptAPIGetPromptCatalogRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -435,14 +467,14 @@ type PromptAPIGetPromptMetricsRequest struct {
 	ApiService *PromptAPIService
 }
 
-func (r PromptAPIGetPromptMetricsRequest) Execute() (*MetricList, *http.Response, error) {
+func (r PromptAPIGetPromptMetricsRequest) Execute() (*PromptMetricList, *http.Response, error) {
 	return r.ApiService.GetPromptMetricsExecute(r)
 }
 
 /*
-GetPromptMetrics Metrics returns real per-prompt statistics for the caller's org: how many versions each prompt has, which one is current, and when it was created and last changed.
+GetPromptMetrics Returns real per-prompt statistics for the caller's org: how many versions each prompt has, which one is current, and when it was created and last changed.
 
-Metrics returns real per-prompt statistics for the caller's org: how many versions
+Returns real per-prompt statistics for the caller's org: how many versions
 each prompt has, which one is current, and when it was created and last changed.
 Every number is counted from the store — nothing here is estimated or fabricated.
 
@@ -458,13 +490,13 @@ func (a *PromptAPIService) GetPromptMetrics(ctx context.Context) PromptAPIGetPro
 
 // Execute executes the request
 //
-//	@return MetricList
-func (a *PromptAPIService) GetPromptMetricsExecute(r PromptAPIGetPromptMetricsRequest) (*MetricList, *http.Response, error) {
+//	@return PromptMetricList
+func (a *PromptAPIService) GetPromptMetricsExecute(r PromptAPIGetPromptMetricsRequest) (*PromptMetricList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MetricList
+		localVarReturnValue *PromptMetricList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PromptAPIService.GetPromptMetrics")
@@ -488,7 +520,7 @@ func (a *PromptAPIService) GetPromptMetricsExecute(r PromptAPIGetPromptMetricsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -517,6 +549,14 @@ func (a *PromptAPIService) GetPromptMetricsExecute(r PromptAPIGetPromptMetricsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -533,24 +573,24 @@ func (a *PromptAPIService) GetPromptMetricsExecute(r PromptAPIGetPromptMetricsRe
 }
 
 type PromptAPIPostPromptRequest struct {
-	ctx        context.Context
-	ApiService *PromptAPIService
-	promptReq  *PromptReq
+	ctx             context.Context
+	ApiService      *PromptAPIService
+	promptPromptReq *PromptPromptReq
 }
 
-func (r PromptAPIPostPromptRequest) PromptReq(promptReq PromptReq) PromptAPIPostPromptRequest {
-	r.promptReq = &promptReq
+func (r PromptAPIPostPromptRequest) PromptPromptReq(promptPromptReq PromptPromptReq) PromptAPIPostPromptRequest {
+	r.promptPromptReq = &promptPromptReq
 	return r
 }
 
-func (r PromptAPIPostPromptRequest) Execute() (*PromptDetail, *http.Response, error) {
+func (r PromptAPIPostPromptRequest) Execute() (*PromptPromptDetail, *http.Response, error) {
 	return r.ApiService.PostPromptExecute(r)
 }
 
 /*
-PostPrompt Create records a prompt for the caller's org and answers 201 with it.
+PostPrompt Records a prompt for the caller's org and answers 201 with it.
 
-Create records a prompt for the caller's org and answers 201 with it. A name the
+Records a prompt for the caller's org and answers 201 with it. A name the
 org already uses is NOT an error and NOT an overwrite: it appends a new version,
 so the library keeps real, inspectable history and the response carries the whole
 version list. The name is also the URL segment the prompt is fetched by, which is
@@ -568,13 +608,13 @@ func (a *PromptAPIService) PostPrompt(ctx context.Context) PromptAPIPostPromptRe
 
 // Execute executes the request
 //
-//	@return PromptDetail
-func (a *PromptAPIService) PostPromptExecute(r PromptAPIPostPromptRequest) (*PromptDetail, *http.Response, error) {
+//	@return PromptPromptDetail
+func (a *PromptAPIService) PostPromptExecute(r PromptAPIPostPromptRequest) (*PromptPromptDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PromptDetail
+		localVarReturnValue *PromptPromptDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PromptAPIService.PostPrompt")
@@ -587,8 +627,8 @@ func (a *PromptAPIService) PostPromptExecute(r PromptAPIPostPromptRequest) (*Pro
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.promptReq == nil {
-		return localVarReturnValue, nil, reportError("promptReq is required and must be specified")
+	if r.promptPromptReq == nil {
+		return localVarReturnValue, nil, reportError("promptPromptReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -601,7 +641,7 @@ func (a *PromptAPIService) PostPromptExecute(r PromptAPIPostPromptRequest) (*Pro
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -609,7 +649,7 @@ func (a *PromptAPIService) PostPromptExecute(r PromptAPIPostPromptRequest) (*Pro
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.promptReq
+	localVarPostBody = r.promptPromptReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -632,6 +672,14 @@ func (a *PromptAPIService) PostPromptExecute(r PromptAPIPostPromptRequest) (*Pro
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -19,15 +19,18 @@ var _ MappedNullable = &O11ySigV4Config{}
 
 // O11ySigV4Config struct for O11ySigV4Config
 type O11ySigV4Config struct {
-	AccessKey          *string     `json:"AccessKey,omitempty"`
-	ExternalID         *string     `json:"ExternalID,omitempty"`
-	Profile            *string     `json:"Profile,omitempty"`
-	Region             *string     `json:"Region,omitempty"`
-	RoleARN            *string     `json:"RoleARN,omitempty"`
-	SecretKey          interface{} `json:"SecretKey,omitempty"`
-	ServiceName        *string     `json:"ServiceName,omitempty"`
-	UseFIPSSTSEndpoint *bool       `json:"UseFIPSSTSEndpoint,omitempty"`
+	AccessKey            *string     `json:"AccessKey,omitempty"`
+	ExternalID           *string     `json:"ExternalID,omitempty"`
+	Profile              *string     `json:"Profile,omitempty"`
+	Region               *string     `json:"Region,omitempty"`
+	RoleARN              *string     `json:"RoleARN,omitempty"`
+	SecretKey            interface{} `json:"SecretKey,omitempty"`
+	ServiceName          *string     `json:"ServiceName,omitempty"`
+	UseFIPSSTSEndpoint   *bool       `json:"UseFIPSSTSEndpoint,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySigV4Config O11ySigV4Config
 
 // NewO11ySigV4Config instantiates a new O11ySigV4Config object
 // This constructor will assign default values to properties that have it defined,
@@ -337,7 +340,40 @@ func (o O11ySigV4Config) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UseFIPSSTSEndpoint) {
 		toSerialize["UseFIPSSTSEndpoint"] = o.UseFIPSSTSEndpoint
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySigV4Config) UnmarshalJSON(data []byte) (err error) {
+	varO11ySigV4Config := _O11ySigV4Config{}
+
+	err = json.Unmarshal(data, &varO11ySigV4Config)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySigV4Config(varO11ySigV4Config)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "AccessKey")
+		delete(additionalProperties, "ExternalID")
+		delete(additionalProperties, "Profile")
+		delete(additionalProperties, "Region")
+		delete(additionalProperties, "RoleARN")
+		delete(additionalProperties, "SecretKey")
+		delete(additionalProperties, "ServiceName")
+		delete(additionalProperties, "UseFIPSSTSEndpoint")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySigV4Config struct {

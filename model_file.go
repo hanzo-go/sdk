@@ -19,18 +19,21 @@ var _ MappedNullable = &File{}
 
 // File struct for File
 type File struct {
-	CreatedTime     *string `json:"createdTime,omitempty"`
-	ErrorText       *string `json:"errorText,omitempty"`
-	Filename        *string `json:"filename,omitempty"`
-	Name            *string `json:"name,omitempty"`
-	Owner           *string `json:"owner,omitempty"`
-	Size            *int32  `json:"size,omitempty"`
-	Status          *string `json:"status,omitempty"`
-	StorageProvider *string `json:"storageProvider,omitempty"`
-	Store           *string `json:"store,omitempty"`
-	TokenCount      *int32  `json:"tokenCount,omitempty"`
-	Url             *string `json:"url,omitempty"`
+	CreatedTime          *string `json:"createdTime,omitempty"`
+	ErrorText            *string `json:"errorText,omitempty"`
+	Filename             *string `json:"filename,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	Size                 *int32  `json:"size,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	StorageProvider      *string `json:"storageProvider,omitempty"`
+	Store                *string `json:"store,omitempty"`
+	TokenCount           *int32  `json:"tokenCount,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _File File
 
 // NewFile instantiates a new File object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o File) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *File) UnmarshalJSON(data []byte) (err error) {
+	varFile := _File{}
+
+	err = json.Unmarshal(data, &varFile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = File(varFile)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "errorText")
+		delete(additionalProperties, "filename")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "size")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "storageProvider")
+		delete(additionalProperties, "store")
+		delete(additionalProperties, "tokenCount")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFile struct {

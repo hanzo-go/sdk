@@ -19,11 +19,14 @@ var _ MappedNullable = &O11yPagination{}
 
 // O11yPagination struct for O11yPagination
 type O11yPagination struct {
-	Page    *int64 `json:"page,omitempty"`
-	Pages   *int64 `json:"pages,omitempty"`
-	PerPage *int64 `json:"per_page,omitempty"`
-	Total   *int64 `json:"total,omitempty"`
+	Page                 *int64 `json:"page,omitempty"`
+	Pages                *int64 `json:"pages,omitempty"`
+	PerPage              *int64 `json:"per_page,omitempty"`
+	Total                *int64 `json:"total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPagination O11yPagination
 
 // NewO11yPagination instantiates a new O11yPagination object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11yPagination) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPagination) UnmarshalJSON(data []byte) (err error) {
+	varO11yPagination := _O11yPagination{}
+
+	err = json.Unmarshal(data, &varO11yPagination)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPagination(varO11yPagination)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "page")
+		delete(additionalProperties, "pages")
+		delete(additionalProperties, "per_page")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPagination struct {

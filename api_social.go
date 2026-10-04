@@ -84,7 +84,7 @@ func (a *SocialAPIService) DeleteSocialAccountsByIdExecute(r SocialAPIDeleteSoci
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -113,6 +113,14 @@ func (a *SocialAPIService) DeleteSocialAccountsByIdExecute(r SocialAPIDeleteSoci
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -180,7 +188,7 @@ func (a *SocialAPIService) DeleteSocialPostsByIdExecute(r SocialAPIDeleteSocialP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -209,6 +217,14 @@ func (a *SocialAPIService) DeleteSocialPostsByIdExecute(r SocialAPIDeleteSocialP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -234,7 +250,7 @@ func (r SocialAPIGetSocialAccountsRequest) Limit(limit string) SocialAPIGetSocia
 	return r
 }
 
-func (r SocialAPIGetSocialAccountsRequest) Execute() (*SocialAccounts, *http.Response, error) {
+func (r SocialAPIGetSocialAccountsRequest) Execute() (*SocialSocialAccounts, *http.Response, error) {
 	return r.ApiService.GetSocialAccountsExecute(r)
 }
 
@@ -259,13 +275,13 @@ func (a *SocialAPIService) GetSocialAccounts(ctx context.Context) SocialAPIGetSo
 
 // Execute executes the request
 //
-//	@return SocialAccounts
-func (a *SocialAPIService) GetSocialAccountsExecute(r SocialAPIGetSocialAccountsRequest) (*SocialAccounts, *http.Response, error) {
+//	@return SocialSocialAccounts
+func (a *SocialAPIService) GetSocialAccountsExecute(r SocialAPIGetSocialAccountsRequest) (*SocialSocialAccounts, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SocialAccounts
+		localVarReturnValue *SocialSocialAccounts
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.GetSocialAccounts")
@@ -295,7 +311,7 @@ func (a *SocialAPIService) GetSocialAccountsExecute(r SocialAPIGetSocialAccounts
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -324,6 +340,14 @@ func (a *SocialAPIService) GetSocialAccountsExecute(r SocialAPIGetSocialAccounts
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -345,7 +369,7 @@ type SocialAPIGetSocialAccountsByIdRequest struct {
 	id         string
 }
 
-func (r SocialAPIGetSocialAccountsByIdRequest) Execute() (*SocialAccount, *http.Response, error) {
+func (r SocialAPIGetSocialAccountsByIdRequest) Execute() (*SocialSocialAccount, *http.Response, error) {
 	return r.ApiService.GetSocialAccountsByIdExecute(r)
 }
 
@@ -370,13 +394,13 @@ func (a *SocialAPIService) GetSocialAccountsById(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return SocialAccount
-func (a *SocialAPIService) GetSocialAccountsByIdExecute(r SocialAPIGetSocialAccountsByIdRequest) (*SocialAccount, *http.Response, error) {
+//	@return SocialSocialAccount
+func (a *SocialAPIService) GetSocialAccountsByIdExecute(r SocialAPIGetSocialAccountsByIdRequest) (*SocialSocialAccount, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SocialAccount
+		localVarReturnValue *SocialSocialAccount
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.GetSocialAccountsById")
@@ -401,7 +425,7 @@ func (a *SocialAPIService) GetSocialAccountsByIdExecute(r SocialAPIGetSocialAcco
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -430,6 +454,14 @@ func (a *SocialAPIService) GetSocialAccountsByIdExecute(r SocialAPIGetSocialAcco
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -464,7 +496,7 @@ func (r SocialAPIGetSocialPostsRequest) Limit(limit string) SocialAPIGetSocialPo
 	return r
 }
 
-func (r SocialAPIGetSocialPostsRequest) Execute() (*SocialPosts, *http.Response, error) {
+func (r SocialAPIGetSocialPostsRequest) Execute() (*SocialSocialPosts, *http.Response, error) {
 	return r.ApiService.GetSocialPostsExecute(r)
 }
 
@@ -486,13 +518,13 @@ func (a *SocialAPIService) GetSocialPosts(ctx context.Context) SocialAPIGetSocia
 
 // Execute executes the request
 //
-//	@return SocialPosts
-func (a *SocialAPIService) GetSocialPostsExecute(r SocialAPIGetSocialPostsRequest) (*SocialPosts, *http.Response, error) {
+//	@return SocialSocialPosts
+func (a *SocialAPIService) GetSocialPostsExecute(r SocialAPIGetSocialPostsRequest) (*SocialSocialPosts, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SocialPosts
+		localVarReturnValue *SocialSocialPosts
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.GetSocialPosts")
@@ -522,7 +554,7 @@ func (a *SocialAPIService) GetSocialPostsExecute(r SocialAPIGetSocialPostsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -551,6 +583,14 @@ func (a *SocialAPIService) GetSocialPostsExecute(r SocialAPIGetSocialPostsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -572,7 +612,7 @@ type SocialAPIGetSocialPostsByIdRequest struct {
 	id         string
 }
 
-func (r SocialAPIGetSocialPostsByIdRequest) Execute() (*SocialPost, *http.Response, error) {
+func (r SocialAPIGetSocialPostsByIdRequest) Execute() (*SocialSocialPost, *http.Response, error) {
 	return r.ApiService.GetSocialPostsByIdExecute(r)
 }
 
@@ -597,13 +637,13 @@ func (a *SocialAPIService) GetSocialPostsById(ctx context.Context, id string) So
 
 // Execute executes the request
 //
-//	@return SocialPost
-func (a *SocialAPIService) GetSocialPostsByIdExecute(r SocialAPIGetSocialPostsByIdRequest) (*SocialPost, *http.Response, error) {
+//	@return SocialSocialPost
+func (a *SocialAPIService) GetSocialPostsByIdExecute(r SocialAPIGetSocialPostsByIdRequest) (*SocialSocialPost, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SocialPost
+		localVarReturnValue *SocialSocialPost
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.GetSocialPostsById")
@@ -628,7 +668,7 @@ func (a *SocialAPIService) GetSocialPostsByIdExecute(r SocialAPIGetSocialPostsBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -657,6 +697,14 @@ func (a *SocialAPIService) GetSocialPostsByIdExecute(r SocialAPIGetSocialPostsBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -677,7 +725,7 @@ type SocialAPIGetSocialProvidersRequest struct {
 	ApiService *SocialAPIService
 }
 
-func (r SocialAPIGetSocialProvidersRequest) Execute() (*SocialProviders, *http.Response, error) {
+func (r SocialAPIGetSocialProvidersRequest) Execute() (*SocialSocialProviders, *http.Response, error) {
 	return r.ApiService.GetSocialProvidersExecute(r)
 }
 
@@ -705,13 +753,13 @@ func (a *SocialAPIService) GetSocialProviders(ctx context.Context) SocialAPIGetS
 
 // Execute executes the request
 //
-//	@return SocialProviders
-func (a *SocialAPIService) GetSocialProvidersExecute(r SocialAPIGetSocialProvidersRequest) (*SocialProviders, *http.Response, error) {
+//	@return SocialSocialProviders
+func (a *SocialAPIService) GetSocialProvidersExecute(r SocialAPIGetSocialProvidersRequest) (*SocialSocialProviders, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SocialProviders
+		localVarReturnValue *SocialSocialProviders
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.GetSocialProviders")
@@ -735,7 +783,7 @@ func (a *SocialAPIService) GetSocialProvidersExecute(r SocialAPIGetSocialProvide
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -764,6 +812,14 @@ func (a *SocialAPIService) GetSocialProvidersExecute(r SocialAPIGetSocialProvide
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -784,7 +840,7 @@ type SocialAPIGetSocialSummaryRequest struct {
 	ApiService *SocialAPIService
 }
 
-func (r SocialAPIGetSocialSummaryRequest) Execute() (*SocialSummary, *http.Response, error) {
+func (r SocialAPIGetSocialSummaryRequest) Execute() (*SocialSocialSummary, *http.Response, error) {
 	return r.ApiService.GetSocialSummaryExecute(r)
 }
 
@@ -807,13 +863,13 @@ func (a *SocialAPIService) GetSocialSummary(ctx context.Context) SocialAPIGetSoc
 
 // Execute executes the request
 //
-//	@return SocialSummary
-func (a *SocialAPIService) GetSocialSummaryExecute(r SocialAPIGetSocialSummaryRequest) (*SocialSummary, *http.Response, error) {
+//	@return SocialSocialSummary
+func (a *SocialAPIService) GetSocialSummaryExecute(r SocialAPIGetSocialSummaryRequest) (*SocialSocialSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SocialSummary
+		localVarReturnValue *SocialSocialSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.GetSocialSummary")
@@ -837,7 +893,7 @@ func (a *SocialAPIService) GetSocialSummaryExecute(r SocialAPIGetSocialSummaryRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -866,6 +922,14 @@ func (a *SocialAPIService) GetSocialSummaryExecute(r SocialAPIGetSocialSummaryRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -882,17 +946,17 @@ func (a *SocialAPIService) GetSocialSummaryExecute(r SocialAPIGetSocialSummaryRe
 }
 
 type SocialAPIPostSocialAccountsRequest struct {
-	ctx               context.Context
-	ApiService        *SocialAPIService
-	socialAccountBody *SocialAccountBody
+	ctx                     context.Context
+	ApiService              *SocialAPIService
+	socialSocialAccountBody *SocialSocialAccountBody
 }
 
-func (r SocialAPIPostSocialAccountsRequest) SocialAccountBody(socialAccountBody SocialAccountBody) SocialAPIPostSocialAccountsRequest {
-	r.socialAccountBody = &socialAccountBody
+func (r SocialAPIPostSocialAccountsRequest) SocialSocialAccountBody(socialSocialAccountBody SocialSocialAccountBody) SocialAPIPostSocialAccountsRequest {
+	r.socialSocialAccountBody = &socialSocialAccountBody
 	return r
 }
 
-func (r SocialAPIPostSocialAccountsRequest) Execute() (*SocialAccount, *http.Response, error) {
+func (r SocialAPIPostSocialAccountsRequest) Execute() (*SocialSocialAccount, *http.Response, error) {
 	return r.ApiService.PostSocialAccountsExecute(r)
 }
 
@@ -914,13 +978,13 @@ func (a *SocialAPIService) PostSocialAccounts(ctx context.Context) SocialAPIPost
 
 // Execute executes the request
 //
-//	@return SocialAccount
-func (a *SocialAPIService) PostSocialAccountsExecute(r SocialAPIPostSocialAccountsRequest) (*SocialAccount, *http.Response, error) {
+//	@return SocialSocialAccount
+func (a *SocialAPIService) PostSocialAccountsExecute(r SocialAPIPostSocialAccountsRequest) (*SocialSocialAccount, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SocialAccount
+		localVarReturnValue *SocialSocialAccount
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.PostSocialAccounts")
@@ -933,8 +997,8 @@ func (a *SocialAPIService) PostSocialAccountsExecute(r SocialAPIPostSocialAccoun
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.socialAccountBody == nil {
-		return localVarReturnValue, nil, reportError("socialAccountBody is required and must be specified")
+	if r.socialSocialAccountBody == nil {
+		return localVarReturnValue, nil, reportError("socialSocialAccountBody is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -947,7 +1011,7 @@ func (a *SocialAPIService) PostSocialAccountsExecute(r SocialAPIPostSocialAccoun
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -955,7 +1019,7 @@ func (a *SocialAPIService) PostSocialAccountsExecute(r SocialAPIPostSocialAccoun
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.socialAccountBody
+	localVarPostBody = r.socialSocialAccountBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -978,6 +1042,14 @@ func (a *SocialAPIService) PostSocialAccountsExecute(r SocialAPIPostSocialAccoun
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -994,17 +1066,17 @@ func (a *SocialAPIService) PostSocialAccountsExecute(r SocialAPIPostSocialAccoun
 }
 
 type SocialAPIPostSocialPostsRequest struct {
-	ctx            context.Context
-	ApiService     *SocialAPIService
-	socialPostBody *SocialPostBody
+	ctx                  context.Context
+	ApiService           *SocialAPIService
+	socialSocialPostBody *SocialSocialPostBody
 }
 
-func (r SocialAPIPostSocialPostsRequest) SocialPostBody(socialPostBody SocialPostBody) SocialAPIPostSocialPostsRequest {
-	r.socialPostBody = &socialPostBody
+func (r SocialAPIPostSocialPostsRequest) SocialSocialPostBody(socialSocialPostBody SocialSocialPostBody) SocialAPIPostSocialPostsRequest {
+	r.socialSocialPostBody = &socialSocialPostBody
 	return r
 }
 
-func (r SocialAPIPostSocialPostsRequest) Execute() (*SocialPost, *http.Response, error) {
+func (r SocialAPIPostSocialPostsRequest) Execute() (*SocialSocialPost, *http.Response, error) {
 	return r.ApiService.PostSocialPostsExecute(r)
 }
 
@@ -1032,13 +1104,13 @@ func (a *SocialAPIService) PostSocialPosts(ctx context.Context) SocialAPIPostSoc
 
 // Execute executes the request
 //
-//	@return SocialPost
-func (a *SocialAPIService) PostSocialPostsExecute(r SocialAPIPostSocialPostsRequest) (*SocialPost, *http.Response, error) {
+//	@return SocialSocialPost
+func (a *SocialAPIService) PostSocialPostsExecute(r SocialAPIPostSocialPostsRequest) (*SocialSocialPost, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SocialPost
+		localVarReturnValue *SocialSocialPost
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.PostSocialPosts")
@@ -1051,8 +1123,8 @@ func (a *SocialAPIService) PostSocialPostsExecute(r SocialAPIPostSocialPostsRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.socialPostBody == nil {
-		return localVarReturnValue, nil, reportError("socialPostBody is required and must be specified")
+	if r.socialSocialPostBody == nil {
+		return localVarReturnValue, nil, reportError("socialSocialPostBody is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1065,7 +1137,7 @@ func (a *SocialAPIService) PostSocialPostsExecute(r SocialAPIPostSocialPostsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1073,7 +1145,7 @@ func (a *SocialAPIService) PostSocialPostsExecute(r SocialAPIPostSocialPostsRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.socialPostBody
+	localVarPostBody = r.socialSocialPostBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1096,6 +1168,14 @@ func (a *SocialAPIService) PostSocialPostsExecute(r SocialAPIPostSocialPostsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1117,7 +1197,7 @@ type SocialAPIPostSocialPostsByIdPublishRequest struct {
 	id         string
 }
 
-func (r SocialAPIPostSocialPostsByIdPublishRequest) Execute() (*SocialPost, *http.Response, error) {
+func (r SocialAPIPostSocialPostsByIdPublishRequest) Execute() (*SocialSocialPost, *http.Response, error) {
 	return r.ApiService.PostSocialPostsByIdPublishExecute(r)
 }
 
@@ -1151,13 +1231,13 @@ func (a *SocialAPIService) PostSocialPostsByIdPublish(ctx context.Context, id st
 
 // Execute executes the request
 //
-//	@return SocialPost
-func (a *SocialAPIService) PostSocialPostsByIdPublishExecute(r SocialAPIPostSocialPostsByIdPublishRequest) (*SocialPost, *http.Response, error) {
+//	@return SocialSocialPost
+func (a *SocialAPIService) PostSocialPostsByIdPublishExecute(r SocialAPIPostSocialPostsByIdPublishRequest) (*SocialSocialPost, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SocialPost
+		localVarReturnValue *SocialSocialPost
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.PostSocialPostsByIdPublish")
@@ -1182,7 +1262,7 @@ func (a *SocialAPIService) PostSocialPostsByIdPublishExecute(r SocialAPIPostSoci
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1211,6 +1291,14 @@ func (a *SocialAPIService) PostSocialPostsByIdPublishExecute(r SocialAPIPostSoci
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1227,18 +1315,18 @@ func (a *SocialAPIService) PostSocialPostsByIdPublishExecute(r SocialAPIPostSoci
 }
 
 type SocialAPIPutSocialAccountsByIdRequest struct {
-	ctx                context.Context
-	ApiService         *SocialAPIService
-	id                 string
-	socialAccountWrite *SocialAccountWrite
+	ctx                      context.Context
+	ApiService               *SocialAPIService
+	id                       string
+	socialSocialAccountWrite *SocialSocialAccountWrite
 }
 
-func (r SocialAPIPutSocialAccountsByIdRequest) SocialAccountWrite(socialAccountWrite SocialAccountWrite) SocialAPIPutSocialAccountsByIdRequest {
-	r.socialAccountWrite = &socialAccountWrite
+func (r SocialAPIPutSocialAccountsByIdRequest) SocialSocialAccountWrite(socialSocialAccountWrite SocialSocialAccountWrite) SocialAPIPutSocialAccountsByIdRequest {
+	r.socialSocialAccountWrite = &socialSocialAccountWrite
 	return r
 }
 
-func (r SocialAPIPutSocialAccountsByIdRequest) Execute() (*SocialAccount, *http.Response, error) {
+func (r SocialAPIPutSocialAccountsByIdRequest) Execute() (*SocialSocialAccount, *http.Response, error) {
 	return r.ApiService.PutSocialAccountsByIdExecute(r)
 }
 
@@ -1268,13 +1356,13 @@ func (a *SocialAPIService) PutSocialAccountsById(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return SocialAccount
-func (a *SocialAPIService) PutSocialAccountsByIdExecute(r SocialAPIPutSocialAccountsByIdRequest) (*SocialAccount, *http.Response, error) {
+//	@return SocialSocialAccount
+func (a *SocialAPIService) PutSocialAccountsByIdExecute(r SocialAPIPutSocialAccountsByIdRequest) (*SocialSocialAccount, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SocialAccount
+		localVarReturnValue *SocialSocialAccount
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.PutSocialAccountsById")
@@ -1288,8 +1376,8 @@ func (a *SocialAPIService) PutSocialAccountsByIdExecute(r SocialAPIPutSocialAcco
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.socialAccountWrite == nil {
-		return localVarReturnValue, nil, reportError("socialAccountWrite is required and must be specified")
+	if r.socialSocialAccountWrite == nil {
+		return localVarReturnValue, nil, reportError("socialSocialAccountWrite is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1302,7 +1390,7 @@ func (a *SocialAPIService) PutSocialAccountsByIdExecute(r SocialAPIPutSocialAcco
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1310,7 +1398,7 @@ func (a *SocialAPIService) PutSocialAccountsByIdExecute(r SocialAPIPutSocialAcco
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.socialAccountWrite
+	localVarPostBody = r.socialSocialAccountWrite
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1333,6 +1421,14 @@ func (a *SocialAPIService) PutSocialAccountsByIdExecute(r SocialAPIPutSocialAcco
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1349,18 +1445,18 @@ func (a *SocialAPIService) PutSocialAccountsByIdExecute(r SocialAPIPutSocialAcco
 }
 
 type SocialAPIPutSocialPostsByIdRequest struct {
-	ctx             context.Context
-	ApiService      *SocialAPIService
-	id              string
-	socialPostWrite *SocialPostWrite
+	ctx                   context.Context
+	ApiService            *SocialAPIService
+	id                    string
+	socialSocialPostWrite *SocialSocialPostWrite
 }
 
-func (r SocialAPIPutSocialPostsByIdRequest) SocialPostWrite(socialPostWrite SocialPostWrite) SocialAPIPutSocialPostsByIdRequest {
-	r.socialPostWrite = &socialPostWrite
+func (r SocialAPIPutSocialPostsByIdRequest) SocialSocialPostWrite(socialSocialPostWrite SocialSocialPostWrite) SocialAPIPutSocialPostsByIdRequest {
+	r.socialSocialPostWrite = &socialSocialPostWrite
 	return r
 }
 
-func (r SocialAPIPutSocialPostsByIdRequest) Execute() (*SocialPost, *http.Response, error) {
+func (r SocialAPIPutSocialPostsByIdRequest) Execute() (*SocialSocialPost, *http.Response, error) {
 	return r.ApiService.PutSocialPostsByIdExecute(r)
 }
 
@@ -1390,13 +1486,13 @@ func (a *SocialAPIService) PutSocialPostsById(ctx context.Context, id string) So
 
 // Execute executes the request
 //
-//	@return SocialPost
-func (a *SocialAPIService) PutSocialPostsByIdExecute(r SocialAPIPutSocialPostsByIdRequest) (*SocialPost, *http.Response, error) {
+//	@return SocialSocialPost
+func (a *SocialAPIService) PutSocialPostsByIdExecute(r SocialAPIPutSocialPostsByIdRequest) (*SocialSocialPost, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SocialPost
+		localVarReturnValue *SocialSocialPost
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SocialAPIService.PutSocialPostsById")
@@ -1410,8 +1506,8 @@ func (a *SocialAPIService) PutSocialPostsByIdExecute(r SocialAPIPutSocialPostsBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.socialPostWrite == nil {
-		return localVarReturnValue, nil, reportError("socialPostWrite is required and must be specified")
+	if r.socialSocialPostWrite == nil {
+		return localVarReturnValue, nil, reportError("socialSocialPostWrite is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1424,7 +1520,7 @@ func (a *SocialAPIService) PutSocialPostsByIdExecute(r SocialAPIPutSocialPostsBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1432,7 +1528,7 @@ func (a *SocialAPIService) PutSocialPostsByIdExecute(r SocialAPIPutSocialPostsBy
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.socialPostWrite
+	localVarPostBody = r.socialSocialPostWrite
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1455,6 +1551,14 @@ func (a *SocialAPIService) PutSocialPostsByIdExecute(r SocialAPIPutSocialPostsBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yLLMUpdatablePricingRules{}
 // O11yO11yLLMUpdatablePricingRules struct for O11yO11yLLMUpdatablePricingRules
 type O11yO11yLLMUpdatablePricingRules struct {
 	// Rules are the rules to create or update, matched per rule.
-	Rules []O11yO11yLLMUpdatablePricingRule `json:"rules,omitempty"`
+	Rules                []O11yO11yLLMUpdatablePricingRule `json:"rules,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMUpdatablePricingRules O11yO11yLLMUpdatablePricingRules
 
 // NewO11yO11yLLMUpdatablePricingRules instantiates a new O11yO11yLLMUpdatablePricingRules object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yLLMUpdatablePricingRules) ToMap() (map[string]interface{}, error
 	if !IsNil(o.Rules) {
 		toSerialize["rules"] = o.Rules
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMUpdatablePricingRules) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMUpdatablePricingRules := _O11yO11yLLMUpdatablePricingRules{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMUpdatablePricingRules)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMUpdatablePricingRules(varO11yO11yLLMUpdatablePricingRules)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "rules")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMUpdatablePricingRules struct {

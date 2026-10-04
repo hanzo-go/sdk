@@ -19,11 +19,14 @@ var _ MappedNullable = &ForgeJobWorkflowJob{}
 
 // ForgeJobWorkflowJob struct for ForgeJobWorkflowJob
 type ForgeJobWorkflowJob struct {
-	Id     *int32   `json:"id,omitempty"`
-	Labels []string `json:"labels,omitempty"`
-	Name   *string  `json:"name,omitempty"`
-	RunId  *int32   `json:"run_id,omitempty"`
+	Id                   *int32   `json:"id,omitempty"`
+	Labels               []string `json:"labels,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	RunId                *int32   `json:"run_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ForgeJobWorkflowJob ForgeJobWorkflowJob
 
 // NewForgeJobWorkflowJob instantiates a new ForgeJobWorkflowJob object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o ForgeJobWorkflowJob) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RunId) {
 		toSerialize["run_id"] = o.RunId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ForgeJobWorkflowJob) UnmarshalJSON(data []byte) (err error) {
+	varForgeJobWorkflowJob := _ForgeJobWorkflowJob{}
+
+	err = json.Unmarshal(data, &varForgeJobWorkflowJob)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ForgeJobWorkflowJob(varForgeJobWorkflowJob)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "run_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableForgeJobWorkflowJob struct {

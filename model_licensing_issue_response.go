@@ -32,8 +32,11 @@ type LicensingIssueResponse struct {
 	// Nonce uniquely identifies this token, and is what a per-token revocation names.
 	Nonce *string `json:"nonce,omitempty"`
 	// Token is the signed license, `base64url(payload).base64url(ed25519_sig)`. It is the credential the engine runs on — treat it as a secret.
-	Token *string `json:"token,omitempty"`
+	Token                *string `json:"token,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicensingIssueResponse LicensingIssueResponse
 
 // NewLicensingIssueResponse instantiates a new LicensingIssueResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -307,7 +310,39 @@ func (o LicensingIssueResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicensingIssueResponse) UnmarshalJSON(data []byte) (err error) {
+	varLicensingIssueResponse := _LicensingIssueResponse{}
+
+	err = json.Unmarshal(data, &varLicensingIssueResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicensingIssueResponse(varLicensingIssueResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "app_id")
+		delete(additionalProperties, "exp")
+		delete(additionalProperties, "features")
+		delete(additionalProperties, "fingerprint_bound")
+		delete(additionalProperties, "holder")
+		delete(additionalProperties, "nonce")
+		delete(additionalProperties, "token")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicensingIssueResponse struct {

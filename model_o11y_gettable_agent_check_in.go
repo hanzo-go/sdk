@@ -29,7 +29,10 @@ type O11yGettableAgentCheckIn struct {
 	ProviderAccountId       *string                        `json:"providerAccountId,omitempty"`
 	RemovedAt               *time.Time                     `json:"removedAt,omitempty"`
 	RemovedAtLegacy         *time.Time                     `json:"removed_at,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
+
+type _O11yGettableAgentCheckIn O11yGettableAgentCheckIn
 
 // NewO11yGettableAgentCheckIn instantiates a new O11yGettableAgentCheckIn object
 // This constructor will assign default values to properties that have it defined,
@@ -338,7 +341,40 @@ func (o O11yGettableAgentCheckIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RemovedAtLegacy) {
 		toSerialize["removed_at"] = o.RemovedAtLegacy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableAgentCheckIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableAgentCheckIn := _O11yGettableAgentCheckIn{}
+
+	err = json.Unmarshal(data, &varO11yGettableAgentCheckIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableAgentCheckIn(varO11yGettableAgentCheckIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_id")
+		delete(additionalProperties, "cloudIntegrationId")
+		delete(additionalProperties, "cloud_account_id")
+		delete(additionalProperties, "integrationConfig")
+		delete(additionalProperties, "integration_config")
+		delete(additionalProperties, "providerAccountId")
+		delete(additionalProperties, "removedAt")
+		delete(additionalProperties, "removed_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableAgentCheckIn struct {

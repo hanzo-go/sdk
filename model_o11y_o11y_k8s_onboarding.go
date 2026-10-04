@@ -29,7 +29,10 @@ type O11yO11yK8sOnboarding struct {
 	IsSendingOptionalPodMetrics *bool `json:"isSendingOptionalPodMetrics,omitempty"`
 	// IsSendingRequiredMetadata reports, per pod, which required metadata labels are present.
 	IsSendingRequiredMetadata []O11yO11yPodOnboarding `json:"isSendingRequiredMetadata,omitempty"`
+	AdditionalProperties      map[string]interface{}
 }
+
+type _O11yO11yK8sOnboarding O11yO11yK8sOnboarding
 
 // NewO11yO11yK8sOnboarding instantiates a new O11yO11yK8sOnboarding object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yK8sOnboarding) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IsSendingRequiredMetadata) {
 		toSerialize["isSendingRequiredMetadata"] = o.IsSendingRequiredMetadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yK8sOnboarding) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yK8sOnboarding := _O11yO11yK8sOnboarding{}
+
+	err = json.Unmarshal(data, &varO11yO11yK8sOnboarding)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yK8sOnboarding(varO11yO11yK8sOnboarding)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "didSendClusterMetrics")
+		delete(additionalProperties, "didSendNodeMetrics")
+		delete(additionalProperties, "didSendPodMetrics")
+		delete(additionalProperties, "isSendingOptionalPodMetrics")
+		delete(additionalProperties, "isSendingRequiredMetadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yK8sOnboarding struct {

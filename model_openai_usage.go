@@ -24,7 +24,10 @@ type OpenaiUsage struct {
 	PromptTokens            *int32                         `json:"prompt_tokens,omitempty"`
 	PromptTokensDetails     *OpenaiPromptTokensDetails     `json:"prompt_tokens_details,omitempty"`
 	TotalTokens             *int32                         `json:"total_tokens,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
+
+type _OpenaiUsage OpenaiUsage
 
 // NewOpenaiUsage instantiates a new OpenaiUsage object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o OpenaiUsage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalTokens) {
 		toSerialize["total_tokens"] = o.TotalTokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiUsage) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiUsage := _OpenaiUsage{}
+
+	err = json.Unmarshal(data, &varOpenaiUsage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiUsage(varOpenaiUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "completion_tokens")
+		delete(additionalProperties, "completion_tokens_details")
+		delete(additionalProperties, "prompt_tokens")
+		delete(additionalProperties, "prompt_tokens_details")
+		delete(additionalProperties, "total_tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiUsage struct {

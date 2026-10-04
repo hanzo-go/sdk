@@ -48,7 +48,7 @@ func (r WalletAPIGetWalletRequest) Account(account string) WalletAPIGetWalletReq
 	return r
 }
 
-func (r WalletAPIGetWalletRequest) Execute() (*WalletList, *http.Response, error) {
+func (r WalletAPIGetWalletRequest) Execute() (*WalletWalletList, *http.Response, error) {
 	return r.ApiService.GetWalletExecute(r)
 }
 
@@ -72,13 +72,13 @@ func (a *WalletAPIService) GetWallet(ctx context.Context) WalletAPIGetWalletRequ
 
 // Execute executes the request
 //
-//	@return WalletList
-func (a *WalletAPIService) GetWalletExecute(r WalletAPIGetWalletRequest) (*WalletList, *http.Response, error) {
+//	@return WalletWalletList
+func (a *WalletAPIService) GetWalletExecute(r WalletAPIGetWalletRequest) (*WalletWalletList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *WalletList
+		localVarReturnValue *WalletWalletList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WalletAPIService.GetWallet")
@@ -111,7 +111,7 @@ func (a *WalletAPIService) GetWalletExecute(r WalletAPIGetWalletRequest) (*Walle
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -140,6 +140,14 @@ func (a *WalletAPIService) GetWalletExecute(r WalletAPIGetWalletRequest) (*Walle
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -160,7 +168,7 @@ type WalletAPIGetWalletAccountsRequest struct {
 	ApiService *WalletAPIService
 }
 
-func (r WalletAPIGetWalletAccountsRequest) Execute() (*AccountList, *http.Response, error) {
+func (r WalletAPIGetWalletAccountsRequest) Execute() (*WalletAccountList, *http.Response, error) {
 	return r.ApiService.GetWalletAccountsExecute(r)
 }
 
@@ -182,13 +190,13 @@ func (a *WalletAPIService) GetWalletAccounts(ctx context.Context) WalletAPIGetWa
 
 // Execute executes the request
 //
-//	@return AccountList
-func (a *WalletAPIService) GetWalletAccountsExecute(r WalletAPIGetWalletAccountsRequest) (*AccountList, *http.Response, error) {
+//	@return WalletAccountList
+func (a *WalletAPIService) GetWalletAccountsExecute(r WalletAPIGetWalletAccountsRequest) (*WalletAccountList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccountList
+		localVarReturnValue *WalletAccountList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WalletAPIService.GetWalletAccounts")
@@ -212,7 +220,7 @@ func (a *WalletAPIService) GetWalletAccountsExecute(r WalletAPIGetWalletAccounts
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -241,6 +249,14 @@ func (a *WalletAPIService) GetWalletAccountsExecute(r WalletAPIGetWalletAccounts
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -262,7 +278,7 @@ type WalletAPIGetWalletByIdRequest struct {
 	id         string
 }
 
-func (r WalletAPIGetWalletByIdRequest) Execute() (*Wallet, *http.Response, error) {
+func (r WalletAPIGetWalletByIdRequest) Execute() (*WalletWallet, *http.Response, error) {
 	return r.ApiService.GetWalletByIdExecute(r)
 }
 
@@ -288,13 +304,13 @@ func (a *WalletAPIService) GetWalletById(ctx context.Context, id string) WalletA
 
 // Execute executes the request
 //
-//	@return Wallet
-func (a *WalletAPIService) GetWalletByIdExecute(r WalletAPIGetWalletByIdRequest) (*Wallet, *http.Response, error) {
+//	@return WalletWallet
+func (a *WalletAPIService) GetWalletByIdExecute(r WalletAPIGetWalletByIdRequest) (*WalletWallet, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Wallet
+		localVarReturnValue *WalletWallet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WalletAPIService.GetWalletById")
@@ -319,7 +335,7 @@ func (a *WalletAPIService) GetWalletByIdExecute(r WalletAPIGetWalletByIdRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -348,6 +364,14 @@ func (a *WalletAPIService) GetWalletByIdExecute(r WalletAPIGetWalletByIdRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -364,17 +388,17 @@ func (a *WalletAPIService) GetWalletByIdExecute(r WalletAPIGetWalletByIdRequest)
 }
 
 type WalletAPIPostWalletRequest struct {
-	ctx            context.Context
-	ApiService     *WalletAPIService
-	createWalletIn *CreateWalletIn
+	ctx                  context.Context
+	ApiService           *WalletAPIService
+	walletCreateWalletIn *WalletCreateWalletIn
 }
 
-func (r WalletAPIPostWalletRequest) CreateWalletIn(createWalletIn CreateWalletIn) WalletAPIPostWalletRequest {
-	r.createWalletIn = &createWalletIn
+func (r WalletAPIPostWalletRequest) WalletCreateWalletIn(walletCreateWalletIn WalletCreateWalletIn) WalletAPIPostWalletRequest {
+	r.walletCreateWalletIn = &walletCreateWalletIn
 	return r
 }
 
-func (r WalletAPIPostWalletRequest) Execute() (*Wallet, *http.Response, error) {
+func (r WalletAPIPostWalletRequest) Execute() (*WalletWallet, *http.Response, error) {
 	return r.ApiService.PostWalletExecute(r)
 }
 
@@ -403,13 +427,13 @@ func (a *WalletAPIService) PostWallet(ctx context.Context) WalletAPIPostWalletRe
 
 // Execute executes the request
 //
-//	@return Wallet
-func (a *WalletAPIService) PostWalletExecute(r WalletAPIPostWalletRequest) (*Wallet, *http.Response, error) {
+//	@return WalletWallet
+func (a *WalletAPIService) PostWalletExecute(r WalletAPIPostWalletRequest) (*WalletWallet, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Wallet
+		localVarReturnValue *WalletWallet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WalletAPIService.PostWallet")
@@ -422,8 +446,8 @@ func (a *WalletAPIService) PostWalletExecute(r WalletAPIPostWalletRequest) (*Wal
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createWalletIn == nil {
-		return localVarReturnValue, nil, reportError("createWalletIn is required and must be specified")
+	if r.walletCreateWalletIn == nil {
+		return localVarReturnValue, nil, reportError("walletCreateWalletIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -436,7 +460,7 @@ func (a *WalletAPIService) PostWalletExecute(r WalletAPIPostWalletRequest) (*Wal
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -444,7 +468,7 @@ func (a *WalletAPIService) PostWalletExecute(r WalletAPIPostWalletRequest) (*Wal
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createWalletIn
+	localVarPostBody = r.walletCreateWalletIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -467,6 +491,14 @@ func (a *WalletAPIService) PostWalletExecute(r WalletAPIPostWalletRequest) (*Wal
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -483,17 +515,17 @@ func (a *WalletAPIService) PostWalletExecute(r WalletAPIPostWalletRequest) (*Wal
 }
 
 type WalletAPIPostWalletAccountsRequest struct {
-	ctx             context.Context
-	ApiService      *WalletAPIService
-	createAccountIn *CreateAccountIn
+	ctx                   context.Context
+	ApiService            *WalletAPIService
+	walletCreateAccountIn *WalletCreateAccountIn
 }
 
-func (r WalletAPIPostWalletAccountsRequest) CreateAccountIn(createAccountIn CreateAccountIn) WalletAPIPostWalletAccountsRequest {
-	r.createAccountIn = &createAccountIn
+func (r WalletAPIPostWalletAccountsRequest) WalletCreateAccountIn(walletCreateAccountIn WalletCreateAccountIn) WalletAPIPostWalletAccountsRequest {
+	r.walletCreateAccountIn = &walletCreateAccountIn
 	return r
 }
 
-func (r WalletAPIPostWalletAccountsRequest) Execute() (*WalletAccount, *http.Response, error) {
+func (r WalletAPIPostWalletAccountsRequest) Execute() (*WalletWalletAccount, *http.Response, error) {
 	return r.ApiService.PostWalletAccountsExecute(r)
 }
 
@@ -517,13 +549,13 @@ func (a *WalletAPIService) PostWalletAccounts(ctx context.Context) WalletAPIPost
 
 // Execute executes the request
 //
-//	@return WalletAccount
-func (a *WalletAPIService) PostWalletAccountsExecute(r WalletAPIPostWalletAccountsRequest) (*WalletAccount, *http.Response, error) {
+//	@return WalletWalletAccount
+func (a *WalletAPIService) PostWalletAccountsExecute(r WalletAPIPostWalletAccountsRequest) (*WalletWalletAccount, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *WalletAccount
+		localVarReturnValue *WalletWalletAccount
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WalletAPIService.PostWalletAccounts")
@@ -536,8 +568,8 @@ func (a *WalletAPIService) PostWalletAccountsExecute(r WalletAPIPostWalletAccoun
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createAccountIn == nil {
-		return localVarReturnValue, nil, reportError("createAccountIn is required and must be specified")
+	if r.walletCreateAccountIn == nil {
+		return localVarReturnValue, nil, reportError("walletCreateAccountIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -550,7 +582,7 @@ func (a *WalletAPIService) PostWalletAccountsExecute(r WalletAPIPostWalletAccoun
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -558,7 +590,7 @@ func (a *WalletAPIService) PostWalletAccountsExecute(r WalletAPIPostWalletAccoun
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createAccountIn
+	localVarPostBody = r.walletCreateAccountIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -581,6 +613,14 @@ func (a *WalletAPIService) PostWalletAccountsExecute(r WalletAPIPostWalletAccoun
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -602,7 +642,7 @@ type WalletAPIPostWalletByIdKeysRequest struct {
 	id         string
 }
 
-func (r WalletAPIPostWalletByIdKeysRequest) Execute() (*Wallet, *http.Response, error) {
+func (r WalletAPIPostWalletByIdKeysRequest) Execute() (*WalletWallet, *http.Response, error) {
 	return r.ApiService.PostWalletByIdKeysExecute(r)
 }
 
@@ -631,13 +671,13 @@ func (a *WalletAPIService) PostWalletByIdKeys(ctx context.Context, id string) Wa
 
 // Execute executes the request
 //
-//	@return Wallet
-func (a *WalletAPIService) PostWalletByIdKeysExecute(r WalletAPIPostWalletByIdKeysRequest) (*Wallet, *http.Response, error) {
+//	@return WalletWallet
+func (a *WalletAPIService) PostWalletByIdKeysExecute(r WalletAPIPostWalletByIdKeysRequest) (*WalletWallet, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Wallet
+		localVarReturnValue *WalletWallet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WalletAPIService.PostWalletByIdKeys")
@@ -662,7 +702,7 @@ func (a *WalletAPIService) PostWalletByIdKeysExecute(r WalletAPIPostWalletByIdKe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -691,6 +731,14 @@ func (a *WalletAPIService) PostWalletByIdKeysExecute(r WalletAPIPostWalletByIdKe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -707,18 +755,18 @@ func (a *WalletAPIService) PostWalletByIdKeysExecute(r WalletAPIPostWalletByIdKe
 }
 
 type WalletAPIPostWalletByIdSignRequest struct {
-	ctx        context.Context
-	ApiService *WalletAPIService
-	id         string
-	signIn     *SignIn
+	ctx          context.Context
+	ApiService   *WalletAPIService
+	id           string
+	walletSignIn *WalletSignIn
 }
 
-func (r WalletAPIPostWalletByIdSignRequest) SignIn(signIn SignIn) WalletAPIPostWalletByIdSignRequest {
-	r.signIn = &signIn
+func (r WalletAPIPostWalletByIdSignRequest) WalletSignIn(walletSignIn WalletSignIn) WalletAPIPostWalletByIdSignRequest {
+	r.walletSignIn = &walletSignIn
 	return r
 }
 
-func (r WalletAPIPostWalletByIdSignRequest) Execute() (*Signature, *http.Response, error) {
+func (r WalletAPIPostWalletByIdSignRequest) Execute() (*WalletSignature, *http.Response, error) {
 	return r.ApiService.PostWalletByIdSignExecute(r)
 }
 
@@ -747,13 +795,13 @@ func (a *WalletAPIService) PostWalletByIdSign(ctx context.Context, id string) Wa
 
 // Execute executes the request
 //
-//	@return Signature
-func (a *WalletAPIService) PostWalletByIdSignExecute(r WalletAPIPostWalletByIdSignRequest) (*Signature, *http.Response, error) {
+//	@return WalletSignature
+func (a *WalletAPIService) PostWalletByIdSignExecute(r WalletAPIPostWalletByIdSignRequest) (*WalletSignature, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Signature
+		localVarReturnValue *WalletSignature
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WalletAPIService.PostWalletByIdSign")
@@ -767,8 +815,8 @@ func (a *WalletAPIService) PostWalletByIdSignExecute(r WalletAPIPostWalletByIdSi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.signIn == nil {
-		return localVarReturnValue, nil, reportError("signIn is required and must be specified")
+	if r.walletSignIn == nil {
+		return localVarReturnValue, nil, reportError("walletSignIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -781,7 +829,7 @@ func (a *WalletAPIService) PostWalletByIdSignExecute(r WalletAPIPostWalletByIdSi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -789,7 +837,7 @@ func (a *WalletAPIService) PostWalletByIdSignExecute(r WalletAPIPostWalletByIdSi
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.signIn
+	localVarPostBody = r.walletSignIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -812,6 +860,14 @@ func (a *WalletAPIService) PostWalletByIdSignExecute(r WalletAPIPostWalletByIdSi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -828,18 +884,18 @@ func (a *WalletAPIService) PostWalletByIdSignExecute(r WalletAPIPostWalletByIdSi
 }
 
 type WalletAPIPostWalletByIdTransactionsRequest struct {
-	ctx        context.Context
-	ApiService *WalletAPIService
-	id         string
-	safeTxIn   *SafeTxIn
+	ctx            context.Context
+	ApiService     *WalletAPIService
+	id             string
+	walletSafeTxIn *WalletSafeTxIn
 }
 
-func (r WalletAPIPostWalletByIdTransactionsRequest) SafeTxIn(safeTxIn SafeTxIn) WalletAPIPostWalletByIdTransactionsRequest {
-	r.safeTxIn = &safeTxIn
+func (r WalletAPIPostWalletByIdTransactionsRequest) WalletSafeTxIn(walletSafeTxIn WalletSafeTxIn) WalletAPIPostWalletByIdTransactionsRequest {
+	r.walletSafeTxIn = &walletSafeTxIn
 	return r
 }
 
-func (r WalletAPIPostWalletByIdTransactionsRequest) Execute() (*SafeProposal, *http.Response, error) {
+func (r WalletAPIPostWalletByIdTransactionsRequest) Execute() (*WalletSafeProposal, *http.Response, error) {
 	return r.ApiService.PostWalletByIdTransactionsExecute(r)
 }
 
@@ -868,13 +924,13 @@ func (a *WalletAPIService) PostWalletByIdTransactions(ctx context.Context, id st
 
 // Execute executes the request
 //
-//	@return SafeProposal
-func (a *WalletAPIService) PostWalletByIdTransactionsExecute(r WalletAPIPostWalletByIdTransactionsRequest) (*SafeProposal, *http.Response, error) {
+//	@return WalletSafeProposal
+func (a *WalletAPIService) PostWalletByIdTransactionsExecute(r WalletAPIPostWalletByIdTransactionsRequest) (*WalletSafeProposal, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SafeProposal
+		localVarReturnValue *WalletSafeProposal
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WalletAPIService.PostWalletByIdTransactions")
@@ -888,8 +944,8 @@ func (a *WalletAPIService) PostWalletByIdTransactionsExecute(r WalletAPIPostWall
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.safeTxIn == nil {
-		return localVarReturnValue, nil, reportError("safeTxIn is required and must be specified")
+	if r.walletSafeTxIn == nil {
+		return localVarReturnValue, nil, reportError("walletSafeTxIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -902,7 +958,7 @@ func (a *WalletAPIService) PostWalletByIdTransactionsExecute(r WalletAPIPostWall
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -910,7 +966,7 @@ func (a *WalletAPIService) PostWalletByIdTransactionsExecute(r WalletAPIPostWall
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.safeTxIn
+	localVarPostBody = r.walletSafeTxIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -933,6 +989,14 @@ func (a *WalletAPIService) PostWalletByIdTransactionsExecute(r WalletAPIPostWall
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

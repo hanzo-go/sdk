@@ -23,8 +23,11 @@ type O11yO11yStat struct {
 	// Time is the start of the bucket.
 	Time *time.Time `json:"time,omitempty"`
 	// Value is how many events fell in it.
-	Value *int32 `json:"value,omitempty"`
+	Value                *int32 `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yStat O11yO11yStat
 
 // NewO11yO11yStat instantiates a new O11yO11yStat object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o O11yO11yStat) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yStat) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yStat := _O11yO11yStat{}
+
+	err = json.Unmarshal(data, &varO11yO11yStat)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yStat(varO11yO11yStat)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "time")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yStat struct {

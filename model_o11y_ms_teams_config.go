@@ -19,14 +19,17 @@ var _ MappedNullable = &O11yMSTeamsConfig{}
 
 // O11yMSTeamsConfig struct for O11yMSTeamsConfig
 type O11yMSTeamsConfig struct {
-	NotifierConfig *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
-	HttpConfig     *O11yHTTPClientConfig `json:"http_config,omitempty"`
-	Summary        *string               `json:"summary,omitempty"`
-	Text           *string               `json:"text,omitempty"`
-	Title          *string               `json:"title,omitempty"`
-	WebhookUrl     interface{}           `json:"webhook_url,omitempty"`
-	WebhookUrlFile *string               `json:"webhook_url_file,omitempty"`
+	NotifierConfig       *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
+	HttpConfig           *O11yHTTPClientConfig `json:"http_config,omitempty"`
+	Summary              *string               `json:"summary,omitempty"`
+	Text                 *string               `json:"text,omitempty"`
+	Title                *string               `json:"title,omitempty"`
+	WebhookUrl           interface{}           `json:"webhook_url,omitempty"`
+	WebhookUrlFile       *string               `json:"webhook_url_file,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yMSTeamsConfig O11yMSTeamsConfig
 
 // NewO11yMSTeamsConfig instantiates a new O11yMSTeamsConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -301,7 +304,39 @@ func (o O11yMSTeamsConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WebhookUrlFile) {
 		toSerialize["webhook_url_file"] = o.WebhookUrlFile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yMSTeamsConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yMSTeamsConfig := _O11yMSTeamsConfig{}
+
+	err = json.Unmarshal(data, &varO11yMSTeamsConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yMSTeamsConfig(varO11yMSTeamsConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "summary")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "webhook_url")
+		delete(additionalProperties, "webhook_url_file")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yMSTeamsConfig struct {

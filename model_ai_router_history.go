@@ -19,12 +19,15 @@ var _ MappedNullable = &AiRouterHistory{}
 
 // AiRouterHistory struct for AiRouterHistory
 type AiRouterHistory struct {
-	Daily    []AiHistoryDay     `json:"daily,omitempty"`
-	Retrains []AiHistoryRetrain `json:"retrains,omitempty"`
-	Scope    *string            `json:"scope,omitempty"`
-	Totals   *AiHistoryTotals   `json:"totals,omitempty"`
-	Window   *AiHistoryWindow   `json:"window,omitempty"`
+	Daily                []AiHistoryDay     `json:"daily,omitempty"`
+	Retrains             []AiHistoryRetrain `json:"retrains,omitempty"`
+	Scope                *string            `json:"scope,omitempty"`
+	Totals               *AiHistoryTotals   `json:"totals,omitempty"`
+	Window               *AiHistoryWindow   `json:"window,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiRouterHistory AiRouterHistory
 
 // NewAiRouterHistory instantiates a new AiRouterHistory object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o AiRouterHistory) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Window) {
 		toSerialize["window"] = o.Window
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiRouterHistory) UnmarshalJSON(data []byte) (err error) {
+	varAiRouterHistory := _AiRouterHistory{}
+
+	err = json.Unmarshal(data, &varAiRouterHistory)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiRouterHistory(varAiRouterHistory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "daily")
+		delete(additionalProperties, "retrains")
+		delete(additionalProperties, "scope")
+		delete(additionalProperties, "totals")
+		delete(additionalProperties, "window")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiRouterHistory struct {

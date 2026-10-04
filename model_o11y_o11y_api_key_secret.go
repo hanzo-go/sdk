@@ -22,8 +22,11 @@ type O11yO11yAPIKeySecret struct {
 	// ID is the key id.
 	Id *string `json:"id,omitempty"`
 	// Key is the secret the service account authenticates with.
-	Key *string `json:"key,omitempty"`
+	Key                  *string `json:"key,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yAPIKeySecret O11yO11yAPIKeySecret
 
 // NewO11yO11yAPIKeySecret instantiates a new O11yO11yAPIKeySecret object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yAPIKeySecret) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yAPIKeySecret) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yAPIKeySecret := _O11yO11yAPIKeySecret{}
+
+	err = json.Unmarshal(data, &varO11yO11yAPIKeySecret)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yAPIKeySecret(varO11yO11yAPIKeySecret)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "key")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yAPIKeySecret struct {

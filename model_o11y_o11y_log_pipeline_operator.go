@@ -78,8 +78,11 @@ type O11yO11yLogPipelineOperator struct {
 	// Type is the processor type, e.g. grok_parser, regex_parser, json_parser, trace_parser, time_parser, severity_parser, add, remove, move, copy.
 	Type *string `json:"type,omitempty"`
 	// Value is the value an add processor writes.
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogPipelineOperator O11yO11yLogPipelineOperator
 
 // NewO11yO11yLogPipelineOperator instantiates a new O11yO11yLogPipelineOperator object
 // This constructor will assign default values to properties that have it defined,
@@ -1158,7 +1161,62 @@ func (o O11yO11yLogPipelineOperator) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogPipelineOperator) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogPipelineOperator := _O11yO11yLogPipelineOperator{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogPipelineOperator)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogPipelineOperator(varO11yO11yLogPipelineOperator)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "default")
+		delete(additionalProperties, "enable_flattening")
+		delete(additionalProperties, "enable_paths")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "expr")
+		delete(additionalProperties, "field")
+		delete(additionalProperties, "fields")
+		delete(additionalProperties, "from")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "if")
+		delete(additionalProperties, "layout")
+		delete(additionalProperties, "layout_type")
+		delete(additionalProperties, "mapping")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "on_error")
+		delete(additionalProperties, "orderId")
+		delete(additionalProperties, "output")
+		delete(additionalProperties, "overwrite_text")
+		delete(additionalProperties, "parse_from")
+		delete(additionalProperties, "parse_to")
+		delete(additionalProperties, "path_prefix")
+		delete(additionalProperties, "pattern")
+		delete(additionalProperties, "regex")
+		delete(additionalProperties, "routes")
+		delete(additionalProperties, "span_id")
+		delete(additionalProperties, "to")
+		delete(additionalProperties, "trace_flags")
+		delete(additionalProperties, "trace_id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogPipelineOperator struct {

@@ -1,0 +1,82 @@
+# TaskIssueHits
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Count** | Pointer to **int64** | Count is how many rows Issues carries — the size of THIS answer after the cap, not how many issues matched. A count equal to the limit means there are probably more; there is no total and no cursor. | [optional] 
+**Issues** | Pointer to [**[]TaskIssueHit**](TaskIssueHit.md) | Issues are the matching rows grouped by status and oldest-first within a group, capped by the search&#39;s limit (50 by default, 200 at most). The cap is applied to that order, so a broad search returns the head of it rather than a sample. | [optional] 
+
+## Methods
+
+### NewTaskIssueHits
+
+`func NewTaskIssueHits() *TaskIssueHits`
+
+NewTaskIssueHits instantiates a new TaskIssueHits object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewTaskIssueHitsWithDefaults
+
+`func NewTaskIssueHitsWithDefaults() *TaskIssueHits`
+
+NewTaskIssueHitsWithDefaults instantiates a new TaskIssueHits object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetCount
+
+`func (o *TaskIssueHits) GetCount() int64`
+
+GetCount returns the Count field if non-nil, zero value otherwise.
+
+### GetCountOk
+
+`func (o *TaskIssueHits) GetCountOk() (*int64, bool)`
+
+GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCount
+
+`func (o *TaskIssueHits) SetCount(v int64)`
+
+SetCount sets Count field to given value.
+
+### HasCount
+
+`func (o *TaskIssueHits) HasCount() bool`
+
+HasCount returns a boolean if a field has been set.
+
+### GetIssues
+
+`func (o *TaskIssueHits) GetIssues() []TaskIssueHit`
+
+GetIssues returns the Issues field if non-nil, zero value otherwise.
+
+### GetIssuesOk
+
+`func (o *TaskIssueHits) GetIssuesOk() (*[]TaskIssueHit, bool)`
+
+GetIssuesOk returns a tuple with the Issues field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIssues
+
+`func (o *TaskIssueHits) SetIssues(v []TaskIssueHit)`
+
+SetIssues sets Issues field to given value.
+
+### HasIssues
+
+`func (o *TaskIssueHits) HasIssues() bool`
+
+HasIssues returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

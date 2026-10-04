@@ -27,19 +27,22 @@ type O11yReceiver struct {
 	MsteamsConfigs    []O11yMSTeamsConfig    `json:"msteams_configs,omitempty"`
 	Msteamsv2Configs  []O11yMSTeamsV2Config  `json:"msteamsv2_configs,omitempty"`
 	// A unique identifier for this receiver.
-	Name              *string                `json:"name,omitempty"`
-	OpsgenieConfigs   []O11yOpsGenieConfig   `json:"opsgenie_configs,omitempty"`
-	PagerdutyConfigs  []O11yPagerdutyConfig  `json:"pagerduty_configs,omitempty"`
-	PushoverConfigs   []O11yPushoverConfig   `json:"pushover_configs,omitempty"`
-	RocketchatConfigs []O11yRocketchatConfig `json:"rocketchat_configs,omitempty"`
-	SlackConfigs      []O11ySlackConfig      `json:"slack_configs,omitempty"`
-	SnsConfigs        []O11ySNSConfig        `json:"sns_configs,omitempty"`
-	TelegramConfigs   []O11yTelegramConfig   `json:"telegram_configs,omitempty"`
-	VictoropsConfigs  []O11yVictorOpsConfig  `json:"victorops_configs,omitempty"`
-	WebexConfigs      []O11yWebexConfig      `json:"webex_configs,omitempty"`
-	WebhookConfigs    []O11yWebhookConfig    `json:"webhook_configs,omitempty"`
-	WechatConfigs     []O11yWechatConfig     `json:"wechat_configs,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	OpsgenieConfigs      []O11yOpsGenieConfig   `json:"opsgenie_configs,omitempty"`
+	PagerdutyConfigs     []O11yPagerdutyConfig  `json:"pagerduty_configs,omitempty"`
+	PushoverConfigs      []O11yPushoverConfig   `json:"pushover_configs,omitempty"`
+	RocketchatConfigs    []O11yRocketchatConfig `json:"rocketchat_configs,omitempty"`
+	SlackConfigs         []O11ySlackConfig      `json:"slack_configs,omitempty"`
+	SnsConfigs           []O11ySNSConfig        `json:"sns_configs,omitempty"`
+	TelegramConfigs      []O11yTelegramConfig   `json:"telegram_configs,omitempty"`
+	VictoropsConfigs     []O11yVictorOpsConfig  `json:"victorops_configs,omitempty"`
+	WebexConfigs         []O11yWebexConfig      `json:"webex_configs,omitempty"`
+	WebhookConfigs       []O11yWebhookConfig    `json:"webhook_configs,omitempty"`
+	WechatConfigs        []O11yWechatConfig     `json:"wechat_configs,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yReceiver O11yReceiver
 
 // NewO11yReceiver instantiates a new O11yReceiver object
 // This constructor will assign default values to properties that have it defined,
@@ -733,7 +736,51 @@ func (o O11yReceiver) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WechatConfigs) {
 		toSerialize["wechat_configs"] = o.WechatConfigs
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yReceiver) UnmarshalJSON(data []byte) (err error) {
+	varO11yReceiver := _O11yReceiver{}
+
+	err = json.Unmarshal(data, &varO11yReceiver)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yReceiver(varO11yReceiver)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "discord_configs")
+		delete(additionalProperties, "email_configs")
+		delete(additionalProperties, "incidentio_configs")
+		delete(additionalProperties, "jira_configs")
+		delete(additionalProperties, "mattermost_configs")
+		delete(additionalProperties, "msteams_configs")
+		delete(additionalProperties, "msteamsv2_configs")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "opsgenie_configs")
+		delete(additionalProperties, "pagerduty_configs")
+		delete(additionalProperties, "pushover_configs")
+		delete(additionalProperties, "rocketchat_configs")
+		delete(additionalProperties, "slack_configs")
+		delete(additionalProperties, "sns_configs")
+		delete(additionalProperties, "telegram_configs")
+		delete(additionalProperties, "victorops_configs")
+		delete(additionalProperties, "webex_configs")
+		delete(additionalProperties, "webhook_configs")
+		delete(additionalProperties, "wechat_configs")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yReceiver struct {

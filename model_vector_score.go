@@ -19,9 +19,12 @@ var _ MappedNullable = &VectorScore{}
 
 // VectorScore struct for VectorScore
 type VectorScore struct {
-	Score  *float32 `json:"score,omitempty"`
-	Vector *string  `json:"vector,omitempty"`
+	Score                *float32 `json:"score,omitempty"`
+	Vector               *string  `json:"vector,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _VectorScore VectorScore
 
 // NewVectorScore instantiates a new VectorScore object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o VectorScore) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Vector) {
 		toSerialize["vector"] = o.Vector
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *VectorScore) UnmarshalJSON(data []byte) (err error) {
+	varVectorScore := _VectorScore{}
+
+	err = json.Unmarshal(data, &varVectorScore)
+
+	if err != nil {
+		return err
+	}
+
+	*o = VectorScore(varVectorScore)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "score")
+		delete(additionalProperties, "vector")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableVectorScore struct {

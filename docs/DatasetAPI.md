@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## RiskCreateDataset
 
-> RiskDataset RiskCreateDataset(ctx).RiskDatasetSpec(riskDatasetSpec).Execute()
+> DatasetRiskDataset RiskCreateDataset(ctx).DatasetRiskDatasetSpec(datasetRiskDatasetSpec).Execute()
 
 Declare the next version of a dataset
 
@@ -35,16 +35,16 @@ import (
 )
 
 func main() {
-	riskDatasetSpec := *openapiclient.NewRiskDatasetSpec() // RiskDatasetSpec | 
+	datasetRiskDatasetSpec := *openapiclient.NewDatasetRiskDatasetSpec() // DatasetRiskDatasetSpec | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DatasetAPI.RiskCreateDataset(context.Background()).RiskDatasetSpec(riskDatasetSpec).Execute()
+	resp, r, err := apiClient.DatasetAPI.RiskCreateDataset(context.Background()).DatasetRiskDatasetSpec(datasetRiskDatasetSpec).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DatasetAPI.RiskCreateDataset``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskCreateDataset`: RiskDataset
+	// response from `RiskCreateDataset`: DatasetRiskDataset
 	fmt.Fprintf(os.Stdout, "Response from `DatasetAPI.RiskCreateDataset`: %v\n", resp)
 }
 ```
@@ -60,11 +60,11 @@ Other parameters are passed through a pointer to a apiRiskCreateDatasetRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **riskDatasetSpec** | [**RiskDatasetSpec**](RiskDatasetSpec.md) |  | 
+ **datasetRiskDatasetSpec** | [**DatasetRiskDatasetSpec**](DatasetRiskDatasetSpec.md) |  | 
 
 ### Return type
 
-[**RiskDataset**](RiskDataset.md)
+[**DatasetRiskDataset**](DatasetRiskDataset.md)
 
 ### Authorization
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## RiskDataset
 
-> RiskDatasetVersions RiskDataset(ctx, name).Execute()
+> DatasetRiskDatasetVersions RiskDataset(ctx, name).Execute()
 
 Describe every version of one dataset
 
@@ -110,7 +110,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DatasetAPI.RiskDataset``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskDataset`: RiskDatasetVersions
+	// response from `RiskDataset`: DatasetRiskDatasetVersions
 	fmt.Fprintf(os.Stdout, "Response from `DatasetAPI.RiskDataset`: %v\n", resp)
 }
 ```
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RiskDatasetVersions**](RiskDatasetVersions.md)
+[**DatasetRiskDatasetVersions**](DatasetRiskDatasetVersions.md)
 
 ### Authorization
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ## RiskDatasetLineage
 
-> RiskLineage RiskDatasetLineage(ctx, name).Version(version).Execute()
+> DatasetRiskLineage RiskDatasetLineage(ctx, name).Version(version).Execute()
 
 Show where a version's rows came from, and whether that can still be demonstrated
 
@@ -181,7 +181,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DatasetAPI.RiskDatasetLineage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskDatasetLineage`: RiskLineage
+	// response from `RiskDatasetLineage`: DatasetRiskLineage
 	fmt.Fprintf(os.Stdout, "Response from `DatasetAPI.RiskDatasetLineage`: %v\n", resp)
 }
 ```
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RiskLineage**](RiskLineage.md)
+[**DatasetRiskLineage**](DatasetRiskLineage.md)
 
 ### Authorization
 
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 
 ## RiskDatasets
 
-> RiskDatasetList RiskDatasets(ctx).Execute()
+> DatasetRiskDatasetList RiskDatasets(ctx).Execute()
 
 List this org's datasets
 
@@ -251,7 +251,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DatasetAPI.RiskDatasets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskDatasets`: RiskDatasetList
+	// response from `RiskDatasets`: DatasetRiskDatasetList
 	fmt.Fprintf(os.Stdout, "Response from `DatasetAPI.RiskDatasets`: %v\n", resp)
 }
 ```
@@ -267,7 +267,7 @@ Other parameters are passed through a pointer to a apiRiskDatasetsRequest struct
 
 ### Return type
 
-[**RiskDatasetList**](RiskDatasetList.md)
+[**DatasetRiskDatasetList**](DatasetRiskDatasetList.md)
 
 ### Authorization
 
@@ -276,7 +276,7 @@ Other parameters are passed through a pointer to a apiRiskDatasetsRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -285,7 +285,7 @@ Other parameters are passed through a pointer to a apiRiskDatasetsRequest struct
 
 ## RiskDeleteDataset
 
-> RiskDatasetDisposal RiskDeleteDataset(ctx, name).Execute()
+> DatasetRiskDatasetDisposal RiskDeleteDataset(ctx, name).Execute()
 
 Dispose of one dataset and every version of it
 
@@ -313,7 +313,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DatasetAPI.RiskDeleteDataset``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskDeleteDataset`: RiskDatasetDisposal
+	// response from `RiskDeleteDataset`: DatasetRiskDatasetDisposal
 	fmt.Fprintf(os.Stdout, "Response from `DatasetAPI.RiskDeleteDataset`: %v\n", resp)
 }
 ```
@@ -337,7 +337,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RiskDatasetDisposal**](RiskDatasetDisposal.md)
+[**DatasetRiskDatasetDisposal**](DatasetRiskDatasetDisposal.md)
 
 ### Authorization
 
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -355,7 +355,7 @@ Name | Type | Description  | Notes
 
 ## RiskExportDataset
 
-> RiskDatasetRows RiskExportDataset(ctx, name).Version(version).Split(split).Offset(offset).Limit(limit).Execute()
+> DatasetRiskDatasetRows RiskExportDataset(ctx, name).Version(version).Split(split).Offset(offset).Limit(limit).Execute()
 
 Read a version's rows back, one page at a time
 
@@ -387,7 +387,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DatasetAPI.RiskExportDataset``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskExportDataset`: RiskDatasetRows
+	// response from `RiskExportDataset`: DatasetRiskDatasetRows
 	fmt.Fprintf(os.Stdout, "Response from `DatasetAPI.RiskExportDataset`: %v\n", resp)
 }
 ```
@@ -415,7 +415,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RiskDatasetRows**](RiskDatasetRows.md)
+[**DatasetRiskDatasetRows**](DatasetRiskDatasetRows.md)
 
 ### Authorization
 
@@ -424,7 +424,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -433,7 +433,7 @@ Name | Type | Description  | Notes
 
 ## RiskMaterializeDataset
 
-> RiskDataset RiskMaterializeDataset(ctx, name).Execute()
+> DatasetRiskDataset RiskMaterializeDataset(ctx, name).Execute()
 
 Materialise the declared version into immutable rows
 
@@ -461,7 +461,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DatasetAPI.RiskMaterializeDataset``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RiskMaterializeDataset`: RiskDataset
+	// response from `RiskMaterializeDataset`: DatasetRiskDataset
 	fmt.Fprintf(os.Stdout, "Response from `DatasetAPI.RiskMaterializeDataset`: %v\n", resp)
 }
 ```
@@ -485,7 +485,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RiskDataset**](RiskDataset.md)
+[**DatasetRiskDataset**](DatasetRiskDataset.md)
 
 ### Authorization
 
@@ -494,7 +494,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

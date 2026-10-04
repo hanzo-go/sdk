@@ -45,11 +45,14 @@ type O11ySlackConfig struct {
 	Text        *string               `json:"text,omitempty"`
 	ThumbUrl    *string               `json:"thumb_url,omitempty"`
 	// Timeout is the maximum time allowed to invoke the slack. Setting this to 0 does not impose a timeout.
-	Timeout   *int64  `json:"timeout,omitempty"`
-	Title     *string `json:"title,omitempty"`
-	TitleLink *string `json:"title_link,omitempty"`
-	Username  *string `json:"username,omitempty"`
+	Timeout              *int64  `json:"timeout,omitempty"`
+	Title                *string `json:"title,omitempty"`
+	TitleLink            *string `json:"title_link,omitempty"`
+	Username             *string `json:"username,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySlackConfig O11ySlackConfig
 
 // NewO11ySlackConfig instantiates a new O11ySlackConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -1061,7 +1064,60 @@ func (o O11ySlackConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySlackConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11ySlackConfig := _O11ySlackConfig{}
+
+	err = json.Unmarshal(data, &varO11ySlackConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySlackConfig(varO11ySlackConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "actions")
+		delete(additionalProperties, "api_url")
+		delete(additionalProperties, "api_url_file")
+		delete(additionalProperties, "app_token")
+		delete(additionalProperties, "app_token_file")
+		delete(additionalProperties, "app_url")
+		delete(additionalProperties, "callback_id")
+		delete(additionalProperties, "channel")
+		delete(additionalProperties, "color")
+		delete(additionalProperties, "fallback")
+		delete(additionalProperties, "fields")
+		delete(additionalProperties, "footer")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "icon_emoji")
+		delete(additionalProperties, "icon_url")
+		delete(additionalProperties, "image_url")
+		delete(additionalProperties, "link_names")
+		delete(additionalProperties, "message_text")
+		delete(additionalProperties, "mrkdwn_in")
+		delete(additionalProperties, "pretext")
+		delete(additionalProperties, "short_fields")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "thumb_url")
+		delete(additionalProperties, "timeout")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "title_link")
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySlackConfig struct {

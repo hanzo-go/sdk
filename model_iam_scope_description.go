@@ -19,10 +19,13 @@ var _ MappedNullable = &IamScopeDescription{}
 
 // IamScopeDescription struct for IamScopeDescription
 type IamScopeDescription struct {
-	Description *string `json:"description,omitempty"`
-	DisplayName *string `json:"displayName,omitempty"`
-	Scope       *string `json:"scope,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
+	Scope                *string `json:"scope,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamScopeDescription IamScopeDescription
 
 // NewIamScopeDescription instantiates a new IamScopeDescription object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o IamScopeDescription) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamScopeDescription) UnmarshalJSON(data []byte) (err error) {
+	varIamScopeDescription := _IamScopeDescription{}
+
+	err = json.Unmarshal(data, &varIamScopeDescription)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamScopeDescription(varIamScopeDescription)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "scope")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamScopeDescription struct {

@@ -19,38 +19,41 @@ var _ MappedNullable = &Audit{}
 
 // Audit struct for Audit
 type Audit struct {
-	Action       *string `json:"action,omitempty"`
-	Block        *string `json:"block,omitempty"`
-	Block2       *string `json:"block2,omitempty"`
-	BlockHash    *string `json:"blockHash,omitempty"`
-	BlockHash2   *string `json:"blockHash2,omitempty"`
-	City         *string `json:"city,omitempty"`
-	ClientIp     *string `json:"clientIp,omitempty"`
-	Count        *int32  `json:"count,omitempty"`
-	CreatedTime  *string `json:"createdTime,omitempty"`
-	ErrorText    *string `json:"errorText,omitempty"`
-	Id           *int32  `json:"id,omitempty"`
-	IsTriggered  *bool   `json:"isTriggered,omitempty"`
-	Language     *string `json:"language,omitempty"`
-	Method       *string `json:"method,omitempty"`
-	Name         *string `json:"name,omitempty"`
-	NeedCommit   *bool   `json:"needCommit,omitempty"`
-	Object       *string `json:"object,omitempty"`
-	Organization *string `json:"organization,omitempty"`
-	Owner        *string `json:"owner,omitempty"`
-	Provider     *string `json:"provider,omitempty"`
-	Provider2    *string `json:"provider2,omitempty"`
-	Query        *string `json:"query,omitempty"`
-	Region       *string `json:"region,omitempty"`
-	RequestUri   *string `json:"requestUri,omitempty"`
-	Response     *string `json:"response,omitempty"`
-	Section      *string `json:"section,omitempty"`
-	Transaction  *string `json:"transaction,omitempty"`
-	Transaction2 *string `json:"transaction2,omitempty"`
-	Unit         *string `json:"unit,omitempty"`
-	User         *string `json:"user,omitempty"`
-	UserAgent    *string `json:"userAgent,omitempty"`
+	Action               *string `json:"action,omitempty"`
+	Block                *string `json:"block,omitempty"`
+	Block2               *string `json:"block2,omitempty"`
+	BlockHash            *string `json:"blockHash,omitempty"`
+	BlockHash2           *string `json:"blockHash2,omitempty"`
+	City                 *string `json:"city,omitempty"`
+	ClientIp             *string `json:"clientIp,omitempty"`
+	Count                *int32  `json:"count,omitempty"`
+	CreatedTime          *string `json:"createdTime,omitempty"`
+	ErrorText            *string `json:"errorText,omitempty"`
+	Id                   *int32  `json:"id,omitempty"`
+	IsTriggered          *bool   `json:"isTriggered,omitempty"`
+	Language             *string `json:"language,omitempty"`
+	Method               *string `json:"method,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	NeedCommit           *bool   `json:"needCommit,omitempty"`
+	Object               *string `json:"object,omitempty"`
+	Organization         *string `json:"organization,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	Provider             *string `json:"provider,omitempty"`
+	Provider2            *string `json:"provider2,omitempty"`
+	Query                *string `json:"query,omitempty"`
+	Region               *string `json:"region,omitempty"`
+	RequestUri           *string `json:"requestUri,omitempty"`
+	Response             *string `json:"response,omitempty"`
+	Section              *string `json:"section,omitempty"`
+	Transaction          *string `json:"transaction,omitempty"`
+	Transaction2         *string `json:"transaction2,omitempty"`
+	Unit                 *string `json:"unit,omitempty"`
+	User                 *string `json:"user,omitempty"`
+	UserAgent            *string `json:"userAgent,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Audit Audit
 
 // NewAudit instantiates a new Audit object
 // This constructor will assign default values to properties that have it defined,
@@ -1164,7 +1167,63 @@ func (o Audit) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserAgent) {
 		toSerialize["userAgent"] = o.UserAgent
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Audit) UnmarshalJSON(data []byte) (err error) {
+	varAudit := _Audit{}
+
+	err = json.Unmarshal(data, &varAudit)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Audit(varAudit)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "action")
+		delete(additionalProperties, "block")
+		delete(additionalProperties, "block2")
+		delete(additionalProperties, "blockHash")
+		delete(additionalProperties, "blockHash2")
+		delete(additionalProperties, "city")
+		delete(additionalProperties, "clientIp")
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "errorText")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "isTriggered")
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "method")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "needCommit")
+		delete(additionalProperties, "object")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "provider2")
+		delete(additionalProperties, "query")
+		delete(additionalProperties, "region")
+		delete(additionalProperties, "requestUri")
+		delete(additionalProperties, "response")
+		delete(additionalProperties, "section")
+		delete(additionalProperties, "transaction")
+		delete(additionalProperties, "transaction2")
+		delete(additionalProperties, "unit")
+		delete(additionalProperties, "user")
+		delete(additionalProperties, "userAgent")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAudit struct {

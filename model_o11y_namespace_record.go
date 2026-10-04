@@ -19,12 +19,15 @@ var _ MappedNullable = &O11yNamespaceRecord{}
 
 // O11yNamespaceRecord struct for O11yNamespaceRecord
 type O11yNamespaceRecord struct {
-	Meta             map[string]string     `json:"meta,omitempty"`
-	NamespaceCPU     *float64              `json:"namespaceCPU,omitempty"`
-	NamespaceMemory  *float64              `json:"namespaceMemory,omitempty"`
-	NamespaceName    *string               `json:"namespaceName,omitempty"`
-	PodCountsByPhase *O11yPodCountsByPhase `json:"podCountsByPhase,omitempty"`
+	Meta                 map[string]string     `json:"meta,omitempty"`
+	NamespaceCPU         *float64              `json:"namespaceCPU,omitempty"`
+	NamespaceMemory      *float64              `json:"namespaceMemory,omitempty"`
+	NamespaceName        *string               `json:"namespaceName,omitempty"`
+	PodCountsByPhase     *O11yPodCountsByPhase `json:"podCountsByPhase,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yNamespaceRecord O11yNamespaceRecord
 
 // NewO11yNamespaceRecord instantiates a new O11yNamespaceRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o O11yNamespaceRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PodCountsByPhase) {
 		toSerialize["podCountsByPhase"] = o.PodCountsByPhase
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yNamespaceRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yNamespaceRecord := _O11yNamespaceRecord{}
+
+	err = json.Unmarshal(data, &varO11yNamespaceRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yNamespaceRecord(varO11yNamespaceRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "namespaceCPU")
+		delete(additionalProperties, "namespaceMemory")
+		delete(additionalProperties, "namespaceName")
+		delete(additionalProperties, "podCountsByPhase")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yNamespaceRecord struct {

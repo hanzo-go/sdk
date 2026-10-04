@@ -30,8 +30,11 @@ type O11yO11yOperation struct {
 	// P95 is its p95 latency, nanoseconds.
 	P95 *float64 `json:"p95,omitempty"`
 	// P99 is its p99 latency, nanoseconds.
-	P99 *float64 `json:"p99,omitempty"`
+	P99                  *float64 `json:"p99,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yOperation O11yO11yOperation
 
 // NewO11yO11yOperation instantiates a new O11yO11yOperation object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o O11yO11yOperation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.P99) {
 		toSerialize["p99"] = o.P99
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yOperation) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yOperation := _O11yO11yOperation{}
+
+	err = json.Unmarshal(data, &varO11yO11yOperation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yOperation(varO11yO11yOperation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "errorCount")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "numCalls")
+		delete(additionalProperties, "p50")
+		delete(additionalProperties, "p95")
+		delete(additionalProperties, "p99")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yOperation struct {

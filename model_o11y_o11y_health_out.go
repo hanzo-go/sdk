@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yHealthOut{}
 // O11yO11yHealthOut struct for O11yO11yHealthOut
 type O11yO11yHealthOut struct {
 	// Status is \"ok\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yHealthOut O11yO11yHealthOut
 
 // NewO11yO11yHealthOut instantiates a new O11yO11yHealthOut object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yHealthOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yHealthOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yHealthOut := _O11yO11yHealthOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yHealthOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yHealthOut(varO11yO11yHealthOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yHealthOut struct {

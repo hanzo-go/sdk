@@ -19,17 +19,20 @@ var _ MappedNullable = &O11yHostRecord{}
 
 // O11yHostRecord struct for O11yHostRecord
 type O11yHostRecord struct {
-	ActiveHostCount   *int64            `json:"activeHostCount,omitempty"`
-	Cpu               *float64          `json:"cpu,omitempty"`
-	DiskUsage         *float64          `json:"diskUsage,omitempty"`
-	HostName          *string           `json:"hostName,omitempty"`
-	InactiveHostCount *int64            `json:"inactiveHostCount,omitempty"`
-	Load15            *float64          `json:"load15,omitempty"`
-	Memory            *float64          `json:"memory,omitempty"`
-	Meta              map[string]string `json:"meta,omitempty"`
-	Status            interface{}       `json:"status,omitempty"`
-	Wait              *float64          `json:"wait,omitempty"`
+	ActiveHostCount      *int64            `json:"activeHostCount,omitempty"`
+	Cpu                  *float64          `json:"cpu,omitempty"`
+	DiskUsage            *float64          `json:"diskUsage,omitempty"`
+	HostName             *string           `json:"hostName,omitempty"`
+	InactiveHostCount    *int64            `json:"inactiveHostCount,omitempty"`
+	Load15               *float64          `json:"load15,omitempty"`
+	Memory               *float64          `json:"memory,omitempty"`
+	Meta                 map[string]string `json:"meta,omitempty"`
+	Status               interface{}       `json:"status,omitempty"`
+	Wait                 *float64          `json:"wait,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yHostRecord O11yHostRecord
 
 // NewO11yHostRecord instantiates a new O11yHostRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -409,7 +412,42 @@ func (o O11yHostRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Wait) {
 		toSerialize["wait"] = o.Wait
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yHostRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yHostRecord := _O11yHostRecord{}
+
+	err = json.Unmarshal(data, &varO11yHostRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yHostRecord(varO11yHostRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "activeHostCount")
+		delete(additionalProperties, "cpu")
+		delete(additionalProperties, "diskUsage")
+		delete(additionalProperties, "hostName")
+		delete(additionalProperties, "inactiveHostCount")
+		delete(additionalProperties, "load15")
+		delete(additionalProperties, "memory")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "wait")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yHostRecord struct {

@@ -19,12 +19,15 @@ var _ MappedNullable = &IamThemeData{}
 
 // IamThemeData struct for IamThemeData
 type IamThemeData struct {
-	BorderRadius *int64  `json:"borderRadius,omitempty"`
-	ColorPrimary *string `json:"colorPrimary,omitempty"`
-	IsCompact    *bool   `json:"isCompact,omitempty"`
-	IsEnabled    *bool   `json:"isEnabled,omitempty"`
-	ThemeType    *string `json:"themeType,omitempty"`
+	BorderRadius         *int64  `json:"borderRadius,omitempty"`
+	ColorPrimary         *string `json:"colorPrimary,omitempty"`
+	IsCompact            *bool   `json:"isCompact,omitempty"`
+	IsEnabled            *bool   `json:"isEnabled,omitempty"`
+	ThemeType            *string `json:"themeType,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamThemeData IamThemeData
 
 // NewIamThemeData instantiates a new IamThemeData object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o IamThemeData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ThemeType) {
 		toSerialize["themeType"] = o.ThemeType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamThemeData) UnmarshalJSON(data []byte) (err error) {
+	varIamThemeData := _IamThemeData{}
+
+	err = json.Unmarshal(data, &varIamThemeData)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamThemeData(varIamThemeData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "borderRadius")
+		delete(additionalProperties, "colorPrimary")
+		delete(additionalProperties, "isCompact")
+		delete(additionalProperties, "isEnabled")
+		delete(additionalProperties, "themeType")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamThemeData struct {

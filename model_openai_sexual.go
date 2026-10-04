@@ -19,9 +19,12 @@ var _ MappedNullable = &OpenaiSexual{}
 
 // OpenaiSexual struct for OpenaiSexual
 type OpenaiSexual struct {
-	Filtered *bool   `json:"filtered,omitempty"`
-	Severity *string `json:"severity,omitempty"`
+	Filtered             *bool   `json:"filtered,omitempty"`
+	Severity             *string `json:"severity,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiSexual OpenaiSexual
 
 // NewOpenaiSexual instantiates a new OpenaiSexual object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o OpenaiSexual) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Severity) {
 		toSerialize["severity"] = o.Severity
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiSexual) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiSexual := _OpenaiSexual{}
+
+	err = json.Unmarshal(data, &varOpenaiSexual)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiSexual(varOpenaiSexual)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "filtered")
+		delete(additionalProperties, "severity")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiSexual struct {

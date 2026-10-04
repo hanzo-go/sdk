@@ -20,21 +20,24 @@ var _ MappedNullable = &IamWorkspace{}
 
 // IamWorkspace struct for IamWorkspace
 type IamWorkspace struct {
-	Bucket       *string    `json:"bucket,omitempty"`
-	CreatedAt    *time.Time `json:"createdAt,omitempty"`
-	CreatedTime  *string    `json:"createdTime,omitempty"`
-	Deleted      *bool      `json:"deleted,omitempty"`
-	Description  *string    `json:"description,omitempty"`
-	DisplayName  *string    `json:"displayName,omitempty"`
-	Id           *string    `json:"id,omitempty"`
-	IsDefault    *bool      `json:"isDefault,omitempty"`
-	Metadata     *string    `json:"metadata,omitempty"`
-	Name         *string    `json:"name,omitempty"`
-	Organization *string    `json:"organization,omitempty"`
-	Owner        *string    `json:"owner,omitempty"`
-	Tags         []string   `json:"tags,omitempty"`
-	UpdatedAt    *time.Time `json:"updatedAt,omitempty"`
+	Bucket               *string    `json:"bucket,omitempty"`
+	CreatedAt            *time.Time `json:"createdAt,omitempty"`
+	CreatedTime          *string    `json:"createdTime,omitempty"`
+	Deleted              *bool      `json:"deleted,omitempty"`
+	Description          *string    `json:"description,omitempty"`
+	DisplayName          *string    `json:"displayName,omitempty"`
+	Id                   *string    `json:"id,omitempty"`
+	IsDefault            *bool      `json:"isDefault,omitempty"`
+	Metadata             *string    `json:"metadata,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	Organization         *string    `json:"organization,omitempty"`
+	Owner                *string    `json:"owner,omitempty"`
+	Tags                 []string   `json:"tags,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamWorkspace IamWorkspace
 
 // NewIamWorkspace instantiates a new IamWorkspace object
 // This constructor will assign default values to properties that have it defined,
@@ -553,7 +556,46 @@ func (o IamWorkspace) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamWorkspace) UnmarshalJSON(data []byte) (err error) {
+	varIamWorkspace := _IamWorkspace{}
+
+	err = json.Unmarshal(data, &varIamWorkspace)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamWorkspace(varIamWorkspace)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "bucket")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "isDefault")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamWorkspace struct {

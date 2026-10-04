@@ -19,11 +19,14 @@ var _ MappedNullable = &AiRanking{}
 
 // AiRanking struct for AiRanking
 type AiRanking struct {
-	Model   *string       `json:"model,omitempty"`
-	Object  *string       `json:"object,omitempty"`
-	Results []AiRankedDoc `json:"results,omitempty"`
-	Usage   *AiRankUsage  `json:"usage,omitempty"`
+	Model                *string       `json:"model,omitempty"`
+	Object               *string       `json:"object,omitempty"`
+	Results              []AiRankedDoc `json:"results,omitempty"`
+	Usage                *AiRankUsage  `json:"usage,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiRanking AiRanking
 
 // NewAiRanking instantiates a new AiRanking object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o AiRanking) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Usage) {
 		toSerialize["usage"] = o.Usage
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiRanking) UnmarshalJSON(data []byte) (err error) {
+	varAiRanking := _AiRanking{}
+
+	err = json.Unmarshal(data, &varAiRanking)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiRanking(varAiRanking)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "object")
+		delete(additionalProperties, "results")
+		delete(additionalProperties, "usage")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiRanking struct {

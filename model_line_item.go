@@ -19,11 +19,12 @@ var _ MappedNullable = &LineItem{}
 
 // LineItem struct for LineItem
 type LineItem struct {
-	// AmountCents is that line's amount in whole cents. The scanner is instructed to return integer cents rather than a decimal, so no float rounding can enter the ledger through here.
-	AmountCents *int64 `json:"amountCents,omitempty"`
-	// Description is the line as it appears on the document.
-	Description *string `json:"description,omitempty"`
+	AmountCents          *int32  `json:"amountCents,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LineItem LineItem
 
 // NewLineItem instantiates a new LineItem object
 // This constructor will assign default values to properties that have it defined,
@@ -43,9 +44,9 @@ func NewLineItemWithDefaults() *LineItem {
 }
 
 // GetAmountCents returns the AmountCents field value if set, zero value otherwise.
-func (o *LineItem) GetAmountCents() int64 {
+func (o *LineItem) GetAmountCents() int32 {
 	if o == nil || IsNil(o.AmountCents) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.AmountCents
@@ -53,7 +54,7 @@ func (o *LineItem) GetAmountCents() int64 {
 
 // GetAmountCentsOk returns a tuple with the AmountCents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LineItem) GetAmountCentsOk() (*int64, bool) {
+func (o *LineItem) GetAmountCentsOk() (*int32, bool) {
 	if o == nil || IsNil(o.AmountCents) {
 		return nil, false
 	}
@@ -69,8 +70,8 @@ func (o *LineItem) HasAmountCents() bool {
 	return false
 }
 
-// SetAmountCents gets a reference to the given int64 and assigns it to the AmountCents field.
-func (o *LineItem) SetAmountCents(v int64) {
+// SetAmountCents gets a reference to the given int32 and assigns it to the AmountCents field.
+func (o *LineItem) SetAmountCents(v int32) {
 	o.AmountCents = &v
 }
 
@@ -122,7 +123,34 @@ func (o LineItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LineItem) UnmarshalJSON(data []byte) (err error) {
+	varLineItem := _LineItem{}
+
+	err = json.Unmarshal(data, &varLineItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LineItem(varLineItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "amountCents")
+		delete(additionalProperties, "description")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLineItem struct {

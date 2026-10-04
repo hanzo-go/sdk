@@ -22,8 +22,11 @@ type O11yO11yMetricOrder struct {
 	// Direction is asc or desc.
 	Direction *string `json:"direction,omitempty"`
 	// Key is the field to order by.
-	Key *O11yO11yMetricField `json:"key,omitempty"`
+	Key                  *O11yO11yMetricField `json:"key,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricOrder O11yO11yMetricOrder
 
 // NewO11yO11yMetricOrder instantiates a new O11yO11yMetricOrder object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yMetricOrder) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricOrder) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricOrder := _O11yO11yMetricOrder{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricOrder)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricOrder(varO11yO11yMetricOrder)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "direction")
+		delete(additionalProperties, "key")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricOrder struct {

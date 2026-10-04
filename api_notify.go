@@ -16,17 +16,127 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // NotifyAPIService NotifyAPI service
 type NotifyAPIService service
+
+type NotifyAPIDeleteNotifyCredentialsByProviderByKeyRequest struct {
+	ctx        context.Context
+	ApiService *NotifyAPIService
+	provider   string
+	key        string
+}
+
+func (r NotifyAPIDeleteNotifyCredentialsByProviderByKeyRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteNotifyCredentialsByProviderByKeyExecute(r)
+}
+
+/*
+DeleteNotifyCredentialsByProviderByKey Removes one of your org's notify provider credentials.
+
+Removes one of your org's notify provider credentials.
+
+The value is forgotten in KMS. A provider missing a key it cannot send
+without is no longer picked for its channel, and a send that pins it fails
+with the key it lacks. Removing a key that is not set succeeds, since what was
+asked for is already true. Org admin only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param provider Provider is the delivery provider the credential is for.
+	@param key Key is the credential's name within that provider.
+	@return NotifyAPIDeleteNotifyCredentialsByProviderByKeyRequest
+*/
+func (a *NotifyAPIService) DeleteNotifyCredentialsByProviderByKey(ctx context.Context, provider string, key string) NotifyAPIDeleteNotifyCredentialsByProviderByKeyRequest {
+	return NotifyAPIDeleteNotifyCredentialsByProviderByKeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		provider:   provider,
+		key:        key,
+	}
+}
+
+// Execute executes the request
+func (a *NotifyAPIService) DeleteNotifyCredentialsByProviderByKeyExecute(r NotifyAPIDeleteNotifyCredentialsByProviderByKeyRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotifyAPIService.DeleteNotifyCredentialsByProviderByKey")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/notify/credentials/{provider}/{key}"
+	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
 
 type NotifyAPIGetNotifyHealthRequest struct {
 	ctx        context.Context
 	ApiService *NotifyAPIService
 }
 
-func (r NotifyAPIGetNotifyHealthRequest) Execute() (*NotifyHealth, *http.Response, error) {
+func (r NotifyAPIGetNotifyHealthRequest) Execute() (*NotifyNotifyHealth, *http.Response, error) {
 	return r.ApiService.GetNotifyHealthExecute(r)
 }
 
@@ -52,13 +162,13 @@ func (a *NotifyAPIService) GetNotifyHealth(ctx context.Context) NotifyAPIGetNoti
 
 // Execute executes the request
 //
-//	@return NotifyHealth
-func (a *NotifyAPIService) GetNotifyHealthExecute(r NotifyAPIGetNotifyHealthRequest) (*NotifyHealth, *http.Response, error) {
+//	@return NotifyNotifyHealth
+func (a *NotifyAPIService) GetNotifyHealthExecute(r NotifyAPIGetNotifyHealthRequest) (*NotifyNotifyHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *NotifyHealth
+		localVarReturnValue *NotifyNotifyHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotifyAPIService.GetNotifyHealth")
@@ -82,7 +192,7 @@ func (a *NotifyAPIService) GetNotifyHealthExecute(r NotifyAPIGetNotifyHealthRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -111,6 +221,14 @@ func (a *NotifyAPIService) GetNotifyHealthExecute(r NotifyAPIGetNotifyHealthRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -127,13 +245,13 @@ func (a *NotifyAPIService) GetNotifyHealthExecute(r NotifyAPIGetNotifyHealthRequ
 }
 
 type NotifyAPIPostNotifySendRequest struct {
-	ctx        context.Context
-	ApiService *NotifyAPIService
-	notifySend *NotifySend
+	ctx              context.Context
+	ApiService       *NotifyAPIService
+	notifyNotifySend *NotifyNotifySend
 }
 
-func (r NotifyAPIPostNotifySendRequest) NotifySend(notifySend NotifySend) NotifyAPIPostNotifySendRequest {
-	r.notifySend = &notifySend
+func (r NotifyAPIPostNotifySendRequest) NotifyNotifySend(notifyNotifySend NotifyNotifySend) NotifyAPIPostNotifySendRequest {
+	r.notifyNotifySend = &notifyNotifySend
 	return r
 }
 
@@ -192,8 +310,8 @@ func (a *NotifyAPIService) PostNotifySendExecute(r NotifyAPIPostNotifySendReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.notifySend == nil {
-		return localVarReturnValue, nil, reportError("notifySend is required and must be specified")
+	if r.notifyNotifySend == nil {
+		return localVarReturnValue, nil, reportError("notifyNotifySend is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -206,7 +324,7 @@ func (a *NotifyAPIService) PostNotifySendExecute(r NotifyAPIPostNotifySendReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -214,7 +332,7 @@ func (a *NotifyAPIService) PostNotifySendExecute(r NotifyAPIPostNotifySendReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.notifySend
+	localVarPostBody = r.notifyNotifySend
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -237,6 +355,14 @@ func (a *NotifyAPIService) PostNotifySendExecute(r NotifyAPIPostNotifySendReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -253,13 +379,13 @@ func (a *NotifyAPIService) PostNotifySendExecute(r NotifyAPIPostNotifySendReques
 }
 
 type NotifyAPIPostNotifySendEmailRequest struct {
-	ctx        context.Context
-	ApiService *NotifyAPIService
-	notifySend *NotifySend
+	ctx              context.Context
+	ApiService       *NotifyAPIService
+	notifyNotifySend *NotifyNotifySend
 }
 
-func (r NotifyAPIPostNotifySendEmailRequest) NotifySend(notifySend NotifySend) NotifyAPIPostNotifySendEmailRequest {
-	r.notifySend = &notifySend
+func (r NotifyAPIPostNotifySendEmailRequest) NotifyNotifySend(notifyNotifySend NotifyNotifySend) NotifyAPIPostNotifySendEmailRequest {
+	r.notifyNotifySend = &notifyNotifySend
 	return r
 }
 
@@ -311,8 +437,8 @@ func (a *NotifyAPIService) PostNotifySendEmailExecute(r NotifyAPIPostNotifySendE
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.notifySend == nil {
-		return localVarReturnValue, nil, reportError("notifySend is required and must be specified")
+	if r.notifyNotifySend == nil {
+		return localVarReturnValue, nil, reportError("notifyNotifySend is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -325,7 +451,7 @@ func (a *NotifyAPIService) PostNotifySendEmailExecute(r NotifyAPIPostNotifySendE
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -333,7 +459,7 @@ func (a *NotifyAPIService) PostNotifySendEmailExecute(r NotifyAPIPostNotifySendE
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.notifySend
+	localVarPostBody = r.notifyNotifySend
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -356,6 +482,14 @@ func (a *NotifyAPIService) PostNotifySendEmailExecute(r NotifyAPIPostNotifySendE
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -372,13 +506,13 @@ func (a *NotifyAPIService) PostNotifySendEmailExecute(r NotifyAPIPostNotifySendE
 }
 
 type NotifyAPIPostNotifySendSmsRequest struct {
-	ctx        context.Context
-	ApiService *NotifyAPIService
-	notifySend *NotifySend
+	ctx              context.Context
+	ApiService       *NotifyAPIService
+	notifyNotifySend *NotifyNotifySend
 }
 
-func (r NotifyAPIPostNotifySendSmsRequest) NotifySend(notifySend NotifySend) NotifyAPIPostNotifySendSmsRequest {
-	r.notifySend = &notifySend
+func (r NotifyAPIPostNotifySendSmsRequest) NotifyNotifySend(notifyNotifySend NotifyNotifySend) NotifyAPIPostNotifySendSmsRequest {
+	r.notifyNotifySend = &notifyNotifySend
 	return r
 }
 
@@ -429,8 +563,8 @@ func (a *NotifyAPIService) PostNotifySendSmsExecute(r NotifyAPIPostNotifySendSms
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.notifySend == nil {
-		return localVarReturnValue, nil, reportError("notifySend is required and must be specified")
+	if r.notifyNotifySend == nil {
+		return localVarReturnValue, nil, reportError("notifyNotifySend is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -443,7 +577,7 @@ func (a *NotifyAPIService) PostNotifySendSmsExecute(r NotifyAPIPostNotifySendSms
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -451,7 +585,7 @@ func (a *NotifyAPIService) PostNotifySendSmsExecute(r NotifyAPIPostNotifySendSms
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.notifySend
+	localVarPostBody = r.notifyNotifySend
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -474,6 +608,151 @@ func (a *NotifyAPIService) PostNotifySendSmsExecute(r NotifyAPIPostNotifySendSms
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type NotifyAPIPutNotifyCredentialsByProviderByKeyRequest struct {
+	ctx                    context.Context
+	ApiService             *NotifyAPIService
+	provider               string
+	key                    string
+	notifyNotifyCredential *NotifyNotifyCredential
+}
+
+func (r NotifyAPIPutNotifyCredentialsByProviderByKeyRequest) NotifyNotifyCredential(notifyNotifyCredential NotifyNotifyCredential) NotifyAPIPutNotifyCredentialsByProviderByKeyRequest {
+	r.notifyNotifyCredential = &notifyNotifyCredential
+	return r
+}
+
+func (r NotifyAPIPutNotifyCredentialsByProviderByKeyRequest) Execute() (*NotifyNotifyStored, *http.Response, error) {
+	return r.ApiService.PutNotifyCredentialsByProviderByKeyExecute(r)
+}
+
+/*
+PutNotifyCredentialsByProviderByKey Sets one of your org's notify provider credentials.
+
+Sets one of your org's notify provider credentials.
+
+The value is sealed in KMS under your org and read by notify alone, at the
+moment it sends; no route answers it back, this one included. Setting a key
+that is already set replaces it, which is how a credential is rotated, and the
+next send uses the new value. The key must be one the provider reads — Twilio's
+account-sid, auth-token and from-number, say — and anything else is a 400
+naming the keys it does read. An unknown provider is a 404.
+
+Org admin only: a credential set here is what every message the org sends
+goes out with.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param provider Provider is the delivery provider the credential is for: twilio, plivo, twilio_email or mail.
+	@param key Key is one of the credentials that provider reads, such as auth-token or smtp-host. A key the provider does not read is refused.
+	@return NotifyAPIPutNotifyCredentialsByProviderByKeyRequest
+*/
+func (a *NotifyAPIService) PutNotifyCredentialsByProviderByKey(ctx context.Context, provider string, key string) NotifyAPIPutNotifyCredentialsByProviderByKeyRequest {
+	return NotifyAPIPutNotifyCredentialsByProviderByKeyRequest{
+		ApiService: a,
+		ctx:        ctx,
+		provider:   provider,
+		key:        key,
+	}
+}
+
+// Execute executes the request
+//
+//	@return NotifyNotifyStored
+func (a *NotifyAPIService) PutNotifyCredentialsByProviderByKeyExecute(r NotifyAPIPutNotifyCredentialsByProviderByKeyRequest) (*NotifyNotifyStored, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *NotifyNotifyStored
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotifyAPIService.PutNotifyCredentialsByProviderByKey")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/notify/credentials/{provider}/{key}"
+	localVarPath = strings.Replace(localVarPath, "{"+"provider"+"}", url.PathEscape(parameterValueToString(r.provider, "provider")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.notifyNotifyCredential == nil {
+		return localVarReturnValue, nil, reportError("notifyNotifyCredential is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.notifyNotifyCredential
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

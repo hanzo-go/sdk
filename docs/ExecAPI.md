@@ -6,14 +6,13 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetExecFilesBySid**](ExecAPI.md#GetExecFilesBySid) | **Get** /v1/exec/files/{sid} | Lists the files in an execution session.
 [**PostExec**](ExecAPI.md#PostExec) | **Post** /v1/exec | Run a code snippet in a sandboxed interpreter
-[**PostExecProgrammatic**](ExecAPI.md#PostExecProgrammatic) | **Post** /v1/exec/programmatic | Answers 501 — this deployment does not serve programmatic tool calling.
 [**PostExecUpload**](ExecAPI.md#PostExecUpload) | **Post** /v1/exec/upload | Upload a file into an execution session
 
 
 
 ## GetExecFilesBySid
 
-> []Listing GetExecFilesBySid(ctx, sid).Execute()
+> []ExecListing GetExecFilesBySid(ctx, sid).Execute()
 
 Lists the files in an execution session.
 
@@ -41,7 +40,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecAPI.GetExecFilesBySid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetExecFilesBySid`: []Listing
+	// response from `GetExecFilesBySid`: []ExecListing
 	fmt.Fprintf(os.Stdout, "Response from `ExecAPI.GetExecFilesBySid`: %v\n", resp)
 }
 ```
@@ -65,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]Listing**](Listing.md)
+[**[]ExecListing**](ExecListing.md)
 
 ### Authorization
 
@@ -74,7 +73,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -83,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## PostExec
 
-> CodeResult PostExec(ctx).CodeRun(codeRun).Execute()
+> ExecCodeResult PostExec(ctx).ExecCodeRun(execCodeRun).Execute()
 
 Run a code snippet in a sandboxed interpreter
 
@@ -102,16 +101,16 @@ import (
 )
 
 func main() {
-	codeRun := *openapiclient.NewCodeRun("Code_example", "Lang_example") // CodeRun | 
+	execCodeRun := *openapiclient.NewExecCodeRun("Code_example", "Lang_example") // ExecCodeRun | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecAPI.PostExec(context.Background()).CodeRun(codeRun).Execute()
+	resp, r, err := apiClient.ExecAPI.PostExec(context.Background()).ExecCodeRun(execCodeRun).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecAPI.PostExec``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostExec`: CodeResult
+	// response from `PostExec`: ExecCodeResult
 	fmt.Fprintf(os.Stdout, "Response from `ExecAPI.PostExec`: %v\n", resp)
 }
 ```
@@ -127,11 +126,11 @@ Other parameters are passed through a pointer to a apiPostExecRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **codeRun** | [**CodeRun**](CodeRun.md) |  | 
+ **execCodeRun** | [**ExecCodeRun**](ExecCodeRun.md) |  | 
 
 ### Return type
 
-[**CodeResult**](CodeResult.md)
+[**ExecCodeResult**](ExecCodeResult.md)
 
 ### Authorization
 
@@ -140,66 +139,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostExecProgrammatic
-
-> PostExecProgrammatic(ctx).Execute()
-
-Answers 501 — this deployment does not serve programmatic tool calling.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ExecAPI.PostExecProgrammatic(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ExecAPI.PostExecProgrammatic``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostExecProgrammaticRequest struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

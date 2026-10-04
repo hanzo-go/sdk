@@ -19,11 +19,14 @@ var _ MappedNullable = &O11yMetricsResponseUsage{}
 
 // O11yMetricsResponseUsage Usage is the LLM side of the same window: how many calls, how many tokens and what they cost. It counts model traffic, not HTTP requests, so it does not reconcile with series.requests.
 type O11yMetricsResponseUsage struct {
-	Calls     *int64            `json:"calls,omitempty"`
-	CostCents *int64            `json:"costCents,omitempty"`
-	Series    []O11yUsageBucket `json:"series,omitempty"`
-	Tokens    *int64            `json:"tokens,omitempty"`
+	Calls                *int64            `json:"calls,omitempty"`
+	CostCents            *int64            `json:"costCents,omitempty"`
+	Series               []O11yUsageBucket `json:"series,omitempty"`
+	Tokens               *int64            `json:"tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yMetricsResponseUsage O11yMetricsResponseUsage
 
 // NewO11yMetricsResponseUsage instantiates a new O11yMetricsResponseUsage object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11yMetricsResponseUsage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tokens) {
 		toSerialize["tokens"] = o.Tokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yMetricsResponseUsage) UnmarshalJSON(data []byte) (err error) {
+	varO11yMetricsResponseUsage := _O11yMetricsResponseUsage{}
+
+	err = json.Unmarshal(data, &varO11yMetricsResponseUsage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yMetricsResponseUsage(varO11yMetricsResponseUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "calls")
+		delete(additionalProperties, "costCents")
+		delete(additionalProperties, "series")
+		delete(additionalProperties, "tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yMetricsResponseUsage struct {

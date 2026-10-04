@@ -20,16 +20,19 @@ var _ MappedNullable = &O11yIngestionKey{}
 
 // O11yIngestionKey struct for O11yIngestionKey
 type O11yIngestionKey struct {
-	CreatedAt   *time.Time  `json:"created_at,omitempty"`
-	ExpiresAt   *time.Time  `json:"expires_at,omitempty"`
-	Id          *string     `json:"id,omitempty"`
-	Limits      []O11yLimit `json:"limits,omitempty"`
-	Name        *string     `json:"name,omitempty"`
-	Tags        []string    `json:"tags,omitempty"`
-	UpdatedAt   *time.Time  `json:"updated_at,omitempty"`
-	Value       *string     `json:"value,omitempty"`
-	WorkspaceId *string     `json:"workspace_id,omitempty"`
+	CreatedAt            *time.Time  `json:"created_at,omitempty"`
+	ExpiresAt            *time.Time  `json:"expires_at,omitempty"`
+	Id                   *string     `json:"id,omitempty"`
+	Limits               []O11yLimit `json:"limits,omitempty"`
+	Name                 *string     `json:"name,omitempty"`
+	Tags                 []string    `json:"tags,omitempty"`
+	UpdatedAt            *time.Time  `json:"updated_at,omitempty"`
+	Value                *string     `json:"value,omitempty"`
+	WorkspaceId          *string     `json:"workspace_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yIngestionKey O11yIngestionKey
 
 // NewO11yIngestionKey instantiates a new O11yIngestionKey object
 // This constructor will assign default values to properties that have it defined,
@@ -373,7 +376,41 @@ func (o O11yIngestionKey) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WorkspaceId) {
 		toSerialize["workspace_id"] = o.WorkspaceId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yIngestionKey) UnmarshalJSON(data []byte) (err error) {
+	varO11yIngestionKey := _O11yIngestionKey{}
+
+	err = json.Unmarshal(data, &varO11yIngestionKey)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yIngestionKey(varO11yIngestionKey)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "expires_at")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "limits")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "workspace_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yIngestionKey struct {

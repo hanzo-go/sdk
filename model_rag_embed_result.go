@@ -19,12 +19,15 @@ var _ MappedNullable = &RagEmbedResult{}
 
 // RagEmbedResult struct for RagEmbedResult
 type RagEmbedResult struct {
-	Chunks    *int32  `json:"chunks,omitempty"`
-	FileId    *string `json:"file_id,omitempty"`
-	Filename  *string `json:"filename,omitempty"`
-	IndexName *string `json:"index_name,omitempty"`
-	Store     *string `json:"store,omitempty"`
+	Chunks               *int32  `json:"chunks,omitempty"`
+	FileId               *string `json:"file_id,omitempty"`
+	Filename             *string `json:"filename,omitempty"`
+	IndexName            *string `json:"index_name,omitempty"`
+	Store                *string `json:"store,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RagEmbedResult RagEmbedResult
 
 // NewRagEmbedResult instantiates a new RagEmbedResult object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o RagEmbedResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Store) {
 		toSerialize["store"] = o.Store
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RagEmbedResult) UnmarshalJSON(data []byte) (err error) {
+	varRagEmbedResult := _RagEmbedResult{}
+
+	err = json.Unmarshal(data, &varRagEmbedResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RagEmbedResult(varRagEmbedResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "chunks")
+		delete(additionalProperties, "file_id")
+		delete(additionalProperties, "filename")
+		delete(additionalProperties, "index_name")
+		delete(additionalProperties, "store")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRagEmbedResult struct {

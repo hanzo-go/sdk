@@ -19,17 +19,20 @@ var _ MappedNullable = &Label{}
 
 // Label struct for Label
 type Label struct {
-	EndTime   *float32 `json:"endTime,omitempty"`
-	Id        *string  `json:"id,omitempty"`
-	Speaker   *string  `json:"speaker,omitempty"`
-	StartTime *float32 `json:"startTime,omitempty"`
-	Tag1      *string  `json:"tag1,omitempty"`
-	Tag2      *string  `json:"tag2,omitempty"`
-	Tag3      *string  `json:"tag3,omitempty"`
-	Text      *string  `json:"text,omitempty"`
-	Type      *string  `json:"type,omitempty"`
-	User      *string  `json:"user,omitempty"`
+	EndTime              *float32 `json:"endTime,omitempty"`
+	Id                   *string  `json:"id,omitempty"`
+	Speaker              *string  `json:"speaker,omitempty"`
+	StartTime            *float32 `json:"startTime,omitempty"`
+	Tag1                 *string  `json:"tag1,omitempty"`
+	Tag2                 *string  `json:"tag2,omitempty"`
+	Tag3                 *string  `json:"tag3,omitempty"`
+	Text                 *string  `json:"text,omitempty"`
+	Type                 *string  `json:"type,omitempty"`
+	User                 *string  `json:"user,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Label Label
 
 // NewLabel instantiates a new Label object
 // This constructor will assign default values to properties that have it defined,
@@ -408,7 +411,42 @@ func (o Label) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Label) UnmarshalJSON(data []byte) (err error) {
+	varLabel := _Label{}
+
+	err = json.Unmarshal(data, &varLabel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Label(varLabel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "endTime")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "speaker")
+		delete(additionalProperties, "startTime")
+		delete(additionalProperties, "tag1")
+		delete(additionalProperties, "tag2")
+		delete(additionalProperties, "tag3")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "user")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLabel struct {

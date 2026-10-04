@@ -1,0 +1,212 @@
+# EvalScoreConfigView
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Categories** | Pointer to **[]string** | Categories is the closed set of labels a CATEGORICAL score may carry. | [optional] 
+**CreatedAt** | Pointer to **string** | CreatedAt is when the rubric was first declared. | [optional] 
+**DataType** | Pointer to **string** | DataType is NUMERIC, CATEGORICAL or BOOLEAN, and is authoritative — a score recorded under this name cannot claim a different one. | [optional] 
+**MaxValue** | Pointer to **float64** | MaxValue is the inclusive ceiling a NUMERIC score must stay under, absent when unbounded. | [optional] 
+**MinValue** | Pointer to **float64** | MinValue is the inclusive floor a NUMERIC score must clear, absent when unbounded. | [optional] 
+**Name** | Pointer to **string** | Name is the score name this rubric governs. | [optional] 
+**UpdatedAt** | Pointer to **string** | UpdatedAt is when it last changed. | [optional] 
+
+## Methods
+
+### NewEvalScoreConfigView
+
+`func NewEvalScoreConfigView() *EvalScoreConfigView`
+
+NewEvalScoreConfigView instantiates a new EvalScoreConfigView object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewEvalScoreConfigViewWithDefaults
+
+`func NewEvalScoreConfigViewWithDefaults() *EvalScoreConfigView`
+
+NewEvalScoreConfigViewWithDefaults instantiates a new EvalScoreConfigView object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetCategories
+
+`func (o *EvalScoreConfigView) GetCategories() []string`
+
+GetCategories returns the Categories field if non-nil, zero value otherwise.
+
+### GetCategoriesOk
+
+`func (o *EvalScoreConfigView) GetCategoriesOk() (*[]string, bool)`
+
+GetCategoriesOk returns a tuple with the Categories field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCategories
+
+`func (o *EvalScoreConfigView) SetCategories(v []string)`
+
+SetCategories sets Categories field to given value.
+
+### HasCategories
+
+`func (o *EvalScoreConfigView) HasCategories() bool`
+
+HasCategories returns a boolean if a field has been set.
+
+### GetCreatedAt
+
+`func (o *EvalScoreConfigView) GetCreatedAt() string`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *EvalScoreConfigView) GetCreatedAtOk() (*string, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *EvalScoreConfigView) SetCreatedAt(v string)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *EvalScoreConfigView) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
+
+### GetDataType
+
+`func (o *EvalScoreConfigView) GetDataType() string`
+
+GetDataType returns the DataType field if non-nil, zero value otherwise.
+
+### GetDataTypeOk
+
+`func (o *EvalScoreConfigView) GetDataTypeOk() (*string, bool)`
+
+GetDataTypeOk returns a tuple with the DataType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDataType
+
+`func (o *EvalScoreConfigView) SetDataType(v string)`
+
+SetDataType sets DataType field to given value.
+
+### HasDataType
+
+`func (o *EvalScoreConfigView) HasDataType() bool`
+
+HasDataType returns a boolean if a field has been set.
+
+### GetMaxValue
+
+`func (o *EvalScoreConfigView) GetMaxValue() float64`
+
+GetMaxValue returns the MaxValue field if non-nil, zero value otherwise.
+
+### GetMaxValueOk
+
+`func (o *EvalScoreConfigView) GetMaxValueOk() (*float64, bool)`
+
+GetMaxValueOk returns a tuple with the MaxValue field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaxValue
+
+`func (o *EvalScoreConfigView) SetMaxValue(v float64)`
+
+SetMaxValue sets MaxValue field to given value.
+
+### HasMaxValue
+
+`func (o *EvalScoreConfigView) HasMaxValue() bool`
+
+HasMaxValue returns a boolean if a field has been set.
+
+### GetMinValue
+
+`func (o *EvalScoreConfigView) GetMinValue() float64`
+
+GetMinValue returns the MinValue field if non-nil, zero value otherwise.
+
+### GetMinValueOk
+
+`func (o *EvalScoreConfigView) GetMinValueOk() (*float64, bool)`
+
+GetMinValueOk returns a tuple with the MinValue field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMinValue
+
+`func (o *EvalScoreConfigView) SetMinValue(v float64)`
+
+SetMinValue sets MinValue field to given value.
+
+### HasMinValue
+
+`func (o *EvalScoreConfigView) HasMinValue() bool`
+
+HasMinValue returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *EvalScoreConfigView) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *EvalScoreConfigView) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *EvalScoreConfigView) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *EvalScoreConfigView) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetUpdatedAt
+
+`func (o *EvalScoreConfigView) GetUpdatedAt() string`
+
+GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
+
+### GetUpdatedAtOk
+
+`func (o *EvalScoreConfigView) GetUpdatedAtOk() (*string, bool)`
+
+GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdatedAt
+
+`func (o *EvalScoreConfigView) SetUpdatedAt(v string)`
+
+SetUpdatedAt sets UpdatedAt field to given value.
+
+### HasUpdatedAt
+
+`func (o *EvalScoreConfigView) HasUpdatedAt() bool`
+
+HasUpdatedAt returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

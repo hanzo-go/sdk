@@ -22,8 +22,11 @@ type O11yAnnItemList struct {
 	// Data is the page of items.
 	Data []O11yAnnItemView `json:"data,omitempty"`
 	// Meta is the paging that produced it.
-	Meta *O11yListMeta `json:"meta,omitempty"`
+	Meta                 *O11yListMeta `json:"meta,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAnnItemList O11yAnnItemList
 
 // NewO11yAnnItemList instantiates a new O11yAnnItemList object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yAnnItemList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Meta) {
 		toSerialize["meta"] = o.Meta
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAnnItemList) UnmarshalJSON(data []byte) (err error) {
+	varO11yAnnItemList := _O11yAnnItemList{}
+
+	err = json.Unmarshal(data, &varO11yAnnItemList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAnnItemList(varO11yAnnItemList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "meta")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAnnItemList struct {

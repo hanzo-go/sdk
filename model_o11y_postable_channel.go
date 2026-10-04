@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yPostableChannel{}
 
 // O11yPostableChannel struct for O11yPostableChannel
 type O11yPostableChannel struct {
-	Receiver          *O11yReceiver                  `json:"Receiver,omitempty"`
-	GooglechatConfigs []O11yGoogleChatReceiverConfig `json:"googlechat_configs,omitempty"`
+	Receiver             *O11yReceiver                  `json:"Receiver,omitempty"`
+	GooglechatConfigs    []O11yGoogleChatReceiverConfig `json:"googlechat_configs,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPostableChannel O11yPostableChannel
 
 // NewO11yPostableChannel instantiates a new O11yPostableChannel object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yPostableChannel) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GooglechatConfigs) {
 		toSerialize["googlechat_configs"] = o.GooglechatConfigs
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPostableChannel) UnmarshalJSON(data []byte) (err error) {
+	varO11yPostableChannel := _O11yPostableChannel{}
+
+	err = json.Unmarshal(data, &varO11yPostableChannel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPostableChannel(varO11yPostableChannel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "Receiver")
+		delete(additionalProperties, "googlechat_configs")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPostableChannel struct {

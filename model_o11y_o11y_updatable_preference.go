@@ -19,9 +19,11 @@ var _ MappedNullable = &O11yO11yUpdatablePreference{}
 
 // O11yO11yUpdatablePreference struct for O11yO11yUpdatablePreference
 type O11yO11yUpdatablePreference struct {
-	// Value is the value to set; its JSON type must match the preference's declared value type.
-	Value map[string]interface{} `json:"value,omitempty"`
+	Value                interface{} `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yUpdatablePreference O11yO11yUpdatablePreference
 
 // NewO11yO11yUpdatablePreference instantiates a new O11yO11yUpdatablePreference object
 // This constructor will assign default values to properties that have it defined,
@@ -40,10 +42,10 @@ func NewO11yO11yUpdatablePreferenceWithDefaults() *O11yO11yUpdatablePreference {
 	return &this
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *O11yO11yUpdatablePreference) GetValue() map[string]interface{} {
-	if o == nil || IsNil(o.Value) {
-		var ret map[string]interface{}
+// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *O11yO11yUpdatablePreference) GetValue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Value
@@ -51,11 +53,12 @@ func (o *O11yO11yUpdatablePreference) GetValue() map[string]interface{} {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yUpdatablePreference) GetValueOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *O11yO11yUpdatablePreference) GetValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Value) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
@@ -67,8 +70,8 @@ func (o *O11yO11yUpdatablePreference) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
-func (o *O11yO11yUpdatablePreference) SetValue(v map[string]interface{}) {
+// SetValue gets a reference to the given interface{} and assigns it to the Value field.
+func (o *O11yO11yUpdatablePreference) SetValue(v interface{}) {
 	o.Value = v
 }
 
@@ -82,10 +85,36 @@ func (o O11yO11yUpdatablePreference) MarshalJSON() ([]byte, error) {
 
 func (o O11yO11yUpdatablePreference) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Value) {
+	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yUpdatablePreference) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yUpdatablePreference := _O11yO11yUpdatablePreference{}
+
+	err = json.Unmarshal(data, &varO11yO11yUpdatablePreference)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yUpdatablePreference(varO11yO11yUpdatablePreference)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yUpdatablePreference struct {

@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yAzureLogsCollectionStrategy{}
 // O11yAzureLogsCollectionStrategy struct for O11yAzureLogsCollectionStrategy
 type O11yAzureLogsCollectionStrategy struct {
 	// List of categories to enable for diagnostic settings, to start with it will have 'allLogs' and no filtering.
-	CategoryGroups []string `json:"categoryGroups,omitempty"`
+	CategoryGroups       []string `json:"categoryGroups,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAzureLogsCollectionStrategy O11yAzureLogsCollectionStrategy
 
 // NewO11yAzureLogsCollectionStrategy instantiates a new O11yAzureLogsCollectionStrategy object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yAzureLogsCollectionStrategy) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.CategoryGroups) {
 		toSerialize["categoryGroups"] = o.CategoryGroups
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAzureLogsCollectionStrategy) UnmarshalJSON(data []byte) (err error) {
+	varO11yAzureLogsCollectionStrategy := _O11yAzureLogsCollectionStrategy{}
+
+	err = json.Unmarshal(data, &varO11yAzureLogsCollectionStrategy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAzureLogsCollectionStrategy(varO11yAzureLogsCollectionStrategy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "categoryGroups")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAzureLogsCollectionStrategy struct {

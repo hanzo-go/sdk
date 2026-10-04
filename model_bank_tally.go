@@ -19,19 +19,16 @@ var _ MappedNullable = &BankTally{}
 
 // BankTally struct for BankTally
 type BankTally struct {
-	// transactions seen
-	Ingested *int64 `json:"ingested,omitempty"`
-	// vouchers newly posted (outflow + reconciled)
-	Posted *int64 `json:"posted,omitempty"`
-	// unmatched inflows that raised a question
-	Questions *int64 `json:"questions,omitempty"`
-	// inflows cleared against Square-clearing
-	Reconciled *int64 `json:"reconciled,omitempty"`
-	// already-processed idempotent no-ops
-	Skipped *int64 `json:"skipped,omitempty"`
-	// own-account moves recorded (no P&L)
-	Transfers *int64 `json:"transfers,omitempty"`
+	Ingested             *int32 `json:"ingested,omitempty"`
+	Posted               *int32 `json:"posted,omitempty"`
+	Questions            *int32 `json:"questions,omitempty"`
+	Reconciled           *int32 `json:"reconciled,omitempty"`
+	Skipped              *int32 `json:"skipped,omitempty"`
+	Transfers            *int32 `json:"transfers,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BankTally BankTally
 
 // NewBankTally instantiates a new BankTally object
 // This constructor will assign default values to properties that have it defined,
@@ -51,9 +48,9 @@ func NewBankTallyWithDefaults() *BankTally {
 }
 
 // GetIngested returns the Ingested field value if set, zero value otherwise.
-func (o *BankTally) GetIngested() int64 {
+func (o *BankTally) GetIngested() int32 {
 	if o == nil || IsNil(o.Ingested) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.Ingested
@@ -61,7 +58,7 @@ func (o *BankTally) GetIngested() int64 {
 
 // GetIngestedOk returns a tuple with the Ingested field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BankTally) GetIngestedOk() (*int64, bool) {
+func (o *BankTally) GetIngestedOk() (*int32, bool) {
 	if o == nil || IsNil(o.Ingested) {
 		return nil, false
 	}
@@ -77,15 +74,15 @@ func (o *BankTally) HasIngested() bool {
 	return false
 }
 
-// SetIngested gets a reference to the given int64 and assigns it to the Ingested field.
-func (o *BankTally) SetIngested(v int64) {
+// SetIngested gets a reference to the given int32 and assigns it to the Ingested field.
+func (o *BankTally) SetIngested(v int32) {
 	o.Ingested = &v
 }
 
 // GetPosted returns the Posted field value if set, zero value otherwise.
-func (o *BankTally) GetPosted() int64 {
+func (o *BankTally) GetPosted() int32 {
 	if o == nil || IsNil(o.Posted) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.Posted
@@ -93,7 +90,7 @@ func (o *BankTally) GetPosted() int64 {
 
 // GetPostedOk returns a tuple with the Posted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BankTally) GetPostedOk() (*int64, bool) {
+func (o *BankTally) GetPostedOk() (*int32, bool) {
 	if o == nil || IsNil(o.Posted) {
 		return nil, false
 	}
@@ -109,15 +106,15 @@ func (o *BankTally) HasPosted() bool {
 	return false
 }
 
-// SetPosted gets a reference to the given int64 and assigns it to the Posted field.
-func (o *BankTally) SetPosted(v int64) {
+// SetPosted gets a reference to the given int32 and assigns it to the Posted field.
+func (o *BankTally) SetPosted(v int32) {
 	o.Posted = &v
 }
 
 // GetQuestions returns the Questions field value if set, zero value otherwise.
-func (o *BankTally) GetQuestions() int64 {
+func (o *BankTally) GetQuestions() int32 {
 	if o == nil || IsNil(o.Questions) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.Questions
@@ -125,7 +122,7 @@ func (o *BankTally) GetQuestions() int64 {
 
 // GetQuestionsOk returns a tuple with the Questions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BankTally) GetQuestionsOk() (*int64, bool) {
+func (o *BankTally) GetQuestionsOk() (*int32, bool) {
 	if o == nil || IsNil(o.Questions) {
 		return nil, false
 	}
@@ -141,15 +138,15 @@ func (o *BankTally) HasQuestions() bool {
 	return false
 }
 
-// SetQuestions gets a reference to the given int64 and assigns it to the Questions field.
-func (o *BankTally) SetQuestions(v int64) {
+// SetQuestions gets a reference to the given int32 and assigns it to the Questions field.
+func (o *BankTally) SetQuestions(v int32) {
 	o.Questions = &v
 }
 
 // GetReconciled returns the Reconciled field value if set, zero value otherwise.
-func (o *BankTally) GetReconciled() int64 {
+func (o *BankTally) GetReconciled() int32 {
 	if o == nil || IsNil(o.Reconciled) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.Reconciled
@@ -157,7 +154,7 @@ func (o *BankTally) GetReconciled() int64 {
 
 // GetReconciledOk returns a tuple with the Reconciled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BankTally) GetReconciledOk() (*int64, bool) {
+func (o *BankTally) GetReconciledOk() (*int32, bool) {
 	if o == nil || IsNil(o.Reconciled) {
 		return nil, false
 	}
@@ -173,15 +170,15 @@ func (o *BankTally) HasReconciled() bool {
 	return false
 }
 
-// SetReconciled gets a reference to the given int64 and assigns it to the Reconciled field.
-func (o *BankTally) SetReconciled(v int64) {
+// SetReconciled gets a reference to the given int32 and assigns it to the Reconciled field.
+func (o *BankTally) SetReconciled(v int32) {
 	o.Reconciled = &v
 }
 
 // GetSkipped returns the Skipped field value if set, zero value otherwise.
-func (o *BankTally) GetSkipped() int64 {
+func (o *BankTally) GetSkipped() int32 {
 	if o == nil || IsNil(o.Skipped) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.Skipped
@@ -189,7 +186,7 @@ func (o *BankTally) GetSkipped() int64 {
 
 // GetSkippedOk returns a tuple with the Skipped field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BankTally) GetSkippedOk() (*int64, bool) {
+func (o *BankTally) GetSkippedOk() (*int32, bool) {
 	if o == nil || IsNil(o.Skipped) {
 		return nil, false
 	}
@@ -205,15 +202,15 @@ func (o *BankTally) HasSkipped() bool {
 	return false
 }
 
-// SetSkipped gets a reference to the given int64 and assigns it to the Skipped field.
-func (o *BankTally) SetSkipped(v int64) {
+// SetSkipped gets a reference to the given int32 and assigns it to the Skipped field.
+func (o *BankTally) SetSkipped(v int32) {
 	o.Skipped = &v
 }
 
 // GetTransfers returns the Transfers field value if set, zero value otherwise.
-func (o *BankTally) GetTransfers() int64 {
+func (o *BankTally) GetTransfers() int32 {
 	if o == nil || IsNil(o.Transfers) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.Transfers
@@ -221,7 +218,7 @@ func (o *BankTally) GetTransfers() int64 {
 
 // GetTransfersOk returns a tuple with the Transfers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BankTally) GetTransfersOk() (*int64, bool) {
+func (o *BankTally) GetTransfersOk() (*int32, bool) {
 	if o == nil || IsNil(o.Transfers) {
 		return nil, false
 	}
@@ -237,8 +234,8 @@ func (o *BankTally) HasTransfers() bool {
 	return false
 }
 
-// SetTransfers gets a reference to the given int64 and assigns it to the Transfers field.
-func (o *BankTally) SetTransfers(v int64) {
+// SetTransfers gets a reference to the given int32 and assigns it to the Transfers field.
+func (o *BankTally) SetTransfers(v int32) {
 	o.Transfers = &v
 }
 
@@ -270,7 +267,38 @@ func (o BankTally) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Transfers) {
 		toSerialize["transfers"] = o.Transfers
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BankTally) UnmarshalJSON(data []byte) (err error) {
+	varBankTally := _BankTally{}
+
+	err = json.Unmarshal(data, &varBankTally)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BankTally(varBankTally)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ingested")
+		delete(additionalProperties, "posted")
+		delete(additionalProperties, "questions")
+		delete(additionalProperties, "reconciled")
+		delete(additionalProperties, "skipped")
+		delete(additionalProperties, "transfers")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBankTally struct {

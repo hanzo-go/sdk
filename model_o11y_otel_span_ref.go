@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yOtelSpanRef{}
 
 // O11yOtelSpanRef struct for O11yOtelSpanRef
 type O11yOtelSpanRef struct {
-	RefType *string `json:"refType,omitempty"`
-	SpanId  *string `json:"spanId,omitempty"`
-	TraceId *string `json:"traceId,omitempty"`
+	RefType              *string `json:"refType,omitempty"`
+	SpanId               *string `json:"spanId,omitempty"`
+	TraceId              *string `json:"traceId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yOtelSpanRef O11yOtelSpanRef
 
 // NewO11yOtelSpanRef instantiates a new O11yOtelSpanRef object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yOtelSpanRef) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TraceId) {
 		toSerialize["traceId"] = o.TraceId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yOtelSpanRef) UnmarshalJSON(data []byte) (err error) {
+	varO11yOtelSpanRef := _O11yOtelSpanRef{}
+
+	err = json.Unmarshal(data, &varO11yOtelSpanRef)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yOtelSpanRef(varO11yOtelSpanRef)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "refType")
+		delete(additionalProperties, "spanId")
+		delete(additionalProperties, "traceId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yOtelSpanRef struct {

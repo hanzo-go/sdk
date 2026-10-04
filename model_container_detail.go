@@ -19,10 +19,13 @@ var _ MappedNullable = &ContainerDetail{}
 
 // ContainerDetail struct for ContainerDetail
 type ContainerDetail struct {
-	Image     *string           `json:"image,omitempty"`
-	Name      *string           `json:"name,omitempty"`
-	Resources *ResourceRequests `json:"resources,omitempty"`
+	Image                *string           `json:"image,omitempty"`
+	Name                 *string           `json:"name,omitempty"`
+	Resources            *ResourceRequests `json:"resources,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ContainerDetail ContainerDetail
 
 // NewContainerDetail instantiates a new ContainerDetail object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o ContainerDetail) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Resources) {
 		toSerialize["resources"] = o.Resources
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ContainerDetail) UnmarshalJSON(data []byte) (err error) {
+	varContainerDetail := _ContainerDetail{}
+
+	err = json.Unmarshal(data, &varContainerDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ContainerDetail(varContainerDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "resources")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableContainerDetail struct {

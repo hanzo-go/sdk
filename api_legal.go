@@ -34,7 +34,7 @@ func (r LegalAPIGetLegalDocumentsRequest) Limit(limit int64) LegalAPIGetLegalDoc
 	return r
 }
 
-func (r LegalAPIGetLegalDocumentsRequest) Execute() (*DocumentPage, *http.Response, error) {
+func (r LegalAPIGetLegalDocumentsRequest) Execute() (*LegalDocumentPage, *http.Response, error) {
 	return r.ApiService.GetLegalDocumentsExecute(r)
 }
 
@@ -59,13 +59,13 @@ func (a *LegalAPIService) GetLegalDocuments(ctx context.Context) LegalAPIGetLega
 
 // Execute executes the request
 //
-//	@return DocumentPage
-func (a *LegalAPIService) GetLegalDocumentsExecute(r LegalAPIGetLegalDocumentsRequest) (*DocumentPage, *http.Response, error) {
+//	@return LegalDocumentPage
+func (a *LegalAPIService) GetLegalDocumentsExecute(r LegalAPIGetLegalDocumentsRequest) (*LegalDocumentPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DocumentPage
+		localVarReturnValue *LegalDocumentPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LegalAPIService.GetLegalDocuments")
@@ -92,7 +92,7 @@ func (a *LegalAPIService) GetLegalDocumentsExecute(r LegalAPIGetLegalDocumentsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -121,6 +121,14 @@ func (a *LegalAPIService) GetLegalDocumentsExecute(r LegalAPIGetLegalDocumentsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -142,7 +150,7 @@ type LegalAPIGetLegalDocumentsByIdRequest struct {
 	id         string
 }
 
-func (r LegalAPIGetLegalDocumentsByIdRequest) Execute() (*DocumentReply, *http.Response, error) {
+func (r LegalAPIGetLegalDocumentsByIdRequest) Execute() (*LegalDocumentReply, *http.Response, error) {
 	return r.ApiService.GetLegalDocumentsByIdExecute(r)
 }
 
@@ -170,13 +178,13 @@ func (a *LegalAPIService) GetLegalDocumentsById(ctx context.Context, id string) 
 
 // Execute executes the request
 //
-//	@return DocumentReply
-func (a *LegalAPIService) GetLegalDocumentsByIdExecute(r LegalAPIGetLegalDocumentsByIdRequest) (*DocumentReply, *http.Response, error) {
+//	@return LegalDocumentReply
+func (a *LegalAPIService) GetLegalDocumentsByIdExecute(r LegalAPIGetLegalDocumentsByIdRequest) (*LegalDocumentReply, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DocumentReply
+		localVarReturnValue *LegalDocumentReply
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LegalAPIService.GetLegalDocumentsById")
@@ -201,7 +209,7 @@ func (a *LegalAPIService) GetLegalDocumentsByIdExecute(r LegalAPIGetLegalDocumen
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -230,6 +238,14 @@ func (a *LegalAPIService) GetLegalDocumentsByIdExecute(r LegalAPIGetLegalDocumen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -257,7 +273,7 @@ func (r LegalAPIGetLegalFilingsRequest) Limit(limit int64) LegalAPIGetLegalFilin
 	return r
 }
 
-func (r LegalAPIGetLegalFilingsRequest) Execute() (*FilingPage, *http.Response, error) {
+func (r LegalAPIGetLegalFilingsRequest) Execute() (*LegalFilingPage, *http.Response, error) {
 	return r.ApiService.GetLegalFilingsExecute(r)
 }
 
@@ -279,13 +295,13 @@ func (a *LegalAPIService) GetLegalFilings(ctx context.Context) LegalAPIGetLegalF
 
 // Execute executes the request
 //
-//	@return FilingPage
-func (a *LegalAPIService) GetLegalFilingsExecute(r LegalAPIGetLegalFilingsRequest) (*FilingPage, *http.Response, error) {
+//	@return LegalFilingPage
+func (a *LegalAPIService) GetLegalFilingsExecute(r LegalAPIGetLegalFilingsRequest) (*LegalFilingPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FilingPage
+		localVarReturnValue *LegalFilingPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LegalAPIService.GetLegalFilings")
@@ -312,7 +328,7 @@ func (a *LegalAPIService) GetLegalFilingsExecute(r LegalAPIGetLegalFilingsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -341,6 +357,14 @@ func (a *LegalAPIService) GetLegalFilingsExecute(r LegalAPIGetLegalFilingsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -361,7 +385,7 @@ type LegalAPIGetLegalHealthRequest struct {
 	ApiService *LegalAPIService
 }
 
-func (r LegalAPIGetLegalHealthRequest) Execute() (*LegalHealth, *http.Response, error) {
+func (r LegalAPIGetLegalHealthRequest) Execute() (*LegalLegalHealth, *http.Response, error) {
 	return r.ApiService.GetLegalHealthExecute(r)
 }
 
@@ -384,13 +408,13 @@ func (a *LegalAPIService) GetLegalHealth(ctx context.Context) LegalAPIGetLegalHe
 
 // Execute executes the request
 //
-//	@return LegalHealth
-func (a *LegalAPIService) GetLegalHealthExecute(r LegalAPIGetLegalHealthRequest) (*LegalHealth, *http.Response, error) {
+//	@return LegalLegalHealth
+func (a *LegalAPIService) GetLegalHealthExecute(r LegalAPIGetLegalHealthRequest) (*LegalLegalHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *LegalHealth
+		localVarReturnValue *LegalLegalHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LegalAPIService.GetLegalHealth")
@@ -414,7 +438,7 @@ func (a *LegalAPIService) GetLegalHealthExecute(r LegalAPIGetLegalHealthRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -443,6 +467,14 @@ func (a *LegalAPIService) GetLegalHealthExecute(r LegalAPIGetLegalHealthRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -463,7 +495,7 @@ type LegalAPIGetLegalTemplatesRequest struct {
 	ApiService *LegalAPIService
 }
 
-func (r LegalAPIGetLegalTemplatesRequest) Execute() (*TemplateCatalog, *http.Response, error) {
+func (r LegalAPIGetLegalTemplatesRequest) Execute() (*LegalTemplateCatalog, *http.Response, error) {
 	return r.ApiService.GetLegalTemplatesExecute(r)
 }
 
@@ -491,13 +523,13 @@ func (a *LegalAPIService) GetLegalTemplates(ctx context.Context) LegalAPIGetLega
 
 // Execute executes the request
 //
-//	@return TemplateCatalog
-func (a *LegalAPIService) GetLegalTemplatesExecute(r LegalAPIGetLegalTemplatesRequest) (*TemplateCatalog, *http.Response, error) {
+//	@return LegalTemplateCatalog
+func (a *LegalAPIService) GetLegalTemplatesExecute(r LegalAPIGetLegalTemplatesRequest) (*LegalTemplateCatalog, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TemplateCatalog
+		localVarReturnValue *LegalTemplateCatalog
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LegalAPIService.GetLegalTemplates")
@@ -521,7 +553,7 @@ func (a *LegalAPIService) GetLegalTemplatesExecute(r LegalAPIGetLegalTemplatesRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -550,6 +582,14 @@ func (a *LegalAPIService) GetLegalTemplatesExecute(r LegalAPIGetLegalTemplatesRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -571,7 +611,7 @@ type LegalAPIGetLegalTemplatesByIdRequest struct {
 	id         string
 }
 
-func (r LegalAPIGetLegalTemplatesByIdRequest) Execute() (*TemplateReply, *http.Response, error) {
+func (r LegalAPIGetLegalTemplatesByIdRequest) Execute() (*LegalTemplateReply, *http.Response, error) {
 	return r.ApiService.GetLegalTemplatesByIdExecute(r)
 }
 
@@ -596,13 +636,13 @@ func (a *LegalAPIService) GetLegalTemplatesById(ctx context.Context, id string) 
 
 // Execute executes the request
 //
-//	@return TemplateReply
-func (a *LegalAPIService) GetLegalTemplatesByIdExecute(r LegalAPIGetLegalTemplatesByIdRequest) (*TemplateReply, *http.Response, error) {
+//	@return LegalTemplateReply
+func (a *LegalAPIService) GetLegalTemplatesByIdExecute(r LegalAPIGetLegalTemplatesByIdRequest) (*LegalTemplateReply, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TemplateReply
+		localVarReturnValue *LegalTemplateReply
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LegalAPIService.GetLegalTemplatesById")
@@ -627,7 +667,7 @@ func (a *LegalAPIService) GetLegalTemplatesByIdExecute(r LegalAPIGetLegalTemplat
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -656,6 +696,14 @@ func (a *LegalAPIService) GetLegalTemplatesByIdExecute(r LegalAPIGetLegalTemplat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -672,17 +720,17 @@ func (a *LegalAPIService) GetLegalTemplatesByIdExecute(r LegalAPIGetLegalTemplat
 }
 
 type LegalAPIPostLegalDocumentsRequest struct {
-	ctx             context.Context
-	ApiService      *LegalAPIService
-	generateRequest *GenerateRequest
+	ctx                  context.Context
+	ApiService           *LegalAPIService
+	legalGenerateRequest *LegalGenerateRequest
 }
 
-func (r LegalAPIPostLegalDocumentsRequest) GenerateRequest(generateRequest GenerateRequest) LegalAPIPostLegalDocumentsRequest {
-	r.generateRequest = &generateRequest
+func (r LegalAPIPostLegalDocumentsRequest) LegalGenerateRequest(legalGenerateRequest LegalGenerateRequest) LegalAPIPostLegalDocumentsRequest {
+	r.legalGenerateRequest = &legalGenerateRequest
 	return r
 }
 
-func (r LegalAPIPostLegalDocumentsRequest) Execute() (*DocumentReply, *http.Response, error) {
+func (r LegalAPIPostLegalDocumentsRequest) Execute() (*LegalDocumentReply, *http.Response, error) {
 	return r.ApiService.PostLegalDocumentsExecute(r)
 }
 
@@ -714,13 +762,13 @@ func (a *LegalAPIService) PostLegalDocuments(ctx context.Context) LegalAPIPostLe
 
 // Execute executes the request
 //
-//	@return DocumentReply
-func (a *LegalAPIService) PostLegalDocumentsExecute(r LegalAPIPostLegalDocumentsRequest) (*DocumentReply, *http.Response, error) {
+//	@return LegalDocumentReply
+func (a *LegalAPIService) PostLegalDocumentsExecute(r LegalAPIPostLegalDocumentsRequest) (*LegalDocumentReply, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DocumentReply
+		localVarReturnValue *LegalDocumentReply
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LegalAPIService.PostLegalDocuments")
@@ -733,8 +781,8 @@ func (a *LegalAPIService) PostLegalDocumentsExecute(r LegalAPIPostLegalDocuments
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.generateRequest == nil {
-		return localVarReturnValue, nil, reportError("generateRequest is required and must be specified")
+	if r.legalGenerateRequest == nil {
+		return localVarReturnValue, nil, reportError("legalGenerateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -747,7 +795,7 @@ func (a *LegalAPIService) PostLegalDocumentsExecute(r LegalAPIPostLegalDocuments
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -755,7 +803,7 @@ func (a *LegalAPIService) PostLegalDocumentsExecute(r LegalAPIPostLegalDocuments
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.generateRequest
+	localVarPostBody = r.legalGenerateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -778,6 +826,14 @@ func (a *LegalAPIService) PostLegalDocumentsExecute(r LegalAPIPostLegalDocuments
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -794,18 +850,18 @@ func (a *LegalAPIService) PostLegalDocumentsExecute(r LegalAPIPostLegalDocuments
 }
 
 type LegalAPIPostLegalDocumentsByIdSignRequest struct {
-	ctx         context.Context
-	ApiService  *LegalAPIService
-	id          string
-	signRequest *SignRequest
+	ctx              context.Context
+	ApiService       *LegalAPIService
+	id               string
+	legalSignRequest *LegalSignRequest
 }
 
-func (r LegalAPIPostLegalDocumentsByIdSignRequest) SignRequest(signRequest SignRequest) LegalAPIPostLegalDocumentsByIdSignRequest {
-	r.signRequest = &signRequest
+func (r LegalAPIPostLegalDocumentsByIdSignRequest) LegalSignRequest(legalSignRequest LegalSignRequest) LegalAPIPostLegalDocumentsByIdSignRequest {
+	r.legalSignRequest = &legalSignRequest
 	return r
 }
 
-func (r LegalAPIPostLegalDocumentsByIdSignRequest) Execute() (*SignReply, *http.Response, error) {
+func (r LegalAPIPostLegalDocumentsByIdSignRequest) Execute() (*LegalSignReply, *http.Response, error) {
 	return r.ApiService.PostLegalDocumentsByIdSignExecute(r)
 }
 
@@ -833,13 +889,13 @@ func (a *LegalAPIService) PostLegalDocumentsByIdSign(ctx context.Context, id str
 
 // Execute executes the request
 //
-//	@return SignReply
-func (a *LegalAPIService) PostLegalDocumentsByIdSignExecute(r LegalAPIPostLegalDocumentsByIdSignRequest) (*SignReply, *http.Response, error) {
+//	@return LegalSignReply
+func (a *LegalAPIService) PostLegalDocumentsByIdSignExecute(r LegalAPIPostLegalDocumentsByIdSignRequest) (*LegalSignReply, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SignReply
+		localVarReturnValue *LegalSignReply
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LegalAPIService.PostLegalDocumentsByIdSign")
@@ -853,8 +909,8 @@ func (a *LegalAPIService) PostLegalDocumentsByIdSignExecute(r LegalAPIPostLegalD
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.signRequest == nil {
-		return localVarReturnValue, nil, reportError("signRequest is required and must be specified")
+	if r.legalSignRequest == nil {
+		return localVarReturnValue, nil, reportError("legalSignRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -867,7 +923,7 @@ func (a *LegalAPIService) PostLegalDocumentsByIdSignExecute(r LegalAPIPostLegalD
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -875,7 +931,7 @@ func (a *LegalAPIService) PostLegalDocumentsByIdSignExecute(r LegalAPIPostLegalD
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.signRequest
+	localVarPostBody = r.legalSignRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -898,6 +954,14 @@ func (a *LegalAPIService) PostLegalDocumentsByIdSignExecute(r LegalAPIPostLegalD
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -930,7 +994,7 @@ Records completion of the signature request opened over a generated document and
 
 The e-sign provider's own status is consulted FIRST and is the default answer; an explicit `signed` field in the body overrides it. That override is the whole point: the default `manual` provider never self-completes, so a reviewer (or a real provider's webhook) is what moves the document. A completion flips the document to `signed`, stamps `signedAt`, and writes a `legal.document.signed` audit event; a provider still reporting incomplete answers 200 with the document unchanged, so the call is safe to repeat and never fabricates a signature.
 
-Org-scoped and fails closed: a validated principal is required (403 without one), the document is read under the caller's OWN org so another tenant's id is a 404, a document with no open signature request is a 400, and a provider whose status call errors is a 502.
+Org-scoped and fails closed: a validated principal is required (401 without one), the document is read under the caller's OWN org so another tenant's id is a 404, a document with no open signature request is a 400, and a provider whose status call errors is a 502.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -1010,17 +1074,17 @@ func (a *LegalAPIService) PostLegalDocumentsByIdSignCompleteExecute(r LegalAPIPo
 }
 
 type LegalAPIPostLegalFilingsRequest struct {
-	ctx           context.Context
-	ApiService    *LegalAPIService
-	filingRequest *FilingRequest
+	ctx                context.Context
+	ApiService         *LegalAPIService
+	legalFilingRequest *LegalFilingRequest
 }
 
-func (r LegalAPIPostLegalFilingsRequest) FilingRequest(filingRequest FilingRequest) LegalAPIPostLegalFilingsRequest {
-	r.filingRequest = &filingRequest
+func (r LegalAPIPostLegalFilingsRequest) LegalFilingRequest(legalFilingRequest LegalFilingRequest) LegalAPIPostLegalFilingsRequest {
+	r.legalFilingRequest = &legalFilingRequest
 	return r
 }
 
-func (r LegalAPIPostLegalFilingsRequest) Execute() (*FilingReply, *http.Response, error) {
+func (r LegalAPIPostLegalFilingsRequest) Execute() (*LegalFilingReply, *http.Response, error) {
 	return r.ApiService.PostLegalFilingsExecute(r)
 }
 
@@ -1050,13 +1114,13 @@ func (a *LegalAPIService) PostLegalFilings(ctx context.Context) LegalAPIPostLega
 
 // Execute executes the request
 //
-//	@return FilingReply
-func (a *LegalAPIService) PostLegalFilingsExecute(r LegalAPIPostLegalFilingsRequest) (*FilingReply, *http.Response, error) {
+//	@return LegalFilingReply
+func (a *LegalAPIService) PostLegalFilingsExecute(r LegalAPIPostLegalFilingsRequest) (*LegalFilingReply, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FilingReply
+		localVarReturnValue *LegalFilingReply
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LegalAPIService.PostLegalFilings")
@@ -1069,8 +1133,8 @@ func (a *LegalAPIService) PostLegalFilingsExecute(r LegalAPIPostLegalFilingsRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.filingRequest == nil {
-		return localVarReturnValue, nil, reportError("filingRequest is required and must be specified")
+	if r.legalFilingRequest == nil {
+		return localVarReturnValue, nil, reportError("legalFilingRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1083,7 +1147,7 @@ func (a *LegalAPIService) PostLegalFilingsExecute(r LegalAPIPostLegalFilingsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1091,7 +1155,7 @@ func (a *LegalAPIService) PostLegalFilingsExecute(r LegalAPIPostLegalFilingsRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.filingRequest
+	localVarPostBody = r.legalFilingRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1114,6 +1178,14 @@ func (a *LegalAPIService) PostLegalFilingsExecute(r LegalAPIPostLegalFilingsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1130,18 +1202,18 @@ func (a *LegalAPIService) PostLegalFilingsExecute(r LegalAPIPostLegalFilingsRequ
 }
 
 type LegalAPIPutLegalTemplatesByIdRequest struct {
-	ctx              context.Context
-	ApiService       *LegalAPIService
-	id               string
-	templateOverride *TemplateOverride
+	ctx                   context.Context
+	ApiService            *LegalAPIService
+	id                    string
+	legalTemplateOverride *LegalTemplateOverride
 }
 
-func (r LegalAPIPutLegalTemplatesByIdRequest) TemplateOverride(templateOverride TemplateOverride) LegalAPIPutLegalTemplatesByIdRequest {
-	r.templateOverride = &templateOverride
+func (r LegalAPIPutLegalTemplatesByIdRequest) LegalTemplateOverride(legalTemplateOverride LegalTemplateOverride) LegalAPIPutLegalTemplatesByIdRequest {
+	r.legalTemplateOverride = &legalTemplateOverride
 	return r
 }
 
-func (r LegalAPIPutLegalTemplatesByIdRequest) Execute() (*TemplateReply, *http.Response, error) {
+func (r LegalAPIPutLegalTemplatesByIdRequest) Execute() (*LegalTemplateReply, *http.Response, error) {
 	return r.ApiService.PutLegalTemplatesByIdExecute(r)
 }
 
@@ -1175,13 +1247,13 @@ func (a *LegalAPIService) PutLegalTemplatesById(ctx context.Context, id string) 
 
 // Execute executes the request
 //
-//	@return TemplateReply
-func (a *LegalAPIService) PutLegalTemplatesByIdExecute(r LegalAPIPutLegalTemplatesByIdRequest) (*TemplateReply, *http.Response, error) {
+//	@return LegalTemplateReply
+func (a *LegalAPIService) PutLegalTemplatesByIdExecute(r LegalAPIPutLegalTemplatesByIdRequest) (*LegalTemplateReply, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TemplateReply
+		localVarReturnValue *LegalTemplateReply
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LegalAPIService.PutLegalTemplatesById")
@@ -1195,8 +1267,8 @@ func (a *LegalAPIService) PutLegalTemplatesByIdExecute(r LegalAPIPutLegalTemplat
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.templateOverride == nil {
-		return localVarReturnValue, nil, reportError("templateOverride is required and must be specified")
+	if r.legalTemplateOverride == nil {
+		return localVarReturnValue, nil, reportError("legalTemplateOverride is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1209,7 +1281,7 @@ func (a *LegalAPIService) PutLegalTemplatesByIdExecute(r LegalAPIPutLegalTemplat
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1217,7 +1289,7 @@ func (a *LegalAPIService) PutLegalTemplatesByIdExecute(r LegalAPIPutLegalTemplat
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.templateOverride
+	localVarPostBody = r.legalTemplateOverride
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1240,6 +1312,14 @@ func (a *LegalAPIService) PutLegalTemplatesByIdExecute(r LegalAPIPutLegalTemplat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

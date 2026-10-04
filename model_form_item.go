@@ -19,12 +19,15 @@ var _ MappedNullable = &FormItem{}
 
 // FormItem struct for FormItem
 type FormItem struct {
-	Label   *string `json:"label,omitempty"`
-	Name    *string `json:"name,omitempty"`
-	Type    *string `json:"type,omitempty"`
-	Visible *bool   `json:"visible,omitempty"`
-	Width   *string `json:"width,omitempty"`
+	Label                *string `json:"label,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Visible              *bool   `json:"visible,omitempty"`
+	Width                *string `json:"width,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FormItem FormItem
 
 // NewFormItem instantiates a new FormItem object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o FormItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Width) {
 		toSerialize["width"] = o.Width
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FormItem) UnmarshalJSON(data []byte) (err error) {
+	varFormItem := _FormItem{}
+
+	err = json.Unmarshal(data, &varFormItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FormItem(varFormItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "visible")
+		delete(additionalProperties, "width")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFormItem struct {

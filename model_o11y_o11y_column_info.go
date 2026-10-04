@@ -22,8 +22,11 @@ type O11yO11yColumnInfo struct {
 	// Alias is the column's alias in the query, when it has one.
 	ColumnAlias *string `json:"columnAlias,omitempty"`
 	// Name is the column's name.
-	ColumnName *string `json:"columnName,omitempty"`
+	ColumnName           *string `json:"columnName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yColumnInfo O11yO11yColumnInfo
 
 // NewO11yO11yColumnInfo instantiates a new O11yO11yColumnInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yColumnInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ColumnName) {
 		toSerialize["columnName"] = o.ColumnName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yColumnInfo) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yColumnInfo := _O11yO11yColumnInfo{}
+
+	err = json.Unmarshal(data, &varO11yO11yColumnInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yColumnInfo(varO11yO11yColumnInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "columnAlias")
+		delete(additionalProperties, "columnName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yColumnInfo struct {

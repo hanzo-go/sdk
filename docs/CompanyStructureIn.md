@@ -1,0 +1,108 @@
+# CompanyStructureIn
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Jurisdiction** | Pointer to **string** | Jurisdiction is the state of formation: DE or WY. | [optional] 
+**Name** | Pointer to **string** | Name is the proposed company name. | [optional] 
+**Structure** | Pointer to **string** | Structure is the legal entity: c-corp, llc or dao-llc. | [optional] 
+
+## Methods
+
+### NewCompanyStructureIn
+
+`func NewCompanyStructureIn() *CompanyStructureIn`
+
+NewCompanyStructureIn instantiates a new CompanyStructureIn object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewCompanyStructureInWithDefaults
+
+`func NewCompanyStructureInWithDefaults() *CompanyStructureIn`
+
+NewCompanyStructureInWithDefaults instantiates a new CompanyStructureIn object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetJurisdiction
+
+`func (o *CompanyStructureIn) GetJurisdiction() string`
+
+GetJurisdiction returns the Jurisdiction field if non-nil, zero value otherwise.
+
+### GetJurisdictionOk
+
+`func (o *CompanyStructureIn) GetJurisdictionOk() (*string, bool)`
+
+GetJurisdictionOk returns a tuple with the Jurisdiction field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJurisdiction
+
+`func (o *CompanyStructureIn) SetJurisdiction(v string)`
+
+SetJurisdiction sets Jurisdiction field to given value.
+
+### HasJurisdiction
+
+`func (o *CompanyStructureIn) HasJurisdiction() bool`
+
+HasJurisdiction returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *CompanyStructureIn) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *CompanyStructureIn) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *CompanyStructureIn) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *CompanyStructureIn) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetStructure
+
+`func (o *CompanyStructureIn) GetStructure() string`
+
+GetStructure returns the Structure field if non-nil, zero value otherwise.
+
+### GetStructureOk
+
+`func (o *CompanyStructureIn) GetStructureOk() (*string, bool)`
+
+GetStructureOk returns a tuple with the Structure field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStructure
+
+`func (o *CompanyStructureIn) SetStructure(v string)`
+
+SetStructure sets Structure field to given value.
+
+### HasStructure
+
+`func (o *CompanyStructureIn) HasStructure() bool`
+
+HasStructure returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

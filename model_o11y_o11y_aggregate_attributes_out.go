@@ -22,8 +22,11 @@ type O11yO11yAggregateAttributesOut struct {
 	// Data holds the attribute keys.
 	Data *O11yAggregateAttributeResponse `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yAggregateAttributesOut O11yO11yAggregateAttributesOut
 
 // NewO11yO11yAggregateAttributesOut instantiates a new O11yO11yAggregateAttributesOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yAggregateAttributesOut) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yAggregateAttributesOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yAggregateAttributesOut := _O11yO11yAggregateAttributesOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yAggregateAttributesOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yAggregateAttributesOut(varO11yO11yAggregateAttributesOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yAggregateAttributesOut struct {

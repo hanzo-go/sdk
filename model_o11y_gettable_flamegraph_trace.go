@@ -23,7 +23,10 @@ type O11yGettableFlamegraphTrace struct {
 	HasMore              *bool                  `json:"hasMore,omitempty"`
 	Spans                [][]O11yFlamegraphSpan `json:"spans,omitempty"`
 	StartTimestampMillis *int64                 `json:"startTimestampMillis,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableFlamegraphTrace O11yGettableFlamegraphTrace
 
 // NewO11yGettableFlamegraphTrace instantiates a new O11yGettableFlamegraphTrace object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11yGettableFlamegraphTrace) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StartTimestampMillis) {
 		toSerialize["startTimestampMillis"] = o.StartTimestampMillis
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableFlamegraphTrace) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableFlamegraphTrace := _O11yGettableFlamegraphTrace{}
+
+	err = json.Unmarshal(data, &varO11yGettableFlamegraphTrace)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableFlamegraphTrace(varO11yGettableFlamegraphTrace)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "endTimestampMillis")
+		delete(additionalProperties, "hasMore")
+		delete(additionalProperties, "spans")
+		delete(additionalProperties, "startTimestampMillis")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableFlamegraphTrace struct {

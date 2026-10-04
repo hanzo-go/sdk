@@ -22,8 +22,11 @@ type O11yO11yHostListOut struct {
 	// Data holds the host records and the fleet's reporting state.
 	Data *O11yHostListResponse `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yHostListOut O11yO11yHostListOut
 
 // NewO11yO11yHostListOut instantiates a new O11yO11yHostListOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yHostListOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yHostListOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yHostListOut := _O11yO11yHostListOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yHostListOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yHostListOut(varO11yO11yHostListOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yHostListOut struct {

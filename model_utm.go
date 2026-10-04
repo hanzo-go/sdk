@@ -19,12 +19,15 @@ var _ MappedNullable = &UTM{}
 
 // UTM struct for UTM
 type UTM struct {
-	Campaign *string `json:"campaign,omitempty"`
-	Content  *string `json:"content,omitempty"`
-	Medium   *string `json:"medium,omitempty"`
-	Source   *string `json:"source,omitempty"`
-	Term     *string `json:"term,omitempty"`
+	Campaign             *string `json:"campaign,omitempty"`
+	Content              *string `json:"content,omitempty"`
+	Medium               *string `json:"medium,omitempty"`
+	Source               *string `json:"source,omitempty"`
+	Term                 *string `json:"term,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UTM UTM
 
 // NewUTM instantiates a new UTM object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o UTM) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Term) {
 		toSerialize["term"] = o.Term
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UTM) UnmarshalJSON(data []byte) (err error) {
+	varUTM := _UTM{}
+
+	err = json.Unmarshal(data, &varUTM)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UTM(varUTM)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "campaign")
+		delete(additionalProperties, "content")
+		delete(additionalProperties, "medium")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "term")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUTM struct {

@@ -26,7 +26,7 @@ type PrefAPIGetPrefRequest struct {
 	ApiService *PrefAPIService
 }
 
-func (r PrefAPIGetPrefRequest) Execute() (*PrefsView, *http.Response, error) {
+func (r PrefAPIGetPrefRequest) Execute() (*PrefPrefsView, *http.Response, error) {
 	return r.ApiService.GetPrefExecute(r)
 }
 
@@ -52,13 +52,13 @@ func (a *PrefAPIService) GetPref(ctx context.Context) PrefAPIGetPrefRequest {
 
 // Execute executes the request
 //
-//	@return PrefsView
-func (a *PrefAPIService) GetPrefExecute(r PrefAPIGetPrefRequest) (*PrefsView, *http.Response, error) {
+//	@return PrefPrefsView
+func (a *PrefAPIService) GetPrefExecute(r PrefAPIGetPrefRequest) (*PrefPrefsView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PrefsView
+		localVarReturnValue *PrefPrefsView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrefAPIService.GetPref")
@@ -82,7 +82,7 @@ func (a *PrefAPIService) GetPrefExecute(r PrefAPIGetPrefRequest) (*PrefsView, *h
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -111,6 +111,14 @@ func (a *PrefAPIService) GetPrefExecute(r PrefAPIGetPrefRequest) (*PrefsView, *h
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

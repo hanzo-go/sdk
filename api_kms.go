@@ -26,7 +26,7 @@ type KmsAPIGetKmsConfigRequest struct {
 	ApiService *KmsAPIService
 }
 
-func (r KmsAPIGetKmsConfigRequest) Execute() (*KmsConfig, *http.Response, error) {
+func (r KmsAPIGetKmsConfigRequest) Execute() (*KmsKmsConfig, *http.Response, error) {
 	return r.ApiService.GetKmsConfigExecute(r)
 }
 
@@ -56,13 +56,13 @@ func (a *KmsAPIService) GetKmsConfig(ctx context.Context) KmsAPIGetKmsConfigRequ
 
 // Execute executes the request
 //
-//	@return KmsConfig
-func (a *KmsAPIService) GetKmsConfigExecute(r KmsAPIGetKmsConfigRequest) (*KmsConfig, *http.Response, error) {
+//	@return KmsKmsConfig
+func (a *KmsAPIService) GetKmsConfigExecute(r KmsAPIGetKmsConfigRequest) (*KmsKmsConfig, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KmsConfig
+		localVarReturnValue *KmsKmsConfig
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.GetKmsConfig")
@@ -86,7 +86,7 @@ func (a *KmsAPIService) GetKmsConfigExecute(r KmsAPIGetKmsConfigRequest) (*KmsCo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -115,6 +115,14 @@ func (a *KmsAPIService) GetKmsConfigExecute(r KmsAPIGetKmsConfigRequest) (*KmsCo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -135,7 +143,7 @@ type KmsAPIGetKmsHealthRequest struct {
 	ApiService *KmsAPIService
 }
 
-func (r KmsAPIGetKmsHealthRequest) Execute() (*KmsHealth, *http.Response, error) {
+func (r KmsAPIGetKmsHealthRequest) Execute() (*KmsKmsHealth, *http.Response, error) {
 	return r.ApiService.GetKmsHealthExecute(r)
 }
 
@@ -166,13 +174,13 @@ func (a *KmsAPIService) GetKmsHealth(ctx context.Context) KmsAPIGetKmsHealthRequ
 
 // Execute executes the request
 //
-//	@return KmsHealth
-func (a *KmsAPIService) GetKmsHealthExecute(r KmsAPIGetKmsHealthRequest) (*KmsHealth, *http.Response, error) {
+//	@return KmsKmsHealth
+func (a *KmsAPIService) GetKmsHealthExecute(r KmsAPIGetKmsHealthRequest) (*KmsKmsHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KmsHealth
+		localVarReturnValue *KmsKmsHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.GetKmsHealth")
@@ -196,7 +204,7 @@ func (a *KmsAPIService) GetKmsHealthExecute(r KmsAPIGetKmsHealthRequest) (*KmsHe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -226,7 +234,7 @@ func (a *KmsAPIService) GetKmsHealthExecute(r KmsAPIGetKmsHealthRequest) (*KmsHe
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
-			var v KmsHealth
+			var v KmsKmsHealth
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -234,7 +242,16 @@ func (a *KmsAPIService) GetKmsHealthExecute(r KmsAPIGetKmsHealthRequest) (*KmsHe
 			}
 			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -283,7 +300,7 @@ func (r KmsAPIGetKmsSecretsRequest) SecretPath(secretPath string) KmsAPIGetKmsSe
 	return r
 }
 
-func (r KmsAPIGetKmsSecretsRequest) Execute() (*KmsSecrets, *http.Response, error) {
+func (r KmsAPIGetKmsSecretsRequest) Execute() (*KmsKmsSecrets, *http.Response, error) {
 	return r.ApiService.GetKmsSecretsExecute(r)
 }
 
@@ -321,13 +338,13 @@ func (a *KmsAPIService) GetKmsSecrets(ctx context.Context) KmsAPIGetKmsSecretsRe
 
 // Execute executes the request
 //
-//	@return KmsSecrets
-func (a *KmsAPIService) GetKmsSecretsExecute(r KmsAPIGetKmsSecretsRequest) (*KmsSecrets, *http.Response, error) {
+//	@return KmsKmsSecrets
+func (a *KmsAPIService) GetKmsSecretsExecute(r KmsAPIGetKmsSecretsRequest) (*KmsKmsSecrets, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KmsSecrets
+		localVarReturnValue *KmsKmsSecrets
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.GetKmsSecrets")
@@ -363,7 +380,7 @@ func (a *KmsAPIService) GetKmsSecretsExecute(r KmsAPIGetKmsSecretsRequest) (*Kms
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -392,6 +409,14 @@ func (a *KmsAPIService) GetKmsSecretsExecute(r KmsAPIGetKmsSecretsRequest) (*Kms
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -408,17 +433,17 @@ func (a *KmsAPIService) GetKmsSecretsExecute(r KmsAPIGetKmsSecretsRequest) (*Kms
 }
 
 type KmsAPIPostKmsAuthLoginRequest struct {
-	ctx        context.Context
-	ApiService *KmsAPIService
-	kmsLogin   *KmsLogin
+	ctx         context.Context
+	ApiService  *KmsAPIService
+	kmsKmsLogin *KmsKmsLogin
 }
 
-func (r KmsAPIPostKmsAuthLoginRequest) KmsLogin(kmsLogin KmsLogin) KmsAPIPostKmsAuthLoginRequest {
-	r.kmsLogin = &kmsLogin
+func (r KmsAPIPostKmsAuthLoginRequest) KmsKmsLogin(kmsKmsLogin KmsKmsLogin) KmsAPIPostKmsAuthLoginRequest {
+	r.kmsKmsLogin = &kmsKmsLogin
 	return r
 }
 
-func (r KmsAPIPostKmsAuthLoginRequest) Execute() (*KmsToken, *http.Response, error) {
+func (r KmsAPIPostKmsAuthLoginRequest) Execute() (*KmsKmsToken, *http.Response, error) {
 	return r.ApiService.PostKmsAuthLoginExecute(r)
 }
 
@@ -454,13 +479,13 @@ func (a *KmsAPIService) PostKmsAuthLogin(ctx context.Context) KmsAPIPostKmsAuthL
 
 // Execute executes the request
 //
-//	@return KmsToken
-func (a *KmsAPIService) PostKmsAuthLoginExecute(r KmsAPIPostKmsAuthLoginRequest) (*KmsToken, *http.Response, error) {
+//	@return KmsKmsToken
+func (a *KmsAPIService) PostKmsAuthLoginExecute(r KmsAPIPostKmsAuthLoginRequest) (*KmsKmsToken, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KmsToken
+		localVarReturnValue *KmsKmsToken
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.PostKmsAuthLogin")
@@ -473,8 +498,8 @@ func (a *KmsAPIService) PostKmsAuthLoginExecute(r KmsAPIPostKmsAuthLoginRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.kmsLogin == nil {
-		return localVarReturnValue, nil, reportError("kmsLogin is required and must be specified")
+	if r.kmsKmsLogin == nil {
+		return localVarReturnValue, nil, reportError("kmsKmsLogin is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -487,7 +512,7 @@ func (a *KmsAPIService) PostKmsAuthLoginExecute(r KmsAPIPostKmsAuthLoginRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -495,7 +520,7 @@ func (a *KmsAPIService) PostKmsAuthLoginExecute(r KmsAPIPostKmsAuthLoginRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.kmsLogin
+	localVarPostBody = r.kmsKmsLogin
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -518,6 +543,14 @@ func (a *KmsAPIService) PostKmsAuthLoginExecute(r KmsAPIPostKmsAuthLoginRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -536,15 +569,15 @@ func (a *KmsAPIService) PostKmsAuthLoginExecute(r KmsAPIPostKmsAuthLoginRequest)
 type KmsAPIPostKmsSecretsRequest struct {
 	ctx        context.Context
 	ApiService *KmsAPIService
-	kmsPut     *KmsPut
+	kmsKmsPut  *KmsKmsPut
 }
 
-func (r KmsAPIPostKmsSecretsRequest) KmsPut(kmsPut KmsPut) KmsAPIPostKmsSecretsRequest {
-	r.kmsPut = &kmsPut
+func (r KmsAPIPostKmsSecretsRequest) KmsKmsPut(kmsKmsPut KmsKmsPut) KmsAPIPostKmsSecretsRequest {
+	r.kmsKmsPut = &kmsKmsPut
 	return r
 }
 
-func (r KmsAPIPostKmsSecretsRequest) Execute() (*KmsStored, *http.Response, error) {
+func (r KmsAPIPostKmsSecretsRequest) Execute() (*KmsKmsStored, *http.Response, error) {
 	return r.ApiService.PostKmsSecretsExecute(r)
 }
 
@@ -568,11 +601,18 @@ being served — so the write fails loudly instead.
 `name` is required, `path` is an optional subpath beneath the org root, and
 the org is taken from the validated claim rather than the body.
 
-Requires ADMIN authority over the org — a member reads, an admin writes. A
-machine credential holds no membership and so is never an org admin: it can
-read the secrets it was issued for and cannot replace one. Fail-closed
-admission, in order: admin of the org, well-formed org, master key present —
-403, 400 and 503, all decided before any record is touched.
+Opens only for SuperAdmin holding an access token, audited, or for a holder
+a declared WRITE grant covers at this exact path, key and environment. Org
+admin confers nothing here. Fail-closed admission, in order: a validated
+member, well-formed org, master key present, well-formed input, then the
+grant — 401/403, 400, 503, 400 and 403, all decided before any record is
+touched.
+
+A value this deployment seals on the org's behalf — an MCP server's
+credential, a wallet's signing key, a delivery provider's token — is written
+by the app that holds it, through that app's own operation, and is never
+replaced here for membership or org admin, whatever the grant declaration
+says about enforcement.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return KmsAPIPostKmsSecretsRequest
@@ -586,13 +626,13 @@ func (a *KmsAPIService) PostKmsSecrets(ctx context.Context) KmsAPIPostKmsSecrets
 
 // Execute executes the request
 //
-//	@return KmsStored
-func (a *KmsAPIService) PostKmsSecretsExecute(r KmsAPIPostKmsSecretsRequest) (*KmsStored, *http.Response, error) {
+//	@return KmsKmsStored
+func (a *KmsAPIService) PostKmsSecretsExecute(r KmsAPIPostKmsSecretsRequest) (*KmsKmsStored, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KmsStored
+		localVarReturnValue *KmsKmsStored
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KmsAPIService.PostKmsSecrets")
@@ -605,8 +645,8 @@ func (a *KmsAPIService) PostKmsSecretsExecute(r KmsAPIPostKmsSecretsRequest) (*K
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.kmsPut == nil {
-		return localVarReturnValue, nil, reportError("kmsPut is required and must be specified")
+	if r.kmsKmsPut == nil {
+		return localVarReturnValue, nil, reportError("kmsKmsPut is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -619,7 +659,7 @@ func (a *KmsAPIService) PostKmsSecretsExecute(r KmsAPIPostKmsSecretsRequest) (*K
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -627,7 +667,7 @@ func (a *KmsAPIService) PostKmsSecretsExecute(r KmsAPIPostKmsSecretsRequest) (*K
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.kmsPut
+	localVarPostBody = r.kmsKmsPut
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -650,6 +690,14 @@ func (a *KmsAPIService) PostKmsSecretsExecute(r KmsAPIPostKmsSecretsRequest) (*K
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

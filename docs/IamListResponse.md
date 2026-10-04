@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Resources** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**Resources** | Pointer to **[]interface{}** |  | [optional] 
 **ItemsPerPage** | Pointer to **int64** |  | [optional] 
 **Schemas** | Pointer to **[]string** |  | [optional] 
 **StartIndex** | Pointer to **int64** |  | [optional] 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetResources
 
-`func (o *IamListResponse) GetResources() []map[string]interface{}`
+`func (o *IamListResponse) GetResources() []interface{}`
 
 GetResources returns the Resources field if non-nil, zero value otherwise.
 
 ### GetResourcesOk
 
-`func (o *IamListResponse) GetResourcesOk() (*[]map[string]interface{}, bool)`
+`func (o *IamListResponse) GetResourcesOk() (*[]interface{}, bool)`
 
 GetResourcesOk returns a tuple with the Resources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResources
 
-`func (o *IamListResponse) SetResources(v []map[string]interface{})`
+`func (o *IamListResponse) SetResources(v []interface{})`
 
 SetResources sets Resources field to given value.
 

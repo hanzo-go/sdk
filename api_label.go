@@ -22,17 +22,17 @@ import (
 type LabelAPIService service
 
 type LabelAPIRiskDisposeLabelsRequest struct {
-	ctx           context.Context
-	ApiService    *LabelAPIService
-	riskDisposeIn *RiskDisposeIn
+	ctx                context.Context
+	ApiService         *LabelAPIService
+	labelRiskDisposeIn *LabelRiskDisposeIn
 }
 
-func (r LabelAPIRiskDisposeLabelsRequest) RiskDisposeIn(riskDisposeIn RiskDisposeIn) LabelAPIRiskDisposeLabelsRequest {
-	r.riskDisposeIn = &riskDisposeIn
+func (r LabelAPIRiskDisposeLabelsRequest) LabelRiskDisposeIn(labelRiskDisposeIn LabelRiskDisposeIn) LabelAPIRiskDisposeLabelsRequest {
+	r.labelRiskDisposeIn = &labelRiskDisposeIn
 	return r
 }
 
-func (r LabelAPIRiskDisposeLabelsRequest) Execute() (*RiskDisposeOut, *http.Response, error) {
+func (r LabelAPIRiskDisposeLabelsRequest) Execute() (*LabelRiskDisposeOut, *http.Response, error) {
 	return r.ApiService.RiskDisposeLabelsExecute(r)
 }
 
@@ -65,13 +65,13 @@ func (a *LabelAPIService) RiskDisposeLabels(ctx context.Context) LabelAPIRiskDis
 
 // Execute executes the request
 //
-//	@return RiskDisposeOut
-func (a *LabelAPIService) RiskDisposeLabelsExecute(r LabelAPIRiskDisposeLabelsRequest) (*RiskDisposeOut, *http.Response, error) {
+//	@return LabelRiskDisposeOut
+func (a *LabelAPIService) RiskDisposeLabelsExecute(r LabelAPIRiskDisposeLabelsRequest) (*LabelRiskDisposeOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskDisposeOut
+		localVarReturnValue *LabelRiskDisposeOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelAPIService.RiskDisposeLabels")
@@ -84,8 +84,8 @@ func (a *LabelAPIService) RiskDisposeLabelsExecute(r LabelAPIRiskDisposeLabelsRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.riskDisposeIn == nil {
-		return localVarReturnValue, nil, reportError("riskDisposeIn is required and must be specified")
+	if r.labelRiskDisposeIn == nil {
+		return localVarReturnValue, nil, reportError("labelRiskDisposeIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -98,7 +98,7 @@ func (a *LabelAPIService) RiskDisposeLabelsExecute(r LabelAPIRiskDisposeLabelsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -106,7 +106,7 @@ func (a *LabelAPIService) RiskDisposeLabelsExecute(r LabelAPIRiskDisposeLabelsRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.riskDisposeIn
+	localVarPostBody = r.labelRiskDisposeIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -129,6 +129,14 @@ func (a *LabelAPIService) RiskDisposeLabelsExecute(r LabelAPIRiskDisposeLabelsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -145,17 +153,17 @@ func (a *LabelAPIService) RiskDisposeLabelsExecute(r LabelAPIRiskDisposeLabelsRe
 }
 
 type LabelAPIRiskHoldLabelsRequest struct {
-	ctx        context.Context
-	ApiService *LabelAPIService
-	riskHoldIn *RiskHoldIn
+	ctx             context.Context
+	ApiService      *LabelAPIService
+	labelRiskHoldIn *LabelRiskHoldIn
 }
 
-func (r LabelAPIRiskHoldLabelsRequest) RiskHoldIn(riskHoldIn RiskHoldIn) LabelAPIRiskHoldLabelsRequest {
-	r.riskHoldIn = &riskHoldIn
+func (r LabelAPIRiskHoldLabelsRequest) LabelRiskHoldIn(labelRiskHoldIn LabelRiskHoldIn) LabelAPIRiskHoldLabelsRequest {
+	r.labelRiskHoldIn = &labelRiskHoldIn
 	return r
 }
 
-func (r LabelAPIRiskHoldLabelsRequest) Execute() (*RiskHoldOut, *http.Response, error) {
+func (r LabelAPIRiskHoldLabelsRequest) Execute() (*LabelRiskHoldOut, *http.Response, error) {
 	return r.ApiService.RiskHoldLabelsExecute(r)
 }
 
@@ -189,13 +197,13 @@ func (a *LabelAPIService) RiskHoldLabels(ctx context.Context) LabelAPIRiskHoldLa
 
 // Execute executes the request
 //
-//	@return RiskHoldOut
-func (a *LabelAPIService) RiskHoldLabelsExecute(r LabelAPIRiskHoldLabelsRequest) (*RiskHoldOut, *http.Response, error) {
+//	@return LabelRiskHoldOut
+func (a *LabelAPIService) RiskHoldLabelsExecute(r LabelAPIRiskHoldLabelsRequest) (*LabelRiskHoldOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskHoldOut
+		localVarReturnValue *LabelRiskHoldOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelAPIService.RiskHoldLabels")
@@ -208,8 +216,8 @@ func (a *LabelAPIService) RiskHoldLabelsExecute(r LabelAPIRiskHoldLabelsRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.riskHoldIn == nil {
-		return localVarReturnValue, nil, reportError("riskHoldIn is required and must be specified")
+	if r.labelRiskHoldIn == nil {
+		return localVarReturnValue, nil, reportError("labelRiskHoldIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -222,7 +230,7 @@ func (a *LabelAPIService) RiskHoldLabelsExecute(r LabelAPIRiskHoldLabelsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -230,7 +238,7 @@ func (a *LabelAPIService) RiskHoldLabelsExecute(r LabelAPIRiskHoldLabelsRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.riskHoldIn
+	localVarPostBody = r.labelRiskHoldIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -253,6 +261,14 @@ func (a *LabelAPIService) RiskHoldLabelsExecute(r LabelAPIRiskHoldLabelsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -269,17 +285,17 @@ func (a *LabelAPIService) RiskHoldLabelsExecute(r LabelAPIRiskHoldLabelsRequest)
 }
 
 type LabelAPIRiskLabelRequest struct {
-	ctx         context.Context
-	ApiService  *LabelAPIService
-	riskLabelIn *RiskLabelIn
+	ctx              context.Context
+	ApiService       *LabelAPIService
+	labelRiskLabelIn *LabelRiskLabelIn
 }
 
-func (r LabelAPIRiskLabelRequest) RiskLabelIn(riskLabelIn RiskLabelIn) LabelAPIRiskLabelRequest {
-	r.riskLabelIn = &riskLabelIn
+func (r LabelAPIRiskLabelRequest) LabelRiskLabelIn(labelRiskLabelIn LabelRiskLabelIn) LabelAPIRiskLabelRequest {
+	r.labelRiskLabelIn = &labelRiskLabelIn
 	return r
 }
 
-func (r LabelAPIRiskLabelRequest) Execute() (*RiskLabelOut, *http.Response, error) {
+func (r LabelAPIRiskLabelRequest) Execute() (*LabelRiskLabelOut, *http.Response, error) {
 	return r.ApiService.RiskLabelExecute(r)
 }
 
@@ -312,13 +328,13 @@ func (a *LabelAPIService) RiskLabel(ctx context.Context) LabelAPIRiskLabelReques
 
 // Execute executes the request
 //
-//	@return RiskLabelOut
-func (a *LabelAPIService) RiskLabelExecute(r LabelAPIRiskLabelRequest) (*RiskLabelOut, *http.Response, error) {
+//	@return LabelRiskLabelOut
+func (a *LabelAPIService) RiskLabelExecute(r LabelAPIRiskLabelRequest) (*LabelRiskLabelOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskLabelOut
+		localVarReturnValue *LabelRiskLabelOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelAPIService.RiskLabel")
@@ -331,8 +347,8 @@ func (a *LabelAPIService) RiskLabelExecute(r LabelAPIRiskLabelRequest) (*RiskLab
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.riskLabelIn == nil {
-		return localVarReturnValue, nil, reportError("riskLabelIn is required and must be specified")
+	if r.labelRiskLabelIn == nil {
+		return localVarReturnValue, nil, reportError("labelRiskLabelIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -345,7 +361,7 @@ func (a *LabelAPIService) RiskLabelExecute(r LabelAPIRiskLabelRequest) (*RiskLab
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -353,7 +369,7 @@ func (a *LabelAPIService) RiskLabelExecute(r LabelAPIRiskLabelRequest) (*RiskLab
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.riskLabelIn
+	localVarPostBody = r.labelRiskLabelIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -376,6 +392,14 @@ func (a *LabelAPIService) RiskLabelExecute(r LabelAPIRiskLabelRequest) (*RiskLab
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -416,7 +440,7 @@ func (r LabelAPIRiskLabelCoverageRequest) Horizon(horizon int64) LabelAPIRiskLab
 	return r
 }
 
-func (r LabelAPIRiskLabelCoverageRequest) Execute() (*RiskLabelCoverage, *http.Response, error) {
+func (r LabelAPIRiskLabelCoverageRequest) Execute() (*LabelRiskLabelCoverage, *http.Response, error) {
 	return r.ApiService.RiskLabelCoverageExecute(r)
 }
 
@@ -447,13 +471,13 @@ func (a *LabelAPIService) RiskLabelCoverage(ctx context.Context) LabelAPIRiskLab
 
 // Execute executes the request
 //
-//	@return RiskLabelCoverage
-func (a *LabelAPIService) RiskLabelCoverageExecute(r LabelAPIRiskLabelCoverageRequest) (*RiskLabelCoverage, *http.Response, error) {
+//	@return LabelRiskLabelCoverage
+func (a *LabelAPIService) RiskLabelCoverageExecute(r LabelAPIRiskLabelCoverageRequest) (*LabelRiskLabelCoverage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskLabelCoverage
+		localVarReturnValue *LabelRiskLabelCoverage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelAPIService.RiskLabelCoverage")
@@ -486,7 +510,7 @@ func (a *LabelAPIService) RiskLabelCoverageExecute(r LabelAPIRiskLabelCoverageRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -515,6 +539,14 @@ func (a *LabelAPIService) RiskLabelCoverageExecute(r LabelAPIRiskLabelCoverageRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -535,7 +567,7 @@ type LabelAPIRiskLabelVocabularyRequest struct {
 	ApiService *LabelAPIService
 }
 
-func (r LabelAPIRiskLabelVocabularyRequest) Execute() (*RiskLabelVocabulary, *http.Response, error) {
+func (r LabelAPIRiskLabelVocabularyRequest) Execute() (*LabelRiskLabelVocabulary, *http.Response, error) {
 	return r.ApiService.RiskLabelVocabularyExecute(r)
 }
 
@@ -562,13 +594,13 @@ func (a *LabelAPIService) RiskLabelVocabulary(ctx context.Context) LabelAPIRiskL
 
 // Execute executes the request
 //
-//	@return RiskLabelVocabulary
-func (a *LabelAPIService) RiskLabelVocabularyExecute(r LabelAPIRiskLabelVocabularyRequest) (*RiskLabelVocabulary, *http.Response, error) {
+//	@return LabelRiskLabelVocabulary
+func (a *LabelAPIService) RiskLabelVocabularyExecute(r LabelAPIRiskLabelVocabularyRequest) (*LabelRiskLabelVocabulary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskLabelVocabulary
+		localVarReturnValue *LabelRiskLabelVocabulary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelAPIService.RiskLabelVocabulary")
@@ -592,7 +624,7 @@ func (a *LabelAPIService) RiskLabelVocabularyExecute(r LabelAPIRiskLabelVocabula
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -621,6 +653,14 @@ func (a *LabelAPIService) RiskLabelVocabularyExecute(r LabelAPIRiskLabelVocabula
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -681,7 +721,7 @@ func (r LabelAPIRiskLabelsRequest) Limit(limit int64) LabelAPIRiskLabelsRequest 
 	return r
 }
 
-func (r LabelAPIRiskLabelsRequest) Execute() (*RiskLabelsOut, *http.Response, error) {
+func (r LabelAPIRiskLabelsRequest) Execute() (*LabelRiskLabelsOut, *http.Response, error) {
 	return r.ApiService.RiskLabelsExecute(r)
 }
 
@@ -706,13 +746,13 @@ func (a *LabelAPIService) RiskLabels(ctx context.Context) LabelAPIRiskLabelsRequ
 
 // Execute executes the request
 //
-//	@return RiskLabelsOut
-func (a *LabelAPIService) RiskLabelsExecute(r LabelAPIRiskLabelsRequest) (*RiskLabelsOut, *http.Response, error) {
+//	@return LabelRiskLabelsOut
+func (a *LabelAPIService) RiskLabelsExecute(r LabelAPIRiskLabelsRequest) (*LabelRiskLabelsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskLabelsOut
+		localVarReturnValue *LabelRiskLabelsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelAPIService.RiskLabels")
@@ -754,7 +794,7 @@ func (a *LabelAPIService) RiskLabelsExecute(r LabelAPIRiskLabelsRequest) (*RiskL
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -783,6 +823,14 @@ func (a *LabelAPIService) RiskLabelsExecute(r LabelAPIRiskLabelsRequest) (*RiskL
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -799,17 +847,17 @@ func (a *LabelAPIService) RiskLabelsExecute(r LabelAPIRiskLabelsRequest) (*RiskL
 }
 
 type LabelAPIRiskResolveLabelsRequest struct {
-	ctx           context.Context
-	ApiService    *LabelAPIService
-	riskResolveIn *RiskResolveIn
+	ctx                context.Context
+	ApiService         *LabelAPIService
+	labelRiskResolveIn *LabelRiskResolveIn
 }
 
-func (r LabelAPIRiskResolveLabelsRequest) RiskResolveIn(riskResolveIn RiskResolveIn) LabelAPIRiskResolveLabelsRequest {
-	r.riskResolveIn = &riskResolveIn
+func (r LabelAPIRiskResolveLabelsRequest) LabelRiskResolveIn(labelRiskResolveIn LabelRiskResolveIn) LabelAPIRiskResolveLabelsRequest {
+	r.labelRiskResolveIn = &labelRiskResolveIn
 	return r
 }
 
-func (r LabelAPIRiskResolveLabelsRequest) Execute() (*RiskResolveOut, *http.Response, error) {
+func (r LabelAPIRiskResolveLabelsRequest) Execute() (*LabelRiskResolveOut, *http.Response, error) {
 	return r.ApiService.RiskResolveLabelsExecute(r)
 }
 
@@ -841,13 +889,13 @@ func (a *LabelAPIService) RiskResolveLabels(ctx context.Context) LabelAPIRiskRes
 
 // Execute executes the request
 //
-//	@return RiskResolveOut
-func (a *LabelAPIService) RiskResolveLabelsExecute(r LabelAPIRiskResolveLabelsRequest) (*RiskResolveOut, *http.Response, error) {
+//	@return LabelRiskResolveOut
+func (a *LabelAPIService) RiskResolveLabelsExecute(r LabelAPIRiskResolveLabelsRequest) (*LabelRiskResolveOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskResolveOut
+		localVarReturnValue *LabelRiskResolveOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LabelAPIService.RiskResolveLabels")
@@ -860,8 +908,8 @@ func (a *LabelAPIService) RiskResolveLabelsExecute(r LabelAPIRiskResolveLabelsRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.riskResolveIn == nil {
-		return localVarReturnValue, nil, reportError("riskResolveIn is required and must be specified")
+	if r.labelRiskResolveIn == nil {
+		return localVarReturnValue, nil, reportError("labelRiskResolveIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -874,7 +922,7 @@ func (a *LabelAPIService) RiskResolveLabelsExecute(r LabelAPIRiskResolveLabelsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -882,7 +930,7 @@ func (a *LabelAPIService) RiskResolveLabelsExecute(r LabelAPIRiskResolveLabelsRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.riskResolveIn
+	localVarPostBody = r.labelRiskResolveIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -905,6 +953,14 @@ func (a *LabelAPIService) RiskResolveLabelsExecute(r LabelAPIRiskResolveLabelsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

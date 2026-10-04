@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yAWSConnectionArtifact{}
 
 // O11yAWSConnectionArtifact struct for O11yAWSConnectionArtifact
 type O11yAWSConnectionArtifact struct {
-	ConnectionUrl *string `json:"connectionUrl,omitempty"`
+	ConnectionUrl        *string `json:"connectionUrl,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAWSConnectionArtifact O11yAWSConnectionArtifact
 
 // NewO11yAWSConnectionArtifact instantiates a new O11yAWSConnectionArtifact object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yAWSConnectionArtifact) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ConnectionUrl) {
 		toSerialize["connectionUrl"] = o.ConnectionUrl
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAWSConnectionArtifact) UnmarshalJSON(data []byte) (err error) {
+	varO11yAWSConnectionArtifact := _O11yAWSConnectionArtifact{}
+
+	err = json.Unmarshal(data, &varO11yAWSConnectionArtifact)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAWSConnectionArtifact(varO11yAWSConnectionArtifact)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "connectionUrl")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAWSConnectionArtifact struct {

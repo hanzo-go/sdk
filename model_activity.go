@@ -19,9 +19,12 @@ var _ MappedNullable = &Activity{}
 
 // Activity struct for Activity
 type Activity struct {
-	FieldCount map[string]int32 `json:"FieldCount,omitempty"`
-	Date       *string          `json:"date,omitempty"`
+	FieldCount           map[string]int32 `json:"FieldCount,omitempty"`
+	Date                 *string          `json:"date,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Activity Activity
 
 // NewActivity instantiates a new Activity object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o Activity) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Date) {
 		toSerialize["date"] = o.Date
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Activity) UnmarshalJSON(data []byte) (err error) {
+	varActivity := _Activity{}
+
+	err = json.Unmarshal(data, &varActivity)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Activity(varActivity)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "FieldCount")
+		delete(additionalProperties, "date")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableActivity struct {

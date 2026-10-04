@@ -24,15 +24,15 @@ type LspAPIService service
 type LspAPIPostLspCompleteRequest struct {
 	ctx        context.Context
 	ApiService *LspAPIService
-	query      *Query
+	lspQuery   *LspQuery
 }
 
-func (r LspAPIPostLspCompleteRequest) Query(query Query) LspAPIPostLspCompleteRequest {
-	r.query = &query
+func (r LspAPIPostLspCompleteRequest) LspQuery(lspQuery LspQuery) LspAPIPostLspCompleteRequest {
+	r.lspQuery = &lspQuery
 	return r
 }
 
-func (r LspAPIPostLspCompleteRequest) Execute() (*Answer, *http.Response, error) {
+func (r LspAPIPostLspCompleteRequest) Execute() (*LspAnswer, *http.Response, error) {
 	return r.ApiService.PostLspCompleteExecute(r)
 }
 
@@ -54,13 +54,13 @@ func (a *LspAPIService) PostLspComplete(ctx context.Context) LspAPIPostLspComple
 
 // Execute executes the request
 //
-//	@return Answer
-func (a *LspAPIService) PostLspCompleteExecute(r LspAPIPostLspCompleteRequest) (*Answer, *http.Response, error) {
+//	@return LspAnswer
+func (a *LspAPIService) PostLspCompleteExecute(r LspAPIPostLspCompleteRequest) (*LspAnswer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Answer
+		localVarReturnValue *LspAnswer
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LspAPIService.PostLspComplete")
@@ -73,8 +73,8 @@ func (a *LspAPIService) PostLspCompleteExecute(r LspAPIPostLspCompleteRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.query == nil {
-		return localVarReturnValue, nil, reportError("query is required and must be specified")
+	if r.lspQuery == nil {
+		return localVarReturnValue, nil, reportError("lspQuery is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -87,7 +87,7 @@ func (a *LspAPIService) PostLspCompleteExecute(r LspAPIPostLspCompleteRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -95,7 +95,7 @@ func (a *LspAPIService) PostLspCompleteExecute(r LspAPIPostLspCompleteRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.query
+	localVarPostBody = r.lspQuery
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -118,6 +118,14 @@ func (a *LspAPIService) PostLspCompleteExecute(r LspAPIPostLspCompleteRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -136,15 +144,15 @@ func (a *LspAPIService) PostLspCompleteExecute(r LspAPIPostLspCompleteRequest) (
 type LspAPIPostLspDiagnosticsRequest struct {
 	ctx        context.Context
 	ApiService *LspAPIService
-	query      *Query
+	lspQuery   *LspQuery
 }
 
-func (r LspAPIPostLspDiagnosticsRequest) Query(query Query) LspAPIPostLspDiagnosticsRequest {
-	r.query = &query
+func (r LspAPIPostLspDiagnosticsRequest) LspQuery(lspQuery LspQuery) LspAPIPostLspDiagnosticsRequest {
+	r.lspQuery = &lspQuery
 	return r
 }
 
-func (r LspAPIPostLspDiagnosticsRequest) Execute() (*Answer, *http.Response, error) {
+func (r LspAPIPostLspDiagnosticsRequest) Execute() (*LspAnswer, *http.Response, error) {
 	return r.ApiService.PostLspDiagnosticsExecute(r)
 }
 
@@ -167,13 +175,13 @@ func (a *LspAPIService) PostLspDiagnostics(ctx context.Context) LspAPIPostLspDia
 
 // Execute executes the request
 //
-//	@return Answer
-func (a *LspAPIService) PostLspDiagnosticsExecute(r LspAPIPostLspDiagnosticsRequest) (*Answer, *http.Response, error) {
+//	@return LspAnswer
+func (a *LspAPIService) PostLspDiagnosticsExecute(r LspAPIPostLspDiagnosticsRequest) (*LspAnswer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Answer
+		localVarReturnValue *LspAnswer
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LspAPIService.PostLspDiagnostics")
@@ -186,8 +194,8 @@ func (a *LspAPIService) PostLspDiagnosticsExecute(r LspAPIPostLspDiagnosticsRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.query == nil {
-		return localVarReturnValue, nil, reportError("query is required and must be specified")
+	if r.lspQuery == nil {
+		return localVarReturnValue, nil, reportError("lspQuery is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -200,7 +208,7 @@ func (a *LspAPIService) PostLspDiagnosticsExecute(r LspAPIPostLspDiagnosticsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -208,7 +216,7 @@ func (a *LspAPIService) PostLspDiagnosticsExecute(r LspAPIPostLspDiagnosticsRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.query
+	localVarPostBody = r.lspQuery
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -231,6 +239,14 @@ func (a *LspAPIService) PostLspDiagnosticsExecute(r LspAPIPostLspDiagnosticsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -249,15 +265,15 @@ func (a *LspAPIService) PostLspDiagnosticsExecute(r LspAPIPostLspDiagnosticsRequ
 type LspAPIPostLspHoverRequest struct {
 	ctx        context.Context
 	ApiService *LspAPIService
-	query      *Query
+	lspQuery   *LspQuery
 }
 
-func (r LspAPIPostLspHoverRequest) Query(query Query) LspAPIPostLspHoverRequest {
-	r.query = &query
+func (r LspAPIPostLspHoverRequest) LspQuery(lspQuery LspQuery) LspAPIPostLspHoverRequest {
+	r.lspQuery = &lspQuery
 	return r
 }
 
-func (r LspAPIPostLspHoverRequest) Execute() (*Answer, *http.Response, error) {
+func (r LspAPIPostLspHoverRequest) Execute() (*LspAnswer, *http.Response, error) {
 	return r.ApiService.PostLspHoverExecute(r)
 }
 
@@ -284,13 +300,13 @@ func (a *LspAPIService) PostLspHover(ctx context.Context) LspAPIPostLspHoverRequ
 
 // Execute executes the request
 //
-//	@return Answer
-func (a *LspAPIService) PostLspHoverExecute(r LspAPIPostLspHoverRequest) (*Answer, *http.Response, error) {
+//	@return LspAnswer
+func (a *LspAPIService) PostLspHoverExecute(r LspAPIPostLspHoverRequest) (*LspAnswer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Answer
+		localVarReturnValue *LspAnswer
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LspAPIService.PostLspHover")
@@ -303,8 +319,8 @@ func (a *LspAPIService) PostLspHoverExecute(r LspAPIPostLspHoverRequest) (*Answe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.query == nil {
-		return localVarReturnValue, nil, reportError("query is required and must be specified")
+	if r.lspQuery == nil {
+		return localVarReturnValue, nil, reportError("lspQuery is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -317,7 +333,7 @@ func (a *LspAPIService) PostLspHoverExecute(r LspAPIPostLspHoverRequest) (*Answe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -325,7 +341,7 @@ func (a *LspAPIService) PostLspHoverExecute(r LspAPIPostLspHoverRequest) (*Answe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.query
+	localVarPostBody = r.lspQuery
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -348,6 +364,14 @@ func (a *LspAPIService) PostLspHoverExecute(r LspAPIPostLspHoverRequest) (*Answe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -366,15 +390,15 @@ func (a *LspAPIService) PostLspHoverExecute(r LspAPIPostLspHoverRequest) (*Answe
 type LspAPIPostLspLocateRequest struct {
 	ctx        context.Context
 	ApiService *LspAPIService
-	query      *Query
+	lspQuery   *LspQuery
 }
 
-func (r LspAPIPostLspLocateRequest) Query(query Query) LspAPIPostLspLocateRequest {
-	r.query = &query
+func (r LspAPIPostLspLocateRequest) LspQuery(lspQuery LspQuery) LspAPIPostLspLocateRequest {
+	r.lspQuery = &lspQuery
 	return r
 }
 
-func (r LspAPIPostLspLocateRequest) Execute() (*Answer, *http.Response, error) {
+func (r LspAPIPostLspLocateRequest) Execute() (*LspAnswer, *http.Response, error) {
 	return r.ApiService.PostLspLocateExecute(r)
 }
 
@@ -401,13 +425,13 @@ func (a *LspAPIService) PostLspLocate(ctx context.Context) LspAPIPostLspLocateRe
 
 // Execute executes the request
 //
-//	@return Answer
-func (a *LspAPIService) PostLspLocateExecute(r LspAPIPostLspLocateRequest) (*Answer, *http.Response, error) {
+//	@return LspAnswer
+func (a *LspAPIService) PostLspLocateExecute(r LspAPIPostLspLocateRequest) (*LspAnswer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Answer
+		localVarReturnValue *LspAnswer
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LspAPIService.PostLspLocate")
@@ -420,8 +444,8 @@ func (a *LspAPIService) PostLspLocateExecute(r LspAPIPostLspLocateRequest) (*Ans
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.query == nil {
-		return localVarReturnValue, nil, reportError("query is required and must be specified")
+	if r.lspQuery == nil {
+		return localVarReturnValue, nil, reportError("lspQuery is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -434,7 +458,7 @@ func (a *LspAPIService) PostLspLocateExecute(r LspAPIPostLspLocateRequest) (*Ans
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -442,7 +466,7 @@ func (a *LspAPIService) PostLspLocateExecute(r LspAPIPostLspLocateRequest) (*Ans
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.query
+	localVarPostBody = r.lspQuery
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -465,6 +489,14 @@ func (a *LspAPIService) PostLspLocateExecute(r LspAPIPostLspLocateRequest) (*Ans
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -483,15 +515,15 @@ func (a *LspAPIService) PostLspLocateExecute(r LspAPIPostLspLocateRequest) (*Ans
 type LspAPIPostLspSymbolsRequest struct {
 	ctx        context.Context
 	ApiService *LspAPIService
-	query      *Query
+	lspQuery   *LspQuery
 }
 
-func (r LspAPIPostLspSymbolsRequest) Query(query Query) LspAPIPostLspSymbolsRequest {
-	r.query = &query
+func (r LspAPIPostLspSymbolsRequest) LspQuery(lspQuery LspQuery) LspAPIPostLspSymbolsRequest {
+	r.lspQuery = &lspQuery
 	return r
 }
 
-func (r LspAPIPostLspSymbolsRequest) Execute() (*Answer, *http.Response, error) {
+func (r LspAPIPostLspSymbolsRequest) Execute() (*LspAnswer, *http.Response, error) {
 	return r.ApiService.PostLspSymbolsExecute(r)
 }
 
@@ -513,13 +545,13 @@ func (a *LspAPIService) PostLspSymbols(ctx context.Context) LspAPIPostLspSymbols
 
 // Execute executes the request
 //
-//	@return Answer
-func (a *LspAPIService) PostLspSymbolsExecute(r LspAPIPostLspSymbolsRequest) (*Answer, *http.Response, error) {
+//	@return LspAnswer
+func (a *LspAPIService) PostLspSymbolsExecute(r LspAPIPostLspSymbolsRequest) (*LspAnswer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Answer
+		localVarReturnValue *LspAnswer
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LspAPIService.PostLspSymbols")
@@ -532,8 +564,8 @@ func (a *LspAPIService) PostLspSymbolsExecute(r LspAPIPostLspSymbolsRequest) (*A
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.query == nil {
-		return localVarReturnValue, nil, reportError("query is required and must be specified")
+	if r.lspQuery == nil {
+		return localVarReturnValue, nil, reportError("lspQuery is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -546,7 +578,7 @@ func (a *LspAPIService) PostLspSymbolsExecute(r LspAPIPostLspSymbolsRequest) (*A
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -554,7 +586,7 @@ func (a *LspAPIService) PostLspSymbolsExecute(r LspAPIPostLspSymbolsRequest) (*A
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.query
+	localVarPostBody = r.lspQuery
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -577,6 +609,14 @@ func (a *LspAPIService) PostLspSymbolsExecute(r LspAPIPostLspSymbolsRequest) (*A
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

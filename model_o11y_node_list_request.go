@@ -27,8 +27,11 @@ type O11yNodeListRequest struct {
 	Offset  *int64             `json:"offset,omitempty"`
 	OrderBy *O11yOrderBy       `json:"orderBy,omitempty"`
 	// epoch time in ms
-	Start *int64 `json:"start,omitempty"`
+	Start                *int64 `json:"start,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yNodeListRequest O11yNodeListRequest
 
 // NewO11yNodeListRequest instantiates a new O11yNodeListRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -302,7 +305,39 @@ func (o O11yNodeListRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Start) {
 		toSerialize["start"] = o.Start
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yNodeListRequest) UnmarshalJSON(data []byte) (err error) {
+	varO11yNodeListRequest := _O11yNodeListRequest{}
+
+	err = json.Unmarshal(data, &varO11yNodeListRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yNodeListRequest(varO11yNodeListRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "filters")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "orderBy")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yNodeListRequest struct {

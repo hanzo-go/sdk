@@ -19,11 +19,14 @@ var _ MappedNullable = &MCPRequest{}
 
 // MCPRequest struct for MCPRequest
 type MCPRequest struct {
-	Id      interface{}            `json:"id,omitempty"`
-	Jsonrpc *string                `json:"jsonrpc,omitempty"`
-	Method  *string                `json:"method,omitempty"`
-	Params  map[string]interface{} `json:"params,omitempty"`
+	Id                   interface{}            `json:"id,omitempty"`
+	Jsonrpc              *string                `json:"jsonrpc,omitempty"`
+	Method               *string                `json:"method,omitempty"`
+	Params               map[string]interface{} `json:"params,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MCPRequest MCPRequest
 
 // NewMCPRequest instantiates a new MCPRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o MCPRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Params) {
 		toSerialize["params"] = o.Params
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MCPRequest) UnmarshalJSON(data []byte) (err error) {
+	varMCPRequest := _MCPRequest{}
+
+	err = json.Unmarshal(data, &varMCPRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MCPRequest(varMCPRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "jsonrpc")
+		delete(additionalProperties, "method")
+		delete(additionalProperties, "params")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMCPRequest struct {

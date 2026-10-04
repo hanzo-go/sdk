@@ -19,18 +19,21 @@ var _ MappedNullable = &IamSignupItem{}
 
 // IamSignupItem struct for IamSignupItem
 type IamSignupItem struct {
-	CustomCss   *string  `json:"customCss,omitempty"`
-	Label       *string  `json:"label,omitempty"`
-	Name        *string  `json:"name,omitempty"`
-	Options     []string `json:"options,omitempty"`
-	Placeholder *string  `json:"placeholder,omitempty"`
-	Prompted    *bool    `json:"prompted,omitempty"`
-	Regex       *string  `json:"regex,omitempty"`
-	Required    *bool    `json:"required,omitempty"`
-	Rule        *string  `json:"rule,omitempty"`
-	Type        *string  `json:"type,omitempty"`
-	Visible     *bool    `json:"visible,omitempty"`
+	CustomCss            *string  `json:"customCss,omitempty"`
+	Label                *string  `json:"label,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	Options              []string `json:"options,omitempty"`
+	Placeholder          *string  `json:"placeholder,omitempty"`
+	Prompted             *bool    `json:"prompted,omitempty"`
+	Regex                *string  `json:"regex,omitempty"`
+	Required             *bool    `json:"required,omitempty"`
+	Rule                 *string  `json:"rule,omitempty"`
+	Type                 *string  `json:"type,omitempty"`
+	Visible              *bool    `json:"visible,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamSignupItem IamSignupItem
 
 // NewIamSignupItem instantiates a new IamSignupItem object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o IamSignupItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Visible) {
 		toSerialize["visible"] = o.Visible
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamSignupItem) UnmarshalJSON(data []byte) (err error) {
+	varIamSignupItem := _IamSignupItem{}
+
+	err = json.Unmarshal(data, &varIamSignupItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamSignupItem(varIamSignupItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "customCss")
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "options")
+		delete(additionalProperties, "placeholder")
+		delete(additionalProperties, "prompted")
+		delete(additionalProperties, "regex")
+		delete(additionalProperties, "required")
+		delete(additionalProperties, "rule")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "visible")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamSignupItem struct {

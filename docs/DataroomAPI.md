@@ -11,22 +11,22 @@ Method | HTTP request | Description
 [**GetDataroomDocuments**](DataroomAPI.md#GetDataroomDocuments) | **Get** /v1/dataroom/documents | Returns every document in the caller org&#39;s own store, newest first — name, opaque storage key, content type, page count, size and timestamps.
 [**GetDataroomDocumentsById**](DataroomAPI.md#GetDataroomDocumentsById) | **Get** /v1/dataroom/documents/{id} | Reads one of the caller org&#39;s documents — its name, opaque storage key, content type, page count, size and timestamps.
 [**GetDataroomDocumentsByIdFile**](DataroomAPI.md#GetDataroomDocumentsByIdFile) | **Get** /v1/dataroom/documents/{id}/file | Download a document&#39;s bytes as its owner
-[**GetDataroomHealth**](DataroomAPI.md#GetDataroomHealth) | **Get** /v1/dataroom/health | Health reports that the data room subsystem is up.
+[**GetDataroomHealth**](DataroomAPI.md#GetDataroomHealth) | **Get** /v1/dataroom/health | Reports that the data room subsystem is up.
 [**GetDataroomLinks**](DataroomAPI.md#GetDataroomLinks) | **Get** /v1/dataroom/links | Returns every live share link in the caller org&#39;s own store, newest first, with the controls a visitor will meet: whether an address is required, whether a password is set, the allow and deny lists, whether download is permitted, and when the link expires.
 [**GetDataroomTrust**](DataroomAPI.md#GetDataroomTrust) | **Get** /v1/dataroom/trust | Answers the caller org&#39;s OWN trust centre: its settings, every item it holds in both tiers, the requests waiting on it, and the grants it has made.
 [**GetDataroomTrustCenterBySlug**](DataroomAPI.md#GetDataroomTrustCenterBySlug) | **Get** /v1/dataroom/trust/center/{slug} | Answers an org&#39;s public trust centre: its name, the text a party must accept to ask for a document, and every item it publishes.
 [**GetDataroomTrustCenterBySlugFileByItem**](DataroomAPI.md#GetDataroomTrustCenterBySlugFileByItem) | **Get** /v1/dataroom/trust/center/{slug}/file/{item} | Read a public trust-centre item&#39;s bytes
 [**GetDataroomViewByLinkid**](DataroomAPI.md#GetDataroomViewByLinkid) | **Get** /v1/dataroom/view/{linkId} | What a share link&#39;s visitor sees before authenticating
 [**GetDataroomViewByLinkidDocumentByDocumentidFile**](DataroomAPI.md#GetDataroomViewByLinkidDocumentByDocumentidFile) | **Get** /v1/dataroom/view/{linkId}/document/{documentId}/file | Read a document&#39;s bytes as an authorised link visitor
-[**PatchDataroomTrustArtifactsById**](DataroomAPI.md#PatchDataroomTrustArtifactsById) | **Patch** /v1/dataroom/trust/artifacts/{id} | Amend changes an item on the caller org&#39;s trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
+[**PatchDataroomTrustArtifactsById**](DataroomAPI.md#PatchDataroomTrustArtifactsById) | **Patch** /v1/dataroom/trust/artifacts/{id} | Changes an item on the caller org&#39;s trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
 [**PostDataroomDatarooms**](DataroomAPI.md#PostDataroomDatarooms) | **Post** /v1/dataroom/datarooms | Opens a new data room for the caller org and answers with it, including the short public id it is addressed by.
 [**PostDataroomDataroomsByIdDocuments**](DataroomAPI.md#PostDataroomDataroomsByIdDocuments) | **Post** /v1/dataroom/datarooms/{id}/documents | Puts an already-uploaded document into one of the caller org&#39;s data rooms and answers with the new membership id.
 [**PostDataroomDocuments**](DataroomAPI.md#PostDataroomDocuments) | **Post** /v1/dataroom/documents | Upload a document&#39;s bytes and record it
 [**PostDataroomLinks**](DataroomAPI.md#PostDataroomLinks) | **Post** /v1/dataroom/links | Grants access: it mints a public share link over one data room (&#x60;dataroomId&#x60;) or one document (&#x60;documentId&#x60;) — one of the two is required — and answers with the link, whose &#x60;id&#x60; is the token a visitor opens it with.
-[**PostDataroomTrustArtifacts**](DataroomAPI.md#PostDataroomTrustArtifacts) | **Post** /v1/dataroom/trust/artifacts | Publish puts an item on the caller org&#39;s trust centre and answers with it.
+[**PostDataroomTrustArtifacts**](DataroomAPI.md#PostDataroomTrustArtifacts) | **Post** /v1/dataroom/trust/artifacts | Puts an item on the caller org&#39;s trust centre and answers with it.
 [**PostDataroomTrustCenterBySlugRequests**](DataroomAPI.md#PostDataroomTrustCenterBySlugRequests) | **Post** /v1/dataroom/trust/center/{slug}/requests | Records a request to read what an independent auditor signed, and answers with its id.
-[**PostDataroomTrustRequestsByIdGrant**](DataroomAPI.md#PostDataroomTrustRequestsByIdGrant) | **Post** /v1/dataroom/trust/requests/{id}/grant | Grant answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
-[**PostDataroomTrustRequestsByIdRefuse**](DataroomAPI.md#PostDataroomTrustRequestsByIdRefuse) | **Post** /v1/dataroom/trust/requests/{id}/refuse | Refuse answers a request by declining it, recording who declined and why.
+[**PostDataroomTrustRequestsByIdGrant**](DataroomAPI.md#PostDataroomTrustRequestsByIdGrant) | **Post** /v1/dataroom/trust/requests/{id}/grant | Answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
+[**PostDataroomTrustRequestsByIdRefuse**](DataroomAPI.md#PostDataroomTrustRequestsByIdRefuse) | **Post** /v1/dataroom/trust/requests/{id}/refuse | Answers a request by declining it, recording who declined and why.
 [**PostDataroomViewByLinkidAuthenticate**](DataroomAPI.md#PostDataroomViewByLinkidAuthenticate) | **Post** /v1/dataroom/view/{linkId}/authenticate | Pass a share link&#39;s gates and open a viewing session
 [**PostDataroomViewByLinkidPageview**](DataroomAPI.md#PostDataroomViewByLinkidPageview) | **Post** /v1/dataroom/view/{linkId}/pageview | Record one page-view against an open viewing session
 [**PutDataroomTrust**](DataroomAPI.md#PutDataroomTrust) | **Put** /v1/dataroom/trust | SetCenter opens, publishes or withdraws the caller org&#39;s trust centre and answers with the centre as it now stands.
@@ -35,7 +35,7 @@ Method | HTTP request | Description
 
 ## GetDataroomAnalyticsDataroomByDataroomid
 
-> DataroomStats GetDataroomAnalyticsDataroomByDataroomid(ctx, dataroomId).Execute()
+> DataroomDataroomStats GetDataroomAnalyticsDataroomByDataroomid(ctx, dataroomId).Execute()
 
 Rolls up every share link pointing at one data room: session and page-view totals for the room, plus the per-page breakdown for each link beneath it.
 
@@ -63,7 +63,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomAnalyticsDataroomByDataroomid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDataroomAnalyticsDataroomByDataroomid`: DataroomStats
+	// response from `GetDataroomAnalyticsDataroomByDataroomid`: DataroomDataroomStats
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomAnalyticsDataroomByDataroomid`: %v\n", resp)
 }
 ```
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DataroomStats**](DataroomStats.md)
+[**DataroomDataroomStats**](DataroomDataroomStats.md)
 
 ### Authorization
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 ## GetDataroomAnalyticsLinkByLinkid
 
-> DataroomLinkStats GetDataroomAnalyticsLinkByLinkid(ctx, linkId).Execute()
+> DataroomDataroomLinkStats GetDataroomAnalyticsLinkByLinkid(ctx, linkId).Execute()
 
 Reports how one share link was actually read: total viewing sessions, total page views, and per page the view count, the summed dwell measure and its average.
 
@@ -133,7 +133,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomAnalyticsLinkByLinkid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDataroomAnalyticsLinkByLinkid`: DataroomLinkStats
+	// response from `GetDataroomAnalyticsLinkByLinkid`: DataroomDataroomLinkStats
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomAnalyticsLinkByLinkid`: %v\n", resp)
 }
 ```
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DataroomLinkStats**](DataroomLinkStats.md)
+[**DataroomDataroomLinkStats**](DataroomDataroomLinkStats.md)
 
 ### Authorization
 
@@ -166,7 +166,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -175,7 +175,7 @@ Name | Type | Description  | Notes
 
 ## GetDataroomDatarooms
 
-> DataroomRooms GetDataroomDatarooms(ctx).Execute()
+> DataroomDataroomRooms GetDataroomDatarooms(ctx).Execute()
 
 Returns every data room in the caller org's own store, newest first, with its short public id, name, description and timestamps.
 
@@ -202,7 +202,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomDatarooms``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDataroomDatarooms`: DataroomRooms
+	// response from `GetDataroomDatarooms`: DataroomDataroomRooms
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomDatarooms`: %v\n", resp)
 }
 ```
@@ -218,7 +218,7 @@ Other parameters are passed through a pointer to a apiGetDataroomDataroomsReques
 
 ### Return type
 
-[**DataroomRooms**](DataroomRooms.md)
+[**DataroomDataroomRooms**](DataroomDataroomRooms.md)
 
 ### Authorization
 
@@ -227,7 +227,7 @@ Other parameters are passed through a pointer to a apiGetDataroomDataroomsReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -236,7 +236,7 @@ Other parameters are passed through a pointer to a apiGetDataroomDataroomsReques
 
 ## GetDataroomDataroomsById
 
-> DataroomRoomDetailOne GetDataroomDataroomsById(ctx, id).Execute()
+> DataroomDataroomRoomDetailOne GetDataroomDataroomsById(ctx, id).Execute()
 
 Reads one of the caller org's data rooms together with every document in it, each carrying its membership id and order index.
 
@@ -264,7 +264,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomDataroomsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDataroomDataroomsById`: DataroomRoomDetailOne
+	// response from `GetDataroomDataroomsById`: DataroomDataroomRoomDetailOne
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomDataroomsById`: %v\n", resp)
 }
 ```
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DataroomRoomDetailOne**](DataroomRoomDetailOne.md)
+[**DataroomDataroomRoomDetailOne**](DataroomDataroomRoomDetailOne.md)
 
 ### Authorization
 
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 
 ## GetDataroomDocuments
 
-> DataroomDocuments GetDataroomDocuments(ctx).Execute()
+> DataroomDataroomDocuments GetDataroomDocuments(ctx).Execute()
 
 Returns every document in the caller org's own store, newest first — name, opaque storage key, content type, page count, size and timestamps.
 
@@ -333,7 +333,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDataroomDocuments`: DataroomDocuments
+	// response from `GetDataroomDocuments`: DataroomDataroomDocuments
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomDocuments`: %v\n", resp)
 }
 ```
@@ -349,7 +349,7 @@ Other parameters are passed through a pointer to a apiGetDataroomDocumentsReques
 
 ### Return type
 
-[**DataroomDocuments**](DataroomDocuments.md)
+[**DataroomDataroomDocuments**](DataroomDataroomDocuments.md)
 
 ### Authorization
 
@@ -358,7 +358,7 @@ Other parameters are passed through a pointer to a apiGetDataroomDocumentsReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -367,7 +367,7 @@ Other parameters are passed through a pointer to a apiGetDataroomDocumentsReques
 
 ## GetDataroomDocumentsById
 
-> DataroomDocumentOne GetDataroomDocumentsById(ctx, id).Execute()
+> DataroomDataroomDocumentOne GetDataroomDocumentsById(ctx, id).Execute()
 
 Reads one of the caller org's documents — its name, opaque storage key, content type, page count, size and timestamps.
 
@@ -395,7 +395,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomDocumentsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDataroomDocumentsById`: DataroomDocumentOne
+	// response from `GetDataroomDocumentsById`: DataroomDataroomDocumentOne
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomDocumentsById`: %v\n", resp)
 }
 ```
@@ -419,7 +419,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DataroomDocumentOne**](DataroomDocumentOne.md)
+[**DataroomDataroomDocumentOne**](DataroomDataroomDocumentOne.md)
 
 ### Authorization
 
@@ -428,7 +428,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -505,9 +505,9 @@ Name | Type | Description  | Notes
 
 ## GetDataroomHealth
 
-> DataroomLiveness GetDataroomHealth(ctx).Execute()
+> DataroomDataroomLiveness GetDataroomHealth(ctx).Execute()
 
-Health reports that the data room subsystem is up.
+Reports that the data room subsystem is up.
 
 
 
@@ -532,7 +532,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDataroomHealth`: DataroomLiveness
+	// response from `GetDataroomHealth`: DataroomDataroomLiveness
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomHealth`: %v\n", resp)
 }
 ```
@@ -548,7 +548,7 @@ Other parameters are passed through a pointer to a apiGetDataroomHealthRequest s
 
 ### Return type
 
-[**DataroomLiveness**](DataroomLiveness.md)
+[**DataroomDataroomLiveness**](DataroomDataroomLiveness.md)
 
 ### Authorization
 
@@ -557,7 +557,7 @@ Other parameters are passed through a pointer to a apiGetDataroomHealthRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -566,7 +566,7 @@ Other parameters are passed through a pointer to a apiGetDataroomHealthRequest s
 
 ## GetDataroomLinks
 
-> DataroomLinks GetDataroomLinks(ctx).Execute()
+> DataroomDataroomLinks GetDataroomLinks(ctx).Execute()
 
 Returns every live share link in the caller org's own store, newest first, with the controls a visitor will meet: whether an address is required, whether a password is set, the allow and deny lists, whether download is permitted, and when the link expires.
 
@@ -593,7 +593,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomLinks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDataroomLinks`: DataroomLinks
+	// response from `GetDataroomLinks`: DataroomDataroomLinks
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomLinks`: %v\n", resp)
 }
 ```
@@ -609,7 +609,7 @@ Other parameters are passed through a pointer to a apiGetDataroomLinksRequest st
 
 ### Return type
 
-[**DataroomLinks**](DataroomLinks.md)
+[**DataroomDataroomLinks**](DataroomDataroomLinks.md)
 
 ### Authorization
 
@@ -618,7 +618,7 @@ Other parameters are passed through a pointer to a apiGetDataroomLinksRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -627,7 +627,7 @@ Other parameters are passed through a pointer to a apiGetDataroomLinksRequest st
 
 ## GetDataroomTrust
 
-> TrustDesk GetDataroomTrust(ctx).Execute()
+> DataroomTrustDesk GetDataroomTrust(ctx).Execute()
 
 Answers the caller org's OWN trust centre: its settings, every item it holds in both tiers, the requests waiting on it, and the grants it has made.
 
@@ -654,7 +654,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomTrust``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDataroomTrust`: TrustDesk
+	// response from `GetDataroomTrust`: DataroomTrustDesk
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomTrust`: %v\n", resp)
 }
 ```
@@ -670,7 +670,7 @@ Other parameters are passed through a pointer to a apiGetDataroomTrustRequest st
 
 ### Return type
 
-[**TrustDesk**](TrustDesk.md)
+[**DataroomTrustDesk**](DataroomTrustDesk.md)
 
 ### Authorization
 
@@ -679,7 +679,7 @@ Other parameters are passed through a pointer to a apiGetDataroomTrustRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -688,7 +688,7 @@ Other parameters are passed through a pointer to a apiGetDataroomTrustRequest st
 
 ## GetDataroomTrustCenterBySlug
 
-> TrustPage GetDataroomTrustCenterBySlug(ctx, slug).Execute()
+> DataroomTrustPage GetDataroomTrustCenterBySlug(ctx, slug).Execute()
 
 Answers an org's public trust centre: its name, the text a party must accept to ask for a document, and every item it publishes.
 
@@ -716,7 +716,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.GetDataroomTrustCenterBySlug``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDataroomTrustCenterBySlug`: TrustPage
+	// response from `GetDataroomTrustCenterBySlug`: DataroomTrustPage
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.GetDataroomTrustCenterBySlug`: %v\n", resp)
 }
 ```
@@ -740,7 +740,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrustPage**](TrustPage.md)
+[**DataroomTrustPage**](DataroomTrustPage.md)
 
 ### Authorization
 
@@ -749,7 +749,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -968,9 +968,9 @@ Name | Type | Description  | Notes
 
 ## PatchDataroomTrustArtifactsById
 
-> TrustItemView PatchDataroomTrustArtifactsById(ctx, id).TrustEdit(trustEdit).Execute()
+> DataroomTrustItemView PatchDataroomTrustArtifactsById(ctx, id).DataroomTrustEdit(dataroomTrustEdit).Execute()
 
-Amend changes an item on the caller org's trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
+Changes an item on the caller org's trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
 
 
 
@@ -988,16 +988,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the item to change, taken from the path.
-	trustEdit := *openapiclient.NewTrustEdit() // TrustEdit | 
+	dataroomTrustEdit := *openapiclient.NewDataroomTrustEdit() // DataroomTrustEdit | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DataroomAPI.PatchDataroomTrustArtifactsById(context.Background(), id).TrustEdit(trustEdit).Execute()
+	resp, r, err := apiClient.DataroomAPI.PatchDataroomTrustArtifactsById(context.Background(), id).DataroomTrustEdit(dataroomTrustEdit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PatchDataroomTrustArtifactsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchDataroomTrustArtifactsById`: TrustItemView
+	// response from `PatchDataroomTrustArtifactsById`: DataroomTrustItemView
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PatchDataroomTrustArtifactsById`: %v\n", resp)
 }
 ```
@@ -1018,11 +1018,11 @@ Other parameters are passed through a pointer to a apiPatchDataroomTrustArtifact
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **trustEdit** | [**TrustEdit**](TrustEdit.md) |  | 
+ **dataroomTrustEdit** | [**DataroomTrustEdit**](DataroomTrustEdit.md) |  | 
 
 ### Return type
 
-[**TrustItemView**](TrustItemView.md)
+[**DataroomTrustItemView**](DataroomTrustItemView.md)
 
 ### Authorization
 
@@ -1031,7 +1031,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1040,7 +1040,7 @@ Name | Type | Description  | Notes
 
 ## PostDataroomDatarooms
 
-> DataroomRoomOne PostDataroomDatarooms(ctx).DataroomCreate(dataroomCreate).Execute()
+> DataroomDataroomRoomOne PostDataroomDatarooms(ctx).DataroomDataroomCreate(dataroomDataroomCreate).Execute()
 
 Opens a new data room for the caller org and answers with it, including the short public id it is addressed by.
 
@@ -1059,16 +1059,16 @@ import (
 )
 
 func main() {
-	dataroomCreate := *openapiclient.NewDataroomCreate() // DataroomCreate | 
+	dataroomDataroomCreate := *openapiclient.NewDataroomDataroomCreate() // DataroomDataroomCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DataroomAPI.PostDataroomDatarooms(context.Background()).DataroomCreate(dataroomCreate).Execute()
+	resp, r, err := apiClient.DataroomAPI.PostDataroomDatarooms(context.Background()).DataroomDataroomCreate(dataroomDataroomCreate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PostDataroomDatarooms``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDataroomDatarooms`: DataroomRoomOne
+	// response from `PostDataroomDatarooms`: DataroomDataroomRoomOne
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PostDataroomDatarooms`: %v\n", resp)
 }
 ```
@@ -1084,11 +1084,11 @@ Other parameters are passed through a pointer to a apiPostDataroomDataroomsReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **dataroomCreate** | [**DataroomCreate**](DataroomCreate.md) |  | 
+ **dataroomDataroomCreate** | [**DataroomDataroomCreate**](DataroomDataroomCreate.md) |  | 
 
 ### Return type
 
-[**DataroomRoomOne**](DataroomRoomOne.md)
+[**DataroomDataroomRoomOne**](DataroomDataroomRoomOne.md)
 
 ### Authorization
 
@@ -1097,7 +1097,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1106,7 +1106,7 @@ Name | Type | Description  | Notes
 
 ## PostDataroomDataroomsByIdDocuments
 
-> DataroomMembership PostDataroomDataroomsByIdDocuments(ctx, id).DataroomAddDocument(dataroomAddDocument).Execute()
+> DataroomDataroomMembership PostDataroomDataroomsByIdDocuments(ctx, id).DataroomDataroomAddDocument(dataroomDataroomAddDocument).Execute()
 
 Puts an already-uploaded document into one of the caller org's data rooms and answers with the new membership id.
 
@@ -1126,16 +1126,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the room to add to. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.
-	dataroomAddDocument := *openapiclient.NewDataroomAddDocument() // DataroomAddDocument | 
+	dataroomDataroomAddDocument := *openapiclient.NewDataroomDataroomAddDocument() // DataroomDataroomAddDocument | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DataroomAPI.PostDataroomDataroomsByIdDocuments(context.Background(), id).DataroomAddDocument(dataroomAddDocument).Execute()
+	resp, r, err := apiClient.DataroomAPI.PostDataroomDataroomsByIdDocuments(context.Background(), id).DataroomDataroomAddDocument(dataroomDataroomAddDocument).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PostDataroomDataroomsByIdDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDataroomDataroomsByIdDocuments`: DataroomMembership
+	// response from `PostDataroomDataroomsByIdDocuments`: DataroomDataroomMembership
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PostDataroomDataroomsByIdDocuments`: %v\n", resp)
 }
 ```
@@ -1156,11 +1156,11 @@ Other parameters are passed through a pointer to a apiPostDataroomDataroomsByIdD
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **dataroomAddDocument** | [**DataroomAddDocument**](DataroomAddDocument.md) |  | 
+ **dataroomDataroomAddDocument** | [**DataroomDataroomAddDocument**](DataroomDataroomAddDocument.md) |  | 
 
 ### Return type
 
-[**DataroomMembership**](DataroomMembership.md)
+[**DataroomDataroomMembership**](DataroomDataroomMembership.md)
 
 ### Authorization
 
@@ -1169,7 +1169,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1237,7 +1237,7 @@ Other parameters are passed through a pointer to a apiPostDataroomDocumentsReque
 
 ## PostDataroomLinks
 
-> DataroomLinkOne PostDataroomLinks(ctx).DataroomLinkCreate(dataroomLinkCreate).Execute()
+> DataroomDataroomLinkOne PostDataroomLinks(ctx).DataroomDataroomLinkCreate(dataroomDataroomLinkCreate).Execute()
 
 Grants access: it mints a public share link over one data room (`dataroomId`) or one document (`documentId`) — one of the two is required — and answers with the link, whose `id` is the token a visitor opens it with.
 
@@ -1256,16 +1256,16 @@ import (
 )
 
 func main() {
-	dataroomLinkCreate := *openapiclient.NewDataroomLinkCreate() // DataroomLinkCreate | 
+	dataroomDataroomLinkCreate := *openapiclient.NewDataroomDataroomLinkCreate() // DataroomDataroomLinkCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DataroomAPI.PostDataroomLinks(context.Background()).DataroomLinkCreate(dataroomLinkCreate).Execute()
+	resp, r, err := apiClient.DataroomAPI.PostDataroomLinks(context.Background()).DataroomDataroomLinkCreate(dataroomDataroomLinkCreate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PostDataroomLinks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDataroomLinks`: DataroomLinkOne
+	// response from `PostDataroomLinks`: DataroomDataroomLinkOne
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PostDataroomLinks`: %v\n", resp)
 }
 ```
@@ -1281,11 +1281,11 @@ Other parameters are passed through a pointer to a apiPostDataroomLinksRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **dataroomLinkCreate** | [**DataroomLinkCreate**](DataroomLinkCreate.md) |  | 
+ **dataroomDataroomLinkCreate** | [**DataroomDataroomLinkCreate**](DataroomDataroomLinkCreate.md) |  | 
 
 ### Return type
 
-[**DataroomLinkOne**](DataroomLinkOne.md)
+[**DataroomDataroomLinkOne**](DataroomDataroomLinkOne.md)
 
 ### Authorization
 
@@ -1294,7 +1294,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1303,9 +1303,9 @@ Name | Type | Description  | Notes
 
 ## PostDataroomTrustArtifacts
 
-> TrustItemView PostDataroomTrustArtifacts(ctx).TrustPublish(trustPublish).Execute()
+> DataroomTrustItemView PostDataroomTrustArtifacts(ctx).DataroomTrustPublish(dataroomTrustPublish).Execute()
 
-Publish puts an item on the caller org's trust centre and answers with it.
+Puts an item on the caller org's trust centre and answers with it.
 
 
 
@@ -1322,16 +1322,16 @@ import (
 )
 
 func main() {
-	trustPublish := *openapiclient.NewTrustPublish() // TrustPublish | 
+	dataroomTrustPublish := *openapiclient.NewDataroomTrustPublish() // DataroomTrustPublish | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DataroomAPI.PostDataroomTrustArtifacts(context.Background()).TrustPublish(trustPublish).Execute()
+	resp, r, err := apiClient.DataroomAPI.PostDataroomTrustArtifacts(context.Background()).DataroomTrustPublish(dataroomTrustPublish).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PostDataroomTrustArtifacts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDataroomTrustArtifacts`: TrustItemView
+	// response from `PostDataroomTrustArtifacts`: DataroomTrustItemView
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PostDataroomTrustArtifacts`: %v\n", resp)
 }
 ```
@@ -1347,11 +1347,11 @@ Other parameters are passed through a pointer to a apiPostDataroomTrustArtifacts
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **trustPublish** | [**TrustPublish**](TrustPublish.md) |  | 
+ **dataroomTrustPublish** | [**DataroomTrustPublish**](DataroomTrustPublish.md) |  | 
 
 ### Return type
 
-[**TrustItemView**](TrustItemView.md)
+[**DataroomTrustItemView**](DataroomTrustItemView.md)
 
 ### Authorization
 
@@ -1360,7 +1360,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1369,7 +1369,7 @@ Name | Type | Description  | Notes
 
 ## PostDataroomTrustCenterBySlugRequests
 
-> TrustAsked PostDataroomTrustCenterBySlugRequests(ctx, slug).TrustAsk(trustAsk).Execute()
+> DataroomTrustAsked PostDataroomTrustCenterBySlugRequests(ctx, slug).DataroomTrustAsk(dataroomTrustAsk).Execute()
 
 Records a request to read what an independent auditor signed, and answers with its id.
 
@@ -1389,16 +1389,16 @@ import (
 
 func main() {
 	slug := "slug_example" // string | Slug is the centre's public address, taken from the path.
-	trustAsk := *openapiclient.NewTrustAsk() // TrustAsk | 
+	dataroomTrustAsk := *openapiclient.NewDataroomTrustAsk() // DataroomTrustAsk | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DataroomAPI.PostDataroomTrustCenterBySlugRequests(context.Background(), slug).TrustAsk(trustAsk).Execute()
+	resp, r, err := apiClient.DataroomAPI.PostDataroomTrustCenterBySlugRequests(context.Background(), slug).DataroomTrustAsk(dataroomTrustAsk).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PostDataroomTrustCenterBySlugRequests``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDataroomTrustCenterBySlugRequests`: TrustAsked
+	// response from `PostDataroomTrustCenterBySlugRequests`: DataroomTrustAsked
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PostDataroomTrustCenterBySlugRequests`: %v\n", resp)
 }
 ```
@@ -1419,11 +1419,11 @@ Other parameters are passed through a pointer to a apiPostDataroomTrustCenterByS
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **trustAsk** | [**TrustAsk**](TrustAsk.md) |  | 
+ **dataroomTrustAsk** | [**DataroomTrustAsk**](DataroomTrustAsk.md) |  | 
 
 ### Return type
 
-[**TrustAsked**](TrustAsked.md)
+[**DataroomTrustAsked**](DataroomTrustAsked.md)
 
 ### Authorization
 
@@ -1432,7 +1432,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1441,9 +1441,9 @@ Name | Type | Description  | Notes
 
 ## PostDataroomTrustRequestsByIdGrant
 
-> TrustGranted PostDataroomTrustRequestsByIdGrant(ctx, id).TrustDecision(trustDecision).Execute()
+> DataroomTrustGranted PostDataroomTrustRequestsByIdGrant(ctx, id).DataroomTrustDecision(dataroomTrustDecision).Execute()
 
-Grant answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
+Answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
 
 
 
@@ -1461,16 +1461,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the request to answer, taken from the path.
-	trustDecision := *openapiclient.NewTrustDecision() // TrustDecision | 
+	dataroomTrustDecision := *openapiclient.NewDataroomTrustDecision() // DataroomTrustDecision | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DataroomAPI.PostDataroomTrustRequestsByIdGrant(context.Background(), id).TrustDecision(trustDecision).Execute()
+	resp, r, err := apiClient.DataroomAPI.PostDataroomTrustRequestsByIdGrant(context.Background(), id).DataroomTrustDecision(dataroomTrustDecision).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PostDataroomTrustRequestsByIdGrant``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDataroomTrustRequestsByIdGrant`: TrustGranted
+	// response from `PostDataroomTrustRequestsByIdGrant`: DataroomTrustGranted
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PostDataroomTrustRequestsByIdGrant`: %v\n", resp)
 }
 ```
@@ -1491,11 +1491,11 @@ Other parameters are passed through a pointer to a apiPostDataroomTrustRequestsB
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **trustDecision** | [**TrustDecision**](TrustDecision.md) |  | 
+ **dataroomTrustDecision** | [**DataroomTrustDecision**](DataroomTrustDecision.md) |  | 
 
 ### Return type
 
-[**TrustGranted**](TrustGranted.md)
+[**DataroomTrustGranted**](DataroomTrustGranted.md)
 
 ### Authorization
 
@@ -1504,7 +1504,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1513,9 +1513,9 @@ Name | Type | Description  | Notes
 
 ## PostDataroomTrustRequestsByIdRefuse
 
-> TrustRefused PostDataroomTrustRequestsByIdRefuse(ctx, id).TrustDecision(trustDecision).Execute()
+> DataroomTrustRefused PostDataroomTrustRequestsByIdRefuse(ctx, id).DataroomTrustDecision(dataroomTrustDecision).Execute()
 
-Refuse answers a request by declining it, recording who declined and why.
+Answers a request by declining it, recording who declined and why.
 
 
 
@@ -1533,16 +1533,16 @@ import (
 
 func main() {
 	id := "id_example" // string | ID is the request to answer, taken from the path.
-	trustDecision := *openapiclient.NewTrustDecision() // TrustDecision | 
+	dataroomTrustDecision := *openapiclient.NewDataroomTrustDecision() // DataroomTrustDecision | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DataroomAPI.PostDataroomTrustRequestsByIdRefuse(context.Background(), id).TrustDecision(trustDecision).Execute()
+	resp, r, err := apiClient.DataroomAPI.PostDataroomTrustRequestsByIdRefuse(context.Background(), id).DataroomTrustDecision(dataroomTrustDecision).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PostDataroomTrustRequestsByIdRefuse``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDataroomTrustRequestsByIdRefuse`: TrustRefused
+	// response from `PostDataroomTrustRequestsByIdRefuse`: DataroomTrustRefused
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PostDataroomTrustRequestsByIdRefuse`: %v\n", resp)
 }
 ```
@@ -1563,11 +1563,11 @@ Other parameters are passed through a pointer to a apiPostDataroomTrustRequestsB
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **trustDecision** | [**TrustDecision**](TrustDecision.md) |  | 
+ **dataroomTrustDecision** | [**DataroomTrustDecision**](DataroomTrustDecision.md) |  | 
 
 ### Return type
 
-[**TrustRefused**](TrustRefused.md)
+[**DataroomTrustRefused**](DataroomTrustRefused.md)
 
 ### Authorization
 
@@ -1576,7 +1576,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1721,7 +1721,7 @@ Name | Type | Description  | Notes
 
 ## PutDataroomTrust
 
-> TrustDesk PutDataroomTrust(ctx).TrustSettings(trustSettings).Execute()
+> DataroomTrustDesk PutDataroomTrust(ctx).DataroomTrustSettings(dataroomTrustSettings).Execute()
 
 SetCenter opens, publishes or withdraws the caller org's trust centre and answers with the centre as it now stands.
 
@@ -1740,16 +1740,16 @@ import (
 )
 
 func main() {
-	trustSettings := *openapiclient.NewTrustSettings() // TrustSettings | 
+	dataroomTrustSettings := *openapiclient.NewDataroomTrustSettings() // DataroomTrustSettings | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DataroomAPI.PutDataroomTrust(context.Background()).TrustSettings(trustSettings).Execute()
+	resp, r, err := apiClient.DataroomAPI.PutDataroomTrust(context.Background()).DataroomTrustSettings(dataroomTrustSettings).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DataroomAPI.PutDataroomTrust``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutDataroomTrust`: TrustDesk
+	// response from `PutDataroomTrust`: DataroomTrustDesk
 	fmt.Fprintf(os.Stdout, "Response from `DataroomAPI.PutDataroomTrust`: %v\n", resp)
 }
 ```
@@ -1765,11 +1765,11 @@ Other parameters are passed through a pointer to a apiPutDataroomTrustRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **trustSettings** | [**TrustSettings**](TrustSettings.md) |  | 
+ **dataroomTrustSettings** | [**DataroomTrustSettings**](DataroomTrustSettings.md) |  | 
 
 ### Return type
 
-[**TrustDesk**](TrustDesk.md)
+[**DataroomTrustDesk**](DataroomTrustDesk.md)
 
 ### Authorization
 
@@ -1778,7 +1778,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

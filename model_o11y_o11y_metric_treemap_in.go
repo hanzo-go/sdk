@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -30,7 +29,8 @@ type O11yO11yMetricTreemapIn struct {
 	// Mode picks the measure: timeseries or samples. Required.
 	Mode string `json:"mode"`
 	// Start is the start of the window as a Unix timestamp in milliseconds. Required.
-	Start int64 `json:"start"`
+	Start                int64 `json:"start"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11yMetricTreemapIn O11yO11yMetricTreemapIn
@@ -201,6 +201,11 @@ func (o O11yO11yMetricTreemapIn) ToMap() (map[string]interface{}, error) {
 	toSerialize["limit"] = o.Limit
 	toSerialize["mode"] = o.Mode
 	toSerialize["start"] = o.Start
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -231,15 +236,24 @@ func (o *O11yO11yMetricTreemapIn) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11yMetricTreemapIn := _O11yO11yMetricTreemapIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11yMetricTreemapIn)
+	err = json.Unmarshal(data, &varO11yO11yMetricTreemapIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11yMetricTreemapIn(varO11yO11yMetricTreemapIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "mode")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

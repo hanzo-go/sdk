@@ -19,12 +19,15 @@ var _ MappedNullable = &Block{}
 
 // Block struct for Block
 type Block struct {
-	Prompt *string `json:"prompt,omitempty"`
-	State  *string `json:"state,omitempty"`
-	Text   *string `json:"text,omitempty"`
-	TextEn *string `json:"textEn,omitempty"`
-	Type   *string `json:"type,omitempty"`
+	Prompt               *string `json:"prompt,omitempty"`
+	State                *string `json:"state,omitempty"`
+	Text                 *string `json:"text,omitempty"`
+	TextEn               *string `json:"textEn,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Block Block
 
 // NewBlock instantiates a new Block object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o Block) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Block) UnmarshalJSON(data []byte) (err error) {
+	varBlock := _Block{}
+
+	err = json.Unmarshal(data, &varBlock)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Block(varBlock)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "prompt")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "textEn")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBlock struct {

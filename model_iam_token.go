@@ -49,13 +49,16 @@ type IamToken struct {
 	RefreshToken     *string `json:"refreshToken,omitempty"`
 	RefreshTokenHash *string `json:"refreshTokenHash,omitempty"`
 	// RFC 8707 resource indicator
-	Resource  *string    `json:"resource,omitempty"`
-	Scope     *string    `json:"scope,omitempty"`
-	TokenType *string    `json:"tokenType,omitempty"`
-	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
-	User      *string    `json:"user,omitempty"`
-	UserCode  *string    `json:"userCode,omitempty"`
+	Resource             *string    `json:"resource,omitempty"`
+	Scope                *string    `json:"scope,omitempty"`
+	TokenType            *string    `json:"tokenType,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	User                 *string    `json:"user,omitempty"`
+	UserCode             *string    `json:"userCode,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamToken IamToken
 
 // NewIamToken instantiates a new IamToken object
 // This constructor will assign default values to properties that have it defined,
@@ -1134,7 +1137,62 @@ func (o IamToken) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserCode) {
 		toSerialize["userCode"] = o.UserCode
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamToken) UnmarshalJSON(data []byte) (err error) {
+	varIamToken := _IamToken{}
+
+	err = json.Unmarshal(data, &varIamToken)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamToken(varIamToken)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accessToken")
+		delete(additionalProperties, "accessTokenHash")
+		delete(additionalProperties, "application")
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "codeChallenge")
+		delete(additionalProperties, "codeChallengeMethod")
+		delete(additionalProperties, "codeExpireIn")
+		delete(additionalProperties, "codeIsUsed")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "expiresIn")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "nonce")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "publicGrant")
+		delete(additionalProperties, "redirectUri")
+		delete(additionalProperties, "refreshConsumed")
+		delete(additionalProperties, "refreshExpireIn")
+		delete(additionalProperties, "refreshFamily")
+		delete(additionalProperties, "refreshToken")
+		delete(additionalProperties, "refreshTokenHash")
+		delete(additionalProperties, "resource")
+		delete(additionalProperties, "scope")
+		delete(additionalProperties, "tokenType")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "user")
+		delete(additionalProperties, "userCode")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamToken struct {

@@ -22,7 +22,10 @@ type O11yServiceDashboard struct {
 	Description          *string                           `json:"description,omitempty"`
 	IntegrationDashboard *O11yStorableIntegrationDashboard `json:"integrationDashboard,omitempty"`
 	Title                *string                           `json:"title,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yServiceDashboard O11yServiceDashboard
 
 // NewO11yServiceDashboard instantiates a new O11yServiceDashboard object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yServiceDashboard) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yServiceDashboard) UnmarshalJSON(data []byte) (err error) {
+	varO11yServiceDashboard := _O11yServiceDashboard{}
+
+	err = json.Unmarshal(data, &varO11yServiceDashboard)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yServiceDashboard(varO11yServiceDashboard)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "integrationDashboard")
+		delete(additionalProperties, "title")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yServiceDashboard struct {

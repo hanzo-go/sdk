@@ -19,15 +19,18 @@ var _ MappedNullable = &IamAnswer{}
 
 // IamAnswer struct for IamAnswer
 type IamAnswer struct {
-	Code   *string                `json:"code,omitempty"`
-	Data   map[string]interface{} `json:"data,omitempty"`
-	Data2  map[string]interface{} `json:"data2,omitempty"`
-	Data3  map[string]interface{} `json:"data3,omitempty"`
-	Msg    *string                `json:"msg,omitempty"`
-	Name   *string                `json:"name,omitempty"`
-	Status *string                `json:"status,omitempty"`
-	Sub    *string                `json:"sub,omitempty"`
+	Code                 *string     `json:"code,omitempty"`
+	Data                 interface{} `json:"data,omitempty"`
+	Data2                interface{} `json:"data2,omitempty"`
+	Data3                interface{} `json:"data3,omitempty"`
+	Msg                  *string     `json:"msg,omitempty"`
+	Name                 *string     `json:"name,omitempty"`
+	Status               *string     `json:"status,omitempty"`
+	Sub                  *string     `json:"sub,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamAnswer IamAnswer
 
 // NewIamAnswer instantiates a new IamAnswer object
 // This constructor will assign default values to properties that have it defined,
@@ -78,10 +81,10 @@ func (o *IamAnswer) SetCode(v string) {
 	o.Code = &v
 }
 
-// GetData returns the Data field value if set, zero value otherwise.
-func (o *IamAnswer) GetData() map[string]interface{} {
-	if o == nil || IsNil(o.Data) {
-		var ret map[string]interface{}
+// GetData returns the Data field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *IamAnswer) GetData() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Data
@@ -89,11 +92,12 @@ func (o *IamAnswer) GetData() map[string]interface{} {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamAnswer) GetDataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *IamAnswer) GetDataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Data) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Data, true
+	return &o.Data, true
 }
 
 // HasData returns a boolean if a field has been set.
@@ -105,15 +109,15 @@ func (o *IamAnswer) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given map[string]interface{} and assigns it to the Data field.
-func (o *IamAnswer) SetData(v map[string]interface{}) {
+// SetData gets a reference to the given interface{} and assigns it to the Data field.
+func (o *IamAnswer) SetData(v interface{}) {
 	o.Data = v
 }
 
-// GetData2 returns the Data2 field value if set, zero value otherwise.
-func (o *IamAnswer) GetData2() map[string]interface{} {
-	if o == nil || IsNil(o.Data2) {
-		var ret map[string]interface{}
+// GetData2 returns the Data2 field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *IamAnswer) GetData2() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Data2
@@ -121,11 +125,12 @@ func (o *IamAnswer) GetData2() map[string]interface{} {
 
 // GetData2Ok returns a tuple with the Data2 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamAnswer) GetData2Ok() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *IamAnswer) GetData2Ok() (*interface{}, bool) {
 	if o == nil || IsNil(o.Data2) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Data2, true
+	return &o.Data2, true
 }
 
 // HasData2 returns a boolean if a field has been set.
@@ -137,15 +142,15 @@ func (o *IamAnswer) HasData2() bool {
 	return false
 }
 
-// SetData2 gets a reference to the given map[string]interface{} and assigns it to the Data2 field.
-func (o *IamAnswer) SetData2(v map[string]interface{}) {
+// SetData2 gets a reference to the given interface{} and assigns it to the Data2 field.
+func (o *IamAnswer) SetData2(v interface{}) {
 	o.Data2 = v
 }
 
-// GetData3 returns the Data3 field value if set, zero value otherwise.
-func (o *IamAnswer) GetData3() map[string]interface{} {
-	if o == nil || IsNil(o.Data3) {
-		var ret map[string]interface{}
+// GetData3 returns the Data3 field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *IamAnswer) GetData3() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Data3
@@ -153,11 +158,12 @@ func (o *IamAnswer) GetData3() map[string]interface{} {
 
 // GetData3Ok returns a tuple with the Data3 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamAnswer) GetData3Ok() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *IamAnswer) GetData3Ok() (*interface{}, bool) {
 	if o == nil || IsNil(o.Data3) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Data3, true
+	return &o.Data3, true
 }
 
 // HasData3 returns a boolean if a field has been set.
@@ -169,8 +175,8 @@ func (o *IamAnswer) HasData3() bool {
 	return false
 }
 
-// SetData3 gets a reference to the given map[string]interface{} and assigns it to the Data3 field.
-func (o *IamAnswer) SetData3(v map[string]interface{}) {
+// SetData3 gets a reference to the given interface{} and assigns it to the Data3 field.
+func (o *IamAnswer) SetData3(v interface{}) {
 	o.Data3 = v
 }
 
@@ -315,13 +321,13 @@ func (o IamAnswer) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Code) {
 		toSerialize["code"] = o.Code
 	}
-	if !IsNil(o.Data) {
+	if o.Data != nil {
 		toSerialize["data"] = o.Data
 	}
-	if !IsNil(o.Data2) {
+	if o.Data2 != nil {
 		toSerialize["data2"] = o.Data2
 	}
-	if !IsNil(o.Data3) {
+	if o.Data3 != nil {
 		toSerialize["data3"] = o.Data3
 	}
 	if !IsNil(o.Msg) {
@@ -336,7 +342,40 @@ func (o IamAnswer) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Sub) {
 		toSerialize["sub"] = o.Sub
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamAnswer) UnmarshalJSON(data []byte) (err error) {
+	varIamAnswer := _IamAnswer{}
+
+	err = json.Unmarshal(data, &varIamAnswer)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamAnswer(varIamAnswer)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "data2")
+		delete(additionalProperties, "data3")
+		delete(additionalProperties, "msg")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "sub")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamAnswer struct {

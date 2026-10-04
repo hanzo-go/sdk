@@ -22,8 +22,11 @@ type O11yO11yTestNotificationResult struct {
 	// AlertCount is how many series would alert for the tested rule.
 	AlertCount *int64 `json:"alertCount,omitempty"`
 	// Message is a human-readable status, e.g. \"notification sent\".
-	Message *string `json:"message,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTestNotificationResult O11yO11yTestNotificationResult
 
 // NewO11yO11yTestNotificationResult instantiates a new O11yO11yTestNotificationResult object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yTestNotificationResult) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTestNotificationResult) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTestNotificationResult := _O11yO11yTestNotificationResult{}
+
+	err = json.Unmarshal(data, &varO11yO11yTestNotificationResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTestNotificationResult(varO11yO11yTestNotificationResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alertCount")
+		delete(additionalProperties, "message")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTestNotificationResult struct {

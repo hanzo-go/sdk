@@ -20,13 +20,16 @@ var _ MappedNullable = &O11yO11yDashboardUpdateIn{}
 // O11yO11yDashboardUpdateIn struct for O11yO11yDashboardUpdateIn
 type O11yO11yDashboardUpdateIn struct {
 	// ID is the dashboard id from the path.
-	Id            *string                        `json:"id,omitempty"`
-	Image         *string                        `json:"image,omitempty"`
-	Name          *string                        `json:"name,omitempty"`
-	SchemaVersion *string                        `json:"schemaVersion,omitempty"`
-	Spec          interface{}                    `json:"spec,omitempty"`
-	Tags          []O11yO11yDashboardPostableTag `json:"tags,omitempty"`
+	Id                   *string                        `json:"id,omitempty"`
+	Image                *string                        `json:"image,omitempty"`
+	Name                 *string                        `json:"name,omitempty"`
+	SchemaVersion        *string                        `json:"schemaVersion,omitempty"`
+	Spec                 interface{}                    `json:"spec,omitempty"`
+	Tags                 []O11yO11yDashboardPostableTag `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardUpdateIn O11yO11yDashboardUpdateIn
 
 // NewO11yO11yDashboardUpdateIn instantiates a new O11yO11yDashboardUpdateIn object
 // This constructor will assign default values to properties that have it defined,
@@ -266,7 +269,38 @@ func (o O11yO11yDashboardUpdateIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardUpdateIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardUpdateIn := _O11yO11yDashboardUpdateIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardUpdateIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardUpdateIn(varO11yO11yDashboardUpdateIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "image")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "schemaVersion")
+		delete(additionalProperties, "spec")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardUpdateIn struct {

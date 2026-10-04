@@ -20,12 +20,15 @@ var _ MappedNullable = &O11yInstalledIntegration{}
 
 // O11yInstalledIntegration struct for O11yInstalledIntegration
 type O11yInstalledIntegration struct {
-	Config      map[string]map[string]interface{} `json:"config,omitempty"`
-	Id          interface{}                       `json:"id,omitempty"`
-	InstalledAt *time.Time                        `json:"installed_at,omitempty"`
-	OrgId       *string                           `json:"org_id,omitempty"`
-	Type        *string                           `json:"type,omitempty"`
+	Config               map[string]interface{} `json:"config,omitempty"`
+	Id                   interface{}            `json:"id,omitempty"`
+	InstalledAt          *time.Time             `json:"installed_at,omitempty"`
+	OrgId                *string                `json:"org_id,omitempty"`
+	Type                 *string                `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yInstalledIntegration O11yInstalledIntegration
 
 // NewO11yInstalledIntegration instantiates a new O11yInstalledIntegration object
 // This constructor will assign default values to properties that have it defined,
@@ -45,9 +48,9 @@ func NewO11yInstalledIntegrationWithDefaults() *O11yInstalledIntegration {
 }
 
 // GetConfig returns the Config field value if set, zero value otherwise.
-func (o *O11yInstalledIntegration) GetConfig() map[string]map[string]interface{} {
+func (o *O11yInstalledIntegration) GetConfig() map[string]interface{} {
 	if o == nil || IsNil(o.Config) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Config
@@ -55,9 +58,9 @@ func (o *O11yInstalledIntegration) GetConfig() map[string]map[string]interface{}
 
 // GetConfigOk returns a tuple with the Config field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yInstalledIntegration) GetConfigOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yInstalledIntegration) GetConfigOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Config) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Config, true
 }
@@ -71,8 +74,8 @@ func (o *O11yInstalledIntegration) HasConfig() bool {
 	return false
 }
 
-// SetConfig gets a reference to the given map[string]map[string]interface{} and assigns it to the Config field.
-func (o *O11yInstalledIntegration) SetConfig(v map[string]map[string]interface{}) {
+// SetConfig gets a reference to the given map[string]interface{} and assigns it to the Config field.
+func (o *O11yInstalledIntegration) SetConfig(v map[string]interface{}) {
 	o.Config = v
 }
 
@@ -230,7 +233,37 @@ func (o O11yInstalledIntegration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yInstalledIntegration) UnmarshalJSON(data []byte) (err error) {
+	varO11yInstalledIntegration := _O11yInstalledIntegration{}
+
+	err = json.Unmarshal(data, &varO11yInstalledIntegration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yInstalledIntegration(varO11yInstalledIntegration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "installed_at")
+		delete(additionalProperties, "org_id")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yInstalledIntegration struct {

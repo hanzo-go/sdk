@@ -26,8 +26,11 @@ type O11yListMeta struct {
 	// TotalItems is how many rows match in total.
 	TotalItems *int64 `json:"totalItems,omitempty"`
 	// TotalPages is ceil(totalItems/limit), at least 1.
-	TotalPages *int64 `json:"totalPages,omitempty"`
+	TotalPages           *int64 `json:"totalPages,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yListMeta O11yListMeta
 
 // NewO11yListMeta instantiates a new O11yListMeta object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yListMeta) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalPages) {
 		toSerialize["totalPages"] = o.TotalPages
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yListMeta) UnmarshalJSON(data []byte) (err error) {
+	varO11yListMeta := _O11yListMeta{}
+
+	err = json.Unmarshal(data, &varO11yListMeta)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yListMeta(varO11yListMeta)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "page")
+		delete(additionalProperties, "totalItems")
+		delete(additionalProperties, "totalPages")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yListMeta struct {

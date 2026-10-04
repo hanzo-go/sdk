@@ -19,17 +19,20 @@ var _ MappedNullable = &O11ySNSConfig{}
 
 // O11ySNSConfig struct for O11ySNSConfig
 type O11ySNSConfig struct {
-	NotifierConfig *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
-	ApiUrl         *string               `json:"api_url,omitempty"`
-	Attributes     map[string]string     `json:"attributes,omitempty"`
-	HttpConfig     *O11yHTTPClientConfig `json:"http_config,omitempty"`
-	Message        *string               `json:"message,omitempty"`
-	PhoneNumber    *string               `json:"phone_number,omitempty"`
-	Sigv4          *O11ySigV4Config      `json:"sigv4,omitempty"`
-	Subject        *string               `json:"subject,omitempty"`
-	TargetArn      *string               `json:"target_arn,omitempty"`
-	TopicArn       *string               `json:"topic_arn,omitempty"`
+	NotifierConfig       *O11yNotifierConfig   `json:"NotifierConfig,omitempty"`
+	ApiUrl               *string               `json:"api_url,omitempty"`
+	Attributes           map[string]string     `json:"attributes,omitempty"`
+	HttpConfig           *O11yHTTPClientConfig `json:"http_config,omitempty"`
+	Message              *string               `json:"message,omitempty"`
+	PhoneNumber          *string               `json:"phone_number,omitempty"`
+	Sigv4                *O11ySigV4Config      `json:"sigv4,omitempty"`
+	Subject              *string               `json:"subject,omitempty"`
+	TargetArn            *string               `json:"target_arn,omitempty"`
+	TopicArn             *string               `json:"topic_arn,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySNSConfig O11ySNSConfig
 
 // NewO11ySNSConfig instantiates a new O11ySNSConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -408,7 +411,42 @@ func (o O11ySNSConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TopicArn) {
 		toSerialize["topic_arn"] = o.TopicArn
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySNSConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11ySNSConfig := _O11ySNSConfig{}
+
+	err = json.Unmarshal(data, &varO11ySNSConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySNSConfig(varO11ySNSConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "api_url")
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "phone_number")
+		delete(additionalProperties, "sigv4")
+		delete(additionalProperties, "subject")
+		delete(additionalProperties, "target_arn")
+		delete(additionalProperties, "topic_arn")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySNSConfig struct {

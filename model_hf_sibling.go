@@ -19,9 +19,12 @@ var _ MappedNullable = &HfSibling{}
 
 // HfSibling struct for HfSibling
 type HfSibling struct {
-	Rfilename *string `json:"rfilename,omitempty"`
-	Size      *int32  `json:"size,omitempty"`
+	Rfilename            *string `json:"rfilename,omitempty"`
+	Size                 *int32  `json:"size,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _HfSibling HfSibling
 
 // NewHfSibling instantiates a new HfSibling object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o HfSibling) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Size) {
 		toSerialize["size"] = o.Size
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *HfSibling) UnmarshalJSON(data []byte) (err error) {
+	varHfSibling := _HfSibling{}
+
+	err = json.Unmarshal(data, &varHfSibling)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HfSibling(varHfSibling)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "rfilename")
+		delete(additionalProperties, "size")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableHfSibling struct {

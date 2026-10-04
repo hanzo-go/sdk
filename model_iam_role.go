@@ -20,21 +20,24 @@ var _ MappedNullable = &IamRole{}
 
 // IamRole struct for IamRole
 type IamRole struct {
-	CreatedAt   *time.Time `json:"createdAt,omitempty"`
-	CreatedTime *string    `json:"createdTime,omitempty"`
-	Deleted     *bool      `json:"deleted,omitempty"`
-	Description *string    `json:"description,omitempty"`
-	DisplayName *string    `json:"displayName,omitempty"`
-	Domains     []string   `json:"domains,omitempty"`
-	Id          *string    `json:"id,omitempty"`
-	IsEnabled   *bool      `json:"isEnabled,omitempty"`
-	Name        *string    `json:"name,omitempty"`
-	Owner       *string    `json:"owner,omitempty"`
-	Roles       []string   `json:"roles,omitempty"`
-	Teams       []string   `json:"teams,omitempty"`
-	UpdatedAt   *time.Time `json:"updatedAt,omitempty"`
-	Users       []string   `json:"users,omitempty"`
+	CreatedAt            *time.Time `json:"createdAt,omitempty"`
+	CreatedTime          *string    `json:"createdTime,omitempty"`
+	Deleted              *bool      `json:"deleted,omitempty"`
+	Description          *string    `json:"description,omitempty"`
+	DisplayName          *string    `json:"displayName,omitempty"`
+	Domains              []string   `json:"domains,omitempty"`
+	Id                   *string    `json:"id,omitempty"`
+	IsEnabled            *bool      `json:"isEnabled,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	Owner                *string    `json:"owner,omitempty"`
+	Roles                []string   `json:"roles,omitempty"`
+	Teams                []string   `json:"teams,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	Users                []string   `json:"users,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamRole IamRole
 
 // NewIamRole instantiates a new IamRole object
 // This constructor will assign default values to properties that have it defined,
@@ -553,7 +556,46 @@ func (o IamRole) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamRole) UnmarshalJSON(data []byte) (err error) {
+	varIamRole := _IamRole{}
+
+	err = json.Unmarshal(data, &varIamRole)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamRole(varIamRole)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "domains")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "isEnabled")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "roles")
+		delete(additionalProperties, "teams")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "users")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamRole struct {

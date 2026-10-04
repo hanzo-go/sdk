@@ -21,9 +21,12 @@ var _ MappedNullable = &O11yO11yPublicDashboardWriteIn{}
 type O11yO11yPublicDashboardWriteIn struct {
 	DefaultTimeRange *string `json:"defaultTimeRange,omitempty"`
 	// ID is the dashboard id from the path.
-	Id               *string `json:"id,omitempty"`
-	TimeRangeEnabled *bool   `json:"timeRangeEnabled,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	TimeRangeEnabled     *bool   `json:"timeRangeEnabled,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yPublicDashboardWriteIn O11yO11yPublicDashboardWriteIn
 
 // NewO11yO11yPublicDashboardWriteIn instantiates a new O11yO11yPublicDashboardWriteIn object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o O11yO11yPublicDashboardWriteIn) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.TimeRangeEnabled) {
 		toSerialize["timeRangeEnabled"] = o.TimeRangeEnabled
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yPublicDashboardWriteIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yPublicDashboardWriteIn := _O11yO11yPublicDashboardWriteIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yPublicDashboardWriteIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yPublicDashboardWriteIn(varO11yO11yPublicDashboardWriteIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "defaultTimeRange")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "timeRangeEnabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yPublicDashboardWriteIn struct {

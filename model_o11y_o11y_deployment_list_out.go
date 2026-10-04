@@ -22,8 +22,11 @@ type O11yO11yDeploymentListOut struct {
 	// Data holds the deployment records.
 	Data *O11yDeploymentListResponse `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDeploymentListOut O11yO11yDeploymentListOut
 
 // NewO11yO11yDeploymentListOut instantiates a new O11yO11yDeploymentListOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yDeploymentListOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDeploymentListOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDeploymentListOut := _O11yO11yDeploymentListOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yDeploymentListOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDeploymentListOut(varO11yO11yDeploymentListOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDeploymentListOut struct {

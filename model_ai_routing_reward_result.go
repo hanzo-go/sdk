@@ -19,10 +19,13 @@ var _ MappedNullable = &AiRoutingRewardResult{}
 
 // AiRoutingRewardResult struct for AiRoutingRewardResult
 type AiRoutingRewardResult struct {
-	Recorded  *bool    `json:"recorded,omitempty"`
-	RequestId *string  `json:"request_id,omitempty"`
-	Reward    *float32 `json:"reward,omitempty"`
+	Recorded             *bool    `json:"recorded,omitempty"`
+	RequestId            *string  `json:"request_id,omitempty"`
+	Reward               *float32 `json:"reward,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiRoutingRewardResult AiRoutingRewardResult
 
 // NewAiRoutingRewardResult instantiates a new AiRoutingRewardResult object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o AiRoutingRewardResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Reward) {
 		toSerialize["reward"] = o.Reward
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiRoutingRewardResult) UnmarshalJSON(data []byte) (err error) {
+	varAiRoutingRewardResult := _AiRoutingRewardResult{}
+
+	err = json.Unmarshal(data, &varAiRoutingRewardResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiRoutingRewardResult(varAiRoutingRewardResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "recorded")
+		delete(additionalProperties, "request_id")
+		delete(additionalProperties, "reward")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiRoutingRewardResult struct {

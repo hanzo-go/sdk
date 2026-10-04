@@ -79,7 +79,7 @@ func (a *MqAPIService) DeleteMqStreamByNameExecute(r MqAPIDeleteMqStreamByNameRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -108,6 +108,14 @@ func (a *MqAPIService) DeleteMqStreamByNameExecute(r MqAPIDeleteMqStreamByNameRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -175,7 +183,7 @@ func (a *MqAPIService) DeleteMqStreamByNameMessageBySeqExecute(r MqAPIDeleteMqSt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -204,6 +212,14 @@ func (a *MqAPIService) DeleteMqStreamByNameMessageBySeqExecute(r MqAPIDeleteMqSt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -272,7 +288,7 @@ func (a *MqAPIService) DeleteMqStreamByStreamConsumerByNameExecute(r MqAPIDelete
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -301,6 +317,14 @@ func (a *MqAPIService) DeleteMqStreamByStreamConsumerByNameExecute(r MqAPIDelete
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -312,7 +336,7 @@ type MqAPIGetMqHealthRequest struct {
 	ApiService *MqAPIService
 }
 
-func (r MqAPIGetMqHealthRequest) Execute() (*Health, *http.Response, error) {
+func (r MqAPIGetMqHealthRequest) Execute() (*MqHealth, *http.Response, error) {
 	return r.ApiService.GetMqHealthExecute(r)
 }
 
@@ -333,13 +357,13 @@ func (a *MqAPIService) GetMqHealth(ctx context.Context) MqAPIGetMqHealthRequest 
 
 // Execute executes the request
 //
-//	@return Health
-func (a *MqAPIService) GetMqHealthExecute(r MqAPIGetMqHealthRequest) (*Health, *http.Response, error) {
+//	@return MqHealth
+func (a *MqAPIService) GetMqHealthExecute(r MqAPIGetMqHealthRequest) (*MqHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Health
+		localVarReturnValue *MqHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqHealth")
@@ -363,7 +387,7 @@ func (a *MqAPIService) GetMqHealthExecute(r MqAPIGetMqHealthRequest) (*Health, *
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -392,6 +416,14 @@ func (a *MqAPIService) GetMqHealthExecute(r MqAPIGetMqHealthRequest) (*Health, *
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -412,7 +444,7 @@ type MqAPIGetMqInfoRequest struct {
 	ApiService *MqAPIService
 }
 
-func (r MqAPIGetMqInfoRequest) Execute() (*InfoOut, *http.Response, error) {
+func (r MqAPIGetMqInfoRequest) Execute() (*MqInfoOut, *http.Response, error) {
 	return r.ApiService.GetMqInfoExecute(r)
 }
 
@@ -433,13 +465,13 @@ func (a *MqAPIService) GetMqInfo(ctx context.Context) MqAPIGetMqInfoRequest {
 
 // Execute executes the request
 //
-//	@return InfoOut
-func (a *MqAPIService) GetMqInfoExecute(r MqAPIGetMqInfoRequest) (*InfoOut, *http.Response, error) {
+//	@return MqInfoOut
+func (a *MqAPIService) GetMqInfoExecute(r MqAPIGetMqInfoRequest) (*MqInfoOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InfoOut
+		localVarReturnValue *MqInfoOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqInfo")
@@ -463,7 +495,7 @@ func (a *MqAPIService) GetMqInfoExecute(r MqAPIGetMqInfoRequest) (*InfoOut, *htt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -492,6 +524,14 @@ func (a *MqAPIService) GetMqInfoExecute(r MqAPIGetMqInfoRequest) (*InfoOut, *htt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -526,7 +566,7 @@ func (r MqAPIGetMqStreamRequest) Offset(offset int64) MqAPIGetMqStreamRequest {
 	return r
 }
 
-func (r MqAPIGetMqStreamRequest) Execute() (*Streams, *http.Response, error) {
+func (r MqAPIGetMqStreamRequest) Execute() (*MqStreams, *http.Response, error) {
 	return r.ApiService.GetMqStreamExecute(r)
 }
 
@@ -547,13 +587,13 @@ func (a *MqAPIService) GetMqStream(ctx context.Context) MqAPIGetMqStreamRequest 
 
 // Execute executes the request
 //
-//	@return Streams
-func (a *MqAPIService) GetMqStreamExecute(r MqAPIGetMqStreamRequest) (*Streams, *http.Response, error) {
+//	@return MqStreams
+func (a *MqAPIService) GetMqStreamExecute(r MqAPIGetMqStreamRequest) (*MqStreams, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Streams
+		localVarReturnValue *MqStreams
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStream")
@@ -583,7 +623,7 @@ func (a *MqAPIService) GetMqStreamExecute(r MqAPIGetMqStreamRequest) (*Streams, 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -612,6 +652,14 @@ func (a *MqAPIService) GetMqStreamExecute(r MqAPIGetMqStreamRequest) (*Streams, 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -633,7 +681,7 @@ type MqAPIGetMqStreamByNameRequest struct {
 	name       string
 }
 
-func (r MqAPIGetMqStreamByNameRequest) Execute() (*Stream, *http.Response, error) {
+func (r MqAPIGetMqStreamByNameRequest) Execute() (*MqStream, *http.Response, error) {
 	return r.ApiService.GetMqStreamByNameExecute(r)
 }
 
@@ -656,13 +704,13 @@ func (a *MqAPIService) GetMqStreamByName(ctx context.Context, name string) MqAPI
 
 // Execute executes the request
 //
-//	@return Stream
-func (a *MqAPIService) GetMqStreamByNameExecute(r MqAPIGetMqStreamByNameRequest) (*Stream, *http.Response, error) {
+//	@return MqStream
+func (a *MqAPIService) GetMqStreamByNameExecute(r MqAPIGetMqStreamByNameRequest) (*MqStream, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Stream
+		localVarReturnValue *MqStream
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreamByName")
@@ -687,7 +735,7 @@ func (a *MqAPIService) GetMqStreamByNameExecute(r MqAPIGetMqStreamByNameRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -716,6 +764,14 @@ func (a *MqAPIService) GetMqStreamByNameExecute(r MqAPIGetMqStreamByNameRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -765,7 +821,7 @@ func (r MqAPIGetMqStreamByNameMessageRequest) Limit(limit int64) MqAPIGetMqStrea
 	return r
 }
 
-func (r MqAPIGetMqStreamByNameMessageRequest) Execute() (*ReadOut, *http.Response, error) {
+func (r MqAPIGetMqStreamByNameMessageRequest) Execute() (*MqReadOut, *http.Response, error) {
 	return r.ApiService.GetMqStreamByNameMessageExecute(r)
 }
 
@@ -789,13 +845,13 @@ func (a *MqAPIService) GetMqStreamByNameMessage(ctx context.Context, name string
 
 // Execute executes the request
 //
-//	@return ReadOut
-func (a *MqAPIService) GetMqStreamByNameMessageExecute(r MqAPIGetMqStreamByNameMessageRequest) (*ReadOut, *http.Response, error) {
+//	@return MqReadOut
+func (a *MqAPIService) GetMqStreamByNameMessageExecute(r MqAPIGetMqStreamByNameMessageRequest) (*MqReadOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ReadOut
+		localVarReturnValue *MqReadOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreamByNameMessage")
@@ -832,7 +888,7 @@ func (a *MqAPIService) GetMqStreamByNameMessageExecute(r MqAPIGetMqStreamByNameM
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -861,6 +917,14 @@ func (a *MqAPIService) GetMqStreamByNameMessageExecute(r MqAPIGetMqStreamByNameM
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -896,7 +960,7 @@ func (r MqAPIGetMqStreamByStreamConsumerRequest) Offset(offset int64) MqAPIGetMq
 	return r
 }
 
-func (r MqAPIGetMqStreamByStreamConsumerRequest) Execute() (*PickOut, *http.Response, error) {
+func (r MqAPIGetMqStreamByStreamConsumerRequest) Execute() (*MqPickOut, *http.Response, error) {
 	return r.ApiService.GetMqStreamByStreamConsumerExecute(r)
 }
 
@@ -919,13 +983,13 @@ func (a *MqAPIService) GetMqStreamByStreamConsumer(ctx context.Context, stream s
 
 // Execute executes the request
 //
-//	@return PickOut
-func (a *MqAPIService) GetMqStreamByStreamConsumerExecute(r MqAPIGetMqStreamByStreamConsumerRequest) (*PickOut, *http.Response, error) {
+//	@return MqPickOut
+func (a *MqAPIService) GetMqStreamByStreamConsumerExecute(r MqAPIGetMqStreamByStreamConsumerRequest) (*MqPickOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PickOut
+		localVarReturnValue *MqPickOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreamByStreamConsumer")
@@ -956,7 +1020,7 @@ func (a *MqAPIService) GetMqStreamByStreamConsumerExecute(r MqAPIGetMqStreamBySt
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -985,6 +1049,14 @@ func (a *MqAPIService) GetMqStreamByStreamConsumerExecute(r MqAPIGetMqStreamBySt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1007,7 +1079,7 @@ type MqAPIGetMqStreamByStreamConsumerByNameRequest struct {
 	name       string
 }
 
-func (r MqAPIGetMqStreamByStreamConsumerByNameRequest) Execute() (*Consumer, *http.Response, error) {
+func (r MqAPIGetMqStreamByStreamConsumerByNameRequest) Execute() (*MqConsumer, *http.Response, error) {
 	return r.ApiService.GetMqStreamByStreamConsumerByNameExecute(r)
 }
 
@@ -1032,13 +1104,13 @@ func (a *MqAPIService) GetMqStreamByStreamConsumerByName(ctx context.Context, st
 
 // Execute executes the request
 //
-//	@return Consumer
-func (a *MqAPIService) GetMqStreamByStreamConsumerByNameExecute(r MqAPIGetMqStreamByStreamConsumerByNameRequest) (*Consumer, *http.Response, error) {
+//	@return MqConsumer
+func (a *MqAPIService) GetMqStreamByStreamConsumerByNameExecute(r MqAPIGetMqStreamByStreamConsumerByNameRequest) (*MqConsumer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Consumer
+		localVarReturnValue *MqConsumer
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.GetMqStreamByStreamConsumerByName")
@@ -1064,7 +1136,7 @@ func (a *MqAPIService) GetMqStreamByStreamConsumerByNameExecute(r MqAPIGetMqStre
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1093,6 +1165,14 @@ func (a *MqAPIService) GetMqStreamByStreamConsumerByNameExecute(r MqAPIGetMqStre
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1109,17 +1189,17 @@ func (a *MqAPIService) GetMqStreamByStreamConsumerByNameExecute(r MqAPIGetMqStre
 }
 
 type MqAPIPostMqStreamRequest struct {
-	ctx          context.Context
-	ApiService   *MqAPIService
-	streamConfig *StreamConfig
+	ctx        context.Context
+	ApiService *MqAPIService
+	mqConfig   *MqConfig
 }
 
-func (r MqAPIPostMqStreamRequest) StreamConfig(streamConfig StreamConfig) MqAPIPostMqStreamRequest {
-	r.streamConfig = &streamConfig
+func (r MqAPIPostMqStreamRequest) MqConfig(mqConfig MqConfig) MqAPIPostMqStreamRequest {
+	r.mqConfig = &mqConfig
 	return r
 }
 
-func (r MqAPIPostMqStreamRequest) Execute() (*Stream, *http.Response, error) {
+func (r MqAPIPostMqStreamRequest) Execute() (*MqStream, *http.Response, error) {
 	return r.ApiService.PostMqStreamExecute(r)
 }
 
@@ -1140,13 +1220,13 @@ func (a *MqAPIService) PostMqStream(ctx context.Context) MqAPIPostMqStreamReques
 
 // Execute executes the request
 //
-//	@return Stream
-func (a *MqAPIService) PostMqStreamExecute(r MqAPIPostMqStreamRequest) (*Stream, *http.Response, error) {
+//	@return MqStream
+func (a *MqAPIService) PostMqStreamExecute(r MqAPIPostMqStreamRequest) (*MqStream, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Stream
+		localVarReturnValue *MqStream
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PostMqStream")
@@ -1159,8 +1239,8 @@ func (a *MqAPIService) PostMqStreamExecute(r MqAPIPostMqStreamRequest) (*Stream,
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.streamConfig == nil {
-		return localVarReturnValue, nil, reportError("streamConfig is required and must be specified")
+	if r.mqConfig == nil {
+		return localVarReturnValue, nil, reportError("mqConfig is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1173,7 +1253,7 @@ func (a *MqAPIService) PostMqStreamExecute(r MqAPIPostMqStreamRequest) (*Stream,
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1181,7 +1261,7 @@ func (a *MqAPIService) PostMqStreamExecute(r MqAPIPostMqStreamRequest) (*Stream,
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.streamConfig
+	localVarPostBody = r.mqConfig
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1204,6 +1284,14 @@ func (a *MqAPIService) PostMqStreamExecute(r MqAPIPostMqStreamRequest) (*Stream,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1223,15 +1311,15 @@ type MqAPIPostMqStreamByNamePurgeRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	name       string
-	purge      *Purge
+	mqPurge    *MqPurge
 }
 
-func (r MqAPIPostMqStreamByNamePurgeRequest) Purge(purge Purge) MqAPIPostMqStreamByNamePurgeRequest {
-	r.purge = &purge
+func (r MqAPIPostMqStreamByNamePurgeRequest) MqPurge(mqPurge MqPurge) MqAPIPostMqStreamByNamePurgeRequest {
+	r.mqPurge = &mqPurge
 	return r
 }
 
-func (r MqAPIPostMqStreamByNamePurgeRequest) Execute() (*PurgeOut, *http.Response, error) {
+func (r MqAPIPostMqStreamByNamePurgeRequest) Execute() (*MqPurgeOut, *http.Response, error) {
 	return r.ApiService.PostMqStreamByNamePurgeExecute(r)
 }
 
@@ -1254,13 +1342,13 @@ func (a *MqAPIService) PostMqStreamByNamePurge(ctx context.Context, name string)
 
 // Execute executes the request
 //
-//	@return PurgeOut
-func (a *MqAPIService) PostMqStreamByNamePurgeExecute(r MqAPIPostMqStreamByNamePurgeRequest) (*PurgeOut, *http.Response, error) {
+//	@return MqPurgeOut
+func (a *MqAPIService) PostMqStreamByNamePurgeExecute(r MqAPIPostMqStreamByNamePurgeRequest) (*MqPurgeOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PurgeOut
+		localVarReturnValue *MqPurgeOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PostMqStreamByNamePurge")
@@ -1274,8 +1362,8 @@ func (a *MqAPIService) PostMqStreamByNamePurgeExecute(r MqAPIPostMqStreamByNameP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.purge == nil {
-		return localVarReturnValue, nil, reportError("purge is required and must be specified")
+	if r.mqPurge == nil {
+		return localVarReturnValue, nil, reportError("mqPurge is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1288,7 +1376,7 @@ func (a *MqAPIService) PostMqStreamByNamePurgeExecute(r MqAPIPostMqStreamByNameP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1296,7 +1384,7 @@ func (a *MqAPIService) PostMqStreamByNamePurgeExecute(r MqAPIPostMqStreamByNameP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.purge
+	localVarPostBody = r.mqPurge
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1319,6 +1407,14 @@ func (a *MqAPIService) PostMqStreamByNamePurgeExecute(r MqAPIPostMqStreamByNameP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1338,15 +1434,15 @@ type MqAPIPostMqStreamByStreamConsumerRequest struct {
 	ctx        context.Context
 	ApiService *MqAPIService
 	stream     string
-	makeIn     *MakeIn
+	mqMakeIn   *MqMakeIn
 }
 
-func (r MqAPIPostMqStreamByStreamConsumerRequest) MakeIn(makeIn MakeIn) MqAPIPostMqStreamByStreamConsumerRequest {
-	r.makeIn = &makeIn
+func (r MqAPIPostMqStreamByStreamConsumerRequest) MqMakeIn(mqMakeIn MqMakeIn) MqAPIPostMqStreamByStreamConsumerRequest {
+	r.mqMakeIn = &mqMakeIn
 	return r
 }
 
-func (r MqAPIPostMqStreamByStreamConsumerRequest) Execute() (*Consumer, *http.Response, error) {
+func (r MqAPIPostMqStreamByStreamConsumerRequest) Execute() (*MqConsumer, *http.Response, error) {
 	return r.ApiService.PostMqStreamByStreamConsumerExecute(r)
 }
 
@@ -1369,13 +1465,13 @@ func (a *MqAPIService) PostMqStreamByStreamConsumer(ctx context.Context, stream 
 
 // Execute executes the request
 //
-//	@return Consumer
-func (a *MqAPIService) PostMqStreamByStreamConsumerExecute(r MqAPIPostMqStreamByStreamConsumerRequest) (*Consumer, *http.Response, error) {
+//	@return MqConsumer
+func (a *MqAPIService) PostMqStreamByStreamConsumerExecute(r MqAPIPostMqStreamByStreamConsumerRequest) (*MqConsumer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Consumer
+		localVarReturnValue *MqConsumer
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PostMqStreamByStreamConsumer")
@@ -1389,8 +1485,8 @@ func (a *MqAPIService) PostMqStreamByStreamConsumerExecute(r MqAPIPostMqStreamBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.makeIn == nil {
-		return localVarReturnValue, nil, reportError("makeIn is required and must be specified")
+	if r.mqMakeIn == nil {
+		return localVarReturnValue, nil, reportError("mqMakeIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1403,7 +1499,7 @@ func (a *MqAPIService) PostMqStreamByStreamConsumerExecute(r MqAPIPostMqStreamBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1411,7 +1507,7 @@ func (a *MqAPIService) PostMqStreamByStreamConsumerExecute(r MqAPIPostMqStreamBy
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.makeIn
+	localVarPostBody = r.mqMakeIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1434,6 +1530,14 @@ func (a *MqAPIService) PostMqStreamByStreamConsumerExecute(r MqAPIPostMqStreamBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1454,15 +1558,15 @@ type MqAPIPostMqStreamByStreamConsumerByNameNextRequest struct {
 	ApiService *MqAPIService
 	stream     string
 	name       string
-	nextIn     *NextIn
+	mqNextIn   *MqNextIn
 }
 
-func (r MqAPIPostMqStreamByStreamConsumerByNameNextRequest) NextIn(nextIn NextIn) MqAPIPostMqStreamByStreamConsumerByNameNextRequest {
-	r.nextIn = &nextIn
+func (r MqAPIPostMqStreamByStreamConsumerByNameNextRequest) MqNextIn(mqNextIn MqNextIn) MqAPIPostMqStreamByStreamConsumerByNameNextRequest {
+	r.mqNextIn = &mqNextIn
 	return r
 }
 
-func (r MqAPIPostMqStreamByStreamConsumerByNameNextRequest) Execute() (*ReadOut, *http.Response, error) {
+func (r MqAPIPostMqStreamByStreamConsumerByNameNextRequest) Execute() (*MqReadOut, *http.Response, error) {
 	return r.ApiService.PostMqStreamByStreamConsumerByNameNextExecute(r)
 }
 
@@ -1489,13 +1593,13 @@ func (a *MqAPIService) PostMqStreamByStreamConsumerByNameNext(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return ReadOut
-func (a *MqAPIService) PostMqStreamByStreamConsumerByNameNextExecute(r MqAPIPostMqStreamByStreamConsumerByNameNextRequest) (*ReadOut, *http.Response, error) {
+//	@return MqReadOut
+func (a *MqAPIService) PostMqStreamByStreamConsumerByNameNextExecute(r MqAPIPostMqStreamByStreamConsumerByNameNextRequest) (*MqReadOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ReadOut
+		localVarReturnValue *MqReadOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PostMqStreamByStreamConsumerByNameNext")
@@ -1510,8 +1614,8 @@ func (a *MqAPIService) PostMqStreamByStreamConsumerByNameNextExecute(r MqAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.nextIn == nil {
-		return localVarReturnValue, nil, reportError("nextIn is required and must be specified")
+	if r.mqNextIn == nil {
+		return localVarReturnValue, nil, reportError("mqNextIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1524,7 +1628,7 @@ func (a *MqAPIService) PostMqStreamByStreamConsumerByNameNextExecute(r MqAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1532,7 +1636,7 @@ func (a *MqAPIService) PostMqStreamByStreamConsumerByNameNextExecute(r MqAPIPost
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.nextIn
+	localVarPostBody = r.mqNextIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1555,6 +1659,14 @@ func (a *MqAPIService) PostMqStreamByStreamConsumerByNameNextExecute(r MqAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1571,18 +1683,18 @@ func (a *MqAPIService) PostMqStreamByStreamConsumerByNameNextExecute(r MqAPIPost
 }
 
 type MqAPIPutMqStreamByNameRequest struct {
-	ctx          context.Context
-	ApiService   *MqAPIService
-	name         string
-	streamConfig *StreamConfig
+	ctx        context.Context
+	ApiService *MqAPIService
+	name       string
+	mqConfig   *MqConfig
 }
 
-func (r MqAPIPutMqStreamByNameRequest) StreamConfig(streamConfig StreamConfig) MqAPIPutMqStreamByNameRequest {
-	r.streamConfig = &streamConfig
+func (r MqAPIPutMqStreamByNameRequest) MqConfig(mqConfig MqConfig) MqAPIPutMqStreamByNameRequest {
+	r.mqConfig = &mqConfig
 	return r
 }
 
-func (r MqAPIPutMqStreamByNameRequest) Execute() (*Stream, *http.Response, error) {
+func (r MqAPIPutMqStreamByNameRequest) Execute() (*MqStream, *http.Response, error) {
 	return r.ApiService.PutMqStreamByNameExecute(r)
 }
 
@@ -1606,13 +1718,13 @@ func (a *MqAPIService) PutMqStreamByName(ctx context.Context, name string) MqAPI
 
 // Execute executes the request
 //
-//	@return Stream
-func (a *MqAPIService) PutMqStreamByNameExecute(r MqAPIPutMqStreamByNameRequest) (*Stream, *http.Response, error) {
+//	@return MqStream
+func (a *MqAPIService) PutMqStreamByNameExecute(r MqAPIPutMqStreamByNameRequest) (*MqStream, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Stream
+		localVarReturnValue *MqStream
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MqAPIService.PutMqStreamByName")
@@ -1626,8 +1738,8 @@ func (a *MqAPIService) PutMqStreamByNameExecute(r MqAPIPutMqStreamByNameRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.streamConfig == nil {
-		return localVarReturnValue, nil, reportError("streamConfig is required and must be specified")
+	if r.mqConfig == nil {
+		return localVarReturnValue, nil, reportError("mqConfig is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1640,7 +1752,7 @@ func (a *MqAPIService) PutMqStreamByNameExecute(r MqAPIPutMqStreamByNameRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1648,7 +1760,7 @@ func (a *MqAPIService) PutMqStreamByNameExecute(r MqAPIPutMqStreamByNameRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.streamConfig
+	localVarPostBody = r.mqConfig
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1671,6 +1783,14 @@ func (a *MqAPIService) PutMqStreamByNameExecute(r MqAPIPutMqStreamByNameRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

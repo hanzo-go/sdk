@@ -22,9 +22,12 @@ type O11yO11yLogFilterItem struct {
 	// Key is the field the predicate tests.
 	Key *O11yO11yLogFilterKey `json:"key,omitempty"`
 	// Op is the comparison, e.g. =, !=, in, contains.
-	Op    *string     `json:"op,omitempty"`
-	Value interface{} `json:"value,omitempty"`
+	Op                   *string     `json:"op,omitempty"`
+	Value                interface{} `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogFilterItem O11yO11yLogFilterItem
 
 // NewO11yO11yLogFilterItem instantiates a new O11yO11yLogFilterItem object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yLogFilterItem) ToMap() (map[string]interface{}, error) {
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogFilterItem) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogFilterItem := _O11yO11yLogFilterItem{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogFilterItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogFilterItem(varO11yO11yLogFilterItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "op")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogFilterItem struct {

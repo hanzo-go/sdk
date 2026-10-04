@@ -19,14 +19,17 @@ var _ MappedNullable = &O11yPostableJobs{}
 
 // O11yPostableJobs struct for O11yPostableJobs
 type O11yPostableJobs struct {
-	End     *int64                          `json:"end,omitempty"`
-	Filter  *O11yFilter                     `json:"filter,omitempty"`
-	GroupBy []O11yGroupByKey                `json:"groupBy,omitempty"`
-	Limit   *int64                          `json:"limit,omitempty"`
-	Offset  *int64                          `json:"offset,omitempty"`
-	OrderBy *O11yQuerybuildertypesv5OrderBy `json:"orderBy,omitempty"`
-	Start   *int64                          `json:"start,omitempty"`
+	End                  *int64                          `json:"end,omitempty"`
+	Filter               *O11yFilter                     `json:"filter,omitempty"`
+	GroupBy              []O11yGroupByKey                `json:"groupBy,omitempty"`
+	Limit                *int64                          `json:"limit,omitempty"`
+	Offset               *int64                          `json:"offset,omitempty"`
+	OrderBy              *O11yQuerybuildertypesv5OrderBy `json:"orderBy,omitempty"`
+	Start                *int64                          `json:"start,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPostableJobs O11yPostableJobs
 
 // NewO11yPostableJobs instantiates a new O11yPostableJobs object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o O11yPostableJobs) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Start) {
 		toSerialize["start"] = o.Start
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPostableJobs) UnmarshalJSON(data []byte) (err error) {
+	varO11yPostableJobs := _O11yPostableJobs{}
+
+	err = json.Unmarshal(data, &varO11yPostableJobs)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPostableJobs(varO11yPostableJobs)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "orderBy")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPostableJobs struct {

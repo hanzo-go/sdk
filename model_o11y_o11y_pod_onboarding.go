@@ -42,8 +42,11 @@ type O11yO11yPodOnboarding struct {
 	// NodeName is the pod's node.
 	NodeName *string `json:"nodeName,omitempty"`
 	// PodName is the pod.
-	PodName *string `json:"podName,omitempty"`
+	PodName              *string `json:"podName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yPodOnboarding O11yO11yPodOnboarding
 
 // NewO11yO11yPodOnboarding instantiates a new O11yO11yPodOnboarding object
 // This constructor will assign default values to properties that have it defined,
@@ -492,7 +495,44 @@ func (o O11yO11yPodOnboarding) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PodName) {
 		toSerialize["podName"] = o.PodName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yPodOnboarding) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yPodOnboarding := _O11yO11yPodOnboarding{}
+
+	err = json.Unmarshal(data, &varO11yO11yPodOnboarding)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yPodOnboarding(varO11yO11yPodOnboarding)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "clusterName")
+		delete(additionalProperties, "hasClusterName")
+		delete(additionalProperties, "hasCronjobName")
+		delete(additionalProperties, "hasDaemonsetName")
+		delete(additionalProperties, "hasDeploymentName")
+		delete(additionalProperties, "hasJobName")
+		delete(additionalProperties, "hasNamespaceName")
+		delete(additionalProperties, "hasNodeName")
+		delete(additionalProperties, "hasStatefulsetName")
+		delete(additionalProperties, "namespaceName")
+		delete(additionalProperties, "nodeName")
+		delete(additionalProperties, "podName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yPodOnboarding struct {

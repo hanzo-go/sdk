@@ -19,11 +19,14 @@ var _ MappedNullable = &O11ySlackConfirmationField{}
 
 // O11ySlackConfirmationField struct for O11ySlackConfirmationField
 type O11ySlackConfirmationField struct {
-	DismissText *string `json:"dismiss_text,omitempty"`
-	OkText      *string `json:"ok_text,omitempty"`
-	Text        *string `json:"text,omitempty"`
-	Title       *string `json:"title,omitempty"`
+	DismissText          *string `json:"dismiss_text,omitempty"`
+	OkText               *string `json:"ok_text,omitempty"`
+	Text                 *string `json:"text,omitempty"`
+	Title                *string `json:"title,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySlackConfirmationField O11ySlackConfirmationField
 
 // NewO11ySlackConfirmationField instantiates a new O11ySlackConfirmationField object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11ySlackConfirmationField) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySlackConfirmationField) UnmarshalJSON(data []byte) (err error) {
+	varO11ySlackConfirmationField := _O11ySlackConfirmationField{}
+
+	err = json.Unmarshal(data, &varO11ySlackConfirmationField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySlackConfirmationField(varO11ySlackConfirmationField)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dismiss_text")
+		delete(additionalProperties, "ok_text")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "title")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySlackConfirmationField struct {

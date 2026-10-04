@@ -19,14 +19,17 @@ var _ MappedNullable = &AiVideoStatus{}
 
 // AiVideoStatus struct for AiVideoStatus
 type AiVideoStatus struct {
-	CreatedAt *int32          `json:"created_at,omitempty"`
-	Error     *AiVideoFailure `json:"error,omitempty"`
-	Id        *string         `json:"id,omitempty"`
-	Model     *string         `json:"model,omitempty"`
-	Object    *string         `json:"object,omitempty"`
-	Progress  *int32          `json:"progress,omitempty"`
-	Status    *string         `json:"status,omitempty"`
+	CreatedAt            *int32          `json:"created_at,omitempty"`
+	Error                *AiVideoFailure `json:"error,omitempty"`
+	Id                   *string         `json:"id,omitempty"`
+	Model                *string         `json:"model,omitempty"`
+	Object               *string         `json:"object,omitempty"`
+	Progress             *int32          `json:"progress,omitempty"`
+	Status               *string         `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiVideoStatus AiVideoStatus
 
 // NewAiVideoStatus instantiates a new AiVideoStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o AiVideoStatus) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiVideoStatus) UnmarshalJSON(data []byte) (err error) {
+	varAiVideoStatus := _AiVideoStatus{}
+
+	err = json.Unmarshal(data, &varAiVideoStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiVideoStatus(varAiVideoStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "error")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "object")
+		delete(additionalProperties, "progress")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiVideoStatus struct {

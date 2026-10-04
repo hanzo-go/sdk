@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yLogsAssets{}
 
 // O11yLogsAssets struct for O11yLogsAssets
 type O11yLogsAssets struct {
-	Pipelines []O11yPostablePipeline `json:"pipelines,omitempty"`
+	Pipelines            []O11yPostablePipeline `json:"pipelines,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yLogsAssets O11yLogsAssets
 
 // NewO11yLogsAssets instantiates a new O11yLogsAssets object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yLogsAssets) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Pipelines) {
 		toSerialize["pipelines"] = o.Pipelines
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yLogsAssets) UnmarshalJSON(data []byte) (err error) {
+	varO11yLogsAssets := _O11yLogsAssets{}
+
+	err = json.Unmarshal(data, &varO11yLogsAssets)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yLogsAssets(varO11yLogsAssets)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "pipelines")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yLogsAssets struct {

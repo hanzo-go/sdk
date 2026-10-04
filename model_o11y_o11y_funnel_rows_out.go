@@ -22,8 +22,11 @@ type O11yO11yFunnelRowsOut struct {
 	// Data are the rows.
 	Data []O11yO11yFunnelRow `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFunnelRowsOut O11yO11yFunnelRowsOut
 
 // NewO11yO11yFunnelRowsOut instantiates a new O11yO11yFunnelRowsOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yFunnelRowsOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFunnelRowsOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFunnelRowsOut := _O11yO11yFunnelRowsOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yFunnelRowsOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFunnelRowsOut(varO11yO11yFunnelRowsOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFunnelRowsOut struct {

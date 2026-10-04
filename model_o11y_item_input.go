@@ -30,8 +30,11 @@ type O11yItemInput struct {
 	// SessionID references a session — the console-friendly form of objectType=SESSION.
 	SessionId *string `json:"sessionId,omitempty"`
 	// TraceID references a trace — the console-friendly form of objectType=TRACE.
-	TraceId *string `json:"traceId,omitempty"`
+	TraceId              *string `json:"traceId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yItemInput O11yItemInput
 
 // NewO11yItemInput instantiates a new O11yItemInput object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o O11yItemInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TraceId) {
 		toSerialize["traceId"] = o.TraceId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yItemInput) UnmarshalJSON(data []byte) (err error) {
+	varO11yItemInput := _O11yItemInput{}
+
+	err = json.Unmarshal(data, &varO11yItemInput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yItemInput(varO11yItemInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "assignee")
+		delete(additionalProperties, "objectId")
+		delete(additionalProperties, "objectType")
+		delete(additionalProperties, "observationId")
+		delete(additionalProperties, "sessionId")
+		delete(additionalProperties, "traceId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yItemInput struct {

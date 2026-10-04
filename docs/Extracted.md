@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Category** | Pointer to **string** | Category is the expense bucket the SCANNER guessed, as a slug — a hint only. Vendor rules override it whenever they know better, so this is the model&#39;s reading and not the account the entry will land on. | [optional] 
-**Currency** | Pointer to **string** | Currency is the ISO code the document is denominated in. | [optional] 
-**IssuedAt** | Pointer to **string** | IssuedAt is the document&#39;s OWN date as YYYY-MM-DD — when the bill was issued, which is not when it was uploaded or when it will post. | [optional] 
-**LineItems** | Pointer to [**[]LineItem**](LineItem.md) | LineItems are the individual lines read off the document, where it had any. They need not sum to totalCents: a document may carry lines the scanner could not read, and the total is taken from the total. | [optional] 
-**Merchant** | Pointer to **string** | Merchant is the supplier as printed on the document. | [optional] 
-**Note** | Pointer to **string** | Note is anything else worth carrying from the document that has no field of its own. | [optional] 
-**TaxCents** | Pointer to **int64** | TaxCents is how much of that total is tax, in cents. It is part of totalCents, not additional to it. | [optional] 
-**TotalCents** | Pointer to **int64** | TotalCents is the document total in whole cents, tax INCLUDED. | [optional] 
+**Category** | Pointer to **string** |  | [optional] 
+**Currency** | Pointer to **string** |  | [optional] 
+**IssuedAt** | Pointer to **string** |  | [optional] 
+**LineItems** | Pointer to [**[]LineItem**](LineItem.md) |  | [optional] 
+**Merchant** | Pointer to **string** |  | [optional] 
+**Note** | Pointer to **string** |  | [optional] 
+**TaxCents** | Pointer to **int32** |  | [optional] 
+**TotalCents** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -184,20 +184,20 @@ HasNote returns a boolean if a field has been set.
 
 ### GetTaxCents
 
-`func (o *Extracted) GetTaxCents() int64`
+`func (o *Extracted) GetTaxCents() int32`
 
 GetTaxCents returns the TaxCents field if non-nil, zero value otherwise.
 
 ### GetTaxCentsOk
 
-`func (o *Extracted) GetTaxCentsOk() (*int64, bool)`
+`func (o *Extracted) GetTaxCentsOk() (*int32, bool)`
 
 GetTaxCentsOk returns a tuple with the TaxCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTaxCents
 
-`func (o *Extracted) SetTaxCents(v int64)`
+`func (o *Extracted) SetTaxCents(v int32)`
 
 SetTaxCents sets TaxCents field to given value.
 
@@ -209,20 +209,20 @@ HasTaxCents returns a boolean if a field has been set.
 
 ### GetTotalCents
 
-`func (o *Extracted) GetTotalCents() int64`
+`func (o *Extracted) GetTotalCents() int32`
 
 GetTotalCents returns the TotalCents field if non-nil, zero value otherwise.
 
 ### GetTotalCentsOk
 
-`func (o *Extracted) GetTotalCentsOk() (*int64, bool)`
+`func (o *Extracted) GetTotalCentsOk() (*int32, bool)`
 
 GetTotalCentsOk returns a tuple with the TotalCents field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalCents
 
-`func (o *Extracted) SetTotalCents(v int64)`
+`func (o *Extracted) SetTotalCents(v int32)`
 
 SetTotalCents sets TotalCents field to given value.
 

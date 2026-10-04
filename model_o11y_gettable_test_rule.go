@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yGettableTestRule{}
 
 // O11yGettableTestRule struct for O11yGettableTestRule
 type O11yGettableTestRule struct {
-	AlertCount *int64  `json:"alertCount,omitempty"`
-	Message    *string `json:"message,omitempty"`
+	AlertCount           *int64  `json:"alertCount,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableTestRule O11yGettableTestRule
 
 // NewO11yGettableTestRule instantiates a new O11yGettableTestRule object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yGettableTestRule) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableTestRule) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableTestRule := _O11yGettableTestRule{}
+
+	err = json.Unmarshal(data, &varO11yGettableTestRule)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableTestRule(varO11yGettableTestRule)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alertCount")
+		delete(additionalProperties, "message")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableTestRule struct {

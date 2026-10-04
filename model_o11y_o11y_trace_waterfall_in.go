@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yO11yTraceWaterfallIn{}
 
 // O11yO11yTraceWaterfallIn struct for O11yO11yTraceWaterfallIn
 type O11yO11yTraceWaterfallIn struct {
-	SelectedSpanId   *string  `json:"selectedSpanId,omitempty"`
-	UncollapsedSpans []string `json:"uncollapsedSpans,omitempty"`
+	SelectedSpanId       *string  `json:"selectedSpanId,omitempty"`
+	UncollapsedSpans     []string `json:"uncollapsedSpans,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTraceWaterfallIn O11yO11yTraceWaterfallIn
 
 // NewO11yO11yTraceWaterfallIn instantiates a new O11yO11yTraceWaterfallIn object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yO11yTraceWaterfallIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UncollapsedSpans) {
 		toSerialize["uncollapsedSpans"] = o.UncollapsedSpans
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTraceWaterfallIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTraceWaterfallIn := _O11yO11yTraceWaterfallIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yTraceWaterfallIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTraceWaterfallIn(varO11yO11yTraceWaterfallIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "selectedSpanId")
+		delete(additionalProperties, "uncollapsedSpans")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTraceWaterfallIn struct {

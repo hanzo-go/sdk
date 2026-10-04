@@ -19,19 +19,16 @@ var _ MappedNullable = &Question{}
 
 // Question struct for Question
 type Question struct {
-	// Account is the chart number the questioned entry posted to, where one applies.
-	Account *string `json:"account,omitempty"`
-	// Amount is the figure that makes the question concrete, already FORMATTED for display with its currency symbol — a string, not cents, and not for arithmetic.
-	Amount *string `json:"amount,omitempty"`
-	// ID is the source transaction the question is about, so answering it leads straight back to the entry that raised it.
-	Id *string `json:"id,omitempty"`
-	// Kind is what looked wrong: outlier (a charge far above the usual), reversal (a posting undone), roundoff (a balancing plug big enough to be worth explaining), uncosted (revenue booked with no cost matched to it), or overdrawn (a wallet spent past its balance).
-	Kind *string `json:"kind,omitempty"`
-	// PostedAt anchors the question in time — when the entry it concerns posted.
-	PostedAt *string `json:"postedAt,omitempty"`
-	// Text is the question itself, written for a founder to answer directly.
-	Text *string `json:"text,omitempty"`
+	Account              *string `json:"account,omitempty"`
+	Amount               *string `json:"amount,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	Kind                 *string `json:"kind,omitempty"`
+	PostedAt             *string `json:"postedAt,omitempty"`
+	Text                 *string `json:"text,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Question Question
 
 // NewQuestion instantiates a new Question object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +267,38 @@ func (o Question) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Text) {
 		toSerialize["text"] = o.Text
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Question) UnmarshalJSON(data []byte) (err error) {
+	varQuestion := _Question{}
+
+	err = json.Unmarshal(data, &varQuestion)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Question(varQuestion)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "kind")
+		delete(additionalProperties, "postedAt")
+		delete(additionalProperties, "text")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableQuestion struct {

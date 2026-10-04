@@ -22,8 +22,11 @@ type O11yO11yTransactionGroup struct {
 	// ObjectGroup is the set of objects it allows the verb on.
 	ObjectGroup *O11yO11yObjectGroup `json:"objectGroup,omitempty"`
 	// Relation is the verb the grant allows.
-	Relation *string `json:"relation,omitempty"`
+	Relation             *string `json:"relation,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTransactionGroup O11yO11yTransactionGroup
 
 // NewO11yO11yTransactionGroup instantiates a new O11yO11yTransactionGroup object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yTransactionGroup) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Relation) {
 		toSerialize["relation"] = o.Relation
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTransactionGroup) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTransactionGroup := _O11yO11yTransactionGroup{}
+
+	err = json.Unmarshal(data, &varO11yO11yTransactionGroup)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTransactionGroup(varO11yO11yTransactionGroup)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "objectGroup")
+		delete(additionalProperties, "relation")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTransactionGroup struct {

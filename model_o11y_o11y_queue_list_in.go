@@ -26,8 +26,11 @@ type O11yO11yQueueListIn struct {
 	// Limit caps how many rows come back.
 	Limit *int64 `json:"limit,omitempty"`
 	// Start is the window's start, epoch nanoseconds.
-	Start *int64 `json:"start,omitempty"`
+	Start                *int64 `json:"start,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueueListIn O11yO11yQueueListIn
 
 // NewO11yO11yQueueListIn instantiates a new O11yO11yQueueListIn object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yQueueListIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Start) {
 		toSerialize["start"] = o.Start
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueueListIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueueListIn := _O11yO11yQueueListIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueueListIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueueListIn(varO11yO11yQueueListIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "filters")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueueListIn struct {

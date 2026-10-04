@@ -5,12 +5,12 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetBenchmarkCatalog**](BenchmarkAPI.md#GetBenchmarkCatalog) | **Get** /v1/benchmark/catalog | Is the canonical public benchmarks this arena runs — the id, title, axis, item count and upstream source of each, with native marking the ones the standardized harness runs today; the rest are registered and adapter-pending.
-[**GetBenchmarkClaims**](BenchmarkAPI.md#GetBenchmarkClaims) | **Get** /v1/benchmark/claims | Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered.
+[**GetBenchmarkClaims**](BenchmarkAPI.md#GetBenchmarkClaims) | **Get** /v1/benchmark/claims | Lists the effective claims the caller may read, each labelled with the org that made it and the user who recorded it.
 [**GetBenchmarkCompare**](BenchmarkAPI.md#GetBenchmarkCompare) | **Get** /v1/benchmark/compare | Is the ONLY valid arm-vs-arm test: it pairs the two models on the items BOTH completed, and answers rescue and damage counts with an exact-McNemar p.
 [**GetBenchmarkHistory**](BenchmarkAPI.md#GetBenchmarkHistory) | **Get** /v1/benchmark/history | Returns each model&#39;s measured score per run over time, oldest first, with the change between runs.
 [**GetBenchmarkLeaderboard**](BenchmarkAPI.md#GetBenchmarkLeaderboard) | **Get** /v1/benchmark/leaderboard | Answers one row per model for the benchmark named — what our own harness measured, beside what the vendor claims, and the gap between them.
 [**GetBenchmarkPresets**](BenchmarkAPI.md#GetBenchmarkPresets) | **Get** /v1/benchmark/presets | Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each served by the model layer as enso-&lt;name&gt;.
-[**PostBenchmarkClaims**](BenchmarkAPI.md#PostBenchmarkClaims) | **Post** /v1/benchmark/claims | Records published claims: one to correct a number, many to import a leaderboard.
+[**PostBenchmarkClaims**](BenchmarkAPI.md#PostBenchmarkClaims) | **Post** /v1/benchmark/claims | Records claims for the caller&#39;s org: one to correct a number, many to import a leaderboard.
 [**PostBenchmarkPresets**](BenchmarkAPI.md#PostBenchmarkPresets) | **Post** /v1/benchmark/presets | Validates a router blend — its name, its arms, the rank they escalate through and the panel fan-out width — and answers 202 with the preset and the enso-&lt;name&gt; it would be served as.
 [**PostBenchmarkRuns**](BenchmarkAPI.md#PostBenchmarkRuns) | **Post** /v1/benchmark/runs | Admits and queues a benchmark run against a model or your own endpoint, and answers 202 with the receipt.
 
@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## GetBenchmarkCatalog
 
-> BenchmarkCatalog GetBenchmarkCatalog(ctx).Execute()
+> BenchmarkBenchmarkCatalog GetBenchmarkCatalog(ctx).Execute()
 
 Is the canonical public benchmarks this arena runs — the id, title, axis, item count and upstream source of each, with native marking the ones the standardized harness runs today; the rest are registered and adapter-pending.
 
@@ -45,7 +45,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.GetBenchmarkCatalog``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBenchmarkCatalog`: BenchmarkCatalog
+	// response from `GetBenchmarkCatalog`: BenchmarkBenchmarkCatalog
 	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.GetBenchmarkCatalog`: %v\n", resp)
 }
 ```
@@ -61,7 +61,7 @@ Other parameters are passed through a pointer to a apiGetBenchmarkCatalogRequest
 
 ### Return type
 
-[**BenchmarkCatalog**](BenchmarkCatalog.md)
+[**BenchmarkBenchmarkCatalog**](BenchmarkBenchmarkCatalog.md)
 
 ### Authorization
 
@@ -70,7 +70,7 @@ Other parameters are passed through a pointer to a apiGetBenchmarkCatalogRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -79,9 +79,9 @@ Other parameters are passed through a pointer to a apiGetBenchmarkCatalogRequest
 
 ## GetBenchmarkClaims
 
-> ClaimsOut GetBenchmarkClaims(ctx).Benchmark(benchmark).Model(model).Provider(provider).Source(source).Protocol(protocol).Execute()
+> BenchmarkClaimsOut GetBenchmarkClaims(ctx).Benchmark(benchmark).Model(model).Provider(provider).Source(source).Protocol(protocol).Org(org).Execute()
 
-Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered.
+Lists the effective claims the caller may read, each labelled with the org that made it and the user who recorded it.
 
 
 
@@ -103,15 +103,16 @@ func main() {
 	provider := "provider_example" // string | Provider filters to one lab or leaderboard — the way to read what a single source claims across every model it covers. (optional)
 	source := "source_example" // string | Source filters to one citation, which is the finest grain there is: a source is what makes two claims about one model independent rather than a restatement of each other. (optional)
 	protocol := "protocol_example" // string | Protocol filters by HOW a claim was scored, so provider cards can be read apart from third parties running their own harness. (optional)
+	org := "org_example" // string | Org filters to the claims one org made; \"admin\" reads the platform's own. It narrows what the caller may already read and never widens it. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BenchmarkAPI.GetBenchmarkClaims(context.Background()).Benchmark(benchmark).Model(model).Provider(provider).Source(source).Protocol(protocol).Execute()
+	resp, r, err := apiClient.BenchmarkAPI.GetBenchmarkClaims(context.Background()).Benchmark(benchmark).Model(model).Provider(provider).Source(source).Protocol(protocol).Org(org).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.GetBenchmarkClaims``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBenchmarkClaims`: ClaimsOut
+	// response from `GetBenchmarkClaims`: BenchmarkClaimsOut
 	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.GetBenchmarkClaims`: %v\n", resp)
 }
 ```
@@ -132,10 +133,11 @@ Name | Type | Description  | Notes
  **provider** | **string** | Provider filters to one lab or leaderboard — the way to read what a single source claims across every model it covers. | 
  **source** | **string** | Source filters to one citation, which is the finest grain there is: a source is what makes two claims about one model independent rather than a restatement of each other. | 
  **protocol** | **string** | Protocol filters by HOW a claim was scored, so provider cards can be read apart from third parties running their own harness. | 
+ **org** | **string** | Org filters to the claims one org made; \&quot;admin\&quot; reads the platform&#39;s own. It narrows what the caller may already read and never widens it. | 
 
 ### Return type
 
-[**ClaimsOut**](ClaimsOut.md)
+[**BenchmarkClaimsOut**](BenchmarkClaimsOut.md)
 
 ### Authorization
 
@@ -144,7 +146,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -153,7 +155,7 @@ Name | Type | Description  | Notes
 
 ## GetBenchmarkCompare
 
-> Pairing GetBenchmarkCompare(ctx).A(a).B(b).Benchmark(benchmark).Execute()
+> BenchmarkPairing GetBenchmarkCompare(ctx).A(a).B(b).Benchmark(benchmark).Execute()
 
 Is the ONLY valid arm-vs-arm test: it pairs the two models on the items BOTH completed, and answers rescue and damage counts with an exact-McNemar p.
 
@@ -183,7 +185,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.GetBenchmarkCompare``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBenchmarkCompare`: Pairing
+	// response from `GetBenchmarkCompare`: BenchmarkPairing
 	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.GetBenchmarkCompare`: %v\n", resp)
 }
 ```
@@ -205,7 +207,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Pairing**](Pairing.md)
+[**BenchmarkPairing**](BenchmarkPairing.md)
 
 ### Authorization
 
@@ -214,7 +216,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -223,7 +225,7 @@ Name | Type | Description  | Notes
 
 ## GetBenchmarkHistory
 
-> HistoryOut GetBenchmarkHistory(ctx).Benchmark(benchmark).Model(model).Execute()
+> BenchmarkHistoryOut GetBenchmarkHistory(ctx).Benchmark(benchmark).Model(model).Execute()
 
 Returns each model's measured score per run over time, oldest first, with the change between runs.
 
@@ -252,7 +254,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.GetBenchmarkHistory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBenchmarkHistory`: HistoryOut
+	// response from `GetBenchmarkHistory`: BenchmarkHistoryOut
 	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.GetBenchmarkHistory`: %v\n", resp)
 }
 ```
@@ -273,7 +275,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**HistoryOut**](HistoryOut.md)
+[**BenchmarkHistoryOut**](BenchmarkHistoryOut.md)
 
 ### Authorization
 
@@ -282,7 +284,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -291,7 +293,7 @@ Name | Type | Description  | Notes
 
 ## GetBenchmarkLeaderboard
 
-> Leaderboard GetBenchmarkLeaderboard(ctx).Benchmark(benchmark).Execute()
+> BenchmarkLeaderboard GetBenchmarkLeaderboard(ctx).Benchmark(benchmark).Execute()
 
 Answers one row per model for the benchmark named — what our own harness measured, beside what the vendor claims, and the gap between them.
 
@@ -319,7 +321,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.GetBenchmarkLeaderboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBenchmarkLeaderboard`: Leaderboard
+	// response from `GetBenchmarkLeaderboard`: BenchmarkLeaderboard
 	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.GetBenchmarkLeaderboard`: %v\n", resp)
 }
 ```
@@ -339,7 +341,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Leaderboard**](Leaderboard.md)
+[**BenchmarkLeaderboard**](BenchmarkLeaderboard.md)
 
 ### Authorization
 
@@ -348,7 +350,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -357,7 +359,7 @@ Name | Type | Description  | Notes
 
 ## GetBenchmarkPresets
 
-> PresetList GetBenchmarkPresets(ctx).Execute()
+> BenchmarkPresetList GetBenchmarkPresets(ctx).Execute()
 
 Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each served by the model layer as enso-<name>.
 
@@ -384,7 +386,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.GetBenchmarkPresets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBenchmarkPresets`: PresetList
+	// response from `GetBenchmarkPresets`: BenchmarkPresetList
 	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.GetBenchmarkPresets`: %v\n", resp)
 }
 ```
@@ -400,7 +402,7 @@ Other parameters are passed through a pointer to a apiGetBenchmarkPresetsRequest
 
 ### Return type
 
-[**PresetList**](PresetList.md)
+[**BenchmarkPresetList**](BenchmarkPresetList.md)
 
 ### Authorization
 
@@ -409,7 +411,7 @@ Other parameters are passed through a pointer to a apiGetBenchmarkPresetsRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -418,9 +420,9 @@ Other parameters are passed through a pointer to a apiGetBenchmarkPresetsRequest
 
 ## PostBenchmarkClaims
 
-> PutClaimsOut PostBenchmarkClaims(ctx).PutClaimsIn(putClaimsIn).Execute()
+> BenchmarkPutClaimsOut PostBenchmarkClaims(ctx).BenchmarkPutClaimsIn(benchmarkPutClaimsIn).Execute()
 
-Records published claims: one to correct a number, many to import a leaderboard.
+Records claims for the caller's org: one to correct a number, many to import a leaderboard.
 
 
 
@@ -437,16 +439,16 @@ import (
 )
 
 func main() {
-	putClaimsIn := *openapiclient.NewPutClaimsIn() // PutClaimsIn | 
+	benchmarkPutClaimsIn := *openapiclient.NewBenchmarkPutClaimsIn() // BenchmarkPutClaimsIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BenchmarkAPI.PostBenchmarkClaims(context.Background()).PutClaimsIn(putClaimsIn).Execute()
+	resp, r, err := apiClient.BenchmarkAPI.PostBenchmarkClaims(context.Background()).BenchmarkPutClaimsIn(benchmarkPutClaimsIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.PostBenchmarkClaims``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBenchmarkClaims`: PutClaimsOut
+	// response from `PostBenchmarkClaims`: BenchmarkPutClaimsOut
 	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.PostBenchmarkClaims`: %v\n", resp)
 }
 ```
@@ -462,11 +464,11 @@ Other parameters are passed through a pointer to a apiPostBenchmarkClaimsRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **putClaimsIn** | [**PutClaimsIn**](PutClaimsIn.md) |  | 
+ **benchmarkPutClaimsIn** | [**BenchmarkPutClaimsIn**](BenchmarkPutClaimsIn.md) |  | 
 
 ### Return type
 
-[**PutClaimsOut**](PutClaimsOut.md)
+[**BenchmarkPutClaimsOut**](BenchmarkPutClaimsOut.md)
 
 ### Authorization
 
@@ -475,7 +477,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -484,7 +486,7 @@ Name | Type | Description  | Notes
 
 ## PostBenchmarkPresets
 
-> PresetAccepted PostBenchmarkPresets(ctx).Preset(preset).Execute()
+> BenchmarkPresetAccepted PostBenchmarkPresets(ctx).BenchmarkPreset(benchmarkPreset).Execute()
 
 Validates a router blend — its name, its arms, the rank they escalate through and the panel fan-out width — and answers 202 with the preset and the enso-<name> it would be served as.
 
@@ -503,16 +505,16 @@ import (
 )
 
 func main() {
-	preset := *openapiclient.NewPreset() // Preset | 
+	benchmarkPreset := *openapiclient.NewBenchmarkPreset() // BenchmarkPreset | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BenchmarkAPI.PostBenchmarkPresets(context.Background()).Preset(preset).Execute()
+	resp, r, err := apiClient.BenchmarkAPI.PostBenchmarkPresets(context.Background()).BenchmarkPreset(benchmarkPreset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.PostBenchmarkPresets``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBenchmarkPresets`: PresetAccepted
+	// response from `PostBenchmarkPresets`: BenchmarkPresetAccepted
 	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.PostBenchmarkPresets`: %v\n", resp)
 }
 ```
@@ -528,11 +530,11 @@ Other parameters are passed through a pointer to a apiPostBenchmarkPresetsReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **preset** | [**Preset**](Preset.md) |  | 
+ **benchmarkPreset** | [**BenchmarkPreset**](BenchmarkPreset.md) |  | 
 
 ### Return type
 
-[**PresetAccepted**](PresetAccepted.md)
+[**BenchmarkPresetAccepted**](BenchmarkPresetAccepted.md)
 
 ### Authorization
 
@@ -541,7 +543,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -550,7 +552,7 @@ Name | Type | Description  | Notes
 
 ## PostBenchmarkRuns
 
-> Admission PostBenchmarkRuns(ctx).Suite(suite).Execute()
+> BenchmarkAdmission PostBenchmarkRuns(ctx).BenchmarkSuite(benchmarkSuite).Execute()
 
 Admits and queues a benchmark run against a model or your own endpoint, and answers 202 with the receipt.
 
@@ -569,16 +571,16 @@ import (
 )
 
 func main() {
-	suite := *openapiclient.NewSuite([]string{"Benchmarks_example"}) // Suite | 
+	benchmarkSuite := *openapiclient.NewBenchmarkSuite([]string{"Benchmarks_example"}) // BenchmarkSuite | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BenchmarkAPI.PostBenchmarkRuns(context.Background()).Suite(suite).Execute()
+	resp, r, err := apiClient.BenchmarkAPI.PostBenchmarkRuns(context.Background()).BenchmarkSuite(benchmarkSuite).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BenchmarkAPI.PostBenchmarkRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostBenchmarkRuns`: Admission
+	// response from `PostBenchmarkRuns`: BenchmarkAdmission
 	fmt.Fprintf(os.Stdout, "Response from `BenchmarkAPI.PostBenchmarkRuns`: %v\n", resp)
 }
 ```
@@ -594,11 +596,11 @@ Other parameters are passed through a pointer to a apiPostBenchmarkRunsRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **suite** | [**Suite**](Suite.md) |  | 
+ **benchmarkSuite** | [**BenchmarkSuite**](BenchmarkSuite.md) |  | 
 
 ### Return type
 
-[**Admission**](Admission.md)
+[**BenchmarkAdmission**](BenchmarkAdmission.md)
 
 ### Authorization
 
@@ -607,7 +609,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

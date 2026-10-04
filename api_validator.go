@@ -34,7 +34,7 @@ func (r ValidatorAPIGetValidatorRequest) Limit(limit string) ValidatorAPIGetVali
 	return r
 }
 
-func (r ValidatorAPIGetValidatorRequest) Execute() (*ValidatorList, *http.Response, error) {
+func (r ValidatorAPIGetValidatorRequest) Execute() (*ValidatorValidatorList, *http.Response, error) {
 	return r.ApiService.GetValidatorExecute(r)
 }
 
@@ -61,13 +61,13 @@ func (a *ValidatorAPIService) GetValidator(ctx context.Context) ValidatorAPIGetV
 
 // Execute executes the request
 //
-//	@return ValidatorList
-func (a *ValidatorAPIService) GetValidatorExecute(r ValidatorAPIGetValidatorRequest) (*ValidatorList, *http.Response, error) {
+//	@return ValidatorValidatorList
+func (a *ValidatorAPIService) GetValidatorExecute(r ValidatorAPIGetValidatorRequest) (*ValidatorValidatorList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ValidatorList
+		localVarReturnValue *ValidatorValidatorList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ValidatorAPIService.GetValidator")
@@ -94,7 +94,7 @@ func (a *ValidatorAPIService) GetValidatorExecute(r ValidatorAPIGetValidatorRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -123,6 +123,14 @@ func (a *ValidatorAPIService) GetValidatorExecute(r ValidatorAPIGetValidatorRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -144,7 +152,7 @@ type ValidatorAPIGetValidatorByTokenidRequest struct {
 	tokenId    string
 }
 
-func (r ValidatorAPIGetValidatorByTokenidRequest) Execute() (*SlotView, *http.Response, error) {
+func (r ValidatorAPIGetValidatorByTokenidRequest) Execute() (*ValidatorSlotView, *http.Response, error) {
 	return r.ApiService.GetValidatorByTokenidExecute(r)
 }
 
@@ -170,13 +178,13 @@ func (a *ValidatorAPIService) GetValidatorByTokenid(ctx context.Context, tokenId
 
 // Execute executes the request
 //
-//	@return SlotView
-func (a *ValidatorAPIService) GetValidatorByTokenidExecute(r ValidatorAPIGetValidatorByTokenidRequest) (*SlotView, *http.Response, error) {
+//	@return ValidatorSlotView
+func (a *ValidatorAPIService) GetValidatorByTokenidExecute(r ValidatorAPIGetValidatorByTokenidRequest) (*ValidatorSlotView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SlotView
+		localVarReturnValue *ValidatorSlotView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ValidatorAPIService.GetValidatorByTokenid")
@@ -201,7 +209,7 @@ func (a *ValidatorAPIService) GetValidatorByTokenidExecute(r ValidatorAPIGetVali
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -230,6 +238,14 @@ func (a *ValidatorAPIService) GetValidatorByTokenidExecute(r ValidatorAPIGetVali
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -257,7 +273,7 @@ func (r ValidatorAPIGetValidatorChallengeRequest) TokenId(tokenId string) Valida
 	return r
 }
 
-func (r ValidatorAPIGetValidatorChallengeRequest) Execute() (*ChallengeView, *http.Response, error) {
+func (r ValidatorAPIGetValidatorChallengeRequest) Execute() (*ValidatorChallengeView, *http.Response, error) {
 	return r.ApiService.GetValidatorChallengeExecute(r)
 }
 
@@ -287,13 +303,13 @@ func (a *ValidatorAPIService) GetValidatorChallenge(ctx context.Context) Validat
 
 // Execute executes the request
 //
-//	@return ChallengeView
-func (a *ValidatorAPIService) GetValidatorChallengeExecute(r ValidatorAPIGetValidatorChallengeRequest) (*ChallengeView, *http.Response, error) {
+//	@return ValidatorChallengeView
+func (a *ValidatorAPIService) GetValidatorChallengeExecute(r ValidatorAPIGetValidatorChallengeRequest) (*ValidatorChallengeView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ChallengeView
+		localVarReturnValue *ValidatorChallengeView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ValidatorAPIService.GetValidatorChallenge")
@@ -320,7 +336,7 @@ func (a *ValidatorAPIService) GetValidatorChallengeExecute(r ValidatorAPIGetVali
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -349,6 +365,14 @@ func (a *ValidatorAPIService) GetValidatorChallengeExecute(r ValidatorAPIGetVali
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -365,17 +389,17 @@ func (a *ValidatorAPIService) GetValidatorChallengeExecute(r ValidatorAPIGetVali
 }
 
 type ValidatorAPIPostValidatorRequest struct {
-	ctx            context.Context
-	ApiService     *ValidatorAPIService
-	validatorClaim *ValidatorClaim
+	ctx                     context.Context
+	ApiService              *ValidatorAPIService
+	validatorValidatorClaim *ValidatorValidatorClaim
 }
 
-func (r ValidatorAPIPostValidatorRequest) ValidatorClaim(validatorClaim ValidatorClaim) ValidatorAPIPostValidatorRequest {
-	r.validatorClaim = &validatorClaim
+func (r ValidatorAPIPostValidatorRequest) ValidatorValidatorClaim(validatorValidatorClaim ValidatorValidatorClaim) ValidatorAPIPostValidatorRequest {
+	r.validatorValidatorClaim = &validatorValidatorClaim
 	return r
 }
 
-func (r ValidatorAPIPostValidatorRequest) Execute() (*SlotView, *http.Response, error) {
+func (r ValidatorAPIPostValidatorRequest) Execute() (*ValidatorSlotView, *http.Response, error) {
 	return r.ApiService.PostValidatorExecute(r)
 }
 
@@ -413,13 +437,13 @@ func (a *ValidatorAPIService) PostValidator(ctx context.Context) ValidatorAPIPos
 
 // Execute executes the request
 //
-//	@return SlotView
-func (a *ValidatorAPIService) PostValidatorExecute(r ValidatorAPIPostValidatorRequest) (*SlotView, *http.Response, error) {
+//	@return ValidatorSlotView
+func (a *ValidatorAPIService) PostValidatorExecute(r ValidatorAPIPostValidatorRequest) (*ValidatorSlotView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SlotView
+		localVarReturnValue *ValidatorSlotView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ValidatorAPIService.PostValidator")
@@ -432,8 +456,8 @@ func (a *ValidatorAPIService) PostValidatorExecute(r ValidatorAPIPostValidatorRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.validatorClaim == nil {
-		return localVarReturnValue, nil, reportError("validatorClaim is required and must be specified")
+	if r.validatorValidatorClaim == nil {
+		return localVarReturnValue, nil, reportError("validatorValidatorClaim is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -446,7 +470,7 @@ func (a *ValidatorAPIService) PostValidatorExecute(r ValidatorAPIPostValidatorRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -454,7 +478,7 @@ func (a *ValidatorAPIService) PostValidatorExecute(r ValidatorAPIPostValidatorRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.validatorClaim
+	localVarPostBody = r.validatorValidatorClaim
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -477,6 +501,14 @@ func (a *ValidatorAPIService) PostValidatorExecute(r ValidatorAPIPostValidatorRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

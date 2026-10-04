@@ -19,10 +19,13 @@ var _ MappedNullable = &O11ySeries{}
 
 // O11ySeries struct for O11ySeries
 type O11ySeries struct {
-	Labels      map[string]string   `json:"labels,omitempty"`
-	LabelsArray []map[string]string `json:"labelsArray,omitempty"`
-	Values      []interface{}       `json:"values,omitempty"`
+	Labels               map[string]string   `json:"labels,omitempty"`
+	LabelsArray          []map[string]string `json:"labelsArray,omitempty"`
+	Values               []interface{}       `json:"values,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySeries O11ySeries
 
 // NewO11ySeries instantiates a new O11ySeries object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11ySeries) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Values) {
 		toSerialize["values"] = o.Values
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySeries) UnmarshalJSON(data []byte) (err error) {
+	varO11ySeries := _O11ySeries{}
+
+	err = json.Unmarshal(data, &varO11ySeries)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySeries(varO11ySeries)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "labelsArray")
+		delete(additionalProperties, "values")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySeries struct {

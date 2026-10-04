@@ -370,7 +370,7 @@ Other parameters are passed through a pointer to a apiPutWebsearchSearchRequest 
 
 ## SearchWeb
 
-> WebSearchResults SearchWeb(ctx).WebSearchQuery(webSearchQuery).Execute()
+> WebsearchWebSearchResults SearchWeb(ctx).WebsearchWebSearchQuery(websearchWebSearchQuery).Execute()
 
 Search the live web
 
@@ -389,16 +389,16 @@ import (
 )
 
 func main() {
-	webSearchQuery := *openapiclient.NewWebSearchQuery() // WebSearchQuery | 
+	websearchWebSearchQuery := *openapiclient.NewWebsearchWebSearchQuery() // WebsearchWebSearchQuery | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebsearchAPI.SearchWeb(context.Background()).WebSearchQuery(webSearchQuery).Execute()
+	resp, r, err := apiClient.WebsearchAPI.SearchWeb(context.Background()).WebsearchWebSearchQuery(websearchWebSearchQuery).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WebsearchAPI.SearchWeb``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SearchWeb`: WebSearchResults
+	// response from `SearchWeb`: WebsearchWebSearchResults
 	fmt.Fprintf(os.Stdout, "Response from `WebsearchAPI.SearchWeb`: %v\n", resp)
 }
 ```
@@ -414,11 +414,11 @@ Other parameters are passed through a pointer to a apiSearchWebRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **webSearchQuery** | [**WebSearchQuery**](WebSearchQuery.md) |  | 
+ **websearchWebSearchQuery** | [**WebsearchWebSearchQuery**](WebsearchWebSearchQuery.md) |  | 
 
 ### Return type
 
-[**WebSearchResults**](WebSearchResults.md)
+[**WebsearchWebSearchResults**](WebsearchWebSearchResults.md)
 
 ### Authorization
 
@@ -427,7 +427,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

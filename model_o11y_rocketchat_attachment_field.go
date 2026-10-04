@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yRocketchatAttachmentField{}
 
 // O11yRocketchatAttachmentField struct for O11yRocketchatAttachmentField
 type O11yRocketchatAttachmentField struct {
-	Short *bool   `json:"short,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Short                *bool   `json:"short,omitempty"`
+	Title                *string `json:"title,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yRocketchatAttachmentField O11yRocketchatAttachmentField
 
 // NewO11yRocketchatAttachmentField instantiates a new O11yRocketchatAttachmentField object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yRocketchatAttachmentField) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yRocketchatAttachmentField) UnmarshalJSON(data []byte) (err error) {
+	varO11yRocketchatAttachmentField := _O11yRocketchatAttachmentField{}
+
+	err = json.Unmarshal(data, &varO11yRocketchatAttachmentField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yRocketchatAttachmentField(varO11yRocketchatAttachmentField)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "short")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yRocketchatAttachmentField struct {

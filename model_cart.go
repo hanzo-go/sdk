@@ -50,8 +50,11 @@ type Cart struct {
 	// UpdatedAt is when the cart was last amended, RFC3339.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 	// User is the signed-in shopper this cart belongs to, empty for a guest cart.
-	User *string `json:"user,omitempty"`
+	User                 *string `json:"user,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Cart Cart
 
 // NewCart instantiates a new Cart object
 // This constructor will assign default values to properties that have it defined,
@@ -640,7 +643,48 @@ func (o Cart) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Cart) UnmarshalJSON(data []byte) (err error) {
+	varCart := _Cart{}
+
+	err = json.Unmarshal(data, &varCart)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Cart(varCart)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "discountCents")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "lineTotalCents")
+		delete(additionalProperties, "order")
+		delete(additionalProperties, "shippingCents")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "store")
+		delete(additionalProperties, "subtotalCents")
+		delete(additionalProperties, "taxCents")
+		delete(additionalProperties, "totalCents")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "user")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCart struct {

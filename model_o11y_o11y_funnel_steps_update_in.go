@@ -28,8 +28,11 @@ type O11yO11yFunnelStepsUpdateIn struct {
 	// Steps are the funnel's steps, in order. At least two are needed before any analytics read will answer.
 	Steps []O11yFunnelStep `json:"steps,omitempty"`
 	// Timestamp is when the change was made, as a millisecond epoch.
-	Timestamp *int64 `json:"timestamp,omitempty"`
+	Timestamp            *int64 `json:"timestamp,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yFunnelStepsUpdateIn O11yO11yFunnelStepsUpdateIn
 
 // NewO11yO11yFunnelStepsUpdateIn instantiates a new O11yO11yFunnelStepsUpdateIn object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yFunnelStepsUpdateIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Timestamp) {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yFunnelStepsUpdateIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yFunnelStepsUpdateIn := _O11yO11yFunnelStepsUpdateIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yFunnelStepsUpdateIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yFunnelStepsUpdateIn(varO11yO11yFunnelStepsUpdateIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "funnel_id")
+		delete(additionalProperties, "funnel_name")
+		delete(additionalProperties, "steps")
+		delete(additionalProperties, "timestamp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yFunnelStepsUpdateIn struct {

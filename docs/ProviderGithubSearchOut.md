@@ -1,0 +1,82 @@
+# ProviderGithubSearchOut
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Count** | Pointer to **int64** | Count is how many hits Repos carries. It is that array&#39;s length, NOT GitHub&#39;s total_count, so it never exceeds limit and says nothing about how many more repositories matched. | [optional] 
+**Repos** | Pointer to [**[]ProviderGithubSearchHit**](ProviderGithubSearchHit.md) | Repos are the matching repositories in GitHub&#39;s own relevance order, capped at limit. Always an array, never null. | [optional] 
+
+## Methods
+
+### NewProviderGithubSearchOut
+
+`func NewProviderGithubSearchOut() *ProviderGithubSearchOut`
+
+NewProviderGithubSearchOut instantiates a new ProviderGithubSearchOut object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewProviderGithubSearchOutWithDefaults
+
+`func NewProviderGithubSearchOutWithDefaults() *ProviderGithubSearchOut`
+
+NewProviderGithubSearchOutWithDefaults instantiates a new ProviderGithubSearchOut object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetCount
+
+`func (o *ProviderGithubSearchOut) GetCount() int64`
+
+GetCount returns the Count field if non-nil, zero value otherwise.
+
+### GetCountOk
+
+`func (o *ProviderGithubSearchOut) GetCountOk() (*int64, bool)`
+
+GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCount
+
+`func (o *ProviderGithubSearchOut) SetCount(v int64)`
+
+SetCount sets Count field to given value.
+
+### HasCount
+
+`func (o *ProviderGithubSearchOut) HasCount() bool`
+
+HasCount returns a boolean if a field has been set.
+
+### GetRepos
+
+`func (o *ProviderGithubSearchOut) GetRepos() []ProviderGithubSearchHit`
+
+GetRepos returns the Repos field if non-nil, zero value otherwise.
+
+### GetReposOk
+
+`func (o *ProviderGithubSearchOut) GetReposOk() (*[]ProviderGithubSearchHit, bool)`
+
+GetReposOk returns a tuple with the Repos field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRepos
+
+`func (o *ProviderGithubSearchOut) SetRepos(v []ProviderGithubSearchHit)`
+
+SetRepos sets Repos field to given value.
+
+### HasRepos
+
+`func (o *ProviderGithubSearchOut) HasRepos() bool`
+
+HasRepos returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

@@ -22,8 +22,11 @@ type O11yO11yApdexOut struct {
 	// Data holds one settings row per service.
 	Data []O11yO11yApdexSettings `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yApdexOut O11yO11yApdexOut
 
 // NewO11yO11yApdexOut instantiates a new O11yO11yApdexOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yApdexOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yApdexOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yApdexOut := _O11yO11yApdexOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yApdexOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yApdexOut(varO11yO11yApdexOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yApdexOut struct {

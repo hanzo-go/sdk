@@ -24,8 +24,11 @@ type O11yO11yPublicDashboard struct {
 	// PublicPath is the public URL path the share is reachable at.
 	PublicPath *string `json:"publicPath,omitempty"`
 	// TimeRangeEnabled reports whether the public page may pick its own range.
-	TimeRangeEnabled *bool `json:"timeRangeEnabled,omitempty"`
+	TimeRangeEnabled     *bool `json:"timeRangeEnabled,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yPublicDashboard O11yO11yPublicDashboard
 
 // NewO11yO11yPublicDashboard instantiates a new O11yO11yPublicDashboard object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yPublicDashboard) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TimeRangeEnabled) {
 		toSerialize["timeRangeEnabled"] = o.TimeRangeEnabled
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yPublicDashboard) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yPublicDashboard := _O11yO11yPublicDashboard{}
+
+	err = json.Unmarshal(data, &varO11yO11yPublicDashboard)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yPublicDashboard(varO11yO11yPublicDashboard)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "defaultTimeRange")
+		delete(additionalProperties, "publicPath")
+		delete(additionalProperties, "timeRangeEnabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yPublicDashboard struct {

@@ -28,7 +28,7 @@ type ExecAPIGetExecFilesBySidRequest struct {
 	sid        string
 }
 
-func (r ExecAPIGetExecFilesBySidRequest) Execute() ([]Listing, *http.Response, error) {
+func (r ExecAPIGetExecFilesBySidRequest) Execute() ([]ExecListing, *http.Response, error) {
 	return r.ApiService.GetExecFilesBySidExecute(r)
 }
 
@@ -46,19 +46,9 @@ client matches on. The obvious typed shape, `{files: […]}`, would have been a
 silent wire change: the request still succeeds and `response.data.find(...)`
 finds nothing, which reads as a session holding no files.
 
-The NAME of this handler is what the published summary is cut from, and it used
-to leak: the comment opened "Files lists …", which is not this function's
-identifier, so zipdoc's exact-match strip left it and every SDK, tool list and
-CLI help line opened with a Go symbol no caller can see. An openapi.Describe
-stated a better summary beside the route and was DISCARDED — Fold replaces a
-structural operation with the typed one — so the declaration read as landed and
-rendered nowhere. The comment is the one home for this sentence.
-
-One recursive `find`, the same traversal the artifact sweep makes. It used to be
-`ls -1A` — top level only — while the sweep collected with `find`, so a run that
-wrote a nested artifact reported it in its reply and then omitted it here, and
-the client's prefix match read the file as expired. Two traversals of one
-directory is two answers about what a session holds; there is one now.
+It lists with one recursive `find`, the same traversal the artifact sweep
+makes, so a nested artifact a run reports in its reply is listed here too: one
+traversal of the directory, one answer about what a session holds.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param sid SID is the session identifier — the sandbox this listing is of. The URL is the addressing authority: a path segment binds after the body and after the query, so the address decides which session is read whatever else is sent.
@@ -74,13 +64,13 @@ func (a *ExecAPIService) GetExecFilesBySid(ctx context.Context, sid string) Exec
 
 // Execute executes the request
 //
-//	@return []Listing
-func (a *ExecAPIService) GetExecFilesBySidExecute(r ExecAPIGetExecFilesBySidRequest) ([]Listing, *http.Response, error) {
+//	@return []ExecListing
+func (a *ExecAPIService) GetExecFilesBySidExecute(r ExecAPIGetExecFilesBySidRequest) ([]ExecListing, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []Listing
+		localVarReturnValue []ExecListing
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecAPIService.GetExecFilesBySid")
@@ -105,7 +95,7 @@ func (a *ExecAPIService) GetExecFilesBySidExecute(r ExecAPIGetExecFilesBySidRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -134,6 +124,14 @@ func (a *ExecAPIService) GetExecFilesBySidExecute(r ExecAPIGetExecFilesBySidRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -150,17 +148,17 @@ func (a *ExecAPIService) GetExecFilesBySidExecute(r ExecAPIGetExecFilesBySidRequ
 }
 
 type ExecAPIPostExecRequest struct {
-	ctx        context.Context
-	ApiService *ExecAPIService
-	codeRun    *CodeRun
+	ctx         context.Context
+	ApiService  *ExecAPIService
+	execCodeRun *ExecCodeRun
 }
 
-func (r ExecAPIPostExecRequest) CodeRun(codeRun CodeRun) ExecAPIPostExecRequest {
-	r.codeRun = &codeRun
+func (r ExecAPIPostExecRequest) ExecCodeRun(execCodeRun ExecCodeRun) ExecAPIPostExecRequest {
+	r.execCodeRun = &execCodeRun
 	return r
 }
 
-func (r ExecAPIPostExecRequest) Execute() (*CodeResult, *http.Response, error) {
+func (r ExecAPIPostExecRequest) Execute() (*ExecCodeResult, *http.Response, error) {
 	return r.ApiService.PostExecExecute(r)
 }
 
@@ -193,9 +191,8 @@ GET /v1/exec/download/{session}/{name}.
 The tenant is the caller's, never the body's, at every entry point. A typed op is
 also an MCP tool and an op-plane op; MCP's tools/call invokes it directly, with no
 route and therefore no middleware, so nothing there could have checked a
-credential. tenantOf refuses a context carrying neither a validated principal nor
-exec's own admission marker, so those entry points fail closed without a second
-gate to keep in step.
+credential. tenantOf refuses a context carrying no validated principal, so those
+entry points fail closed without a second gate to keep in step.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ExecAPIPostExecRequest
@@ -209,13 +206,13 @@ func (a *ExecAPIService) PostExec(ctx context.Context) ExecAPIPostExecRequest {
 
 // Execute executes the request
 //
-//	@return CodeResult
-func (a *ExecAPIService) PostExecExecute(r ExecAPIPostExecRequest) (*CodeResult, *http.Response, error) {
+//	@return ExecCodeResult
+func (a *ExecAPIService) PostExecExecute(r ExecAPIPostExecRequest) (*ExecCodeResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CodeResult
+		localVarReturnValue *ExecCodeResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecAPIService.PostExec")
@@ -228,8 +225,8 @@ func (a *ExecAPIService) PostExecExecute(r ExecAPIPostExecRequest) (*CodeResult,
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.codeRun == nil {
-		return localVarReturnValue, nil, reportError("codeRun is required and must be specified")
+	if r.execCodeRun == nil {
+		return localVarReturnValue, nil, reportError("execCodeRun is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -242,7 +239,7 @@ func (a *ExecAPIService) PostExecExecute(r ExecAPIPostExecRequest) (*CodeResult,
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -250,7 +247,7 @@ func (a *ExecAPIService) PostExecExecute(r ExecAPIPostExecRequest) (*CodeResult,
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.codeRun
+	localVarPostBody = r.execCodeRun
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -273,6 +270,14 @@ func (a *ExecAPIService) PostExecExecute(r ExecAPIPostExecRequest) (*CodeResult,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -286,135 +291,6 @@ func (a *ExecAPIService) PostExecExecute(r ExecAPIPostExecRequest) (*CodeResult,
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ExecAPIPostExecProgrammaticRequest struct {
-	ctx        context.Context
-	ApiService *ExecAPIService
-}
-
-func (r ExecAPIPostExecProgrammaticRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostExecProgrammaticExecute(r)
-}
-
-/*
-PostExecProgrammatic Answers 501 — this deployment does not serve programmatic tool calling.
-
-Answers 501 — this deployment does not serve programmatic tool calling.
-
-That sentence is the SUMMARY every projection shows, so it says what a caller
-gets rather than what the code does; the rest names what it would take to stop
-refusing.
-
-/exec/programmatic is NOT this contract's sibling — it is a different protocol on
-an adjacent path: a multi-round-trip loop where the server suspends a Python
-program on a tool call, returns the pending calls with a continuation_token, and
-resumes when the client posts the results back (@hanzochat/agents
-ProgrammaticToolCalling). Implementing it means implementing suspension and
-resumption, which is a program, not an endpoint.
-
-So it answers 501 with that fact rather than being routed into `run`, which would
-hand the caller a CodeResult its parser cannot read — a wrong answer, where this is a
-refusal a client can act on.
-
-IT IS A TYPED OP, and the refusal for keeping it raw did not survive reading. It
-binds no body, opens no stream, relays no other process and sits on no wildcard,
-so none of the four wire facts that keep a route raw applies to it; what was
-cited instead was that a permanent stub should declare nothing. That argues for
-silence in the DOCUMENT and buys the silence everywhere else too — no MCP tool,
-no CLI command, no SDK method — so a caller could read this address and reach it
-by no projection but REST, and learn only by calling it that the protocol is not
-served. Declaring `zip.WithStatus(501)` is what makes typing honest: the document
-publishes the ONE status this route sends, over an Out with no schema, rather
-than the 204 a void op would otherwise have invented.
-
-ONE delta, pinned by TestProgrammaticRefusesEveryBody: a body that is not JSON
-now answers 400 rather than 501, because op.invoke decodes before the handler is
-entered. Both are refusals of a protocol this deployment does not serve, no real
-caller sends one, and 400 is what the rest of the fleet answers to bytes it
-cannot parse.
-
-It asks tenantOf for the reason every other operation here does, and the answer
-is the same on the wire it was: over HTTP the credential middleware has already
-run, so an admitted caller still reads 501. What the call closes is the entry
-point a route table cannot see — typing an operation makes it an MCP tool, which
-zip dispatches straight into the handler with no route and therefore no
-middleware. Uniformity is the whole property: every path into this subsystem
-reads the admission marker, so there is no operation anybody has to remember is
-the exception.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ExecAPIPostExecProgrammaticRequest
-*/
-func (a *ExecAPIService) PostExecProgrammatic(ctx context.Context) ExecAPIPostExecProgrammaticRequest {
-	return ExecAPIPostExecProgrammaticRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *ExecAPIService) PostExecProgrammaticExecute(r ExecAPIPostExecProgrammaticRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecAPIService.PostExecProgrammatic")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/exec/programmatic"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
 }
 
 type ExecAPIPostExecUploadRequest struct {

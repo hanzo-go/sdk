@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## GetNode
 
-> NodesView GetNode(ctx).Execute()
+> NodeNodesView GetNode(ctx).Execute()
 
 Returns the caller org's currently connected bot nodes: what each one calls itself, the platform it runs on, its agent version, when its socket was established, and the capabilities and commands it reported.
 
@@ -40,7 +40,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NodeAPI.GetNode``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetNode`: NodesView
+	// response from `GetNode`: NodeNodesView
 	fmt.Fprintf(os.Stdout, "Response from `NodeAPI.GetNode`: %v\n", resp)
 }
 ```
@@ -56,7 +56,7 @@ Other parameters are passed through a pointer to a apiGetNodeRequest struct via 
 
 ### Return type
 
-[**NodesView**](NodesView.md)
+[**NodeNodesView**](NodeNodesView.md)
 
 ### Authorization
 
@@ -65,7 +65,7 @@ Other parameters are passed through a pointer to a apiGetNodeRequest struct via 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

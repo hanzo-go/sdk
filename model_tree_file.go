@@ -19,14 +19,17 @@ var _ MappedNullable = &TreeFile{}
 
 // TreeFile struct for TreeFile
 type TreeFile struct {
-	Children    []TreeFile `json:"children,omitempty"`
-	CreatedTime *string    `json:"createdTime,omitempty"`
-	IsLeaf      *bool      `json:"isLeaf,omitempty"`
-	Key         *string    `json:"key,omitempty"`
-	Size        *int32     `json:"size,omitempty"`
-	Title       *string    `json:"title,omitempty"`
-	Url         *string    `json:"url,omitempty"`
+	Children             []TreeFile `json:"children,omitempty"`
+	CreatedTime          *string    `json:"createdTime,omitempty"`
+	IsLeaf               *bool      `json:"isLeaf,omitempty"`
+	Key                  *string    `json:"key,omitempty"`
+	Size                 *int32     `json:"size,omitempty"`
+	Title                *string    `json:"title,omitempty"`
+	Url                  *string    `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TreeFile TreeFile
 
 // NewTreeFile instantiates a new TreeFile object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o TreeFile) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TreeFile) UnmarshalJSON(data []byte) (err error) {
+	varTreeFile := _TreeFile{}
+
+	err = json.Unmarshal(data, &varTreeFile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TreeFile(varTreeFile)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "children")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "isLeaf")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "size")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTreeFile struct {

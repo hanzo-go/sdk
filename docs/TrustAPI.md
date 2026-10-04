@@ -26,7 +26,7 @@ Method | HTTP request | Description
 
 ## DeleteTrustByKindById
 
-> Dropped DeleteTrustByKindById(ctx, kind, id).Execute()
+> TrustDropped DeleteTrustByKindById(ctx, kind, id).Execute()
 
 Removes one record from a section of your organization's trust centre.
 
@@ -55,7 +55,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.DeleteTrustByKindById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteTrustByKindById`: Dropped
+	// response from `DeleteTrustByKindById`: TrustDropped
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.DeleteTrustByKindById`: %v\n", resp)
 }
 ```
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Dropped**](Dropped.md)
+[**TrustDropped**](TrustDropped.md)
 
 ### Authorization
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -99,7 +99,7 @@ Name | Type | Description  | Notes
 
 ## GetTrust
 
-> Centre GetTrust(ctx).Execute()
+> TrustCentre GetTrust(ctx).Execute()
 
 Reads YOUR organization's whole trust centre, including the addresses of your own gated documents.
 
@@ -126,7 +126,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.GetTrust``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTrust`: Centre
+	// response from `GetTrust`: TrustCentre
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.GetTrust`: %v\n", resp)
 }
 ```
@@ -142,7 +142,7 @@ Other parameters are passed through a pointer to a apiGetTrustRequest struct via
 
 ### Return type
 
-[**Centre**](Centre.md)
+[**TrustCentre**](TrustCentre.md)
 
 ### Authorization
 
@@ -151,7 +151,7 @@ Other parameters are passed through a pointer to a apiGetTrustRequest struct via
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -160,7 +160,7 @@ Other parameters are passed through a pointer to a apiGetTrustRequest struct via
 
 ## GetTrustControls
 
-> ControlList GetTrustControls(ctx).Execute()
+> TrustControlList GetTrustControls(ctx).Execute()
 
 Lists every control your organization publishes, with the counts.
 
@@ -187,7 +187,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.GetTrustControls``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTrustControls`: ControlList
+	// response from `GetTrustControls`: TrustControlList
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.GetTrustControls`: %v\n", resp)
 }
 ```
@@ -203,7 +203,7 @@ Other parameters are passed through a pointer to a apiGetTrustControlsRequest st
 
 ### Return type
 
-[**ControlList**](ControlList.md)
+[**TrustControlList**](TrustControlList.md)
 
 ### Authorization
 
@@ -212,7 +212,7 @@ Other parameters are passed through a pointer to a apiGetTrustControlsRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 ## GetTrustCoverage
 
-> TrustCoverage GetTrustCoverage(ctx).Execute()
+> TrustTrustCoverage GetTrustCoverage(ctx).Execute()
 
 Reads coverage: per framework, how many clauses have an automated control behind them, how many are partial, and how many have none — each carrying the unit it is counted in, because \"12 of 20\" is not a fact until you know what the 20 are.
 
@@ -318,7 +318,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.GetTrustCoverage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTrustCoverage`: TrustCoverage
+	// response from `GetTrustCoverage`: TrustTrustCoverage
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.GetTrustCoverage`: %v\n", resp)
 }
 ```
@@ -334,7 +334,7 @@ Other parameters are passed through a pointer to a apiGetTrustCoverageRequest st
 
 ### Return type
 
-[**TrustCoverage**](TrustCoverage.md)
+[**TrustTrustCoverage**](TrustTrustCoverage.md)
 
 ### Authorization
 
@@ -343,7 +343,7 @@ Other parameters are passed through a pointer to a apiGetTrustCoverageRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -352,7 +352,7 @@ Other parameters are passed through a pointer to a apiGetTrustCoverageRequest st
 
 ## GetTrustCoverageByFramework
 
-> ClauseCoverage GetTrustCoverageByFramework(ctx, framework).Execute()
+> TrustClauseCoverage GetTrustCoverageByFramework(ctx, framework).Execute()
 
 Reads one framework clause by clause: every clause the standard publishes, what covers it, and which controls stand behind it — so a coverage number can be checked line by line rather than taken on trust.
 
@@ -380,7 +380,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.GetTrustCoverageByFramework``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTrustCoverageByFramework`: ClauseCoverage
+	// response from `GetTrustCoverageByFramework`: TrustClauseCoverage
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.GetTrustCoverageByFramework`: %v\n", resp)
 }
 ```
@@ -404,7 +404,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ClauseCoverage**](ClauseCoverage.md)
+[**TrustClauseCoverage**](TrustClauseCoverage.md)
 
 ### Authorization
 
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -422,7 +422,7 @@ Name | Type | Description  | Notes
 
 ## GetTrustDocuments
 
-> TrustDocuments GetTrustDocuments(ctx).Execute()
+> TrustTrustDocuments GetTrustDocuments(ctx).Execute()
 
 Lists your organization's documents.
 
@@ -449,7 +449,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.GetTrustDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTrustDocuments`: TrustDocuments
+	// response from `GetTrustDocuments`: TrustTrustDocuments
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.GetTrustDocuments`: %v\n", resp)
 }
 ```
@@ -465,7 +465,7 @@ Other parameters are passed through a pointer to a apiGetTrustDocumentsRequest s
 
 ### Return type
 
-[**TrustDocuments**](TrustDocuments.md)
+[**TrustTrustDocuments**](TrustTrustDocuments.md)
 
 ### Authorization
 
@@ -474,7 +474,7 @@ Other parameters are passed through a pointer to a apiGetTrustDocumentsRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -546,7 +546,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -555,7 +555,7 @@ Name | Type | Description  | Notes
 
 ## GetTrustFaq
 
-> FaqList GetTrustFaq(ctx).Execute()
+> TrustFaqList GetTrustFaq(ctx).Execute()
 
 Lists your knowledge base — the questions a reviewer asks, answered once.
 
@@ -582,7 +582,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.GetTrustFaq``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTrustFaq`: FaqList
+	// response from `GetTrustFaq`: TrustFaqList
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.GetTrustFaq`: %v\n", resp)
 }
 ```
@@ -598,7 +598,7 @@ Other parameters are passed through a pointer to a apiGetTrustFaqRequest struct 
 
 ### Return type
 
-[**FaqList**](FaqList.md)
+[**TrustFaqList**](TrustFaqList.md)
 
 ### Authorization
 
@@ -607,7 +607,7 @@ Other parameters are passed through a pointer to a apiGetTrustFaqRequest struct 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -616,7 +616,7 @@ Other parameters are passed through a pointer to a apiGetTrustFaqRequest struct 
 
 ## GetTrustFrameworks
 
-> FrameworkList GetTrustFrameworks(ctx).Execute()
+> TrustFrameworkList GetTrustFrameworks(ctx).Execute()
 
 Lists the frameworks coverage is computed against, and how many clauses each publishes.
 
@@ -643,7 +643,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.GetTrustFrameworks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTrustFrameworks`: FrameworkList
+	// response from `GetTrustFrameworks`: TrustFrameworkList
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.GetTrustFrameworks`: %v\n", resp)
 }
 ```
@@ -659,7 +659,7 @@ Other parameters are passed through a pointer to a apiGetTrustFrameworksRequest 
 
 ### Return type
 
-[**FrameworkList**](FrameworkList.md)
+[**TrustFrameworkList**](TrustFrameworkList.md)
 
 ### Authorization
 
@@ -668,7 +668,7 @@ Other parameters are passed through a pointer to a apiGetTrustFrameworksRequest 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -677,7 +677,7 @@ Other parameters are passed through a pointer to a apiGetTrustFrameworksRequest 
 
 ## GetTrustPolicies
 
-> PolicyList GetTrustPolicies(ctx).Execute()
+> TrustPolicyList GetTrustPolicies(ctx).Execute()
 
 Lists your organization's published policies.
 
@@ -704,7 +704,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.GetTrustPolicies``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTrustPolicies`: PolicyList
+	// response from `GetTrustPolicies`: TrustPolicyList
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.GetTrustPolicies`: %v\n", resp)
 }
 ```
@@ -720,7 +720,7 @@ Other parameters are passed through a pointer to a apiGetTrustPoliciesRequest st
 
 ### Return type
 
-[**PolicyList**](PolicyList.md)
+[**TrustPolicyList**](TrustPolicyList.md)
 
 ### Authorization
 
@@ -729,7 +729,7 @@ Other parameters are passed through a pointer to a apiGetTrustPoliciesRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -790,7 +790,7 @@ Other parameters are passed through a pointer to a apiGetTrustProfileRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -799,7 +799,7 @@ Other parameters are passed through a pointer to a apiGetTrustProfileRequest str
 
 ## GetTrustPublishedByOrg
 
-> Centre GetTrustPublishedByOrg(ctx, org).Execute()
+> TrustCentre GetTrustPublishedByOrg(ctx, org).Execute()
 
 Reads a published trust centre — the whole thing in one answer: the organization's profile, its control inventory, coverage computed against each framework's whole published clause list, its documents, subprocessors, policies, knowledge base, updates and risk profile.
 
@@ -827,7 +827,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.GetTrustPublishedByOrg``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTrustPublishedByOrg`: Centre
+	// response from `GetTrustPublishedByOrg`: TrustCentre
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.GetTrustPublishedByOrg`: %v\n", resp)
 }
 ```
@@ -851,7 +851,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Centre**](Centre.md)
+[**TrustCentre**](TrustCentre.md)
 
 ### Authorization
 
@@ -860,7 +860,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -921,7 +921,7 @@ Other parameters are passed through a pointer to a apiGetTrustRiskRequest struct
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -930,7 +930,7 @@ Other parameters are passed through a pointer to a apiGetTrustRiskRequest struct
 
 ## GetTrustSubprocessors
 
-> SubprocessorList GetTrustSubprocessors(ctx).Execute()
+> TrustSubprocessorList GetTrustSubprocessors(ctx).Execute()
 
 Lists the third parties your organization sends data to, each naming what it is for.
 
@@ -957,7 +957,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.GetTrustSubprocessors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTrustSubprocessors`: SubprocessorList
+	// response from `GetTrustSubprocessors`: TrustSubprocessorList
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.GetTrustSubprocessors`: %v\n", resp)
 }
 ```
@@ -973,7 +973,7 @@ Other parameters are passed through a pointer to a apiGetTrustSubprocessorsReque
 
 ### Return type
 
-[**SubprocessorList**](SubprocessorList.md)
+[**TrustSubprocessorList**](TrustSubprocessorList.md)
 
 ### Authorization
 
@@ -982,7 +982,7 @@ Other parameters are passed through a pointer to a apiGetTrustSubprocessorsReque
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -991,7 +991,7 @@ Other parameters are passed through a pointer to a apiGetTrustSubprocessorsReque
 
 ## GetTrustUpdates
 
-> UpdateList GetTrustUpdates(ctx).Execute()
+> TrustUpdateList GetTrustUpdates(ctx).Execute()
 
 Lists your trust-centre updates, newest as you ordered them.
 
@@ -1018,7 +1018,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.GetTrustUpdates``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTrustUpdates`: UpdateList
+	// response from `GetTrustUpdates`: TrustUpdateList
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.GetTrustUpdates`: %v\n", resp)
 }
 ```
@@ -1034,7 +1034,7 @@ Other parameters are passed through a pointer to a apiGetTrustUpdatesRequest str
 
 ### Return type
 
-[**UpdateList**](UpdateList.md)
+[**TrustUpdateList**](TrustUpdateList.md)
 
 ### Authorization
 
@@ -1043,7 +1043,7 @@ Other parameters are passed through a pointer to a apiGetTrustUpdatesRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1052,7 +1052,7 @@ Other parameters are passed through a pointer to a apiGetTrustUpdatesRequest str
 
 ## PutTrustByKindById
 
-> Written PutTrustByKindById(ctx, kind, id).SectionWrite(sectionWrite).Execute()
+> TrustWritten PutTrustByKindById(ctx, kind, id).TrustSectionWrite(trustSectionWrite).Execute()
 
 Writes one record into a section of YOUR organization's trust centre — profile, control, document, subprocessor, policy, faq, update or risk.
 
@@ -1073,16 +1073,16 @@ import (
 func main() {
 	kind := "subprocessor" // string | Kind is the section being written. The URL is the authority.
 	id := "acme-cloud" // string | ID is the record's id. Omit it on a create and one is minted; the single-valued sections (profile, risk) hold one record whatever is named.
-	sectionWrite := *openapiclient.NewSectionWrite() // SectionWrite | 
+	trustSectionWrite := *openapiclient.NewTrustSectionWrite() // TrustSectionWrite | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TrustAPI.PutTrustByKindById(context.Background(), kind, id).SectionWrite(sectionWrite).Execute()
+	resp, r, err := apiClient.TrustAPI.PutTrustByKindById(context.Background(), kind, id).TrustSectionWrite(trustSectionWrite).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TrustAPI.PutTrustByKindById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutTrustByKindById`: Written
+	// response from `PutTrustByKindById`: TrustWritten
 	fmt.Fprintf(os.Stdout, "Response from `TrustAPI.PutTrustByKindById`: %v\n", resp)
 }
 ```
@@ -1105,11 +1105,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **sectionWrite** | [**SectionWrite**](SectionWrite.md) |  | 
+ **trustSectionWrite** | [**TrustSectionWrite**](TrustSectionWrite.md) |  | 
 
 ### Return type
 
-[**Written**](Written.md)
+[**TrustWritten**](TrustWritten.md)
 
 ### Authorization
 
@@ -1118,7 +1118,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -19,10 +19,13 @@ var _ MappedNullable = &AiStatsWindow{}
 
 // AiStatsWindow struct for AiStatsWindow
 type AiStatsWindow struct {
-	Events *int32  `json:"events,omitempty"`
-	Since  *string `json:"since,omitempty"`
-	Until  *string `json:"until,omitempty"`
+	Events               *int32  `json:"events,omitempty"`
+	Since                *string `json:"since,omitempty"`
+	Until                *string `json:"until,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiStatsWindow AiStatsWindow
 
 // NewAiStatsWindow instantiates a new AiStatsWindow object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o AiStatsWindow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Until) {
 		toSerialize["until"] = o.Until
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiStatsWindow) UnmarshalJSON(data []byte) (err error) {
+	varAiStatsWindow := _AiStatsWindow{}
+
+	err = json.Unmarshal(data, &varAiStatsWindow)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiStatsWindow(varAiStatsWindow)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "since")
+		delete(additionalProperties, "until")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiStatsWindow struct {

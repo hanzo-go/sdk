@@ -28,7 +28,7 @@ type LinkAPIDeleteLinkByIdRequest struct {
 	id         string
 }
 
-func (r LinkAPIDeleteLinkByIdRequest) Execute() (*RevokeResp, *http.Response, error) {
+func (r LinkAPIDeleteLinkByIdRequest) Execute() (*LinkRevokeResp, *http.Response, error) {
 	return r.ApiService.DeleteLinkByIdExecute(r)
 }
 
@@ -61,13 +61,13 @@ func (a *LinkAPIService) DeleteLinkById(ctx context.Context, id string) LinkAPID
 
 // Execute executes the request
 //
-//	@return RevokeResp
-func (a *LinkAPIService) DeleteLinkByIdExecute(r LinkAPIDeleteLinkByIdRequest) (*RevokeResp, *http.Response, error) {
+//	@return LinkRevokeResp
+func (a *LinkAPIService) DeleteLinkByIdExecute(r LinkAPIDeleteLinkByIdRequest) (*LinkRevokeResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RevokeResp
+		localVarReturnValue *LinkRevokeResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.DeleteLinkById")
@@ -92,7 +92,7 @@ func (a *LinkAPIService) DeleteLinkByIdExecute(r LinkAPIDeleteLinkByIdRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -121,6 +121,14 @@ func (a *LinkAPIService) DeleteLinkByIdExecute(r LinkAPIDeleteLinkByIdRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -141,7 +149,7 @@ type LinkAPIGetLinkRequest struct {
 	ApiService *LinkAPIService
 }
 
-func (r LinkAPIGetLinkRequest) Execute() (*LinkList, *http.Response, error) {
+func (r LinkAPIGetLinkRequest) Execute() (*LinkLinkList, *http.Response, error) {
 	return r.ApiService.GetLinkExecute(r)
 }
 
@@ -170,13 +178,13 @@ func (a *LinkAPIService) GetLink(ctx context.Context) LinkAPIGetLinkRequest {
 
 // Execute executes the request
 //
-//	@return LinkList
-func (a *LinkAPIService) GetLinkExecute(r LinkAPIGetLinkRequest) (*LinkList, *http.Response, error) {
+//	@return LinkLinkList
+func (a *LinkAPIService) GetLinkExecute(r LinkAPIGetLinkRequest) (*LinkLinkList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *LinkList
+		localVarReturnValue *LinkLinkList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.GetLink")
@@ -200,7 +208,7 @@ func (a *LinkAPIService) GetLinkExecute(r LinkAPIGetLinkRequest) (*LinkList, *ht
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -229,6 +237,14 @@ func (a *LinkAPIService) GetLinkExecute(r LinkAPIGetLinkRequest) (*LinkList, *ht
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -250,7 +266,7 @@ type LinkAPIGetLinkByIdRequest struct {
 	id         string
 }
 
-func (r LinkAPIGetLinkByIdRequest) Execute() (*LinkView, *http.Response, error) {
+func (r LinkAPIGetLinkByIdRequest) Execute() (*LinkLinkView, *http.Response, error) {
 	return r.ApiService.GetLinkByIdExecute(r)
 }
 
@@ -282,13 +298,13 @@ func (a *LinkAPIService) GetLinkById(ctx context.Context, id string) LinkAPIGetL
 
 // Execute executes the request
 //
-//	@return LinkView
-func (a *LinkAPIService) GetLinkByIdExecute(r LinkAPIGetLinkByIdRequest) (*LinkView, *http.Response, error) {
+//	@return LinkLinkView
+func (a *LinkAPIService) GetLinkByIdExecute(r LinkAPIGetLinkByIdRequest) (*LinkLinkView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *LinkView
+		localVarReturnValue *LinkLinkView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.GetLinkById")
@@ -313,7 +329,7 @@ func (a *LinkAPIService) GetLinkByIdExecute(r LinkAPIGetLinkByIdRequest) (*LinkV
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -342,6 +358,14 @@ func (a *LinkAPIService) GetLinkByIdExecute(r LinkAPIGetLinkByIdRequest) (*LinkV
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -363,7 +387,7 @@ type LinkAPIGetLinkDevicesByMachineRequest struct {
 	machine    string
 }
 
-func (r LinkAPIGetLinkDevicesByMachineRequest) Execute() (*DeviceView, *http.Response, error) {
+func (r LinkAPIGetLinkDevicesByMachineRequest) Execute() (*LinkDeviceView, *http.Response, error) {
 	return r.ApiService.GetLinkDevicesByMachineExecute(r)
 }
 
@@ -395,13 +419,13 @@ func (a *LinkAPIService) GetLinkDevicesByMachine(ctx context.Context, machine st
 
 // Execute executes the request
 //
-//	@return DeviceView
-func (a *LinkAPIService) GetLinkDevicesByMachineExecute(r LinkAPIGetLinkDevicesByMachineRequest) (*DeviceView, *http.Response, error) {
+//	@return LinkDeviceView
+func (a *LinkAPIService) GetLinkDevicesByMachineExecute(r LinkAPIGetLinkDevicesByMachineRequest) (*LinkDeviceView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeviceView
+		localVarReturnValue *LinkDeviceView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.GetLinkDevicesByMachine")
@@ -426,7 +450,7 @@ func (a *LinkAPIService) GetLinkDevicesByMachineExecute(r LinkAPIGetLinkDevicesB
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -455,6 +479,14 @@ func (a *LinkAPIService) GetLinkDevicesByMachineExecute(r LinkAPIGetLinkDevicesB
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -475,7 +507,7 @@ type LinkAPIGetLinkRouteRequest struct {
 	ApiService *LinkAPIService
 }
 
-func (r LinkAPIGetLinkRouteRequest) Execute() (*RoutePlan, *http.Response, error) {
+func (r LinkAPIGetLinkRouteRequest) Execute() (*LinkRoutePlan, *http.Response, error) {
 	return r.ApiService.GetLinkRouteExecute(r)
 }
 
@@ -509,13 +541,13 @@ func (a *LinkAPIService) GetLinkRoute(ctx context.Context) LinkAPIGetLinkRouteRe
 
 // Execute executes the request
 //
-//	@return RoutePlan
-func (a *LinkAPIService) GetLinkRouteExecute(r LinkAPIGetLinkRouteRequest) (*RoutePlan, *http.Response, error) {
+//	@return LinkRoutePlan
+func (a *LinkAPIService) GetLinkRouteExecute(r LinkAPIGetLinkRouteRequest) (*LinkRoutePlan, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RoutePlan
+		localVarReturnValue *LinkRoutePlan
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.GetLinkRoute")
@@ -539,7 +571,7 @@ func (a *LinkAPIService) GetLinkRouteExecute(r LinkAPIGetLinkRouteRequest) (*Rou
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -568,6 +600,14 @@ func (a *LinkAPIService) GetLinkRouteExecute(r LinkAPIGetLinkRouteRequest) (*Rou
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -616,7 +656,7 @@ func (r LinkAPIGetLinkUsageRequest) Range_(range_ string) LinkAPIGetLinkUsageReq
 	return r
 }
 
-func (r LinkAPIGetLinkUsageRequest) Execute() (*BoardResp, *http.Response, error) {
+func (r LinkAPIGetLinkUsageRequest) Execute() (*LinkBoardResp, *http.Response, error) {
 	return r.ApiService.GetLinkUsageExecute(r)
 }
 
@@ -646,13 +686,13 @@ func (a *LinkAPIService) GetLinkUsage(ctx context.Context) LinkAPIGetLinkUsageRe
 
 // Execute executes the request
 //
-//	@return BoardResp
-func (a *LinkAPIService) GetLinkUsageExecute(r LinkAPIGetLinkUsageRequest) (*BoardResp, *http.Response, error) {
+//	@return LinkBoardResp
+func (a *LinkAPIService) GetLinkUsageExecute(r LinkAPIGetLinkUsageRequest) (*LinkBoardResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BoardResp
+		localVarReturnValue *LinkBoardResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.GetLinkUsage")
@@ -688,7 +728,7 @@ func (a *LinkAPIService) GetLinkUsageExecute(r LinkAPIGetLinkUsageRequest) (*Boa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -717,6 +757,14 @@ func (a *LinkAPIService) GetLinkUsageExecute(r LinkAPIGetLinkUsageRequest) (*Boa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -737,7 +785,7 @@ type LinkAPIGetLinkUsageAccountsRequest struct {
 	ApiService *LinkAPIService
 }
 
-func (r LinkAPIGetLinkUsageAccountsRequest) Execute() (*AccountsUsage, *http.Response, error) {
+func (r LinkAPIGetLinkUsageAccountsRequest) Execute() (*LinkAccountsUsage, *http.Response, error) {
 	return r.ApiService.GetLinkUsageAccountsExecute(r)
 }
 
@@ -766,13 +814,13 @@ func (a *LinkAPIService) GetLinkUsageAccounts(ctx context.Context) LinkAPIGetLin
 
 // Execute executes the request
 //
-//	@return AccountsUsage
-func (a *LinkAPIService) GetLinkUsageAccountsExecute(r LinkAPIGetLinkUsageAccountsRequest) (*AccountsUsage, *http.Response, error) {
+//	@return LinkAccountsUsage
+func (a *LinkAPIService) GetLinkUsageAccountsExecute(r LinkAPIGetLinkUsageAccountsRequest) (*LinkAccountsUsage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccountsUsage
+		localVarReturnValue *LinkAccountsUsage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.GetLinkUsageAccounts")
@@ -796,7 +844,7 @@ func (a *LinkAPIService) GetLinkUsageAccountsExecute(r LinkAPIGetLinkUsageAccoun
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -825,6 +873,14 @@ func (a *LinkAPIService) GetLinkUsageAccountsExecute(r LinkAPIGetLinkUsageAccoun
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -852,7 +908,7 @@ func (r LinkAPIGetLinkUsageSummaryRequest) Range_(range_ string) LinkAPIGetLinkU
 	return r
 }
 
-func (r LinkAPIGetLinkUsageSummaryRequest) Execute() (*SummaryResp, *http.Response, error) {
+func (r LinkAPIGetLinkUsageSummaryRequest) Execute() (*LinkSummaryResp, *http.Response, error) {
 	return r.ApiService.GetLinkUsageSummaryExecute(r)
 }
 
@@ -886,13 +942,13 @@ func (a *LinkAPIService) GetLinkUsageSummary(ctx context.Context) LinkAPIGetLink
 
 // Execute executes the request
 //
-//	@return SummaryResp
-func (a *LinkAPIService) GetLinkUsageSummaryExecute(r LinkAPIGetLinkUsageSummaryRequest) (*SummaryResp, *http.Response, error) {
+//	@return LinkSummaryResp
+func (a *LinkAPIService) GetLinkUsageSummaryExecute(r LinkAPIGetLinkUsageSummaryRequest) (*LinkSummaryResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SummaryResp
+		localVarReturnValue *LinkSummaryResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.GetLinkUsageSummary")
@@ -919,7 +975,7 @@ func (a *LinkAPIService) GetLinkUsageSummaryExecute(r LinkAPIGetLinkUsageSummary
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -948,6 +1004,14 @@ func (a *LinkAPIService) GetLinkUsageSummaryExecute(r LinkAPIGetLinkUsageSummary
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -964,17 +1028,17 @@ func (a *LinkAPIService) GetLinkUsageSummaryExecute(r LinkAPIGetLinkUsageSummary
 }
 
 type LinkAPIPostLinkRequest struct {
-	ctx        context.Context
-	ApiService *LinkAPIService
-	enrollReq  *EnrollReq
+	ctx           context.Context
+	ApiService    *LinkAPIService
+	linkEnrollReq *LinkEnrollReq
 }
 
-func (r LinkAPIPostLinkRequest) EnrollReq(enrollReq EnrollReq) LinkAPIPostLinkRequest {
-	r.enrollReq = &enrollReq
+func (r LinkAPIPostLinkRequest) LinkEnrollReq(linkEnrollReq LinkEnrollReq) LinkAPIPostLinkRequest {
+	r.linkEnrollReq = &linkEnrollReq
 	return r
 }
 
-func (r LinkAPIPostLinkRequest) Execute() (*LinkView, *http.Response, error) {
+func (r LinkAPIPostLinkRequest) Execute() (*LinkLinkView, *http.Response, error) {
 	return r.ApiService.PostLinkExecute(r)
 }
 
@@ -1004,13 +1068,13 @@ func (a *LinkAPIService) PostLink(ctx context.Context) LinkAPIPostLinkRequest {
 
 // Execute executes the request
 //
-//	@return LinkView
-func (a *LinkAPIService) PostLinkExecute(r LinkAPIPostLinkRequest) (*LinkView, *http.Response, error) {
+//	@return LinkLinkView
+func (a *LinkAPIService) PostLinkExecute(r LinkAPIPostLinkRequest) (*LinkLinkView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *LinkView
+		localVarReturnValue *LinkLinkView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.PostLink")
@@ -1023,8 +1087,8 @@ func (a *LinkAPIService) PostLinkExecute(r LinkAPIPostLinkRequest) (*LinkView, *
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.enrollReq == nil {
-		return localVarReturnValue, nil, reportError("enrollReq is required and must be specified")
+	if r.linkEnrollReq == nil {
+		return localVarReturnValue, nil, reportError("linkEnrollReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1037,7 +1101,7 @@ func (a *LinkAPIService) PostLinkExecute(r LinkAPIPostLinkRequest) (*LinkView, *
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1045,7 +1109,7 @@ func (a *LinkAPIService) PostLinkExecute(r LinkAPIPostLinkRequest) (*LinkView, *
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.enrollReq
+	localVarPostBody = r.linkEnrollReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1068,6 +1132,14 @@ func (a *LinkAPIService) PostLinkExecute(r LinkAPIPostLinkRequest) (*LinkView, *
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1089,7 +1161,7 @@ type LinkAPIPostLinkDevicesByMachineRevokeRequest struct {
 	machine    string
 }
 
-func (r LinkAPIPostLinkDevicesByMachineRevokeRequest) Execute() (*RevokeResp, *http.Response, error) {
+func (r LinkAPIPostLinkDevicesByMachineRevokeRequest) Execute() (*LinkRevokeResp, *http.Response, error) {
 	return r.ApiService.PostLinkDevicesByMachineRevokeExecute(r)
 }
 
@@ -1122,13 +1194,13 @@ func (a *LinkAPIService) PostLinkDevicesByMachineRevoke(ctx context.Context, mac
 
 // Execute executes the request
 //
-//	@return RevokeResp
-func (a *LinkAPIService) PostLinkDevicesByMachineRevokeExecute(r LinkAPIPostLinkDevicesByMachineRevokeRequest) (*RevokeResp, *http.Response, error) {
+//	@return LinkRevokeResp
+func (a *LinkAPIService) PostLinkDevicesByMachineRevokeExecute(r LinkAPIPostLinkDevicesByMachineRevokeRequest) (*LinkRevokeResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RevokeResp
+		localVarReturnValue *LinkRevokeResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.PostLinkDevicesByMachineRevoke")
@@ -1153,7 +1225,7 @@ func (a *LinkAPIService) PostLinkDevicesByMachineRevokeExecute(r LinkAPIPostLink
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1182,6 +1254,14 @@ func (a *LinkAPIService) PostLinkDevicesByMachineRevokeExecute(r LinkAPIPostLink
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1198,17 +1278,17 @@ func (a *LinkAPIService) PostLinkDevicesByMachineRevokeExecute(r LinkAPIPostLink
 }
 
 type LinkAPIPostLinkUsageRequest struct {
-	ctx        context.Context
-	ApiService *LinkAPIService
-	ingestReq  *IngestReq
+	ctx           context.Context
+	ApiService    *LinkAPIService
+	linkIngestReq *LinkIngestReq
 }
 
-func (r LinkAPIPostLinkUsageRequest) IngestReq(ingestReq IngestReq) LinkAPIPostLinkUsageRequest {
-	r.ingestReq = &ingestReq
+func (r LinkAPIPostLinkUsageRequest) LinkIngestReq(linkIngestReq LinkIngestReq) LinkAPIPostLinkUsageRequest {
+	r.linkIngestReq = &linkIngestReq
 	return r
 }
 
-func (r LinkAPIPostLinkUsageRequest) Execute() (*IngestResp, *http.Response, error) {
+func (r LinkAPIPostLinkUsageRequest) Execute() (*LinkIngestResp, *http.Response, error) {
 	return r.ApiService.PostLinkUsageExecute(r)
 }
 
@@ -1245,13 +1325,13 @@ func (a *LinkAPIService) PostLinkUsage(ctx context.Context) LinkAPIPostLinkUsage
 
 // Execute executes the request
 //
-//	@return IngestResp
-func (a *LinkAPIService) PostLinkUsageExecute(r LinkAPIPostLinkUsageRequest) (*IngestResp, *http.Response, error) {
+//	@return LinkIngestResp
+func (a *LinkAPIService) PostLinkUsageExecute(r LinkAPIPostLinkUsageRequest) (*LinkIngestResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IngestResp
+		localVarReturnValue *LinkIngestResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.PostLinkUsage")
@@ -1264,8 +1344,8 @@ func (a *LinkAPIService) PostLinkUsageExecute(r LinkAPIPostLinkUsageRequest) (*I
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.ingestReq == nil {
-		return localVarReturnValue, nil, reportError("ingestReq is required and must be specified")
+	if r.linkIngestReq == nil {
+		return localVarReturnValue, nil, reportError("linkIngestReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1278,7 +1358,7 @@ func (a *LinkAPIService) PostLinkUsageExecute(r LinkAPIPostLinkUsageRequest) (*I
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1286,7 +1366,7 @@ func (a *LinkAPIService) PostLinkUsageExecute(r LinkAPIPostLinkUsageRequest) (*I
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.ingestReq
+	localVarPostBody = r.linkIngestReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1309,6 +1389,14 @@ func (a *LinkAPIService) PostLinkUsageExecute(r LinkAPIPostLinkUsageRequest) (*I
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

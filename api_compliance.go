@@ -34,7 +34,7 @@ func (r ComplianceAPIGetComplianceAccreditationRequest) Limit(limit int64) Compl
 	return r
 }
 
-func (r ComplianceAPIGetComplianceAccreditationRequest) Execute() (*AccList, *http.Response, error) {
+func (r ComplianceAPIGetComplianceAccreditationRequest) Execute() (*ComplianceAccList, *http.Response, error) {
 	return r.ApiService.GetComplianceAccreditationExecute(r)
 }
 
@@ -56,13 +56,13 @@ func (a *ComplianceAPIService) GetComplianceAccreditation(ctx context.Context) C
 
 // Execute executes the request
 //
-//	@return AccList
-func (a *ComplianceAPIService) GetComplianceAccreditationExecute(r ComplianceAPIGetComplianceAccreditationRequest) (*AccList, *http.Response, error) {
+//	@return ComplianceAccList
+func (a *ComplianceAPIService) GetComplianceAccreditationExecute(r ComplianceAPIGetComplianceAccreditationRequest) (*ComplianceAccList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccList
+		localVarReturnValue *ComplianceAccList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.GetComplianceAccreditation")
@@ -89,7 +89,7 @@ func (a *ComplianceAPIService) GetComplianceAccreditationExecute(r ComplianceAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -118,6 +118,14 @@ func (a *ComplianceAPIService) GetComplianceAccreditationExecute(r ComplianceAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -139,7 +147,7 @@ type ComplianceAPIGetComplianceAccreditationByIdRequest struct {
 	id         string
 }
 
-func (r ComplianceAPIGetComplianceAccreditationByIdRequest) Execute() (*AccView, *http.Response, error) {
+func (r ComplianceAPIGetComplianceAccreditationByIdRequest) Execute() (*ComplianceAccView, *http.Response, error) {
 	return r.ApiService.GetComplianceAccreditationByIdExecute(r)
 }
 
@@ -162,13 +170,13 @@ func (a *ComplianceAPIService) GetComplianceAccreditationById(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return AccView
-func (a *ComplianceAPIService) GetComplianceAccreditationByIdExecute(r ComplianceAPIGetComplianceAccreditationByIdRequest) (*AccView, *http.Response, error) {
+//	@return ComplianceAccView
+func (a *ComplianceAPIService) GetComplianceAccreditationByIdExecute(r ComplianceAPIGetComplianceAccreditationByIdRequest) (*ComplianceAccView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccView
+		localVarReturnValue *ComplianceAccView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.GetComplianceAccreditationById")
@@ -193,7 +201,7 @@ func (a *ComplianceAPIService) GetComplianceAccreditationByIdExecute(r Complianc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -222,6 +230,14 @@ func (a *ComplianceAPIService) GetComplianceAccreditationByIdExecute(r Complianc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -249,7 +265,7 @@ func (r ComplianceAPIGetComplianceAuditRequest) Result(result string) Compliance
 	return r
 }
 
-func (r ComplianceAPIGetComplianceAuditRequest) Execute() (*AuditList, *http.Response, error) {
+func (r ComplianceAPIGetComplianceAuditRequest) Execute() (*ComplianceAuditList, *http.Response, error) {
 	return r.ApiService.GetComplianceAuditExecute(r)
 }
 
@@ -259,7 +275,7 @@ GetComplianceAudit AuditRead is the compliance read of the SHARED tamper-evident
 AuditRead is the compliance read of the SHARED tamper-evident audit plane —
 the SOC 2 posture surface (privileged actions: who started/decided what, when). The
 org is PINNED to the caller's validated org and the rows are narrowed to
-compliance.* actions. Fail-closed: no principal is a 403, no configured audit
+compliance.* actions. Fail-closed: no principal is a 401, no configured audit
 store a 501.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -274,13 +290,13 @@ func (a *ComplianceAPIService) GetComplianceAudit(ctx context.Context) Complianc
 
 // Execute executes the request
 //
-//	@return AuditList
-func (a *ComplianceAPIService) GetComplianceAuditExecute(r ComplianceAPIGetComplianceAuditRequest) (*AuditList, *http.Response, error) {
+//	@return ComplianceAuditList
+func (a *ComplianceAPIService) GetComplianceAuditExecute(r ComplianceAPIGetComplianceAuditRequest) (*ComplianceAuditList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AuditList
+		localVarReturnValue *ComplianceAuditList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.GetComplianceAudit")
@@ -307,7 +323,7 @@ func (a *ComplianceAPIService) GetComplianceAuditExecute(r ComplianceAPIGetCompl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -336,6 +352,14 @@ func (a *ComplianceAPIService) GetComplianceAuditExecute(r ComplianceAPIGetCompl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -356,14 +380,14 @@ type ComplianceAPIGetComplianceHealthRequest struct {
 	ApiService *ComplianceAPIService
 }
 
-func (r ComplianceAPIGetComplianceHealthRequest) Execute() (*HealthView, *http.Response, error) {
+func (r ComplianceAPIGetComplianceHealthRequest) Execute() (*ComplianceHealthView, *http.Response, error) {
 	return r.ApiService.GetComplianceHealthExecute(r)
 }
 
 /*
-GetComplianceHealth Health reports subsystem liveness and the wired verification provider.
+GetComplianceHealth Reports subsystem liveness and the wired verification provider.
 
-Health reports subsystem liveness and the wired verification provider. Fail-open
+Reports subsystem liveness and the wired verification provider. Fail-open
 on purpose: it never probes the external provider, so a provider outage cannot
 fail liveness.
 
@@ -379,13 +403,13 @@ func (a *ComplianceAPIService) GetComplianceHealth(ctx context.Context) Complian
 
 // Execute executes the request
 //
-//	@return HealthView
-func (a *ComplianceAPIService) GetComplianceHealthExecute(r ComplianceAPIGetComplianceHealthRequest) (*HealthView, *http.Response, error) {
+//	@return ComplianceHealthView
+func (a *ComplianceAPIService) GetComplianceHealthExecute(r ComplianceAPIGetComplianceHealthRequest) (*ComplianceHealthView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *HealthView
+		localVarReturnValue *ComplianceHealthView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.GetComplianceHealth")
@@ -409,7 +433,7 @@ func (a *ComplianceAPIService) GetComplianceHealthExecute(r ComplianceAPIGetComp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -438,6 +462,14 @@ func (a *ComplianceAPIService) GetComplianceHealthExecute(r ComplianceAPIGetComp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -465,7 +497,7 @@ func (r ComplianceAPIGetComplianceRecordsRequest) Limit(limit int64) ComplianceA
 	return r
 }
 
-func (r ComplianceAPIGetComplianceRecordsRequest) Execute() (*RecordList, *http.Response, error) {
+func (r ComplianceAPIGetComplianceRecordsRequest) Execute() (*ComplianceRecordList, *http.Response, error) {
 	return r.ApiService.GetComplianceRecordsExecute(r)
 }
 
@@ -489,13 +521,13 @@ func (a *ComplianceAPIService) GetComplianceRecords(ctx context.Context) Complia
 
 // Execute executes the request
 //
-//	@return RecordList
-func (a *ComplianceAPIService) GetComplianceRecordsExecute(r ComplianceAPIGetComplianceRecordsRequest) (*RecordList, *http.Response, error) {
+//	@return ComplianceRecordList
+func (a *ComplianceAPIService) GetComplianceRecordsExecute(r ComplianceAPIGetComplianceRecordsRequest) (*ComplianceRecordList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RecordList
+		localVarReturnValue *ComplianceRecordList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.GetComplianceRecords")
@@ -522,7 +554,7 @@ func (a *ComplianceAPIService) GetComplianceRecordsExecute(r ComplianceAPIGetCom
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -551,6 +583,14 @@ func (a *ComplianceAPIService) GetComplianceRecordsExecute(r ComplianceAPIGetCom
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -571,7 +611,7 @@ type ComplianceAPIGetComplianceStatusRequest struct {
 	ApiService *ComplianceAPIService
 }
 
-func (r ComplianceAPIGetComplianceStatusRequest) Execute() (*StatusView, *http.Response, error) {
+func (r ComplianceAPIGetComplianceStatusRequest) Execute() (*ComplianceStatusView, *http.Response, error) {
 	return r.ApiService.GetComplianceStatusExecute(r)
 }
 
@@ -594,13 +634,13 @@ func (a *ComplianceAPIService) GetComplianceStatus(ctx context.Context) Complian
 
 // Execute executes the request
 //
-//	@return StatusView
-func (a *ComplianceAPIService) GetComplianceStatusExecute(r ComplianceAPIGetComplianceStatusRequest) (*StatusView, *http.Response, error) {
+//	@return ComplianceStatusView
+func (a *ComplianceAPIService) GetComplianceStatusExecute(r ComplianceAPIGetComplianceStatusRequest) (*ComplianceStatusView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *StatusView
+		localVarReturnValue *ComplianceStatusView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.GetComplianceStatus")
@@ -624,7 +664,7 @@ func (a *ComplianceAPIService) GetComplianceStatusExecute(r ComplianceAPIGetComp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -653,6 +693,14 @@ func (a *ComplianceAPIService) GetComplianceStatusExecute(r ComplianceAPIGetComp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -680,7 +728,7 @@ func (r ComplianceAPIGetComplianceSubjectsRequest) Limit(limit int64) Compliance
 	return r
 }
 
-func (r ComplianceAPIGetComplianceSubjectsRequest) Execute() (*SubjectList, *http.Response, error) {
+func (r ComplianceAPIGetComplianceSubjectsRequest) Execute() (*ComplianceSubjectList, *http.Response, error) {
 	return r.ApiService.GetComplianceSubjectsExecute(r)
 }
 
@@ -703,13 +751,13 @@ func (a *ComplianceAPIService) GetComplianceSubjects(ctx context.Context) Compli
 
 // Execute executes the request
 //
-//	@return SubjectList
-func (a *ComplianceAPIService) GetComplianceSubjectsExecute(r ComplianceAPIGetComplianceSubjectsRequest) (*SubjectList, *http.Response, error) {
+//	@return ComplianceSubjectList
+func (a *ComplianceAPIService) GetComplianceSubjectsExecute(r ComplianceAPIGetComplianceSubjectsRequest) (*ComplianceSubjectList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SubjectList
+		localVarReturnValue *ComplianceSubjectList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.GetComplianceSubjects")
@@ -736,7 +784,7 @@ func (a *ComplianceAPIService) GetComplianceSubjectsExecute(r ComplianceAPIGetCo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -765,6 +813,14 @@ func (a *ComplianceAPIService) GetComplianceSubjectsExecute(r ComplianceAPIGetCo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -786,7 +842,7 @@ type ComplianceAPIGetComplianceSubjectsByIdRequest struct {
 	id         string
 }
 
-func (r ComplianceAPIGetComplianceSubjectsByIdRequest) Execute() (*Subject, *http.Response, error) {
+func (r ComplianceAPIGetComplianceSubjectsByIdRequest) Execute() (*ComplianceSubject, *http.Response, error) {
 	return r.ApiService.GetComplianceSubjectsByIdExecute(r)
 }
 
@@ -811,13 +867,13 @@ func (a *ComplianceAPIService) GetComplianceSubjectsById(ctx context.Context, id
 
 // Execute executes the request
 //
-//	@return Subject
-func (a *ComplianceAPIService) GetComplianceSubjectsByIdExecute(r ComplianceAPIGetComplianceSubjectsByIdRequest) (*Subject, *http.Response, error) {
+//	@return ComplianceSubject
+func (a *ComplianceAPIService) GetComplianceSubjectsByIdExecute(r ComplianceAPIGetComplianceSubjectsByIdRequest) (*ComplianceSubject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Subject
+		localVarReturnValue *ComplianceSubject
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.GetComplianceSubjectsById")
@@ -842,7 +898,7 @@ func (a *ComplianceAPIService) GetComplianceSubjectsByIdExecute(r ComplianceAPIG
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -871,6 +927,14 @@ func (a *ComplianceAPIService) GetComplianceSubjectsByIdExecute(r ComplianceAPIG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -898,7 +962,7 @@ func (r ComplianceAPIGetComplianceVerificationsRequest) Limit(limit int64) Compl
 	return r
 }
 
-func (r ComplianceAPIGetComplianceVerificationsRequest) Execute() (*CheckList, *http.Response, error) {
+func (r ComplianceAPIGetComplianceVerificationsRequest) Execute() (*ComplianceCheckList, *http.Response, error) {
 	return r.ApiService.GetComplianceVerificationsExecute(r)
 }
 
@@ -920,13 +984,13 @@ func (a *ComplianceAPIService) GetComplianceVerifications(ctx context.Context) C
 
 // Execute executes the request
 //
-//	@return CheckList
-func (a *ComplianceAPIService) GetComplianceVerificationsExecute(r ComplianceAPIGetComplianceVerificationsRequest) (*CheckList, *http.Response, error) {
+//	@return ComplianceCheckList
+func (a *ComplianceAPIService) GetComplianceVerificationsExecute(r ComplianceAPIGetComplianceVerificationsRequest) (*ComplianceCheckList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CheckList
+		localVarReturnValue *ComplianceCheckList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.GetComplianceVerifications")
@@ -953,7 +1017,7 @@ func (a *ComplianceAPIService) GetComplianceVerificationsExecute(r ComplianceAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -982,6 +1046,14 @@ func (a *ComplianceAPIService) GetComplianceVerificationsExecute(r ComplianceAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1003,7 +1075,7 @@ type ComplianceAPIGetComplianceVerificationsByIdRequest struct {
 	id         string
 }
 
-func (r ComplianceAPIGetComplianceVerificationsByIdRequest) Execute() (*CheckView, *http.Response, error) {
+func (r ComplianceAPIGetComplianceVerificationsByIdRequest) Execute() (*ComplianceCheckView, *http.Response, error) {
 	return r.ApiService.GetComplianceVerificationsByIdExecute(r)
 }
 
@@ -1027,13 +1099,13 @@ func (a *ComplianceAPIService) GetComplianceVerificationsById(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return CheckView
-func (a *ComplianceAPIService) GetComplianceVerificationsByIdExecute(r ComplianceAPIGetComplianceVerificationsByIdRequest) (*CheckView, *http.Response, error) {
+//	@return ComplianceCheckView
+func (a *ComplianceAPIService) GetComplianceVerificationsByIdExecute(r ComplianceAPIGetComplianceVerificationsByIdRequest) (*ComplianceCheckView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CheckView
+		localVarReturnValue *ComplianceCheckView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.GetComplianceVerificationsById")
@@ -1058,7 +1130,7 @@ func (a *ComplianceAPIService) GetComplianceVerificationsByIdExecute(r Complianc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1087,6 +1159,14 @@ func (a *ComplianceAPIService) GetComplianceVerificationsByIdExecute(r Complianc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1103,17 +1183,17 @@ func (a *ComplianceAPIService) GetComplianceVerificationsByIdExecute(r Complianc
 }
 
 type ComplianceAPIPostComplianceAccreditationRequest struct {
-	ctx              context.Context
-	ApiService       *ComplianceAPIService
-	accreditationReq *AccreditationReq
+	ctx                        context.Context
+	ApiService                 *ComplianceAPIService
+	complianceAccreditationReq *ComplianceAccreditationReq
 }
 
-func (r ComplianceAPIPostComplianceAccreditationRequest) AccreditationReq(accreditationReq AccreditationReq) ComplianceAPIPostComplianceAccreditationRequest {
-	r.accreditationReq = &accreditationReq
+func (r ComplianceAPIPostComplianceAccreditationRequest) ComplianceAccreditationReq(complianceAccreditationReq ComplianceAccreditationReq) ComplianceAPIPostComplianceAccreditationRequest {
+	r.complianceAccreditationReq = &complianceAccreditationReq
 	return r
 }
 
-func (r ComplianceAPIPostComplianceAccreditationRequest) Execute() (*AccView, *http.Response, error) {
+func (r ComplianceAPIPostComplianceAccreditationRequest) Execute() (*ComplianceAccView, *http.Response, error) {
 	return r.ApiService.PostComplianceAccreditationExecute(r)
 }
 
@@ -1139,13 +1219,13 @@ func (a *ComplianceAPIService) PostComplianceAccreditation(ctx context.Context) 
 
 // Execute executes the request
 //
-//	@return AccView
-func (a *ComplianceAPIService) PostComplianceAccreditationExecute(r ComplianceAPIPostComplianceAccreditationRequest) (*AccView, *http.Response, error) {
+//	@return ComplianceAccView
+func (a *ComplianceAPIService) PostComplianceAccreditationExecute(r ComplianceAPIPostComplianceAccreditationRequest) (*ComplianceAccView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccView
+		localVarReturnValue *ComplianceAccView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.PostComplianceAccreditation")
@@ -1158,8 +1238,8 @@ func (a *ComplianceAPIService) PostComplianceAccreditationExecute(r ComplianceAP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.accreditationReq == nil {
-		return localVarReturnValue, nil, reportError("accreditationReq is required and must be specified")
+	if r.complianceAccreditationReq == nil {
+		return localVarReturnValue, nil, reportError("complianceAccreditationReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1172,7 +1252,7 @@ func (a *ComplianceAPIService) PostComplianceAccreditationExecute(r ComplianceAP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1180,7 +1260,7 @@ func (a *ComplianceAPIService) PostComplianceAccreditationExecute(r ComplianceAP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.accreditationReq
+	localVarPostBody = r.complianceAccreditationReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1203,6 +1283,14 @@ func (a *ComplianceAPIService) PostComplianceAccreditationExecute(r ComplianceAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1219,18 +1307,18 @@ func (a *ComplianceAPIService) PostComplianceAccreditationExecute(r ComplianceAP
 }
 
 type ComplianceAPIPostComplianceAccreditationByIdDecisionRequest struct {
-	ctx                   context.Context
-	ApiService            *ComplianceAPIService
-	id                    string
-	accreditationDecision *AccreditationDecision
+	ctx                             context.Context
+	ApiService                      *ComplianceAPIService
+	id                              string
+	complianceAccreditationDecision *ComplianceAccreditationDecision
 }
 
-func (r ComplianceAPIPostComplianceAccreditationByIdDecisionRequest) AccreditationDecision(accreditationDecision AccreditationDecision) ComplianceAPIPostComplianceAccreditationByIdDecisionRequest {
-	r.accreditationDecision = &accreditationDecision
+func (r ComplianceAPIPostComplianceAccreditationByIdDecisionRequest) ComplianceAccreditationDecision(complianceAccreditationDecision ComplianceAccreditationDecision) ComplianceAPIPostComplianceAccreditationByIdDecisionRequest {
+	r.complianceAccreditationDecision = &complianceAccreditationDecision
 	return r
 }
 
-func (r ComplianceAPIPostComplianceAccreditationByIdDecisionRequest) Execute() (*AccView, *http.Response, error) {
+func (r ComplianceAPIPostComplianceAccreditationByIdDecisionRequest) Execute() (*ComplianceAccView, *http.Response, error) {
 	return r.ApiService.PostComplianceAccreditationByIdDecisionExecute(r)
 }
 
@@ -1259,13 +1347,13 @@ func (a *ComplianceAPIService) PostComplianceAccreditationByIdDecision(ctx conte
 
 // Execute executes the request
 //
-//	@return AccView
-func (a *ComplianceAPIService) PostComplianceAccreditationByIdDecisionExecute(r ComplianceAPIPostComplianceAccreditationByIdDecisionRequest) (*AccView, *http.Response, error) {
+//	@return ComplianceAccView
+func (a *ComplianceAPIService) PostComplianceAccreditationByIdDecisionExecute(r ComplianceAPIPostComplianceAccreditationByIdDecisionRequest) (*ComplianceAccView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccView
+		localVarReturnValue *ComplianceAccView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.PostComplianceAccreditationByIdDecision")
@@ -1279,8 +1367,8 @@ func (a *ComplianceAPIService) PostComplianceAccreditationByIdDecisionExecute(r 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.accreditationDecision == nil {
-		return localVarReturnValue, nil, reportError("accreditationDecision is required and must be specified")
+	if r.complianceAccreditationDecision == nil {
+		return localVarReturnValue, nil, reportError("complianceAccreditationDecision is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1293,7 +1381,7 @@ func (a *ComplianceAPIService) PostComplianceAccreditationByIdDecisionExecute(r 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1301,7 +1389,7 @@ func (a *ComplianceAPIService) PostComplianceAccreditationByIdDecisionExecute(r 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.accreditationDecision
+	localVarPostBody = r.complianceAccreditationDecision
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1324,6 +1412,14 @@ func (a *ComplianceAPIService) PostComplianceAccreditationByIdDecisionExecute(r 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1340,17 +1436,17 @@ func (a *ComplianceAPIService) PostComplianceAccreditationByIdDecisionExecute(r 
 }
 
 type ComplianceAPIPostComplianceSubjectsRequest struct {
-	ctx        context.Context
-	ApiService *ComplianceAPIService
-	subjectReq *SubjectReq
+	ctx                  context.Context
+	ApiService           *ComplianceAPIService
+	complianceSubjectReq *ComplianceSubjectReq
 }
 
-func (r ComplianceAPIPostComplianceSubjectsRequest) SubjectReq(subjectReq SubjectReq) ComplianceAPIPostComplianceSubjectsRequest {
-	r.subjectReq = &subjectReq
+func (r ComplianceAPIPostComplianceSubjectsRequest) ComplianceSubjectReq(complianceSubjectReq ComplianceSubjectReq) ComplianceAPIPostComplianceSubjectsRequest {
+	r.complianceSubjectReq = &complianceSubjectReq
 	return r
 }
 
-func (r ComplianceAPIPostComplianceSubjectsRequest) Execute() (*Subject, *http.Response, error) {
+func (r ComplianceAPIPostComplianceSubjectsRequest) Execute() (*ComplianceSubject, *http.Response, error) {
 	return r.ApiService.PostComplianceSubjectsExecute(r)
 }
 
@@ -1374,13 +1470,13 @@ func (a *ComplianceAPIService) PostComplianceSubjects(ctx context.Context) Compl
 
 // Execute executes the request
 //
-//	@return Subject
-func (a *ComplianceAPIService) PostComplianceSubjectsExecute(r ComplianceAPIPostComplianceSubjectsRequest) (*Subject, *http.Response, error) {
+//	@return ComplianceSubject
+func (a *ComplianceAPIService) PostComplianceSubjectsExecute(r ComplianceAPIPostComplianceSubjectsRequest) (*ComplianceSubject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Subject
+		localVarReturnValue *ComplianceSubject
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.PostComplianceSubjects")
@@ -1393,8 +1489,8 @@ func (a *ComplianceAPIService) PostComplianceSubjectsExecute(r ComplianceAPIPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.subjectReq == nil {
-		return localVarReturnValue, nil, reportError("subjectReq is required and must be specified")
+	if r.complianceSubjectReq == nil {
+		return localVarReturnValue, nil, reportError("complianceSubjectReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1407,7 +1503,7 @@ func (a *ComplianceAPIService) PostComplianceSubjectsExecute(r ComplianceAPIPost
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1415,7 +1511,7 @@ func (a *ComplianceAPIService) PostComplianceSubjectsExecute(r ComplianceAPIPost
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.subjectReq
+	localVarPostBody = r.complianceSubjectReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1438,6 +1534,14 @@ func (a *ComplianceAPIService) PostComplianceSubjectsExecute(r ComplianceAPIPost
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1454,17 +1558,17 @@ func (a *ComplianceAPIService) PostComplianceSubjectsExecute(r ComplianceAPIPost
 }
 
 type ComplianceAPIPostComplianceVerificationsRequest struct {
-	ctx             context.Context
-	ApiService      *ComplianceAPIService
-	verificationReq *VerificationReq
+	ctx                       context.Context
+	ApiService                *ComplianceAPIService
+	complianceVerificationReq *ComplianceVerificationReq
 }
 
-func (r ComplianceAPIPostComplianceVerificationsRequest) VerificationReq(verificationReq VerificationReq) ComplianceAPIPostComplianceVerificationsRequest {
-	r.verificationReq = &verificationReq
+func (r ComplianceAPIPostComplianceVerificationsRequest) ComplianceVerificationReq(complianceVerificationReq ComplianceVerificationReq) ComplianceAPIPostComplianceVerificationsRequest {
+	r.complianceVerificationReq = &complianceVerificationReq
 	return r
 }
 
-func (r ComplianceAPIPostComplianceVerificationsRequest) Execute() (*CheckView, *http.Response, error) {
+func (r ComplianceAPIPostComplianceVerificationsRequest) Execute() (*ComplianceCheckView, *http.Response, error) {
 	return r.ApiService.PostComplianceVerificationsExecute(r)
 }
 
@@ -1489,13 +1593,13 @@ func (a *ComplianceAPIService) PostComplianceVerifications(ctx context.Context) 
 
 // Execute executes the request
 //
-//	@return CheckView
-func (a *ComplianceAPIService) PostComplianceVerificationsExecute(r ComplianceAPIPostComplianceVerificationsRequest) (*CheckView, *http.Response, error) {
+//	@return ComplianceCheckView
+func (a *ComplianceAPIService) PostComplianceVerificationsExecute(r ComplianceAPIPostComplianceVerificationsRequest) (*ComplianceCheckView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CheckView
+		localVarReturnValue *ComplianceCheckView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.PostComplianceVerifications")
@@ -1508,8 +1612,8 @@ func (a *ComplianceAPIService) PostComplianceVerificationsExecute(r ComplianceAP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.verificationReq == nil {
-		return localVarReturnValue, nil, reportError("verificationReq is required and must be specified")
+	if r.complianceVerificationReq == nil {
+		return localVarReturnValue, nil, reportError("complianceVerificationReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1522,7 +1626,7 @@ func (a *ComplianceAPIService) PostComplianceVerificationsExecute(r ComplianceAP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1530,7 +1634,7 @@ func (a *ComplianceAPIService) PostComplianceVerificationsExecute(r ComplianceAP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.verificationReq
+	localVarPostBody = r.complianceVerificationReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1553,6 +1657,14 @@ func (a *ComplianceAPIService) PostComplianceVerificationsExecute(r ComplianceAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1569,18 +1681,18 @@ func (a *ComplianceAPIService) PostComplianceVerificationsExecute(r ComplianceAP
 }
 
 type ComplianceAPIPostComplianceVerificationsByIdDecisionRequest struct {
-	ctx                  context.Context
-	ApiService           *ComplianceAPIService
-	id                   string
-	verificationDecision *VerificationDecision
+	ctx                            context.Context
+	ApiService                     *ComplianceAPIService
+	id                             string
+	complianceVerificationDecision *ComplianceVerificationDecision
 }
 
-func (r ComplianceAPIPostComplianceVerificationsByIdDecisionRequest) VerificationDecision(verificationDecision VerificationDecision) ComplianceAPIPostComplianceVerificationsByIdDecisionRequest {
-	r.verificationDecision = &verificationDecision
+func (r ComplianceAPIPostComplianceVerificationsByIdDecisionRequest) ComplianceVerificationDecision(complianceVerificationDecision ComplianceVerificationDecision) ComplianceAPIPostComplianceVerificationsByIdDecisionRequest {
+	r.complianceVerificationDecision = &complianceVerificationDecision
 	return r
 }
 
-func (r ComplianceAPIPostComplianceVerificationsByIdDecisionRequest) Execute() (*CheckView, *http.Response, error) {
+func (r ComplianceAPIPostComplianceVerificationsByIdDecisionRequest) Execute() (*ComplianceCheckView, *http.Response, error) {
 	return r.ApiService.PostComplianceVerificationsByIdDecisionExecute(r)
 }
 
@@ -1609,13 +1721,13 @@ func (a *ComplianceAPIService) PostComplianceVerificationsByIdDecision(ctx conte
 
 // Execute executes the request
 //
-//	@return CheckView
-func (a *ComplianceAPIService) PostComplianceVerificationsByIdDecisionExecute(r ComplianceAPIPostComplianceVerificationsByIdDecisionRequest) (*CheckView, *http.Response, error) {
+//	@return ComplianceCheckView
+func (a *ComplianceAPIService) PostComplianceVerificationsByIdDecisionExecute(r ComplianceAPIPostComplianceVerificationsByIdDecisionRequest) (*ComplianceCheckView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CheckView
+		localVarReturnValue *ComplianceCheckView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.PostComplianceVerificationsByIdDecision")
@@ -1629,8 +1741,8 @@ func (a *ComplianceAPIService) PostComplianceVerificationsByIdDecisionExecute(r 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.verificationDecision == nil {
-		return localVarReturnValue, nil, reportError("verificationDecision is required and must be specified")
+	if r.complianceVerificationDecision == nil {
+		return localVarReturnValue, nil, reportError("complianceVerificationDecision is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1643,7 +1755,7 @@ func (a *ComplianceAPIService) PostComplianceVerificationsByIdDecisionExecute(r 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1651,7 +1763,7 @@ func (a *ComplianceAPIService) PostComplianceVerificationsByIdDecisionExecute(r 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.verificationDecision
+	localVarPostBody = r.complianceVerificationDecision
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1674,6 +1786,14 @@ func (a *ComplianceAPIService) PostComplianceVerificationsByIdDecisionExecute(r 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1695,7 +1815,7 @@ type ComplianceAPIPostComplianceVerificationsByIdRefreshRequest struct {
 	id         string
 }
 
-func (r ComplianceAPIPostComplianceVerificationsByIdRefreshRequest) Execute() (*CheckView, *http.Response, error) {
+func (r ComplianceAPIPostComplianceVerificationsByIdRefreshRequest) Execute() (*ComplianceCheckView, *http.Response, error) {
 	return r.ApiService.PostComplianceVerificationsByIdRefreshExecute(r)
 }
 
@@ -1721,13 +1841,13 @@ func (a *ComplianceAPIService) PostComplianceVerificationsByIdRefresh(ctx contex
 
 // Execute executes the request
 //
-//	@return CheckView
-func (a *ComplianceAPIService) PostComplianceVerificationsByIdRefreshExecute(r ComplianceAPIPostComplianceVerificationsByIdRefreshRequest) (*CheckView, *http.Response, error) {
+//	@return ComplianceCheckView
+func (a *ComplianceAPIService) PostComplianceVerificationsByIdRefreshExecute(r ComplianceAPIPostComplianceVerificationsByIdRefreshRequest) (*ComplianceCheckView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CheckView
+		localVarReturnValue *ComplianceCheckView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComplianceAPIService.PostComplianceVerificationsByIdRefresh")
@@ -1752,7 +1872,7 @@ func (a *ComplianceAPIService) PostComplianceVerificationsByIdRefreshExecute(r C
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1781,6 +1901,14 @@ func (a *ComplianceAPIService) PostComplianceVerificationsByIdRefreshExecute(r C
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -26,14 +26,14 @@ type GatewayAPIGatewayTrafficRequest struct {
 	ApiService *GatewayAPIService
 }
 
-func (r GatewayAPIGatewayTrafficRequest) Execute() (*TrafficView, *http.Response, error) {
+func (r GatewayAPIGatewayTrafficRequest) Execute() (*GatewayTrafficView, *http.Response, error) {
 	return r.ApiService.GatewayTrafficExecute(r)
 }
 
 /*
 GatewayTraffic Report who is calling this org's API right now
 
-Traffic reports who is calling this organization's API right now: the request
+Reports who is calling this organization's API right now: the request
 count for the last minute split by AGENCY LANE — agent, human, bot, unknown —
 and the busiest callers behind it, each with its request count, its
 authentication-failure count, how many distinct paths it touched, and any
@@ -70,13 +70,13 @@ func (a *GatewayAPIService) GatewayTraffic(ctx context.Context) GatewayAPIGatewa
 
 // Execute executes the request
 //
-//	@return TrafficView
-func (a *GatewayAPIService) GatewayTrafficExecute(r GatewayAPIGatewayTrafficRequest) (*TrafficView, *http.Response, error) {
+//	@return GatewayTrafficView
+func (a *GatewayAPIService) GatewayTrafficExecute(r GatewayAPIGatewayTrafficRequest) (*GatewayTrafficView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrafficView
+		localVarReturnValue *GatewayTrafficView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GatewayAPIService.GatewayTraffic")
@@ -100,7 +100,7 @@ func (a *GatewayAPIService) GatewayTrafficExecute(r GatewayAPIGatewayTrafficRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -129,6 +129,14 @@ func (a *GatewayAPIService) GatewayTrafficExecute(r GatewayAPIGatewayTrafficRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -149,14 +157,14 @@ type GatewayAPIGetGatewayConfigRequest struct {
 	ApiService *GatewayAPIService
 }
 
-func (r GatewayAPIGetGatewayConfigRequest) Execute() (*Policy, *http.Response, error) {
+func (r GatewayAPIGetGatewayConfigRequest) Execute() (*GatewayPolicy, *http.Response, error) {
 	return r.ApiService.GetGatewayConfigExecute(r)
 }
 
 /*
-GetGatewayConfig Read returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller's own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
+GetGatewayConfig Returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller's own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
 
-Read returns the EFFECTIVE edge policy the caller is subject to: the platform CORS
+Returns the EFFECTIVE edge policy the caller is subject to: the platform CORS
 allowlist and pre-auth per-IP flood cap in force, plus the caller's own authenticated
 rate ceiling, edge-cache TTLs and accepted-method allowlist. A SuperAdmin may inspect
 a specific tenant's effective policy with ?org=<slug>.
@@ -173,13 +181,13 @@ func (a *GatewayAPIService) GetGatewayConfig(ctx context.Context) GatewayAPIGetG
 
 // Execute executes the request
 //
-//	@return Policy
-func (a *GatewayAPIService) GetGatewayConfigExecute(r GatewayAPIGetGatewayConfigRequest) (*Policy, *http.Response, error) {
+//	@return GatewayPolicy
+func (a *GatewayAPIService) GetGatewayConfigExecute(r GatewayAPIGetGatewayConfigRequest) (*GatewayPolicy, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Policy
+		localVarReturnValue *GatewayPolicy
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GatewayAPIService.GetGatewayConfig")
@@ -203,7 +211,7 @@ func (a *GatewayAPIService) GetGatewayConfigExecute(r GatewayAPIGetGatewayConfig
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -232,6 +240,14 @@ func (a *GatewayAPIService) GetGatewayConfigExecute(r GatewayAPIGetGatewayConfig
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -248,24 +264,24 @@ func (a *GatewayAPIService) GetGatewayConfigExecute(r GatewayAPIGetGatewayConfig
 }
 
 type GatewayAPIPutGatewayConfigRequest struct {
-	ctx        context.Context
-	ApiService *GatewayAPIService
-	policy     *Policy
+	ctx           context.Context
+	ApiService    *GatewayAPIService
+	gatewayPolicy *GatewayPolicy
 }
 
-func (r GatewayAPIPutGatewayConfigRequest) Policy(policy Policy) GatewayAPIPutGatewayConfigRequest {
-	r.policy = &policy
+func (r GatewayAPIPutGatewayConfigRequest) GatewayPolicy(gatewayPolicy GatewayPolicy) GatewayAPIPutGatewayConfigRequest {
+	r.gatewayPolicy = &gatewayPolicy
 	return r
 }
 
-func (r GatewayAPIPutGatewayConfigRequest) Execute() (*Policy, *http.Response, error) {
+func (r GatewayAPIPutGatewayConfigRequest) Execute() (*GatewayPolicy, *http.Response, error) {
 	return r.ApiService.PutGatewayConfigExecute(r)
 }
 
 /*
-PutGatewayConfig Write updates one policy scope and returns the policy in force after the write.
+PutGatewayConfig Updates one policy scope and returns the policy in force after the write.
 
-Write updates one policy scope and returns the policy in force after the write.
+Updates one policy scope and returns the policy in force after the write.
 A body carrying any PLATFORM field (cors_origins, per_ip_rpm, window_sec) is a
 platform write and requires SuperAdmin; otherwise it is a per-org write (org_rpm,
 cache_ttl_sec, cache_paths, methods) scoped to the caller's own org — or, for a
@@ -286,13 +302,13 @@ func (a *GatewayAPIService) PutGatewayConfig(ctx context.Context) GatewayAPIPutG
 
 // Execute executes the request
 //
-//	@return Policy
-func (a *GatewayAPIService) PutGatewayConfigExecute(r GatewayAPIPutGatewayConfigRequest) (*Policy, *http.Response, error) {
+//	@return GatewayPolicy
+func (a *GatewayAPIService) PutGatewayConfigExecute(r GatewayAPIPutGatewayConfigRequest) (*GatewayPolicy, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Policy
+		localVarReturnValue *GatewayPolicy
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GatewayAPIService.PutGatewayConfig")
@@ -305,8 +321,8 @@ func (a *GatewayAPIService) PutGatewayConfigExecute(r GatewayAPIPutGatewayConfig
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.policy == nil {
-		return localVarReturnValue, nil, reportError("policy is required and must be specified")
+	if r.gatewayPolicy == nil {
+		return localVarReturnValue, nil, reportError("gatewayPolicy is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -319,7 +335,7 @@ func (a *GatewayAPIService) PutGatewayConfigExecute(r GatewayAPIPutGatewayConfig
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -327,7 +343,7 @@ func (a *GatewayAPIService) PutGatewayConfigExecute(r GatewayAPIPutGatewayConfig
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.policy
+	localVarPostBody = r.gatewayPolicy
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -350,6 +366,14 @@ func (a *GatewayAPIService) PutGatewayConfigExecute(r GatewayAPIPutGatewayConfig
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

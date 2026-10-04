@@ -83,7 +83,7 @@ func (a *CloudflareAPIService) DeleteCloudflareD1DatabasesByDatabaseExecute(r Cl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -112,6 +112,14 @@ func (a *CloudflareAPIService) DeleteCloudflareD1DatabasesByDatabaseExecute(r Cl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -138,9 +146,9 @@ func (r CloudflareAPIDeleteCloudflareKvNamespacesByNamespaceRequest) Execute() (
 }
 
 /*
-DeleteCloudflareKvNamespacesByNamespace KVNamespaceDelete deletes a Workers KV namespace and every key in it.
+DeleteCloudflareKvNamespacesByNamespace Deletes a Workers KV namespace and every key in it.
 
-KVNamespaceDelete deletes a Workers KV namespace and every key in it. Requires
+Deletes a Workers KV namespace and every key in it. Requires
 org admin.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -188,7 +196,7 @@ func (a *CloudflareAPIService) DeleteCloudflareKvNamespacesByNamespaceExecute(r 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -217,6 +225,14 @@ func (a *CloudflareAPIService) DeleteCloudflareKvNamespacesByNamespaceExecute(r 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,9 +260,9 @@ func (r CloudflareAPIDeleteCloudflareKvNamespacesByNamespaceValuesByKeyRequest) 
 }
 
 /*
-DeleteCloudflareKvNamespacesByNamespaceValuesByKey KVValueDelete removes one key from a Workers KV namespace.
+DeleteCloudflareKvNamespacesByNamespaceValuesByKey Removes one key from a Workers KV namespace.
 
-KVValueDelete removes one key from a Workers KV namespace. Requires org admin.
+Removes one key from a Workers KV namespace. Requires org admin.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace Namespace is the Cloudflare KV namespace id.
@@ -296,7 +312,7 @@ func (a *CloudflareAPIService) DeleteCloudflareKvNamespacesByNamespaceValuesByKe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -325,6 +341,14 @@ func (a *CloudflareAPIService) DeleteCloudflareKvNamespacesByNamespaceValuesByKe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -401,7 +425,7 @@ func (a *CloudflareAPIService) DeleteCloudflarePagesProjectsByProjectExecute(r C
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -430,6 +454,14 @@ func (a *CloudflareAPIService) DeleteCloudflarePagesProjectsByProjectExecute(r C
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -510,7 +542,7 @@ func (a *CloudflareAPIService) DeleteCloudflarePagesProjectsByProjectDomainsByDo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -539,6 +571,14 @@ func (a *CloudflareAPIService) DeleteCloudflarePagesProjectsByProjectDomainsByDo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -615,7 +655,7 @@ func (a *CloudflareAPIService) DeleteCloudflareR2BucketsByBucketExecute(r Cloudf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -644,6 +684,14 @@ func (a *CloudflareAPIService) DeleteCloudflareR2BucketsByBucketExecute(r Cloudf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -720,7 +768,7 @@ func (a *CloudflareAPIService) DeleteCloudflareWorkersScriptsByScriptExecute(r C
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -749,6 +797,14 @@ func (a *CloudflareAPIService) DeleteCloudflareWorkersScriptsByScriptExecute(r C
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -829,7 +885,7 @@ func (a *CloudflareAPIService) DeleteCloudflareWorkersZonesByZoneRoutesByRouteEx
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -858,6 +914,14 @@ func (a *CloudflareAPIService) DeleteCloudflareWorkersZonesByZoneRoutesByRouteEx
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -960,7 +1024,7 @@ func (a *CloudflareAPIService) GetCloudflareD1DatabasesExecute(r CloudflareAPIGe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -989,6 +1053,14 @@ func (a *CloudflareAPIService) GetCloudflareD1DatabasesExecute(r CloudflareAPIGe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1041,9 +1113,9 @@ func (r CloudflareAPIGetCloudflareKvNamespacesRequest) Execute() (interface{}, *
 }
 
 /*
-GetCloudflareKvNamespaces KVNamespaceList lists the Workers KV namespaces on the org's Cloudflare account.
+GetCloudflareKvNamespaces Lists the Workers KV namespaces on the org's Cloudflare account.
 
-KVNamespaceList lists the Workers KV namespaces on the org's Cloudflare
+Lists the Workers KV namespaces on the org's Cloudflare
 account. Any org member may read.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1100,7 +1172,7 @@ func (a *CloudflareAPIService) GetCloudflareKvNamespacesExecute(r CloudflareAPIG
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1129,6 +1201,14 @@ func (a *CloudflareAPIService) GetCloudflareKvNamespacesExecute(r CloudflareAPIG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1296,7 +1376,7 @@ func (a *CloudflareAPIService) GetCloudflarePagesProjectsExecute(r CloudflareAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1325,6 +1405,14 @@ func (a *CloudflareAPIService) GetCloudflarePagesProjectsExecute(r CloudflareAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1401,7 +1489,7 @@ func (a *CloudflareAPIService) GetCloudflarePagesProjectsByProjectExecute(r Clou
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1430,6 +1518,14 @@ func (a *CloudflareAPIService) GetCloudflarePagesProjectsByProjectExecute(r Clou
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1551,7 +1647,7 @@ func (a *CloudflareAPIService) GetCloudflareR2BucketsExecute(r CloudflareAPIGetC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1580,6 +1676,14 @@ func (a *CloudflareAPIService) GetCloudflareR2BucketsExecute(r CloudflareAPIGetC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1652,7 +1756,7 @@ func (a *CloudflareAPIService) GetCloudflareWorkersScriptsExecute(r CloudflareAP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1681,6 +1785,14 @@ func (a *CloudflareAPIService) GetCloudflareWorkersScriptsExecute(r CloudflareAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1753,7 +1865,7 @@ func (a *CloudflareAPIService) GetCloudflareWorkersSubdomainExecute(r Cloudflare
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1782,6 +1894,14 @@ func (a *CloudflareAPIService) GetCloudflareWorkersSubdomainExecute(r Cloudflare
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1859,7 +1979,7 @@ func (a *CloudflareAPIService) GetCloudflareWorkersZonesByZoneRoutesExecute(r Cl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1888,6 +2008,14 @@ func (a *CloudflareAPIService) GetCloudflareWorkersZonesByZoneRoutesExecute(r Cl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2024,7 +2152,7 @@ func (a *CloudflareAPIService) GetCloudflareZonesExecute(r CloudflareAPIGetCloud
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2053,6 +2181,14 @@ func (a *CloudflareAPIService) GetCloudflareZonesExecute(r CloudflareAPIGetCloud
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2129,7 +2265,7 @@ func (a *CloudflareAPIService) GetCloudflareZonesByZoneExecute(r CloudflareAPIGe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2158,6 +2294,14 @@ func (a *CloudflareAPIService) GetCloudflareZonesByZoneExecute(r CloudflareAPIGe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2266,7 +2410,7 @@ func (a *CloudflareAPIService) GetCloudflareZonesByZoneAnalyticsExecute(r Cloudf
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2295,6 +2439,14 @@ func (a *CloudflareAPIService) GetCloudflareZonesByZoneAnalyticsExecute(r Cloudf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2311,13 +2463,13 @@ func (a *CloudflareAPIService) GetCloudflareZonesByZoneAnalyticsExecute(r Cloudf
 }
 
 type CloudflareAPIPostCloudflareD1DatabasesRequest struct {
-	ctx              context.Context
-	ApiService       *CloudflareAPIService
-	databaseCreateIn *DatabaseCreateIn
+	ctx                        context.Context
+	ApiService                 *CloudflareAPIService
+	cloudflareDatabaseCreateIn *CloudflareDatabaseCreateIn
 }
 
-func (r CloudflareAPIPostCloudflareD1DatabasesRequest) DatabaseCreateIn(databaseCreateIn DatabaseCreateIn) CloudflareAPIPostCloudflareD1DatabasesRequest {
-	r.databaseCreateIn = &databaseCreateIn
+func (r CloudflareAPIPostCloudflareD1DatabasesRequest) CloudflareDatabaseCreateIn(cloudflareDatabaseCreateIn CloudflareDatabaseCreateIn) CloudflareAPIPostCloudflareD1DatabasesRequest {
+	r.cloudflareDatabaseCreateIn = &cloudflareDatabaseCreateIn
 	return r
 }
 
@@ -2362,8 +2514,8 @@ func (a *CloudflareAPIService) PostCloudflareD1DatabasesExecute(r CloudflareAPIP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.databaseCreateIn == nil {
-		return localVarReturnValue, nil, reportError("databaseCreateIn is required and must be specified")
+	if r.cloudflareDatabaseCreateIn == nil {
+		return localVarReturnValue, nil, reportError("cloudflareDatabaseCreateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2376,7 +2528,7 @@ func (a *CloudflareAPIService) PostCloudflareD1DatabasesExecute(r CloudflareAPIP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2384,7 +2536,7 @@ func (a *CloudflareAPIService) PostCloudflareD1DatabasesExecute(r CloudflareAPIP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.databaseCreateIn
+	localVarPostBody = r.cloudflareDatabaseCreateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2407,6 +2559,14 @@ func (a *CloudflareAPIService) PostCloudflareD1DatabasesExecute(r CloudflareAPIP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2423,14 +2583,14 @@ func (a *CloudflareAPIService) PostCloudflareD1DatabasesExecute(r CloudflareAPIP
 }
 
 type CloudflareAPIPostCloudflareD1DatabasesByDatabaseQueryRequest struct {
-	ctx        context.Context
-	ApiService *CloudflareAPIService
-	database   string
-	d1Query    *D1Query
+	ctx               context.Context
+	ApiService        *CloudflareAPIService
+	database          string
+	cloudflareD1Query *CloudflareD1Query
 }
 
-func (r CloudflareAPIPostCloudflareD1DatabasesByDatabaseQueryRequest) D1Query(d1Query D1Query) CloudflareAPIPostCloudflareD1DatabasesByDatabaseQueryRequest {
-	r.d1Query = &d1Query
+func (r CloudflareAPIPostCloudflareD1DatabasesByDatabaseQueryRequest) CloudflareD1Query(cloudflareD1Query CloudflareD1Query) CloudflareAPIPostCloudflareD1DatabasesByDatabaseQueryRequest {
+	r.cloudflareD1Query = &cloudflareD1Query
 	return r
 }
 
@@ -2485,8 +2645,8 @@ func (a *CloudflareAPIService) PostCloudflareD1DatabasesByDatabaseQueryExecute(r
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.d1Query == nil {
-		return localVarReturnValue, nil, reportError("d1Query is required and must be specified")
+	if r.cloudflareD1Query == nil {
+		return localVarReturnValue, nil, reportError("cloudflareD1Query is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2499,7 +2659,7 @@ func (a *CloudflareAPIService) PostCloudflareD1DatabasesByDatabaseQueryExecute(r
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2507,7 +2667,7 @@ func (a *CloudflareAPIService) PostCloudflareD1DatabasesByDatabaseQueryExecute(r
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.d1Query
+	localVarPostBody = r.cloudflareD1Query
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2530,6 +2690,14 @@ func (a *CloudflareAPIService) PostCloudflareD1DatabasesByDatabaseQueryExecute(r
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2546,13 +2714,13 @@ func (a *CloudflareAPIService) PostCloudflareD1DatabasesByDatabaseQueryExecute(r
 }
 
 type CloudflareAPIPostCloudflareKvNamespacesRequest struct {
-	ctx               context.Context
-	ApiService        *CloudflareAPIService
-	namespaceCreateIn *NamespaceCreateIn
+	ctx                         context.Context
+	ApiService                  *CloudflareAPIService
+	cloudflareNamespaceCreateIn *CloudflareNamespaceCreateIn
 }
 
-func (r CloudflareAPIPostCloudflareKvNamespacesRequest) NamespaceCreateIn(namespaceCreateIn NamespaceCreateIn) CloudflareAPIPostCloudflareKvNamespacesRequest {
-	r.namespaceCreateIn = &namespaceCreateIn
+func (r CloudflareAPIPostCloudflareKvNamespacesRequest) CloudflareNamespaceCreateIn(cloudflareNamespaceCreateIn CloudflareNamespaceCreateIn) CloudflareAPIPostCloudflareKvNamespacesRequest {
+	r.cloudflareNamespaceCreateIn = &cloudflareNamespaceCreateIn
 	return r
 }
 
@@ -2561,9 +2729,9 @@ func (r CloudflareAPIPostCloudflareKvNamespacesRequest) Execute() (interface{}, 
 }
 
 /*
-PostCloudflareKvNamespaces KVNamespaceCreate creates a Workers KV namespace on the org's Cloudflare account.
+PostCloudflareKvNamespaces Creates a Workers KV namespace on the org's Cloudflare account.
 
-KVNamespaceCreate creates a Workers KV namespace on the org's Cloudflare
+Creates a Workers KV namespace on the org's Cloudflare
 account. Requires org admin. Cloudflare mints the namespace id the value routes
 address.
 
@@ -2598,8 +2766,8 @@ func (a *CloudflareAPIService) PostCloudflareKvNamespacesExecute(r CloudflareAPI
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.namespaceCreateIn == nil {
-		return localVarReturnValue, nil, reportError("namespaceCreateIn is required and must be specified")
+	if r.cloudflareNamespaceCreateIn == nil {
+		return localVarReturnValue, nil, reportError("cloudflareNamespaceCreateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2612,7 +2780,7 @@ func (a *CloudflareAPIService) PostCloudflareKvNamespacesExecute(r CloudflareAPI
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2620,7 +2788,7 @@ func (a *CloudflareAPIService) PostCloudflareKvNamespacesExecute(r CloudflareAPI
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.namespaceCreateIn
+	localVarPostBody = r.cloudflareNamespaceCreateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2643,6 +2811,14 @@ func (a *CloudflareAPIService) PostCloudflareKvNamespacesExecute(r CloudflareAPI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2659,13 +2835,13 @@ func (a *CloudflareAPIService) PostCloudflareKvNamespacesExecute(r CloudflareAPI
 }
 
 type CloudflareAPIPostCloudflarePagesProjectsRequest struct {
-	ctx                context.Context
-	ApiService         *CloudflareAPIService
-	pagesProjectCreate *PagesProjectCreate
+	ctx                          context.Context
+	ApiService                   *CloudflareAPIService
+	cloudflarePagesProjectCreate *CloudflarePagesProjectCreate
 }
 
-func (r CloudflareAPIPostCloudflarePagesProjectsRequest) PagesProjectCreate(pagesProjectCreate PagesProjectCreate) CloudflareAPIPostCloudflarePagesProjectsRequest {
-	r.pagesProjectCreate = &pagesProjectCreate
+func (r CloudflareAPIPostCloudflarePagesProjectsRequest) CloudflarePagesProjectCreate(cloudflarePagesProjectCreate CloudflarePagesProjectCreate) CloudflareAPIPostCloudflarePagesProjectsRequest {
+	r.cloudflarePagesProjectCreate = &cloudflarePagesProjectCreate
 	return r
 }
 
@@ -2711,8 +2887,8 @@ func (a *CloudflareAPIService) PostCloudflarePagesProjectsExecute(r CloudflareAP
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.pagesProjectCreate == nil {
-		return localVarReturnValue, nil, reportError("pagesProjectCreate is required and must be specified")
+	if r.cloudflarePagesProjectCreate == nil {
+		return localVarReturnValue, nil, reportError("cloudflarePagesProjectCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2725,7 +2901,7 @@ func (a *CloudflareAPIService) PostCloudflarePagesProjectsExecute(r CloudflareAP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2733,7 +2909,7 @@ func (a *CloudflareAPIService) PostCloudflarePagesProjectsExecute(r CloudflareAP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.pagesProjectCreate
+	localVarPostBody = r.cloudflarePagesProjectCreate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2756,6 +2932,14 @@ func (a *CloudflareAPIService) PostCloudflarePagesProjectsExecute(r CloudflareAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2886,14 +3070,14 @@ func (a *CloudflareAPIService) PostCloudflarePagesProjectsByProjectDeploymentsEx
 }
 
 type CloudflareAPIPostCloudflarePagesProjectsByProjectDomainsRequest struct {
-	ctx         context.Context
-	ApiService  *CloudflareAPIService
-	project     string
-	domainAddIn *DomainAddIn
+	ctx                   context.Context
+	ApiService            *CloudflareAPIService
+	project               string
+	cloudflareDomainAddIn *CloudflareDomainAddIn
 }
 
-func (r CloudflareAPIPostCloudflarePagesProjectsByProjectDomainsRequest) DomainAddIn(domainAddIn DomainAddIn) CloudflareAPIPostCloudflarePagesProjectsByProjectDomainsRequest {
-	r.domainAddIn = &domainAddIn
+func (r CloudflareAPIPostCloudflarePagesProjectsByProjectDomainsRequest) CloudflareDomainAddIn(cloudflareDomainAddIn CloudflareDomainAddIn) CloudflareAPIPostCloudflarePagesProjectsByProjectDomainsRequest {
+	r.cloudflareDomainAddIn = &cloudflareDomainAddIn
 	return r
 }
 
@@ -2941,8 +3125,8 @@ func (a *CloudflareAPIService) PostCloudflarePagesProjectsByProjectDomainsExecut
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.domainAddIn == nil {
-		return localVarReturnValue, nil, reportError("domainAddIn is required and must be specified")
+	if r.cloudflareDomainAddIn == nil {
+		return localVarReturnValue, nil, reportError("cloudflareDomainAddIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2955,7 +3139,7 @@ func (a *CloudflareAPIService) PostCloudflarePagesProjectsByProjectDomainsExecut
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2963,7 +3147,7 @@ func (a *CloudflareAPIService) PostCloudflarePagesProjectsByProjectDomainsExecut
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.domainAddIn
+	localVarPostBody = r.cloudflareDomainAddIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2986,6 +3170,14 @@ func (a *CloudflareAPIService) PostCloudflarePagesProjectsByProjectDomainsExecut
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3002,13 +3194,13 @@ func (a *CloudflareAPIService) PostCloudflarePagesProjectsByProjectDomainsExecut
 }
 
 type CloudflareAPIPostCloudflareR2BucketsRequest struct {
-	ctx            context.Context
-	ApiService     *CloudflareAPIService
-	bucketCreateIn *BucketCreateIn
+	ctx                      context.Context
+	ApiService               *CloudflareAPIService
+	cloudflareBucketCreateIn *CloudflareBucketCreateIn
 }
 
-func (r CloudflareAPIPostCloudflareR2BucketsRequest) BucketCreateIn(bucketCreateIn BucketCreateIn) CloudflareAPIPostCloudflareR2BucketsRequest {
-	r.bucketCreateIn = &bucketCreateIn
+func (r CloudflareAPIPostCloudflareR2BucketsRequest) CloudflareBucketCreateIn(cloudflareBucketCreateIn CloudflareBucketCreateIn) CloudflareAPIPostCloudflareR2BucketsRequest {
+	r.cloudflareBucketCreateIn = &cloudflareBucketCreateIn
 	return r
 }
 
@@ -3053,8 +3245,8 @@ func (a *CloudflareAPIService) PostCloudflareR2BucketsExecute(r CloudflareAPIPos
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.bucketCreateIn == nil {
-		return localVarReturnValue, nil, reportError("bucketCreateIn is required and must be specified")
+	if r.cloudflareBucketCreateIn == nil {
+		return localVarReturnValue, nil, reportError("cloudflareBucketCreateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3067,7 +3259,7 @@ func (a *CloudflareAPIService) PostCloudflareR2BucketsExecute(r CloudflareAPIPos
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3075,7 +3267,7 @@ func (a *CloudflareAPIService) PostCloudflareR2BucketsExecute(r CloudflareAPIPos
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.bucketCreateIn
+	localVarPostBody = r.cloudflareBucketCreateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3098,6 +3290,14 @@ func (a *CloudflareAPIService) PostCloudflareR2BucketsExecute(r CloudflareAPIPos
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3114,14 +3314,14 @@ func (a *CloudflareAPIService) PostCloudflareR2BucketsExecute(r CloudflareAPIPos
 }
 
 type CloudflareAPIPostCloudflareWorkersScriptsByScriptSubdomainRequest struct {
-	ctx            context.Context
-	ApiService     *CloudflareAPIService
-	script         string
-	subdomainSetIn *SubdomainSetIn
+	ctx                      context.Context
+	ApiService               *CloudflareAPIService
+	script                   string
+	cloudflareSubdomainSetIn *CloudflareSubdomainSetIn
 }
 
-func (r CloudflareAPIPostCloudflareWorkersScriptsByScriptSubdomainRequest) SubdomainSetIn(subdomainSetIn SubdomainSetIn) CloudflareAPIPostCloudflareWorkersScriptsByScriptSubdomainRequest {
-	r.subdomainSetIn = &subdomainSetIn
+func (r CloudflareAPIPostCloudflareWorkersScriptsByScriptSubdomainRequest) CloudflareSubdomainSetIn(cloudflareSubdomainSetIn CloudflareSubdomainSetIn) CloudflareAPIPostCloudflareWorkersScriptsByScriptSubdomainRequest {
+	r.cloudflareSubdomainSetIn = &cloudflareSubdomainSetIn
 	return r
 }
 
@@ -3169,8 +3369,8 @@ func (a *CloudflareAPIService) PostCloudflareWorkersScriptsByScriptSubdomainExec
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.subdomainSetIn == nil {
-		return localVarReturnValue, nil, reportError("subdomainSetIn is required and must be specified")
+	if r.cloudflareSubdomainSetIn == nil {
+		return localVarReturnValue, nil, reportError("cloudflareSubdomainSetIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3183,7 +3383,7 @@ func (a *CloudflareAPIService) PostCloudflareWorkersScriptsByScriptSubdomainExec
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3191,7 +3391,7 @@ func (a *CloudflareAPIService) PostCloudflareWorkersScriptsByScriptSubdomainExec
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.subdomainSetIn
+	localVarPostBody = r.cloudflareSubdomainSetIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3214,6 +3414,14 @@ func (a *CloudflareAPIService) PostCloudflareWorkersScriptsByScriptSubdomainExec
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3230,14 +3438,14 @@ func (a *CloudflareAPIService) PostCloudflareWorkersScriptsByScriptSubdomainExec
 }
 
 type CloudflareAPIPostCloudflareWorkersZonesByZoneRoutesRequest struct {
-	ctx           context.Context
-	ApiService    *CloudflareAPIService
-	zone          string
-	routeCreateIn *RouteCreateIn
+	ctx                     context.Context
+	ApiService              *CloudflareAPIService
+	zone                    string
+	cloudflareRouteCreateIn *CloudflareRouteCreateIn
 }
 
-func (r CloudflareAPIPostCloudflareWorkersZonesByZoneRoutesRequest) RouteCreateIn(routeCreateIn RouteCreateIn) CloudflareAPIPostCloudflareWorkersZonesByZoneRoutesRequest {
-	r.routeCreateIn = &routeCreateIn
+func (r CloudflareAPIPostCloudflareWorkersZonesByZoneRoutesRequest) CloudflareRouteCreateIn(cloudflareRouteCreateIn CloudflareRouteCreateIn) CloudflareAPIPostCloudflareWorkersZonesByZoneRoutesRequest {
+	r.cloudflareRouteCreateIn = &cloudflareRouteCreateIn
 	return r
 }
 
@@ -3285,8 +3493,8 @@ func (a *CloudflareAPIService) PostCloudflareWorkersZonesByZoneRoutesExecute(r C
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.routeCreateIn == nil {
-		return localVarReturnValue, nil, reportError("routeCreateIn is required and must be specified")
+	if r.cloudflareRouteCreateIn == nil {
+		return localVarReturnValue, nil, reportError("cloudflareRouteCreateIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3299,7 +3507,7 @@ func (a *CloudflareAPIService) PostCloudflareWorkersZonesByZoneRoutesExecute(r C
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3307,7 +3515,7 @@ func (a *CloudflareAPIService) PostCloudflareWorkersZonesByZoneRoutesExecute(r C
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.routeCreateIn
+	localVarPostBody = r.cloudflareRouteCreateIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3330,6 +3538,14 @@ func (a *CloudflareAPIService) PostCloudflareWorkersZonesByZoneRoutesExecute(r C
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3346,14 +3562,14 @@ func (a *CloudflareAPIService) PostCloudflareWorkersZonesByZoneRoutesExecute(r C
 }
 
 type CloudflareAPIPostCloudflareZonesByZonePurgeRequest struct {
-	ctx        context.Context
-	ApiService *CloudflareAPIService
-	zone       string
-	purgeIn    *PurgeIn
+	ctx               context.Context
+	ApiService        *CloudflareAPIService
+	zone              string
+	cloudflarePurgeIn *CloudflarePurgeIn
 }
 
-func (r CloudflareAPIPostCloudflareZonesByZonePurgeRequest) PurgeIn(purgeIn PurgeIn) CloudflareAPIPostCloudflareZonesByZonePurgeRequest {
-	r.purgeIn = &purgeIn
+func (r CloudflareAPIPostCloudflareZonesByZonePurgeRequest) CloudflarePurgeIn(cloudflarePurgeIn CloudflarePurgeIn) CloudflareAPIPostCloudflareZonesByZonePurgeRequest {
+	r.cloudflarePurgeIn = &cloudflarePurgeIn
 	return r
 }
 
@@ -3412,8 +3628,8 @@ func (a *CloudflareAPIService) PostCloudflareZonesByZonePurgeExecute(r Cloudflar
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.purgeIn == nil {
-		return localVarReturnValue, nil, reportError("purgeIn is required and must be specified")
+	if r.cloudflarePurgeIn == nil {
+		return localVarReturnValue, nil, reportError("cloudflarePurgeIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3426,7 +3642,7 @@ func (a *CloudflareAPIService) PostCloudflareZonesByZonePurgeExecute(r Cloudflar
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3434,7 +3650,7 @@ func (a *CloudflareAPIService) PostCloudflareZonesByZonePurgeExecute(r Cloudflar
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.purgeIn
+	localVarPostBody = r.cloudflarePurgeIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3457,6 +3673,14 @@ func (a *CloudflareAPIService) PostCloudflareZonesByZonePurgeExecute(r Cloudflar
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3569,14 +3793,14 @@ func (a *CloudflareAPIService) PutCloudflareKvNamespacesByNamespaceValuesByKeyEx
 }
 
 type CloudflareAPIPutCloudflareWorkersScriptsByScriptRequest struct {
-	ctx             context.Context
-	ApiService      *CloudflareAPIService
-	script          string
-	workerScriptPut *WorkerScriptPut
+	ctx                       context.Context
+	ApiService                *CloudflareAPIService
+	script                    string
+	cloudflareWorkerScriptPut *CloudflareWorkerScriptPut
 }
 
-func (r CloudflareAPIPutCloudflareWorkersScriptsByScriptRequest) WorkerScriptPut(workerScriptPut WorkerScriptPut) CloudflareAPIPutCloudflareWorkersScriptsByScriptRequest {
-	r.workerScriptPut = &workerScriptPut
+func (r CloudflareAPIPutCloudflareWorkersScriptsByScriptRequest) CloudflareWorkerScriptPut(cloudflareWorkerScriptPut CloudflareWorkerScriptPut) CloudflareAPIPutCloudflareWorkersScriptsByScriptRequest {
+	r.cloudflareWorkerScriptPut = &cloudflareWorkerScriptPut
 	return r
 }
 
@@ -3632,8 +3856,8 @@ func (a *CloudflareAPIService) PutCloudflareWorkersScriptsByScriptExecute(r Clou
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.workerScriptPut == nil {
-		return localVarReturnValue, nil, reportError("workerScriptPut is required and must be specified")
+	if r.cloudflareWorkerScriptPut == nil {
+		return localVarReturnValue, nil, reportError("cloudflareWorkerScriptPut is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3646,7 +3870,7 @@ func (a *CloudflareAPIService) PutCloudflareWorkersScriptsByScriptExecute(r Clou
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3654,7 +3878,7 @@ func (a *CloudflareAPIService) PutCloudflareWorkersScriptsByScriptExecute(r Clou
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.workerScriptPut
+	localVarPostBody = r.cloudflareWorkerScriptPut
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3677,6 +3901,14 @@ func (a *CloudflareAPIService) PutCloudflareWorkersScriptsByScriptExecute(r Clou
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

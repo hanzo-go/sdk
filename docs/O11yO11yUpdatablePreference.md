@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Value** | Pointer to **map[string]interface{}** | Value is the value to set; its JSON type must match the preference&#39;s declared value type. | [optional] 
+**Value** | Pointer to **interface{}** |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetValue
 
-`func (o *O11yO11yUpdatablePreference) GetValue() map[string]interface{}`
+`func (o *O11yO11yUpdatablePreference) GetValue() interface{}`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *O11yO11yUpdatablePreference) GetValueOk() (*map[string]interface{}, bool)`
+`func (o *O11yO11yUpdatablePreference) GetValueOk() (*interface{}, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *O11yO11yUpdatablePreference) SetValue(v map[string]interface{})`
+`func (o *O11yO11yUpdatablePreference) SetValue(v interface{})`
 
 SetValue sets Value field to given value.
 
@@ -50,6 +50,16 @@ SetValue sets Value field to given value.
 
 HasValue returns a boolean if a field has been set.
 
+### SetValueNil
+
+`func (o *O11yO11yUpdatablePreference) SetValueNil(b bool)`
+
+ SetValueNil sets the value for Value to be an explicit nil
+
+### UnsetValue
+`func (o *O11yO11yUpdatablePreference) UnsetValue()`
+
+UnsetValue ensures that no value is present for Value, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

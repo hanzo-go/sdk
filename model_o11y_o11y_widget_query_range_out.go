@@ -22,8 +22,11 @@ type O11yO11yWidgetQueryRangeOut struct {
 	// Data is the query-range result.
 	Data *O11yO11yWidgetQueryRange `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yWidgetQueryRangeOut O11yO11yWidgetQueryRangeOut
 
 // NewO11yO11yWidgetQueryRangeOut instantiates a new O11yO11yWidgetQueryRangeOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yWidgetQueryRangeOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yWidgetQueryRangeOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yWidgetQueryRangeOut := _O11yO11yWidgetQueryRangeOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yWidgetQueryRangeOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yWidgetQueryRangeOut(varO11yO11yWidgetQueryRangeOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yWidgetQueryRangeOut struct {

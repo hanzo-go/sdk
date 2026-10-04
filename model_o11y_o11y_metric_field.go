@@ -30,8 +30,11 @@ type O11yO11yMetricField struct {
 	// Signal is the telemetry signal the field belongs to.
 	Signal *string `json:"signal,omitempty"`
 	// Unit is the field's unit.
-	Unit *string `json:"unit,omitempty"`
+	Unit                 *string `json:"unit,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricField O11yO11yMetricField
 
 // NewO11yO11yMetricField instantiates a new O11yO11yMetricField object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o O11yO11yMetricField) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Unit) {
 		toSerialize["unit"] = o.Unit
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricField) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricField := _O11yO11yMetricField{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricField(varO11yO11yMetricField)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "fieldContext")
+		delete(additionalProperties, "fieldDataType")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "signal")
+		delete(additionalProperties, "unit")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricField struct {

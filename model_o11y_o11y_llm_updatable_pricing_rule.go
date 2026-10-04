@@ -36,8 +36,11 @@ type O11yO11yLLMUpdatablePricingRule struct {
 	// SourceID matches an existing rule by its upstream source id.
 	SourceId *string `json:"sourceId,omitempty"`
 	// Unit is the pricing unit, e.g. per_million_tokens. Required.
-	Unit *string `json:"unit,omitempty"`
+	Unit                 *string `json:"unit,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMUpdatablePricingRule O11yO11yLLMUpdatablePricingRule
 
 // NewO11yO11yLLMUpdatablePricingRule instantiates a new O11yO11yLLMUpdatablePricingRule object
 // This constructor will assign default values to properties that have it defined,
@@ -381,7 +384,41 @@ func (o O11yO11yLLMUpdatablePricingRule) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.Unit) {
 		toSerialize["unit"] = o.Unit
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMUpdatablePricingRule) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMUpdatablePricingRule := _O11yO11yLLMUpdatablePricingRule{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMUpdatablePricingRule)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMUpdatablePricingRule(varO11yO11yLLMUpdatablePricingRule)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "isOverride")
+		delete(additionalProperties, "modelName")
+		delete(additionalProperties, "modelPattern")
+		delete(additionalProperties, "pricing")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "sourceId")
+		delete(additionalProperties, "unit")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMUpdatablePricingRule struct {

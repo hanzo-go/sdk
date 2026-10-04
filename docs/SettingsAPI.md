@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## PutSettingsByProduct
 
-> SettingsView PutSettingsByProduct(ctx, product).SettingsReq(settingsReq).Execute()
+> SettingsView PutSettingsByProduct(ctx, product).SettingsSettingsReq(settingsSettingsReq).Execute()
 
 Writes the caller org's configuration for one product and answers the stored result, secrets masked.
 
@@ -101,11 +101,11 @@ import (
 
 func main() {
 	product := "product_example" // string | Product is the catalog slug, from the PATH. zip binds the path last, so the URL names the product being written whatever a body field claims.
-	settingsReq := *openapiclient.NewSettingsReq() // SettingsReq | 
+	settingsSettingsReq := *openapiclient.NewSettingsSettingsReq() // SettingsSettingsReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SettingsAPI.PutSettingsByProduct(context.Background(), product).SettingsReq(settingsReq).Execute()
+	resp, r, err := apiClient.SettingsAPI.PutSettingsByProduct(context.Background(), product).SettingsSettingsReq(settingsSettingsReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SettingsAPI.PutSettingsByProduct``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -131,7 +131,7 @@ Other parameters are passed through a pointer to a apiPutSettingsByProductReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **settingsReq** | [**SettingsReq**](SettingsReq.md) |  | 
+ **settingsSettingsReq** | [**SettingsSettingsReq**](SettingsSettingsReq.md) |  | 
 
 ### Return type
 
@@ -144,7 +144,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

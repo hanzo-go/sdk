@@ -21,8 +21,11 @@ var _ MappedNullable = &O11yQuerybuildertypesv5OrderBy{}
 type O11yQuerybuildertypesv5OrderBy struct {
 	Direction interface{} `json:"direction,omitempty"`
 	// key to order by
-	Key *O11yOrderByKey `json:"key,omitempty"`
+	Key                  *O11yOrderByKey `json:"key,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yQuerybuildertypesv5OrderBy O11yQuerybuildertypesv5OrderBy
 
 // NewO11yQuerybuildertypesv5OrderBy instantiates a new O11yQuerybuildertypesv5OrderBy object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yQuerybuildertypesv5OrderBy) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yQuerybuildertypesv5OrderBy) UnmarshalJSON(data []byte) (err error) {
+	varO11yQuerybuildertypesv5OrderBy := _O11yQuerybuildertypesv5OrderBy{}
+
+	err = json.Unmarshal(data, &varO11yQuerybuildertypesv5OrderBy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yQuerybuildertypesv5OrderBy(varO11yQuerybuildertypesv5OrderBy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "direction")
+		delete(additionalProperties, "key")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yQuerybuildertypesv5OrderBy struct {

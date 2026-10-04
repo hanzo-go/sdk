@@ -20,16 +20,19 @@ var _ MappedNullable = &O11yAccount{}
 
 // O11yAccount struct for O11yAccount
 type O11yAccount struct {
-	AgentReport       *O11yAgentReport   `json:"agentReport,omitempty"`
-	Config            *O11yAccountConfig `json:"config,omitempty"`
-	CreatedAt         *time.Time         `json:"createdAt,omitempty"`
-	Id                interface{}        `json:"id,omitempty"`
-	OrgId             interface{}        `json:"orgId,omitempty"`
-	Provider          interface{}        `json:"provider,omitempty"`
-	ProviderAccountId *string            `json:"providerAccountId,omitempty"`
-	RemovedAt         *time.Time         `json:"removedAt,omitempty"`
-	UpdatedAt         *time.Time         `json:"updatedAt,omitempty"`
+	AgentReport          *O11yAgentReport   `json:"agentReport,omitempty"`
+	Config               *O11yAccountConfig `json:"config,omitempty"`
+	CreatedAt            *time.Time         `json:"createdAt,omitempty"`
+	Id                   interface{}        `json:"id,omitempty"`
+	OrgId                interface{}        `json:"orgId,omitempty"`
+	Provider             interface{}        `json:"provider,omitempty"`
+	ProviderAccountId    *string            `json:"providerAccountId,omitempty"`
+	RemovedAt            *time.Time         `json:"removedAt,omitempty"`
+	UpdatedAt            *time.Time         `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAccount O11yAccount
 
 // NewO11yAccount instantiates a new O11yAccount object
 // This constructor will assign default values to properties that have it defined,
@@ -376,7 +379,41 @@ func (o O11yAccount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAccount) UnmarshalJSON(data []byte) (err error) {
+	varO11yAccount := _O11yAccount{}
+
+	err = json.Unmarshal(data, &varO11yAccount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAccount(varO11yAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "agentReport")
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "orgId")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "providerAccountId")
+		delete(additionalProperties, "removedAt")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAccount struct {

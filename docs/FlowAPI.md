@@ -5,12 +5,12 @@ All URIs are relative to *https://api.hanzo.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteFlowWorkflowsByWorkflow**](FlowAPI.md#DeleteFlowWorkflowsByWorkflow) | **Delete** /v1/flow/workflows/{workflow} | Deletes one of the caller&#39;s workflows and its runs.
-[**GetFlowRuns**](FlowAPI.md#GetFlowRuns) | **Get** /v1/flow/runs | Runs reads one workflow&#39;s recorded runs: every component build with its result, keyed by component.
-[**GetFlowStatus**](FlowAPI.md#GetFlowStatus) | **Get** /v1/flow/status | Status reports whether the flow service is reachable and which version it runs.
-[**GetFlowWorkflows**](FlowAPI.md#GetFlowWorkflows) | **Get** /v1/flow/workflows | Workflows lists the caller&#39;s workflows, paged.
-[**GetFlowWorkflowsByWorkflow**](FlowAPI.md#GetFlowWorkflowsByWorkflow) | **Get** /v1/flow/workflows/{workflow} | Workflow reads one of the caller&#39;s workflows — the full record, graph included.
+[**GetFlowRuns**](FlowAPI.md#GetFlowRuns) | **Get** /v1/flow/runs | Reads one workflow&#39;s recorded runs: every component build with its result, keyed by component.
+[**GetFlowStatus**](FlowAPI.md#GetFlowStatus) | **Get** /v1/flow/status | Reports whether the flow service is reachable and which version it runs.
+[**GetFlowWorkflows**](FlowAPI.md#GetFlowWorkflows) | **Get** /v1/flow/workflows | Lists the caller&#39;s workflows, paged.
+[**GetFlowWorkflowsByWorkflow**](FlowAPI.md#GetFlowWorkflowsByWorkflow) | **Get** /v1/flow/workflows/{workflow} | Reads one of the caller&#39;s workflows — the full record, graph included.
 [**PatchFlowWorkflowsByWorkflow**](FlowAPI.md#PatchFlowWorkflowsByWorkflow) | **Patch** /v1/flow/workflows/{workflow} | Patches one of the caller&#39;s workflows: name, description, graph, or the locked flag — only the stated fields move.
-[**PostFlowRuns**](FlowAPI.md#PostFlowRuns) | **Post** /v1/flow/runs | Run executes one of the caller&#39;s workflows synchronously: the graph runs in the flow service and the response carries the run&#39;s session and outputs.
+[**PostFlowRuns**](FlowAPI.md#PostFlowRuns) | **Post** /v1/flow/runs | Executes one of the caller&#39;s workflows synchronously: the graph runs in the flow service and the response carries the run&#39;s session and outputs.
 [**PostFlowWorkflows**](FlowAPI.md#PostFlowWorkflows) | **Post** /v1/flow/workflows | Creates a workflow in the caller&#39;s org.
 
 
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 
 > interface{} GetFlowRuns(ctx).Workflow(workflow).Execute()
 
-Runs reads one workflow's recorded runs: every component build with its result, keyed by component.
+Reads one workflow's recorded runs: every component build with its result, keyed by component.
 
 
 
@@ -144,7 +144,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -153,9 +153,9 @@ Name | Type | Description  | Notes
 
 ## GetFlowStatus
 
-> FlowStatus GetFlowStatus(ctx).Execute()
+> FlowFlowStatus GetFlowStatus(ctx).Execute()
 
-Status reports whether the flow service is reachable and which version it runs.
+Reports whether the flow service is reachable and which version it runs.
 
 
 
@@ -180,7 +180,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.GetFlowStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetFlowStatus`: FlowStatus
+	// response from `GetFlowStatus`: FlowFlowStatus
 	fmt.Fprintf(os.Stdout, "Response from `FlowAPI.GetFlowStatus`: %v\n", resp)
 }
 ```
@@ -196,7 +196,7 @@ Other parameters are passed through a pointer to a apiGetFlowStatusRequest struc
 
 ### Return type
 
-[**FlowStatus**](FlowStatus.md)
+[**FlowFlowStatus**](FlowFlowStatus.md)
 
 ### Authorization
 
@@ -205,7 +205,7 @@ Other parameters are passed through a pointer to a apiGetFlowStatusRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -216,7 +216,7 @@ Other parameters are passed through a pointer to a apiGetFlowStatusRequest struc
 
 > interface{} GetFlowWorkflows(ctx).Page(page).Size(size).Execute()
 
-Workflows lists the caller's workflows, paged.
+Lists the caller's workflows, paged.
 
 
 
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -284,7 +284,7 @@ Name | Type | Description  | Notes
 
 > interface{} GetFlowWorkflowsByWorkflow(ctx, workflow).Execute()
 
-Workflow reads one of the caller's workflows — the full record, graph included.
+Reads one of the caller's workflows — the full record, graph included.
 
 
 
@@ -343,7 +343,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -352,7 +352,7 @@ Name | Type | Description  | Notes
 
 ## PatchFlowWorkflowsByWorkflow
 
-> interface{} PatchFlowWorkflowsByWorkflow(ctx, workflow).FlowUpdate(flowUpdate).Execute()
+> interface{} PatchFlowWorkflowsByWorkflow(ctx, workflow).FlowFlowUpdate(flowFlowUpdate).Execute()
 
 Patches one of the caller's workflows: name, description, graph, or the locked flag — only the stated fields move.
 
@@ -372,11 +372,11 @@ import (
 
 func main() {
 	workflow := "workflow_example" // string | Workflow is the workflow's UUID, taken from the path.
-	flowUpdate := *openapiclient.NewFlowUpdate() // FlowUpdate | 
+	flowFlowUpdate := *openapiclient.NewFlowFlowUpdate() // FlowFlowUpdate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowAPI.PatchFlowWorkflowsByWorkflow(context.Background(), workflow).FlowUpdate(flowUpdate).Execute()
+	resp, r, err := apiClient.FlowAPI.PatchFlowWorkflowsByWorkflow(context.Background(), workflow).FlowFlowUpdate(flowFlowUpdate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.PatchFlowWorkflowsByWorkflow``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -402,7 +402,7 @@ Other parameters are passed through a pointer to a apiPatchFlowWorkflowsByWorkfl
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **flowUpdate** | [**FlowUpdate**](FlowUpdate.md) |  | 
+ **flowFlowUpdate** | [**FlowFlowUpdate**](FlowFlowUpdate.md) |  | 
 
 ### Return type
 
@@ -415,7 +415,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -424,9 +424,9 @@ Name | Type | Description  | Notes
 
 ## PostFlowRuns
 
-> interface{} PostFlowRuns(ctx).FlowRun(flowRun).Execute()
+> interface{} PostFlowRuns(ctx).FlowFlowRun(flowFlowRun).Execute()
 
-Run executes one of the caller's workflows synchronously: the graph runs in the flow service and the response carries the run's session and outputs.
+Executes one of the caller's workflows synchronously: the graph runs in the flow service and the response carries the run's session and outputs.
 
 
 
@@ -443,11 +443,11 @@ import (
 )
 
 func main() {
-	flowRun := *openapiclient.NewFlowRun() // FlowRun | 
+	flowFlowRun := *openapiclient.NewFlowFlowRun() // FlowFlowRun | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowAPI.PostFlowRuns(context.Background()).FlowRun(flowRun).Execute()
+	resp, r, err := apiClient.FlowAPI.PostFlowRuns(context.Background()).FlowFlowRun(flowFlowRun).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.PostFlowRuns``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -468,7 +468,7 @@ Other parameters are passed through a pointer to a apiPostFlowRunsRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **flowRun** | [**FlowRun**](FlowRun.md) |  | 
+ **flowFlowRun** | [**FlowFlowRun**](FlowFlowRun.md) |  | 
 
 ### Return type
 
@@ -481,7 +481,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -490,7 +490,7 @@ Name | Type | Description  | Notes
 
 ## PostFlowWorkflows
 
-> interface{} PostFlowWorkflows(ctx).FlowCreate(flowCreate).Execute()
+> interface{} PostFlowWorkflows(ctx).FlowFlowCreate(flowFlowCreate).Execute()
 
 Creates a workflow in the caller's org.
 
@@ -509,11 +509,11 @@ import (
 )
 
 func main() {
-	flowCreate := *openapiclient.NewFlowCreate() // FlowCreate | 
+	flowFlowCreate := *openapiclient.NewFlowFlowCreate() // FlowFlowCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowAPI.PostFlowWorkflows(context.Background()).FlowCreate(flowCreate).Execute()
+	resp, r, err := apiClient.FlowAPI.PostFlowWorkflows(context.Background()).FlowFlowCreate(flowFlowCreate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowAPI.PostFlowWorkflows``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -534,7 +534,7 @@ Other parameters are passed through a pointer to a apiPostFlowWorkflowsRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **flowCreate** | [**FlowCreate**](FlowCreate.md) |  | 
+ **flowFlowCreate** | [**FlowFlowCreate**](FlowFlowCreate.md) |  | 
 
 ### Return type
 
@@ -547,7 +547,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -20,12 +20,15 @@ var _ MappedNullable = &O11yMetricsResponse{}
 // O11yMetricsResponse struct for O11yMetricsResponse
 type O11yMetricsResponse struct {
 	// Product is the service these numbers are about, echoed back.
-	Product *string                     `json:"product,omitempty"`
-	Range   *O11yMetricsResponseRange   `json:"range,omitempty"`
-	Series  *O11yMetricsResponseSeries  `json:"series,omitempty"`
-	Summary *O11yMetricsResponseSummary `json:"summary,omitempty"`
-	Usage   *O11yMetricsResponseUsage   `json:"usage,omitempty"`
+	Product              *string                     `json:"product,omitempty"`
+	Range                *O11yMetricsResponseRange   `json:"range,omitempty"`
+	Series               *O11yMetricsResponseSeries  `json:"series,omitempty"`
+	Summary              *O11yMetricsResponseSummary `json:"summary,omitempty"`
+	Usage                *O11yMetricsResponseUsage   `json:"usage,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yMetricsResponse O11yMetricsResponse
 
 // NewO11yMetricsResponse instantiates a new O11yMetricsResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o O11yMetricsResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Usage) {
 		toSerialize["usage"] = o.Usage
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yMetricsResponse) UnmarshalJSON(data []byte) (err error) {
+	varO11yMetricsResponse := _O11yMetricsResponse{}
+
+	err = json.Unmarshal(data, &varO11yMetricsResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yMetricsResponse(varO11yMetricsResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "product")
+		delete(additionalProperties, "range")
+		delete(additionalProperties, "series")
+		delete(additionalProperties, "summary")
+		delete(additionalProperties, "usage")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yMetricsResponse struct {

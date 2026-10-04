@@ -40,7 +40,7 @@ func (r EngineAPIEngineModelRequest) Execute() (interface{}, *http.Response, err
 /*
 EngineModel Read one model's load state on the serving runtime
 
-Model reads one model's load state — loaded, unloading, or not_found, as
+Reads one model's load state — loaded, unloading, or not_found, as
 the engine itself reports it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -88,7 +88,7 @@ func (a *EngineAPIService) EngineModelExecute(r EngineAPIEngineModelRequest) (in
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -117,6 +117,14 @@ func (a *EngineAPIService) EngineModelExecute(r EngineAPIEngineModelRequest) (in
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -144,7 +152,7 @@ func (r EngineAPIEngineModelsRequest) Execute() (interface{}, *http.Response, er
 /*
 EngineModels List the models the serving runtime holds, with each one's load state
 
-Models lists the models the engine serves, each with its load state — the
+Lists the models the engine serves, each with its load state — the
 server's own model table (its standard list envelope, load status
 included), relayed verbatim.
 
@@ -190,7 +198,7 @@ func (a *EngineAPIService) EngineModelsExecute(r EngineAPIEngineModelsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -219,6 +227,14 @@ func (a *EngineAPIService) EngineModelsExecute(r EngineAPIEngineModelsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -239,14 +255,14 @@ type EngineAPIEngineStatusRequest struct {
 	ApiService *EngineAPIService
 }
 
-func (r EngineAPIEngineStatusRequest) Execute() (*EngineStatus, *http.Response, error) {
+func (r EngineAPIEngineStatusRequest) Execute() (*EngineEngineStatus, *http.Response, error) {
 	return r.ApiService.EngineStatusExecute(r)
 }
 
 /*
 EngineStatus Whether the serving runtime is reachable, and which build it runs
 
-Status reports whether the engine deployment is reachable and which build
+Reports whether the engine deployment is reachable and which build
 revision it runs — an honest lens for "is the serving runtime up", never a
 fabricated ok.
 
@@ -262,13 +278,13 @@ func (a *EngineAPIService) EngineStatus(ctx context.Context) EngineAPIEngineStat
 
 // Execute executes the request
 //
-//	@return EngineStatus
-func (a *EngineAPIService) EngineStatusExecute(r EngineAPIEngineStatusRequest) (*EngineStatus, *http.Response, error) {
+//	@return EngineEngineStatus
+func (a *EngineAPIService) EngineStatusExecute(r EngineAPIEngineStatusRequest) (*EngineEngineStatus, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EngineStatus
+		localVarReturnValue *EngineEngineStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EngineAPIService.EngineStatus")
@@ -292,7 +308,7 @@ func (a *EngineAPIService) EngineStatusExecute(r EngineAPIEngineStatusRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -321,6 +337,14 @@ func (a *EngineAPIService) EngineStatusExecute(r EngineAPIEngineStatusRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -348,7 +372,7 @@ func (r EngineAPIEngineSystemRequest) Execute() (interface{}, *http.Response, er
 /*
 EngineSystem The serving host's own inventory: devices, memory and build capabilities
 
-System reads the engine host's inventory: OS, CPU, memory, every accelerator
+Reads the engine host's inventory: OS, CPU, memory, every accelerator
 device with its VRAM and compute capability, and the build's capabilities
 (CUDA/Metal/flash-attention) — the real hardware under the serving runtime,
 relayed verbatim.
@@ -395,7 +419,7 @@ func (a *EngineAPIService) EngineSystemExecute(r EngineAPIEngineSystemRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -424,6 +448,14 @@ func (a *EngineAPIService) EngineSystemExecute(r EngineAPIEngineSystemRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

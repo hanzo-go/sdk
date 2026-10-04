@@ -19,12 +19,15 @@ var _ MappedNullable = &O11yPostablePlannedMaintenance{}
 
 // O11yPostablePlannedMaintenance struct for O11yPostablePlannedMaintenance
 type O11yPostablePlannedMaintenance struct {
-	AlertIds    []string    `json:"alertIds,omitempty"`
-	Description *string     `json:"description,omitempty"`
-	Name        *string     `json:"name,omitempty"`
-	Schedule    interface{} `json:"schedule,omitempty"`
-	Scope       *string     `json:"scope,omitempty"`
+	AlertIds             []string    `json:"alertIds,omitempty"`
+	Description          *string     `json:"description,omitempty"`
+	Name                 *string     `json:"name,omitempty"`
+	Schedule             interface{} `json:"schedule,omitempty"`
+	Scope                *string     `json:"scope,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPostablePlannedMaintenance O11yPostablePlannedMaintenance
 
 // NewO11yPostablePlannedMaintenance instantiates a new O11yPostablePlannedMaintenance object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o O11yPostablePlannedMaintenance) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPostablePlannedMaintenance) UnmarshalJSON(data []byte) (err error) {
+	varO11yPostablePlannedMaintenance := _O11yPostablePlannedMaintenance{}
+
+	err = json.Unmarshal(data, &varO11yPostablePlannedMaintenance)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPostablePlannedMaintenance(varO11yPostablePlannedMaintenance)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alertIds")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "schedule")
+		delete(additionalProperties, "scope")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPostablePlannedMaintenance struct {

@@ -19,10 +19,14 @@ var _ MappedNullable = &BrowserTagOut{}
 
 // BrowserTagOut struct for BrowserTagOut
 type BrowserTagOut struct {
-	Id       *string `json:"id,omitempty"`
-	Platform *string `json:"platform,omitempty"`
-	Type     *string `json:"type,omitempty"`
+	Events               map[string]string `json:"events,omitempty"`
+	Id                   *string           `json:"id,omitempty"`
+	Platform             *string           `json:"platform,omitempty"`
+	Type                 *string           `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BrowserTagOut BrowserTagOut
 
 // NewBrowserTagOut instantiates a new BrowserTagOut object
 // This constructor will assign default values to properties that have it defined,
@@ -39,6 +43,38 @@ func NewBrowserTagOut() *BrowserTagOut {
 func NewBrowserTagOutWithDefaults() *BrowserTagOut {
 	this := BrowserTagOut{}
 	return &this
+}
+
+// GetEvents returns the Events field value if set, zero value otherwise.
+func (o *BrowserTagOut) GetEvents() map[string]string {
+	if o == nil || IsNil(o.Events) {
+		var ret map[string]string
+		return ret
+	}
+	return o.Events
+}
+
+// GetEventsOk returns a tuple with the Events field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BrowserTagOut) GetEventsOk() (map[string]string, bool) {
+	if o == nil || IsNil(o.Events) {
+		return map[string]string{}, false
+	}
+	return o.Events, true
+}
+
+// HasEvents returns a boolean if a field has been set.
+func (o *BrowserTagOut) HasEvents() bool {
+	if o != nil && !IsNil(o.Events) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvents gets a reference to the given map[string]string and assigns it to the Events field.
+func (o *BrowserTagOut) SetEvents(v map[string]string) {
+	o.Events = v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -147,6 +183,9 @@ func (o BrowserTagOut) MarshalJSON() ([]byte, error) {
 
 func (o BrowserTagOut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Events) {
+		toSerialize["events"] = o.Events
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -156,7 +195,36 @@ func (o BrowserTagOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BrowserTagOut) UnmarshalJSON(data []byte) (err error) {
+	varBrowserTagOut := _BrowserTagOut{}
+
+	err = json.Unmarshal(data, &varBrowserTagOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BrowserTagOut(varBrowserTagOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "platform")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBrowserTagOut struct {

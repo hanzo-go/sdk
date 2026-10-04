@@ -4,20 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Action** | Pointer to **string** |  | [optional] 
-**ClientIp** | Pointer to **string** |  | [optional] 
 **CreatedTime** | Pointer to **string** |  | [optional] 
-**IsTriggered** | Pointer to **bool** |  | [optional] 
-**Language** | Pointer to **string** |  | [optional] 
-**Method** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Object** | Pointer to **string** |  | [optional] 
-**Organization** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**DisplayName** | Pointer to **string** |  | [optional] 
+**Domains** | Pointer to **[]string** |  | [optional] 
+**IsEnabled** | Pointer to **bool** |  | [optional] 
+**Name** | Pointer to **string** | Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. | [optional] 
 **Owner** | Pointer to **string** |  | [optional] 
-**RequestUri** | Pointer to **string** |  | [optional] 
-**Response** | Pointer to **string** |  | [optional] 
-**StatusCode** | Pointer to **int64** |  | [optional] 
-**User** | Pointer to **string** |  | [optional] 
+**Roles** | Pointer to **[]string** |  | [optional] 
+**Teams** | Pointer to **[]string** |  | [optional] 
+**Users** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -37,56 +33,6 @@ will change when the set of required properties is changed
 NewIamInputWithDefaults instantiates a new IamInput object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetAction
-
-`func (o *IamInput) GetAction() string`
-
-GetAction returns the Action field if non-nil, zero value otherwise.
-
-### GetActionOk
-
-`func (o *IamInput) GetActionOk() (*string, bool)`
-
-GetActionOk returns a tuple with the Action field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAction
-
-`func (o *IamInput) SetAction(v string)`
-
-SetAction sets Action field to given value.
-
-### HasAction
-
-`func (o *IamInput) HasAction() bool`
-
-HasAction returns a boolean if a field has been set.
-
-### GetClientIp
-
-`func (o *IamInput) GetClientIp() string`
-
-GetClientIp returns the ClientIp field if non-nil, zero value otherwise.
-
-### GetClientIpOk
-
-`func (o *IamInput) GetClientIpOk() (*string, bool)`
-
-GetClientIpOk returns a tuple with the ClientIp field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetClientIp
-
-`func (o *IamInput) SetClientIp(v string)`
-
-SetClientIp sets ClientIp field to given value.
-
-### HasClientIp
-
-`func (o *IamInput) HasClientIp() bool`
-
-HasClientIp returns a boolean if a field has been set.
 
 ### GetCreatedTime
 
@@ -113,80 +59,105 @@ SetCreatedTime sets CreatedTime field to given value.
 
 HasCreatedTime returns a boolean if a field has been set.
 
-### GetIsTriggered
+### GetDescription
 
-`func (o *IamInput) GetIsTriggered() bool`
+`func (o *IamInput) GetDescription() string`
 
-GetIsTriggered returns the IsTriggered field if non-nil, zero value otherwise.
+GetDescription returns the Description field if non-nil, zero value otherwise.
 
-### GetIsTriggeredOk
+### GetDescriptionOk
 
-`func (o *IamInput) GetIsTriggeredOk() (*bool, bool)`
+`func (o *IamInput) GetDescriptionOk() (*string, bool)`
 
-GetIsTriggeredOk returns a tuple with the IsTriggered field if it's non-nil, zero value otherwise
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIsTriggered
+### SetDescription
 
-`func (o *IamInput) SetIsTriggered(v bool)`
+`func (o *IamInput) SetDescription(v string)`
 
-SetIsTriggered sets IsTriggered field to given value.
+SetDescription sets Description field to given value.
 
-### HasIsTriggered
+### HasDescription
 
-`func (o *IamInput) HasIsTriggered() bool`
+`func (o *IamInput) HasDescription() bool`
 
-HasIsTriggered returns a boolean if a field has been set.
+HasDescription returns a boolean if a field has been set.
 
-### GetLanguage
+### GetDisplayName
 
-`func (o *IamInput) GetLanguage() string`
+`func (o *IamInput) GetDisplayName() string`
 
-GetLanguage returns the Language field if non-nil, zero value otherwise.
+GetDisplayName returns the DisplayName field if non-nil, zero value otherwise.
 
-### GetLanguageOk
+### GetDisplayNameOk
 
-`func (o *IamInput) GetLanguageOk() (*string, bool)`
+`func (o *IamInput) GetDisplayNameOk() (*string, bool)`
 
-GetLanguageOk returns a tuple with the Language field if it's non-nil, zero value otherwise
+GetDisplayNameOk returns a tuple with the DisplayName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLanguage
+### SetDisplayName
 
-`func (o *IamInput) SetLanguage(v string)`
+`func (o *IamInput) SetDisplayName(v string)`
 
-SetLanguage sets Language field to given value.
+SetDisplayName sets DisplayName field to given value.
 
-### HasLanguage
+### HasDisplayName
 
-`func (o *IamInput) HasLanguage() bool`
+`func (o *IamInput) HasDisplayName() bool`
 
-HasLanguage returns a boolean if a field has been set.
+HasDisplayName returns a boolean if a field has been set.
 
-### GetMethod
+### GetDomains
 
-`func (o *IamInput) GetMethod() string`
+`func (o *IamInput) GetDomains() []string`
 
-GetMethod returns the Method field if non-nil, zero value otherwise.
+GetDomains returns the Domains field if non-nil, zero value otherwise.
 
-### GetMethodOk
+### GetDomainsOk
 
-`func (o *IamInput) GetMethodOk() (*string, bool)`
+`func (o *IamInput) GetDomainsOk() (*[]string, bool)`
 
-GetMethodOk returns a tuple with the Method field if it's non-nil, zero value otherwise
+GetDomainsOk returns a tuple with the Domains field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetMethod
+### SetDomains
 
-`func (o *IamInput) SetMethod(v string)`
+`func (o *IamInput) SetDomains(v []string)`
 
-SetMethod sets Method field to given value.
+SetDomains sets Domains field to given value.
 
-### HasMethod
+### HasDomains
 
-`func (o *IamInput) HasMethod() bool`
+`func (o *IamInput) HasDomains() bool`
 
-HasMethod returns a boolean if a field has been set.
+HasDomains returns a boolean if a field has been set.
+
+### GetIsEnabled
+
+`func (o *IamInput) GetIsEnabled() bool`
+
+GetIsEnabled returns the IsEnabled field if non-nil, zero value otherwise.
+
+### GetIsEnabledOk
+
+`func (o *IamInput) GetIsEnabledOk() (*bool, bool)`
+
+GetIsEnabledOk returns a tuple with the IsEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsEnabled
+
+`func (o *IamInput) SetIsEnabled(v bool)`
+
+SetIsEnabled sets IsEnabled field to given value.
+
+### HasIsEnabled
+
+`func (o *IamInput) HasIsEnabled() bool`
+
+HasIsEnabled returns a boolean if a field has been set.
 
 ### GetName
 
@@ -213,56 +184,6 @@ SetName sets Name field to given value.
 
 HasName returns a boolean if a field has been set.
 
-### GetObject
-
-`func (o *IamInput) GetObject() string`
-
-GetObject returns the Object field if non-nil, zero value otherwise.
-
-### GetObjectOk
-
-`func (o *IamInput) GetObjectOk() (*string, bool)`
-
-GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetObject
-
-`func (o *IamInput) SetObject(v string)`
-
-SetObject sets Object field to given value.
-
-### HasObject
-
-`func (o *IamInput) HasObject() bool`
-
-HasObject returns a boolean if a field has been set.
-
-### GetOrganization
-
-`func (o *IamInput) GetOrganization() string`
-
-GetOrganization returns the Organization field if non-nil, zero value otherwise.
-
-### GetOrganizationOk
-
-`func (o *IamInput) GetOrganizationOk() (*string, bool)`
-
-GetOrganizationOk returns a tuple with the Organization field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOrganization
-
-`func (o *IamInput) SetOrganization(v string)`
-
-SetOrganization sets Organization field to given value.
-
-### HasOrganization
-
-`func (o *IamInput) HasOrganization() bool`
-
-HasOrganization returns a boolean if a field has been set.
-
 ### GetOwner
 
 `func (o *IamInput) GetOwner() string`
@@ -288,105 +209,80 @@ SetOwner sets Owner field to given value.
 
 HasOwner returns a boolean if a field has been set.
 
-### GetRequestUri
+### GetRoles
 
-`func (o *IamInput) GetRequestUri() string`
+`func (o *IamInput) GetRoles() []string`
 
-GetRequestUri returns the RequestUri field if non-nil, zero value otherwise.
+GetRoles returns the Roles field if non-nil, zero value otherwise.
 
-### GetRequestUriOk
+### GetRolesOk
 
-`func (o *IamInput) GetRequestUriOk() (*string, bool)`
+`func (o *IamInput) GetRolesOk() (*[]string, bool)`
 
-GetRequestUriOk returns a tuple with the RequestUri field if it's non-nil, zero value otherwise
+GetRolesOk returns a tuple with the Roles field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRequestUri
+### SetRoles
 
-`func (o *IamInput) SetRequestUri(v string)`
+`func (o *IamInput) SetRoles(v []string)`
 
-SetRequestUri sets RequestUri field to given value.
+SetRoles sets Roles field to given value.
 
-### HasRequestUri
+### HasRoles
 
-`func (o *IamInput) HasRequestUri() bool`
+`func (o *IamInput) HasRoles() bool`
 
-HasRequestUri returns a boolean if a field has been set.
+HasRoles returns a boolean if a field has been set.
 
-### GetResponse
+### GetTeams
 
-`func (o *IamInput) GetResponse() string`
+`func (o *IamInput) GetTeams() []string`
 
-GetResponse returns the Response field if non-nil, zero value otherwise.
+GetTeams returns the Teams field if non-nil, zero value otherwise.
 
-### GetResponseOk
+### GetTeamsOk
 
-`func (o *IamInput) GetResponseOk() (*string, bool)`
+`func (o *IamInput) GetTeamsOk() (*[]string, bool)`
 
-GetResponseOk returns a tuple with the Response field if it's non-nil, zero value otherwise
+GetTeamsOk returns a tuple with the Teams field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetResponse
+### SetTeams
 
-`func (o *IamInput) SetResponse(v string)`
+`func (o *IamInput) SetTeams(v []string)`
 
-SetResponse sets Response field to given value.
+SetTeams sets Teams field to given value.
 
-### HasResponse
+### HasTeams
 
-`func (o *IamInput) HasResponse() bool`
+`func (o *IamInput) HasTeams() bool`
 
-HasResponse returns a boolean if a field has been set.
+HasTeams returns a boolean if a field has been set.
 
-### GetStatusCode
+### GetUsers
 
-`func (o *IamInput) GetStatusCode() int64`
+`func (o *IamInput) GetUsers() []string`
 
-GetStatusCode returns the StatusCode field if non-nil, zero value otherwise.
+GetUsers returns the Users field if non-nil, zero value otherwise.
 
-### GetStatusCodeOk
+### GetUsersOk
 
-`func (o *IamInput) GetStatusCodeOk() (*int64, bool)`
+`func (o *IamInput) GetUsersOk() (*[]string, bool)`
 
-GetStatusCodeOk returns a tuple with the StatusCode field if it's non-nil, zero value otherwise
+GetUsersOk returns a tuple with the Users field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatusCode
+### SetUsers
 
-`func (o *IamInput) SetStatusCode(v int64)`
+`func (o *IamInput) SetUsers(v []string)`
 
-SetStatusCode sets StatusCode field to given value.
+SetUsers sets Users field to given value.
 
-### HasStatusCode
+### HasUsers
 
-`func (o *IamInput) HasStatusCode() bool`
+`func (o *IamInput) HasUsers() bool`
 
-HasStatusCode returns a boolean if a field has been set.
-
-### GetUser
-
-`func (o *IamInput) GetUser() string`
-
-GetUser returns the User field if non-nil, zero value otherwise.
-
-### GetUserOk
-
-`func (o *IamInput) GetUserOk() (*string, bool)`
-
-GetUserOk returns a tuple with the User field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUser
-
-`func (o *IamInput) SetUser(v string)`
-
-SetUser sets User field to given value.
-
-### HasUser
-
-`func (o *IamInput) HasUser() bool`
-
-HasUser returns a boolean if a field has been set.
+HasUsers returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

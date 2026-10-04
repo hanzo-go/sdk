@@ -19,11 +19,14 @@ var _ MappedNullable = &O11yMetricsResponseSummary{}
 
 // O11yMetricsResponseSummary Summary totals the window in one object, so a tile does not have to sum the series to render. errorRate is a RATIO of the window's requests, not a percentage, and p95Ms is over the window rather than the worst bucket.
 type O11yMetricsResponseSummary struct {
-	ErrorRate *float64 `json:"errorRate,omitempty"`
-	Errors    *int64   `json:"errors,omitempty"`
-	P95Ms     *float64 `json:"p95Ms,omitempty"`
-	Requests  *int64   `json:"requests,omitempty"`
+	ErrorRate            *float64 `json:"errorRate,omitempty"`
+	Errors               *int64   `json:"errors,omitempty"`
+	P95Ms                *float64 `json:"p95Ms,omitempty"`
+	Requests             *int64   `json:"requests,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yMetricsResponseSummary O11yMetricsResponseSummary
 
 // NewO11yMetricsResponseSummary instantiates a new O11yMetricsResponseSummary object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11yMetricsResponseSummary) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Requests) {
 		toSerialize["requests"] = o.Requests
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yMetricsResponseSummary) UnmarshalJSON(data []byte) (err error) {
+	varO11yMetricsResponseSummary := _O11yMetricsResponseSummary{}
+
+	err = json.Unmarshal(data, &varO11yMetricsResponseSummary)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yMetricsResponseSummary(varO11yMetricsResponseSummary)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "errorRate")
+		delete(additionalProperties, "errors")
+		delete(additionalProperties, "p95Ms")
+		delete(additionalProperties, "requests")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yMetricsResponseSummary struct {

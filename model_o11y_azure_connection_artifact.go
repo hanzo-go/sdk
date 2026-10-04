@@ -21,7 +21,10 @@ var _ MappedNullable = &O11yAzureConnectionArtifact{}
 type O11yAzureConnectionArtifact struct {
 	CliCommand             *string `json:"cliCommand,omitempty"`
 	CloudPowerShellCommand *string `json:"cloudPowerShellCommand,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
+
+type _O11yAzureConnectionArtifact O11yAzureConnectionArtifact
 
 // NewO11yAzureConnectionArtifact instantiates a new O11yAzureConnectionArtifact object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yAzureConnectionArtifact) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CloudPowerShellCommand) {
 		toSerialize["cloudPowerShellCommand"] = o.CloudPowerShellCommand
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAzureConnectionArtifact) UnmarshalJSON(data []byte) (err error) {
+	varO11yAzureConnectionArtifact := _O11yAzureConnectionArtifact{}
+
+	err = json.Unmarshal(data, &varO11yAzureConnectionArtifact)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAzureConnectionArtifact(varO11yAzureConnectionArtifact)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cliCommand")
+		delete(additionalProperties, "cloudPowerShellCommand")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAzureConnectionArtifact struct {

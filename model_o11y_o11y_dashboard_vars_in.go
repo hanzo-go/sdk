@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -24,7 +23,8 @@ type O11yO11yDashboardVarsIn struct {
 	// Query is the variable query to evaluate. Required.
 	Query string `json:"query"`
 	// Variables are the current values of the other dashboard variables, for queries that reference them.
-	Variables map[string]map[string]interface{} `json:"variables,omitempty"`
+	Variables            map[string]interface{} `json:"variables,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11yDashboardVarsIn O11yO11yDashboardVarsIn
@@ -72,9 +72,9 @@ func (o *O11yO11yDashboardVarsIn) SetQuery(v string) {
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *O11yO11yDashboardVarsIn) GetVariables() map[string]map[string]interface{} {
+func (o *O11yO11yDashboardVarsIn) GetVariables() map[string]interface{} {
 	if o == nil || IsNil(o.Variables) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Variables
@@ -82,9 +82,9 @@ func (o *O11yO11yDashboardVarsIn) GetVariables() map[string]map[string]interface
 
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yDashboardVarsIn) GetVariablesOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yO11yDashboardVarsIn) GetVariablesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Variables) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
@@ -98,8 +98,8 @@ func (o *O11yO11yDashboardVarsIn) HasVariables() bool {
 	return false
 }
 
-// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
-func (o *O11yO11yDashboardVarsIn) SetVariables(v map[string]map[string]interface{}) {
+// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
+func (o *O11yO11yDashboardVarsIn) SetVariables(v map[string]interface{}) {
 	o.Variables = v
 }
 
@@ -117,6 +117,11 @@ func (o O11yO11yDashboardVarsIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -144,15 +149,21 @@ func (o *O11yO11yDashboardVarsIn) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11yDashboardVarsIn := _O11yO11yDashboardVarsIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11yDashboardVarsIn)
+	err = json.Unmarshal(data, &varO11yO11yDashboardVarsIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11yDashboardVarsIn(varO11yO11yDashboardVarsIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "query")
+		delete(additionalProperties, "variables")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

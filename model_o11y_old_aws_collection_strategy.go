@@ -19,11 +19,14 @@ var _ MappedNullable = &O11yOldAWSCollectionStrategy{}
 
 // O11yOldAWSCollectionStrategy struct for O11yOldAWSCollectionStrategy
 type O11yOldAWSCollectionStrategy struct {
-	AwsLogs    *O11yOldAWSLogsStrategy    `json:"aws_logs,omitempty"`
-	AwsMetrics *O11yOldAWSMetricsStrategy `json:"aws_metrics,omitempty"`
-	Provider   *string                    `json:"provider,omitempty"`
-	S3Buckets  map[string][]string        `json:"s3_buckets,omitempty"`
+	AwsLogs              *O11yOldAWSLogsStrategy    `json:"aws_logs,omitempty"`
+	AwsMetrics           *O11yOldAWSMetricsStrategy `json:"aws_metrics,omitempty"`
+	Provider             *string                    `json:"provider,omitempty"`
+	S3Buckets            map[string][]string        `json:"s3_buckets,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yOldAWSCollectionStrategy O11yOldAWSCollectionStrategy
 
 // NewO11yOldAWSCollectionStrategy instantiates a new O11yOldAWSCollectionStrategy object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o O11yOldAWSCollectionStrategy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.S3Buckets) {
 		toSerialize["s3_buckets"] = o.S3Buckets
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yOldAWSCollectionStrategy) UnmarshalJSON(data []byte) (err error) {
+	varO11yOldAWSCollectionStrategy := _O11yOldAWSCollectionStrategy{}
+
+	err = json.Unmarshal(data, &varO11yOldAWSCollectionStrategy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yOldAWSCollectionStrategy(varO11yOldAWSCollectionStrategy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aws_logs")
+		delete(additionalProperties, "aws_metrics")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "s3_buckets")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yOldAWSCollectionStrategy struct {

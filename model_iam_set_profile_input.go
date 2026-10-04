@@ -19,12 +19,15 @@ var _ MappedNullable = &IamSetProfileInput{}
 
 // IamSetProfileInput struct for IamSetProfileInput
 type IamSetProfileInput struct {
-	DisplayName *string `json:"displayName,omitempty"`
-	Favicon     *string `json:"favicon,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Owner       *string `json:"owner,omitempty"`
-	WebsiteUrl  *string `json:"websiteUrl,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
+	Favicon              *string `json:"favicon,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	WebsiteUrl           *string `json:"websiteUrl,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamSetProfileInput IamSetProfileInput
 
 // NewIamSetProfileInput instantiates a new IamSetProfileInput object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o IamSetProfileInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WebsiteUrl) {
 		toSerialize["websiteUrl"] = o.WebsiteUrl
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamSetProfileInput) UnmarshalJSON(data []byte) (err error) {
+	varIamSetProfileInput := _IamSetProfileInput{}
+
+	err = json.Unmarshal(data, &varIamSetProfileInput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamSetProfileInput(varIamSetProfileInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "favicon")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "websiteUrl")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamSetProfileInput struct {

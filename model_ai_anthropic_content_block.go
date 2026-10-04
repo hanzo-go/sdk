@@ -19,9 +19,12 @@ var _ MappedNullable = &AiAnthropicContentBlock{}
 
 // AiAnthropicContentBlock struct for AiAnthropicContentBlock
 type AiAnthropicContentBlock struct {
-	Text *string `json:"text,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Text                 *string `json:"text,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiAnthropicContentBlock AiAnthropicContentBlock
 
 // NewAiAnthropicContentBlock instantiates a new AiAnthropicContentBlock object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o AiAnthropicContentBlock) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiAnthropicContentBlock) UnmarshalJSON(data []byte) (err error) {
+	varAiAnthropicContentBlock := _AiAnthropicContentBlock{}
+
+	err = json.Unmarshal(data, &varAiAnthropicContentBlock)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiAnthropicContentBlock(varAiAnthropicContentBlock)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiAnthropicContentBlock struct {

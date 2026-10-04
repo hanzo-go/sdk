@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yGettableAccountWithConnectionArtifact{}
 
 // O11yGettableAccountWithConnectionArtifact struct for O11yGettableAccountWithConnectionArtifact
 type O11yGettableAccountWithConnectionArtifact struct {
-	ConnectionArtifact *O11yConnectionArtifact `json:"connectionArtifact,omitempty"`
-	Id                 interface{}             `json:"id,omitempty"`
+	ConnectionArtifact   *O11yConnectionArtifact `json:"connectionArtifact,omitempty"`
+	Id                   interface{}             `json:"id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableAccountWithConnectionArtifact O11yGettableAccountWithConnectionArtifact
 
 // NewO11yGettableAccountWithConnectionArtifact instantiates a new O11yGettableAccountWithConnectionArtifact object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o O11yGettableAccountWithConnectionArtifact) ToMap() (map[string]interface
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableAccountWithConnectionArtifact) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableAccountWithConnectionArtifact := _O11yGettableAccountWithConnectionArtifact{}
+
+	err = json.Unmarshal(data, &varO11yGettableAccountWithConnectionArtifact)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableAccountWithConnectionArtifact(varO11yGettableAccountWithConnectionArtifact)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "connectionArtifact")
+		delete(additionalProperties, "id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableAccountWithConnectionArtifact struct {

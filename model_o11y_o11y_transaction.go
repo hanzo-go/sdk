@@ -22,8 +22,11 @@ type O11yO11yTransaction struct {
 	// Object is the resource the verb would act on.
 	Object *O11yO11yObject `json:"object,omitempty"`
 	// Relation is the verb being asked about, e.g. read, create, update, delete.
-	Relation *string `json:"relation,omitempty"`
+	Relation             *string `json:"relation,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTransaction O11yO11yTransaction
 
 // NewO11yO11yTransaction instantiates a new O11yO11yTransaction object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yTransaction) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Relation) {
 		toSerialize["relation"] = o.Relation
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTransaction) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTransaction := _O11yO11yTransaction{}
+
+	err = json.Unmarshal(data, &varO11yO11yTransaction)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTransaction(varO11yO11yTransaction)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "object")
+		delete(additionalProperties, "relation")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTransaction struct {

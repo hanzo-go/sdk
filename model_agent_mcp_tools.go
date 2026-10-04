@@ -19,10 +19,13 @@ var _ MappedNullable = &AgentMcpTools{}
 
 // AgentMcpTools struct for AgentMcpTools
 type AgentMcpTools struct {
-	IsEnabled  *bool   `json:"isEnabled,omitempty"`
-	ServerName *string `json:"serverName,omitempty"`
-	Tools      *string `json:"tools,omitempty"`
+	IsEnabled            *bool   `json:"isEnabled,omitempty"`
+	ServerName           *string `json:"serverName,omitempty"`
+	Tools                *string `json:"tools,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AgentMcpTools AgentMcpTools
 
 // NewAgentMcpTools instantiates a new AgentMcpTools object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o AgentMcpTools) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tools) {
 		toSerialize["tools"] = o.Tools
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AgentMcpTools) UnmarshalJSON(data []byte) (err error) {
+	varAgentMcpTools := _AgentMcpTools{}
+
+	err = json.Unmarshal(data, &varAgentMcpTools)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AgentMcpTools(varAgentMcpTools)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "isEnabled")
+		delete(additionalProperties, "serverName")
+		delete(additionalProperties, "tools")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAgentMcpTools struct {

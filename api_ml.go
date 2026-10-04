@@ -82,7 +82,7 @@ func (a *MlAPIService) DeleteMlModelsByNameExecute(r MlAPIDeleteMlModelsByNameRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -111,6 +111,14 @@ func (a *MlAPIService) DeleteMlModelsByNameExecute(r MlAPIDeleteMlModelsByNameRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -216,7 +224,7 @@ type MlAPIGetMlModelsRequest struct {
 	ApiService *MlAPIService
 }
 
-func (r MlAPIGetMlModelsRequest) Execute() (*MlResourceList, *http.Response, error) {
+func (r MlAPIGetMlModelsRequest) Execute() (*MlMlResourceList, *http.Response, error) {
 	return r.ApiService.GetMlModelsExecute(r)
 }
 
@@ -240,13 +248,13 @@ func (a *MlAPIService) GetMlModels(ctx context.Context) MlAPIGetMlModelsRequest 
 
 // Execute executes the request
 //
-//	@return MlResourceList
-func (a *MlAPIService) GetMlModelsExecute(r MlAPIGetMlModelsRequest) (*MlResourceList, *http.Response, error) {
+//	@return MlMlResourceList
+func (a *MlAPIService) GetMlModelsExecute(r MlAPIGetMlModelsRequest) (*MlMlResourceList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MlResourceList
+		localVarReturnValue *MlMlResourceList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MlAPIService.GetMlModels")
@@ -270,7 +278,7 @@ func (a *MlAPIService) GetMlModelsExecute(r MlAPIGetMlModelsRequest) (*MlResourc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -299,6 +307,14 @@ func (a *MlAPIService) GetMlModelsExecute(r MlAPIGetMlModelsRequest) (*MlResourc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -320,7 +336,7 @@ type MlAPIGetMlModelsByNameRequest struct {
 	name       string
 }
 
-func (r MlAPIGetMlModelsByNameRequest) Execute() (*MlResource, *http.Response, error) {
+func (r MlAPIGetMlModelsByNameRequest) Execute() (*MlMlResource, *http.Response, error) {
 	return r.ApiService.GetMlModelsByNameExecute(r)
 }
 
@@ -346,13 +362,13 @@ func (a *MlAPIService) GetMlModelsByName(ctx context.Context, name string) MlAPI
 
 // Execute executes the request
 //
-//	@return MlResource
-func (a *MlAPIService) GetMlModelsByNameExecute(r MlAPIGetMlModelsByNameRequest) (*MlResource, *http.Response, error) {
+//	@return MlMlResource
+func (a *MlAPIService) GetMlModelsByNameExecute(r MlAPIGetMlModelsByNameRequest) (*MlMlResource, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MlResource
+		localVarReturnValue *MlMlResource
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MlAPIService.GetMlModelsByName")
@@ -377,7 +393,7 @@ func (a *MlAPIService) GetMlModelsByNameExecute(r MlAPIGetMlModelsByNameRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -406,6 +422,14 @@ func (a *MlAPIService) GetMlModelsByNameExecute(r MlAPIGetMlModelsByNameRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -520,15 +544,15 @@ func (a *MlAPIService) PatchMlModelsByNameExecute(r MlAPIPatchMlModelsByNameRequ
 type MlAPIPostMlModelsRequest struct {
 	ctx        context.Context
 	ApiService *MlAPIService
-	mlCreate   *MlCreate
+	mlMlCreate *MlMlCreate
 }
 
-func (r MlAPIPostMlModelsRequest) MlCreate(mlCreate MlCreate) MlAPIPostMlModelsRequest {
-	r.mlCreate = &mlCreate
+func (r MlAPIPostMlModelsRequest) MlMlCreate(mlMlCreate MlMlCreate) MlAPIPostMlModelsRequest {
+	r.mlMlCreate = &mlMlCreate
 	return r
 }
 
-func (r MlAPIPostMlModelsRequest) Execute() (*MlResource, *http.Response, error) {
+func (r MlAPIPostMlModelsRequest) Execute() (*MlMlResource, *http.Response, error) {
 	return r.ApiService.PostMlModelsExecute(r)
 }
 
@@ -555,13 +579,13 @@ func (a *MlAPIService) PostMlModels(ctx context.Context) MlAPIPostMlModelsReques
 
 // Execute executes the request
 //
-//	@return MlResource
-func (a *MlAPIService) PostMlModelsExecute(r MlAPIPostMlModelsRequest) (*MlResource, *http.Response, error) {
+//	@return MlMlResource
+func (a *MlAPIService) PostMlModelsExecute(r MlAPIPostMlModelsRequest) (*MlMlResource, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MlResource
+		localVarReturnValue *MlMlResource
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MlAPIService.PostMlModels")
@@ -574,8 +598,8 @@ func (a *MlAPIService) PostMlModelsExecute(r MlAPIPostMlModelsRequest) (*MlResou
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.mlCreate == nil {
-		return localVarReturnValue, nil, reportError("mlCreate is required and must be specified")
+	if r.mlMlCreate == nil {
+		return localVarReturnValue, nil, reportError("mlMlCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -588,7 +612,7 @@ func (a *MlAPIService) PostMlModelsExecute(r MlAPIPostMlModelsRequest) (*MlResou
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -596,7 +620,7 @@ func (a *MlAPIService) PostMlModelsExecute(r MlAPIPostMlModelsRequest) (*MlResou
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.mlCreate
+	localVarPostBody = r.mlMlCreate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -619,6 +643,14 @@ func (a *MlAPIService) PostMlModelsExecute(r MlAPIPostMlModelsRequest) (*MlResou
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

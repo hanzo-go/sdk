@@ -28,16 +28,16 @@ type KnowledgeAPIDeleteKnowledgeConnectorsByProviderRequest struct {
 	provider   string
 }
 
-func (r KnowledgeAPIDeleteKnowledgeConnectorsByProviderRequest) Execute() (*ConnectionOut, *http.Response, error) {
+func (r KnowledgeAPIDeleteKnowledgeConnectorsByProviderRequest) Execute() (*KnowledgeConnectionOut, *http.Response, error) {
 	return r.ApiService.DeleteKnowledgeConnectorsByProviderExecute(r)
 }
 
 /*
-DeleteKnowledgeConnectorsByProvider Revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, purges this provider's points from the org's vector namespace, and marks the connector disconnected.
+DeleteKnowledgeConnectorsByProvider Revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, removes this provider's passages from the org's store, and marks the connector disconnected.
 
 Revokes a connection: it tombstones the stored credential
-so a later sync cannot reuse it, purges this provider's points from the org's
-vector namespace, and marks the connector disconnected. The documents already
+so a later sync cannot reuse it, removes this provider's passages from the
+org's store, and marks the connector disconnected. The documents already
 ingested stay in the org's store — they are the org's own data — but stop being
 retrievable by search; a caller deletes them through the document surface.
 
@@ -55,13 +55,13 @@ func (a *KnowledgeAPIService) DeleteKnowledgeConnectorsByProvider(ctx context.Co
 
 // Execute executes the request
 //
-//	@return ConnectionOut
-func (a *KnowledgeAPIService) DeleteKnowledgeConnectorsByProviderExecute(r KnowledgeAPIDeleteKnowledgeConnectorsByProviderRequest) (*ConnectionOut, *http.Response, error) {
+//	@return KnowledgeConnectionOut
+func (a *KnowledgeAPIService) DeleteKnowledgeConnectorsByProviderExecute(r KnowledgeAPIDeleteKnowledgeConnectorsByProviderRequest) (*KnowledgeConnectionOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ConnectionOut
+		localVarReturnValue *KnowledgeConnectionOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.DeleteKnowledgeConnectorsByProvider")
@@ -86,7 +86,7 @@ func (a *KnowledgeAPIService) DeleteKnowledgeConnectorsByProviderExecute(r Knowl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -115,6 +115,131 @@ func (a *KnowledgeAPIService) DeleteKnowledgeConnectorsByProviderExecute(r Knowl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type KnowledgeAPIDeleteKnowledgeFilesByIdRequest struct {
+	ctx        context.Context
+	ApiService *KnowledgeAPIService
+	id         string
+}
+
+func (r KnowledgeAPIDeleteKnowledgeFilesByIdRequest) Execute() (*KnowledgeForgotten, *http.Response, error) {
+	return r.ApiService.DeleteKnowledgeFilesByIdExecute(r)
+}
+
+/*
+DeleteKnowledgeFilesById Removes one of the caller's org files from the index — its table of contents, passages, full-text rows, mentions and links — and its record.
+
+Removes one of the caller's org files from the index — its table of
+contents, passages, full-text rows, mentions and links — and its record. The
+file is gone from every read when this answers: its listing, its contents,
+search and retrieval. What the index held of it is removed after, a batch at
+a time, so forgetting a file of any size answers at once. The object itself
+stays in its bucket; delete it there. Drive calls this when it deletes a file.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the file's id, as POST /v1/knowledge/files answered it.
+	@return KnowledgeAPIDeleteKnowledgeFilesByIdRequest
+*/
+func (a *KnowledgeAPIService) DeleteKnowledgeFilesById(ctx context.Context, id string) KnowledgeAPIDeleteKnowledgeFilesByIdRequest {
+	return KnowledgeAPIDeleteKnowledgeFilesByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return KnowledgeForgotten
+func (a *KnowledgeAPIService) DeleteKnowledgeFilesByIdExecute(r KnowledgeAPIDeleteKnowledgeFilesByIdRequest) (*KnowledgeForgotten, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KnowledgeForgotten
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.DeleteKnowledgeFilesById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/knowledge/files/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -135,7 +260,7 @@ type KnowledgeAPIGetKnowledgeConnectorsRequest struct {
 	ApiService *KnowledgeAPIService
 }
 
-func (r KnowledgeAPIGetKnowledgeConnectorsRequest) Execute() (*KbConnectorsOut, *http.Response, error) {
+func (r KnowledgeAPIGetKnowledgeConnectorsRequest) Execute() (*KnowledgeKbConnectorsOut, *http.Response, error) {
 	return r.ApiService.GetKnowledgeConnectorsExecute(r)
 }
 
@@ -160,13 +285,13 @@ func (a *KnowledgeAPIService) GetKnowledgeConnectors(ctx context.Context) Knowle
 
 // Execute executes the request
 //
-//	@return KbConnectorsOut
-func (a *KnowledgeAPIService) GetKnowledgeConnectorsExecute(r KnowledgeAPIGetKnowledgeConnectorsRequest) (*KbConnectorsOut, *http.Response, error) {
+//	@return KnowledgeKbConnectorsOut
+func (a *KnowledgeAPIService) GetKnowledgeConnectorsExecute(r KnowledgeAPIGetKnowledgeConnectorsRequest) (*KnowledgeKbConnectorsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KbConnectorsOut
+		localVarReturnValue *KnowledgeKbConnectorsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.GetKnowledgeConnectors")
@@ -190,7 +315,7 @@ func (a *KnowledgeAPIService) GetKnowledgeConnectorsExecute(r KnowledgeAPIGetKno
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -219,6 +344,14 @@ func (a *KnowledgeAPIService) GetKnowledgeConnectorsExecute(r KnowledgeAPIGetKno
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -261,7 +394,7 @@ func (r KnowledgeAPIGetKnowledgeConnectorsByProviderCallbackRequest) Error_(erro
 	return r
 }
 
-func (r KnowledgeAPIGetKnowledgeConnectorsByProviderCallbackRequest) Execute() (*ConnectionOut, *http.Response, error) {
+func (r KnowledgeAPIGetKnowledgeConnectorsByProviderCallbackRequest) Execute() (*KnowledgeConnectionOut, *http.Response, error) {
 	return r.ApiService.GetKnowledgeConnectorsByProviderCallbackExecute(r)
 }
 
@@ -290,13 +423,13 @@ func (a *KnowledgeAPIService) GetKnowledgeConnectorsByProviderCallback(ctx conte
 
 // Execute executes the request
 //
-//	@return ConnectionOut
-func (a *KnowledgeAPIService) GetKnowledgeConnectorsByProviderCallbackExecute(r KnowledgeAPIGetKnowledgeConnectorsByProviderCallbackRequest) (*ConnectionOut, *http.Response, error) {
+//	@return KnowledgeConnectionOut
+func (a *KnowledgeAPIService) GetKnowledgeConnectorsByProviderCallbackExecute(r KnowledgeAPIGetKnowledgeConnectorsByProviderCallbackRequest) (*KnowledgeConnectionOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ConnectionOut
+		localVarReturnValue *KnowledgeConnectionOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.GetKnowledgeConnectorsByProviderCallback")
@@ -330,7 +463,7 @@ func (a *KnowledgeAPIService) GetKnowledgeConnectorsByProviderCallbackExecute(r 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -359,6 +492,14 @@ func (a *KnowledgeAPIService) GetKnowledgeConnectorsByProviderCallbackExecute(r 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -380,7 +521,7 @@ type KnowledgeAPIGetKnowledgeConnectorsByProviderConnectRequest struct {
 	provider   string
 }
 
-func (r KnowledgeAPIGetKnowledgeConnectorsByProviderConnectRequest) Execute() (*KbAuthorizeOut, *http.Response, error) {
+func (r KnowledgeAPIGetKnowledgeConnectorsByProviderConnectRequest) Execute() (*KnowledgeKbAuthorizeOut, *http.Response, error) {
 	return r.ApiService.GetKnowledgeConnectorsByProviderConnectExecute(r)
 }
 
@@ -407,13 +548,13 @@ func (a *KnowledgeAPIService) GetKnowledgeConnectorsByProviderConnect(ctx contex
 
 // Execute executes the request
 //
-//	@return KbAuthorizeOut
-func (a *KnowledgeAPIService) GetKnowledgeConnectorsByProviderConnectExecute(r KnowledgeAPIGetKnowledgeConnectorsByProviderConnectRequest) (*KbAuthorizeOut, *http.Response, error) {
+//	@return KnowledgeKbAuthorizeOut
+func (a *KnowledgeAPIService) GetKnowledgeConnectorsByProviderConnectExecute(r KnowledgeAPIGetKnowledgeConnectorsByProviderConnectRequest) (*KnowledgeKbAuthorizeOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KbAuthorizeOut
+		localVarReturnValue *KnowledgeKbAuthorizeOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.GetKnowledgeConnectorsByProviderConnect")
@@ -438,7 +579,7 @@ func (a *KnowledgeAPIService) GetKnowledgeConnectorsByProviderConnectExecute(r K
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -467,6 +608,14 @@ func (a *KnowledgeAPIService) GetKnowledgeConnectorsByProviderConnectExecute(r K
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -487,7 +636,7 @@ type KnowledgeAPIGetKnowledgeConnectorsCatalogRequest struct {
 	ApiService *KnowledgeAPIService
 }
 
-func (r KnowledgeAPIGetKnowledgeConnectorsCatalogRequest) Execute() (*CatalogOut, *http.Response, error) {
+func (r KnowledgeAPIGetKnowledgeConnectorsCatalogRequest) Execute() (*KnowledgeCatalogOut, *http.Response, error) {
 	return r.ApiService.GetKnowledgeConnectorsCatalogExecute(r)
 }
 
@@ -514,13 +663,13 @@ func (a *KnowledgeAPIService) GetKnowledgeConnectorsCatalog(ctx context.Context)
 
 // Execute executes the request
 //
-//	@return CatalogOut
-func (a *KnowledgeAPIService) GetKnowledgeConnectorsCatalogExecute(r KnowledgeAPIGetKnowledgeConnectorsCatalogRequest) (*CatalogOut, *http.Response, error) {
+//	@return KnowledgeCatalogOut
+func (a *KnowledgeAPIService) GetKnowledgeConnectorsCatalogExecute(r KnowledgeAPIGetKnowledgeConnectorsCatalogRequest) (*KnowledgeCatalogOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CatalogOut
+		localVarReturnValue *KnowledgeCatalogOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.GetKnowledgeConnectorsCatalog")
@@ -544,7 +693,7 @@ func (a *KnowledgeAPIService) GetKnowledgeConnectorsCatalogExecute(r KnowledgeAP
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -573,6 +722,605 @@ func (a *KnowledgeAPIService) GetKnowledgeConnectorsCatalogExecute(r KnowledgeAP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type KnowledgeAPIGetKnowledgeFilesRequest struct {
+	ctx        context.Context
+	ApiService *KnowledgeAPIService
+	bucket     *string
+	limit      *string
+}
+
+func (r KnowledgeAPIGetKnowledgeFilesRequest) Bucket(bucket string) KnowledgeAPIGetKnowledgeFilesRequest {
+	r.bucket = &bucket
+	return r
+}
+
+func (r KnowledgeAPIGetKnowledgeFilesRequest) Limit(limit string) KnowledgeAPIGetKnowledgeFilesRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r KnowledgeAPIGetKnowledgeFilesRequest) Execute() (*KnowledgeFilesOut, *http.Response, error) {
+	return r.ApiService.GetKnowledgeFilesExecute(r)
+}
+
+/*
+GetKnowledgeFiles Answers the caller's org files, most recently changed first, each with its status and stage — optionally only those in one bucket, which is how Drive shows a folder's files with their index state.
+
+Answers the caller's org files, most recently changed first, each
+with its status and stage — optionally only those in one bucket, which is how
+Drive shows a folder's files with their index state.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return KnowledgeAPIGetKnowledgeFilesRequest
+*/
+func (a *KnowledgeAPIService) GetKnowledgeFiles(ctx context.Context) KnowledgeAPIGetKnowledgeFilesRequest {
+	return KnowledgeAPIGetKnowledgeFilesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return KnowledgeFilesOut
+func (a *KnowledgeAPIService) GetKnowledgeFilesExecute(r KnowledgeAPIGetKnowledgeFilesRequest) (*KnowledgeFilesOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KnowledgeFilesOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.GetKnowledgeFiles")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/knowledge/files"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.bucket != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "bucket", r.bucket, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type KnowledgeAPIGetKnowledgeFilesByIdRequest struct {
+	ctx        context.Context
+	ApiService *KnowledgeAPIService
+	id         string
+}
+
+func (r KnowledgeAPIGetKnowledgeFilesByIdRequest) Execute() (*KnowledgeFile, *http.Response, error) {
+	return r.ApiService.GetKnowledgeFilesByIdExecute(r)
+}
+
+/*
+GetKnowledgeFilesById Answers one of the caller's org files: what it is, where its bytes are, and how far its ingest has got.
+
+Answers one of the caller's org files: what it is, where its bytes
+are, and how far its ingest has got. 404 for an id the org holds no file for.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the file's id, as POST /v1/knowledge/files answered it.
+	@return KnowledgeAPIGetKnowledgeFilesByIdRequest
+*/
+func (a *KnowledgeAPIService) GetKnowledgeFilesById(ctx context.Context, id string) KnowledgeAPIGetKnowledgeFilesByIdRequest {
+	return KnowledgeAPIGetKnowledgeFilesByIdRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return KnowledgeFile
+func (a *KnowledgeAPIService) GetKnowledgeFilesByIdExecute(r KnowledgeAPIGetKnowledgeFilesByIdRequest) (*KnowledgeFile, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KnowledgeFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.GetKnowledgeFilesById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/knowledge/files/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type KnowledgeAPIGetKnowledgeFilesByIdGraphRequest struct {
+	ctx        context.Context
+	ApiService *KnowledgeAPIService
+	id         string
+}
+
+func (r KnowledgeAPIGetKnowledgeFilesByIdGraphRequest) Execute() (*KnowledgeFileGraph, *http.Response, error) {
+	return r.ApiService.GetKnowledgeFilesByIdGraphExecute(r)
+}
+
+/*
+GetKnowledgeFilesByIdGraph Answers one of the caller's org files' place in the org's graph: the files it links to and is linked from (a hyperlink, a citation by name), the files that name the same entities, and the entities it names.
+
+Answers one of the caller's org files' place in the org's graph:
+the files it links to and is linked from (a hyperlink, a citation by name),
+the files that name the same entities, and the entities it names. It is how
+an agent finds the other documents a question about this one needs.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the file's id, as POST /v1/knowledge/files answered it.
+	@return KnowledgeAPIGetKnowledgeFilesByIdGraphRequest
+*/
+func (a *KnowledgeAPIService) GetKnowledgeFilesByIdGraph(ctx context.Context, id string) KnowledgeAPIGetKnowledgeFilesByIdGraphRequest {
+	return KnowledgeAPIGetKnowledgeFilesByIdGraphRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return KnowledgeFileGraph
+func (a *KnowledgeAPIService) GetKnowledgeFilesByIdGraphExecute(r KnowledgeAPIGetKnowledgeFilesByIdGraphRequest) (*KnowledgeFileGraph, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KnowledgeFileGraph
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.GetKnowledgeFilesByIdGraph")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/knowledge/files/{id}/graph"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type KnowledgeAPIGetKnowledgeFilesByIdSectionsBySectionRequest struct {
+	ctx        context.Context
+	ApiService *KnowledgeAPIService
+	id         string
+	section    string
+}
+
+func (r KnowledgeAPIGetKnowledgeFilesByIdSectionsBySectionRequest) Execute() (*KnowledgeSectionOut, *http.Response, error) {
+	return r.ApiService.GetKnowledgeFilesByIdSectionsBySectionExecute(r)
+}
+
+/*
+GetKnowledgeFilesByIdSectionsBySection Answers one section of one of the caller's org files: its own text, its subsections, the sections it links to or shares entities with — in this file or another — and the entities it names.
+
+Answers one section of one of the caller's org files: its own
+text, its subsections, the sections it links to or shares entities with —
+in this file or another — and the entities it names. Open the document
+itself with section 0.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the file's id.
+	@param section Section is the section's number in the file's table of contents.
+	@return KnowledgeAPIGetKnowledgeFilesByIdSectionsBySectionRequest
+*/
+func (a *KnowledgeAPIService) GetKnowledgeFilesByIdSectionsBySection(ctx context.Context, id string, section string) KnowledgeAPIGetKnowledgeFilesByIdSectionsBySectionRequest {
+	return KnowledgeAPIGetKnowledgeFilesByIdSectionsBySectionRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		section:    section,
+	}
+}
+
+// Execute executes the request
+//
+//	@return KnowledgeSectionOut
+func (a *KnowledgeAPIService) GetKnowledgeFilesByIdSectionsBySectionExecute(r KnowledgeAPIGetKnowledgeFilesByIdSectionsBySectionRequest) (*KnowledgeSectionOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KnowledgeSectionOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.GetKnowledgeFilesByIdSectionsBySection")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/knowledge/files/{id}/sections/{section}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"section"+"}", url.PathEscape(parameterValueToString(r.section, "section")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type KnowledgeAPIGetKnowledgeFilesByIdTocRequest struct {
+	ctx        context.Context
+	ApiService *KnowledgeAPIService
+	id         string
+}
+
+func (r KnowledgeAPIGetKnowledgeFilesByIdTocRequest) Execute() (*KnowledgeTocOut, *http.Response, error) {
+	return r.ApiService.GetKnowledgeFilesByIdTocExecute(r)
+}
+
+/*
+GetKnowledgeFilesByIdToc Answers one of the caller's org files' table of contents: every section in document order with its depth, its parent and a one-line summary.
+
+Answers one of the caller's org files' table of contents: every
+section in document order with its depth, its parent and a one-line summary.
+It is the map a reader — a person in Drive, or an agent deciding where to
+look — reads before opening a section with GET
+/v1/knowledge/files/{id}/sections/{section}.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id ID is the file's id, as POST /v1/knowledge/files answered it.
+	@return KnowledgeAPIGetKnowledgeFilesByIdTocRequest
+*/
+func (a *KnowledgeAPIService) GetKnowledgeFilesByIdToc(ctx context.Context, id string) KnowledgeAPIGetKnowledgeFilesByIdTocRequest {
+	return KnowledgeAPIGetKnowledgeFilesByIdTocRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return KnowledgeTocOut
+func (a *KnowledgeAPIService) GetKnowledgeFilesByIdTocExecute(r KnowledgeAPIGetKnowledgeFilesByIdTocRequest) (*KnowledgeTocOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KnowledgeTocOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.GetKnowledgeFilesByIdToc")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/knowledge/files/{id}/toc"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -600,7 +1348,7 @@ func (r KnowledgeAPIGetKnowledgeGraphRequest) Project(project string) KnowledgeA
 	return r
 }
 
-func (r KnowledgeAPIGetKnowledgeGraphRequest) Execute() (*GraphOut, *http.Response, error) {
+func (r KnowledgeAPIGetKnowledgeGraphRequest) Execute() (*KnowledgeGraphOut, *http.Response, error) {
 	return r.ApiService.GetKnowledgeGraphExecute(r)
 }
 
@@ -627,13 +1375,13 @@ func (a *KnowledgeAPIService) GetKnowledgeGraph(ctx context.Context) KnowledgeAP
 
 // Execute executes the request
 //
-//	@return GraphOut
-func (a *KnowledgeAPIService) GetKnowledgeGraphExecute(r KnowledgeAPIGetKnowledgeGraphRequest) (*GraphOut, *http.Response, error) {
+//	@return KnowledgeGraphOut
+func (a *KnowledgeAPIService) GetKnowledgeGraphExecute(r KnowledgeAPIGetKnowledgeGraphRequest) (*KnowledgeGraphOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GraphOut
+		localVarReturnValue *KnowledgeGraphOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.GetKnowledgeGraph")
@@ -660,7 +1408,7 @@ func (a *KnowledgeAPIService) GetKnowledgeGraphExecute(r KnowledgeAPIGetKnowledg
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -689,6 +1437,14 @@ func (a *KnowledgeAPIService) GetKnowledgeGraphExecute(r KnowledgeAPIGetKnowledg
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -710,7 +1466,7 @@ type KnowledgeAPIPostKnowledgeConnectorsByProviderSyncRequest struct {
 	provider   string
 }
 
-func (r KnowledgeAPIPostKnowledgeConnectorsByProviderSyncRequest) Execute() (*KbSyncOut, *http.Response, error) {
+func (r KnowledgeAPIPostKnowledgeConnectorsByProviderSyncRequest) Execute() (*KnowledgeKbSyncOut, *http.Response, error) {
 	return r.ApiService.PostKnowledgeConnectorsByProviderSyncExecute(r)
 }
 
@@ -738,13 +1494,13 @@ func (a *KnowledgeAPIService) PostKnowledgeConnectorsByProviderSync(ctx context.
 
 // Execute executes the request
 //
-//	@return KbSyncOut
-func (a *KnowledgeAPIService) PostKnowledgeConnectorsByProviderSyncExecute(r KnowledgeAPIPostKnowledgeConnectorsByProviderSyncRequest) (*KbSyncOut, *http.Response, error) {
+//	@return KnowledgeKbSyncOut
+func (a *KnowledgeAPIService) PostKnowledgeConnectorsByProviderSyncExecute(r KnowledgeAPIPostKnowledgeConnectorsByProviderSyncRequest) (*KnowledgeKbSyncOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KbSyncOut
+		localVarReturnValue *KnowledgeKbSyncOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.PostKnowledgeConnectorsByProviderSync")
@@ -769,7 +1525,7 @@ func (a *KnowledgeAPIService) PostKnowledgeConnectorsByProviderSyncExecute(r Kno
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -798,6 +1554,395 @@ func (a *KnowledgeAPIService) PostKnowledgeConnectorsByProviderSyncExecute(r Kno
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type KnowledgeAPIPostKnowledgeFilesRequest struct {
+	ctx             context.Context
+	ApiService      *KnowledgeAPIService
+	knowledgeFileIn *KnowledgeFileIn
+}
+
+func (r KnowledgeAPIPostKnowledgeFilesRequest) KnowledgeFileIn(knowledgeFileIn KnowledgeFileIn) KnowledgeAPIPostKnowledgeFilesRequest {
+	r.knowledgeFileIn = &knowledgeFileIn
+	return r
+}
+
+func (r KnowledgeAPIPostKnowledgeFilesRequest) Execute() (*KnowledgeFile, *http.Response, error) {
+	return r.ApiService.PostKnowledgeFilesExecute(r)
+}
+
+/*
+PostKnowledgeFiles Makes an object in one of the caller's org buckets a workspace file.
+
+Makes an object in one of the caller's org buckets a workspace
+file. Upload the bytes first — POST /v1/s3/buckets/{bucket}/objects mints a
+presigned PUT, POST /v1/s3/buckets/{bucket}/uploads starts a multipart upload
+for a large one — then register the key here. The object's name, type and
+size are read from the store. The file is recorded as queued, a file_stored
+event is stated on the org's event plane, and a durable ingest is queued that
+extracts its text and structure, summarizes its table of contents, cuts and
+embeds its passages and links it into the org's graph. An archive (.zip) is
+unpacked and every file inside becomes a workspace file of its own. Poll GET
+/v1/knowledge/files/{id} for status. Registering an object again answers the
+same file, and re-indexes it only when the object changed or its last ingest
+failed.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return KnowledgeAPIPostKnowledgeFilesRequest
+*/
+func (a *KnowledgeAPIService) PostKnowledgeFiles(ctx context.Context) KnowledgeAPIPostKnowledgeFilesRequest {
+	return KnowledgeAPIPostKnowledgeFilesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return KnowledgeFile
+func (a *KnowledgeAPIService) PostKnowledgeFilesExecute(r KnowledgeAPIPostKnowledgeFilesRequest) (*KnowledgeFile, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KnowledgeFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.PostKnowledgeFiles")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/knowledge/files"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.knowledgeFileIn == nil {
+		return localVarReturnValue, nil, reportError("knowledgeFileIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.knowledgeFileIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type KnowledgeAPIPostKnowledgeFilesRetrieveRequest struct {
+	ctx                 context.Context
+	ApiService          *KnowledgeAPIService
+	knowledgeRetrieveIn *KnowledgeRetrieveIn
+}
+
+func (r KnowledgeAPIPostKnowledgeFilesRetrieveRequest) KnowledgeRetrieveIn(knowledgeRetrieveIn KnowledgeRetrieveIn) KnowledgeAPIPostKnowledgeFilesRetrieveRequest {
+	r.knowledgeRetrieveIn = &knowledgeRetrieveIn
+	return r
+}
+
+func (r KnowledgeAPIPostKnowledgeFilesRetrieveRequest) Execute() (*KnowledgeRetrieveOut, *http.Response, error) {
+	return r.ApiService.PostKnowledgeFilesRetrieveExecute(r)
+}
+
+/*
+PostKnowledgeFilesRetrieve Grounds an answer in the caller's org files, table of contents first: candidate documents are found by searching their passages; a model reads their tables of contents — titles and one-line summaries — and picks the sections the answer is in; hybrid search drills into the passages of those sections; and the graph expands to the sections they link to or name the same entities as, in any file of the workspace.
+
+Grounds an answer in the caller's org files, table of contents
+first: candidate documents are found by searching their passages; a model
+reads their tables of contents — titles and one-line summaries — and picks
+the sections the answer is in; hybrid search drills into the passages of
+those sections; and the graph expands to the sections they link to or name
+the same entities as, in any file of the workspace. Every passage cites its
+file › section › paragraph, so an answer can say exactly where it came from.
+This is what a chat runs before it answers about an attached file, and what
+an agent runs before it answers about a workspace.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return KnowledgeAPIPostKnowledgeFilesRetrieveRequest
+*/
+func (a *KnowledgeAPIService) PostKnowledgeFilesRetrieve(ctx context.Context) KnowledgeAPIPostKnowledgeFilesRetrieveRequest {
+	return KnowledgeAPIPostKnowledgeFilesRetrieveRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return KnowledgeRetrieveOut
+func (a *KnowledgeAPIService) PostKnowledgeFilesRetrieveExecute(r KnowledgeAPIPostKnowledgeFilesRetrieveRequest) (*KnowledgeRetrieveOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KnowledgeRetrieveOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.PostKnowledgeFilesRetrieve")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/knowledge/files/retrieve"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.knowledgeRetrieveIn == nil {
+		return localVarReturnValue, nil, reportError("knowledgeRetrieveIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.knowledgeRetrieveIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type KnowledgeAPIPostKnowledgeFilesSearchRequest struct {
+	ctx                   context.Context
+	ApiService            *KnowledgeAPIService
+	knowledgeFileSearchIn *KnowledgeFileSearchIn
+}
+
+func (r KnowledgeAPIPostKnowledgeFilesSearchRequest) KnowledgeFileSearchIn(knowledgeFileSearchIn KnowledgeFileSearchIn) KnowledgeAPIPostKnowledgeFilesSearchRequest {
+	r.knowledgeFileSearchIn = &knowledgeFileSearchIn
+	return r
+}
+
+func (r KnowledgeAPIPostKnowledgeFilesSearchRequest) Execute() (*KnowledgeFileSearchOut, *http.Response, error) {
+	return r.ApiService.PostKnowledgeFilesSearchExecute(r)
+}
+
+/*
+PostKnowledgeFilesSearch Answers the passages of the caller's org files that match a query, each citing its file › section › paragraph: the search behind Drive's box, and the first step an agent takes across a workspace.
+
+Answers the passages of the caller's org files that match a query,
+each citing its file › section › paragraph: the search behind Drive's box,
+and the first step an agent takes across a workspace. Name file ids to search
+only those files; name none to search them all. A semantic leg compares the
+query with every embedded passage and a full-text leg finds the passages
+holding its words; the two are fused, so a passage both found comes first.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return KnowledgeAPIPostKnowledgeFilesSearchRequest
+*/
+func (a *KnowledgeAPIService) PostKnowledgeFilesSearch(ctx context.Context) KnowledgeAPIPostKnowledgeFilesSearchRequest {
+	return KnowledgeAPIPostKnowledgeFilesSearchRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return KnowledgeFileSearchOut
+func (a *KnowledgeAPIService) PostKnowledgeFilesSearchExecute(r KnowledgeAPIPostKnowledgeFilesSearchRequest) (*KnowledgeFileSearchOut, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *KnowledgeFileSearchOut
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.PostKnowledgeFilesSearch")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/knowledge/files/search"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.knowledgeFileSearchIn == nil {
+		return localVarReturnValue, nil, reportError("knowledgeFileSearchIn is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.knowledgeFileSearchIn
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -910,20 +2055,21 @@ type KnowledgeAPIPostKnowledgeReindexRequest struct {
 	ApiService *KnowledgeAPIService
 }
 
-func (r KnowledgeAPIPostKnowledgeReindexRequest) Execute() (*ReindexOut, *http.Response, error) {
+func (r KnowledgeAPIPostKnowledgeReindexRequest) Execute() (*KnowledgeReindexOut, *http.Response, error) {
 	return r.ApiService.PostKnowledgeReindexExecute(r)
 }
 
 /*
-PostKnowledgeReindex Rebuilds the caller org's retrieval from its documents: the vector collection is dropped and created again at the configured embedding size and every page, memory and source is embedded into it; the lexical index is reconciled to the same set.
+PostKnowledgeReindex Rebuilds the caller org's retrieval from its documents: every passage is removed, and every page, memory and source is cut into passages and embedded again with the configured model; the lexical index is reconciled to the same documents.
 
-Rebuilds the caller org's retrieval from its documents: the vector
-collection is dropped and created again at the configured embedding size and
-every page, memory and source is embedded into it; the lexical index is
-reconciled to the same set. It is what an operator runs after the embedding
-model or its dimension changes, and what puts an org's retrieval right after
-a vector outage. It requires ORG ADMIN and runs inline: an org's knowledge is
-a few thousand documents, and the answer is the count.
+Rebuilds the caller org's retrieval from its documents: every passage
+is removed, and every page, memory and source is cut into passages and
+embedded again with the configured model; the lexical index is reconciled to
+the same documents. It is what an operator runs after the embedding model
+changes — passages of another model are never compared with the query, so
+until then they are unread — and what puts an org's retrieval right after an
+outage of the ai plane. It requires ORG ADMIN and runs inline: an org's
+knowledge is a few thousand documents, and the answer is the count.
 
 The request has no body. Response: {"vectors": 412, "lexical": 412, "removed": 3, "failed": 0}
 
@@ -939,13 +2085,13 @@ func (a *KnowledgeAPIService) PostKnowledgeReindex(ctx context.Context) Knowledg
 
 // Execute executes the request
 //
-//	@return ReindexOut
-func (a *KnowledgeAPIService) PostKnowledgeReindexExecute(r KnowledgeAPIPostKnowledgeReindexRequest) (*ReindexOut, *http.Response, error) {
+//	@return KnowledgeReindexOut
+func (a *KnowledgeAPIService) PostKnowledgeReindexExecute(r KnowledgeAPIPostKnowledgeReindexRequest) (*KnowledgeReindexOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ReindexOut
+		localVarReturnValue *KnowledgeReindexOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.PostKnowledgeReindex")
@@ -969,7 +2115,7 @@ func (a *KnowledgeAPIService) PostKnowledgeReindexExecute(r KnowledgeAPIPostKnow
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -998,6 +2144,14 @@ func (a *KnowledgeAPIService) PostKnowledgeReindexExecute(r KnowledgeAPIPostKnow
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1014,30 +2168,33 @@ func (a *KnowledgeAPIService) PostKnowledgeReindexExecute(r KnowledgeAPIPostKnow
 }
 
 type KnowledgeAPIPostKnowledgeSearchRequest struct {
-	ctx        context.Context
-	ApiService *KnowledgeAPIService
-	searchIn   *SearchIn
+	ctx               context.Context
+	ApiService        *KnowledgeAPIService
+	knowledgeSearchIn *KnowledgeSearchIn
 }
 
-func (r KnowledgeAPIPostKnowledgeSearchRequest) SearchIn(searchIn SearchIn) KnowledgeAPIPostKnowledgeSearchRequest {
-	r.searchIn = &searchIn
+func (r KnowledgeAPIPostKnowledgeSearchRequest) KnowledgeSearchIn(knowledgeSearchIn KnowledgeSearchIn) KnowledgeAPIPostKnowledgeSearchRequest {
+	r.knowledgeSearchIn = &knowledgeSearchIn
 	return r
 }
 
-func (r KnowledgeAPIPostKnowledgeSearchRequest) Execute() (*SearchOut, *http.Response, error) {
+func (r KnowledgeAPIPostKnowledgeSearchRequest) Execute() (*KnowledgeSearchOut, *http.Response, error) {
 	return r.ApiService.PostKnowledgeSearchExecute(r)
 }
 
 /*
-PostKnowledgeSearch Runs a semantic search over the caller org's own knowledge — its wiki pages, its agent memories and everything its connectors have synced — and returns the matching passages.
+PostKnowledgeSearch Runs a hybrid search over the caller org's own knowledge — its wiki pages, its agent memories and everything its connectors have synced.
 
-Runs a semantic search over the caller org's own knowledge —
-its wiki pages, its agent memories and everything its connectors have synced —
-and returns the matching passages. This is the RAG entry point: an agent asks
-"what does this org know about X" and the org's OWN vector namespace answers.
-The org comes from the validated principal, and both the collection and the
-payload filter are pinned to it, so cross-tenant retrieval is impossible. An
-unreachable index returns an honest empty result set with degraded=true, never
+Runs a hybrid search over the caller org's own knowledge —
+its wiki pages, its agent memories and everything its connectors have synced.
+This is the RAG entry point: an agent asks "what does this org know about X"
+and the org's OWN knowledge answers. Two legs run and are fused by reciprocal
+rank: a semantic leg that embeds the query and compares it with every passage
+of every document in reach (a document is cut into passages of about 2000
+bytes, so a fact deep in a long page is found), and a keyword leg over the
+org's knowledge index. The org comes from the validated principal and its
+passages live in its own database, so cross-tenant retrieval is impossible. A
+failed leg answers 200 with what the other leg found and degraded=true, never
 a 5xx.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1052,13 +2209,13 @@ func (a *KnowledgeAPIService) PostKnowledgeSearch(ctx context.Context) Knowledge
 
 // Execute executes the request
 //
-//	@return SearchOut
-func (a *KnowledgeAPIService) PostKnowledgeSearchExecute(r KnowledgeAPIPostKnowledgeSearchRequest) (*SearchOut, *http.Response, error) {
+//	@return KnowledgeSearchOut
+func (a *KnowledgeAPIService) PostKnowledgeSearchExecute(r KnowledgeAPIPostKnowledgeSearchRequest) (*KnowledgeSearchOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SearchOut
+		localVarReturnValue *KnowledgeSearchOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KnowledgeAPIService.PostKnowledgeSearch")
@@ -1071,8 +2228,8 @@ func (a *KnowledgeAPIService) PostKnowledgeSearchExecute(r KnowledgeAPIPostKnowl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.searchIn == nil {
-		return localVarReturnValue, nil, reportError("searchIn is required and must be specified")
+	if r.knowledgeSearchIn == nil {
+		return localVarReturnValue, nil, reportError("knowledgeSearchIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1085,7 +2242,7 @@ func (a *KnowledgeAPIService) PostKnowledgeSearchExecute(r KnowledgeAPIPostKnowl
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1093,7 +2250,7 @@ func (a *KnowledgeAPIService) PostKnowledgeSearchExecute(r KnowledgeAPIPostKnowl
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.searchIn
+	localVarPostBody = r.knowledgeSearchIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1116,6 +2273,14 @@ func (a *KnowledgeAPIService) PostKnowledgeSearchExecute(r KnowledgeAPIPostKnowl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

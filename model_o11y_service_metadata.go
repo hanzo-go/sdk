@@ -20,11 +20,14 @@ var _ MappedNullable = &O11yServiceMetadata{}
 // O11yServiceMetadata struct for O11yServiceMetadata
 type O11yServiceMetadata struct {
 	// if the service is enabled for the account
-	Enabled *bool   `json:"enabled,omitempty"`
-	Icon    *string `json:"icon,omitempty"`
-	Id      *string `json:"id,omitempty"`
-	Title   *string `json:"title,omitempty"`
+	Enabled              *bool   `json:"enabled,omitempty"`
+	Icon                 *string `json:"icon,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	Title                *string `json:"title,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yServiceMetadata O11yServiceMetadata
 
 // NewO11yServiceMetadata instantiates a new O11yServiceMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o O11yServiceMetadata) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yServiceMetadata) UnmarshalJSON(data []byte) (err error) {
+	varO11yServiceMetadata := _O11yServiceMetadata{}
+
+	err = json.Unmarshal(data, &varO11yServiceMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yServiceMetadata(varO11yServiceMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "icon")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "title")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yServiceMetadata struct {

@@ -30,7 +30,10 @@ type O11yDeploymentRecord struct {
 	DesiredPods             *int64                `json:"desiredPods,omitempty"`
 	Meta                    map[string]string     `json:"meta,omitempty"`
 	PodCountsByPhase        *O11yPodCountsByPhase `json:"podCountsByPhase,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
+
+type _O11yDeploymentRecord O11yDeploymentRecord
 
 // NewO11yDeploymentRecord instantiates a new O11yDeploymentRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o O11yDeploymentRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PodCountsByPhase) {
 		toSerialize["podCountsByPhase"] = o.PodCountsByPhase
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yDeploymentRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yDeploymentRecord := _O11yDeploymentRecord{}
+
+	err = json.Unmarshal(data, &varO11yDeploymentRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yDeploymentRecord(varO11yDeploymentRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "availablePods")
+		delete(additionalProperties, "deploymentCPU")
+		delete(additionalProperties, "deploymentCPULimit")
+		delete(additionalProperties, "deploymentCPURequest")
+		delete(additionalProperties, "deploymentMemory")
+		delete(additionalProperties, "deploymentMemoryLimit")
+		delete(additionalProperties, "deploymentMemoryRequest")
+		delete(additionalProperties, "deploymentName")
+		delete(additionalProperties, "desiredPods")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "podCountsByPhase")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yDeploymentRecord struct {

@@ -22,8 +22,11 @@ type O11yO11yObjectGroup struct {
 	// Resource is the objects' type and kind.
 	Resource *O11yO11yResourceRef `json:"resource,omitempty"`
 	// Selectors pick the instances; a wildcard selects them all.
-	Selectors []string `json:"selectors,omitempty"`
+	Selectors            []string `json:"selectors,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yObjectGroup O11yO11yObjectGroup
 
 // NewO11yO11yObjectGroup instantiates a new O11yO11yObjectGroup object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yObjectGroup) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Selectors) {
 		toSerialize["selectors"] = o.Selectors
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yObjectGroup) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yObjectGroup := _O11yO11yObjectGroup{}
+
+	err = json.Unmarshal(data, &varO11yO11yObjectGroup)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yObjectGroup(varO11yO11yObjectGroup)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "resource")
+		delete(additionalProperties, "selectors")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yObjectGroup struct {

@@ -25,10 +25,13 @@ type O11yService struct {
 	Icon                    *string                      `json:"icon,omitempty"`
 	Id                      *string                      `json:"id,omitempty"`
 	// markdown
-	Overview         *string               `json:"overview,omitempty"`
-	SupportedSignals *O11ySupportedSignals `json:"supportedSignals,omitempty"`
-	Title            *string               `json:"title,omitempty"`
+	Overview             *string               `json:"overview,omitempty"`
+	SupportedSignals     *O11ySupportedSignals `json:"supportedSignals,omitempty"`
+	Title                *string               `json:"title,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yService O11yService
 
 // NewO11yService instantiates a new O11yService object
 // This constructor will assign default values to properties that have it defined,
@@ -337,7 +340,40 @@ func (o O11yService) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yService) UnmarshalJSON(data []byte) (err error) {
+	varO11yService := _O11yService{}
+
+	err = json.Unmarshal(data, &varO11yService)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yService(varO11yService)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "assets")
+		delete(additionalProperties, "cloudIntegrationService")
+		delete(additionalProperties, "dataCollected")
+		delete(additionalProperties, "icon")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "overview")
+		delete(additionalProperties, "supportedSignals")
+		delete(additionalProperties, "title")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yService struct {

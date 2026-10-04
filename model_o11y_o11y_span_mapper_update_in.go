@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yO11ySpanMapperUpdateIn{}
 
 // O11yO11ySpanMapperUpdateIn struct for O11yO11ySpanMapperUpdateIn
 type O11yO11ySpanMapperUpdateIn struct {
-	Config       *O11ySpanMapperConfig `json:"config,omitempty"`
-	Enabled      *bool                 `json:"enabled,omitempty"`
-	FieldContext interface{}           `json:"fieldContext,omitempty"`
+	Config               *O11ySpanMapperConfig `json:"config,omitempty"`
+	Enabled              *bool                 `json:"enabled,omitempty"`
+	FieldContext         interface{}           `json:"fieldContext,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11ySpanMapperUpdateIn O11yO11ySpanMapperUpdateIn
 
 // NewO11yO11ySpanMapperUpdateIn instantiates a new O11yO11ySpanMapperUpdateIn object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o O11yO11ySpanMapperUpdateIn) ToMap() (map[string]interface{}, error) {
 	if o.FieldContext != nil {
 		toSerialize["fieldContext"] = o.FieldContext
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11ySpanMapperUpdateIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11ySpanMapperUpdateIn := _O11yO11ySpanMapperUpdateIn{}
+
+	err = json.Unmarshal(data, &varO11yO11ySpanMapperUpdateIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11ySpanMapperUpdateIn(varO11yO11ySpanMapperUpdateIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "fieldContext")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11ySpanMapperUpdateIn struct {

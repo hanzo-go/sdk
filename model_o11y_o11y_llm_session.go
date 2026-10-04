@@ -34,8 +34,11 @@ type O11yO11yLLMSession struct {
 	// Traces is how many traces the conversation holds.
 	Traces *int64 `json:"traces,omitempty"`
 	// UserID is the end user the conversation is attributed to.
-	UserId *string `json:"userId,omitempty"`
+	UserId               *string `json:"userId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMSession O11yO11yLLMSession
 
 // NewO11yO11yLLMSession instantiates a new O11yO11yLLMSession object
 // This constructor will assign default values to properties that have it defined,
@@ -344,7 +347,40 @@ func (o O11yO11yLLMSession) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMSession) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMSession := _O11yO11yLLMSession{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMSession)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMSession(varO11yO11yLLMSession)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "completionTokens")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "observations")
+		delete(additionalProperties, "promptTokens")
+		delete(additionalProperties, "totalCost")
+		delete(additionalProperties, "totalTokens")
+		delete(additionalProperties, "traces")
+		delete(additionalProperties, "userId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMSession struct {

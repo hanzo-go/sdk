@@ -23,17 +23,17 @@ import (
 type DatasetAPIService service
 
 type DatasetAPIRiskCreateDatasetRequest struct {
-	ctx             context.Context
-	ApiService      *DatasetAPIService
-	riskDatasetSpec *RiskDatasetSpec
+	ctx                    context.Context
+	ApiService             *DatasetAPIService
+	datasetRiskDatasetSpec *DatasetRiskDatasetSpec
 }
 
-func (r DatasetAPIRiskCreateDatasetRequest) RiskDatasetSpec(riskDatasetSpec RiskDatasetSpec) DatasetAPIRiskCreateDatasetRequest {
-	r.riskDatasetSpec = &riskDatasetSpec
+func (r DatasetAPIRiskCreateDatasetRequest) DatasetRiskDatasetSpec(datasetRiskDatasetSpec DatasetRiskDatasetSpec) DatasetAPIRiskCreateDatasetRequest {
+	r.datasetRiskDatasetSpec = &datasetRiskDatasetSpec
 	return r
 }
 
-func (r DatasetAPIRiskCreateDatasetRequest) Execute() (*RiskDataset, *http.Response, error) {
+func (r DatasetAPIRiskCreateDatasetRequest) Execute() (*DatasetRiskDataset, *http.Response, error) {
 	return r.ApiService.RiskCreateDatasetExecute(r)
 }
 
@@ -64,13 +64,13 @@ func (a *DatasetAPIService) RiskCreateDataset(ctx context.Context) DatasetAPIRis
 
 // Execute executes the request
 //
-//	@return RiskDataset
-func (a *DatasetAPIService) RiskCreateDatasetExecute(r DatasetAPIRiskCreateDatasetRequest) (*RiskDataset, *http.Response, error) {
+//	@return DatasetRiskDataset
+func (a *DatasetAPIService) RiskCreateDatasetExecute(r DatasetAPIRiskCreateDatasetRequest) (*DatasetRiskDataset, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskDataset
+		localVarReturnValue *DatasetRiskDataset
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DatasetAPIService.RiskCreateDataset")
@@ -83,8 +83,8 @@ func (a *DatasetAPIService) RiskCreateDatasetExecute(r DatasetAPIRiskCreateDatas
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.riskDatasetSpec == nil {
-		return localVarReturnValue, nil, reportError("riskDatasetSpec is required and must be specified")
+	if r.datasetRiskDatasetSpec == nil {
+		return localVarReturnValue, nil, reportError("datasetRiskDatasetSpec is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -97,7 +97,7 @@ func (a *DatasetAPIService) RiskCreateDatasetExecute(r DatasetAPIRiskCreateDatas
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -105,7 +105,7 @@ func (a *DatasetAPIService) RiskCreateDatasetExecute(r DatasetAPIRiskCreateDatas
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.riskDatasetSpec
+	localVarPostBody = r.datasetRiskDatasetSpec
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -128,6 +128,14 @@ func (a *DatasetAPIService) RiskCreateDatasetExecute(r DatasetAPIRiskCreateDatas
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -149,7 +157,7 @@ type DatasetAPIRiskDatasetRequest struct {
 	name       string
 }
 
-func (r DatasetAPIRiskDatasetRequest) Execute() (*RiskDatasetVersions, *http.Response, error) {
+func (r DatasetAPIRiskDatasetRequest) Execute() (*DatasetRiskDatasetVersions, *http.Response, error) {
 	return r.ApiService.RiskDatasetExecute(r)
 }
 
@@ -177,13 +185,13 @@ func (a *DatasetAPIService) RiskDataset(ctx context.Context, name string) Datase
 
 // Execute executes the request
 //
-//	@return RiskDatasetVersions
-func (a *DatasetAPIService) RiskDatasetExecute(r DatasetAPIRiskDatasetRequest) (*RiskDatasetVersions, *http.Response, error) {
+//	@return DatasetRiskDatasetVersions
+func (a *DatasetAPIService) RiskDatasetExecute(r DatasetAPIRiskDatasetRequest) (*DatasetRiskDatasetVersions, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskDatasetVersions
+		localVarReturnValue *DatasetRiskDatasetVersions
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DatasetAPIService.RiskDataset")
@@ -208,7 +216,7 @@ func (a *DatasetAPIService) RiskDatasetExecute(r DatasetAPIRiskDatasetRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -237,6 +245,14 @@ func (a *DatasetAPIService) RiskDatasetExecute(r DatasetAPIRiskDatasetRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -265,7 +281,7 @@ func (r DatasetAPIRiskDatasetLineageRequest) Version(version int64) DatasetAPIRi
 	return r
 }
 
-func (r DatasetAPIRiskDatasetLineageRequest) Execute() (*RiskLineage, *http.Response, error) {
+func (r DatasetAPIRiskDatasetLineageRequest) Execute() (*DatasetRiskLineage, *http.Response, error) {
 	return r.ApiService.RiskDatasetLineageExecute(r)
 }
 
@@ -303,13 +319,13 @@ func (a *DatasetAPIService) RiskDatasetLineage(ctx context.Context, name string)
 
 // Execute executes the request
 //
-//	@return RiskLineage
-func (a *DatasetAPIService) RiskDatasetLineageExecute(r DatasetAPIRiskDatasetLineageRequest) (*RiskLineage, *http.Response, error) {
+//	@return DatasetRiskLineage
+func (a *DatasetAPIService) RiskDatasetLineageExecute(r DatasetAPIRiskDatasetLineageRequest) (*DatasetRiskLineage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskLineage
+		localVarReturnValue *DatasetRiskLineage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DatasetAPIService.RiskDatasetLineage")
@@ -337,7 +353,7 @@ func (a *DatasetAPIService) RiskDatasetLineageExecute(r DatasetAPIRiskDatasetLin
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -366,6 +382,14 @@ func (a *DatasetAPIService) RiskDatasetLineageExecute(r DatasetAPIRiskDatasetLin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -386,7 +410,7 @@ type DatasetAPIRiskDatasetsRequest struct {
 	ApiService *DatasetAPIService
 }
 
-func (r DatasetAPIRiskDatasetsRequest) Execute() (*RiskDatasetList, *http.Response, error) {
+func (r DatasetAPIRiskDatasetsRequest) Execute() (*DatasetRiskDatasetList, *http.Response, error) {
 	return r.ApiService.RiskDatasetsExecute(r)
 }
 
@@ -410,13 +434,13 @@ func (a *DatasetAPIService) RiskDatasets(ctx context.Context) DatasetAPIRiskData
 
 // Execute executes the request
 //
-//	@return RiskDatasetList
-func (a *DatasetAPIService) RiskDatasetsExecute(r DatasetAPIRiskDatasetsRequest) (*RiskDatasetList, *http.Response, error) {
+//	@return DatasetRiskDatasetList
+func (a *DatasetAPIService) RiskDatasetsExecute(r DatasetAPIRiskDatasetsRequest) (*DatasetRiskDatasetList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskDatasetList
+		localVarReturnValue *DatasetRiskDatasetList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DatasetAPIService.RiskDatasets")
@@ -440,7 +464,7 @@ func (a *DatasetAPIService) RiskDatasetsExecute(r DatasetAPIRiskDatasetsRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -469,6 +493,14 @@ func (a *DatasetAPIService) RiskDatasetsExecute(r DatasetAPIRiskDatasetsRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -490,7 +522,7 @@ type DatasetAPIRiskDeleteDatasetRequest struct {
 	name       string
 }
 
-func (r DatasetAPIRiskDeleteDatasetRequest) Execute() (*RiskDatasetDisposal, *http.Response, error) {
+func (r DatasetAPIRiskDeleteDatasetRequest) Execute() (*DatasetRiskDatasetDisposal, *http.Response, error) {
 	return r.ApiService.RiskDeleteDatasetExecute(r)
 }
 
@@ -530,13 +562,13 @@ func (a *DatasetAPIService) RiskDeleteDataset(ctx context.Context, name string) 
 
 // Execute executes the request
 //
-//	@return RiskDatasetDisposal
-func (a *DatasetAPIService) RiskDeleteDatasetExecute(r DatasetAPIRiskDeleteDatasetRequest) (*RiskDatasetDisposal, *http.Response, error) {
+//	@return DatasetRiskDatasetDisposal
+func (a *DatasetAPIService) RiskDeleteDatasetExecute(r DatasetAPIRiskDeleteDatasetRequest) (*DatasetRiskDatasetDisposal, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskDatasetDisposal
+		localVarReturnValue *DatasetRiskDatasetDisposal
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DatasetAPIService.RiskDeleteDataset")
@@ -561,7 +593,7 @@ func (a *DatasetAPIService) RiskDeleteDatasetExecute(r DatasetAPIRiskDeleteDatas
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -590,6 +622,14 @@ func (a *DatasetAPIService) RiskDeleteDatasetExecute(r DatasetAPIRiskDeleteDatas
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -639,7 +679,7 @@ func (r DatasetAPIRiskExportDatasetRequest) Limit(limit int64) DatasetAPIRiskExp
 	return r
 }
 
-func (r DatasetAPIRiskExportDatasetRequest) Execute() (*RiskDatasetRows, *http.Response, error) {
+func (r DatasetAPIRiskExportDatasetRequest) Execute() (*DatasetRiskDatasetRows, *http.Response, error) {
 	return r.ApiService.RiskExportDatasetExecute(r)
 }
 
@@ -667,13 +707,13 @@ func (a *DatasetAPIService) RiskExportDataset(ctx context.Context, name string) 
 
 // Execute executes the request
 //
-//	@return RiskDatasetRows
-func (a *DatasetAPIService) RiskExportDatasetExecute(r DatasetAPIRiskExportDatasetRequest) (*RiskDatasetRows, *http.Response, error) {
+//	@return DatasetRiskDatasetRows
+func (a *DatasetAPIService) RiskExportDatasetExecute(r DatasetAPIRiskExportDatasetRequest) (*DatasetRiskDatasetRows, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskDatasetRows
+		localVarReturnValue *DatasetRiskDatasetRows
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DatasetAPIService.RiskExportDataset")
@@ -710,7 +750,7 @@ func (a *DatasetAPIService) RiskExportDatasetExecute(r DatasetAPIRiskExportDatas
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -739,6 +779,14 @@ func (a *DatasetAPIService) RiskExportDatasetExecute(r DatasetAPIRiskExportDatas
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -760,7 +808,7 @@ type DatasetAPIRiskMaterializeDatasetRequest struct {
 	name       string
 }
 
-func (r DatasetAPIRiskMaterializeDatasetRequest) Execute() (*RiskDataset, *http.Response, error) {
+func (r DatasetAPIRiskMaterializeDatasetRequest) Execute() (*DatasetRiskDataset, *http.Response, error) {
 	return r.ApiService.RiskMaterializeDatasetExecute(r)
 }
 
@@ -797,13 +845,13 @@ func (a *DatasetAPIService) RiskMaterializeDataset(ctx context.Context, name str
 
 // Execute executes the request
 //
-//	@return RiskDataset
-func (a *DatasetAPIService) RiskMaterializeDatasetExecute(r DatasetAPIRiskMaterializeDatasetRequest) (*RiskDataset, *http.Response, error) {
+//	@return DatasetRiskDataset
+func (a *DatasetAPIService) RiskMaterializeDatasetExecute(r DatasetAPIRiskMaterializeDatasetRequest) (*DatasetRiskDataset, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RiskDataset
+		localVarReturnValue *DatasetRiskDataset
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DatasetAPIService.RiskMaterializeDataset")
@@ -828,7 +876,7 @@ func (a *DatasetAPIService) RiskMaterializeDatasetExecute(r DatasetAPIRiskMateri
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -857,6 +905,14 @@ func (a *DatasetAPIService) RiskMaterializeDatasetExecute(r DatasetAPIRiskMateri
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

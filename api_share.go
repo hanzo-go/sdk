@@ -26,7 +26,7 @@ type ShareAPIGetShareRequest struct {
 	ApiService *ShareAPIService
 }
 
-func (r ShareAPIGetShareRequest) Execute() (*SharesOut, *http.Response, error) {
+func (r ShareAPIGetShareRequest) Execute() (*ShareSharesOut, *http.Response, error) {
 	return r.ApiService.GetShareExecute(r)
 }
 
@@ -51,13 +51,13 @@ func (a *ShareAPIService) GetShare(ctx context.Context) ShareAPIGetShareRequest 
 
 // Execute executes the request
 //
-//	@return SharesOut
-func (a *ShareAPIService) GetShareExecute(r ShareAPIGetShareRequest) (*SharesOut, *http.Response, error) {
+//	@return ShareSharesOut
+func (a *ShareAPIService) GetShareExecute(r ShareAPIGetShareRequest) (*ShareSharesOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SharesOut
+		localVarReturnValue *ShareSharesOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ShareAPIService.GetShare")
@@ -81,7 +81,7 @@ func (a *ShareAPIService) GetShareExecute(r ShareAPIGetShareRequest) (*SharesOut
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -110,6 +110,14 @@ func (a *ShareAPIService) GetShareExecute(r ShareAPIGetShareRequest) (*SharesOut
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -130,14 +138,14 @@ type ShareAPIPostShareEnableRequest struct {
 	ApiService *ShareAPIService
 }
 
-func (r ShareAPIPostShareEnableRequest) Execute() (*EnableResp, *http.Response, error) {
+func (r ShareAPIPostShareEnableRequest) Execute() (*ShareEnableResp, *http.Response, error) {
 	return r.ApiService.PostShareEnableExecute(r)
 }
 
 /*
-PostShareEnable Enable provisions the caller org's tunnel account and returns the credential the `hanzo share` CLI needs to run a tunnel.
+PostShareEnable Provisions the caller org's tunnel account and returns the credential the `hanzo share` CLI needs to run a tunnel.
 
-Enable provisions the caller org's tunnel account and returns the credential the
+Provisions the caller org's tunnel account and returns the credential the
 `hanzo share` CLI needs to run a tunnel. It is idempotent: the account is keyed
 deterministically off the VALIDATED org, so a repeat call hands back the same
 account rather than creating a second one, and a caller can only ever provision
@@ -156,13 +164,13 @@ func (a *ShareAPIService) PostShareEnable(ctx context.Context) ShareAPIPostShare
 
 // Execute executes the request
 //
-//	@return EnableResp
-func (a *ShareAPIService) PostShareEnableExecute(r ShareAPIPostShareEnableRequest) (*EnableResp, *http.Response, error) {
+//	@return ShareEnableResp
+func (a *ShareAPIService) PostShareEnableExecute(r ShareAPIPostShareEnableRequest) (*ShareEnableResp, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EnableResp
+		localVarReturnValue *ShareEnableResp
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ShareAPIService.PostShareEnable")
@@ -186,7 +194,7 @@ func (a *ShareAPIService) PostShareEnableExecute(r ShareAPIPostShareEnableReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -215,6 +223,14 @@ func (a *ShareAPIService) PostShareEnableExecute(r ShareAPIPostShareEnableReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

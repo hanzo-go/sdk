@@ -24,8 +24,11 @@ type O11yO11yTopLevelOpsIn struct {
 	// Service narrows the map to one service when set.
 	Service *string `json:"service,omitempty"`
 	// Start is the window's start, epoch nanoseconds as a string; empty means unbounded.
-	Start *string `json:"start,omitempty"`
+	Start                *string `json:"start,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTopLevelOpsIn O11yO11yTopLevelOpsIn
 
 // NewO11yO11yTopLevelOpsIn instantiates a new O11yO11yTopLevelOpsIn object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yTopLevelOpsIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Start) {
 		toSerialize["start"] = o.Start
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTopLevelOpsIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTopLevelOpsIn := _O11yO11yTopLevelOpsIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yTopLevelOpsIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTopLevelOpsIn(varO11yO11yTopLevelOpsIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "service")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTopLevelOpsIn struct {

@@ -32,8 +32,11 @@ type O11yO11yDomainsIn struct {
 	// ShowIP keeps rows whose domain is a bare IP address; they are dropped otherwise.
 	ShowIp *bool `json:"show_ip,omitempty"`
 	// Start is the window's start, epoch milliseconds.
-	Start *int32 `json:"start,omitempty"`
+	Start                *int32 `json:"start,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDomainsIn O11yO11yDomainsIn
 
 // NewO11yO11yDomainsIn instantiates a new O11yO11yDomainsIn object
 // This constructor will assign default values to properties that have it defined,
@@ -307,7 +310,39 @@ func (o O11yO11yDomainsIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Start) {
 		toSerialize["start"] = o.Start
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDomainsIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDomainsIn := _O11yO11yDomainsIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yDomainsIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDomainsIn(varO11yO11yDomainsIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "domain")
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "endpoint")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "show_ip")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDomainsIn struct {

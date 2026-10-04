@@ -49,8 +49,11 @@ type O11yO11yLLMPricingRule struct {
 	// UpdatedAt is when the rule last changed.
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	// UpdatedBy is who last changed it.
-	UpdatedBy *string `json:"updatedBy,omitempty"`
+	UpdatedBy            *string `json:"updatedBy,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMPricingRule O11yO11yLLMPricingRule
 
 // NewO11yO11yLLMPricingRule instantiates a new O11yO11yLLMPricingRule object
 // This constructor will assign default values to properties that have it defined,
@@ -604,7 +607,47 @@ func (o O11yO11yLLMPricingRule) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedBy) {
 		toSerialize["updatedBy"] = o.UpdatedBy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMPricingRule) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMPricingRule := _O11yO11yLLMPricingRule{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMPricingRule)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMPricingRule(varO11yO11yLLMPricingRule)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "isOverride")
+		delete(additionalProperties, "modelName")
+		delete(additionalProperties, "modelPattern")
+		delete(additionalProperties, "orgId")
+		delete(additionalProperties, "pricing")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "sourceId")
+		delete(additionalProperties, "syncedAt")
+		delete(additionalProperties, "unit")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedBy")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMPricingRule struct {

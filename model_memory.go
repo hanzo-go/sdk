@@ -19,18 +19,21 @@ var _ MappedNullable = &Memory{}
 
 // Memory struct for Memory
 type Memory struct {
-	Content     *string           `json:"content,omitempty"`
-	CreatedTime *string           `json:"createdTime,omitempty"`
-	Dimension   *int32            `json:"dimension,omitempty"`
-	Embedding   []float32         `json:"embedding,omitempty"`
-	Kind        *string           `json:"kind,omitempty"`
-	Metadata    map[string]string `json:"metadata,omitempty"`
-	Name        *string           `json:"name,omitempty"`
-	Owner       *string           `json:"owner,omitempty"`
-	Score       *float32          `json:"score,omitempty"`
-	UpdatedTime *string           `json:"updatedTime,omitempty"`
-	UserId      *string           `json:"userId,omitempty"`
+	Content              *string           `json:"content,omitempty"`
+	CreatedTime          *string           `json:"createdTime,omitempty"`
+	Dimension            *int32            `json:"dimension,omitempty"`
+	Embedding            []float32         `json:"embedding,omitempty"`
+	Kind                 *string           `json:"kind,omitempty"`
+	Metadata             map[string]string `json:"metadata,omitempty"`
+	Name                 *string           `json:"name,omitempty"`
+	Owner                *string           `json:"owner,omitempty"`
+	Score                *float32          `json:"score,omitempty"`
+	UpdatedTime          *string           `json:"updatedTime,omitempty"`
+	UserId               *string           `json:"userId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Memory Memory
 
 // NewMemory instantiates a new Memory object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o Memory) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserId) {
 		toSerialize["userId"] = o.UserId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Memory) UnmarshalJSON(data []byte) (err error) {
+	varMemory := _Memory{}
+
+	err = json.Unmarshal(data, &varMemory)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Memory(varMemory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "content")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "dimension")
+		delete(additionalProperties, "embedding")
+		delete(additionalProperties, "kind")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "score")
+		delete(additionalProperties, "updatedTime")
+		delete(additionalProperties, "userId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMemory struct {

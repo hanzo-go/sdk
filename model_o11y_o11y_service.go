@@ -38,8 +38,11 @@ type O11yO11yService struct {
 	// Percentile99 is the p99 latency of its entry-point spans, nanoseconds.
 	P99 *float64 `json:"p99,omitempty"`
 	// ServiceName is the service.
-	ServiceName *string `json:"serviceName,omitempty"`
+	ServiceName          *string `json:"serviceName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yService O11yO11yService
 
 // NewO11yO11yService instantiates a new O11yO11yService object
 // This constructor will assign default values to properties that have it defined,
@@ -418,7 +421,42 @@ func (o O11yO11yService) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ServiceName) {
 		toSerialize["serviceName"] = o.ServiceName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yService) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yService := _O11yO11yService{}
+
+	err = json.Unmarshal(data, &varO11yO11yService)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yService(varO11yO11yService)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "avgDuration")
+		delete(additionalProperties, "callRate")
+		delete(additionalProperties, "dataWarning")
+		delete(additionalProperties, "errorRate")
+		delete(additionalProperties, "fourXXRate")
+		delete(additionalProperties, "num4XX")
+		delete(additionalProperties, "numCalls")
+		delete(additionalProperties, "numErrors")
+		delete(additionalProperties, "p99")
+		delete(additionalProperties, "serviceName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yService struct {

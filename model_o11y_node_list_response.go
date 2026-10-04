@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yNodeListResponse{}
 
 // O11yNodeListResponse struct for O11yNodeListResponse
 type O11yNodeListResponse struct {
-	Records []O11yNodeListRecord `json:"records,omitempty"`
-	Total   *int64               `json:"total,omitempty"`
-	Type    *string              `json:"type,omitempty"`
+	Records              []O11yNodeListRecord `json:"records,omitempty"`
+	Total                *int64               `json:"total,omitempty"`
+	Type                 *string              `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yNodeListResponse O11yNodeListResponse
 
 // NewO11yNodeListResponse instantiates a new O11yNodeListResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yNodeListResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yNodeListResponse) UnmarshalJSON(data []byte) (err error) {
+	varO11yNodeListResponse := _O11yNodeListResponse{}
+
+	err = json.Unmarshal(data, &varO11yNodeListResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yNodeListResponse(varO11yNodeListResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "records")
+		delete(additionalProperties, "total")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yNodeListResponse struct {

@@ -4,12 +4,12 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteSyncById**](SyncAPI.md#DeleteSyncById) | **Delete** /v1/sync/{id} | Delete removes one sync and tears down the outbound mirror it derived, answering 204.
-[**GetSync**](SyncAPI.md#GetSync) | **Get** /v1/sync | List returns every sync link the caller&#39;s org has, each with its two endpoints, its direction and trigger policy, and the time it last reconciled.
-[**GetSyncById**](SyncAPI.md#GetSyncById) | **Get** /v1/sync/{id} | Get returns one sync by id.
-[**PatchSyncById**](SyncAPI.md#PatchSyncById) | **Patch** /v1/sync/{id} | Patch updates one sync&#39;s mutable policy — direction, trigger and actor — in place.
-[**PostSync**](SyncAPI.md#PostSync) | **Post** /v1/sync | Create declares a sync between two endpoints and returns it.
-[**PostSyncByIdRun**](SyncAPI.md#PostSyncByIdRun) | **Post** /v1/sync/{id}/run | Run reconciles one sync now — the manual re-sync, and the initial import for a link created without run&#x3D;true.
+[**DeleteSyncById**](SyncAPI.md#DeleteSyncById) | **Delete** /v1/sync/{id} | Removes one sync and tears down the outbound mirror it derived, answering 204.
+[**GetSync**](SyncAPI.md#GetSync) | **Get** /v1/sync | Returns every sync link the caller&#39;s org has, each with its two endpoints, its direction and trigger policy, the time it last reconciled, and for a repo link its native copy on the forge — the address to clone it from, its default branch and whether it is in step.
+[**GetSyncById**](SyncAPI.md#GetSyncById) | **Get** /v1/sync/{id} | Returns one sync by id.
+[**PatchSyncById**](SyncAPI.md#PatchSyncById) | **Patch** /v1/sync/{id} | Updates one sync&#39;s mutable policy — direction, trigger and actor — in place.
+[**PostSync**](SyncAPI.md#PostSync) | **Post** /v1/sync | Declares a sync between two endpoints and returns it.
+[**PostSyncByIdRun**](SyncAPI.md#PostSyncByIdRun) | **Post** /v1/sync/{id}/run | Reconciles one sync now — the manual re-sync, and the initial import for a link created without run&#x3D;true.
 
 
 
@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 > DeleteSyncById(ctx, id).Execute()
 
-Delete removes one sync and tears down the outbound mirror it derived, answering 204.
+Removes one sync and tears down the outbound mirror it derived, answering 204.
 
 
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -83,9 +83,9 @@ Name | Type | Description  | Notes
 
 ## GetSync
 
-> SyncList GetSync(ctx).Execute()
+> SyncSyncList GetSync(ctx).Execute()
 
-List returns every sync link the caller's org has, each with its two endpoints, its direction and trigger policy, and the time it last reconciled.
+Returns every sync link the caller's org has, each with its two endpoints, its direction and trigger policy, the time it last reconciled, and for a repo link its native copy on the forge — the address to clone it from, its default branch and whether it is in step.
 
 
 
@@ -110,7 +110,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SyncAPI.GetSync``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSync`: SyncList
+	// response from `GetSync`: SyncSyncList
 	fmt.Fprintf(os.Stdout, "Response from `SyncAPI.GetSync`: %v\n", resp)
 }
 ```
@@ -126,7 +126,7 @@ Other parameters are passed through a pointer to a apiGetSyncRequest struct via 
 
 ### Return type
 
-[**SyncList**](SyncList.md)
+[**SyncSyncList**](SyncSyncList.md)
 
 ### Authorization
 
@@ -135,7 +135,7 @@ Other parameters are passed through a pointer to a apiGetSyncRequest struct via 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -144,9 +144,9 @@ Other parameters are passed through a pointer to a apiGetSyncRequest struct via 
 
 ## GetSyncById
 
-> SyncView GetSyncById(ctx, id).Execute()
+> SyncSyncView GetSyncById(ctx, id).Execute()
 
-Get returns one sync by id.
+Returns one sync by id.
 
 
 
@@ -172,7 +172,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SyncAPI.GetSyncById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSyncById`: SyncView
+	// response from `GetSyncById`: SyncSyncView
 	fmt.Fprintf(os.Stdout, "Response from `SyncAPI.GetSyncById`: %v\n", resp)
 }
 ```
@@ -196,7 +196,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncView**](SyncView.md)
+[**SyncSyncView**](SyncSyncView.md)
 
 ### Authorization
 
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -214,9 +214,9 @@ Name | Type | Description  | Notes
 
 ## PatchSyncById
 
-> SyncView PatchSyncById(ctx, id).PatchSyncIn(patchSyncIn).Execute()
+> SyncSyncView PatchSyncById(ctx, id).SyncPatchSyncIn(syncPatchSyncIn).Execute()
 
-Patch updates one sync's mutable policy — direction, trigger and actor — in place.
+Updates one sync's mutable policy — direction, trigger and actor — in place.
 
 
 
@@ -234,16 +234,16 @@ import (
 
 func main() {
 	id := "sync_1" // string | ID is the sync to update, from the path.
-	patchSyncIn := *openapiclient.NewPatchSyncIn() // PatchSyncIn | 
+	syncPatchSyncIn := *openapiclient.NewSyncPatchSyncIn() // SyncPatchSyncIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SyncAPI.PatchSyncById(context.Background(), id).PatchSyncIn(patchSyncIn).Execute()
+	resp, r, err := apiClient.SyncAPI.PatchSyncById(context.Background(), id).SyncPatchSyncIn(syncPatchSyncIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SyncAPI.PatchSyncById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchSyncById`: SyncView
+	// response from `PatchSyncById`: SyncSyncView
 	fmt.Fprintf(os.Stdout, "Response from `SyncAPI.PatchSyncById`: %v\n", resp)
 }
 ```
@@ -264,11 +264,11 @@ Other parameters are passed through a pointer to a apiPatchSyncByIdRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **patchSyncIn** | [**PatchSyncIn**](PatchSyncIn.md) |  | 
+ **syncPatchSyncIn** | [**SyncPatchSyncIn**](SyncPatchSyncIn.md) |  | 
 
 ### Return type
 
-[**SyncView**](SyncView.md)
+[**SyncSyncView**](SyncSyncView.md)
 
 ### Authorization
 
@@ -277,7 +277,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -286,9 +286,9 @@ Name | Type | Description  | Notes
 
 ## PostSync
 
-> SyncView PostSync(ctx).SyncReq(syncReq).Execute()
+> SyncSyncView PostSync(ctx).SyncSyncReq(syncSyncReq).Execute()
 
-Create declares a sync between two endpoints and returns it.
+Declares a sync between two endpoints and returns it.
 
 
 
@@ -305,16 +305,16 @@ import (
 )
 
 func main() {
-	syncReq := *openapiclient.NewSyncReq() // SyncReq | 
+	syncSyncReq := *openapiclient.NewSyncSyncReq() // SyncSyncReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SyncAPI.PostSync(context.Background()).SyncReq(syncReq).Execute()
+	resp, r, err := apiClient.SyncAPI.PostSync(context.Background()).SyncSyncReq(syncSyncReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SyncAPI.PostSync``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostSync`: SyncView
+	// response from `PostSync`: SyncSyncView
 	fmt.Fprintf(os.Stdout, "Response from `SyncAPI.PostSync`: %v\n", resp)
 }
 ```
@@ -330,11 +330,11 @@ Other parameters are passed through a pointer to a apiPostSyncRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **syncReq** | [**SyncReq**](SyncReq.md) |  | 
+ **syncSyncReq** | [**SyncSyncReq**](SyncSyncReq.md) |  | 
 
 ### Return type
 
-[**SyncView**](SyncView.md)
+[**SyncSyncView**](SyncSyncView.md)
 
 ### Authorization
 
@@ -343,7 +343,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -352,9 +352,9 @@ Name | Type | Description  | Notes
 
 ## PostSyncByIdRun
 
-> SyncQueued PostSyncByIdRun(ctx, id).Execute()
+> SyncSyncQueued PostSyncByIdRun(ctx, id).Execute()
 
-Run reconciles one sync now — the manual re-sync, and the initial import for a link created without run=true.
+Reconciles one sync now — the manual re-sync, and the initial import for a link created without run=true.
 
 
 
@@ -380,7 +380,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SyncAPI.PostSyncByIdRun``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostSyncByIdRun`: SyncQueued
+	// response from `PostSyncByIdRun`: SyncSyncQueued
 	fmt.Fprintf(os.Stdout, "Response from `SyncAPI.PostSyncByIdRun`: %v\n", resp)
 }
 ```
@@ -404,7 +404,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncQueued**](SyncQueued.md)
+[**SyncSyncQueued**](SyncSyncQueued.md)
 
 ### Authorization
 
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

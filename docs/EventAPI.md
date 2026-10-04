@@ -4,26 +4,101 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetEventErrors**](EventAPI.md#GetEventErrors) | **Get** /v1/event/errors | Errors returns the caller org&#39;s most recently captured errors, newest first.
-[**GetEventHealth**](EventAPI.md#GetEventHealth) | **Get** /v1/event/health | Health reports whether the event plane can take a write and the warehouse can answer a read.
+[**GetEventEconomic**](EventAPI.md#GetEventEconomic) | **Get** /v1/event/economic | Returns, oldest first and paged, the payments the caller&#39;s org made or received in a year, with the ones a correction restates named and what either party disputes — for the org&#39;s admins.
+[**GetEventErrors**](EventAPI.md#GetEventErrors) | **Get** /v1/event/errors | Returns the caller org&#39;s most recently captured errors, newest first.
+[**GetEventHealth**](EventAPI.md#GetEventHealth) | **Get** /v1/event/health | Reports whether the event plane can take a write and the warehouse can answer a read.
 [**GetEventInsightsEvents**](EventAPI.md#GetEventInsightsEvents) | **Get** /v1/event/insights/events | Returns the caller org&#39;s most recent product events, newest first.
 [**GetEventInsightsHealth**](EventAPI.md#GetEventInsightsHealth) | **Get** /v1/event/insights/health | Reports that the unified insights surface is serving.
-[**GetEventOverview**](EventAPI.md#GetEventOverview) | **Get** /v1/event/overview | Overview returns the caller org&#39;s analytics KPIs for one time window.
+[**GetEventOverview**](EventAPI.md#GetEventOverview) | **Get** /v1/event/overview | Returns the caller org&#39;s analytics KPIs for one time window.
+[**GetEventPixelByKey**](EventAPI.md#GetEventPixelByKey) | **Get** /v1/event/pixel/{key} | A site&#39;s default pixel — a page view from an image, for a page that runs no script
 [**GetEventTagJs**](EventAPI.md#GetEventTagJs) | **Get** /v1/event/tag.js | The Hanzo event tag — the one-line install for a surface with no bundler
-[**GetEventTimeseries**](EventAPI.md#GetEventTimeseries) | **Get** /v1/event/timeseries | Timeseries returns the caller org&#39;s LLM usage over time as an evenly-spaced series.
-[**GetEventTop**](EventAPI.md#GetEventTop) | **Get** /v1/event/top | Top returns the caller org&#39;s ranked lenses for one window, five of them at once.
+[**GetEventTimeseries**](EventAPI.md#GetEventTimeseries) | **Get** /v1/event/timeseries | Returns the caller org&#39;s LLM usage over time as an evenly-spaced series.
+[**GetEventTop**](EventAPI.md#GetEventTop) | **Get** /v1/event/top | Returns the caller org&#39;s ranked lenses for one window, five of them at once.
 [**PostEvent**](EventAPI.md#PostEvent) | **Post** /v1/event | Capture product events into your org&#39;s warehouse
-[**PostEventByProjectEnvelope**](EventAPI.md#PostEventByProjectEnvelope) | **Post** /v1/event/{project}/envelope | Sentry SDK envelope ingest — errors and traces from an unmodified Sentry client
-[**PostEventByProjectStore**](EventAPI.md#PostEventByProjectStore) | **Post** /v1/event/{project}/store | Sentry SDK store ingest — the legacy single-event wire
+[**PostEventEconomicDispute**](EventAPI.md#PostEventEconomicDispute) | **Post** /v1/event/economic/dispute | Records that the caller&#39;s org disputes one payment it is party to — for the org&#39;s admins.
 [**PostEventReplay**](EventAPI.md#PostEventReplay) | **Post** /v1/event/replay | Record a session-replay snapshot batch
 
 
 
+## GetEventEconomic
+
+> EventEconomics GetEventEconomic(ctx).Year(year).Counterparty(counterparty).Rail(rail).Cursor(cursor).Limit(limit).Execute()
+
+Returns, oldest first and paged, the payments the caller's org made or received in a year, with the ones a correction restates named and what either party disputes — for the org's admins.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	year := int64(2026) // int64 | Year is the calendar year to read, UTC.
+	counterparty := "counterparty_example" // string | Counterparty keeps only payments with this org on the other side. (optional)
+	rail := "x402" // string | Rail keeps only payments that moved on this rail. (optional)
+	cursor := "cursor_example" // string | Cursor continues from the next of the page before; empty starts the year. (optional)
+	limit := int64(789) // int64 | Limit is how many events to answer, default 100 and at most 1000. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventAPI.GetEventEconomic(context.Background()).Year(year).Counterparty(counterparty).Rail(rail).Cursor(cursor).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventEconomic``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetEventEconomic`: EventEconomics
+	fmt.Fprintf(os.Stdout, "Response from `EventAPI.GetEventEconomic`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetEventEconomicRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **year** | **int64** | Year is the calendar year to read, UTC. | 
+ **counterparty** | **string** | Counterparty keeps only payments with this org on the other side. | 
+ **rail** | **string** | Rail keeps only payments that moved on this rail. | 
+ **cursor** | **string** | Cursor continues from the next of the page before; empty starts the year. | 
+ **limit** | **int64** | Limit is how many events to answer, default 100 and at most 1000. | 
+
+### Return type
+
+[**EventEconomics**](EventEconomics.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetEventErrors
 
-> ErrorList GetEventErrors(ctx).Limit(limit).Execute()
+> EventErrorList GetEventErrors(ctx).Limit(limit).Execute()
 
-Errors returns the caller org's most recently captured errors, newest first.
+Returns the caller org's most recently captured errors, newest first.
 
 
 
@@ -49,7 +124,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventErrors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEventErrors`: ErrorList
+	// response from `GetEventErrors`: EventErrorList
 	fmt.Fprintf(os.Stdout, "Response from `EventAPI.GetEventErrors`: %v\n", resp)
 }
 ```
@@ -69,7 +144,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ErrorList**](ErrorList.md)
+[**EventErrorList**](EventErrorList.md)
 
 ### Authorization
 
@@ -78,7 +153,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -87,9 +162,9 @@ Name | Type | Description  | Notes
 
 ## GetEventHealth
 
-> HealthReport GetEventHealth(ctx).Execute()
+> EventHealthReport GetEventHealth(ctx).Execute()
 
-Health reports whether the event plane can take a write and the warehouse can answer a read.
+Reports whether the event plane can take a write and the warehouse can answer a read.
 
 
 
@@ -114,7 +189,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEventHealth`: HealthReport
+	// response from `GetEventHealth`: EventHealthReport
 	fmt.Fprintf(os.Stdout, "Response from `EventAPI.GetEventHealth`: %v\n", resp)
 }
 ```
@@ -130,7 +205,7 @@ Other parameters are passed through a pointer to a apiGetEventHealthRequest stru
 
 ### Return type
 
-[**HealthReport**](HealthReport.md)
+[**EventHealthReport**](EventHealthReport.md)
 
 ### Authorization
 
@@ -139,7 +214,7 @@ Other parameters are passed through a pointer to a apiGetEventHealthRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -148,7 +223,7 @@ Other parameters are passed through a pointer to a apiGetEventHealthRequest stru
 
 ## GetEventInsightsEvents
 
-> EventList GetEventInsightsEvents(ctx).Limit(limit).Execute()
+> EventEventList GetEventInsightsEvents(ctx).Limit(limit).Execute()
 
 Returns the caller org's most recent product events, newest first.
 
@@ -176,7 +251,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventInsightsEvents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEventInsightsEvents`: EventList
+	// response from `GetEventInsightsEvents`: EventEventList
 	fmt.Fprintf(os.Stdout, "Response from `EventAPI.GetEventInsightsEvents`: %v\n", resp)
 }
 ```
@@ -196,7 +271,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EventList**](EventList.md)
+[**EventEventList**](EventEventList.md)
 
 ### Authorization
 
@@ -205,7 +280,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -214,7 +289,7 @@ Name | Type | Description  | Notes
 
 ## GetEventInsightsHealth
 
-> InsightsStatus GetEventInsightsHealth(ctx).Execute()
+> EventInsightsStatus GetEventInsightsHealth(ctx).Execute()
 
 Reports that the unified insights surface is serving.
 
@@ -241,7 +316,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventInsightsHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEventInsightsHealth`: InsightsStatus
+	// response from `GetEventInsightsHealth`: EventInsightsStatus
 	fmt.Fprintf(os.Stdout, "Response from `EventAPI.GetEventInsightsHealth`: %v\n", resp)
 }
 ```
@@ -257,7 +332,7 @@ Other parameters are passed through a pointer to a apiGetEventInsightsHealthRequ
 
 ### Return type
 
-[**InsightsStatus**](InsightsStatus.md)
+[**EventInsightsStatus**](EventInsightsStatus.md)
 
 ### Authorization
 
@@ -266,7 +341,7 @@ Other parameters are passed through a pointer to a apiGetEventInsightsHealthRequ
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -275,9 +350,9 @@ Other parameters are passed through a pointer to a apiGetEventInsightsHealthRequ
 
 ## GetEventOverview
 
-> Overview GetEventOverview(ctx).Range_(range_).Start(start).End(end).Execute()
+> EventOverview GetEventOverview(ctx).Range_(range_).Start(start).End(end).Execute()
 
-Overview returns the caller org's analytics KPIs for one time window.
+Returns the caller org's analytics KPIs for one time window.
 
 
 
@@ -305,7 +380,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventOverview``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEventOverview`: Overview
+	// response from `GetEventOverview`: EventOverview
 	fmt.Fprintf(os.Stdout, "Response from `EventAPI.GetEventOverview`: %v\n", resp)
 }
 ```
@@ -327,7 +402,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Overview**](Overview.md)
+[**EventOverview**](EventOverview.md)
 
 ### Authorization
 
@@ -336,7 +411,77 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetEventPixelByKey
+
+> *os.File GetEventPixelByKey(ctx, key).Execute()
+
+A site's default pixel — a page view from an image, for a page that runs no script
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	key := "key_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventAPI.GetEventPixelByKey(context.Background(), key).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventPixelByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetEventPixelByKey`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `EventAPI.GetEventPixelByKey`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**key** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetEventPixelByKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[***os.File**](*os.File.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: image/gif
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -406,9 +551,9 @@ Other parameters are passed through a pointer to a apiGetEventTagJsRequest struc
 
 ## GetEventTimeseries
 
-> Timeseries GetEventTimeseries(ctx).Range_(range_).Start(start).End(end).Execute()
+> EventTimeseries GetEventTimeseries(ctx).Range_(range_).Start(start).End(end).Execute()
 
-Timeseries returns the caller org's LLM usage over time as an evenly-spaced series.
+Returns the caller org's LLM usage over time as an evenly-spaced series.
 
 
 
@@ -436,7 +581,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventTimeseries``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEventTimeseries`: Timeseries
+	// response from `GetEventTimeseries`: EventTimeseries
 	fmt.Fprintf(os.Stdout, "Response from `EventAPI.GetEventTimeseries`: %v\n", resp)
 }
 ```
@@ -458,7 +603,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Timeseries**](Timeseries.md)
+[**EventTimeseries**](EventTimeseries.md)
 
 ### Authorization
 
@@ -467,7 +612,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -476,9 +621,9 @@ Name | Type | Description  | Notes
 
 ## GetEventTop
 
-> Top GetEventTop(ctx).Range_(range_).Start(start).End(end).Limit(limit).Execute()
+> EventTop GetEventTop(ctx).Range_(range_).Start(start).End(end).Limit(limit).Execute()
 
-Top returns the caller org's ranked lenses for one window, five of them at once.
+Returns the caller org's ranked lenses for one window, five of them at once.
 
 
 
@@ -507,7 +652,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventTop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEventTop`: Top
+	// response from `GetEventTop`: EventTop
 	fmt.Fprintf(os.Stdout, "Response from `EventAPI.GetEventTop`: %v\n", resp)
 }
 ```
@@ -530,7 +675,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Top**](Top.md)
+[**EventTop**](EventTop.md)
 
 ### Authorization
 
@@ -539,7 +684,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -612,81 +757,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostEventByProjectEnvelope
+## PostEventEconomicDispute
 
-> PostEventByProjectEnvelope(ctx, project).Body(body).Execute()
+> EventEconomicDispute PostEventEconomicDispute(ctx).EventDisputeIn(eventDisputeIn).Execute()
 
-Sentry SDK envelope ingest — errors and traces from an unmodified Sentry client
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	project := "project_example" // string | 
-	body := os.NewFile(1234, "some_file") // *os.File |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.EventAPI.PostEventByProjectEnvelope(context.Background(), project).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.PostEventByProjectEnvelope``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**project** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostEventByProjectEnvelopeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **body** | ***os.File** |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/octet-stream
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostEventByProjectStore
-
-> PostEventByProjectStore(ctx, project).Body(body).Execute()
-
-Sentry SDK store ingest — the legacy single-event wire
+Records that the caller's org disputes one payment it is party to — for the org's admins.
 
 
 
@@ -703,40 +778,36 @@ import (
 )
 
 func main() {
-	project := "project_example" // string | 
-	body := os.NewFile(1234, "some_file") // *os.File |  (optional)
+	eventDisputeIn := *openapiclient.NewEventDisputeIn("Event_example", "Reason_example") // EventDisputeIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.EventAPI.PostEventByProjectStore(context.Background(), project).Body(body).Execute()
+	resp, r, err := apiClient.EventAPI.PostEventEconomicDispute(context.Background()).EventDisputeIn(eventDisputeIn).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.PostEventByProjectStore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.PostEventEconomicDispute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `PostEventEconomicDispute`: EventEconomicDispute
+	fmt.Fprintf(os.Stdout, "Response from `EventAPI.PostEventEconomicDispute`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**project** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostEventByProjectStoreRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostEventEconomicDisputeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **body** | ***os.File** |  | 
+ **eventDisputeIn** | [**EventDisputeIn**](EventDisputeIn.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**EventEconomicDispute**](EventEconomicDispute.md)
 
 ### Authorization
 
@@ -744,8 +815,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/octet-stream
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

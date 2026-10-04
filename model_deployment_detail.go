@@ -19,13 +19,16 @@ var _ MappedNullable = &DeploymentDetail{}
 
 // DeploymentDetail struct for DeploymentDetail
 type DeploymentDetail struct {
-	Containers    []ContainerDetail `json:"containers,omitempty"`
-	CreatedTime   *string           `json:"createdTime,omitempty"`
-	Name          *string           `json:"name,omitempty"`
-	ReadyReplicas *int32            `json:"readyReplicas,omitempty"`
-	Replicas      *int32            `json:"replicas,omitempty"`
-	Status        *string           `json:"status,omitempty"`
+	Containers           []ContainerDetail `json:"containers,omitempty"`
+	CreatedTime          *string           `json:"createdTime,omitempty"`
+	Name                 *string           `json:"name,omitempty"`
+	ReadyReplicas        *int32            `json:"readyReplicas,omitempty"`
+	Replicas             *int32            `json:"replicas,omitempty"`
+	Status               *string           `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeploymentDetail DeploymentDetail
 
 // NewDeploymentDetail instantiates a new DeploymentDetail object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o DeploymentDetail) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeploymentDetail) UnmarshalJSON(data []byte) (err error) {
+	varDeploymentDetail := _DeploymentDetail{}
+
+	err = json.Unmarshal(data, &varDeploymentDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeploymentDetail(varDeploymentDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "containers")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "readyReplicas")
+		delete(additionalProperties, "replicas")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeploymentDetail struct {

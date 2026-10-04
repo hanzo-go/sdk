@@ -19,9 +19,12 @@ var _ MappedNullable = &OpenaiImageResponse{}
 
 // OpenaiImageResponse struct for OpenaiImageResponse
 type OpenaiImageResponse struct {
-	Created *int32                         `json:"created,omitempty"`
-	Data    []OpenaiImageResponseDataInner `json:"data,omitempty"`
+	Created              *int32                         `json:"created,omitempty"`
+	Data                 []OpenaiImageResponseDataInner `json:"data,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiImageResponse OpenaiImageResponse
 
 // NewOpenaiImageResponse instantiates a new OpenaiImageResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o OpenaiImageResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiImageResponse) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiImageResponse := _OpenaiImageResponse{}
+
+	err = json.Unmarshal(data, &varOpenaiImageResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiImageResponse(varOpenaiImageResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "data")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiImageResponse struct {

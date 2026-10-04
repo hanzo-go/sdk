@@ -19,46 +19,49 @@ var _ MappedNullable = &CaptureEvent{}
 
 // CaptureEvent struct for CaptureEvent
 type CaptureEvent struct {
-	AnonymousId    *string                `json:"anonymousId,omitempty"`
-	Channel        *string                `json:"channel,omitempty"`
-	Clip           *ClipBody              `json:"clip,omitempty"`
-	Currency       *string                `json:"currency,omitempty"`
-	DistinctId     *string                `json:"distinctId,omitempty"`
-	Environment    *string                `json:"environment,omitempty"`
-	Error          *Exception             `json:"error,omitempty"`
-	Event          *string                `json:"event,omitempty"`
-	GroupId        *string                `json:"groupId,omitempty"`
-	GroupType      *string                `json:"groupType,omitempty"`
-	Kind           *string                `json:"kind,omitempty"`
-	Level          *string                `json:"level,omitempty"`
-	Library        *string                `json:"library,omitempty"`
-	LibraryVersion *string                `json:"libraryVersion,omitempty"`
-	Log            *LogBody               `json:"log,omitempty"`
-	MessageId      *string                `json:"messageId,omitempty"`
-	Metric         *MetricBody            `json:"metric,omitempty"`
-	Path           *string                `json:"path,omitempty"`
-	PersonId       *string                `json:"personId,omitempty"`
-	Product        *string                `json:"product,omitempty"`
-	ProductId      *string                `json:"productId,omitempty"`
-	Properties     map[string]interface{} `json:"properties,omitempty"`
-	Quantity       *int32                 `json:"quantity,omitempty"`
-	RefCode        *string                `json:"refCode,omitempty"`
-	Referrer       *string                `json:"referrer,omitempty"`
-	Release        *string                `json:"release,omitempty"`
-	Resource       *string                `json:"resource,omitempty"`
-	Revenue        *float32               `json:"revenue,omitempty"`
-	Service        *string                `json:"service,omitempty"`
-	SessionId      *string                `json:"sessionId,omitempty"`
-	SignupWeek     *string                `json:"signupWeek,omitempty"`
-	Site           *string                `json:"site,omitempty"`
-	Span           *SpanBody              `json:"span,omitempty"`
-	SpanId         *string                `json:"spanId,omitempty"`
-	Timestamp      *string                `json:"timestamp,omitempty"`
-	TraceId        *string                `json:"traceId,omitempty"`
-	Type           *string                `json:"type,omitempty"`
-	Url            *string                `json:"url,omitempty"`
-	Utm            *UTM                   `json:"utm,omitempty"`
+	AnonymousId          *string                `json:"anonymousId,omitempty"`
+	Channel              *string                `json:"channel,omitempty"`
+	Clip                 *ClipBody              `json:"clip,omitempty"`
+	Currency             *string                `json:"currency,omitempty"`
+	DistinctId           *string                `json:"distinctId,omitempty"`
+	Environment          *string                `json:"environment,omitempty"`
+	Error                *Exception             `json:"error,omitempty"`
+	Event                *string                `json:"event,omitempty"`
+	GroupId              *string                `json:"groupId,omitempty"`
+	GroupType            *string                `json:"groupType,omitempty"`
+	Kind                 *string                `json:"kind,omitempty"`
+	Level                *string                `json:"level,omitempty"`
+	Library              *string                `json:"library,omitempty"`
+	LibraryVersion       *string                `json:"libraryVersion,omitempty"`
+	Log                  *LogBody               `json:"log,omitempty"`
+	MessageId            *string                `json:"messageId,omitempty"`
+	Metric               *MetricBody            `json:"metric,omitempty"`
+	Path                 *string                `json:"path,omitempty"`
+	PersonId             *string                `json:"personId,omitempty"`
+	Product              *string                `json:"product,omitempty"`
+	ProductId            *string                `json:"productId,omitempty"`
+	Properties           map[string]interface{} `json:"properties,omitempty"`
+	Quantity             *int32                 `json:"quantity,omitempty"`
+	RefCode              *string                `json:"refCode,omitempty"`
+	Referrer             *string                `json:"referrer,omitempty"`
+	Release              *string                `json:"release,omitempty"`
+	Resource             *string                `json:"resource,omitempty"`
+	Revenue              *float32               `json:"revenue,omitempty"`
+	Service              *string                `json:"service,omitempty"`
+	SessionId            *string                `json:"sessionId,omitempty"`
+	SignupWeek           *string                `json:"signupWeek,omitempty"`
+	Site                 *string                `json:"site,omitempty"`
+	Span                 *SpanBody              `json:"span,omitempty"`
+	SpanId               *string                `json:"spanId,omitempty"`
+	Timestamp            *string                `json:"timestamp,omitempty"`
+	TraceId              *string                `json:"traceId,omitempty"`
+	Type                 *string                `json:"type,omitempty"`
+	Url                  *string                `json:"url,omitempty"`
+	Utm                  *UTM                   `json:"utm,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CaptureEvent CaptureEvent
 
 // NewCaptureEvent instantiates a new CaptureEvent object
 // This constructor will assign default values to properties that have it defined,
@@ -1452,7 +1455,71 @@ func (o CaptureEvent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Utm) {
 		toSerialize["utm"] = o.Utm
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CaptureEvent) UnmarshalJSON(data []byte) (err error) {
+	varCaptureEvent := _CaptureEvent{}
+
+	err = json.Unmarshal(data, &varCaptureEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CaptureEvent(varCaptureEvent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "anonymousId")
+		delete(additionalProperties, "channel")
+		delete(additionalProperties, "clip")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "distinctId")
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "error")
+		delete(additionalProperties, "event")
+		delete(additionalProperties, "groupId")
+		delete(additionalProperties, "groupType")
+		delete(additionalProperties, "kind")
+		delete(additionalProperties, "level")
+		delete(additionalProperties, "library")
+		delete(additionalProperties, "libraryVersion")
+		delete(additionalProperties, "log")
+		delete(additionalProperties, "messageId")
+		delete(additionalProperties, "metric")
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "personId")
+		delete(additionalProperties, "product")
+		delete(additionalProperties, "productId")
+		delete(additionalProperties, "properties")
+		delete(additionalProperties, "quantity")
+		delete(additionalProperties, "refCode")
+		delete(additionalProperties, "referrer")
+		delete(additionalProperties, "release")
+		delete(additionalProperties, "resource")
+		delete(additionalProperties, "revenue")
+		delete(additionalProperties, "service")
+		delete(additionalProperties, "sessionId")
+		delete(additionalProperties, "signupWeek")
+		delete(additionalProperties, "site")
+		delete(additionalProperties, "span")
+		delete(additionalProperties, "spanId")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "traceId")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "utm")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCaptureEvent struct {

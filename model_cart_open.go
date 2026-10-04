@@ -26,8 +26,11 @@ type CartOpen struct {
 	// Store is the storefront this cart is being filled on. Empty uses the org's default store, which is what a single-storefront merchant always wants.
 	Store *string `json:"store,omitempty"`
 	// User is the id of the signed-in shopper this cart belongs to, when there is one. Empty means a guest cart identified only by its own id.
-	User *string `json:"user,omitempty"`
+	User                 *string `json:"user,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CartOpen CartOpen
 
 // NewCartOpen instantiates a new CartOpen object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o CartOpen) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CartOpen) UnmarshalJSON(data []byte) (err error) {
+	varCartOpen := _CartOpen{}
+
+	err = json.Unmarshal(data, &varCartOpen)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CartOpen(varCartOpen)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "store")
+		delete(additionalProperties, "user")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCartOpen struct {

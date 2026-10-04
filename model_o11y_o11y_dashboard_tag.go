@@ -22,8 +22,11 @@ type O11yO11yDashboardTag struct {
 	// Key is the tag key.
 	Key *string `json:"key,omitempty"`
 	// Value is the tag value.
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardTag O11yO11yDashboardTag
 
 // NewO11yO11yDashboardTag instantiates a new O11yO11yDashboardTag object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yDashboardTag) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardTag) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardTag := _O11yO11yDashboardTag{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardTag)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardTag(varO11yO11yDashboardTag)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardTag struct {

@@ -33,8 +33,11 @@ type O11yO11yRole struct {
 	// Type is how the role came to be — managed by the platform or custom.
 	Type *string `json:"type,omitempty"`
 	// UpdatedAt is when it last changed.
-	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yRole O11yO11yRole
 
 // NewO11yO11yRole instantiates a new O11yO11yRole object
 // This constructor will assign default values to properties that have it defined,
@@ -308,7 +311,39 @@ func (o O11yO11yRole) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yRole) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yRole := _O11yO11yRole{}
+
+	err = json.Unmarshal(data, &varO11yO11yRole)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yRole(varO11yO11yRole)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "orgId")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yRole struct {

@@ -19,11 +19,14 @@ var _ MappedNullable = &IamReply{}
 
 // IamReply struct for IamReply
 type IamReply struct {
-	Action *string                `json:"action,omitempty"`
-	Data   map[string]interface{} `json:"data,omitempty"`
-	Msg    *string                `json:"msg,omitempty"`
-	Status *string                `json:"status,omitempty"`
+	Action               *string     `json:"action,omitempty"`
+	Data                 interface{} `json:"data,omitempty"`
+	Msg                  *string     `json:"msg,omitempty"`
+	Status               *string     `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamReply IamReply
 
 // NewIamReply instantiates a new IamReply object
 // This constructor will assign default values to properties that have it defined,
@@ -74,10 +77,10 @@ func (o *IamReply) SetAction(v string) {
 	o.Action = &v
 }
 
-// GetData returns the Data field value if set, zero value otherwise.
-func (o *IamReply) GetData() map[string]interface{} {
-	if o == nil || IsNil(o.Data) {
-		var ret map[string]interface{}
+// GetData returns the Data field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *IamReply) GetData() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Data
@@ -85,11 +88,12 @@ func (o *IamReply) GetData() map[string]interface{} {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamReply) GetDataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *IamReply) GetDataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Data) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Data, true
+	return &o.Data, true
 }
 
 // HasData returns a boolean if a field has been set.
@@ -101,8 +105,8 @@ func (o *IamReply) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given map[string]interface{} and assigns it to the Data field.
-func (o *IamReply) SetData(v map[string]interface{}) {
+// SetData gets a reference to the given interface{} and assigns it to the Data field.
+func (o *IamReply) SetData(v interface{}) {
 	o.Data = v
 }
 
@@ -183,7 +187,7 @@ func (o IamReply) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if !IsNil(o.Data) {
+	if o.Data != nil {
 		toSerialize["data"] = o.Data
 	}
 	if !IsNil(o.Msg) {
@@ -192,7 +196,36 @@ func (o IamReply) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamReply) UnmarshalJSON(data []byte) (err error) {
+	varIamReply := _IamReply{}
+
+	err = json.Unmarshal(data, &varIamReply)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamReply(varIamReply)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "action")
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "msg")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamReply struct {

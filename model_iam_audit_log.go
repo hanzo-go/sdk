@@ -20,25 +20,28 @@ var _ MappedNullable = &IamAuditLog{}
 
 // IamAuditLog struct for IamAuditLog
 type IamAuditLog struct {
-	Action       *string    `json:"action,omitempty"`
-	ClientIp     *string    `json:"clientIp,omitempty"`
-	CreatedAt    *time.Time `json:"createdAt,omitempty"`
-	CreatedTime  *string    `json:"createdTime,omitempty"`
-	Deleted      *bool      `json:"deleted,omitempty"`
-	Id           *string    `json:"id,omitempty"`
-	IsTriggered  *bool      `json:"isTriggered,omitempty"`
-	Language     *string    `json:"language,omitempty"`
-	Method       *string    `json:"method,omitempty"`
-	Name         *string    `json:"name,omitempty"`
-	Object       *string    `json:"object,omitempty"`
-	Organization *string    `json:"organization,omitempty"`
-	Owner        *string    `json:"owner,omitempty"`
-	RequestUri   *string    `json:"requestUri,omitempty"`
-	Response     *string    `json:"response,omitempty"`
-	StatusCode   *int64     `json:"statusCode,omitempty"`
-	UpdatedAt    *time.Time `json:"updatedAt,omitempty"`
-	User         *string    `json:"user,omitempty"`
+	Action               *string    `json:"action,omitempty"`
+	ClientIp             *string    `json:"clientIp,omitempty"`
+	CreatedAt            *time.Time `json:"createdAt,omitempty"`
+	CreatedTime          *string    `json:"createdTime,omitempty"`
+	Deleted              *bool      `json:"deleted,omitempty"`
+	Id                   *string    `json:"id,omitempty"`
+	IsTriggered          *bool      `json:"isTriggered,omitempty"`
+	Language             *string    `json:"language,omitempty"`
+	Method               *string    `json:"method,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	Object               *string    `json:"object,omitempty"`
+	Organization         *string    `json:"organization,omitempty"`
+	Owner                *string    `json:"owner,omitempty"`
+	RequestUri           *string    `json:"requestUri,omitempty"`
+	Response             *string    `json:"response,omitempty"`
+	StatusCode           *int64     `json:"statusCode,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	User                 *string    `json:"user,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamAuditLog IamAuditLog
 
 // NewIamAuditLog instantiates a new IamAuditLog object
 // This constructor will assign default values to properties that have it defined,
@@ -697,7 +700,50 @@ func (o IamAuditLog) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.User) {
 		toSerialize["user"] = o.User
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamAuditLog) UnmarshalJSON(data []byte) (err error) {
+	varIamAuditLog := _IamAuditLog{}
+
+	err = json.Unmarshal(data, &varIamAuditLog)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamAuditLog(varIamAuditLog)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "action")
+		delete(additionalProperties, "clientIp")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "isTriggered")
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "method")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "object")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "requestUri")
+		delete(additionalProperties, "response")
+		delete(additionalProperties, "statusCode")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "user")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamAuditLog struct {

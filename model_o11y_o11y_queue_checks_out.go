@@ -22,8 +22,11 @@ type O11yO11yQueueChecksOut struct {
 	// Data holds one check per required attribute, sorted by attribute.
 	Data []O11yO11yQueueCheck `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueueChecksOut O11yO11yQueueChecksOut
 
 // NewO11yO11yQueueChecksOut instantiates a new O11yO11yQueueChecksOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yQueueChecksOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueueChecksOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueueChecksOut := _O11yO11yQueueChecksOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueueChecksOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueueChecksOut(varO11yO11yQueueChecksOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueueChecksOut struct {

@@ -30,6 +30,7 @@ Method | HTTP request | Description
 [**DeleteToken**](IamAPI.md#DeleteToken) | **Delete** /v1/iam/tokens/{owner}/{name} | Revokes an access token.
 [**DeleteWebauthnCredential**](IamAPI.md#DeleteWebauthnCredential) | **Delete** /v1/iam/webauthn-credentials/{owner}/{name} | Removes a passkey or security key — what you call when a device is lost.
 [**GetIamAccount**](IamAPI.md#GetIamAccount) | **Get** /v1/iam/account | Returns the signed-in person&#39;s own account and the organization they belong to — what a console reads to draw the account menu.
+[**GetIamAccounts**](IamAPI.md#GetIamAccounts) | **Get** /v1/iam/accounts | Returns the people signed in on this browser, the most recent sign-in first — what the sign-in page lists when an application asks the person to choose an account.
 [**GetIamApplications**](IamAPI.md#GetIamApplications) | **Get** /v1/iam/applications | Returns the applications in one organization, newest first — each product or site your people sign in to, with the sign-in methods and redirect URIs it allows.
 [**GetIamApplicationsByOwnerByName**](IamAPI.md#GetIamApplicationsByOwnerByName) | **Get** /v1/iam/applications/{owner}/{name} | Returns one application: its sign-in methods, its allowed redirect URIs and the client credentials your integration authenticates with.
 [**GetIamAuditLogs**](IamAPI.md#GetIamAuditLogs) | **Get** /v1/iam/audit-logs | Returns your organization&#39;s audit trail, newest first — who did what, when, and from where.
@@ -81,6 +82,7 @@ Method | HTTP request | Description
 [**GetIamWorkspaces**](IamAPI.md#GetIamWorkspaces) | **Get** /v1/iam/workspaces | Returns your organization&#39;s workspaces, newest first — the scope a team works in, alongside projects rather than instead of them.
 [**GetIamWorkspacesByOwnerByName**](IamAPI.md#GetIamWorkspacesByOwnerByName) | **Get** /v1/iam/workspaces/{owner}/{name} | Returns one workspace: what it is called and how it is set up.
 [**GetOrganization**](IamAPI.md#GetOrganization) | **Get** /v1/iam/organizations/{owner}/{name} | Returns one organization: its display, its defaults and the sign-in rules everyone in it inherits.
+[**GetOrganizationTombstone**](IamAPI.md#GetOrganizationTombstone) | **Get** /v1/iam/organizations/tombstones/{owner}/{name} | Returns what holds a deleted organization&#39;s name: when it was deleted and who founded it.
 [**GetProvider**](IamAPI.md#GetProvider) | **Get** /v1/iam/providers/{owner}/{name} | Returns one provider: what it connects to and how it is configured.
 [**GetSession**](IamAPI.md#GetSession) | **Get** /v1/iam/sessions/{owner}/{name}/{application} | Returns one person&#39;s session in one application — when it began and which browsers or devices are still carrying it.
 [**GetToken**](IamAPI.md#GetToken) | **Get** /v1/iam/tokens/{owner}/{name} | Returns one access token: who and what it was issued to, and when it expires.
@@ -93,11 +95,13 @@ Method | HTTP request | Description
 [**PatchIamScimV2UsersByOwnerByName**](IamAPI.md#PatchIamScimV2UsersByOwnerByName) | **Patch** /v1/iam/scim/v2/Users/{owner}/{name} | Applies a partial change from your identity provider — one attribute moved, not the whole record resent.
 [**PostIamAdminProvision**](IamAPI.md#PostIamAdminProvision) | **Post** /v1/iam/admin/provision | Sets up an account on someone&#39;s behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
 [**PostIamApplications**](IamAPI.md#PostIamApplications) | **Post** /v1/iam/applications | Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs.
-[**PostIamAssume**](IamAPI.md#PostIamAssume) | **Post** /v1/iam/assume | Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.
 [**PostIamAuditLogs**](IamAPI.md#PostIamAuditLogs) | **Post** /v1/iam/audit-logs | Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
+[**PostIamAuthIdentifier**](IamAPI.md#PostIamAuthIdentifier) | **Post** /v1/iam/auth/identifier | Answers whether an account holds an email address at an application, and whether that account signs in with a password.
 [**PostIamCerts**](IamAPI.md#PostIamCerts) | **Post** /v1/iam/certs | Adds a signing certificate your applications can verify tokens against — the call you make to stage the next one before a rotation.
 [**PostIamDeleteMembership**](IamAPI.md#PostIamDeleteMembership) | **Post** /v1/iam/delete-membership | Takes away a person&#39;s or an application&#39;s right to act in an organization.
 [**PostIamInvitations**](IamAPI.md#PostIamInvitations) | **Post** /v1/iam/invitations | Issues an invitation to join your organization — the code or link a new member redeems, with the role they arrive holding and the date it stops working.
+[**PostIamInvitationsAccept**](IamAPI.md#PostIamInvitationsAccept) | **Post** /v1/iam/invitations/accept | Joins the caller to an organization through an invitation, for a person who already has an account.
+[**PostIamInvitationsByOwnerByNameSend**](IamAPI.md#PostIamInvitationsByOwnerByNameSend) | **Post** /v1/iam/invitations/{owner}/{name}/send | Emails an invitation to the address it is pinned to: who invited them, to which organization, and the link that joins them.
 [**PostIamKeys**](IamAPI.md#PostIamKeys) | **Post** /v1/iam/keys | Issues an API key.
 [**PostIamLink**](IamAPI.md#PostIamLink) | **Post** /v1/iam/link | Starts connecting another sign-in identity to the account you are already signed in as.
 [**PostIamLogin**](IamAPI.md#PostIamLogin) | **Post** /v1/iam/login | Signs a person in with the credential they typed, and — when the request is part of an OAuth flow — hands back the one-time code that finishes it.
@@ -111,6 +115,7 @@ Method | HTTP request | Description
 [**PostIamOauthFederationMfa**](IamAPI.md#PostIamOauthFederationMfa) | **Post** /v1/iam/oauth/federation/mfa | Completes a sign-in that came in through another identity provider and still owes a second factor.
 [**PostIamOauthIntrospect**](IamAPI.md#PostIamOauthIntrospect) | **Post** /v1/iam/oauth/introspect | Answers whether an access token is still good, and what it is good for — the check a resource server of yours makes before honouring a token it did not mint.
 [**PostIamOauthLogout**](IamAPI.md#PostIamOauthLogout) | **Post** /v1/iam/oauth/logout | Ends a sign-in and sends the browser somewhere sensible.
+[**PostIamOauthRefreshToken**](IamAPI.md#PostIamOauthRefreshToken) | **Post** /v1/iam/oauth/refresh_token | Exchanges what your application is holding for the tokens it needs — the one-time code from a finished sign-in, a refresh token, or your own client credentials when the caller is a program rather than a person.
 [**PostIamOauthRevoke**](IamAPI.md#PostIamOauthRevoke) | **Post** /v1/iam/oauth/revoke | Retires a token before it expires — what you call when someone signs out or a credential may have leaked.
 [**PostIamOauthToken**](IamAPI.md#PostIamOauthToken) | **Post** /v1/iam/oauth/token | Exchanges what your application is holding for the tokens it needs — the one-time code from a finished sign-in, a refresh token, or your own client credentials when the caller is a program rather than a person.
 [**PostIamOauthUserinfo**](IamAPI.md#PostIamOauthUserinfo) | **Post** /v1/iam/oauth/userinfo | Returns the profile claims for whoever the access token belongs to — the standard OpenID Connect way to find out who is calling you without your application storing anything itself.
@@ -119,7 +124,6 @@ Method | HTTP request | Description
 [**PostIamPreferences**](IamAPI.md#PostIamPreferences) | **Post** /v1/iam/preferences | Saves the calling person&#39;s own settings and returns the full set afterwards.
 [**PostIamProjects**](IamAPI.md#PostIamProjects) | **Post** /v1/iam/projects | Makes a project inside your organization — the scope people pick between when their work is separated by product or client rather than by team.
 [**PostIamRegistryToken**](IamAPI.md#PostIamRegistryToken) | **Post** /v1/iam/registry/token | Signs a container client in to your registry.
-[**PostIamRelease**](IamAPI.md#PostIamRelease) | **Post** /v1/iam/release | Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in.
 [**PostIamRoles**](IamAPI.md#PostIamRoles) | **Post** /v1/iam/roles | Makes a role — a named group of people that permissions are granted to.
 [**PostIamScimV2Users**](IamAPI.md#PostIamScimV2Users) | **Post** /v1/iam/scim/v2/Users | Provisions a person from your identity provider — how a new hire gets an account here automatically when they are added over there.
 [**PostIamServiceAccounts**](IamAPI.md#PostIamServiceAccounts) | **Post** /v1/iam/service-accounts | Makes a service account — an identity for a program rather than a person, for a script, a bot or a deployment that has to authenticate on its own.
@@ -149,8 +153,10 @@ Method | HTTP request | Description
 [**PutIamRolesByOwnerByName**](IamAPI.md#PutIamRolesByOwnerByName) | **Put** /v1/iam/roles/{owner}/{name} | Changes who is in a role, or which roles it includes.
 [**PutIamScimV2UsersByOwnerByName**](IamAPI.md#PutIamScimV2UsersByOwnerByName) | **Put** /v1/iam/scim/v2/Users/{owner}/{name} | Overwrites a person&#39;s SCIM attributes with what your identity provider sends — how a change made there lands here.
 [**PutIamTeamsByName**](IamAPI.md#PutIamTeamsByName) | **Put** /v1/iam/teams/{name} | Changes who is in a team.
+[**PutIamTerms**](IamAPI.md#PutIamTerms) | **Put** /v1/iam/terms | Records that the signed-in caller accepted the terms and the acceptable use policy, at the versions named.
 [**PutIamUsersByOwnerByName**](IamAPI.md#PutIamUsersByOwnerByName) | **Put** /v1/iam/users/{owner}/{name} | Changes a person&#39;s profile, their roles, or the credentials they sign in with.
 [**PutIamWorkspacesByOwnerByName**](IamAPI.md#PutIamWorkspacesByOwnerByName) | **Put** /v1/iam/workspaces/{owner}/{name} | Changes a workspace&#39;s settings.
+[**ReleaseOrganizationName**](IamAPI.md#ReleaseOrganizationName) | **Delete** /v1/iam/organizations/tombstones/{owner}/{name} | Frees the name of a deleted organization so it can be founded again.
 [**SetOrganizationAvatar**](IamAPI.md#SetOrganizationAvatar) | **Post** /v1/iam/organizations/avatar | Changes how an organization appears across Hanzo: the square mark beside its name, as an uploaded image or as a single emoji.
 [**SetOrganizationProfile**](IamAPI.md#SetOrganizationProfile) | **Post** /v1/iam/organizations/profile | Changes how an organization reads: its display name, its website and its favicon.
 [**UpdateOrganization**](IamAPI.md#UpdateOrganization) | **Put** /v1/iam/organizations/{owner}/{name} | Changes an organization&#39;s display, its defaults and the sign-in rules everyone in it inherits.
@@ -222,7 +228,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -288,7 +294,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -354,7 +360,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -420,7 +426,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -486,7 +492,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -559,7 +565,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -568,7 +574,7 @@ Name | Type | Description  | Notes
 
 ## DeleteIamAuditLogsByOwnerByName
 
-> IamDeleteOutput DeleteIamAuditLogsByOwnerByName(ctx, owner, name).Execute()
+> IamAuditlogsDeleteOutput DeleteIamAuditLogsByOwnerByName(ctx, owner, name).Execute()
 
 Removes an audit entry.
 
@@ -597,7 +603,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.DeleteIamAuditLogsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteIamAuditLogsByOwnerByName`: IamDeleteOutput
+	// response from `DeleteIamAuditLogsByOwnerByName`: IamAuditlogsDeleteOutput
 	fmt.Fprintf(os.Stdout, "Response from `IamAPI.DeleteIamAuditLogsByOwnerByName`: %v\n", resp)
 }
 ```
@@ -623,7 +629,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IamDeleteOutput**](IamDeleteOutput.md)
+[**IamAuditlogsDeleteOutput**](IamAuditlogsDeleteOutput.md)
 
 ### Authorization
 
@@ -632,7 +638,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -705,7 +711,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -778,7 +784,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -787,7 +793,7 @@ Name | Type | Description  | Notes
 
 ## DeleteIamKeysByOwnerByName
 
-> IamDeleteResponse DeleteIamKeysByOwnerByName(ctx, owner, name).Execute()
+> IamKeysDeleteResponse DeleteIamKeysByOwnerByName(ctx, owner, name).Execute()
 
 Revokes an API key.
 
@@ -816,7 +822,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.DeleteIamKeysByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteIamKeysByOwnerByName`: IamDeleteResponse
+	// response from `DeleteIamKeysByOwnerByName`: IamKeysDeleteResponse
 	fmt.Fprintf(os.Stdout, "Response from `IamAPI.DeleteIamKeysByOwnerByName`: %v\n", resp)
 }
 ```
@@ -842,7 +848,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IamDeleteResponse**](IamDeleteResponse.md)
+[**IamKeysDeleteResponse**](IamKeysDeleteResponse.md)
 
 ### Authorization
 
@@ -851,7 +857,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -919,7 +925,7 @@ Other parameters are passed through a pointer to a apiDeleteIamMfaRequest struct
 
 ## DeleteIamPermissionsByOwnerByName
 
-> IamPermissionDeleteResponse DeleteIamPermissionsByOwnerByName(ctx, owner, name).Execute()
+> IamDeleteResponse DeleteIamPermissionsByOwnerByName(ctx, owner, name).Execute()
 
 Revokes a permission.
 
@@ -948,7 +954,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.DeleteIamPermissionsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteIamPermissionsByOwnerByName`: IamPermissionDeleteResponse
+	// response from `DeleteIamPermissionsByOwnerByName`: IamDeleteResponse
 	fmt.Fprintf(os.Stdout, "Response from `IamAPI.DeleteIamPermissionsByOwnerByName`: %v\n", resp)
 }
 ```
@@ -974,7 +980,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IamPermissionDeleteResponse**](IamPermissionDeleteResponse.md)
+[**IamDeleteResponse**](IamDeleteResponse.md)
 
 ### Authorization
 
@@ -983,7 +989,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1056,7 +1062,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1129,7 +1135,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1338,7 +1344,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1347,7 +1353,7 @@ Name | Type | Description  | Notes
 
 ## DeleteIamUsersByOwnerByName
 
-> IamUsersDeleteOutput DeleteIamUsersByOwnerByName(ctx, owner, name).Execute()
+> IamDeleteOutput DeleteIamUsersByOwnerByName(ctx, owner, name).Execute()
 
 Removes a person from your organization.
 
@@ -1376,7 +1382,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.DeleteIamUsersByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteIamUsersByOwnerByName`: IamUsersDeleteOutput
+	// response from `DeleteIamUsersByOwnerByName`: IamDeleteOutput
 	fmt.Fprintf(os.Stdout, "Response from `IamAPI.DeleteIamUsersByOwnerByName`: %v\n", resp)
 }
 ```
@@ -1402,7 +1408,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IamUsersDeleteOutput**](IamUsersDeleteOutput.md)
+[**IamDeleteOutput**](IamDeleteOutput.md)
 
 ### Authorization
 
@@ -1411,7 +1417,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1555,7 +1561,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1628,7 +1634,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1701,7 +1707,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1777,7 +1783,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1850,7 +1856,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1923,7 +1929,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1969,6 +1975,65 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetIamAccountRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetIamAccounts
+
+> GetIamAccounts(ctx).Execute()
+
+Returns the people signed in on this browser, the most recent sign-in first — what the sign-in page lists when an application asks the person to choose an account.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IamAPI.GetIamAccounts(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamAccounts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIamAccountsRequest struct via the builder pattern
 
 
 ### Return type
@@ -2048,7 +2113,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2121,7 +2186,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2130,7 +2195,7 @@ Name | Type | Description  | Notes
 
 ## GetIamAuditLogs
 
-> IamListOutput GetIamAuditLogs(ctx).Owner(owner).Execute()
+> IamAuditlogsListOutput GetIamAuditLogs(ctx).Owner(owner).Execute()
 
 Returns your organization's audit trail, newest first — who did what, when, and from where.
 
@@ -2158,7 +2223,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamAuditLogs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIamAuditLogs`: IamListOutput
+	// response from `GetIamAuditLogs`: IamAuditlogsListOutput
 	fmt.Fprintf(os.Stdout, "Response from `IamAPI.GetIamAuditLogs`: %v\n", resp)
 }
 ```
@@ -2178,7 +2243,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IamListOutput**](IamListOutput.md)
+[**IamAuditlogsListOutput**](IamAuditlogsListOutput.md)
 
 ### Authorization
 
@@ -2187,7 +2252,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2260,7 +2325,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2328,7 +2393,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2394,7 +2459,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2460,7 +2525,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2533,7 +2598,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2658,7 +2723,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2731,7 +2796,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2740,7 +2805,7 @@ Name | Type | Description  | Notes
 
 ## GetIamKeys
 
-> IamListResponse GetIamKeys(ctx).Owner(owner).Execute()
+> IamKeysListResponse GetIamKeys(ctx).Owner(owner).Execute()
 
 Returns an organization's API keys, newest first — what each is called, what it may reach, and its publishable half.
 
@@ -2768,7 +2833,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIamKeys`: IamListResponse
+	// response from `GetIamKeys`: IamKeysListResponse
 	fmt.Fprintf(os.Stdout, "Response from `IamAPI.GetIamKeys`: %v\n", resp)
 }
 ```
@@ -2788,7 +2853,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IamListResponse**](IamListResponse.md)
+[**IamKeysListResponse**](IamKeysListResponse.md)
 
 ### Authorization
 
@@ -2797,7 +2862,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2870,7 +2935,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3115,7 +3180,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3360,7 +3425,7 @@ Other parameters are passed through a pointer to a apiGetIamOauthUserinfoRequest
 
 ## GetIamPermissions
 
-> IamPermissionListResponse GetIamPermissions(ctx).Owner(owner).Execute()
+> IamListResponse GetIamPermissions(ctx).Owner(owner).Execute()
 
 Returns the permissions in one organization, newest first — each one a grant saying which people or roles may do what, and to which resources.
 
@@ -3388,7 +3453,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamPermissions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIamPermissions`: IamPermissionListResponse
+	// response from `GetIamPermissions`: IamListResponse
 	fmt.Fprintf(os.Stdout, "Response from `IamAPI.GetIamPermissions`: %v\n", resp)
 }
 ```
@@ -3408,7 +3473,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IamPermissionListResponse**](IamPermissionListResponse.md)
+[**IamListResponse**](IamListResponse.md)
 
 ### Authorization
 
@@ -3417,7 +3482,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3490,7 +3555,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3556,7 +3621,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3629,7 +3694,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3813,7 +3878,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3886,7 +3951,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3947,7 +4012,7 @@ Other parameters are passed through a pointer to a apiGetIamScimV2ResourcetypesR
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4017,7 +4082,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4078,7 +4143,7 @@ Other parameters are passed through a pointer to a apiGetIamScimV2SchemasRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4148,7 +4213,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4209,7 +4274,7 @@ Other parameters are passed through a pointer to a apiGetIamScimV2Serviceprovide
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4409,7 +4474,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4470,7 +4535,7 @@ Other parameters are passed through a pointer to a apiGetIamTeamsRequest struct 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4540,7 +4605,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4549,7 +4614,7 @@ Name | Type | Description  | Notes
 
 ## GetIamUsers
 
-> IamUsersListOutput GetIamUsers(ctx).Owner(owner).Email(email).Limit(limit).Offset(offset).Execute()
+> IamListOutput GetIamUsers(ctx).Owner(owner).Email(email).Limit(limit).Offset(offset).Execute()
 
 Returns a page of the people in an organization, with the total so you can page through the rest.
 
@@ -4580,7 +4645,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetIamUsers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIamUsers`: IamUsersListOutput
+	// response from `GetIamUsers`: IamListOutput
 	fmt.Fprintf(os.Stdout, "Response from `IamAPI.GetIamUsers`: %v\n", resp)
 }
 ```
@@ -4603,7 +4668,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IamUsersListOutput**](IamUsersListOutput.md)
+[**IamListOutput**](IamListOutput.md)
 
 ### Authorization
 
@@ -4612,7 +4677,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4687,7 +4752,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5166,7 +5231,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5239,7 +5304,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5312,7 +5377,80 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetOrganizationTombstone
+
+> IamTombstone GetOrganizationTombstone(ctx, owner, name).Execute()
+
+Returns what holds a deleted organization's name: when it was deleted and who founded it.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	owner := "owner_example" // string | 
+	name := "name_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.GetOrganizationTombstone(context.Background(), owner, name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.GetOrganizationTombstone``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOrganizationTombstone`: IamTombstone
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.GetOrganizationTombstone`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**owner** | **string** |  | 
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetOrganizationTombstoneRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**IamTombstone**](IamTombstone.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5385,7 +5523,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5461,7 +5599,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5534,7 +5672,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5607,7 +5745,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5679,7 +5817,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5745,7 +5883,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5815,7 +5953,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5883,7 +6021,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5949,7 +6087,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6145,77 +6283,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostIamAssume
-
-> IamAnswer PostIamAssume(ctx).IamAssumeBody(iamAssumeBody).Authorization(authorization).XForwardedFor(xForwardedFor).Execute()
-
-Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	iamAssumeBody := *openapiclient.NewIamAssumeBody() // IamAssumeBody | 
-	authorization := "authorization_example" // string |  (optional)
-	xForwardedFor := "xForwardedFor_example" // string |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IamAPI.PostIamAssume(context.Background()).IamAssumeBody(iamAssumeBody).Authorization(authorization).XForwardedFor(xForwardedFor).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamAssume``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostIamAssume`: IamAnswer
-	fmt.Fprintf(os.Stdout, "Response from `IamAPI.PostIamAssume`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostIamAssumeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **iamAssumeBody** | [**IamAssumeBody**](IamAssumeBody.md) |  | 
- **authorization** | **string** |  | 
- **xForwardedFor** | **string** |  | 
-
-### Return type
-
-[**IamAnswer**](IamAnswer.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6224,7 +6292,7 @@ Name | Type | Description  | Notes
 
 ## PostIamAuditLogs
 
-> IamAuditLog PostIamAuditLogs(ctx).IamInput(iamInput).Execute()
+> IamAuditLog PostIamAuditLogs(ctx).IamAuditlogsInput(iamAuditlogsInput).Execute()
 
 Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
 
@@ -6243,11 +6311,11 @@ import (
 )
 
 func main() {
-	iamInput := *openapiclient.NewIamInput() // IamInput | 
+	iamAuditlogsInput := *openapiclient.NewIamAuditlogsInput() // IamAuditlogsInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IamAPI.PostIamAuditLogs(context.Background()).IamInput(iamInput).Execute()
+	resp, r, err := apiClient.IamAPI.PostIamAuditLogs(context.Background()).IamAuditlogsInput(iamAuditlogsInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamAuditLogs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6268,7 +6336,7 @@ Other parameters are passed through a pointer to a apiPostIamAuditLogsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **iamInput** | [**IamInput**](IamInput.md) |  | 
+ **iamAuditlogsInput** | [**IamAuditlogsInput**](IamAuditlogsInput.md) |  | 
 
 ### Return type
 
@@ -6281,7 +6349,77 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIamAuthIdentifier
+
+> IamAnswer PostIamAuthIdentifier(ctx).IamIdentifierBody(iamIdentifierBody).CFConnectingIP(cFConnectingIP).XForwardedFor(xForwardedFor).Execute()
+
+Answers whether an account holds an email address at an application, and whether that account signs in with a password.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	iamIdentifierBody := *openapiclient.NewIamIdentifierBody() // IamIdentifierBody | 
+	cFConnectingIP := "cFConnectingIP_example" // string |  (optional)
+	xForwardedFor := "xForwardedFor_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.PostIamAuthIdentifier(context.Background()).IamIdentifierBody(iamIdentifierBody).CFConnectingIP(cFConnectingIP).XForwardedFor(xForwardedFor).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamAuthIdentifier``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostIamAuthIdentifier`: IamAnswer
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.PostIamAuthIdentifier`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIamAuthIdentifierRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **iamIdentifierBody** | [**IamIdentifierBody**](IamIdentifierBody.md) |  | 
+ **cFConnectingIP** | **string** |  | 
+ **xForwardedFor** | **string** |  | 
+
+### Return type
+
+[**IamAnswer**](IamAnswer.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6347,7 +6485,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6472,7 +6610,156 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIamInvitationsAccept
+
+> IamAnswer PostIamInvitationsAccept(ctx).IamAcceptBody(iamAcceptBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).ContentType(contentType).Execute()
+
+Joins the caller to an organization through an invitation, for a person who already has an account.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	iamAcceptBody := *openapiclient.NewIamAcceptBody() // IamAcceptBody | 
+	cookie := "cookie_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
+	secFetchSite := "secFetchSite_example" // string |  (optional)
+	contentType := "contentType_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.PostIamInvitationsAccept(context.Background()).IamAcceptBody(iamAcceptBody).Cookie(cookie).Authorization(authorization).SecFetchSite(secFetchSite).ContentType(contentType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamInvitationsAccept``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostIamInvitationsAccept`: IamAnswer
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.PostIamInvitationsAccept`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIamInvitationsAcceptRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **iamAcceptBody** | [**IamAcceptBody**](IamAcceptBody.md) |  | 
+ **cookie** | **string** |  | 
+ **authorization** | **string** |  | 
+ **secFetchSite** | **string** |  | 
+ **contentType** | **string** |  | 
+
+### Return type
+
+[**IamAnswer**](IamAnswer.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostIamInvitationsByOwnerByNameSend
+
+> IamSendOutput PostIamInvitationsByOwnerByNameSend(ctx, owner, name).Authorization(authorization).Execute()
+
+Emails an invitation to the address it is pinned to: who invited them, to which organization, and the link that joins them.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	owner := "owner_example" // string | 
+	name := "name_example" // string | 
+	authorization := "authorization_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.PostIamInvitationsByOwnerByNameSend(context.Background(), owner, name).Authorization(authorization).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamInvitationsByOwnerByNameSend``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostIamInvitationsByOwnerByNameSend`: IamSendOutput
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.PostIamInvitationsByOwnerByNameSend`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**owner** | **string** |  | 
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIamInvitationsByOwnerByNameSendRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **authorization** | **string** |  | 
+
+### Return type
+
+[**IamSendOutput**](IamSendOutput.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6538,7 +6825,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7253,6 +7540,65 @@ Other parameters are passed through a pointer to a apiPostIamOauthLogoutRequest 
 [[Back to README]](../README.md)
 
 
+## PostIamOauthRefreshToken
+
+> PostIamOauthRefreshToken(ctx).Execute()
+
+Exchanges what your application is holding for the tokens it needs — the one-time code from a finished sign-in, a refresh token, or your own client credentials when the caller is a program rather than a person.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IamAPI.PostIamOauthRefreshToken(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamOauthRefreshToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostIamOauthRefreshTokenRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostIamOauthRevoke
 
 > PostIamOauthRevoke(ctx).Execute()
@@ -7548,7 +7894,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7673,7 +8019,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7739,79 +8085,9 @@ Other parameters are passed through a pointer to a apiPostIamRegistryTokenReques
 [[Back to README]](../README.md)
 
 
-## PostIamRelease
-
-> IamAnswer PostIamRelease(ctx).IamAssumeBody(iamAssumeBody).Authorization(authorization).XForwardedFor(xForwardedFor).Execute()
-
-Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/hanzoai/go-sdk/v8"
-)
-
-func main() {
-	iamAssumeBody := *openapiclient.NewIamAssumeBody() // IamAssumeBody | 
-	authorization := "authorization_example" // string |  (optional)
-	xForwardedFor := "xForwardedFor_example" // string |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IamAPI.PostIamRelease(context.Background()).IamAssumeBody(iamAssumeBody).Authorization(authorization).XForwardedFor(xForwardedFor).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamRelease``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PostIamRelease`: IamAnswer
-	fmt.Fprintf(os.Stdout, "Response from `IamAPI.PostIamRelease`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostIamReleaseRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **iamAssumeBody** | [**IamAssumeBody**](IamAssumeBody.md) |  | 
- **authorization** | **string** |  | 
- **xForwardedFor** | **string** |  | 
-
-### Return type
-
-[**IamAnswer**](IamAnswer.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PostIamRoles
 
-> IamRole PostIamRoles(ctx).IamRolesInput(iamRolesInput).Execute()
+> IamRole PostIamRoles(ctx).IamInput(iamInput).Execute()
 
 Makes a role — a named group of people that permissions are granted to.
 
@@ -7830,11 +8106,11 @@ import (
 )
 
 func main() {
-	iamRolesInput := *openapiclient.NewIamRolesInput() // IamRolesInput | 
+	iamInput := *openapiclient.NewIamInput() // IamInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IamAPI.PostIamRoles(context.Background()).IamRolesInput(iamRolesInput).Execute()
+	resp, r, err := apiClient.IamAPI.PostIamRoles(context.Background()).IamInput(iamInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PostIamRoles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -7855,7 +8131,7 @@ Other parameters are passed through a pointer to a apiPostIamRolesRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **iamRolesInput** | [**IamRolesInput**](IamRolesInput.md) |  | 
+ **iamInput** | [**IamInput**](IamInput.md) |  | 
 
 ### Return type
 
@@ -7868,7 +8144,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8238,7 +8514,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8422,7 +8698,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8795,7 +9071,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8865,7 +9141,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8940,7 +9216,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8949,7 +9225,7 @@ Name | Type | Description  | Notes
 
 ## PutIamAuditLogsByOwnerByName
 
-> IamAuditLog PutIamAuditLogsByOwnerByName(ctx, owner, name).IamInput(iamInput).Execute()
+> IamAuditLog PutIamAuditLogsByOwnerByName(ctx, owner, name).IamAuditlogsInput(iamAuditlogsInput).Execute()
 
 Corrects an audit entry.
 
@@ -8970,11 +9246,11 @@ import (
 func main() {
 	owner := "owner_example" // string | 
 	name := "name_example" // string | 
-	iamInput := *openapiclient.NewIamInput() // IamInput | 
+	iamAuditlogsInput := *openapiclient.NewIamAuditlogsInput() // IamAuditlogsInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IamAPI.PutIamAuditLogsByOwnerByName(context.Background(), owner, name).IamInput(iamInput).Execute()
+	resp, r, err := apiClient.IamAPI.PutIamAuditLogsByOwnerByName(context.Background(), owner, name).IamAuditlogsInput(iamAuditlogsInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PutIamAuditLogsByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -9002,7 +9278,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **iamInput** | [**IamInput**](IamInput.md) |  | 
+ **iamAuditlogsInput** | [**IamAuditlogsInput**](IamAuditlogsInput.md) |  | 
 
 ### Return type
 
@@ -9015,7 +9291,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9090,7 +9366,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9224,7 +9500,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9299,7 +9575,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9369,7 +9645,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9444,7 +9720,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9519,7 +9795,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9528,7 +9804,7 @@ Name | Type | Description  | Notes
 
 ## PutIamRolesByOwnerByName
 
-> IamRole PutIamRolesByOwnerByName(ctx, owner, name).IamRolesInput(iamRolesInput).Execute()
+> IamRole PutIamRolesByOwnerByName(ctx, owner, name).IamInput(iamInput).Execute()
 
 Changes who is in a role, or which roles it includes.
 
@@ -9548,12 +9824,12 @@ import (
 
 func main() {
 	owner := "owner_example" // string | 
-	name := "name_example" // string | 
-	iamRolesInput := *openapiclient.NewIamRolesInput() // IamRolesInput | 
+	name := "name_example" // string | Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL.
+	iamInput := *openapiclient.NewIamInput() // IamInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IamAPI.PutIamRolesByOwnerByName(context.Background(), owner, name).IamRolesInput(iamRolesInput).Execute()
+	resp, r, err := apiClient.IamAPI.PutIamRolesByOwnerByName(context.Background(), owner, name).IamInput(iamInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PutIamRolesByOwnerByName``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -9570,7 +9846,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **owner** | **string** |  | 
-**name** | **string** |  | 
+**name** | **string** | Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. | 
 
 ### Other Parameters
 
@@ -9581,7 +9857,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **iamRolesInput** | [**IamRolesInput**](IamRolesInput.md) |  | 
+ **iamInput** | [**IamInput**](IamInput.md) |  | 
 
 ### Return type
 
@@ -9594,7 +9870,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9737,7 +10013,79 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutIamTerms
+
+> IamAnswer PutIamTerms(ctx).IamTermsBody(iamTermsBody).Cookie(cookie).Authorization(authorization).XForwardedFor(xForwardedFor).Execute()
+
+Records that the signed-in caller accepted the terms and the acceptable use policy, at the versions named.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	iamTermsBody := *openapiclient.NewIamTermsBody() // IamTermsBody | 
+	cookie := "cookie_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
+	xForwardedFor := "xForwardedFor_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.PutIamTerms(context.Background()).IamTermsBody(iamTermsBody).Cookie(cookie).Authorization(authorization).XForwardedFor(xForwardedFor).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.PutIamTerms``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutIamTerms`: IamAnswer
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.PutIamTerms`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutIamTermsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **iamTermsBody** | [**IamTermsBody**](IamTermsBody.md) |  | 
+ **cookie** | **string** |  | 
+ **authorization** | **string** |  | 
+ **xForwardedFor** | **string** |  | 
+
+### Return type
+
+[**IamAnswer**](IamAnswer.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9812,7 +10160,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9887,7 +10235,80 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ReleaseOrganizationName
+
+> IamReleaseOutput ReleaseOrganizationName(ctx, owner, name).Execute()
+
+Frees the name of a deleted organization so it can be founded again.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/hanzoai/go-sdk/v8"
+)
+
+func main() {
+	owner := "owner_example" // string | 
+	name := "name_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IamAPI.ReleaseOrganizationName(context.Background(), owner, name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IamAPI.ReleaseOrganizationName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReleaseOrganizationName`: IamReleaseOutput
+	fmt.Fprintf(os.Stdout, "Response from `IamAPI.ReleaseOrganizationName`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**owner** | **string** |  | 
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReleaseOrganizationNameRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**IamReleaseOutput**](IamReleaseOutput.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9953,7 +10374,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10019,7 +10440,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10094,7 +10515,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10169,7 +10590,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10247,7 +10668,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10322,7 +10743,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10397,7 +10818,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10465,7 +10886,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -10533,7 +10954,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

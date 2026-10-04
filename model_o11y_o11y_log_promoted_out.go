@@ -22,8 +22,11 @@ type O11yO11yLogPromotedOut struct {
 	// Data holds the paths.
 	Data []O11yO11yLogPromotePath `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogPromotedOut O11yO11yLogPromotedOut
 
 // NewO11yO11yLogPromotedOut instantiates a new O11yO11yLogPromotedOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yLogPromotedOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogPromotedOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogPromotedOut := _O11yO11yLogPromotedOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogPromotedOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogPromotedOut(varO11yO11yLogPromotedOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogPromotedOut struct {

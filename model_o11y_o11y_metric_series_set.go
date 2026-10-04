@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yMetricSeriesSet{}
 // O11yO11yMetricSeriesSet struct for O11yO11yMetricSeriesSet
 type O11yO11yMetricSeriesSet struct {
 	// Series are the time series.
-	Series []O11yO11yMetricSeries `json:"series,omitempty"`
+	Series               []O11yO11yMetricSeries `json:"series,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricSeriesSet O11yO11yMetricSeriesSet
 
 // NewO11yO11yMetricSeriesSet instantiates a new O11yO11yMetricSeriesSet object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yMetricSeriesSet) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Series) {
 		toSerialize["series"] = o.Series
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricSeriesSet) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricSeriesSet := _O11yO11yMetricSeriesSet{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricSeriesSet)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricSeriesSet(varO11yO11yMetricSeriesSet)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "series")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricSeriesSet struct {

@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## GetChannel
 
-> ChatChannels GetChannel(ctx).Execute()
+> ChannelChatChannels GetChannel(ctx).Execute()
 
 Reports every chat channel this org can send through, and whether it can send through it right now.
 
@@ -45,7 +45,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetChannel`: ChatChannels
+	// response from `GetChannel`: ChannelChatChannels
 	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannel`: %v\n", resp)
 }
 ```
@@ -61,7 +61,7 @@ Other parameters are passed through a pointer to a apiGetChannelRequest struct v
 
 ### Return type
 
-[**ChatChannels**](ChatChannels.md)
+[**ChannelChatChannels**](ChannelChatChannels.md)
 
 ### Authorization
 
@@ -70,7 +70,7 @@ Other parameters are passed through a pointer to a apiGetChannelRequest struct v
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -79,7 +79,7 @@ Other parameters are passed through a pointer to a apiGetChannelRequest struct v
 
 ## GetChannelAgent
 
-> ChannelAgents GetChannelAgent(ctx).Channel(channel).Execute()
+> ChannelChannelAgents GetChannelAgent(ctx).Channel(channel).Execute()
 
 Returns which agent answers the caller org's channel: the default and every room bound to another agent.
 
@@ -107,7 +107,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelAgent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetChannelAgent`: ChannelAgents
+	// response from `GetChannelAgent`: ChannelChannelAgents
 	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelAgent`: %v\n", resp)
 }
 ```
@@ -127,7 +127,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChannelAgents**](ChannelAgents.md)
+[**ChannelChannelAgents**](ChannelChannelAgents.md)
 
 ### Authorization
 
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -145,7 +145,7 @@ Name | Type | Description  | Notes
 
 ## GetChannelAllowlist
 
-> AllowlistView GetChannelAllowlist(ctx).Channel(channel).Execute()
+> ChannelAllowlistView GetChannelAllowlist(ctx).Channel(channel).Execute()
 
 Returns the caller org's access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org's named access groups.
 
@@ -173,7 +173,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelAllowlist``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetChannelAllowlist`: AllowlistView
+	// response from `GetChannelAllowlist`: ChannelAllowlistView
 	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelAllowlist`: %v\n", resp)
 }
 ```
@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AllowlistView**](AllowlistView.md)
+[**ChannelAllowlistView**](ChannelAllowlistView.md)
 
 ### Authorization
 
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 ## GetChannelInbox
 
-> InboxPage GetChannelInbox(ctx).Since(since).Limit(limit).Execute()
+> ChannelInboxPage GetChannelInbox(ctx).Since(since).Limit(limit).Execute()
 
 Returns the messages people have sent to the caller org's connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
 
@@ -240,7 +240,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelInbox``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetChannelInbox`: InboxPage
+	// response from `GetChannelInbox`: ChannelInboxPage
 	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelInbox`: %v\n", resp)
 }
 ```
@@ -261,7 +261,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InboxPage**](InboxPage.md)
+[**ChannelInboxPage**](ChannelInboxPage.md)
 
 ### Authorization
 
@@ -270,7 +270,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 
 ## GetChannelPairing
 
-> PairingQueue GetChannelPairing(ctx).Execute()
+> ChannelPairingQueue GetChannelPairing(ctx).Execute()
 
 Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \"pairing\" and who is not allowed yet.
 
@@ -306,7 +306,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.GetChannelPairing``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetChannelPairing`: PairingQueue
+	// response from `GetChannelPairing`: ChannelPairingQueue
 	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.GetChannelPairing`: %v\n", resp)
 }
 ```
@@ -322,7 +322,7 @@ Other parameters are passed through a pointer to a apiGetChannelPairingRequest s
 
 ### Return type
 
-[**PairingQueue**](PairingQueue.md)
+[**ChannelPairingQueue**](ChannelPairingQueue.md)
 
 ### Authorization
 
@@ -331,7 +331,7 @@ Other parameters are passed through a pointer to a apiGetChannelPairingRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -408,7 +408,7 @@ Name | Type | Description  | Notes
 
 ## PostChannelPairingApprove
 
-> PairingApproved PostChannelPairingApprove(ctx).ApprovePairingIn(approvePairingIn).Execute()
+> ChannelPairingApproved PostChannelPairingApprove(ctx).ChannelApprovePairingIn(channelApprovePairingIn).Execute()
 
 Turns one pending pairing code into a standing allow entry, so that person can DM the org's bot on that channel from now on.
 
@@ -427,16 +427,16 @@ import (
 )
 
 func main() {
-	approvePairingIn := *openapiclient.NewApprovePairingIn() // ApprovePairingIn | 
+	channelApprovePairingIn := *openapiclient.NewChannelApprovePairingIn() // ChannelApprovePairingIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelAPI.PostChannelPairingApprove(context.Background()).ApprovePairingIn(approvePairingIn).Execute()
+	resp, r, err := apiClient.ChannelAPI.PostChannelPairingApprove(context.Background()).ChannelApprovePairingIn(channelApprovePairingIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.PostChannelPairingApprove``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostChannelPairingApprove`: PairingApproved
+	// response from `PostChannelPairingApprove`: ChannelPairingApproved
 	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.PostChannelPairingApprove`: %v\n", resp)
 }
 ```
@@ -452,11 +452,11 @@ Other parameters are passed through a pointer to a apiPostChannelPairingApproveR
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **approvePairingIn** | [**ApprovePairingIn**](ApprovePairingIn.md) |  | 
+ **channelApprovePairingIn** | [**ChannelApprovePairingIn**](ChannelApprovePairingIn.md) |  | 
 
 ### Return type
 
-[**PairingApproved**](PairingApproved.md)
+[**ChannelPairingApproved**](ChannelPairingApproved.md)
 
 ### Authorization
 
@@ -465,7 +465,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -474,7 +474,7 @@ Name | Type | Description  | Notes
 
 ## PutChannelAgent
 
-> ChannelAgents PutChannelAgent(ctx).ChannelAgentsPut(channelAgentsPut).Execute()
+> ChannelChannelAgents PutChannelAgent(ctx).ChannelChannelAgentsPut(channelChannelAgentsPut).Execute()
 
 Binds agents to the caller org's channel and answers the bindings as GET would.
 
@@ -493,16 +493,16 @@ import (
 )
 
 func main() {
-	channelAgentsPut := *openapiclient.NewChannelAgentsPut() // ChannelAgentsPut | 
+	channelChannelAgentsPut := *openapiclient.NewChannelChannelAgentsPut() // ChannelChannelAgentsPut | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelAPI.PutChannelAgent(context.Background()).ChannelAgentsPut(channelAgentsPut).Execute()
+	resp, r, err := apiClient.ChannelAPI.PutChannelAgent(context.Background()).ChannelChannelAgentsPut(channelChannelAgentsPut).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.PutChannelAgent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutChannelAgent`: ChannelAgents
+	// response from `PutChannelAgent`: ChannelChannelAgents
 	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.PutChannelAgent`: %v\n", resp)
 }
 ```
@@ -518,11 +518,11 @@ Other parameters are passed through a pointer to a apiPutChannelAgentRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **channelAgentsPut** | [**ChannelAgentsPut**](ChannelAgentsPut.md) |  | 
+ **channelChannelAgentsPut** | [**ChannelChannelAgentsPut**](ChannelChannelAgentsPut.md) |  | 
 
 ### Return type
 
-[**ChannelAgents**](ChannelAgents.md)
+[**ChannelChannelAgents**](ChannelChannelAgents.md)
 
 ### Authorization
 
@@ -531,7 +531,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -540,7 +540,7 @@ Name | Type | Description  | Notes
 
 ## PutChannelAllowlist
 
-> AllowlistView PutChannelAllowlist(ctx).AllowlistPutIn(allowlistPutIn).Execute()
+> ChannelAllowlistView PutChannelAllowlist(ctx).ChannelAllowlistPutIn(channelAllowlistPutIn).Execute()
 
 Edits the caller org's access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
 
@@ -559,16 +559,16 @@ import (
 )
 
 func main() {
-	allowlistPutIn := *openapiclient.NewAllowlistPutIn() // AllowlistPutIn | 
+	channelAllowlistPutIn := *openapiclient.NewChannelAllowlistPutIn() // ChannelAllowlistPutIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChannelAPI.PutChannelAllowlist(context.Background()).AllowlistPutIn(allowlistPutIn).Execute()
+	resp, r, err := apiClient.ChannelAPI.PutChannelAllowlist(context.Background()).ChannelAllowlistPutIn(channelAllowlistPutIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChannelAPI.PutChannelAllowlist``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutChannelAllowlist`: AllowlistView
+	// response from `PutChannelAllowlist`: ChannelAllowlistView
 	fmt.Fprintf(os.Stdout, "Response from `ChannelAPI.PutChannelAllowlist`: %v\n", resp)
 }
 ```
@@ -584,11 +584,11 @@ Other parameters are passed through a pointer to a apiPutChannelAllowlistRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **allowlistPutIn** | [**AllowlistPutIn**](AllowlistPutIn.md) |  | 
+ **channelAllowlistPutIn** | [**ChannelAllowlistPutIn**](ChannelAllowlistPutIn.md) |  | 
 
 ### Return type
 
-[**AllowlistView**](AllowlistView.md)
+[**ChannelAllowlistView**](ChannelAllowlistView.md)
 
 ### Authorization
 
@@ -597,7 +597,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

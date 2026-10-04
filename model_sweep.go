@@ -19,23 +19,26 @@ var _ MappedNullable = &Sweep{}
 
 // Sweep struct for Sweep
 type Sweep struct {
-	Asset         *string `json:"asset,omitempty"`
-	Command       *string `json:"command,omitempty"`
-	CreatedTime   *string `json:"createdTime,omitempty"`
-	DisplayName   *string `json:"displayName,omitempty"`
-	ErrorText     *string `json:"errorText,omitempty"`
-	Name          *string `json:"name,omitempty"`
-	Owner         *string `json:"owner,omitempty"`
-	Provider      *string `json:"provider,omitempty"`
-	RawResult     *string `json:"rawResult,omitempty"`
-	Result        *string `json:"result,omitempty"`
-	ResultSummary *string `json:"resultSummary,omitempty"`
-	Runner        *string `json:"runner,omitempty"`
-	State         *string `json:"state,omitempty"`
-	Target        *string `json:"target,omitempty"`
-	TargetMode    *string `json:"targetMode,omitempty"`
-	UpdatedTime   *string `json:"updatedTime,omitempty"`
+	Asset                *string `json:"asset,omitempty"`
+	Command              *string `json:"command,omitempty"`
+	CreatedTime          *string `json:"createdTime,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
+	ErrorText            *string `json:"errorText,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	Provider             *string `json:"provider,omitempty"`
+	RawResult            *string `json:"rawResult,omitempty"`
+	Result               *string `json:"result,omitempty"`
+	ResultSummary        *string `json:"resultSummary,omitempty"`
+	Runner               *string `json:"runner,omitempty"`
+	State                *string `json:"state,omitempty"`
+	Target               *string `json:"target,omitempty"`
+	TargetMode           *string `json:"targetMode,omitempty"`
+	UpdatedTime          *string `json:"updatedTime,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Sweep Sweep
 
 // NewSweep instantiates a new Sweep object
 // This constructor will assign default values to properties that have it defined,
@@ -624,7 +627,48 @@ func (o Sweep) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedTime) {
 		toSerialize["updatedTime"] = o.UpdatedTime
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Sweep) UnmarshalJSON(data []byte) (err error) {
+	varSweep := _Sweep{}
+
+	err = json.Unmarshal(data, &varSweep)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Sweep(varSweep)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "asset")
+		delete(additionalProperties, "command")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "errorText")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "rawResult")
+		delete(additionalProperties, "result")
+		delete(additionalProperties, "resultSummary")
+		delete(additionalProperties, "runner")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "target")
+		delete(additionalProperties, "targetMode")
+		delete(additionalProperties, "updatedTime")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSweep struct {

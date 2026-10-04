@@ -82,7 +82,7 @@ func (a *WebhookAPIService) DeleteWebhookByIdExecute(r WebhookAPIDeleteWebhookBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -111,6 +111,14 @@ func (a *WebhookAPIService) DeleteWebhookByIdExecute(r WebhookAPIDeleteWebhookBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -122,7 +130,7 @@ type WebhookAPIGetWebhookRequest struct {
 	ApiService *WebhookAPIService
 }
 
-func (r WebhookAPIGetWebhookRequest) Execute() (*EndpointList, *http.Response, error) {
+func (r WebhookAPIGetWebhookRequest) Execute() (*WebhookEndpointList, *http.Response, error) {
 	return r.ApiService.GetWebhookExecute(r)
 }
 
@@ -147,13 +155,13 @@ func (a *WebhookAPIService) GetWebhook(ctx context.Context) WebhookAPIGetWebhook
 
 // Execute executes the request
 //
-//	@return EndpointList
-func (a *WebhookAPIService) GetWebhookExecute(r WebhookAPIGetWebhookRequest) (*EndpointList, *http.Response, error) {
+//	@return WebhookEndpointList
+func (a *WebhookAPIService) GetWebhookExecute(r WebhookAPIGetWebhookRequest) (*WebhookEndpointList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EndpointList
+		localVarReturnValue *WebhookEndpointList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.GetWebhook")
@@ -177,7 +185,7 @@ func (a *WebhookAPIService) GetWebhookExecute(r WebhookAPIGetWebhookRequest) (*E
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -206,6 +214,14 @@ func (a *WebhookAPIService) GetWebhookExecute(r WebhookAPIGetWebhookRequest) (*E
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -227,7 +243,7 @@ type WebhookAPIGetWebhookByIdRequest struct {
 	id         string
 }
 
-func (r WebhookAPIGetWebhookByIdRequest) Execute() (*Endpoint, *http.Response, error) {
+func (r WebhookAPIGetWebhookByIdRequest) Execute() (*WebhookEndpoint, *http.Response, error) {
 	return r.ApiService.GetWebhookByIdExecute(r)
 }
 
@@ -252,13 +268,13 @@ func (a *WebhookAPIService) GetWebhookById(ctx context.Context, id string) Webho
 
 // Execute executes the request
 //
-//	@return Endpoint
-func (a *WebhookAPIService) GetWebhookByIdExecute(r WebhookAPIGetWebhookByIdRequest) (*Endpoint, *http.Response, error) {
+//	@return WebhookEndpoint
+func (a *WebhookAPIService) GetWebhookByIdExecute(r WebhookAPIGetWebhookByIdRequest) (*WebhookEndpoint, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Endpoint
+		localVarReturnValue *WebhookEndpoint
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.GetWebhookById")
@@ -283,7 +299,7 @@ func (a *WebhookAPIService) GetWebhookByIdExecute(r WebhookAPIGetWebhookByIdRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -312,6 +328,14 @@ func (a *WebhookAPIService) GetWebhookByIdExecute(r WebhookAPIGetWebhookByIdRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -347,7 +371,7 @@ func (r WebhookAPIGetWebhookByIdDeliveriesRequest) Status(status string) Webhook
 	return r
 }
 
-func (r WebhookAPIGetWebhookByIdDeliveriesRequest) Execute() (*DeliveryList, *http.Response, error) {
+func (r WebhookAPIGetWebhookByIdDeliveriesRequest) Execute() (*WebhookDeliveryList, *http.Response, error) {
 	return r.ApiService.GetWebhookByIdDeliveriesExecute(r)
 }
 
@@ -375,13 +399,13 @@ func (a *WebhookAPIService) GetWebhookByIdDeliveries(ctx context.Context, id str
 
 // Execute executes the request
 //
-//	@return DeliveryList
-func (a *WebhookAPIService) GetWebhookByIdDeliveriesExecute(r WebhookAPIGetWebhookByIdDeliveriesRequest) (*DeliveryList, *http.Response, error) {
+//	@return WebhookDeliveryList
+func (a *WebhookAPIService) GetWebhookByIdDeliveriesExecute(r WebhookAPIGetWebhookByIdDeliveriesRequest) (*WebhookDeliveryList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeliveryList
+		localVarReturnValue *WebhookDeliveryList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.GetWebhookByIdDeliveries")
@@ -412,7 +436,7 @@ func (a *WebhookAPIService) GetWebhookByIdDeliveriesExecute(r WebhookAPIGetWebho
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -441,6 +465,14 @@ func (a *WebhookAPIService) GetWebhookByIdDeliveriesExecute(r WebhookAPIGetWebho
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -457,17 +489,17 @@ func (a *WebhookAPIService) GetWebhookByIdDeliveriesExecute(r WebhookAPIGetWebho
 }
 
 type WebhookAPIPostWebhookRequest struct {
-	ctx              context.Context
-	ApiService       *WebhookAPIService
-	createEndpointIn *CreateEndpointIn
+	ctx                     context.Context
+	ApiService              *WebhookAPIService
+	webhookCreateEndpointIn *WebhookCreateEndpointIn
 }
 
-func (r WebhookAPIPostWebhookRequest) CreateEndpointIn(createEndpointIn CreateEndpointIn) WebhookAPIPostWebhookRequest {
-	r.createEndpointIn = &createEndpointIn
+func (r WebhookAPIPostWebhookRequest) WebhookCreateEndpointIn(webhookCreateEndpointIn WebhookCreateEndpointIn) WebhookAPIPostWebhookRequest {
+	r.webhookCreateEndpointIn = &webhookCreateEndpointIn
 	return r
 }
 
-func (r WebhookAPIPostWebhookRequest) Execute() (*Endpoint, *http.Response, error) {
+func (r WebhookAPIPostWebhookRequest) Execute() (*WebhookEndpoint, *http.Response, error) {
 	return r.ApiService.PostWebhookExecute(r)
 }
 
@@ -493,13 +525,13 @@ func (a *WebhookAPIService) PostWebhook(ctx context.Context) WebhookAPIPostWebho
 
 // Execute executes the request
 //
-//	@return Endpoint
-func (a *WebhookAPIService) PostWebhookExecute(r WebhookAPIPostWebhookRequest) (*Endpoint, *http.Response, error) {
+//	@return WebhookEndpoint
+func (a *WebhookAPIService) PostWebhookExecute(r WebhookAPIPostWebhookRequest) (*WebhookEndpoint, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Endpoint
+		localVarReturnValue *WebhookEndpoint
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.PostWebhook")
@@ -512,8 +544,8 @@ func (a *WebhookAPIService) PostWebhookExecute(r WebhookAPIPostWebhookRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createEndpointIn == nil {
-		return localVarReturnValue, nil, reportError("createEndpointIn is required and must be specified")
+	if r.webhookCreateEndpointIn == nil {
+		return localVarReturnValue, nil, reportError("webhookCreateEndpointIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -526,7 +558,7 @@ func (a *WebhookAPIService) PostWebhookExecute(r WebhookAPIPostWebhookRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -534,7 +566,7 @@ func (a *WebhookAPIService) PostWebhookExecute(r WebhookAPIPostWebhookRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createEndpointIn
+	localVarPostBody = r.webhookCreateEndpointIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -557,6 +589,14 @@ func (a *WebhookAPIService) PostWebhookExecute(r WebhookAPIPostWebhookRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -578,7 +618,7 @@ type WebhookAPIPostWebhookByIdSecretRequest struct {
 	id         string
 }
 
-func (r WebhookAPIPostWebhookByIdSecretRequest) Execute() (*Endpoint, *http.Response, error) {
+func (r WebhookAPIPostWebhookByIdSecretRequest) Execute() (*WebhookEndpoint, *http.Response, error) {
 	return r.ApiService.PostWebhookByIdSecretExecute(r)
 }
 
@@ -605,13 +645,13 @@ func (a *WebhookAPIService) PostWebhookByIdSecret(ctx context.Context, id string
 
 // Execute executes the request
 //
-//	@return Endpoint
-func (a *WebhookAPIService) PostWebhookByIdSecretExecute(r WebhookAPIPostWebhookByIdSecretRequest) (*Endpoint, *http.Response, error) {
+//	@return WebhookEndpoint
+func (a *WebhookAPIService) PostWebhookByIdSecretExecute(r WebhookAPIPostWebhookByIdSecretRequest) (*WebhookEndpoint, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Endpoint
+		localVarReturnValue *WebhookEndpoint
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.PostWebhookByIdSecret")
@@ -636,7 +676,7 @@ func (a *WebhookAPIService) PostWebhookByIdSecretExecute(r WebhookAPIPostWebhook
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -665,6 +705,14 @@ func (a *WebhookAPIService) PostWebhookByIdSecretExecute(r WebhookAPIPostWebhook
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -686,7 +734,7 @@ type WebhookAPIPostWebhookByIdTestRequest struct {
 	id         string
 }
 
-func (r WebhookAPIPostWebhookByIdTestRequest) Execute() (*TestResult, *http.Response, error) {
+func (r WebhookAPIPostWebhookByIdTestRequest) Execute() (*WebhookTestResult, *http.Response, error) {
 	return r.ApiService.PostWebhookByIdTestExecute(r)
 }
 
@@ -714,13 +762,13 @@ func (a *WebhookAPIService) PostWebhookByIdTest(ctx context.Context, id string) 
 
 // Execute executes the request
 //
-//	@return TestResult
-func (a *WebhookAPIService) PostWebhookByIdTestExecute(r WebhookAPIPostWebhookByIdTestRequest) (*TestResult, *http.Response, error) {
+//	@return WebhookTestResult
+func (a *WebhookAPIService) PostWebhookByIdTestExecute(r WebhookAPIPostWebhookByIdTestRequest) (*WebhookTestResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TestResult
+		localVarReturnValue *WebhookTestResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.PostWebhookByIdTest")
@@ -745,7 +793,7 @@ func (a *WebhookAPIService) PostWebhookByIdTestExecute(r WebhookAPIPostWebhookBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -774,6 +822,14 @@ func (a *WebhookAPIService) PostWebhookByIdTestExecute(r WebhookAPIPostWebhookBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -790,18 +846,18 @@ func (a *WebhookAPIService) PostWebhookByIdTestExecute(r WebhookAPIPostWebhookBy
 }
 
 type WebhookAPIPutWebhookByIdRequest struct {
-	ctx              context.Context
-	ApiService       *WebhookAPIService
-	id               string
-	updateEndpointIn *UpdateEndpointIn
+	ctx                     context.Context
+	ApiService              *WebhookAPIService
+	id                      string
+	webhookUpdateEndpointIn *WebhookUpdateEndpointIn
 }
 
-func (r WebhookAPIPutWebhookByIdRequest) UpdateEndpointIn(updateEndpointIn UpdateEndpointIn) WebhookAPIPutWebhookByIdRequest {
-	r.updateEndpointIn = &updateEndpointIn
+func (r WebhookAPIPutWebhookByIdRequest) WebhookUpdateEndpointIn(webhookUpdateEndpointIn WebhookUpdateEndpointIn) WebhookAPIPutWebhookByIdRequest {
+	r.webhookUpdateEndpointIn = &webhookUpdateEndpointIn
 	return r
 }
 
-func (r WebhookAPIPutWebhookByIdRequest) Execute() (*Endpoint, *http.Response, error) {
+func (r WebhookAPIPutWebhookByIdRequest) Execute() (*WebhookEndpoint, *http.Response, error) {
 	return r.ApiService.PutWebhookByIdExecute(r)
 }
 
@@ -829,13 +885,13 @@ func (a *WebhookAPIService) PutWebhookById(ctx context.Context, id string) Webho
 
 // Execute executes the request
 //
-//	@return Endpoint
-func (a *WebhookAPIService) PutWebhookByIdExecute(r WebhookAPIPutWebhookByIdRequest) (*Endpoint, *http.Response, error) {
+//	@return WebhookEndpoint
+func (a *WebhookAPIService) PutWebhookByIdExecute(r WebhookAPIPutWebhookByIdRequest) (*WebhookEndpoint, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Endpoint
+		localVarReturnValue *WebhookEndpoint
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.PutWebhookById")
@@ -849,8 +905,8 @@ func (a *WebhookAPIService) PutWebhookByIdExecute(r WebhookAPIPutWebhookByIdRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.updateEndpointIn == nil {
-		return localVarReturnValue, nil, reportError("updateEndpointIn is required and must be specified")
+	if r.webhookUpdateEndpointIn == nil {
+		return localVarReturnValue, nil, reportError("webhookUpdateEndpointIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -863,7 +919,7 @@ func (a *WebhookAPIService) PutWebhookByIdExecute(r WebhookAPIPutWebhookByIdRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -871,7 +927,7 @@ func (a *WebhookAPIService) PutWebhookByIdExecute(r WebhookAPIPutWebhookByIdRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateEndpointIn
+	localVarPostBody = r.webhookUpdateEndpointIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -894,6 +950,14 @@ func (a *WebhookAPIService) PutWebhookByIdExecute(r WebhookAPIPutWebhookByIdRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

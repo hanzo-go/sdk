@@ -20,13 +20,16 @@ var _ MappedNullable = &O11yCloudIntegrationService{}
 
 // O11yCloudIntegrationService struct for O11yCloudIntegrationService
 type O11yCloudIntegrationService struct {
-	CloudIntegrationId interface{}        `json:"cloudIntegrationId,omitempty"`
-	Config             *O11yServiceConfig `json:"config,omitempty"`
-	CreatedAt          *time.Time         `json:"createdAt,omitempty"`
-	Id                 interface{}        `json:"id,omitempty"`
-	Type               interface{}        `json:"type,omitempty"`
-	UpdatedAt          *time.Time         `json:"updatedAt,omitempty"`
+	CloudIntegrationId   interface{}        `json:"cloudIntegrationId,omitempty"`
+	Config               *O11yServiceConfig `json:"config,omitempty"`
+	CreatedAt            *time.Time         `json:"createdAt,omitempty"`
+	Id                   interface{}        `json:"id,omitempty"`
+	Type                 interface{}        `json:"type,omitempty"`
+	UpdatedAt            *time.Time         `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yCloudIntegrationService O11yCloudIntegrationService
 
 // NewO11yCloudIntegrationService instantiates a new O11yCloudIntegrationService object
 // This constructor will assign default values to properties that have it defined,
@@ -268,7 +271,38 @@ func (o O11yCloudIntegrationService) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yCloudIntegrationService) UnmarshalJSON(data []byte) (err error) {
+	varO11yCloudIntegrationService := _O11yCloudIntegrationService{}
+
+	err = json.Unmarshal(data, &varO11yCloudIntegrationService)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yCloudIntegrationService(varO11yCloudIntegrationService)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cloudIntegrationId")
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yCloudIntegrationService struct {

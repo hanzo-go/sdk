@@ -55,8 +55,11 @@ type O11yO11yOccurrence struct {
 	// User is the affected end-user context, when the reporter attached one.
 	User *O11yO11yEventUser `json:"user,omitempty"`
 	// Value is the exception value.
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yOccurrence O11yO11yOccurrence
 
 // NewO11yO11yOccurrence instantiates a new O11yO11yOccurrence object
 // This constructor will assign default values to properties that have it defined,
@@ -715,7 +718,50 @@ func (o O11yO11yOccurrence) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yOccurrence) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yOccurrence := _O11yO11yOccurrence{}
+
+	err = json.Unmarshal(data, &varO11yO11yOccurrence)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yOccurrence(varO11yO11yOccurrence)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "culprit")
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "eventId")
+		delete(additionalProperties, "fingerprint")
+		delete(additionalProperties, "frames")
+		delete(additionalProperties, "level")
+		delete(additionalProperties, "platform")
+		delete(additionalProperties, "release")
+		delete(additionalProperties, "serverName")
+		delete(additionalProperties, "serviceName")
+		delete(additionalProperties, "spanId")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "traceId")
+		delete(additionalProperties, "transaction")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "user")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yOccurrence struct {

@@ -22,8 +22,11 @@ type O11yO11yReductionRules struct {
 	// Rules are the rules.
 	Rules []O11yO11yReductionRule `json:"rules,omitempty"`
 	// Total is how many rules matched, across all pages.
-	Total *int64 `json:"total,omitempty"`
+	Total                *int64 `json:"total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yReductionRules O11yO11yReductionRules
 
 // NewO11yO11yReductionRules instantiates a new O11yO11yReductionRules object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yReductionRules) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yReductionRules) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yReductionRules := _O11yO11yReductionRules{}
+
+	err = json.Unmarshal(data, &varO11yO11yReductionRules)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yReductionRules(varO11yO11yReductionRules)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "rules")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yReductionRules struct {

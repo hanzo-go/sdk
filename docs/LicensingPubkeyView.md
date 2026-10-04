@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Alg** | Pointer to **string** | Alg is always \&quot;Ed25519\&quot;. | [optional] 
 **Keys** | Pointer to [**[]LicensingJWK**](LicensingJWK.md) | Keys is the same key as a single-entry JWKS (OKP/Ed25519), for JWKS-shaped consumers. | [optional] 
-**Provider** | Pointer to **string** | Provider names the KMS holding the private half (\&quot;local\&quot; | \&quot;aws\&quot; | ...). \&quot;local\&quot; means a development key — never trust it in production. | [optional] 
+**Provider** | Pointer to **string** | Provider names where the private half lives: \&quot;kms\&quot; (production) or \&quot;local\&quot; (a development key — never trust it in production). | [optional] 
 **PublicKey** | Pointer to **string** | PublicKey is the 32-byte Ed25519 public key, standard base64. This is the form the engine embeds for offline verification. | [optional] 
 **Schema** | Pointer to **int32** | Schema is the license payload schema version this key signs. | [optional] 
 **TokenFormat** | Pointer to **string** | TokenFormat states the wire layout so an implementer can verify a token without this service&#39;s source. | [optional] 

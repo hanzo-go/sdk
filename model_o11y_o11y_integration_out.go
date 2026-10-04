@@ -22,8 +22,11 @@ type O11yO11yIntegrationOut struct {
 	// Data holds the integration and its installation record.
 	Data *O11yIntegration `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yIntegrationOut O11yO11yIntegrationOut
 
 // NewO11yO11yIntegrationOut instantiates a new O11yO11yIntegrationOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yIntegrationOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yIntegrationOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yIntegrationOut := _O11yO11yIntegrationOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yIntegrationOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yIntegrationOut(varO11yO11yIntegrationOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yIntegrationOut struct {

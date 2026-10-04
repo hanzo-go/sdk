@@ -20,23 +20,18 @@ var _ MappedNullable = &O11yO11yUser{}
 
 // O11yO11yUser struct for O11yO11yUser
 type O11yO11yUser struct {
-	// CreatedAt is when they joined.
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
-	// DisplayName is what the console shows for them.
-	DisplayName *string `json:"displayName,omitempty"`
-	// Email is their address.
-	Email *string `json:"email,omitempty"`
-	// ID is the user id.
-	Id *string `json:"id,omitempty"`
-	// IsRoot marks the org's root user, which cannot be deleted or demoted.
-	IsRoot *bool `json:"isRoot,omitempty"`
-	// OrgID is the org they belong to.
-	OrgId *string `json:"orgId,omitempty"`
-	// Status is their lifecycle state — active, pending_invite or deleted.
-	Status *string `json:"status,omitempty"`
-	// UpdatedAt is when their record last changed.
-	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
+	CreatedAt            *time.Time `json:"createdAt,omitempty"`
+	DisplayName          *string    `json:"displayName,omitempty"`
+	Email                *string    `json:"email,omitempty"`
+	Id                   *string    `json:"id,omitempty"`
+	IsRoot               *bool      `json:"isRoot,omitempty"`
+	OrgId                *string    `json:"orgId,omitempty"`
+	Status               *string    `json:"status,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yUser O11yO11yUser
 
 // NewO11yO11yUser instantiates a new O11yO11yUser object
 // This constructor will assign default values to properties that have it defined,
@@ -345,7 +340,40 @@ func (o O11yO11yUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yUser) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yUser := _O11yO11yUser{}
+
+	err = json.Unmarshal(data, &varO11yO11yUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yUser(varO11yO11yUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "isRoot")
+		delete(additionalProperties, "orgId")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yUser struct {

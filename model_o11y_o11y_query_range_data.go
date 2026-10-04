@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yQueryRangeData{}
 // O11yO11yQueryRangeData struct for O11yO11yQueryRangeData
 type O11yO11yQueryRangeData struct {
 	// Results are the per-query results, each a set of aggregated series.
-	Results []O11yO11yReductionSeriesResult `json:"results,omitempty"`
+	Results              []O11yO11yReductionSeriesResult `json:"results,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueryRangeData O11yO11yQueryRangeData
 
 // NewO11yO11yQueryRangeData instantiates a new O11yO11yQueryRangeData object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yQueryRangeData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Results) {
 		toSerialize["results"] = o.Results
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueryRangeData) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueryRangeData := _O11yO11yQueryRangeData{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueryRangeData)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueryRangeData(varO11yO11yQueryRangeData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "results")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueryRangeData struct {

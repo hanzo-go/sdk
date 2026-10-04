@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yDomainFilter{}
 // O11yO11yDomainFilter struct for O11yO11yDomainFilter
 type O11yO11yDomainFilter struct {
 	// Expression is the predicate, e.g. `http.status_code >= 500`.
-	Expression *string `json:"expression,omitempty"`
+	Expression           *string `json:"expression,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDomainFilter O11yO11yDomainFilter
 
 // NewO11yO11yDomainFilter instantiates a new O11yO11yDomainFilter object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yDomainFilter) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Expression) {
 		toSerialize["expression"] = o.Expression
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDomainFilter) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDomainFilter := _O11yO11yDomainFilter{}
+
+	err = json.Unmarshal(data, &varO11yO11yDomainFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDomainFilter(varO11yO11yDomainFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "expression")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDomainFilter struct {

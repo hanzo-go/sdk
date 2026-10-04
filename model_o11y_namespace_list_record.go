@@ -19,12 +19,15 @@ var _ MappedNullable = &O11yNamespaceListRecord{}
 
 // O11yNamespaceListRecord struct for O11yNamespaceListRecord
 type O11yNamespaceListRecord struct {
-	CountByPhase  *O11yPodCountByPhase `json:"countByPhase,omitempty"`
-	CpuUsage      *float64             `json:"cpuUsage,omitempty"`
-	MemoryUsage   *float64             `json:"memoryUsage,omitempty"`
-	Meta          map[string]string    `json:"meta,omitempty"`
-	NamespaceName *string              `json:"namespaceName,omitempty"`
+	CountByPhase         *O11yPodCountByPhase `json:"countByPhase,omitempty"`
+	CpuUsage             *float64             `json:"cpuUsage,omitempty"`
+	MemoryUsage          *float64             `json:"memoryUsage,omitempty"`
+	Meta                 map[string]string    `json:"meta,omitempty"`
+	NamespaceName        *string              `json:"namespaceName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yNamespaceListRecord O11yNamespaceListRecord
 
 // NewO11yNamespaceListRecord instantiates a new O11yNamespaceListRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o O11yNamespaceListRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.NamespaceName) {
 		toSerialize["namespaceName"] = o.NamespaceName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yNamespaceListRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yNamespaceListRecord := _O11yNamespaceListRecord{}
+
+	err = json.Unmarshal(data, &varO11yNamespaceListRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yNamespaceListRecord(varO11yNamespaceListRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "countByPhase")
+		delete(additionalProperties, "cpuUsage")
+		delete(additionalProperties, "memoryUsage")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "namespaceName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yNamespaceListRecord struct {

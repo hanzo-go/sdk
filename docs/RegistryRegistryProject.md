@@ -1,0 +1,108 @@
+# RegistryRegistryProject
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Images** | Pointer to **int64** | Images is how many of the org&#39;s repositories the OCI catalog holds. | [optional] 
+**Packages** | Pointer to **int64** | Packages is how many of the org&#39;s packages the npm registry reports. | [optional] 
+**Project** | Pointer to **string** | Project is the namespace: the org&#39;s slug, which prefixes its image names and scopes its npm packages. | [optional] 
+
+## Methods
+
+### NewRegistryRegistryProject
+
+`func NewRegistryRegistryProject() *RegistryRegistryProject`
+
+NewRegistryRegistryProject instantiates a new RegistryRegistryProject object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewRegistryRegistryProjectWithDefaults
+
+`func NewRegistryRegistryProjectWithDefaults() *RegistryRegistryProject`
+
+NewRegistryRegistryProjectWithDefaults instantiates a new RegistryRegistryProject object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetImages
+
+`func (o *RegistryRegistryProject) GetImages() int64`
+
+GetImages returns the Images field if non-nil, zero value otherwise.
+
+### GetImagesOk
+
+`func (o *RegistryRegistryProject) GetImagesOk() (*int64, bool)`
+
+GetImagesOk returns a tuple with the Images field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImages
+
+`func (o *RegistryRegistryProject) SetImages(v int64)`
+
+SetImages sets Images field to given value.
+
+### HasImages
+
+`func (o *RegistryRegistryProject) HasImages() bool`
+
+HasImages returns a boolean if a field has been set.
+
+### GetPackages
+
+`func (o *RegistryRegistryProject) GetPackages() int64`
+
+GetPackages returns the Packages field if non-nil, zero value otherwise.
+
+### GetPackagesOk
+
+`func (o *RegistryRegistryProject) GetPackagesOk() (*int64, bool)`
+
+GetPackagesOk returns a tuple with the Packages field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPackages
+
+`func (o *RegistryRegistryProject) SetPackages(v int64)`
+
+SetPackages sets Packages field to given value.
+
+### HasPackages
+
+`func (o *RegistryRegistryProject) HasPackages() bool`
+
+HasPackages returns a boolean if a field has been set.
+
+### GetProject
+
+`func (o *RegistryRegistryProject) GetProject() string`
+
+GetProject returns the Project field if non-nil, zero value otherwise.
+
+### GetProjectOk
+
+`func (o *RegistryRegistryProject) GetProjectOk() (*string, bool)`
+
+GetProjectOk returns a tuple with the Project field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProject
+
+`func (o *RegistryRegistryProject) SetProject(v string)`
+
+SetProject sets Project field to given value.
+
+### HasProject
+
+`func (o *RegistryRegistryProject) HasProject() bool`
+
+HasProject returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

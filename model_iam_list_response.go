@@ -19,12 +19,15 @@ var _ MappedNullable = &IamListResponse{}
 
 // IamListResponse struct for IamListResponse
 type IamListResponse struct {
-	Resources    []map[string]interface{} `json:"Resources,omitempty"`
-	ItemsPerPage *int64                   `json:"itemsPerPage,omitempty"`
-	Schemas      []string                 `json:"schemas,omitempty"`
-	StartIndex   *int64                   `json:"startIndex,omitempty"`
-	TotalResults *int64                   `json:"totalResults,omitempty"`
+	Resources            []interface{} `json:"Resources,omitempty"`
+	ItemsPerPage         *int64        `json:"itemsPerPage,omitempty"`
+	Schemas              []string      `json:"schemas,omitempty"`
+	StartIndex           *int64        `json:"startIndex,omitempty"`
+	TotalResults         *int64        `json:"totalResults,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamListResponse IamListResponse
 
 // NewIamListResponse instantiates a new IamListResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -44,9 +47,9 @@ func NewIamListResponseWithDefaults() *IamListResponse {
 }
 
 // GetResources returns the Resources field value if set, zero value otherwise.
-func (o *IamListResponse) GetResources() []map[string]interface{} {
+func (o *IamListResponse) GetResources() []interface{} {
 	if o == nil || IsNil(o.Resources) {
-		var ret []map[string]interface{}
+		var ret []interface{}
 		return ret
 	}
 	return o.Resources
@@ -54,7 +57,7 @@ func (o *IamListResponse) GetResources() []map[string]interface{} {
 
 // GetResourcesOk returns a tuple with the Resources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IamListResponse) GetResourcesOk() ([]map[string]interface{}, bool) {
+func (o *IamListResponse) GetResourcesOk() ([]interface{}, bool) {
 	if o == nil || IsNil(o.Resources) {
 		return nil, false
 	}
@@ -70,8 +73,8 @@ func (o *IamListResponse) HasResources() bool {
 	return false
 }
 
-// SetResources gets a reference to the given []map[string]interface{} and assigns it to the Resources field.
-func (o *IamListResponse) SetResources(v []map[string]interface{}) {
+// SetResources gets a reference to the given []interface{} and assigns it to the Resources field.
+func (o *IamListResponse) SetResources(v []interface{}) {
 	o.Resources = v
 }
 
@@ -228,7 +231,37 @@ func (o IamListResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalResults) {
 		toSerialize["totalResults"] = o.TotalResults
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamListResponse) UnmarshalJSON(data []byte) (err error) {
+	varIamListResponse := _IamListResponse{}
+
+	err = json.Unmarshal(data, &varIamListResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamListResponse(varIamListResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "Resources")
+		delete(additionalProperties, "itemsPerPage")
+		delete(additionalProperties, "schemas")
+		delete(additionalProperties, "startIndex")
+		delete(additionalProperties, "totalResults")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamListResponse struct {

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## PostLspComplete
 
-> Answer PostLspComplete(ctx).Query(query).Execute()
+> LspAnswer PostLspComplete(ctx).LspQuery(lspQuery).Execute()
 
 Offers the candidates a language server has at a position, typed and resolved through the repository's dependencies rather than guessed from text.
 
@@ -33,16 +33,16 @@ import (
 )
 
 func main() {
-	query := *openapiclient.NewQuery() // Query | 
+	lspQuery := *openapiclient.NewLspQuery() // LspQuery | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LspAPI.PostLspComplete(context.Background()).Query(query).Execute()
+	resp, r, err := apiClient.LspAPI.PostLspComplete(context.Background()).LspQuery(lspQuery).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LspAPI.PostLspComplete``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostLspComplete`: Answer
+	// response from `PostLspComplete`: LspAnswer
 	fmt.Fprintf(os.Stdout, "Response from `LspAPI.PostLspComplete`: %v\n", resp)
 }
 ```
@@ -58,11 +58,11 @@ Other parameters are passed through a pointer to a apiPostLspCompleteRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | [**Query**](Query.md) |  | 
+ **lspQuery** | [**LspQuery**](LspQuery.md) |  | 
 
 ### Return type
 
-[**Answer**](Answer.md)
+[**LspAnswer**](LspAnswer.md)
 
 ### Authorization
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## PostLspDiagnostics
 
-> Answer PostLspDiagnostics(ctx).Query(query).Execute()
+> LspAnswer PostLspDiagnostics(ctx).LspQuery(lspQuery).Execute()
 
 Reports every problem the language server finds in one file — compile errors, type errors and lints, each with its span and its severity (1 error, 2 warning, 3 information, 4 hint).
 
@@ -99,16 +99,16 @@ import (
 )
 
 func main() {
-	query := *openapiclient.NewQuery() // Query | 
+	lspQuery := *openapiclient.NewLspQuery() // LspQuery | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LspAPI.PostLspDiagnostics(context.Background()).Query(query).Execute()
+	resp, r, err := apiClient.LspAPI.PostLspDiagnostics(context.Background()).LspQuery(lspQuery).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LspAPI.PostLspDiagnostics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostLspDiagnostics`: Answer
+	// response from `PostLspDiagnostics`: LspAnswer
 	fmt.Fprintf(os.Stdout, "Response from `LspAPI.PostLspDiagnostics`: %v\n", resp)
 }
 ```
@@ -124,11 +124,11 @@ Other parameters are passed through a pointer to a apiPostLspDiagnosticsRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | [**Query**](Query.md) |  | 
+ **lspQuery** | [**LspQuery**](LspQuery.md) |  | 
 
 ### Return type
 
-[**Answer**](Answer.md)
+[**LspAnswer**](LspAnswer.md)
 
 ### Authorization
 
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ## PostLspHover
 
-> Answer PostLspHover(ctx).Query(query).Execute()
+> LspAnswer PostLspHover(ctx).LspQuery(lspQuery).Execute()
 
 Renders the type and documentation of the symbol at a position, as the language server itself renders it.
 
@@ -165,16 +165,16 @@ import (
 )
 
 func main() {
-	query := *openapiclient.NewQuery() // Query | 
+	lspQuery := *openapiclient.NewLspQuery() // LspQuery | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LspAPI.PostLspHover(context.Background()).Query(query).Execute()
+	resp, r, err := apiClient.LspAPI.PostLspHover(context.Background()).LspQuery(lspQuery).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LspAPI.PostLspHover``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostLspHover`: Answer
+	// response from `PostLspHover`: LspAnswer
 	fmt.Fprintf(os.Stdout, "Response from `LspAPI.PostLspHover`: %v\n", resp)
 }
 ```
@@ -190,11 +190,11 @@ Other parameters are passed through a pointer to a apiPostLspHoverRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | [**Query**](Query.md) |  | 
+ **lspQuery** | [**LspQuery**](LspQuery.md) |  | 
 
 ### Return type
 
-[**Answer**](Answer.md)
+[**LspAnswer**](LspAnswer.md)
 
 ### Authorization
 
@@ -203,7 +203,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 
 ## PostLspLocate
 
-> Answer PostLspLocate(ctx).Query(query).Execute()
+> LspAnswer PostLspLocate(ctx).LspQuery(lspQuery).Execute()
 
 Finds where a symbol lives: its definition, its references, its type or its implementations, chosen by relation (definition, reference, type, implementation — empty means definition).
 
@@ -231,16 +231,16 @@ import (
 )
 
 func main() {
-	query := *openapiclient.NewQuery() // Query | 
+	lspQuery := *openapiclient.NewLspQuery() // LspQuery | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LspAPI.PostLspLocate(context.Background()).Query(query).Execute()
+	resp, r, err := apiClient.LspAPI.PostLspLocate(context.Background()).LspQuery(lspQuery).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LspAPI.PostLspLocate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostLspLocate`: Answer
+	// response from `PostLspLocate`: LspAnswer
 	fmt.Fprintf(os.Stdout, "Response from `LspAPI.PostLspLocate`: %v\n", resp)
 }
 ```
@@ -256,11 +256,11 @@ Other parameters are passed through a pointer to a apiPostLspLocateRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | [**Query**](Query.md) |  | 
+ **lspQuery** | [**LspQuery**](LspQuery.md) |  | 
 
 ### Return type
 
-[**Answer**](Answer.md)
+[**LspAnswer**](LspAnswer.md)
 
 ### Authorization
 
@@ -269,7 +269,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -278,7 +278,7 @@ Name | Type | Description  | Notes
 
 ## PostLspSymbols
 
-> Answer PostLspSymbols(ctx).Query(query).Execute()
+> LspAnswer PostLspSymbols(ctx).LspQuery(lspQuery).Execute()
 
 Outlines one file: every declaration in it, with its kind and its span.
 
@@ -297,16 +297,16 @@ import (
 )
 
 func main() {
-	query := *openapiclient.NewQuery() // Query | 
+	lspQuery := *openapiclient.NewLspQuery() // LspQuery | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LspAPI.PostLspSymbols(context.Background()).Query(query).Execute()
+	resp, r, err := apiClient.LspAPI.PostLspSymbols(context.Background()).LspQuery(lspQuery).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LspAPI.PostLspSymbols``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostLspSymbols`: Answer
+	// response from `PostLspSymbols`: LspAnswer
 	fmt.Fprintf(os.Stdout, "Response from `LspAPI.PostLspSymbols`: %v\n", resp)
 }
 ```
@@ -322,11 +322,11 @@ Other parameters are passed through a pointer to a apiPostLspSymbolsRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | [**Query**](Query.md) |  | 
+ **lspQuery** | [**LspQuery**](LspQuery.md) |  | 
 
 ### Return type
 
-[**Answer**](Answer.md)
+[**LspAnswer**](LspAnswer.md)
 
 ### Authorization
 
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

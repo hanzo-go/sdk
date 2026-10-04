@@ -22,8 +22,11 @@ type O11yO11yDisk struct {
 	// Name is the disk's name.
 	Name *string `json:"name,omitempty"`
 	// Type is the disk's type, e.g. local or s3.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDisk O11yO11yDisk
 
 // NewO11yO11yDisk instantiates a new O11yO11yDisk object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yDisk) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDisk) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDisk := _O11yO11yDisk{}
+
+	err = json.Unmarshal(data, &varO11yO11yDisk)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDisk(varO11yO11yDisk)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDisk struct {

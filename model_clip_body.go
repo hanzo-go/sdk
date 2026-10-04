@@ -19,10 +19,13 @@ var _ MappedNullable = &ClipBody{}
 
 // ClipBody struct for ClipBody
 type ClipBody struct {
-	Bytes    *int32  `json:"bytes,omitempty"`
-	Duration *int32  `json:"duration,omitempty"`
-	Object   *string `json:"object,omitempty"`
+	Bytes                *int32  `json:"bytes,omitempty"`
+	Duration             *int32  `json:"duration,omitempty"`
+	Object               *string `json:"object,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ClipBody ClipBody
 
 // NewClipBody instantiates a new ClipBody object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o ClipBody) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Object) {
 		toSerialize["object"] = o.Object
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ClipBody) UnmarshalJSON(data []byte) (err error) {
+	varClipBody := _ClipBody{}
+
+	err = json.Unmarshal(data, &varClipBody)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ClipBody(varClipBody)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "bytes")
+		delete(additionalProperties, "duration")
+		delete(additionalProperties, "object")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableClipBody struct {

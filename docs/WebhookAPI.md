@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## GetWebhook
 
-> EndpointList GetWebhook(ctx).Execute()
+> WebhookEndpointList GetWebhook(ctx).Execute()
 
 Returns every webhook endpoint the caller's org has registered, newest first, each with its 7-day delivery and failure counts.
 
@@ -112,7 +112,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.GetWebhook``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWebhook`: EndpointList
+	// response from `GetWebhook`: WebhookEndpointList
 	fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.GetWebhook`: %v\n", resp)
 }
 ```
@@ -128,7 +128,7 @@ Other parameters are passed through a pointer to a apiGetWebhookRequest struct v
 
 ### Return type
 
-[**EndpointList**](EndpointList.md)
+[**WebhookEndpointList**](WebhookEndpointList.md)
 
 ### Authorization
 
@@ -137,7 +137,7 @@ Other parameters are passed through a pointer to a apiGetWebhookRequest struct v
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -146,7 +146,7 @@ Other parameters are passed through a pointer to a apiGetWebhookRequest struct v
 
 ## GetWebhookById
 
-> Endpoint GetWebhookById(ctx, id).Execute()
+> WebhookEndpoint GetWebhookById(ctx, id).Execute()
 
 Returns one of the caller org's webhook endpoints with its 7-day delivery and failure counts, signing secret redacted.
 
@@ -174,7 +174,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.GetWebhookById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWebhookById`: Endpoint
+	// response from `GetWebhookById`: WebhookEndpoint
 	fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.GetWebhookById`: %v\n", resp)
 }
 ```
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Endpoint**](Endpoint.md)
+[**WebhookEndpoint**](WebhookEndpoint.md)
 
 ### Authorization
 
@@ -207,7 +207,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ## GetWebhookByIdDeliveries
 
-> DeliveryList GetWebhookByIdDeliveries(ctx, id).Limit(limit).Status(status).Execute()
+> WebhookDeliveryList GetWebhookByIdDeliveries(ctx, id).Limit(limit).Status(status).Execute()
 
 Returns one endpoint's per-attempt delivery log, newest first — the record of what was sent, what the subscriber answered, and how long it took.
 
@@ -246,7 +246,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.GetWebhookByIdDeliveries``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWebhookByIdDeliveries`: DeliveryList
+	// response from `GetWebhookByIdDeliveries`: WebhookDeliveryList
 	fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.GetWebhookByIdDeliveries`: %v\n", resp)
 }
 ```
@@ -272,7 +272,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeliveryList**](DeliveryList.md)
+[**WebhookDeliveryList**](WebhookDeliveryList.md)
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -290,7 +290,7 @@ Name | Type | Description  | Notes
 
 ## PostWebhook
 
-> Endpoint PostWebhook(ctx).CreateEndpointIn(createEndpointIn).Execute()
+> WebhookEndpoint PostWebhook(ctx).WebhookCreateEndpointIn(webhookCreateEndpointIn).Execute()
 
 Registers a new webhook subscription for the caller's org and answers 201 with the endpoint INCLUDING its freshly minted signing secret.
 
@@ -309,16 +309,16 @@ import (
 )
 
 func main() {
-	createEndpointIn := *openapiclient.NewCreateEndpointIn() // CreateEndpointIn | 
+	webhookCreateEndpointIn := *openapiclient.NewWebhookCreateEndpointIn() // WebhookCreateEndpointIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhookAPI.PostWebhook(context.Background()).CreateEndpointIn(createEndpointIn).Execute()
+	resp, r, err := apiClient.WebhookAPI.PostWebhook(context.Background()).WebhookCreateEndpointIn(webhookCreateEndpointIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.PostWebhook``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostWebhook`: Endpoint
+	// response from `PostWebhook`: WebhookEndpoint
 	fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.PostWebhook`: %v\n", resp)
 }
 ```
@@ -334,11 +334,11 @@ Other parameters are passed through a pointer to a apiPostWebhookRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createEndpointIn** | [**CreateEndpointIn**](CreateEndpointIn.md) |  | 
+ **webhookCreateEndpointIn** | [**WebhookCreateEndpointIn**](WebhookCreateEndpointIn.md) |  | 
 
 ### Return type
 
-[**Endpoint**](Endpoint.md)
+[**WebhookEndpoint**](WebhookEndpoint.md)
 
 ### Authorization
 
@@ -347,7 +347,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -356,7 +356,7 @@ Name | Type | Description  | Notes
 
 ## PostWebhookByIdSecret
 
-> Endpoint PostWebhookByIdSecret(ctx, id).Execute()
+> WebhookEndpoint PostWebhookByIdSecret(ctx, id).Execute()
 
 Mints a NEW HMAC signing secret for the endpoint and answers the endpoint WITH it — the only other response besides create that ever carries a secret.
 
@@ -384,7 +384,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.PostWebhookByIdSecret``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostWebhookByIdSecret`: Endpoint
+	// response from `PostWebhookByIdSecret`: WebhookEndpoint
 	fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.PostWebhookByIdSecret`: %v\n", resp)
 }
 ```
@@ -408,7 +408,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Endpoint**](Endpoint.md)
+[**WebhookEndpoint**](WebhookEndpoint.md)
 
 ### Authorization
 
@@ -417,7 +417,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -426,7 +426,7 @@ Name | Type | Description  | Notes
 
 ## PostWebhookByIdTest
 
-> TestResult PostWebhookByIdTest(ctx, id).Execute()
+> WebhookTestResult PostWebhookByIdTest(ctx, id).Execute()
 
 Sends ONE signed test event to the endpoint right now and answers the outcome inline, so the console can show whether the subscriber is reachable without waiting for real traffic.
 
@@ -454,7 +454,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.PostWebhookByIdTest``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostWebhookByIdTest`: TestResult
+	// response from `PostWebhookByIdTest`: WebhookTestResult
 	fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.PostWebhookByIdTest`: %v\n", resp)
 }
 ```
@@ -478,7 +478,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TestResult**](TestResult.md)
+[**WebhookTestResult**](WebhookTestResult.md)
 
 ### Authorization
 
@@ -487,7 +487,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -496,7 +496,7 @@ Name | Type | Description  | Notes
 
 ## PutWebhookById
 
-> Endpoint PutWebhookById(ctx, id).UpdateEndpointIn(updateEndpointIn).Execute()
+> WebhookEndpoint PutWebhookById(ctx, id).WebhookUpdateEndpointIn(webhookUpdateEndpointIn).Execute()
 
 Replaces the editable fields of one of the caller org's endpoints — url, events, status and description — and answers the stored row with its secret redacted.
 
@@ -516,16 +516,16 @@ import (
 
 func main() {
 	id := "wh_9f8c1d2e" // string | 
-	updateEndpointIn := *openapiclient.NewUpdateEndpointIn() // UpdateEndpointIn | 
+	webhookUpdateEndpointIn := *openapiclient.NewWebhookUpdateEndpointIn() // WebhookUpdateEndpointIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WebhookAPI.PutWebhookById(context.Background(), id).UpdateEndpointIn(updateEndpointIn).Execute()
+	resp, r, err := apiClient.WebhookAPI.PutWebhookById(context.Background(), id).WebhookUpdateEndpointIn(webhookUpdateEndpointIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.PutWebhookById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutWebhookById`: Endpoint
+	// response from `PutWebhookById`: WebhookEndpoint
 	fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.PutWebhookById`: %v\n", resp)
 }
 ```
@@ -546,11 +546,11 @@ Other parameters are passed through a pointer to a apiPutWebhookByIdRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **updateEndpointIn** | [**UpdateEndpointIn**](UpdateEndpointIn.md) |  | 
+ **webhookUpdateEndpointIn** | [**WebhookUpdateEndpointIn**](WebhookUpdateEndpointIn.md) |  | 
 
 ### Return type
 
-[**Endpoint**](Endpoint.md)
+[**WebhookEndpoint**](WebhookEndpoint.md)
 
 ### Authorization
 
@@ -559,7 +559,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

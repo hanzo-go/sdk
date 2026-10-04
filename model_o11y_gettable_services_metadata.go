@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yGettableServicesMetadata{}
 
 // O11yGettableServicesMetadata struct for O11yGettableServicesMetadata
 type O11yGettableServicesMetadata struct {
-	Services []O11yServiceMetadata `json:"services,omitempty"`
+	Services             []O11yServiceMetadata `json:"services,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableServicesMetadata O11yGettableServicesMetadata
 
 // NewO11yGettableServicesMetadata instantiates a new O11yGettableServicesMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yGettableServicesMetadata) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Services) {
 		toSerialize["services"] = o.Services
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableServicesMetadata) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableServicesMetadata := _O11yGettableServicesMetadata{}
+
+	err = json.Unmarshal(data, &varO11yGettableServicesMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableServicesMetadata(varO11yGettableServicesMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "services")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableServicesMetadata struct {

@@ -47,8 +47,11 @@ type O11yO11yReductionRule struct {
 	// UpdatedAt is when the rule last changed.
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	// UpdatedBy is who last changed it.
-	UpdatedBy *string `json:"updatedBy,omitempty"`
+	UpdatedBy            *string `json:"updatedBy,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yReductionRule O11yO11yReductionRule
 
 // NewO11yO11yReductionRule instantiates a new O11yO11yReductionRule object
 // This constructor will assign default values to properties that have it defined,
@@ -567,7 +570,46 @@ func (o O11yO11yReductionRule) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedBy) {
 		toSerialize["updatedBy"] = o.UpdatedBy
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yReductionRule) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yReductionRule := _O11yO11yReductionRule{}
+
+	err = json.Unmarshal(data, &varO11yO11yReductionRule)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yReductionRule(varO11yO11yReductionRule)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "active")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "effectiveFrom")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "ingestedSamples")
+		delete(additionalProperties, "ingestedSeries")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "matchType")
+		delete(additionalProperties, "metricName")
+		delete(additionalProperties, "retainedSamples")
+		delete(additionalProperties, "retainedSeries")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "updatedBy")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yReductionRule struct {

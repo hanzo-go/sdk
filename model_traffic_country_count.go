@@ -19,9 +19,12 @@ var _ MappedNullable = &TrafficCountryCount{}
 
 // TrafficCountryCount struct for TrafficCountryCount
 type TrafficCountryCount struct {
-	Count   *int32  `json:"count,omitempty"`
-	Country *string `json:"country,omitempty"`
+	Count                *int32  `json:"count,omitempty"`
+	Country              *string `json:"country,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TrafficCountryCount TrafficCountryCount
 
 // NewTrafficCountryCount instantiates a new TrafficCountryCount object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o TrafficCountryCount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Country) {
 		toSerialize["country"] = o.Country
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TrafficCountryCount) UnmarshalJSON(data []byte) (err error) {
+	varTrafficCountryCount := _TrafficCountryCount{}
+
+	err = json.Unmarshal(data, &varTrafficCountryCount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TrafficCountryCount(varTrafficCountryCount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "country")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTrafficCountryCount struct {

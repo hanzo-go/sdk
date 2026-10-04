@@ -35,8 +35,11 @@ type O11yO11yServiceAccountDetail struct {
 	// Status is active or deleted.
 	Status *string `json:"status,omitempty"`
 	// UpdatedAt is when it last changed.
-	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yServiceAccountDetail O11yO11yServiceAccountDetail
 
 // NewO11yO11yServiceAccountDetail instantiates a new O11yO11yServiceAccountDetail object
 // This constructor will assign default values to properties that have it defined,
@@ -345,7 +348,40 @@ func (o O11yO11yServiceAccountDetail) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yServiceAccountDetail) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yServiceAccountDetail := _O11yO11yServiceAccountDetail{}
+
+	err = json.Unmarshal(data, &varO11yO11yServiceAccountDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yServiceAccountDetail(varO11yO11yServiceAccountDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "orgId")
+		delete(additionalProperties, "serviceAccountRoles")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "updatedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yServiceAccountDetail struct {

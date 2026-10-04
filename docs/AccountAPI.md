@@ -7,19 +7,19 @@ Method | HTTP request | Description
 [**DeleteAccountKeys**](AccountAPI.md#DeleteAccountKeys) | **Delete** /v1/account/keys | Revokes the caller&#39;s own API key of the requested class.
 [**GetAccountAppearance**](AccountAPI.md#GetAccountAppearance) | **Get** /v1/account/appearance | Returns the signed-in caller&#39;s own appearance preference — text size, density and accent — read from their IAM account so it is the same on every device and every Hanzo surface.
 [**GetAccountAvatarByOrgByUserByDigest**](AccountAPI.md#GetAccountAvatarByOrgByUserByDigest) | **Get** /v1/account/avatar/{org}/{user}/{digest} | Fetch a profile photo
-[**GetAccountCsrf**](AccountAPI.md#GetAccountCsrf) | **Get** /v1/account/csrf | IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
+[**GetAccountCsrf**](AccountAPI.md#GetAccountCsrf) | **Get** /v1/account/csrf | Mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
 [**GetAccountEmbed**](AccountAPI.md#GetAccountEmbed) | **Get** /v1/account/embed | Reports whether one of this brand&#39;s shared embedded apps (cms, erp, help) may be framed by the caller and is actually running, so a console module can choose between the embed and the provision panel.
 [**GetAccountKeys**](AccountAPI.md#GetAccountKeys) | **Get** /v1/account/keys | Returns the caller&#39;s own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
 [**PostAccountAppearance**](AccountAPI.md#PostAccountAppearance) | **Post** /v1/account/appearance | Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
 [**PostAccountAvatar**](AccountAPI.md#PostAccountAvatar) | **Post** /v1/account/avatar | Set your profile photo
 [**PostAccountKeys**](AccountAPI.md#PostAccountKeys) | **Post** /v1/account/keys | Creates — or rotates — the caller&#39;s API key of the requested type and returns it ONCE.
-[**PostAccountOrgs**](AccountAPI.md#PostAccountOrgs) | **Post** /v1/account/orgs | Onboard creates the caller&#39;s organization.
+[**PostAccountOrgs**](AccountAPI.md#PostAccountOrgs) | **Post** /v1/account/orgs | Creates the caller&#39;s organization.
 
 
 
 ## DeleteAccountKeys
 
-> RevokedKey DeleteAccountKeys(ctx).Type_(type_).Execute()
+> AccountRevokedKey DeleteAccountKeys(ctx).Type_(type_).Execute()
 
 Revokes the caller's own API key of the requested class.
 
@@ -47,7 +47,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.DeleteAccountKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteAccountKeys`: RevokedKey
+	// response from `DeleteAccountKeys`: AccountRevokedKey
 	fmt.Fprintf(os.Stdout, "Response from `AccountAPI.DeleteAccountKeys`: %v\n", resp)
 }
 ```
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RevokedKey**](RevokedKey.md)
+[**AccountRevokedKey**](AccountRevokedKey.md)
 
 ### Authorization
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## GetAccountAppearance
 
-> Appearance GetAccountAppearance(ctx).Execute()
+> AccountAppearance GetAccountAppearance(ctx).Execute()
 
 Returns the signed-in caller's own appearance preference — text size, density and accent — read from their IAM account so it is the same on every device and every Hanzo surface.
 
@@ -112,7 +112,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.GetAccountAppearance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAccountAppearance`: Appearance
+	// response from `GetAccountAppearance`: AccountAppearance
 	fmt.Fprintf(os.Stdout, "Response from `AccountAPI.GetAccountAppearance`: %v\n", resp)
 }
 ```
@@ -128,7 +128,7 @@ Other parameters are passed through a pointer to a apiGetAccountAppearanceReques
 
 ### Return type
 
-[**Appearance**](Appearance.md)
+[**AccountAppearance**](AccountAppearance.md)
 
 ### Authorization
 
@@ -137,7 +137,7 @@ Other parameters are passed through a pointer to a apiGetAccountAppearanceReques
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -220,9 +220,9 @@ Name | Type | Description  | Notes
 
 ## GetAccountCsrf
 
-> CsrfResp GetAccountCsrf(ctx).Execute()
+> AccountCsrfResp GetAccountCsrf(ctx).Execute()
 
-IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
+Mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
 
 
 
@@ -247,7 +247,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.GetAccountCsrf``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAccountCsrf`: CsrfResp
+	// response from `GetAccountCsrf`: AccountCsrfResp
 	fmt.Fprintf(os.Stdout, "Response from `AccountAPI.GetAccountCsrf`: %v\n", resp)
 }
 ```
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiGetAccountCsrfRequest stru
 
 ### Return type
 
-[**CsrfResp**](CsrfResp.md)
+[**AccountCsrfResp**](AccountCsrfResp.md)
 
 ### Authorization
 
@@ -272,7 +272,7 @@ Other parameters are passed through a pointer to a apiGetAccountCsrfRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiGetAccountCsrfRequest stru
 
 ## GetAccountEmbed
 
-> EmbedStatusResp GetAccountEmbed(ctx).App(app).Execute()
+> AccountEmbedStatusResp GetAccountEmbed(ctx).App(app).Execute()
 
 Reports whether one of this brand's shared embedded apps (cms, erp, help) may be framed by the caller and is actually running, so a console module can choose between the embed and the provision panel.
 
@@ -309,7 +309,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.GetAccountEmbed``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAccountEmbed`: EmbedStatusResp
+	// response from `GetAccountEmbed`: AccountEmbedStatusResp
 	fmt.Fprintf(os.Stdout, "Response from `AccountAPI.GetAccountEmbed`: %v\n", resp)
 }
 ```
@@ -329,7 +329,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EmbedStatusResp**](EmbedStatusResp.md)
+[**AccountEmbedStatusResp**](AccountEmbedStatusResp.md)
 
 ### Authorization
 
@@ -338,7 +338,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -347,7 +347,7 @@ Name | Type | Description  | Notes
 
 ## GetAccountKeys
 
-> ApiKeyList GetAccountKeys(ctx).Execute()
+> AccountApiKeyList GetAccountKeys(ctx).Execute()
 
 Returns the caller's own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
 
@@ -374,7 +374,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.GetAccountKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAccountKeys`: ApiKeyList
+	// response from `GetAccountKeys`: AccountApiKeyList
 	fmt.Fprintf(os.Stdout, "Response from `AccountAPI.GetAccountKeys`: %v\n", resp)
 }
 ```
@@ -390,7 +390,7 @@ Other parameters are passed through a pointer to a apiGetAccountKeysRequest stru
 
 ### Return type
 
-[**ApiKeyList**](ApiKeyList.md)
+[**AccountApiKeyList**](AccountApiKeyList.md)
 
 ### Authorization
 
@@ -399,7 +399,7 @@ Other parameters are passed through a pointer to a apiGetAccountKeysRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -408,7 +408,7 @@ Other parameters are passed through a pointer to a apiGetAccountKeysRequest stru
 
 ## PostAccountAppearance
 
-> Appearance PostAccountAppearance(ctx).Appearance(appearance).Execute()
+> AccountAppearance PostAccountAppearance(ctx).AccountAppearance(accountAppearance).Execute()
 
 Stores the caller's appearance preference on their IAM account, preserving every other field of the row.
 
@@ -427,16 +427,16 @@ import (
 )
 
 func main() {
-	appearance := *openapiclient.NewAppearance() // Appearance | 
+	accountAppearance := *openapiclient.NewAccountAppearance() // AccountAppearance | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountAPI.PostAccountAppearance(context.Background()).Appearance(appearance).Execute()
+	resp, r, err := apiClient.AccountAPI.PostAccountAppearance(context.Background()).AccountAppearance(accountAppearance).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.PostAccountAppearance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAccountAppearance`: Appearance
+	// response from `PostAccountAppearance`: AccountAppearance
 	fmt.Fprintf(os.Stdout, "Response from `AccountAPI.PostAccountAppearance`: %v\n", resp)
 }
 ```
@@ -452,11 +452,11 @@ Other parameters are passed through a pointer to a apiPostAccountAppearanceReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **appearance** | [**Appearance**](Appearance.md) |  | 
+ **accountAppearance** | [**AccountAppearance**](AccountAppearance.md) |  | 
 
 ### Return type
 
-[**Appearance**](Appearance.md)
+[**AccountAppearance**](AccountAppearance.md)
 
 ### Authorization
 
@@ -465,7 +465,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -533,7 +533,7 @@ Other parameters are passed through a pointer to a apiPostAccountAvatarRequest s
 
 ## PostAccountKeys
 
-> MintedKey PostAccountKeys(ctx).KeyTypeIn(keyTypeIn).Execute()
+> AccountMintedKey PostAccountKeys(ctx).AccountKeyTypeIn(accountKeyTypeIn).Execute()
 
 Creates — or rotates — the caller's API key of the requested type and returns it ONCE.
 
@@ -552,16 +552,16 @@ import (
 )
 
 func main() {
-	keyTypeIn := *openapiclient.NewKeyTypeIn() // KeyTypeIn | 
+	accountKeyTypeIn := *openapiclient.NewAccountKeyTypeIn() // AccountKeyTypeIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountAPI.PostAccountKeys(context.Background()).KeyTypeIn(keyTypeIn).Execute()
+	resp, r, err := apiClient.AccountAPI.PostAccountKeys(context.Background()).AccountKeyTypeIn(accountKeyTypeIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.PostAccountKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAccountKeys`: MintedKey
+	// response from `PostAccountKeys`: AccountMintedKey
 	fmt.Fprintf(os.Stdout, "Response from `AccountAPI.PostAccountKeys`: %v\n", resp)
 }
 ```
@@ -577,11 +577,11 @@ Other parameters are passed through a pointer to a apiPostAccountKeysRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **keyTypeIn** | [**KeyTypeIn**](KeyTypeIn.md) |  | 
+ **accountKeyTypeIn** | [**AccountKeyTypeIn**](AccountKeyTypeIn.md) |  | 
 
 ### Return type
 
-[**MintedKey**](MintedKey.md)
+[**AccountMintedKey**](AccountMintedKey.md)
 
 ### Authorization
 
@@ -590,7 +590,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -599,9 +599,9 @@ Name | Type | Description  | Notes
 
 ## PostAccountOrgs
 
-> OnboardResp PostAccountOrgs(ctx).OnboardReq(onboardReq).Execute()
+> AccountOnboardResp PostAccountOrgs(ctx).AccountOnboardReq(accountOnboardReq).Execute()
 
-Onboard creates the caller's organization.
+Creates the caller's organization.
 
 
 
@@ -618,16 +618,16 @@ import (
 )
 
 func main() {
-	onboardReq := *openapiclient.NewOnboardReq() // OnboardReq | 
+	accountOnboardReq := *openapiclient.NewAccountOnboardReq() // AccountOnboardReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountAPI.PostAccountOrgs(context.Background()).OnboardReq(onboardReq).Execute()
+	resp, r, err := apiClient.AccountAPI.PostAccountOrgs(context.Background()).AccountOnboardReq(accountOnboardReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.PostAccountOrgs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostAccountOrgs`: OnboardResp
+	// response from `PostAccountOrgs`: AccountOnboardResp
 	fmt.Fprintf(os.Stdout, "Response from `AccountAPI.PostAccountOrgs`: %v\n", resp)
 }
 ```
@@ -643,11 +643,11 @@ Other parameters are passed through a pointer to a apiPostAccountOrgsRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **onboardReq** | [**OnboardReq**](OnboardReq.md) |  | 
+ **accountOnboardReq** | [**AccountOnboardReq**](AccountOnboardReq.md) |  | 
 
 ### Return type
 
-[**OnboardResp**](OnboardResp.md)
+[**AccountOnboardResp**](AccountOnboardResp.md)
 
 ### Authorization
 
@@ -656,7 +656,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

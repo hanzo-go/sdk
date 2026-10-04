@@ -19,8 +19,11 @@ var _ MappedNullable = &IamApplicationListResult{}
 
 // IamApplicationListResult struct for IamApplicationListResult
 type IamApplicationListResult struct {
-	Applications []IamApplication `json:"applications,omitempty"`
+	Applications         []IamApplication `json:"applications,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamApplicationListResult IamApplicationListResult
 
 // NewIamApplicationListResult instantiates a new IamApplicationListResult object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o IamApplicationListResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Applications) {
 		toSerialize["applications"] = o.Applications
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamApplicationListResult) UnmarshalJSON(data []byte) (err error) {
+	varIamApplicationListResult := _IamApplicationListResult{}
+
+	err = json.Unmarshal(data, &varIamApplicationListResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamApplicationListResult(varIamApplicationListResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "applications")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamApplicationListResult struct {

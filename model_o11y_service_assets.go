@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yServiceAssets{}
 
 // O11yServiceAssets struct for O11yServiceAssets
 type O11yServiceAssets struct {
-	Dashboards []O11yServiceDashboard `json:"dashboards,omitempty"`
+	Dashboards           []O11yServiceDashboard `json:"dashboards,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yServiceAssets O11yServiceAssets
 
 // NewO11yServiceAssets instantiates a new O11yServiceAssets object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yServiceAssets) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Dashboards) {
 		toSerialize["dashboards"] = o.Dashboards
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yServiceAssets) UnmarshalJSON(data []byte) (err error) {
+	varO11yServiceAssets := _O11yServiceAssets{}
+
+	err = json.Unmarshal(data, &varO11yServiceAssets)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yServiceAssets(varO11yServiceAssets)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dashboards")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yServiceAssets struct {

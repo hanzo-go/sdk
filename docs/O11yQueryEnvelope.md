@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Spec** | Pointer to **map[string]interface{}** | Spec is the deferred decoding of the query if any. | [optional] 
+**Spec** | Pointer to **interface{}** |  | [optional] 
 **Type** | Pointer to **interface{}** |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetSpec
 
-`func (o *O11yQueryEnvelope) GetSpec() map[string]interface{}`
+`func (o *O11yQueryEnvelope) GetSpec() interface{}`
 
 GetSpec returns the Spec field if non-nil, zero value otherwise.
 
 ### GetSpecOk
 
-`func (o *O11yQueryEnvelope) GetSpecOk() (*map[string]interface{}, bool)`
+`func (o *O11yQueryEnvelope) GetSpecOk() (*interface{}, bool)`
 
 GetSpecOk returns a tuple with the Spec field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSpec
 
-`func (o *O11yQueryEnvelope) SetSpec(v map[string]interface{})`
+`func (o *O11yQueryEnvelope) SetSpec(v interface{})`
 
 SetSpec sets Spec field to given value.
 
@@ -51,6 +51,16 @@ SetSpec sets Spec field to given value.
 
 HasSpec returns a boolean if a field has been set.
 
+### SetSpecNil
+
+`func (o *O11yQueryEnvelope) SetSpecNil(b bool)`
+
+ SetSpecNil sets the value for Spec to be an explicit nil
+
+### UnsetSpec
+`func (o *O11yQueryEnvelope) UnsetSpec()`
+
+UnsetSpec ensures that no value is present for Spec, not even an explicit nil
 ### GetType
 
 `func (o *O11yQueryEnvelope) GetType() interface{}`

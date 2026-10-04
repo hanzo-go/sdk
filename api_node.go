@@ -27,7 +27,7 @@ type NodeAPIGetNodeRequest struct {
 	ApiService *NodeAPIService
 }
 
-func (r NodeAPIGetNodeRequest) Execute() (*NodesView, *http.Response, error) {
+func (r NodeAPIGetNodeRequest) Execute() (*NodeNodesView, *http.Response, error) {
 	return r.ApiService.GetNodeExecute(r)
 }
 
@@ -57,13 +57,13 @@ func (a *NodeAPIService) GetNode(ctx context.Context) NodeAPIGetNodeRequest {
 
 // Execute executes the request
 //
-//	@return NodesView
-func (a *NodeAPIService) GetNodeExecute(r NodeAPIGetNodeRequest) (*NodesView, *http.Response, error) {
+//	@return NodeNodesView
+func (a *NodeAPIService) GetNodeExecute(r NodeAPIGetNodeRequest) (*NodeNodesView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *NodesView
+		localVarReturnValue *NodeNodesView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NodeAPIService.GetNode")
@@ -87,7 +87,7 @@ func (a *NodeAPIService) GetNodeExecute(r NodeAPIGetNodeRequest) (*NodesView, *h
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -116,6 +116,14 @@ func (a *NodeAPIService) GetNodeExecute(r NodeAPIGetNodeRequest) (*NodesView, *h
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -145,7 +153,7 @@ GetNodeConnect The socket a bot node dials and holds open to become invokable.
 
 Upgrades to a WebSocket and keeps it for the life of the node. cloud writes a challenge frame immediately; the node answers with a connect frame naming the protocol range it speaks, the role `node`, its own node id, and the display name, platform, agent version, capabilities and commands it reports for itself. On acceptance the session is registered, the node appears in this org's node list, and invocations begin arriving as frames on the same connection.
 
-The upgrade needs a validated principal and answers 403 without one. The org is the gateway's verdict — injected after IAM validation and after any client copy is stripped — and is never read from the request itself, because a caller that could name an org could attach a machine into someone else's tenant.
+The upgrade needs a validated principal and answers 401 without one. The org is the gateway's verdict — injected after IAM validation and after any client copy is stripped — and is never read from the request itself, because a caller that could name an org could attach a machine into someone else's tenant.
 
 A request carrying an Origin header is refused outright. A node is a daemon and a browser has no business here; since no same-origin policy applies to WebSockets, a page could otherwise ride a signed-in viewer's session into registering a node. Removing the whole category is the gate, not an allowlist of brand domains. The handshake deadline is one fixed instant rather than a per-read timer, so a peer cannot hold a pre-handshake socket open indefinitely by sending frames this endpoint ignores.
 
@@ -240,7 +248,7 @@ PostNodeByIdInvoke Ask one of your connected machines to run a command, and get 
 
 Sends {command, params, timeoutMs, idempotencyKey} to the named node and answers with what the node returned: {ok, payload, code, message}, where payload is the node's own JSON passed through — cloud routes the call, it does not interpret the result. A reply that is not valid JSON becomes an empty payload rather than corrupting the response, which ok and code already qualify.
 
-Neither the node nor the org is a body field: the node is the path and the org is the caller's validated identity, and a field for either would be a field somebody could set to a stranger's. A validated principal is required (403 without one), and a node id that belongs to another org answers exactly like one that does not exist — not found — so this cannot be used to probe another tenant's fleet.
+Neither the node nor the org is a body field: the node is the path and the org is the caller's validated identity, and a field for either would be a field somebody could set to a stranger's. A validated principal is required (401 without one), and a node id that belongs to another org answers exactly like one that does not exist — not found — so this cannot be used to probe another tenant's fleet.
 
 Authorization happened ONCE, at the socket, on the replica holding that node — the only place that knows what the node declared it can do. A node attached to a different replica is reached through the peer forward and is authorized by the same code with the same session in hand, so a local node and a forwarded one cannot get different answers. The timeout defaults to 30s and is clamped to 5 minutes, so one request can never pin a node's socket open indefinitely.
 

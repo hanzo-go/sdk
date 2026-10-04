@@ -24,8 +24,11 @@ type O11yCreateQueueReq struct {
 	// Name is the queue's display handle, 1–128 printable characters. It must be unique within the org's project. Required.
 	Name *string `json:"name,omitempty"`
 	// ScoreConfigIDs are the eval score-configs reviewers grade against.
-	ScoreConfigIds []string `json:"scoreConfigIds,omitempty"`
+	ScoreConfigIds       []string `json:"scoreConfigIds,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yCreateQueueReq O11yCreateQueueReq
 
 // NewO11yCreateQueueReq instantiates a new O11yCreateQueueReq object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yCreateQueueReq) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ScoreConfigIds) {
 		toSerialize["scoreConfigIds"] = o.ScoreConfigIds
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yCreateQueueReq) UnmarshalJSON(data []byte) (err error) {
+	varO11yCreateQueueReq := _O11yCreateQueueReq{}
+
+	err = json.Unmarshal(data, &varO11yCreateQueueReq)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yCreateQueueReq(varO11yCreateQueueReq)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "scoreConfigIds")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yCreateQueueReq struct {

@@ -23,26 +23,29 @@ type IamWebauthnCredential struct {
 	Aaguid     *string `json:"aaguid,omitempty"`
 	Attachment *string `json:"attachment,omitempty"`
 	// AttestationFormat is the statement format the authenticator attested in (\"packed\", \"apple\", \"none\", …), which is a DIFFERENT value from the attestation type above. The library reads it back when resolving the FIDO AppID extension, so a row that dropped it would round-trip a credential the verifier no longer recognises as the one it stored.
-	AttestationFormat *string    `json:"attestationFormat,omitempty"`
-	AttestationType   *string    `json:"attestationType,omitempty"`
-	BackupEligible    *bool      `json:"backupEligible,omitempty"`
-	BackupState       *bool      `json:"backupState,omitempty"`
-	CloneWarning      *bool      `json:"cloneWarning,omitempty"`
-	CreatedAt         *time.Time `json:"createdAt,omitempty"`
-	CreatedTime       *string    `json:"createdTime,omitempty"`
-	CredentialId      *string    `json:"credentialId,omitempty"`
-	Deleted           *bool      `json:"deleted,omitempty"`
-	Id                *string    `json:"id,omitempty"`
-	Name              *string    `json:"name,omitempty"`
-	Owner             *string    `json:"owner,omitempty"`
-	PublicKey         *string    `json:"publicKey,omitempty"`
-	SignCount         *int32     `json:"signCount,omitempty"`
-	Transport         []string   `json:"transport,omitempty"`
-	UpdatedAt         *time.Time `json:"updatedAt,omitempty"`
-	User              *string    `json:"user,omitempty"`
-	UserPresent       *bool      `json:"userPresent,omitempty"`
-	UserVerified      *bool      `json:"userVerified,omitempty"`
+	AttestationFormat    *string    `json:"attestationFormat,omitempty"`
+	AttestationType      *string    `json:"attestationType,omitempty"`
+	BackupEligible       *bool      `json:"backupEligible,omitempty"`
+	BackupState          *bool      `json:"backupState,omitempty"`
+	CloneWarning         *bool      `json:"cloneWarning,omitempty"`
+	CreatedAt            *time.Time `json:"createdAt,omitempty"`
+	CreatedTime          *string    `json:"createdTime,omitempty"`
+	CredentialId         *string    `json:"credentialId,omitempty"`
+	Deleted              *bool      `json:"deleted,omitempty"`
+	Id                   *string    `json:"id,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	Owner                *string    `json:"owner,omitempty"`
+	PublicKey            *string    `json:"publicKey,omitempty"`
+	SignCount            *int32     `json:"signCount,omitempty"`
+	Transport            []string   `json:"transport,omitempty"`
+	UpdatedAt            *time.Time `json:"updatedAt,omitempty"`
+	User                 *string    `json:"user,omitempty"`
+	UserPresent          *bool      `json:"userPresent,omitempty"`
+	UserVerified         *bool      `json:"userVerified,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamWebauthnCredential IamWebauthnCredential
 
 // NewIamWebauthnCredential instantiates a new IamWebauthnCredential object
 // This constructor will assign default values to properties that have it defined,
@@ -806,7 +809,53 @@ func (o IamWebauthnCredential) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserVerified) {
 		toSerialize["userVerified"] = o.UserVerified
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamWebauthnCredential) UnmarshalJSON(data []byte) (err error) {
+	varIamWebauthnCredential := _IamWebauthnCredential{}
+
+	err = json.Unmarshal(data, &varIamWebauthnCredential)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamWebauthnCredential(varIamWebauthnCredential)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aaguid")
+		delete(additionalProperties, "attachment")
+		delete(additionalProperties, "attestationFormat")
+		delete(additionalProperties, "attestationType")
+		delete(additionalProperties, "backupEligible")
+		delete(additionalProperties, "backupState")
+		delete(additionalProperties, "cloneWarning")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "credentialId")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "publicKey")
+		delete(additionalProperties, "signCount")
+		delete(additionalProperties, "transport")
+		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "user")
+		delete(additionalProperties, "userPresent")
+		delete(additionalProperties, "userVerified")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamWebauthnCredential struct {

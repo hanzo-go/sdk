@@ -36,8 +36,11 @@ type O11yStatusMaintenance struct {
 	// Status is where the window is in its life, in the client's own vocabulary.
 	Status *string `json:"status,omitempty"`
 	// URL points at the human status page, as every link in this document does.
-	Url *string `json:"url,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yStatusMaintenance O11yStatusMaintenance
 
 // NewO11yStatusMaintenance instantiates a new O11yStatusMaintenance object
 // This constructor will assign default values to properties that have it defined,
@@ -381,7 +384,41 @@ func (o O11yStatusMaintenance) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yStatusMaintenance) UnmarshalJSON(data []byte) (err error) {
+	varO11yStatusMaintenance := _O11yStatusMaintenance{}
+
+	err = json.Unmarshal(data, &varO11yStatusMaintenance)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yStatusMaintenance(varO11yStatusMaintenance)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "affected_components")
+		delete(additionalProperties, "ends_at")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "last_update_at")
+		delete(additionalProperties, "last_update_message")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "starts_at")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yStatusMaintenance struct {

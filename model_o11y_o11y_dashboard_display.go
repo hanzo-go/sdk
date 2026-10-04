@@ -22,8 +22,11 @@ type O11yO11yDashboardDisplay struct {
 	// Description says what the dashboard is for.
 	Description *string `json:"description,omitempty"`
 	// Name is the human-facing dashboard name.
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardDisplay O11yO11yDashboardDisplay
 
 // NewO11yO11yDashboardDisplay instantiates a new O11yO11yDashboardDisplay object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yDashboardDisplay) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardDisplay) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardDisplay := _O11yO11yDashboardDisplay{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardDisplay)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardDisplay(varO11yO11yDashboardDisplay)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardDisplay struct {

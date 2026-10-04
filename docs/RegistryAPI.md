@@ -4,20 +4,20 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetRegistryImages**](RegistryAPI.md#GetRegistryImages) | **Get** /v1/registry/images | Images lists the org&#39;s container repositories, read live from the OCI catalog and filtered server-side to the org&#39;s namespace — the page can only ever hold the caller&#39;s own images.
-[**GetRegistryPackages**](RegistryAPI.md#GetRegistryPackages) | **Get** /v1/registry/packages | Packages lists the org&#39;s npm packages — &#x60;&lt;org&gt;&#x60; and &#x60;@&lt;org&gt;/…&#x60; — from the npm registry&#39;s search index, optionally narrowed by a query within that scope.
-[**GetRegistryProjects**](RegistryAPI.md#GetRegistryProjects) | **Get** /v1/registry/projects | Projects lists the namespaces the caller can see with what each holds: the org&#39;s slug, its repository count on the OCI catalog, and its package count on the npm registry.
-[**GetRegistryStatus**](RegistryAPI.md#GetRegistryStatus) | **Get** /v1/registry/status | Status reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \&quot;is the registry plane up\&quot;, never a fabricated ok.
-[**GetRegistryTags**](RegistryAPI.md#GetRegistryTags) | **Get** /v1/registry/tags | Tags lists one org-owned repository&#39;s tags, read live from the OCI registry.
-[**PostRegistryToken**](RegistryAPI.md#PostRegistryToken) | **Post** /v1/registry/token | Token mints a short-lived, pull-only registry token for exactly one of the org&#39;s images, through the same IAM realm the docker CLI authenticates against.
+[**GetRegistryImages**](RegistryAPI.md#GetRegistryImages) | **Get** /v1/registry/images | Lists the org&#39;s container repositories, read live from the OCI catalog and filtered server-side to the org&#39;s namespace — the page can only ever hold the caller&#39;s own images.
+[**GetRegistryPackages**](RegistryAPI.md#GetRegistryPackages) | **Get** /v1/registry/packages | Lists the org&#39;s npm packages — &#x60;&lt;org&gt;&#x60; and &#x60;@&lt;org&gt;/…&#x60; — from the npm registry&#39;s search index, optionally narrowed by a query within that scope.
+[**GetRegistryProjects**](RegistryAPI.md#GetRegistryProjects) | **Get** /v1/registry/projects | Lists the namespaces the caller can see with what each holds: the org&#39;s slug, its repository count on the OCI catalog, and its package count on the npm registry.
+[**GetRegistryStatus**](RegistryAPI.md#GetRegistryStatus) | **Get** /v1/registry/status | Reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \&quot;is the registry plane up\&quot;, never a fabricated ok.
+[**GetRegistryTags**](RegistryAPI.md#GetRegistryTags) | **Get** /v1/registry/tags | Lists one org-owned repository&#39;s tags, read live from the OCI registry.
+[**PostRegistryToken**](RegistryAPI.md#PostRegistryToken) | **Post** /v1/registry/token | Mints a short-lived, pull-only registry token for exactly one of the org&#39;s images, through the same IAM realm the docker CLI authenticates against.
 
 
 
 ## GetRegistryImages
 
-> RegistryImageList GetRegistryImages(ctx).Execute()
+> RegistryRegistryImageList GetRegistryImages(ctx).Execute()
 
-Images lists the org's container repositories, read live from the OCI catalog and filtered server-side to the org's namespace — the page can only ever hold the caller's own images.
+Lists the org's container repositories, read live from the OCI catalog and filtered server-side to the org's namespace — the page can only ever hold the caller's own images.
 
 
 
@@ -42,7 +42,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.GetRegistryImages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetRegistryImages`: RegistryImageList
+	// response from `GetRegistryImages`: RegistryRegistryImageList
 	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.GetRegistryImages`: %v\n", resp)
 }
 ```
@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiGetRegistryImagesRequest s
 
 ### Return type
 
-[**RegistryImageList**](RegistryImageList.md)
+[**RegistryRegistryImageList**](RegistryRegistryImageList.md)
 
 ### Authorization
 
@@ -67,7 +67,7 @@ Other parameters are passed through a pointer to a apiGetRegistryImagesRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -76,9 +76,9 @@ Other parameters are passed through a pointer to a apiGetRegistryImagesRequest s
 
 ## GetRegistryPackages
 
-> RegistryPackageList GetRegistryPackages(ctx).Query(query).Execute()
+> RegistryRegistryPackageList GetRegistryPackages(ctx).Query(query).Execute()
 
-Packages lists the org's npm packages — `<org>` and `@<org>/…` — from the npm registry's search index, optionally narrowed by a query within that scope.
+Lists the org's npm packages — `<org>` and `@<org>/…` — from the npm registry's search index, optionally narrowed by a query within that scope.
 
 
 
@@ -104,7 +104,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.GetRegistryPackages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetRegistryPackages`: RegistryPackageList
+	// response from `GetRegistryPackages`: RegistryRegistryPackageList
 	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.GetRegistryPackages`: %v\n", resp)
 }
 ```
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RegistryPackageList**](RegistryPackageList.md)
+[**RegistryRegistryPackageList**](RegistryRegistryPackageList.md)
 
 ### Authorization
 
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -142,9 +142,9 @@ Name | Type | Description  | Notes
 
 ## GetRegistryProjects
 
-> RegistryProjectList GetRegistryProjects(ctx).Execute()
+> RegistryRegistryProjectList GetRegistryProjects(ctx).Execute()
 
-Projects lists the namespaces the caller can see with what each holds: the org's slug, its repository count on the OCI catalog, and its package count on the npm registry.
+Lists the namespaces the caller can see with what each holds: the org's slug, its repository count on the OCI catalog, and its package count on the npm registry.
 
 
 
@@ -169,7 +169,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.GetRegistryProjects``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetRegistryProjects`: RegistryProjectList
+	// response from `GetRegistryProjects`: RegistryRegistryProjectList
 	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.GetRegistryProjects`: %v\n", resp)
 }
 ```
@@ -185,7 +185,7 @@ Other parameters are passed through a pointer to a apiGetRegistryProjectsRequest
 
 ### Return type
 
-[**RegistryProjectList**](RegistryProjectList.md)
+[**RegistryRegistryProjectList**](RegistryRegistryProjectList.md)
 
 ### Authorization
 
@@ -194,7 +194,7 @@ Other parameters are passed through a pointer to a apiGetRegistryProjectsRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -203,9 +203,9 @@ Other parameters are passed through a pointer to a apiGetRegistryProjectsRequest
 
 ## GetRegistryStatus
 
-> RegistryStatus GetRegistryStatus(ctx).Execute()
+> RegistryRegistryStatus GetRegistryStatus(ctx).Execute()
 
-Status reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \"is the registry plane up\", never a fabricated ok.
+Reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \"is the registry plane up\", never a fabricated ok.
 
 
 
@@ -230,7 +230,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.GetRegistryStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetRegistryStatus`: RegistryStatus
+	// response from `GetRegistryStatus`: RegistryRegistryStatus
 	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.GetRegistryStatus`: %v\n", resp)
 }
 ```
@@ -246,7 +246,7 @@ Other parameters are passed through a pointer to a apiGetRegistryStatusRequest s
 
 ### Return type
 
-[**RegistryStatus**](RegistryStatus.md)
+[**RegistryRegistryStatus**](RegistryRegistryStatus.md)
 
 ### Authorization
 
@@ -255,7 +255,7 @@ Other parameters are passed through a pointer to a apiGetRegistryStatusRequest s
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -264,9 +264,9 @@ Other parameters are passed through a pointer to a apiGetRegistryStatusRequest s
 
 ## GetRegistryTags
 
-> RegistryTagList GetRegistryTags(ctx).Image(image).Execute()
+> RegistryRegistryTagList GetRegistryTags(ctx).Image(image).Execute()
 
-Tags lists one org-owned repository's tags, read live from the OCI registry.
+Lists one org-owned repository's tags, read live from the OCI registry.
 
 
 
@@ -292,7 +292,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.GetRegistryTags``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetRegistryTags`: RegistryTagList
+	// response from `GetRegistryTags`: RegistryRegistryTagList
 	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.GetRegistryTags`: %v\n", resp)
 }
 ```
@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RegistryTagList**](RegistryTagList.md)
+[**RegistryRegistryTagList**](RegistryRegistryTagList.md)
 
 ### Authorization
 
@@ -321,7 +321,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -330,9 +330,9 @@ Name | Type | Description  | Notes
 
 ## PostRegistryToken
 
-> RegistryToken PostRegistryToken(ctx).RegistryMint(registryMint).Execute()
+> RegistryRegistryToken PostRegistryToken(ctx).RegistryRegistryMint(registryRegistryMint).Execute()
 
-Token mints a short-lived, pull-only registry token for exactly one of the org's images, through the same IAM realm the docker CLI authenticates against.
+Mints a short-lived, pull-only registry token for exactly one of the org's images, through the same IAM realm the docker CLI authenticates against.
 
 
 
@@ -349,16 +349,16 @@ import (
 )
 
 func main() {
-	registryMint := *openapiclient.NewRegistryMint() // RegistryMint | 
+	registryRegistryMint := *openapiclient.NewRegistryRegistryMint() // RegistryRegistryMint | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RegistryAPI.PostRegistryToken(context.Background()).RegistryMint(registryMint).Execute()
+	resp, r, err := apiClient.RegistryAPI.PostRegistryToken(context.Background()).RegistryRegistryMint(registryRegistryMint).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RegistryAPI.PostRegistryToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostRegistryToken`: RegistryToken
+	// response from `PostRegistryToken`: RegistryRegistryToken
 	fmt.Fprintf(os.Stdout, "Response from `RegistryAPI.PostRegistryToken`: %v\n", resp)
 }
 ```
@@ -374,11 +374,11 @@ Other parameters are passed through a pointer to a apiPostRegistryTokenRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **registryMint** | [**RegistryMint**](RegistryMint.md) |  | 
+ **registryRegistryMint** | [**RegistryRegistryMint**](RegistryRegistryMint.md) |  | 
 
 ### Return type
 
-[**RegistryToken**](RegistryToken.md)
+[**RegistryRegistryToken**](RegistryRegistryToken.md)
 
 ### Authorization
 
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

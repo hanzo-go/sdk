@@ -26,8 +26,11 @@ type O11yO11yMetricPoint struct {
 	// Value is the point's value.
 	Value *float64 `json:"value,omitempty"`
 	// Values carries the bucket values of a heatmap point.
-	Values []float64 `json:"values,omitempty"`
+	Values               []float64 `json:"values,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricPoint O11yO11yMetricPoint
 
 // NewO11yO11yMetricPoint instantiates a new O11yO11yMetricPoint object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yMetricPoint) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Values) {
 		toSerialize["values"] = o.Values
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricPoint) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricPoint := _O11yO11yMetricPoint{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricPoint)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricPoint(varO11yO11yMetricPoint)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "partial")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "values")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricPoint struct {

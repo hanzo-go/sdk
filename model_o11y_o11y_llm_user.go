@@ -34,8 +34,11 @@ type O11yO11yLLMUser struct {
 	// TotalTokens is their total tokens.
 	TotalTokens *int64 `json:"totalTokens,omitempty"`
 	// Traces is how many traces they produced.
-	Traces *int64 `json:"traces,omitempty"`
+	Traces               *int64 `json:"traces,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMUser O11yO11yLLMUser
 
 // NewO11yO11yLLMUser instantiates a new O11yO11yLLMUser object
 // This constructor will assign default values to properties that have it defined,
@@ -344,7 +347,40 @@ func (o O11yO11yLLMUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Traces) {
 		toSerialize["traces"] = o.Traces
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMUser) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMUser := _O11yO11yLLMUser{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMUser(varO11yO11yLLMUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "completionTokens")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "observations")
+		delete(additionalProperties, "promptTokens")
+		delete(additionalProperties, "sessions")
+		delete(additionalProperties, "totalCost")
+		delete(additionalProperties, "totalTokens")
+		delete(additionalProperties, "traces")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMUser struct {

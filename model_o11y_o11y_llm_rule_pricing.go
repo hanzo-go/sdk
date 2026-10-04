@@ -24,8 +24,11 @@ type O11yO11yLLMRulePricing struct {
 	// Input is the cost per unit of input tokens.
 	Input *float64 `json:"input,omitempty"`
 	// Output is the cost per unit of output tokens.
-	Output *float64 `json:"output,omitempty"`
+	Output               *float64 `json:"output,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMRulePricing O11yO11yLLMRulePricing
 
 // NewO11yO11yLLMRulePricing instantiates a new O11yO11yLLMRulePricing object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yLLMRulePricing) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Output) {
 		toSerialize["output"] = o.Output
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMRulePricing) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMRulePricing := _O11yO11yLLMRulePricing{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMRulePricing)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMRulePricing(varO11yO11yLLMRulePricing)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cache")
+		delete(additionalProperties, "input")
+		delete(additionalProperties, "output")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMRulePricing struct {

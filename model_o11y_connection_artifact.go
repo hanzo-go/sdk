@@ -20,10 +20,13 @@ var _ MappedNullable = &O11yConnectionArtifact{}
 // O11yConnectionArtifact struct for O11yConnectionArtifact
 type O11yConnectionArtifact struct {
 	// required till new providers are added
-	Aws   *O11yAWSConnectionArtifact   `json:"aws,omitempty"`
-	Azure *O11yAzureConnectionArtifact `json:"azure,omitempty"`
-	Gcp   map[string]interface{}       `json:"gcp,omitempty"`
+	Aws                  *O11yAWSConnectionArtifact   `json:"aws,omitempty"`
+	Azure                *O11yAzureConnectionArtifact `json:"azure,omitempty"`
+	Gcp                  map[string]interface{}       `json:"gcp,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yConnectionArtifact O11yConnectionArtifact
 
 // NewO11yConnectionArtifact instantiates a new O11yConnectionArtifact object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o O11yConnectionArtifact) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Gcp) {
 		toSerialize["gcp"] = o.Gcp
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yConnectionArtifact) UnmarshalJSON(data []byte) (err error) {
+	varO11yConnectionArtifact := _O11yConnectionArtifact{}
+
+	err = json.Unmarshal(data, &varO11yConnectionArtifact)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yConnectionArtifact(varO11yConnectionArtifact)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aws")
+		delete(additionalProperties, "azure")
+		delete(additionalProperties, "gcp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yConnectionArtifact struct {

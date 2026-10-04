@@ -19,11 +19,14 @@ var _ MappedNullable = &AiProviderUsageSeriesPoint{}
 
 // AiProviderUsageSeriesPoint struct for AiProviderUsageSeriesPoint
 type AiProviderUsageSeriesPoint struct {
-	Requests   *int32  `json:"requests,omitempty"`
-	SpendCents *int32  `json:"spendCents,omitempty"`
-	T          *string `json:"t,omitempty"`
-	Tokens     *int32  `json:"tokens,omitempty"`
+	Requests             *int32  `json:"requests,omitempty"`
+	SpendCents           *int32  `json:"spendCents,omitempty"`
+	T                    *string `json:"t,omitempty"`
+	Tokens               *int32  `json:"tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiProviderUsageSeriesPoint AiProviderUsageSeriesPoint
 
 // NewAiProviderUsageSeriesPoint instantiates a new AiProviderUsageSeriesPoint object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o AiProviderUsageSeriesPoint) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tokens) {
 		toSerialize["tokens"] = o.Tokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiProviderUsageSeriesPoint) UnmarshalJSON(data []byte) (err error) {
+	varAiProviderUsageSeriesPoint := _AiProviderUsageSeriesPoint{}
+
+	err = json.Unmarshal(data, &varAiProviderUsageSeriesPoint)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiProviderUsageSeriesPoint(varAiProviderUsageSeriesPoint)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "requests")
+		delete(additionalProperties, "spendCents")
+		delete(additionalProperties, "t")
+		delete(additionalProperties, "tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiProviderUsageSeriesPoint struct {

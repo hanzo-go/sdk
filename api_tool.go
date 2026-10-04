@@ -38,7 +38,8 @@ DeleteToolMcpServersById Deregisters one of the caller org's external MCP server
 Deregisters one of the caller org's external MCP servers, so its
 tools leave the registry. Scoped to the caller's org, so an id belonging to
 another tenant is a 404 and not a delete. Answers 204 with no body; a server
-this org does not have is 404.
+this org does not have is 404. Like registering one it takes an admin of the
+org or a SuperAdmin, and is on the org's audit trail before it is made.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the server to deregister, from the path.
@@ -82,7 +83,7 @@ func (a *ToolAPIService) DeleteToolMcpServersByIdExecute(r ToolAPIDeleteToolMcpS
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -111,6 +112,14 @@ func (a *ToolAPIService) DeleteToolMcpServersByIdExecute(r ToolAPIDeleteToolMcpS
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -123,7 +132,7 @@ type ToolAPIDeleteToolPluginsAuthoredByIdRequest struct {
 	id         string
 }
 
-func (r ToolAPIDeleteToolPluginsAuthoredByIdRequest) Execute() (*PluginDeleted, *http.Response, error) {
+func (r ToolAPIDeleteToolPluginsAuthoredByIdRequest) Execute() (*ToolPluginDeleted, *http.Response, error) {
 	return r.ApiService.DeleteToolPluginsAuthoredByIdExecute(r)
 }
 
@@ -148,13 +157,13 @@ func (a *ToolAPIService) DeleteToolPluginsAuthoredById(ctx context.Context, id s
 
 // Execute executes the request
 //
-//	@return PluginDeleted
-func (a *ToolAPIService) DeleteToolPluginsAuthoredByIdExecute(r ToolAPIDeleteToolPluginsAuthoredByIdRequest) (*PluginDeleted, *http.Response, error) {
+//	@return ToolPluginDeleted
+func (a *ToolAPIService) DeleteToolPluginsAuthoredByIdExecute(r ToolAPIDeleteToolPluginsAuthoredByIdRequest) (*ToolPluginDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PluginDeleted
+		localVarReturnValue *ToolPluginDeleted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.DeleteToolPluginsAuthoredById")
@@ -179,7 +188,7 @@ func (a *ToolAPIService) DeleteToolPluginsAuthoredByIdExecute(r ToolAPIDeleteToo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -208,6 +217,14 @@ func (a *ToolAPIService) DeleteToolPluginsAuthoredByIdExecute(r ToolAPIDeleteToo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -229,7 +246,7 @@ type ToolAPIDeleteToolSkillsByIdRequest struct {
 	id         string
 }
 
-func (r ToolAPIDeleteToolSkillsByIdRequest) Execute() (*SkillDeleted, *http.Response, error) {
+func (r ToolAPIDeleteToolSkillsByIdRequest) Execute() (*ToolSkillDeleted, *http.Response, error) {
 	return r.ApiService.DeleteToolSkillsByIdExecute(r)
 }
 
@@ -239,6 +256,8 @@ DeleteToolSkillsById Removes one of the caller org's authored skills.
 Removes one of the caller org's authored skills. Scoped to the
 caller's org, so an id belonging to another tenant is never reached. Removing
 what is not there is not an error — the caller's intent is "gone", and it is.
+Like writing one it takes an admin of the org or a SuperAdmin, and is on the
+org's audit trail before it is made.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the skill to remove, from the path. It is the skill's name.
@@ -254,13 +273,13 @@ func (a *ToolAPIService) DeleteToolSkillsById(ctx context.Context, id string) To
 
 // Execute executes the request
 //
-//	@return SkillDeleted
-func (a *ToolAPIService) DeleteToolSkillsByIdExecute(r ToolAPIDeleteToolSkillsByIdRequest) (*SkillDeleted, *http.Response, error) {
+//	@return ToolSkillDeleted
+func (a *ToolAPIService) DeleteToolSkillsByIdExecute(r ToolAPIDeleteToolSkillsByIdRequest) (*ToolSkillDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SkillDeleted
+		localVarReturnValue *ToolSkillDeleted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.DeleteToolSkillsById")
@@ -285,7 +304,7 @@ func (a *ToolAPIService) DeleteToolSkillsByIdExecute(r ToolAPIDeleteToolSkillsBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -314,6 +333,14 @@ func (a *ToolAPIService) DeleteToolSkillsByIdExecute(r ToolAPIDeleteToolSkillsBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -348,7 +375,7 @@ func (r ToolAPIGetToolRequest) Activated(activated string) ToolAPIGetToolRequest
 	return r
 }
 
-func (r ToolAPIGetToolRequest) Execute() (*ToolList, *http.Response, error) {
+func (r ToolAPIGetToolRequest) Execute() (*ToolToolList, *http.Response, error) {
 	return r.ApiService.GetToolExecute(r)
 }
 
@@ -374,13 +401,13 @@ func (a *ToolAPIService) GetTool(ctx context.Context) ToolAPIGetToolRequest {
 
 // Execute executes the request
 //
-//	@return ToolList
-func (a *ToolAPIService) GetToolExecute(r ToolAPIGetToolRequest) (*ToolList, *http.Response, error) {
+//	@return ToolToolList
+func (a *ToolAPIService) GetToolExecute(r ToolAPIGetToolRequest) (*ToolToolList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ToolList
+		localVarReturnValue *ToolToolList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetTool")
@@ -410,7 +437,7 @@ func (a *ToolAPIService) GetToolExecute(r ToolAPIGetToolRequest) (*ToolList, *ht
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -439,6 +466,14 @@ func (a *ToolAPIService) GetToolExecute(r ToolAPIGetToolRequest) (*ToolList, *ht
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -459,7 +494,7 @@ type ToolAPIGetToolActivationRequest struct {
 	ApiService *ToolAPIService
 }
 
-func (r ToolAPIGetToolActivationRequest) Execute() (*ActivationSet, *http.Response, error) {
+func (r ToolAPIGetToolActivationRequest) Execute() (*ToolActivationSet, *http.Response, error) {
 	return r.ApiService.GetToolActivationExecute(r)
 }
 
@@ -483,13 +518,13 @@ func (a *ToolAPIService) GetToolActivation(ctx context.Context) ToolAPIGetToolAc
 
 // Execute executes the request
 //
-//	@return ActivationSet
-func (a *ToolAPIService) GetToolActivationExecute(r ToolAPIGetToolActivationRequest) (*ActivationSet, *http.Response, error) {
+//	@return ToolActivationSet
+func (a *ToolAPIService) GetToolActivationExecute(r ToolAPIGetToolActivationRequest) (*ToolActivationSet, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ActivationSet
+		localVarReturnValue *ToolActivationSet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolActivation")
@@ -513,7 +548,7 @@ func (a *ToolAPIService) GetToolActivationExecute(r ToolAPIGetToolActivationRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -542,6 +577,14 @@ func (a *ToolAPIService) GetToolActivationExecute(r ToolAPIGetToolActivationRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -597,7 +640,7 @@ func (r ToolAPIGetToolCatalogRequest) Offset(offset int64) ToolAPIGetToolCatalog
 	return r
 }
 
-func (r ToolAPIGetToolCatalogRequest) Execute() (*McpCatalog, *http.Response, error) {
+func (r ToolAPIGetToolCatalogRequest) Execute() (*ToolMcpCatalog, *http.Response, error) {
 	return r.ApiService.GetToolCatalogExecute(r)
 }
 
@@ -622,6 +665,9 @@ It is PAGED — 50 by default, 200 at most. The public registry publishes tens o
 thousands of servers, so an unbounded answer is a twenty-megabyte response and a
 storefront that renders in a minute. total is the whole match, not the page.
 
+It needs no credential: the shelf is a copy of public registries, the same for
+every org, and a storefront shows it to a visitor before anyone signs in.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ToolAPIGetToolCatalogRequest
 */
@@ -634,13 +680,13 @@ func (a *ToolAPIService) GetToolCatalog(ctx context.Context) ToolAPIGetToolCatal
 
 // Execute executes the request
 //
-//	@return McpCatalog
-func (a *ToolAPIService) GetToolCatalogExecute(r ToolAPIGetToolCatalogRequest) (*McpCatalog, *http.Response, error) {
+//	@return ToolMcpCatalog
+func (a *ToolAPIService) GetToolCatalogExecute(r ToolAPIGetToolCatalogRequest) (*ToolMcpCatalog, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *McpCatalog
+		localVarReturnValue *ToolMcpCatalog
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolCatalog")
@@ -679,7 +725,7 @@ func (a *ToolAPIService) GetToolCatalogExecute(r ToolAPIGetToolCatalogRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -708,6 +754,14 @@ func (a *ToolAPIService) GetToolCatalogExecute(r ToolAPIGetToolCatalogRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -729,7 +783,7 @@ type ToolAPIGetToolCatalogByIdRequest struct {
 	id         string
 }
 
-func (r ToolAPIGetToolCatalogByIdRequest) Execute() (*MCPListing, *http.Response, error) {
+func (r ToolAPIGetToolCatalogByIdRequest) Execute() (*ToolMCPListing, *http.Response, error) {
 	return r.ApiService.GetToolCatalogByIdExecute(r)
 }
 
@@ -744,7 +798,8 @@ remote) or needs somewhere to run first (a stdio package).
 
 A HIDDEN listing is not served to an org — a shelf that renders what it does
 not list would be a way around the shelf — but is served to a SuperAdmin, who
-is the one deciding whether to put it back.
+is the one deciding whether to put it back. Like the shelf, it needs no
+credential.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id ID is the listing, from the path. It is the publisher's reverse-DNS name with its one slash written as an underscore — \"com.stripe_mcp\".
@@ -760,13 +815,13 @@ func (a *ToolAPIService) GetToolCatalogById(ctx context.Context, id string) Tool
 
 // Execute executes the request
 //
-//	@return MCPListing
-func (a *ToolAPIService) GetToolCatalogByIdExecute(r ToolAPIGetToolCatalogByIdRequest) (*MCPListing, *http.Response, error) {
+//	@return ToolMCPListing
+func (a *ToolAPIService) GetToolCatalogByIdExecute(r ToolAPIGetToolCatalogByIdRequest) (*ToolMCPListing, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MCPListing
+		localVarReturnValue *ToolMCPListing
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolCatalogById")
@@ -791,7 +846,7 @@ func (a *ToolAPIService) GetToolCatalogByIdExecute(r ToolAPIGetToolCatalogByIdRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -820,6 +875,127 @@ func (a *ToolAPIService) GetToolCatalogByIdExecute(r ToolAPIGetToolCatalogByIdRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ToolAPIGetToolKitRequest struct {
+	ctx        context.Context
+	ApiService *ToolAPIService
+}
+
+func (r ToolAPIGetToolKitRequest) Execute() (*ToolKit, *http.Response, error) {
+	return r.ApiService.GetToolKitExecute(r)
+}
+
+/*
+GetToolKit Answers the caller's kit: what their coding runs carry of the org's tool plane.
+
+Answers the caller's kit: what their coding runs carry of the org's tool
+plane. Skills are the documents of those an admin of the org activated; servers
+are those an admin registered, each by its id with the tools of it an admin
+activated — never an address or a credential, which stay on the plane. Both
+leave out what the caller muted, and muted names it. It is the one read a run
+makes, so what it answers is what the caller's runs carry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ToolAPIGetToolKitRequest
+*/
+func (a *ToolAPIService) GetToolKit(ctx context.Context) ToolAPIGetToolKitRequest {
+	return ToolAPIGetToolKitRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ToolKit
+func (a *ToolAPIService) GetToolKitExecute(r ToolAPIGetToolKitRequest) (*ToolKit, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ToolKit
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolKit")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tool/kit"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -840,7 +1016,7 @@ type ToolAPIGetToolMcpServersRequest struct {
 	ApiService *ToolAPIService
 }
 
-func (r ToolAPIGetToolMcpServersRequest) Execute() (*McpServerList, *http.Response, error) {
+func (r ToolAPIGetToolMcpServersRequest) Execute() (*ToolMcpServerList, *http.Response, error) {
 	return r.ApiService.GetToolMcpServersExecute(r)
 }
 
@@ -850,7 +1026,13 @@ GetToolMcpServers Lists the external MCP servers the caller's org has registered
 Lists the external MCP servers the caller's org has registered.
 Each record carries the URL and the name of the header its credential is
 injected into; the credential VALUE lives only in KMS and is never returned,
-so hasSecret is the whole of what this surface says about it.
+so hasSecret is the whole of what this surface says about it. Each also says
+whether its tools could be listed — status, a reason when they could not, and
+how many there are — so a server that contributes nothing says why.
+
+The whole URL is answered to an admin of the org or a SuperAdmin, who register
+servers. A member is answered its scheme and host: which server it is, and not
+a path or query an admin may have put a key in.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ToolAPIGetToolMcpServersRequest
@@ -864,13 +1046,13 @@ func (a *ToolAPIService) GetToolMcpServers(ctx context.Context) ToolAPIGetToolMc
 
 // Execute executes the request
 //
-//	@return McpServerList
-func (a *ToolAPIService) GetToolMcpServersExecute(r ToolAPIGetToolMcpServersRequest) (*McpServerList, *http.Response, error) {
+//	@return ToolMcpServerList
+func (a *ToolAPIService) GetToolMcpServersExecute(r ToolAPIGetToolMcpServersRequest) (*ToolMcpServerList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *McpServerList
+		localVarReturnValue *ToolMcpServerList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolMcpServers")
@@ -894,7 +1076,7 @@ func (a *ToolAPIService) GetToolMcpServersExecute(r ToolAPIGetToolMcpServersRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -923,6 +1105,14 @@ func (a *ToolAPIService) GetToolMcpServersExecute(r ToolAPIGetToolMcpServersRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -950,7 +1140,7 @@ func (r ToolAPIGetToolPluginsRequest) All(all string) ToolAPIGetToolPluginsReque
 	return r
 }
 
-func (r ToolAPIGetToolPluginsRequest) Execute() (*PluginMountList, *http.Response, error) {
+func (r ToolAPIGetToolPluginsRequest) Execute() (*ToolPluginMountList, *http.Response, error) {
 	return r.ApiService.GetToolPluginsExecute(r)
 }
 
@@ -978,13 +1168,13 @@ func (a *ToolAPIService) GetToolPlugins(ctx context.Context) ToolAPIGetToolPlugi
 
 // Execute executes the request
 //
-//	@return PluginMountList
-func (a *ToolAPIService) GetToolPluginsExecute(r ToolAPIGetToolPluginsRequest) (*PluginMountList, *http.Response, error) {
+//	@return ToolPluginMountList
+func (a *ToolAPIService) GetToolPluginsExecute(r ToolAPIGetToolPluginsRequest) (*ToolPluginMountList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PluginMountList
+		localVarReturnValue *ToolPluginMountList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolPlugins")
@@ -1011,7 +1201,7 @@ func (a *ToolAPIService) GetToolPluginsExecute(r ToolAPIGetToolPluginsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1040,6 +1230,14 @@ func (a *ToolAPIService) GetToolPluginsExecute(r ToolAPIGetToolPluginsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1060,7 +1258,7 @@ type ToolAPIGetToolPluginsAuthoredRequest struct {
 	ApiService *ToolAPIService
 }
 
-func (r ToolAPIGetToolPluginsAuthoredRequest) Execute() (*AuthoredPluginList, *http.Response, error) {
+func (r ToolAPIGetToolPluginsAuthoredRequest) Execute() (*ToolAuthoredPluginList, *http.Response, error) {
 	return r.ApiService.GetToolPluginsAuthoredExecute(r)
 }
 
@@ -1086,13 +1284,13 @@ func (a *ToolAPIService) GetToolPluginsAuthored(ctx context.Context) ToolAPIGetT
 
 // Execute executes the request
 //
-//	@return AuthoredPluginList
-func (a *ToolAPIService) GetToolPluginsAuthoredExecute(r ToolAPIGetToolPluginsAuthoredRequest) (*AuthoredPluginList, *http.Response, error) {
+//	@return ToolAuthoredPluginList
+func (a *ToolAPIService) GetToolPluginsAuthoredExecute(r ToolAPIGetToolPluginsAuthoredRequest) (*ToolAuthoredPluginList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AuthoredPluginList
+		localVarReturnValue *ToolAuthoredPluginList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolPluginsAuthored")
@@ -1116,7 +1314,7 @@ func (a *ToolAPIService) GetToolPluginsAuthoredExecute(r ToolAPIGetToolPluginsAu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1145,6 +1343,14 @@ func (a *ToolAPIService) GetToolPluginsAuthoredExecute(r ToolAPIGetToolPluginsAu
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1172,7 +1378,7 @@ func (r ToolAPIGetToolSkillsRequest) Activated(activated string) ToolAPIGetToolS
 	return r
 }
 
-func (r ToolAPIGetToolSkillsRequest) Execute() (*SourceToolList, *http.Response, error) {
+func (r ToolAPIGetToolSkillsRequest) Execute() (*ToolSourceToolList, *http.Response, error) {
 	return r.ApiService.GetToolSkillsExecute(r)
 }
 
@@ -1198,13 +1404,13 @@ func (a *ToolAPIService) GetToolSkills(ctx context.Context) ToolAPIGetToolSkills
 
 // Execute executes the request
 //
-//	@return SourceToolList
-func (a *ToolAPIService) GetToolSkillsExecute(r ToolAPIGetToolSkillsRequest) (*SourceToolList, *http.Response, error) {
+//	@return ToolSourceToolList
+func (a *ToolAPIService) GetToolSkillsExecute(r ToolAPIGetToolSkillsRequest) (*ToolSourceToolList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SourceToolList
+		localVarReturnValue *ToolSourceToolList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolSkills")
@@ -1231,7 +1437,7 @@ func (a *ToolAPIService) GetToolSkillsExecute(r ToolAPIGetToolSkillsRequest) (*S
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1260,6 +1466,14 @@ func (a *ToolAPIService) GetToolSkillsExecute(r ToolAPIGetToolSkillsRequest) (*S
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1280,7 +1494,7 @@ type ToolAPIGetToolSkillsAuthoredRequest struct {
 	ApiService *ToolAPIService
 }
 
-func (r ToolAPIGetToolSkillsAuthoredRequest) Execute() (*AuthoredSkillList, *http.Response, error) {
+func (r ToolAPIGetToolSkillsAuthoredRequest) Execute() (*ToolAuthoredSkillList, *http.Response, error) {
 	return r.ApiService.GetToolSkillsAuthoredExecute(r)
 }
 
@@ -1304,13 +1518,13 @@ func (a *ToolAPIService) GetToolSkillsAuthored(ctx context.Context) ToolAPIGetTo
 
 // Execute executes the request
 //
-//	@return AuthoredSkillList
-func (a *ToolAPIService) GetToolSkillsAuthoredExecute(r ToolAPIGetToolSkillsAuthoredRequest) (*AuthoredSkillList, *http.Response, error) {
+//	@return ToolAuthoredSkillList
+func (a *ToolAPIService) GetToolSkillsAuthoredExecute(r ToolAPIGetToolSkillsAuthoredRequest) (*ToolAuthoredSkillList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AuthoredSkillList
+		localVarReturnValue *ToolAuthoredSkillList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.GetToolSkillsAuthored")
@@ -1334,7 +1548,7 @@ func (a *ToolAPIService) GetToolSkillsAuthoredExecute(r ToolAPIGetToolSkillsAuth
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1363,128 +1577,14 @@ func (a *ToolAPIService) GetToolSkillsAuthoredExecute(r ToolAPIGetToolSkillsAuth
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ToolAPIPatchToolCatalogByIdRequest struct {
-	ctx        context.Context
-	ApiService *ToolAPIService
-	id         string
-	curateReq  *CurateReq
-}
-
-func (r ToolAPIPatchToolCatalogByIdRequest) CurateReq(curateReq CurateReq) ToolAPIPatchToolCatalogByIdRequest {
-	r.curateReq = &curateReq
-	return r
-}
-
-func (r ToolAPIPatchToolCatalogByIdRequest) Execute() (*MCPListing, *http.Response, error) {
-	return r.ApiService.PatchToolCatalogByIdExecute(r)
-}
-
-/*
-PatchToolCatalogById Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
-
-Sets what WE say about one catalog entry — hidden, featured,
-official, logo — and answers with the stored listing. SuperAdmin only; every
-other caller is refused.
-
-Curation is the half of a catalog row a sync cannot write, and this is the only
-thing that writes it. The upstream half is never editable here: a description
-that disagreed with the publisher's would be a fork of their listing, and the
-next sync would silently undo it.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID is the listing to curate, from the path.
-	@return ToolAPIPatchToolCatalogByIdRequest
-*/
-func (a *ToolAPIService) PatchToolCatalogById(ctx context.Context, id string) ToolAPIPatchToolCatalogByIdRequest {
-	return ToolAPIPatchToolCatalogByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return MCPListing
-func (a *ToolAPIService) PatchToolCatalogByIdExecute(r ToolAPIPatchToolCatalogByIdRequest) (*MCPListing, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *MCPListing
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PatchToolCatalogById")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/tool/catalog/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.curateReq == nil {
-		return localVarReturnValue, nil, reportError("curateReq is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.curateReq
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1501,17 +1601,17 @@ func (a *ToolAPIService) PatchToolCatalogByIdExecute(r ToolAPIPatchToolCatalogBy
 }
 
 type ToolAPIPostToolCallRequest struct {
-	ctx        context.Context
-	ApiService *ToolAPIService
-	toolCall   *ToolCall
+	ctx          context.Context
+	ApiService   *ToolAPIService
+	toolToolCall *ToolToolCall
 }
 
-func (r ToolAPIPostToolCallRequest) ToolCall(toolCall ToolCall) ToolAPIPostToolCallRequest {
-	r.toolCall = &toolCall
+func (r ToolAPIPostToolCallRequest) ToolToolCall(toolToolCall ToolToolCall) ToolAPIPostToolCallRequest {
+	r.toolToolCall = &toolToolCall
 	return r
 }
 
-func (r ToolAPIPostToolCallRequest) Execute() (*ToolResult, *http.Response, error) {
+func (r ToolAPIPostToolCallRequest) Execute() (*ToolToolResult, *http.Response, error) {
 	return r.ApiService.PostToolCallExecute(r)
 }
 
@@ -1545,13 +1645,13 @@ func (a *ToolAPIService) PostToolCall(ctx context.Context) ToolAPIPostToolCallRe
 
 // Execute executes the request
 //
-//	@return ToolResult
-func (a *ToolAPIService) PostToolCallExecute(r ToolAPIPostToolCallRequest) (*ToolResult, *http.Response, error) {
+//	@return ToolToolResult
+func (a *ToolAPIService) PostToolCallExecute(r ToolAPIPostToolCallRequest) (*ToolToolResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ToolResult
+		localVarReturnValue *ToolToolResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PostToolCall")
@@ -1564,8 +1664,8 @@ func (a *ToolAPIService) PostToolCallExecute(r ToolAPIPostToolCallRequest) (*Too
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.toolCall == nil {
-		return localVarReturnValue, nil, reportError("toolCall is required and must be specified")
+	if r.toolToolCall == nil {
+		return localVarReturnValue, nil, reportError("toolToolCall is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1578,7 +1678,7 @@ func (a *ToolAPIService) PostToolCallExecute(r ToolAPIPostToolCallRequest) (*Too
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1586,7 +1686,7 @@ func (a *ToolAPIService) PostToolCallExecute(r ToolAPIPostToolCallRequest) (*Too
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.toolCall
+	localVarPostBody = r.toolToolCall
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1609,114 +1709,14 @@ func (a *ToolAPIService) PostToolCallExecute(r ToolAPIPostToolCallRequest) (*Too
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ToolAPIPostToolCatalogSyncRequest struct {
-	ctx        context.Context
-	ApiService *ToolAPIService
-}
-
-func (r ToolAPIPostToolCatalogSyncRequest) Execute() (*McpCatalogSync, *http.Response, error) {
-	return r.ApiService.PostToolCatalogSyncExecute(r)
-}
-
-/*
-PostToolCatalogSync Pulls the public MCP registry into our canonical copy and reports what changed.
-
-Pulls the public MCP registry into our canonical copy and reports
-what changed. SuperAdmin only; every other caller is refused.
-
-It is IDEMPOTENT: a listing is keyed by the publisher's own reverse-DNS name,
-so a second pass over an unchanged registry rewrites the same rows and reports
-added=0, updated=0. It never deletes — a listing that vanishes upstream may be
-one an org has already enabled, and dropping its description would not drop its
-server. And it never touches CURATION: hidden, featured, an admin-set official
-and a logo survive every sync, because the write does not name those columns.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ToolAPIPostToolCatalogSyncRequest
-*/
-func (a *ToolAPIService) PostToolCatalogSync(ctx context.Context) ToolAPIPostToolCatalogSyncRequest {
-	return ToolAPIPostToolCatalogSyncRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return McpCatalogSync
-func (a *ToolAPIService) PostToolCatalogSyncExecute(r ToolAPIPostToolCatalogSyncRequest) (*McpCatalogSync, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *McpCatalogSync
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PostToolCatalogSync")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/tool/catalog/sync"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1733,17 +1733,17 @@ func (a *ToolAPIService) PostToolCatalogSyncExecute(r ToolAPIPostToolCatalogSync
 }
 
 type ToolAPIPostToolMcpServersRequest struct {
-	ctx             context.Context
-	ApiService      *ToolAPIService
-	createServerReq *CreateServerReq
+	ctx                 context.Context
+	ApiService          *ToolAPIService
+	toolCreateServerReq *ToolCreateServerReq
 }
 
-func (r ToolAPIPostToolMcpServersRequest) CreateServerReq(createServerReq CreateServerReq) ToolAPIPostToolMcpServersRequest {
-	r.createServerReq = &createServerReq
+func (r ToolAPIPostToolMcpServersRequest) ToolCreateServerReq(toolCreateServerReq ToolCreateServerReq) ToolAPIPostToolMcpServersRequest {
+	r.toolCreateServerReq = &toolCreateServerReq
 	return r
 }
 
-func (r ToolAPIPostToolMcpServersRequest) Execute() (*MCPServer, *http.Response, error) {
+func (r ToolAPIPostToolMcpServersRequest) Execute() (*ToolMCPServer, *http.Response, error) {
 	return r.ApiService.PostToolMcpServersExecute(r)
 }
 
@@ -1767,6 +1767,12 @@ Enabling a listing the org already enabled REVISES that server rather than
 adding a near-duplicate beside it, so a retried enable is the same one server.
 Answers 201 with the stored record.
 
+A server and the tools of it the org activates are carried into every agent run
+in the org, so registering one — or revising one, credential included — takes
+an admin of the org or a SuperAdmin; a member is refused 403. The registration
+is on the org's audit trail before it is made, and one the trail cannot record
+is refused 503.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ToolAPIPostToolMcpServersRequest
 */
@@ -1779,13 +1785,13 @@ func (a *ToolAPIService) PostToolMcpServers(ctx context.Context) ToolAPIPostTool
 
 // Execute executes the request
 //
-//	@return MCPServer
-func (a *ToolAPIService) PostToolMcpServersExecute(r ToolAPIPostToolMcpServersRequest) (*MCPServer, *http.Response, error) {
+//	@return ToolMCPServer
+func (a *ToolAPIService) PostToolMcpServersExecute(r ToolAPIPostToolMcpServersRequest) (*ToolMCPServer, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MCPServer
+		localVarReturnValue *ToolMCPServer
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PostToolMcpServers")
@@ -1798,8 +1804,8 @@ func (a *ToolAPIService) PostToolMcpServersExecute(r ToolAPIPostToolMcpServersRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createServerReq == nil {
-		return localVarReturnValue, nil, reportError("createServerReq is required and must be specified")
+	if r.toolCreateServerReq == nil {
+		return localVarReturnValue, nil, reportError("toolCreateServerReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1812,7 +1818,7 @@ func (a *ToolAPIService) PostToolMcpServersExecute(r ToolAPIPostToolMcpServersRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1820,7 +1826,7 @@ func (a *ToolAPIService) PostToolMcpServersExecute(r ToolAPIPostToolMcpServersRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createServerReq
+	localVarPostBody = r.toolCreateServerReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1843,6 +1849,14 @@ func (a *ToolAPIService) PostToolMcpServersExecute(r ToolAPIPostToolMcpServersRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1859,17 +1873,17 @@ func (a *ToolAPIService) PostToolMcpServersExecute(r ToolAPIPostToolMcpServersRe
 }
 
 type ToolAPIPostToolPluginsBuildRequest struct {
-	ctx          context.Context
-	ApiService   *ToolAPIService
-	buildRequest *BuildRequest
+	ctx              context.Context
+	ApiService       *ToolAPIService
+	toolBuildRequest *ToolBuildRequest
 }
 
-func (r ToolAPIPostToolPluginsBuildRequest) BuildRequest(buildRequest BuildRequest) ToolAPIPostToolPluginsBuildRequest {
-	r.buildRequest = &buildRequest
+func (r ToolAPIPostToolPluginsBuildRequest) ToolBuildRequest(toolBuildRequest ToolBuildRequest) ToolAPIPostToolPluginsBuildRequest {
+	r.toolBuildRequest = &toolBuildRequest
 	return r
 }
 
-func (r ToolAPIPostToolPluginsBuildRequest) Execute() (*BuildOut, *http.Response, error) {
+func (r ToolAPIPostToolPluginsBuildRequest) Execute() (*ToolBuildOut, *http.Response, error) {
 	return r.ApiService.PostToolPluginsBuildExecute(r)
 }
 
@@ -1910,13 +1924,13 @@ func (a *ToolAPIService) PostToolPluginsBuild(ctx context.Context) ToolAPIPostTo
 
 // Execute executes the request
 //
-//	@return BuildOut
-func (a *ToolAPIService) PostToolPluginsBuildExecute(r ToolAPIPostToolPluginsBuildRequest) (*BuildOut, *http.Response, error) {
+//	@return ToolBuildOut
+func (a *ToolAPIService) PostToolPluginsBuildExecute(r ToolAPIPostToolPluginsBuildRequest) (*ToolBuildOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BuildOut
+		localVarReturnValue *ToolBuildOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PostToolPluginsBuild")
@@ -1929,8 +1943,8 @@ func (a *ToolAPIService) PostToolPluginsBuildExecute(r ToolAPIPostToolPluginsBui
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.buildRequest == nil {
-		return localVarReturnValue, nil, reportError("buildRequest is required and must be specified")
+	if r.toolBuildRequest == nil {
+		return localVarReturnValue, nil, reportError("toolBuildRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1943,7 +1957,7 @@ func (a *ToolAPIService) PostToolPluginsBuildExecute(r ToolAPIPostToolPluginsBui
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1951,7 +1965,7 @@ func (a *ToolAPIService) PostToolPluginsBuildExecute(r ToolAPIPostToolPluginsBui
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.buildRequest
+	localVarPostBody = r.toolBuildRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1974,6 +1988,14 @@ func (a *ToolAPIService) PostToolPluginsBuildExecute(r ToolAPIPostToolPluginsBui
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1990,17 +2012,17 @@ func (a *ToolAPIService) PostToolPluginsBuildExecute(r ToolAPIPostToolPluginsBui
 }
 
 type ToolAPIPostToolSkillsRequest struct {
-	ctx        context.Context
-	ApiService *ToolAPIService
-	skillIn    *SkillIn
+	ctx         context.Context
+	ApiService  *ToolAPIService
+	toolSkillIn *ToolSkillIn
 }
 
-func (r ToolAPIPostToolSkillsRequest) SkillIn(skillIn SkillIn) ToolAPIPostToolSkillsRequest {
-	r.skillIn = &skillIn
+func (r ToolAPIPostToolSkillsRequest) ToolSkillIn(toolSkillIn ToolSkillIn) ToolAPIPostToolSkillsRequest {
+	r.toolSkillIn = &toolSkillIn
 	return r
 }
 
-func (r ToolAPIPostToolSkillsRequest) Execute() (*SkillWritten, *http.Response, error) {
+func (r ToolAPIPostToolSkillsRequest) Execute() (*ToolSkillWritten, *http.Response, error) {
 	return r.ApiService.PostToolSkillsExecute(r)
 }
 
@@ -2015,6 +2037,11 @@ construction — they live in a different store from the brand's embedded
 catalogue and have no path into the public gallery — and a brand skill always
 wins a name collision against an org's.
 
+An activated skill is carried into every agent run in the org, so writing one
+takes an admin of the org or a SuperAdmin; a member is refused 403. The write is
+on the org's audit trail before it is made, and one the trail cannot record is
+refused 503.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ToolAPIPostToolSkillsRequest
 */
@@ -2027,13 +2054,13 @@ func (a *ToolAPIService) PostToolSkills(ctx context.Context) ToolAPIPostToolSkil
 
 // Execute executes the request
 //
-//	@return SkillWritten
-func (a *ToolAPIService) PostToolSkillsExecute(r ToolAPIPostToolSkillsRequest) (*SkillWritten, *http.Response, error) {
+//	@return ToolSkillWritten
+func (a *ToolAPIService) PostToolSkillsExecute(r ToolAPIPostToolSkillsRequest) (*ToolSkillWritten, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SkillWritten
+		localVarReturnValue *ToolSkillWritten
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PostToolSkills")
@@ -2046,8 +2073,8 @@ func (a *ToolAPIService) PostToolSkillsExecute(r ToolAPIPostToolSkillsRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.skillIn == nil {
-		return localVarReturnValue, nil, reportError("skillIn is required and must be specified")
+	if r.toolSkillIn == nil {
+		return localVarReturnValue, nil, reportError("toolSkillIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2060,7 +2087,7 @@ func (a *ToolAPIService) PostToolSkillsExecute(r ToolAPIPostToolSkillsRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2068,7 +2095,7 @@ func (a *ToolAPIService) PostToolSkillsExecute(r ToolAPIPostToolSkillsRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.skillIn
+	localVarPostBody = r.toolSkillIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2091,6 +2118,14 @@ func (a *ToolAPIService) PostToolSkillsExecute(r ToolAPIPostToolSkillsRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2107,17 +2142,17 @@ func (a *ToolAPIService) PostToolSkillsExecute(r ToolAPIPostToolSkillsRequest) (
 }
 
 type ToolAPIPutToolActivationRequest struct {
-	ctx           context.Context
-	ApiService    *ToolAPIService
-	activationReq *ActivationReq
+	ctx               context.Context
+	ApiService        *ToolAPIService
+	toolActivationReq *ToolActivationReq
 }
 
-func (r ToolAPIPutToolActivationRequest) ActivationReq(activationReq ActivationReq) ToolAPIPutToolActivationRequest {
-	r.activationReq = &activationReq
+func (r ToolAPIPutToolActivationRequest) ToolActivationReq(toolActivationReq ToolActivationReq) ToolAPIPutToolActivationRequest {
+	r.toolActivationReq = &toolActivationReq
 	return r
 }
 
-func (r ToolAPIPutToolActivationRequest) Execute() (*ActivationSet, *http.Response, error) {
+func (r ToolAPIPutToolActivationRequest) Execute() (*ToolActivationSet, *http.Response, error) {
 	return r.ApiService.PutToolActivationExecute(r)
 }
 
@@ -2131,6 +2166,12 @@ listed by discovery but refused 403 at dispatch. Activate is applied before
 Deactivate, so a name in both lists ends up off. More than 256 toggles in one
 request is refused 413.
 
+Switching a skill (skill_<name>) or a tool of an MCP server the org registered
+(<server>_<tool>) changes what every agent run in the org carries, so it takes
+an admin of the org or a SuperAdmin: a member naming one is refused 403 and
+nothing in the request is switched. Every change is on the org's audit trail
+before it is made, and one the trail cannot record is refused 503.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ToolAPIPutToolActivationRequest
 */
@@ -2143,13 +2184,13 @@ func (a *ToolAPIService) PutToolActivation(ctx context.Context) ToolAPIPutToolAc
 
 // Execute executes the request
 //
-//	@return ActivationSet
-func (a *ToolAPIService) PutToolActivationExecute(r ToolAPIPutToolActivationRequest) (*ActivationSet, *http.Response, error) {
+//	@return ToolActivationSet
+func (a *ToolAPIService) PutToolActivationExecute(r ToolAPIPutToolActivationRequest) (*ToolActivationSet, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ActivationSet
+		localVarReturnValue *ToolActivationSet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PutToolActivation")
@@ -2162,8 +2203,8 @@ func (a *ToolAPIService) PutToolActivationExecute(r ToolAPIPutToolActivationRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.activationReq == nil {
-		return localVarReturnValue, nil, reportError("activationReq is required and must be specified")
+	if r.toolActivationReq == nil {
+		return localVarReturnValue, nil, reportError("toolActivationReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2176,7 +2217,7 @@ func (a *ToolAPIService) PutToolActivationExecute(r ToolAPIPutToolActivationRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2184,7 +2225,7 @@ func (a *ToolAPIService) PutToolActivationExecute(r ToolAPIPutToolActivationRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.activationReq
+	localVarPostBody = r.toolActivationReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2207,6 +2248,137 @@ func (a *ToolAPIService) PutToolActivationExecute(r ToolAPIPutToolActivationRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ToolAPIPutToolKitRequest struct {
+	ctx         context.Context
+	ApiService  *ToolAPIService
+	toolMuteReq *ToolMuteReq
+}
+
+func (r ToolAPIPutToolKitRequest) ToolMuteReq(toolMuteReq ToolMuteReq) ToolAPIPutToolKitRequest {
+	r.toolMuteReq = &toolMuteReq
+	return r
+}
+
+func (r ToolAPIPutToolKitRequest) Execute() (*ToolKit, *http.Response, error) {
+	return r.ApiService.PutToolKitExecute(r)
+}
+
+/*
+PutToolKit Mutes and unmutes names of the org's kit for the caller's own runs, and answers the caller's kit after.
+
+Mutes and unmutes names of the org's kit for the caller's own runs, and
+answers the caller's kit after. The layer only narrows: a name the org's kit
+does not carry is refused 400, since muting it would say nothing, and unmuting
+never gives the caller more than an admin put in place. It is the caller's own,
+so any member may write it. More than 256 names is refused 413.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ToolAPIPutToolKitRequest
+*/
+func (a *ToolAPIService) PutToolKit(ctx context.Context) ToolAPIPutToolKitRequest {
+	return ToolAPIPutToolKitRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ToolKit
+func (a *ToolAPIService) PutToolKitExecute(r ToolAPIPutToolKitRequest) (*ToolKit, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ToolKit
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ToolAPIService.PutToolKit")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/tool/kit"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.toolMuteReq == nil {
+		return localVarReturnValue, nil, reportError("toolMuteReq is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.toolMuteReq
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

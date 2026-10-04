@@ -23,24 +23,27 @@ type O11yRocketchatConfig struct {
 	Actions        []O11yRocketchatAttachmentAction `json:"actions,omitempty"`
 	ApiUrl         interface{}                      `json:"api_url,omitempty"`
 	// RocketChat channel override, (like #other-channel or @username).
-	Channel     *string                         `json:"channel,omitempty"`
-	Color       *string                         `json:"color,omitempty"`
-	Emoji       *string                         `json:"emoji,omitempty"`
-	Fields      []O11yRocketchatAttachmentField `json:"fields,omitempty"`
-	HttpConfig  *O11yHTTPClientConfig           `json:"http_config,omitempty"`
-	IconUrl     *string                         `json:"icon_url,omitempty"`
-	ImageUrl    *string                         `json:"image_url,omitempty"`
-	LinkNames   *bool                           `json:"link_names,omitempty"`
-	ShortFields *bool                           `json:"short_fields,omitempty"`
-	Text        *string                         `json:"text,omitempty"`
-	ThumbUrl    *string                         `json:"thumb_url,omitempty"`
-	Title       *string                         `json:"title,omitempty"`
-	TitleLink   *string                         `json:"title_link,omitempty"`
-	Token       interface{}                     `json:"token,omitempty"`
-	TokenFile   *string                         `json:"token_file,omitempty"`
-	TokenId     interface{}                     `json:"token_id,omitempty"`
-	TokenIdFile *string                         `json:"token_id_file,omitempty"`
+	Channel              *string                         `json:"channel,omitempty"`
+	Color                *string                         `json:"color,omitempty"`
+	Emoji                *string                         `json:"emoji,omitempty"`
+	Fields               []O11yRocketchatAttachmentField `json:"fields,omitempty"`
+	HttpConfig           *O11yHTTPClientConfig           `json:"http_config,omitempty"`
+	IconUrl              *string                         `json:"icon_url,omitempty"`
+	ImageUrl             *string                         `json:"image_url,omitempty"`
+	LinkNames            *bool                           `json:"link_names,omitempty"`
+	ShortFields          *bool                           `json:"short_fields,omitempty"`
+	Text                 *string                         `json:"text,omitempty"`
+	ThumbUrl             *string                         `json:"thumb_url,omitempty"`
+	Title                *string                         `json:"title,omitempty"`
+	TitleLink            *string                         `json:"title_link,omitempty"`
+	Token                interface{}                     `json:"token,omitempty"`
+	TokenFile            *string                         `json:"token_file,omitempty"`
+	TokenId              interface{}                     `json:"token_id,omitempty"`
+	TokenIdFile          *string                         `json:"token_id_file,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yRocketchatConfig O11yRocketchatConfig
 
 // NewO11yRocketchatConfig instantiates a new O11yRocketchatConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -772,7 +775,52 @@ func (o O11yRocketchatConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TokenIdFile) {
 		toSerialize["token_id_file"] = o.TokenIdFile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yRocketchatConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yRocketchatConfig := _O11yRocketchatConfig{}
+
+	err = json.Unmarshal(data, &varO11yRocketchatConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yRocketchatConfig(varO11yRocketchatConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "NotifierConfig")
+		delete(additionalProperties, "actions")
+		delete(additionalProperties, "api_url")
+		delete(additionalProperties, "channel")
+		delete(additionalProperties, "color")
+		delete(additionalProperties, "emoji")
+		delete(additionalProperties, "fields")
+		delete(additionalProperties, "http_config")
+		delete(additionalProperties, "icon_url")
+		delete(additionalProperties, "image_url")
+		delete(additionalProperties, "link_names")
+		delete(additionalProperties, "short_fields")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "thumb_url")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "title_link")
+		delete(additionalProperties, "token")
+		delete(additionalProperties, "token_file")
+		delete(additionalProperties, "token_id")
+		delete(additionalProperties, "token_id_file")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yRocketchatConfig struct {

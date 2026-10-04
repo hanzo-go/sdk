@@ -19,11 +19,14 @@ var _ MappedNullable = &IamSetAvatarInput{}
 
 // IamSetAvatarInput struct for IamSetAvatarInput
 type IamSetAvatarInput struct {
-	Avatar *string `json:"avatar,omitempty"`
-	Emoji  *string `json:"emoji,omitempty"`
-	Name   *string `json:"name,omitempty"`
-	Owner  *string `json:"owner,omitempty"`
+	Avatar               *string `json:"avatar,omitempty"`
+	Emoji                *string `json:"emoji,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamSetAvatarInput IamSetAvatarInput
 
 // NewIamSetAvatarInput instantiates a new IamSetAvatarInput object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o IamSetAvatarInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamSetAvatarInput) UnmarshalJSON(data []byte) (err error) {
+	varIamSetAvatarInput := _IamSetAvatarInput{}
+
+	err = json.Unmarshal(data, &varIamSetAvatarInput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamSetAvatarInput(varIamSetAvatarInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "avatar")
+		delete(additionalProperties, "emoji")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamSetAvatarInput struct {

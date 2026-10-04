@@ -24,7 +24,10 @@ type O11yStatefulSets struct {
 	Total                  *int64                  `json:"total,omitempty"`
 	Type                   interface{}             `json:"type,omitempty"`
 	Warning                *O11yQueryWarnData      `json:"warning,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
+
+type _O11yStatefulSets O11yStatefulSets
 
 // NewO11yStatefulSets instantiates a new O11yStatefulSets object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o O11yStatefulSets) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Warning) {
 		toSerialize["warning"] = o.Warning
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yStatefulSets) UnmarshalJSON(data []byte) (err error) {
+	varO11yStatefulSets := _O11yStatefulSets{}
+
+	err = json.Unmarshal(data, &varO11yStatefulSets)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yStatefulSets(varO11yStatefulSets)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "endTimeBeforeRetention")
+		delete(additionalProperties, "records")
+		delete(additionalProperties, "total")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "warning")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yStatefulSets struct {

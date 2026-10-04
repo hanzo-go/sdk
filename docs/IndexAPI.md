@@ -26,7 +26,7 @@ Method | HTTP request | Description
 
 ## DeleteIndexIndexesByUid
 
-> IndexEnqueued DeleteIndexIndexesByUid(ctx, uid).Execute()
+> IndexIndexEnqueued DeleteIndexIndexesByUid(ctx, uid).Execute()
 
 Deletes an index and everything in it.
 
@@ -54,7 +54,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.DeleteIndexIndexesByUid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteIndexIndexesByUid`: IndexEnqueued
+	// response from `DeleteIndexIndexesByUid`: IndexIndexEnqueued
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.DeleteIndexIndexesByUid`: %v\n", resp)
 }
 ```
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IndexEnqueued**](IndexEnqueued.md)
+[**IndexIndexEnqueued**](IndexIndexEnqueued.md)
 
 ### Authorization
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 
 ## DeleteIndexIndexesByUidDocumentsById
 
-> IndexEnqueued DeleteIndexIndexesByUidDocumentsById(ctx, uid, id).Execute()
+> IndexIndexEnqueued DeleteIndexIndexesByUidDocumentsById(ctx, uid, id).Execute()
 
 Deletes one document by its primary key.
 
@@ -125,7 +125,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.DeleteIndexIndexesByUidDocumentsById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteIndexIndexesByUidDocumentsById`: IndexEnqueued
+	// response from `DeleteIndexIndexesByUidDocumentsById`: IndexIndexEnqueued
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.DeleteIndexIndexesByUidDocumentsById`: %v\n", resp)
 }
 ```
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IndexEnqueued**](IndexEnqueued.md)
+[**IndexIndexEnqueued**](IndexIndexEnqueued.md)
 
 ### Authorization
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ## GetIndexHealth
 
-> IndexHealth GetIndexHealth(ctx).Execute()
+> IndexIndexHealth GetIndexHealth(ctx).Execute()
 
 Reports whether the search plane can serve.
 
@@ -196,7 +196,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIndexHealth`: IndexHealth
+	// response from `GetIndexHealth`: IndexIndexHealth
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexHealth`: %v\n", resp)
 }
 ```
@@ -212,7 +212,7 @@ Other parameters are passed through a pointer to a apiGetIndexHealthRequest stru
 
 ### Return type
 
-[**IndexHealth**](IndexHealth.md)
+[**IndexIndexHealth**](IndexIndexHealth.md)
 
 ### Authorization
 
@@ -221,7 +221,7 @@ Other parameters are passed through a pointer to a apiGetIndexHealthRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -230,7 +230,7 @@ Other parameters are passed through a pointer to a apiGetIndexHealthRequest stru
 
 ## GetIndexIndexes
 
-> IndexList GetIndexIndexes(ctx).Execute()
+> IndexIndexList GetIndexIndexes(ctx).Execute()
 
 Lists the indexes your org holds.
 
@@ -257,7 +257,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexIndexes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIndexIndexes`: IndexList
+	// response from `GetIndexIndexes`: IndexIndexList
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexIndexes`: %v\n", resp)
 }
 ```
@@ -273,7 +273,7 @@ Other parameters are passed through a pointer to a apiGetIndexIndexesRequest str
 
 ### Return type
 
-[**IndexList**](IndexList.md)
+[**IndexIndexList**](IndexIndexList.md)
 
 ### Authorization
 
@@ -282,7 +282,7 @@ Other parameters are passed through a pointer to a apiGetIndexIndexesRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -291,7 +291,7 @@ Other parameters are passed through a pointer to a apiGetIndexIndexesRequest str
 
 ## GetIndexIndexesByUid
 
-> IndexView GetIndexIndexesByUid(ctx, uid).Execute()
+> IndexIndexView GetIndexIndexesByUid(ctx, uid).Execute()
 
 Reads one index's definition.
 
@@ -319,7 +319,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexIndexesByUid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIndexIndexesByUid`: IndexView
+	// response from `GetIndexIndexesByUid`: IndexIndexView
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexIndexesByUid`: %v\n", resp)
 }
 ```
@@ -343,7 +343,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IndexView**](IndexView.md)
+[**IndexIndexView**](IndexIndexView.md)
 
 ### Authorization
 
@@ -352,7 +352,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ## GetIndexIndexesByUidDocuments
 
-> IndexDocuments GetIndexIndexesByUidDocuments(ctx, uid).Limit(limit).Offset(offset).Execute()
+> IndexIndexDocuments GetIndexIndexesByUidDocuments(ctx, uid).Limit(limit).Offset(offset).Execute()
 
 Pages through the documents in an index.
 
@@ -391,7 +391,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexIndexesByUidDocuments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIndexIndexesByUidDocuments`: IndexDocuments
+	// response from `GetIndexIndexesByUidDocuments`: IndexIndexDocuments
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexIndexesByUidDocuments`: %v\n", resp)
 }
 ```
@@ -417,7 +417,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IndexDocuments**](IndexDocuments.md)
+[**IndexIndexDocuments**](IndexIndexDocuments.md)
 
 ### Authorization
 
@@ -426,7 +426,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -499,7 +499,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -508,7 +508,7 @@ Name | Type | Description  | Notes
 
 ## GetIndexIndexesByUidSettings
 
-> IndexSettings GetIndexIndexesByUidSettings(ctx, uid).Execute()
+> IndexIndexSettings GetIndexIndexesByUidSettings(ctx, uid).Execute()
 
 Reads an index's filterable attributes.
 
@@ -536,7 +536,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexIndexesByUidSettings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIndexIndexesByUidSettings`: IndexSettings
+	// response from `GetIndexIndexesByUidSettings`: IndexIndexSettings
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexIndexesByUidSettings`: %v\n", resp)
 }
 ```
@@ -560,7 +560,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IndexSettings**](IndexSettings.md)
+[**IndexIndexSettings**](IndexIndexSettings.md)
 
 ### Authorization
 
@@ -569,7 +569,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -578,7 +578,7 @@ Name | Type | Description  | Notes
 
 ## GetIndexStats
 
-> IndexStats GetIndexStats(ctx).Execute()
+> IndexIndexStats GetIndexStats(ctx).Execute()
 
 Counts the documents in each of your indexes.
 
@@ -605,7 +605,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexStats``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIndexStats`: IndexStats
+	// response from `GetIndexStats`: IndexIndexStats
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexStats`: %v\n", resp)
 }
 ```
@@ -621,7 +621,7 @@ Other parameters are passed through a pointer to a apiGetIndexStatsRequest struc
 
 ### Return type
 
-[**IndexStats**](IndexStats.md)
+[**IndexIndexStats**](IndexIndexStats.md)
 
 ### Authorization
 
@@ -630,7 +630,7 @@ Other parameters are passed through a pointer to a apiGetIndexStatsRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -639,7 +639,7 @@ Other parameters are passed through a pointer to a apiGetIndexStatsRequest struc
 
 ## GetIndexTasksByUid
 
-> IndexTask GetIndexTasksByUid(ctx, uid).Execute()
+> IndexIndexTask GetIndexTasksByUid(ctx, uid).Execute()
 
 Checks a write task, which has already finished.
 
@@ -667,7 +667,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexTasksByUid``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIndexTasksByUid`: IndexTask
+	// response from `GetIndexTasksByUid`: IndexIndexTask
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexTasksByUid`: %v\n", resp)
 }
 ```
@@ -691,7 +691,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IndexTask**](IndexTask.md)
+[**IndexIndexTask**](IndexIndexTask.md)
 
 ### Authorization
 
@@ -700,7 +700,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -709,7 +709,7 @@ Name | Type | Description  | Notes
 
 ## GetIndexVersion
 
-> IndexVersion GetIndexVersion(ctx).Execute()
+> IndexIndexVersion GetIndexVersion(ctx).Execute()
 
 Identifies the search implementation answering.
 
@@ -736,7 +736,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.GetIndexVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetIndexVersion`: IndexVersion
+	// response from `GetIndexVersion`: IndexIndexVersion
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.GetIndexVersion`: %v\n", resp)
 }
 ```
@@ -752,7 +752,7 @@ Other parameters are passed through a pointer to a apiGetIndexVersionRequest str
 
 ### Return type
 
-[**IndexVersion**](IndexVersion.md)
+[**IndexIndexVersion**](IndexIndexVersion.md)
 
 ### Authorization
 
@@ -761,7 +761,7 @@ Other parameters are passed through a pointer to a apiGetIndexVersionRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -770,7 +770,7 @@ Other parameters are passed through a pointer to a apiGetIndexVersionRequest str
 
 ## PatchIndexIndexesByUidSettings
 
-> IndexEnqueued PatchIndexIndexesByUidSettings(ctx, uid).IndexFilter(indexFilter).Execute()
+> IndexIndexEnqueued PatchIndexIndexesByUidSettings(ctx, uid).IndexIndexFilter(indexIndexFilter).Execute()
 
 Sets which attributes an index can be filtered on.
 
@@ -790,16 +790,16 @@ import (
 
 func main() {
 	uid := "uid_example" // string | 
-	indexFilter := *openapiclient.NewIndexFilter() // IndexFilter | 
+	indexIndexFilter := *openapiclient.NewIndexIndexFilter() // IndexIndexFilter | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IndexAPI.PatchIndexIndexesByUidSettings(context.Background(), uid).IndexFilter(indexFilter).Execute()
+	resp, r, err := apiClient.IndexAPI.PatchIndexIndexesByUidSettings(context.Background(), uid).IndexIndexFilter(indexIndexFilter).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.PatchIndexIndexesByUidSettings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchIndexIndexesByUidSettings`: IndexEnqueued
+	// response from `PatchIndexIndexesByUidSettings`: IndexIndexEnqueued
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.PatchIndexIndexesByUidSettings`: %v\n", resp)
 }
 ```
@@ -820,11 +820,11 @@ Other parameters are passed through a pointer to a apiPatchIndexIndexesByUidSett
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **indexFilter** | [**IndexFilter**](IndexFilter.md) |  | 
+ **indexIndexFilter** | [**IndexIndexFilter**](IndexIndexFilter.md) |  | 
 
 ### Return type
 
-[**IndexEnqueued**](IndexEnqueued.md)
+[**IndexIndexEnqueued**](IndexIndexEnqueued.md)
 
 ### Authorization
 
@@ -833,7 +833,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -842,7 +842,7 @@ Name | Type | Description  | Notes
 
 ## PostIndexIndexes
 
-> IndexEnqueued PostIndexIndexes(ctx).IndexNew(indexNew).Execute()
+> IndexIndexEnqueued PostIndexIndexes(ctx).IndexIndexNew(indexIndexNew).Execute()
 
 Creates an index.
 
@@ -861,16 +861,16 @@ import (
 )
 
 func main() {
-	indexNew := *openapiclient.NewIndexNew() // IndexNew | 
+	indexIndexNew := *openapiclient.NewIndexIndexNew() // IndexIndexNew | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IndexAPI.PostIndexIndexes(context.Background()).IndexNew(indexNew).Execute()
+	resp, r, err := apiClient.IndexAPI.PostIndexIndexes(context.Background()).IndexIndexNew(indexIndexNew).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.PostIndexIndexes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostIndexIndexes`: IndexEnqueued
+	// response from `PostIndexIndexes`: IndexIndexEnqueued
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.PostIndexIndexes`: %v\n", resp)
 }
 ```
@@ -886,11 +886,11 @@ Other parameters are passed through a pointer to a apiPostIndexIndexesRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **indexNew** | [**IndexNew**](IndexNew.md) |  | 
+ **indexIndexNew** | [**IndexIndexNew**](IndexIndexNew.md) |  | 
 
 ### Return type
 
-[**IndexEnqueued**](IndexEnqueued.md)
+[**IndexIndexEnqueued**](IndexIndexEnqueued.md)
 
 ### Authorization
 
@@ -899,7 +899,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1052,7 +1052,7 @@ Name | Type | Description  | Notes
 
 ## PostIndexIndexesByUidSearch
 
-> IndexHits PostIndexIndexesByUidSearch(ctx, uid).IndexQuery(indexQuery).Execute()
+> IndexIndexHits PostIndexIndexesByUidSearch(ctx, uid).IndexIndexQuery(indexIndexQuery).Execute()
 
 Searches an index, forgiving typos.
 
@@ -1072,16 +1072,16 @@ import (
 
 func main() {
 	uid := "uid_example" // string | 
-	indexQuery := *openapiclient.NewIndexQuery() // IndexQuery | 
+	indexIndexQuery := *openapiclient.NewIndexIndexQuery() // IndexIndexQuery | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IndexAPI.PostIndexIndexesByUidSearch(context.Background(), uid).IndexQuery(indexQuery).Execute()
+	resp, r, err := apiClient.IndexAPI.PostIndexIndexesByUidSearch(context.Background(), uid).IndexIndexQuery(indexIndexQuery).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IndexAPI.PostIndexIndexesByUidSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostIndexIndexesByUidSearch`: IndexHits
+	// response from `PostIndexIndexesByUidSearch`: IndexIndexHits
 	fmt.Fprintf(os.Stdout, "Response from `IndexAPI.PostIndexIndexesByUidSearch`: %v\n", resp)
 }
 ```
@@ -1102,11 +1102,11 @@ Other parameters are passed through a pointer to a apiPostIndexIndexesByUidSearc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **indexQuery** | [**IndexQuery**](IndexQuery.md) |  | 
+ **indexIndexQuery** | [**IndexIndexQuery**](IndexIndexQuery.md) |  | 
 
 ### Return type
 
-[**IndexHits**](IndexHits.md)
+[**IndexIndexHits**](IndexIndexHits.md)
 
 ### Authorization
 
@@ -1115,7 +1115,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

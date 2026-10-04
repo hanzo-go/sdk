@@ -26,7 +26,7 @@ type BlueprintAPIGetBlueprintRequest struct {
 	ApiService *BlueprintAPIService
 }
 
-func (r BlueprintAPIGetBlueprintRequest) Execute() (*BlueprintIndex, *http.Response, error) {
+func (r BlueprintAPIGetBlueprintRequest) Execute() (*BlueprintBlueprintIndex, *http.Response, error) {
 	return r.ApiService.GetBlueprintExecute(r)
 }
 
@@ -54,13 +54,13 @@ func (a *BlueprintAPIService) GetBlueprint(ctx context.Context) BlueprintAPIGetB
 
 // Execute executes the request
 //
-//	@return BlueprintIndex
-func (a *BlueprintAPIService) GetBlueprintExecute(r BlueprintAPIGetBlueprintRequest) (*BlueprintIndex, *http.Response, error) {
+//	@return BlueprintBlueprintIndex
+func (a *BlueprintAPIService) GetBlueprintExecute(r BlueprintAPIGetBlueprintRequest) (*BlueprintBlueprintIndex, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BlueprintIndex
+		localVarReturnValue *BlueprintBlueprintIndex
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlueprintAPIService.GetBlueprint")
@@ -84,7 +84,7 @@ func (a *BlueprintAPIService) GetBlueprintExecute(r BlueprintAPIGetBlueprintRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -113,6 +113,14 @@ func (a *BlueprintAPIService) GetBlueprintExecute(r BlueprintAPIGetBlueprintRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -133,7 +141,7 @@ type BlueprintAPIGetBlueprintHealthRequest struct {
 	ApiService *BlueprintAPIService
 }
 
-func (r BlueprintAPIGetBlueprintHealthRequest) Execute() (*BlueprintHealth, *http.Response, error) {
+func (r BlueprintAPIGetBlueprintHealthRequest) Execute() (*BlueprintBlueprintHealth, *http.Response, error) {
 	return r.ApiService.GetBlueprintHealthExecute(r)
 }
 
@@ -159,13 +167,13 @@ func (a *BlueprintAPIService) GetBlueprintHealth(ctx context.Context) BlueprintA
 
 // Execute executes the request
 //
-//	@return BlueprintHealth
-func (a *BlueprintAPIService) GetBlueprintHealthExecute(r BlueprintAPIGetBlueprintHealthRequest) (*BlueprintHealth, *http.Response, error) {
+//	@return BlueprintBlueprintHealth
+func (a *BlueprintAPIService) GetBlueprintHealthExecute(r BlueprintAPIGetBlueprintHealthRequest) (*BlueprintBlueprintHealth, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BlueprintHealth
+		localVarReturnValue *BlueprintBlueprintHealth
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlueprintAPIService.GetBlueprintHealth")
@@ -189,7 +197,7 @@ func (a *BlueprintAPIService) GetBlueprintHealthExecute(r BlueprintAPIGetBluepri
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -218,6 +226,14 @@ func (a *BlueprintAPIService) GetBlueprintHealthExecute(r BlueprintAPIGetBluepri
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

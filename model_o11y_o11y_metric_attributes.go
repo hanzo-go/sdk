@@ -22,8 +22,11 @@ type O11yO11yMetricAttributes struct {
 	// Attributes are the keys, each with its values.
 	Attributes []O11yO11yMetricAttribute `json:"attributes,omitempty"`
 	// TotalKeys is how many keys the metric has.
-	TotalKeys *int64 `json:"totalKeys,omitempty"`
+	TotalKeys            *int64 `json:"totalKeys,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricAttributes O11yO11yMetricAttributes
 
 // NewO11yO11yMetricAttributes instantiates a new O11yO11yMetricAttributes object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yMetricAttributes) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalKeys) {
 		toSerialize["totalKeys"] = o.TotalKeys
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricAttributes) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricAttributes := _O11yO11yMetricAttributes{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricAttributes)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricAttributes(varO11yO11yMetricAttributes)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "totalKeys")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricAttributes struct {

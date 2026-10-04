@@ -22,8 +22,11 @@ type O11yO11yResourceRef struct {
 	// Kind is the resource kind the type belongs to.
 	Kind *string `json:"kind,omitempty"`
 	// Type is the resource type, e.g. role, dashboard, serviceaccount.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yResourceRef O11yO11yResourceRef
 
 // NewO11yO11yResourceRef instantiates a new O11yO11yResourceRef object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yResourceRef) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yResourceRef) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yResourceRef := _O11yO11yResourceRef{}
+
+	err = json.Unmarshal(data, &varO11yO11yResourceRef)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yResourceRef(varO11yO11yResourceRef)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "kind")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yResourceRef struct {

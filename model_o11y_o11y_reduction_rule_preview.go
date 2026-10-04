@@ -33,8 +33,11 @@ type O11yO11yReductionRulePreview struct {
 	// ReductionPercent is the estimated reduction, in percent.
 	ReductionPercent *float64 `json:"reductionPercent,omitempty"`
 	// RetainedSeries is how many would survive with the candidate rule.
-	RetainedSeries *int32 `json:"retainedSeries,omitempty"`
+	RetainedSeries       *int32 `json:"retainedSeries,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yReductionRulePreview O11yO11yReductionRulePreview
 
 // NewO11yO11yReductionRulePreview instantiates a new O11yO11yReductionRulePreview object
 // This constructor will assign default values to properties that have it defined,
@@ -308,7 +311,39 @@ func (o O11yO11yReductionRulePreview) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RetainedSeries) {
 		toSerialize["retainedSeries"] = o.RetainedSeries
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yReductionRulePreview) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yReductionRulePreview := _O11yO11yReductionRulePreview{}
+
+	err = json.Unmarshal(data, &varO11yO11yReductionRulePreview)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yReductionRulePreview(varO11yO11yReductionRulePreview)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "affectedAssets")
+		delete(additionalProperties, "currentRetainedSeries")
+		delete(additionalProperties, "droppedLabels")
+		delete(additionalProperties, "effectiveFrom")
+		delete(additionalProperties, "ingestedSeries")
+		delete(additionalProperties, "reductionPercent")
+		delete(additionalProperties, "retainedSeries")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yReductionRulePreview struct {

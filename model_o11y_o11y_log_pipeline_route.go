@@ -22,8 +22,11 @@ type O11yO11yLogPipelineRoute struct {
 	// Expr is the expression that selects the route.
 	Expr *string `json:"expr,omitempty"`
 	// Output is the id of the processor the route sends to.
-	Output *string `json:"output,omitempty"`
+	Output               *string `json:"output,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLogPipelineRoute O11yO11yLogPipelineRoute
 
 // NewO11yO11yLogPipelineRoute instantiates a new O11yO11yLogPipelineRoute object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yLogPipelineRoute) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Output) {
 		toSerialize["output"] = o.Output
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLogPipelineRoute) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLogPipelineRoute := _O11yO11yLogPipelineRoute{}
+
+	err = json.Unmarshal(data, &varO11yO11yLogPipelineRoute)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLogPipelineRoute(varO11yO11yLogPipelineRoute)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "expr")
+		delete(additionalProperties, "output")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLogPipelineRoute struct {

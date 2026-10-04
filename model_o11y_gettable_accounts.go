@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yGettableAccounts{}
 
 // O11yGettableAccounts struct for O11yGettableAccounts
 type O11yGettableAccounts struct {
-	Accounts []O11yAccount `json:"accounts,omitempty"`
+	Accounts             []O11yAccount `json:"accounts,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableAccounts O11yGettableAccounts
 
 // NewO11yGettableAccounts instantiates a new O11yGettableAccounts object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yGettableAccounts) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Accounts) {
 		toSerialize["accounts"] = o.Accounts
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableAccounts) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableAccounts := _O11yGettableAccounts{}
+
+	err = json.Unmarshal(data, &varO11yGettableAccounts)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableAccounts(varO11yGettableAccounts)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accounts")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableAccounts struct {

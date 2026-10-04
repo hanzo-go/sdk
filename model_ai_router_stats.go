@@ -19,17 +19,20 @@ var _ MappedNullable = &AiRouterStats{}
 
 // AiRouterStats struct for AiRouterStats
 type AiRouterStats struct {
-	ByModel    map[string]int32       `json:"by_model,omitempty"`
-	BySource   map[string]int32       `json:"by_source,omitempty"`
-	ByTask     map[string]AiTaskStats `json:"by_task,omitempty"`
-	Cost       *AiCostStats           `json:"cost,omitempty"`
-	Org        *string                `json:"org,omitempty"`
-	Quality    *AiQualityStats        `json:"quality,omitempty"`
-	Retrain    *AiRetrainMeta         `json:"retrain,omitempty"`
-	Scope      *string                `json:"scope,omitempty"`
-	Throughput *AiThroughputStats     `json:"throughput,omitempty"`
-	Window     *AiStatsWindow         `json:"window,omitempty"`
+	ByModel              map[string]int32       `json:"by_model,omitempty"`
+	BySource             map[string]int32       `json:"by_source,omitempty"`
+	ByTask               map[string]AiTaskStats `json:"by_task,omitempty"`
+	Cost                 *AiCostStats           `json:"cost,omitempty"`
+	Org                  *string                `json:"org,omitempty"`
+	Quality              *AiQualityStats        `json:"quality,omitempty"`
+	Retrain              *AiRetrainMeta         `json:"retrain,omitempty"`
+	Scope                *string                `json:"scope,omitempty"`
+	Throughput           *AiThroughputStats     `json:"throughput,omitempty"`
+	Window               *AiStatsWindow         `json:"window,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiRouterStats AiRouterStats
 
 // NewAiRouterStats instantiates a new AiRouterStats object
 // This constructor will assign default values to properties that have it defined,
@@ -408,7 +411,42 @@ func (o AiRouterStats) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Window) {
 		toSerialize["window"] = o.Window
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiRouterStats) UnmarshalJSON(data []byte) (err error) {
+	varAiRouterStats := _AiRouterStats{}
+
+	err = json.Unmarshal(data, &varAiRouterStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiRouterStats(varAiRouterStats)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "by_model")
+		delete(additionalProperties, "by_source")
+		delete(additionalProperties, "by_task")
+		delete(additionalProperties, "cost")
+		delete(additionalProperties, "org")
+		delete(additionalProperties, "quality")
+		delete(additionalProperties, "retrain")
+		delete(additionalProperties, "scope")
+		delete(additionalProperties, "throughput")
+		delete(additionalProperties, "window")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiRouterStats struct {

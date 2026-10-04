@@ -1,0 +1,290 @@
+# EsignEsignRecipient
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Email** | Pointer to **string** | Email is where this recipient&#39;s signing link is meant to go, lower-cased. | [optional] 
+**Id** | Pointer to **string** | ID is the recipient id, which is what a field is placed against. | [optional] 
+**Name** | Pointer to **string** | Name is the recipient&#39;s display name, empty when none was given. | [optional] 
+**ReadStatus** | Pointer to **string** | ReadStatus is NOT_OPENED until they first open their link, then OPENED. | [optional] 
+**RejectionReason** | Pointer to **string** | RejectionReason is why they declined, null unless they did. | [optional] 
+**Role** | Pointer to **string** | Role is SIGNER, CC, VIEWER, APPROVER or ASSISTANT. A document waits only for its SIGNERs and APPROVERs before it can seal. | [optional] 
+**SendStatus** | Pointer to **string** | SendStatus is NOT_SENT until the document goes out, then SENT. A CC recipient is SENT from the moment they are added. | [optional] 
+**SignedAt** | Pointer to **int64** | SignedAt is when they finished or declined, in unix milliseconds; null while neither has happened. | [optional] 
+**SigningOrder** | Pointer to **float64** | SigningOrder is their position in a SEQUENTIAL document, null when they were added without one. A PARALLEL document ignores it. | [optional] 
+**SigningStatus** | Pointer to **string** | SigningStatus is NOT_SIGNED, SIGNED or REJECTED. A CC recipient is SIGNED from the moment they are added, because they are never asked. | [optional] 
+
+## Methods
+
+### NewEsignEsignRecipient
+
+`func NewEsignEsignRecipient() *EsignEsignRecipient`
+
+NewEsignEsignRecipient instantiates a new EsignEsignRecipient object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewEsignEsignRecipientWithDefaults
+
+`func NewEsignEsignRecipientWithDefaults() *EsignEsignRecipient`
+
+NewEsignEsignRecipientWithDefaults instantiates a new EsignEsignRecipient object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetEmail
+
+`func (o *EsignEsignRecipient) GetEmail() string`
+
+GetEmail returns the Email field if non-nil, zero value otherwise.
+
+### GetEmailOk
+
+`func (o *EsignEsignRecipient) GetEmailOk() (*string, bool)`
+
+GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmail
+
+`func (o *EsignEsignRecipient) SetEmail(v string)`
+
+SetEmail sets Email field to given value.
+
+### HasEmail
+
+`func (o *EsignEsignRecipient) HasEmail() bool`
+
+HasEmail returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *EsignEsignRecipient) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *EsignEsignRecipient) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *EsignEsignRecipient) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *EsignEsignRecipient) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *EsignEsignRecipient) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *EsignEsignRecipient) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *EsignEsignRecipient) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *EsignEsignRecipient) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetReadStatus
+
+`func (o *EsignEsignRecipient) GetReadStatus() string`
+
+GetReadStatus returns the ReadStatus field if non-nil, zero value otherwise.
+
+### GetReadStatusOk
+
+`func (o *EsignEsignRecipient) GetReadStatusOk() (*string, bool)`
+
+GetReadStatusOk returns a tuple with the ReadStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReadStatus
+
+`func (o *EsignEsignRecipient) SetReadStatus(v string)`
+
+SetReadStatus sets ReadStatus field to given value.
+
+### HasReadStatus
+
+`func (o *EsignEsignRecipient) HasReadStatus() bool`
+
+HasReadStatus returns a boolean if a field has been set.
+
+### GetRejectionReason
+
+`func (o *EsignEsignRecipient) GetRejectionReason() string`
+
+GetRejectionReason returns the RejectionReason field if non-nil, zero value otherwise.
+
+### GetRejectionReasonOk
+
+`func (o *EsignEsignRecipient) GetRejectionReasonOk() (*string, bool)`
+
+GetRejectionReasonOk returns a tuple with the RejectionReason field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRejectionReason
+
+`func (o *EsignEsignRecipient) SetRejectionReason(v string)`
+
+SetRejectionReason sets RejectionReason field to given value.
+
+### HasRejectionReason
+
+`func (o *EsignEsignRecipient) HasRejectionReason() bool`
+
+HasRejectionReason returns a boolean if a field has been set.
+
+### GetRole
+
+`func (o *EsignEsignRecipient) GetRole() string`
+
+GetRole returns the Role field if non-nil, zero value otherwise.
+
+### GetRoleOk
+
+`func (o *EsignEsignRecipient) GetRoleOk() (*string, bool)`
+
+GetRoleOk returns a tuple with the Role field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRole
+
+`func (o *EsignEsignRecipient) SetRole(v string)`
+
+SetRole sets Role field to given value.
+
+### HasRole
+
+`func (o *EsignEsignRecipient) HasRole() bool`
+
+HasRole returns a boolean if a field has been set.
+
+### GetSendStatus
+
+`func (o *EsignEsignRecipient) GetSendStatus() string`
+
+GetSendStatus returns the SendStatus field if non-nil, zero value otherwise.
+
+### GetSendStatusOk
+
+`func (o *EsignEsignRecipient) GetSendStatusOk() (*string, bool)`
+
+GetSendStatusOk returns a tuple with the SendStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSendStatus
+
+`func (o *EsignEsignRecipient) SetSendStatus(v string)`
+
+SetSendStatus sets SendStatus field to given value.
+
+### HasSendStatus
+
+`func (o *EsignEsignRecipient) HasSendStatus() bool`
+
+HasSendStatus returns a boolean if a field has been set.
+
+### GetSignedAt
+
+`func (o *EsignEsignRecipient) GetSignedAt() int64`
+
+GetSignedAt returns the SignedAt field if non-nil, zero value otherwise.
+
+### GetSignedAtOk
+
+`func (o *EsignEsignRecipient) GetSignedAtOk() (*int64, bool)`
+
+GetSignedAtOk returns a tuple with the SignedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSignedAt
+
+`func (o *EsignEsignRecipient) SetSignedAt(v int64)`
+
+SetSignedAt sets SignedAt field to given value.
+
+### HasSignedAt
+
+`func (o *EsignEsignRecipient) HasSignedAt() bool`
+
+HasSignedAt returns a boolean if a field has been set.
+
+### GetSigningOrder
+
+`func (o *EsignEsignRecipient) GetSigningOrder() float64`
+
+GetSigningOrder returns the SigningOrder field if non-nil, zero value otherwise.
+
+### GetSigningOrderOk
+
+`func (o *EsignEsignRecipient) GetSigningOrderOk() (*float64, bool)`
+
+GetSigningOrderOk returns a tuple with the SigningOrder field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSigningOrder
+
+`func (o *EsignEsignRecipient) SetSigningOrder(v float64)`
+
+SetSigningOrder sets SigningOrder field to given value.
+
+### HasSigningOrder
+
+`func (o *EsignEsignRecipient) HasSigningOrder() bool`
+
+HasSigningOrder returns a boolean if a field has been set.
+
+### GetSigningStatus
+
+`func (o *EsignEsignRecipient) GetSigningStatus() string`
+
+GetSigningStatus returns the SigningStatus field if non-nil, zero value otherwise.
+
+### GetSigningStatusOk
+
+`func (o *EsignEsignRecipient) GetSigningStatusOk() (*string, bool)`
+
+GetSigningStatusOk returns a tuple with the SigningStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSigningStatus
+
+`func (o *EsignEsignRecipient) SetSigningStatus(v string)`
+
+SetSigningStatus sets SigningStatus field to given value.
+
+### HasSigningStatus
+
+`func (o *EsignEsignRecipient) HasSigningStatus() bool`
+
+HasSigningStatus returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

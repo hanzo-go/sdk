@@ -19,18 +19,21 @@ var _ MappedNullable = &O11yGettableFunnel{}
 
 // O11yGettableFunnel struct for O11yGettableFunnel
 type O11yGettableFunnel struct {
-	CreatedAt   *int64              `json:"created_at,omitempty"`
-	CreatedBy   *string             `json:"created_by,omitempty"`
-	Description *string             `json:"description,omitempty"`
-	Funnel      *O11yStorableFunnel `json:"funnel,omitempty"`
-	FunnelId    *string             `json:"funnel_id,omitempty"`
-	FunnelName  *string             `json:"funnel_name,omitempty"`
-	OrgId       *string             `json:"org_id,omitempty"`
-	Steps       []O11yFunnelStep    `json:"steps,omitempty"`
-	UpdatedAt   *int64              `json:"updated_at,omitempty"`
-	UpdatedBy   *string             `json:"updated_by,omitempty"`
-	UserEmail   *string             `json:"user_email,omitempty"`
+	CreatedAt            *int64              `json:"created_at,omitempty"`
+	CreatedBy            *string             `json:"created_by,omitempty"`
+	Description          *string             `json:"description,omitempty"`
+	Funnel               *O11yStorableFunnel `json:"funnel,omitempty"`
+	FunnelId             *string             `json:"funnel_id,omitempty"`
+	FunnelName           *string             `json:"funnel_name,omitempty"`
+	OrgId                *string             `json:"org_id,omitempty"`
+	Steps                []O11yFunnelStep    `json:"steps,omitempty"`
+	UpdatedAt            *int64              `json:"updated_at,omitempty"`
+	UpdatedBy            *string             `json:"updated_by,omitempty"`
+	UserEmail            *string             `json:"user_email,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableFunnel O11yGettableFunnel
 
 // NewO11yGettableFunnel instantiates a new O11yGettableFunnel object
 // This constructor will assign default values to properties that have it defined,
@@ -444,7 +447,43 @@ func (o O11yGettableFunnel) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserEmail) {
 		toSerialize["user_email"] = o.UserEmail
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableFunnel) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableFunnel := _O11yGettableFunnel{}
+
+	err = json.Unmarshal(data, &varO11yGettableFunnel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableFunnel(varO11yGettableFunnel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "created_by")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "funnel")
+		delete(additionalProperties, "funnel_id")
+		delete(additionalProperties, "funnel_name")
+		delete(additionalProperties, "org_id")
+		delete(additionalProperties, "steps")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "updated_by")
+		delete(additionalProperties, "user_email")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableFunnel struct {

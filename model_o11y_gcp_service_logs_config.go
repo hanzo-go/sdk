@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yGCPServiceLogsConfig{}
 
 // O11yGCPServiceLogsConfig struct for O11yGCPServiceLogsConfig
 type O11yGCPServiceLogsConfig struct {
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled              *bool `json:"enabled,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGCPServiceLogsConfig O11yGCPServiceLogsConfig
 
 // NewO11yGCPServiceLogsConfig instantiates a new O11yGCPServiceLogsConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yGCPServiceLogsConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGCPServiceLogsConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yGCPServiceLogsConfig := _O11yGCPServiceLogsConfig{}
+
+	err = json.Unmarshal(data, &varO11yGCPServiceLogsConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGCPServiceLogsConfig(varO11yGCPServiceLogsConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGCPServiceLogsConfig struct {

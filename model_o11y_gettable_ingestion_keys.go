@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yGettableIngestionKeys{}
 
 // O11yGettableIngestionKeys struct for O11yGettableIngestionKeys
 type O11yGettableIngestionKeys struct {
-	Pagination *O11yPagination    `json:"_pagination,omitempty"`
-	Keys       []O11yIngestionKey `json:"keys,omitempty"`
+	Pagination           *O11yPagination    `json:"_pagination,omitempty"`
+	Keys                 []O11yIngestionKey `json:"keys,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yGettableIngestionKeys O11yGettableIngestionKeys
 
 // NewO11yGettableIngestionKeys instantiates a new O11yGettableIngestionKeys object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yGettableIngestionKeys) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Keys) {
 		toSerialize["keys"] = o.Keys
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yGettableIngestionKeys) UnmarshalJSON(data []byte) (err error) {
+	varO11yGettableIngestionKeys := _O11yGettableIngestionKeys{}
+
+	err = json.Unmarshal(data, &varO11yGettableIngestionKeys)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yGettableIngestionKeys(varO11yGettableIngestionKeys)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "_pagination")
+		delete(additionalProperties, "keys")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yGettableIngestionKeys struct {

@@ -22,17 +22,17 @@ import (
 type SeoAPIService service
 
 type SeoAPISeoAuditRequest struct {
-	ctx        context.Context
-	ApiService *SeoAPIService
-	seoAuditIn *SeoAuditIn
+	ctx           context.Context
+	ApiService    *SeoAPIService
+	seoSeoAuditIn *SeoSeoAuditIn
 }
 
-func (r SeoAPISeoAuditRequest) SeoAuditIn(seoAuditIn SeoAuditIn) SeoAPISeoAuditRequest {
-	r.seoAuditIn = &seoAuditIn
+func (r SeoAPISeoAuditRequest) SeoSeoAuditIn(seoSeoAuditIn SeoSeoAuditIn) SeoAPISeoAuditRequest {
+	r.seoSeoAuditIn = &seoSeoAuditIn
 	return r
 }
 
-func (r SeoAPISeoAuditRequest) Execute() (*SeoAuditOut, *http.Response, error) {
+func (r SeoAPISeoAuditRequest) Execute() (*SeoSeoAuditOut, *http.Response, error) {
 	return r.ApiService.SeoAuditExecute(r)
 }
 
@@ -66,13 +66,13 @@ func (a *SeoAPIService) SeoAudit(ctx context.Context) SeoAPISeoAuditRequest {
 
 // Execute executes the request
 //
-//	@return SeoAuditOut
-func (a *SeoAPIService) SeoAuditExecute(r SeoAPISeoAuditRequest) (*SeoAuditOut, *http.Response, error) {
+//	@return SeoSeoAuditOut
+func (a *SeoAPIService) SeoAuditExecute(r SeoAPISeoAuditRequest) (*SeoSeoAuditOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SeoAuditOut
+		localVarReturnValue *SeoSeoAuditOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SeoAPIService.SeoAudit")
@@ -85,8 +85,8 @@ func (a *SeoAPIService) SeoAuditExecute(r SeoAPISeoAuditRequest) (*SeoAuditOut, 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.seoAuditIn == nil {
-		return localVarReturnValue, nil, reportError("seoAuditIn is required and must be specified")
+	if r.seoSeoAuditIn == nil {
+		return localVarReturnValue, nil, reportError("seoSeoAuditIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -99,7 +99,7 @@ func (a *SeoAPIService) SeoAuditExecute(r SeoAPISeoAuditRequest) (*SeoAuditOut, 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -107,7 +107,7 @@ func (a *SeoAPIService) SeoAuditExecute(r SeoAPISeoAuditRequest) (*SeoAuditOut, 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.seoAuditIn
+	localVarPostBody = r.seoSeoAuditIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -130,6 +130,14 @@ func (a *SeoAPIService) SeoAuditExecute(r SeoAPISeoAuditRequest) (*SeoAuditOut, 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -146,17 +154,17 @@ func (a *SeoAPIService) SeoAuditExecute(r SeoAPISeoAuditRequest) (*SeoAuditOut, 
 }
 
 type SeoAPISeoBacklinkRequest struct {
-	ctx           context.Context
-	ApiService    *SeoAPIService
-	seoBacklinkIn *SeoBacklinkIn
+	ctx              context.Context
+	ApiService       *SeoAPIService
+	seoSeoBacklinkIn *SeoSeoBacklinkIn
 }
 
-func (r SeoAPISeoBacklinkRequest) SeoBacklinkIn(seoBacklinkIn SeoBacklinkIn) SeoAPISeoBacklinkRequest {
-	r.seoBacklinkIn = &seoBacklinkIn
+func (r SeoAPISeoBacklinkRequest) SeoSeoBacklinkIn(seoSeoBacklinkIn SeoSeoBacklinkIn) SeoAPISeoBacklinkRequest {
+	r.seoSeoBacklinkIn = &seoSeoBacklinkIn
 	return r
 }
 
-func (r SeoAPISeoBacklinkRequest) Execute() (*SeoBacklinkOut, *http.Response, error) {
+func (r SeoAPISeoBacklinkRequest) Execute() (*SeoSeoBacklinkOut, *http.Response, error) {
 	return r.ApiService.SeoBacklinkExecute(r)
 }
 
@@ -187,13 +195,13 @@ func (a *SeoAPIService) SeoBacklink(ctx context.Context) SeoAPISeoBacklinkReques
 
 // Execute executes the request
 //
-//	@return SeoBacklinkOut
-func (a *SeoAPIService) SeoBacklinkExecute(r SeoAPISeoBacklinkRequest) (*SeoBacklinkOut, *http.Response, error) {
+//	@return SeoSeoBacklinkOut
+func (a *SeoAPIService) SeoBacklinkExecute(r SeoAPISeoBacklinkRequest) (*SeoSeoBacklinkOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SeoBacklinkOut
+		localVarReturnValue *SeoSeoBacklinkOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SeoAPIService.SeoBacklink")
@@ -206,8 +214,8 @@ func (a *SeoAPIService) SeoBacklinkExecute(r SeoAPISeoBacklinkRequest) (*SeoBack
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.seoBacklinkIn == nil {
-		return localVarReturnValue, nil, reportError("seoBacklinkIn is required and must be specified")
+	if r.seoSeoBacklinkIn == nil {
+		return localVarReturnValue, nil, reportError("seoSeoBacklinkIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -220,7 +228,7 @@ func (a *SeoAPIService) SeoBacklinkExecute(r SeoAPISeoBacklinkRequest) (*SeoBack
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -228,7 +236,7 @@ func (a *SeoAPIService) SeoBacklinkExecute(r SeoAPISeoBacklinkRequest) (*SeoBack
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.seoBacklinkIn
+	localVarPostBody = r.seoSeoBacklinkIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -251,6 +259,14 @@ func (a *SeoAPIService) SeoBacklinkExecute(r SeoAPISeoBacklinkRequest) (*SeoBack
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -267,17 +283,17 @@ func (a *SeoAPIService) SeoBacklinkExecute(r SeoAPISeoBacklinkRequest) (*SeoBack
 }
 
 type SeoAPISeoCompetitorRequest struct {
-	ctx             context.Context
-	ApiService      *SeoAPIService
-	seoCompetitorIn *SeoCompetitorIn
+	ctx                context.Context
+	ApiService         *SeoAPIService
+	seoSeoCompetitorIn *SeoSeoCompetitorIn
 }
 
-func (r SeoAPISeoCompetitorRequest) SeoCompetitorIn(seoCompetitorIn SeoCompetitorIn) SeoAPISeoCompetitorRequest {
-	r.seoCompetitorIn = &seoCompetitorIn
+func (r SeoAPISeoCompetitorRequest) SeoSeoCompetitorIn(seoSeoCompetitorIn SeoSeoCompetitorIn) SeoAPISeoCompetitorRequest {
+	r.seoSeoCompetitorIn = &seoSeoCompetitorIn
 	return r
 }
 
-func (r SeoAPISeoCompetitorRequest) Execute() (*SeoCompetitorOut, *http.Response, error) {
+func (r SeoAPISeoCompetitorRequest) Execute() (*SeoSeoCompetitorOut, *http.Response, error) {
 	return r.ApiService.SeoCompetitorExecute(r)
 }
 
@@ -307,13 +323,13 @@ func (a *SeoAPIService) SeoCompetitor(ctx context.Context) SeoAPISeoCompetitorRe
 
 // Execute executes the request
 //
-//	@return SeoCompetitorOut
-func (a *SeoAPIService) SeoCompetitorExecute(r SeoAPISeoCompetitorRequest) (*SeoCompetitorOut, *http.Response, error) {
+//	@return SeoSeoCompetitorOut
+func (a *SeoAPIService) SeoCompetitorExecute(r SeoAPISeoCompetitorRequest) (*SeoSeoCompetitorOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SeoCompetitorOut
+		localVarReturnValue *SeoSeoCompetitorOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SeoAPIService.SeoCompetitor")
@@ -326,8 +342,8 @@ func (a *SeoAPIService) SeoCompetitorExecute(r SeoAPISeoCompetitorRequest) (*Seo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.seoCompetitorIn == nil {
-		return localVarReturnValue, nil, reportError("seoCompetitorIn is required and must be specified")
+	if r.seoSeoCompetitorIn == nil {
+		return localVarReturnValue, nil, reportError("seoSeoCompetitorIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -340,7 +356,7 @@ func (a *SeoAPIService) SeoCompetitorExecute(r SeoAPISeoCompetitorRequest) (*Seo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -348,7 +364,7 @@ func (a *SeoAPIService) SeoCompetitorExecute(r SeoAPISeoCompetitorRequest) (*Seo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.seoCompetitorIn
+	localVarPostBody = r.seoSeoCompetitorIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -371,6 +387,14 @@ func (a *SeoAPIService) SeoCompetitorExecute(r SeoAPISeoCompetitorRequest) (*Seo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -387,17 +411,17 @@ func (a *SeoAPIService) SeoCompetitorExecute(r SeoAPISeoCompetitorRequest) (*Seo
 }
 
 type SeoAPISeoIdeaRequest struct {
-	ctx        context.Context
-	ApiService *SeoAPIService
-	seoIdeaIn  *SeoIdeaIn
+	ctx          context.Context
+	ApiService   *SeoAPIService
+	seoSeoIdeaIn *SeoSeoIdeaIn
 }
 
-func (r SeoAPISeoIdeaRequest) SeoIdeaIn(seoIdeaIn SeoIdeaIn) SeoAPISeoIdeaRequest {
-	r.seoIdeaIn = &seoIdeaIn
+func (r SeoAPISeoIdeaRequest) SeoSeoIdeaIn(seoSeoIdeaIn SeoSeoIdeaIn) SeoAPISeoIdeaRequest {
+	r.seoSeoIdeaIn = &seoSeoIdeaIn
 	return r
 }
 
-func (r SeoAPISeoIdeaRequest) Execute() (*SeoIdeaOut, *http.Response, error) {
+func (r SeoAPISeoIdeaRequest) Execute() (*SeoSeoIdeaOut, *http.Response, error) {
 	return r.ApiService.SeoIdeaExecute(r)
 }
 
@@ -427,13 +451,13 @@ func (a *SeoAPIService) SeoIdea(ctx context.Context) SeoAPISeoIdeaRequest {
 
 // Execute executes the request
 //
-//	@return SeoIdeaOut
-func (a *SeoAPIService) SeoIdeaExecute(r SeoAPISeoIdeaRequest) (*SeoIdeaOut, *http.Response, error) {
+//	@return SeoSeoIdeaOut
+func (a *SeoAPIService) SeoIdeaExecute(r SeoAPISeoIdeaRequest) (*SeoSeoIdeaOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SeoIdeaOut
+		localVarReturnValue *SeoSeoIdeaOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SeoAPIService.SeoIdea")
@@ -446,8 +470,8 @@ func (a *SeoAPIService) SeoIdeaExecute(r SeoAPISeoIdeaRequest) (*SeoIdeaOut, *ht
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.seoIdeaIn == nil {
-		return localVarReturnValue, nil, reportError("seoIdeaIn is required and must be specified")
+	if r.seoSeoIdeaIn == nil {
+		return localVarReturnValue, nil, reportError("seoSeoIdeaIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -460,7 +484,7 @@ func (a *SeoAPIService) SeoIdeaExecute(r SeoAPISeoIdeaRequest) (*SeoIdeaOut, *ht
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -468,7 +492,7 @@ func (a *SeoAPIService) SeoIdeaExecute(r SeoAPISeoIdeaRequest) (*SeoIdeaOut, *ht
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.seoIdeaIn
+	localVarPostBody = r.seoSeoIdeaIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -491,6 +515,14 @@ func (a *SeoAPIService) SeoIdeaExecute(r SeoAPISeoIdeaRequest) (*SeoIdeaOut, *ht
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -507,17 +539,17 @@ func (a *SeoAPIService) SeoIdeaExecute(r SeoAPISeoIdeaRequest) (*SeoIdeaOut, *ht
 }
 
 type SeoAPISeoKeywordRequest struct {
-	ctx          context.Context
-	ApiService   *SeoAPIService
-	seoKeywordIn *SeoKeywordIn
+	ctx             context.Context
+	ApiService      *SeoAPIService
+	seoSeoKeywordIn *SeoSeoKeywordIn
 }
 
-func (r SeoAPISeoKeywordRequest) SeoKeywordIn(seoKeywordIn SeoKeywordIn) SeoAPISeoKeywordRequest {
-	r.seoKeywordIn = &seoKeywordIn
+func (r SeoAPISeoKeywordRequest) SeoSeoKeywordIn(seoSeoKeywordIn SeoSeoKeywordIn) SeoAPISeoKeywordRequest {
+	r.seoSeoKeywordIn = &seoSeoKeywordIn
 	return r
 }
 
-func (r SeoAPISeoKeywordRequest) Execute() (*SeoKeywordOut, *http.Response, error) {
+func (r SeoAPISeoKeywordRequest) Execute() (*SeoSeoKeywordOut, *http.Response, error) {
 	return r.ApiService.SeoKeywordExecute(r)
 }
 
@@ -550,13 +582,13 @@ func (a *SeoAPIService) SeoKeyword(ctx context.Context) SeoAPISeoKeywordRequest 
 
 // Execute executes the request
 //
-//	@return SeoKeywordOut
-func (a *SeoAPIService) SeoKeywordExecute(r SeoAPISeoKeywordRequest) (*SeoKeywordOut, *http.Response, error) {
+//	@return SeoSeoKeywordOut
+func (a *SeoAPIService) SeoKeywordExecute(r SeoAPISeoKeywordRequest) (*SeoSeoKeywordOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SeoKeywordOut
+		localVarReturnValue *SeoSeoKeywordOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SeoAPIService.SeoKeyword")
@@ -569,8 +601,8 @@ func (a *SeoAPIService) SeoKeywordExecute(r SeoAPISeoKeywordRequest) (*SeoKeywor
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.seoKeywordIn == nil {
-		return localVarReturnValue, nil, reportError("seoKeywordIn is required and must be specified")
+	if r.seoSeoKeywordIn == nil {
+		return localVarReturnValue, nil, reportError("seoSeoKeywordIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -583,7 +615,7 @@ func (a *SeoAPIService) SeoKeywordExecute(r SeoAPISeoKeywordRequest) (*SeoKeywor
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -591,7 +623,7 @@ func (a *SeoAPIService) SeoKeywordExecute(r SeoAPISeoKeywordRequest) (*SeoKeywor
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.seoKeywordIn
+	localVarPostBody = r.seoSeoKeywordIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -614,6 +646,14 @@ func (a *SeoAPIService) SeoKeywordExecute(r SeoAPISeoKeywordRequest) (*SeoKeywor
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -630,17 +670,17 @@ func (a *SeoAPIService) SeoKeywordExecute(r SeoAPISeoKeywordRequest) (*SeoKeywor
 }
 
 type SeoAPISeoRankRequest struct {
-	ctx        context.Context
-	ApiService *SeoAPIService
-	seoRankIn  *SeoRankIn
+	ctx          context.Context
+	ApiService   *SeoAPIService
+	seoSeoRankIn *SeoSeoRankIn
 }
 
-func (r SeoAPISeoRankRequest) SeoRankIn(seoRankIn SeoRankIn) SeoAPISeoRankRequest {
-	r.seoRankIn = &seoRankIn
+func (r SeoAPISeoRankRequest) SeoSeoRankIn(seoSeoRankIn SeoSeoRankIn) SeoAPISeoRankRequest {
+	r.seoSeoRankIn = &seoSeoRankIn
 	return r
 }
 
-func (r SeoAPISeoRankRequest) Execute() (*SeoRankOut, *http.Response, error) {
+func (r SeoAPISeoRankRequest) Execute() (*SeoSeoRankOut, *http.Response, error) {
 	return r.ApiService.SeoRankExecute(r)
 }
 
@@ -675,13 +715,13 @@ func (a *SeoAPIService) SeoRank(ctx context.Context) SeoAPISeoRankRequest {
 
 // Execute executes the request
 //
-//	@return SeoRankOut
-func (a *SeoAPIService) SeoRankExecute(r SeoAPISeoRankRequest) (*SeoRankOut, *http.Response, error) {
+//	@return SeoSeoRankOut
+func (a *SeoAPIService) SeoRankExecute(r SeoAPISeoRankRequest) (*SeoSeoRankOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SeoRankOut
+		localVarReturnValue *SeoSeoRankOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SeoAPIService.SeoRank")
@@ -694,8 +734,8 @@ func (a *SeoAPIService) SeoRankExecute(r SeoAPISeoRankRequest) (*SeoRankOut, *ht
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.seoRankIn == nil {
-		return localVarReturnValue, nil, reportError("seoRankIn is required and must be specified")
+	if r.seoSeoRankIn == nil {
+		return localVarReturnValue, nil, reportError("seoSeoRankIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -708,7 +748,7 @@ func (a *SeoAPIService) SeoRankExecute(r SeoAPISeoRankRequest) (*SeoRankOut, *ht
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -716,7 +756,7 @@ func (a *SeoAPIService) SeoRankExecute(r SeoAPISeoRankRequest) (*SeoRankOut, *ht
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.seoRankIn
+	localVarPostBody = r.seoSeoRankIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -739,6 +779,14 @@ func (a *SeoAPIService) SeoRankExecute(r SeoAPISeoRankRequest) (*SeoRankOut, *ht
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -759,7 +807,7 @@ type SeoAPISeoRateRequest struct {
 	ApiService *SeoAPIService
 }
 
-func (r SeoAPISeoRateRequest) Execute() (*SeoRateOut, *http.Response, error) {
+func (r SeoAPISeoRateRequest) Execute() (*SeoSeoRateOut, *http.Response, error) {
 	return r.ApiService.SeoRateExecute(r)
 }
 
@@ -795,13 +843,13 @@ func (a *SeoAPIService) SeoRate(ctx context.Context) SeoAPISeoRateRequest {
 
 // Execute executes the request
 //
-//	@return SeoRateOut
-func (a *SeoAPIService) SeoRateExecute(r SeoAPISeoRateRequest) (*SeoRateOut, *http.Response, error) {
+//	@return SeoSeoRateOut
+func (a *SeoAPIService) SeoRateExecute(r SeoAPISeoRateRequest) (*SeoSeoRateOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SeoRateOut
+		localVarReturnValue *SeoSeoRateOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SeoAPIService.SeoRate")
@@ -825,7 +873,7 @@ func (a *SeoAPIService) SeoRateExecute(r SeoAPISeoRateRequest) (*SeoRateOut, *ht
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -854,6 +902,14 @@ func (a *SeoAPIService) SeoRateExecute(r SeoAPISeoRateRequest) (*SeoRateOut, *ht
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

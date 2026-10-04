@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountId** | Pointer to **string** |  | [optional] 
 **CloudIntegrationId** | Pointer to **interface{}** |  | [optional] 
 **CloudAccountId** | Pointer to **string** |  | [optional] 
-**Data** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Data** | Pointer to **map[string]interface{}** |  | [optional] 
 **ProviderAccountId** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -116,20 +116,20 @@ HasCloudAccountId returns a boolean if a field has been set.
 
 ### GetData
 
-`func (o *O11yO11yAgentCheckInIn) GetData() map[string]map[string]interface{}`
+`func (o *O11yO11yAgentCheckInIn) GetData() map[string]interface{}`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *O11yO11yAgentCheckInIn) GetDataOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yO11yAgentCheckInIn) GetDataOk() (*map[string]interface{}, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *O11yO11yAgentCheckInIn) SetData(v map[string]map[string]interface{})`
+`func (o *O11yO11yAgentCheckInIn) SetData(v map[string]interface{})`
 
 SetData sets Data field to given value.
 

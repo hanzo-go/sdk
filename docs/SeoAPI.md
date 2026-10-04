@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## SeoAudit
 
-> SeoAuditOut SeoAudit(ctx).SeoAuditIn(seoAuditIn).Execute()
+> SeoSeoAuditOut SeoAudit(ctx).SeoSeoAuditIn(seoSeoAuditIn).Execute()
 
 Fetch one page and report what it gets wrong
 
@@ -35,16 +35,16 @@ import (
 )
 
 func main() {
-	seoAuditIn := *openapiclient.NewSeoAuditIn() // SeoAuditIn | 
+	seoSeoAuditIn := *openapiclient.NewSeoSeoAuditIn() // SeoSeoAuditIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SeoAPI.SeoAudit(context.Background()).SeoAuditIn(seoAuditIn).Execute()
+	resp, r, err := apiClient.SeoAPI.SeoAudit(context.Background()).SeoSeoAuditIn(seoSeoAuditIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SeoAPI.SeoAudit``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SeoAudit`: SeoAuditOut
+	// response from `SeoAudit`: SeoSeoAuditOut
 	fmt.Fprintf(os.Stdout, "Response from `SeoAPI.SeoAudit`: %v\n", resp)
 }
 ```
@@ -60,11 +60,11 @@ Other parameters are passed through a pointer to a apiSeoAuditRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **seoAuditIn** | [**SeoAuditIn**](SeoAuditIn.md) |  | 
+ **seoSeoAuditIn** | [**SeoSeoAuditIn**](SeoSeoAuditIn.md) |  | 
 
 ### Return type
 
-[**SeoAuditOut**](SeoAuditOut.md)
+[**SeoSeoAuditOut**](SeoSeoAuditOut.md)
 
 ### Authorization
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## SeoBacklink
 
-> SeoBacklinkOut SeoBacklink(ctx).SeoBacklinkIn(seoBacklinkIn).Execute()
+> SeoSeoBacklinkOut SeoBacklink(ctx).SeoSeoBacklinkIn(seoSeoBacklinkIn).Execute()
 
 Who links to a target, and how much of it is broken or spam
 
@@ -101,16 +101,16 @@ import (
 )
 
 func main() {
-	seoBacklinkIn := *openapiclient.NewSeoBacklinkIn() // SeoBacklinkIn | 
+	seoSeoBacklinkIn := *openapiclient.NewSeoSeoBacklinkIn() // SeoSeoBacklinkIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SeoAPI.SeoBacklink(context.Background()).SeoBacklinkIn(seoBacklinkIn).Execute()
+	resp, r, err := apiClient.SeoAPI.SeoBacklink(context.Background()).SeoSeoBacklinkIn(seoSeoBacklinkIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SeoAPI.SeoBacklink``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SeoBacklink`: SeoBacklinkOut
+	// response from `SeoBacklink`: SeoSeoBacklinkOut
 	fmt.Fprintf(os.Stdout, "Response from `SeoAPI.SeoBacklink`: %v\n", resp)
 }
 ```
@@ -126,11 +126,11 @@ Other parameters are passed through a pointer to a apiSeoBacklinkRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **seoBacklinkIn** | [**SeoBacklinkIn**](SeoBacklinkIn.md) |  | 
+ **seoSeoBacklinkIn** | [**SeoSeoBacklinkIn**](SeoSeoBacklinkIn.md) |  | 
 
 ### Return type
 
-[**SeoBacklinkOut**](SeoBacklinkOut.md)
+[**SeoSeoBacklinkOut**](SeoSeoBacklinkOut.md)
 
 ### Authorization
 
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
 ## SeoCompetitor
 
-> SeoCompetitorOut SeoCompetitor(ctx).SeoCompetitorIn(seoCompetitorIn).Execute()
+> SeoSeoCompetitorOut SeoCompetitor(ctx).SeoSeoCompetitorIn(seoSeoCompetitorIn).Execute()
 
 The domains that place for the same phrases
 
@@ -167,16 +167,16 @@ import (
 )
 
 func main() {
-	seoCompetitorIn := *openapiclient.NewSeoCompetitorIn() // SeoCompetitorIn | 
+	seoSeoCompetitorIn := *openapiclient.NewSeoSeoCompetitorIn() // SeoSeoCompetitorIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SeoAPI.SeoCompetitor(context.Background()).SeoCompetitorIn(seoCompetitorIn).Execute()
+	resp, r, err := apiClient.SeoAPI.SeoCompetitor(context.Background()).SeoSeoCompetitorIn(seoSeoCompetitorIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SeoAPI.SeoCompetitor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SeoCompetitor`: SeoCompetitorOut
+	// response from `SeoCompetitor`: SeoSeoCompetitorOut
 	fmt.Fprintf(os.Stdout, "Response from `SeoAPI.SeoCompetitor`: %v\n", resp)
 }
 ```
@@ -192,11 +192,11 @@ Other parameters are passed through a pointer to a apiSeoCompetitorRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **seoCompetitorIn** | [**SeoCompetitorIn**](SeoCompetitorIn.md) |  | 
+ **seoSeoCompetitorIn** | [**SeoSeoCompetitorIn**](SeoSeoCompetitorIn.md) |  | 
 
 ### Return type
 
-[**SeoCompetitorOut**](SeoCompetitorOut.md)
+[**SeoSeoCompetitorOut**](SeoSeoCompetitorOut.md)
 
 ### Authorization
 
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ## SeoIdea
 
-> SeoIdeaOut SeoIdea(ctx).SeoIdeaIn(seoIdeaIn).Execute()
+> SeoSeoIdeaOut SeoIdea(ctx).SeoSeoIdeaIn(seoSeoIdeaIn).Execute()
 
 Grow a seed phrase into the phrases nobody named yet
 
@@ -233,16 +233,16 @@ import (
 )
 
 func main() {
-	seoIdeaIn := *openapiclient.NewSeoIdeaIn() // SeoIdeaIn | 
+	seoSeoIdeaIn := *openapiclient.NewSeoSeoIdeaIn() // SeoSeoIdeaIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SeoAPI.SeoIdea(context.Background()).SeoIdeaIn(seoIdeaIn).Execute()
+	resp, r, err := apiClient.SeoAPI.SeoIdea(context.Background()).SeoSeoIdeaIn(seoSeoIdeaIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SeoAPI.SeoIdea``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SeoIdea`: SeoIdeaOut
+	// response from `SeoIdea`: SeoSeoIdeaOut
 	fmt.Fprintf(os.Stdout, "Response from `SeoAPI.SeoIdea`: %v\n", resp)
 }
 ```
@@ -258,11 +258,11 @@ Other parameters are passed through a pointer to a apiSeoIdeaRequest struct via 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **seoIdeaIn** | [**SeoIdeaIn**](SeoIdeaIn.md) |  | 
+ **seoSeoIdeaIn** | [**SeoSeoIdeaIn**](SeoSeoIdeaIn.md) |  | 
 
 ### Return type
 
-[**SeoIdeaOut**](SeoIdeaOut.md)
+[**SeoSeoIdeaOut**](SeoSeoIdeaOut.md)
 
 ### Authorization
 
@@ -271,7 +271,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -280,7 +280,7 @@ Name | Type | Description  | Notes
 
 ## SeoKeyword
 
-> SeoKeywordOut SeoKeyword(ctx).SeoKeywordIn(seoKeywordIn).Execute()
+> SeoSeoKeywordOut SeoKeyword(ctx).SeoSeoKeywordIn(seoSeoKeywordIn).Execute()
 
 How often named phrases are searched, and what a click costs
 
@@ -299,16 +299,16 @@ import (
 )
 
 func main() {
-	seoKeywordIn := *openapiclient.NewSeoKeywordIn() // SeoKeywordIn | 
+	seoSeoKeywordIn := *openapiclient.NewSeoSeoKeywordIn() // SeoSeoKeywordIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SeoAPI.SeoKeyword(context.Background()).SeoKeywordIn(seoKeywordIn).Execute()
+	resp, r, err := apiClient.SeoAPI.SeoKeyword(context.Background()).SeoSeoKeywordIn(seoSeoKeywordIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SeoAPI.SeoKeyword``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SeoKeyword`: SeoKeywordOut
+	// response from `SeoKeyword`: SeoSeoKeywordOut
 	fmt.Fprintf(os.Stdout, "Response from `SeoAPI.SeoKeyword`: %v\n", resp)
 }
 ```
@@ -324,11 +324,11 @@ Other parameters are passed through a pointer to a apiSeoKeywordRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **seoKeywordIn** | [**SeoKeywordIn**](SeoKeywordIn.md) |  | 
+ **seoSeoKeywordIn** | [**SeoSeoKeywordIn**](SeoSeoKeywordIn.md) |  | 
 
 ### Return type
 
-[**SeoKeywordOut**](SeoKeywordOut.md)
+[**SeoSeoKeywordOut**](SeoSeoKeywordOut.md)
 
 ### Authorization
 
@@ -337,7 +337,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 
 ## SeoRank
 
-> SeoRankOut SeoRank(ctx).SeoRankIn(seoRankIn).Execute()
+> SeoSeoRankOut SeoRank(ctx).SeoSeoRankIn(seoSeoRankIn).Execute()
 
 Every phrase a domain already places for, with its position
 
@@ -365,16 +365,16 @@ import (
 )
 
 func main() {
-	seoRankIn := *openapiclient.NewSeoRankIn() // SeoRankIn | 
+	seoSeoRankIn := *openapiclient.NewSeoSeoRankIn() // SeoSeoRankIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SeoAPI.SeoRank(context.Background()).SeoRankIn(seoRankIn).Execute()
+	resp, r, err := apiClient.SeoAPI.SeoRank(context.Background()).SeoSeoRankIn(seoSeoRankIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SeoAPI.SeoRank``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SeoRank`: SeoRankOut
+	// response from `SeoRank`: SeoSeoRankOut
 	fmt.Fprintf(os.Stdout, "Response from `SeoAPI.SeoRank`: %v\n", resp)
 }
 ```
@@ -390,11 +390,11 @@ Other parameters are passed through a pointer to a apiSeoRankRequest struct via 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **seoRankIn** | [**SeoRankIn**](SeoRankIn.md) |  | 
+ **seoSeoRankIn** | [**SeoSeoRankIn**](SeoSeoRankIn.md) |  | 
 
 ### Return type
 
-[**SeoRankOut**](SeoRankOut.md)
+[**SeoSeoRankOut**](SeoSeoRankOut.md)
 
 ### Authorization
 
@@ -403,7 +403,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -412,7 +412,7 @@ Name | Type | Description  | Notes
 
 ## SeoRate
 
-> SeoRateOut SeoRate(ctx).Execute()
+> SeoSeoRateOut SeoRate(ctx).Execute()
 
 What each call on this surface costs, from the vendor's own list
 
@@ -439,7 +439,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `SeoAPI.SeoRate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SeoRate`: SeoRateOut
+	// response from `SeoRate`: SeoSeoRateOut
 	fmt.Fprintf(os.Stdout, "Response from `SeoAPI.SeoRate`: %v\n", resp)
 }
 ```
@@ -455,7 +455,7 @@ Other parameters are passed through a pointer to a apiSeoRateRequest struct via 
 
 ### Return type
 
-[**SeoRateOut**](SeoRateOut.md)
+[**SeoSeoRateOut**](SeoSeoRateOut.md)
 
 ### Authorization
 
@@ -464,7 +464,7 @@ Other parameters are passed through a pointer to a apiSeoRateRequest struct via 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

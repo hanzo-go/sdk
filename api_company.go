@@ -27,14 +27,14 @@ type CompanyAPIGetCompanyRequest struct {
 	ApiService *CompanyAPIService
 }
 
-func (r CompanyAPIGetCompanyRequest) Execute() (*FormationView, *http.Response, error) {
+func (r CompanyAPIGetCompanyRequest) Execute() (*CompanyFormationView, *http.Response, error) {
 	return r.ApiService.GetCompanyExecute(r)
 }
 
 /*
-GetCompany Get returns the caller org's formation and the stages reachable from it, or 404 when the org has not begun one.
+GetCompany Returns the caller org's formation and the stages reachable from it, or 404 when the org has not begun one.
 
-Get returns the caller org's formation and the stages reachable from it, or 404
+Returns the caller org's formation and the stages reachable from it, or 404
 when the org has not begun one.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -49,13 +49,13 @@ func (a *CompanyAPIService) GetCompany(ctx context.Context) CompanyAPIGetCompany
 
 // Execute executes the request
 //
-//	@return FormationView
-func (a *CompanyAPIService) GetCompanyExecute(r CompanyAPIGetCompanyRequest) (*FormationView, *http.Response, error) {
+//	@return CompanyFormationView
+func (a *CompanyAPIService) GetCompanyExecute(r CompanyAPIGetCompanyRequest) (*CompanyFormationView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FormationView
+		localVarReturnValue *CompanyFormationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.GetCompany")
@@ -79,7 +79,7 @@ func (a *CompanyAPIService) GetCompanyExecute(r CompanyAPIGetCompanyRequest) (*F
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -108,6 +108,14 @@ func (a *CompanyAPIService) GetCompanyExecute(r CompanyAPIGetCompanyRequest) (*F
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -156,7 +164,7 @@ func (r CompanyAPIGetCompanyRegisterRequest) Offset(offset int64) CompanyAPIGetC
 	return r
 }
 
-func (r CompanyAPIGetCompanyRegisterRequest) Execute() (*RegisterPage, *http.Response, error) {
+func (r CompanyAPIGetCompanyRegisterRequest) Execute() (*CompanyRegisterPage, *http.Response, error) {
 	return r.ApiService.GetCompanyRegisterExecute(r)
 }
 
@@ -182,13 +190,13 @@ func (a *CompanyAPIService) GetCompanyRegister(ctx context.Context) CompanyAPIGe
 
 // Execute executes the request
 //
-//	@return RegisterPage
-func (a *CompanyAPIService) GetCompanyRegisterExecute(r CompanyAPIGetCompanyRegisterRequest) (*RegisterPage, *http.Response, error) {
+//	@return CompanyRegisterPage
+func (a *CompanyAPIService) GetCompanyRegisterExecute(r CompanyAPIGetCompanyRegisterRequest) (*CompanyRegisterPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RegisterPage
+		localVarReturnValue *CompanyRegisterPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.GetCompanyRegister")
@@ -224,7 +232,7 @@ func (a *CompanyAPIService) GetCompanyRegisterExecute(r CompanyAPIGetCompanyRegi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -253,6 +261,14 @@ func (a *CompanyAPIService) GetCompanyRegisterExecute(r CompanyAPIGetCompanyRegi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -273,7 +289,7 @@ type CompanyAPIGetCompanyRegisterSummaryRequest struct {
 	ApiService *CompanyAPIService
 }
 
-func (r CompanyAPIGetCompanyRegisterSummaryRequest) Execute() (*RegisterCounts, *http.Response, error) {
+func (r CompanyAPIGetCompanyRegisterSummaryRequest) Execute() (*CompanyRegisterCounts, *http.Response, error) {
 	return r.ApiService.GetCompanyRegisterSummaryExecute(r)
 }
 
@@ -297,13 +313,13 @@ func (a *CompanyAPIService) GetCompanyRegisterSummary(ctx context.Context) Compa
 
 // Execute executes the request
 //
-//	@return RegisterCounts
-func (a *CompanyAPIService) GetCompanyRegisterSummaryExecute(r CompanyAPIGetCompanyRegisterSummaryRequest) (*RegisterCounts, *http.Response, error) {
+//	@return CompanyRegisterCounts
+func (a *CompanyAPIService) GetCompanyRegisterSummaryExecute(r CompanyAPIGetCompanyRegisterSummaryRequest) (*CompanyRegisterCounts, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RegisterCounts
+		localVarReturnValue *CompanyRegisterCounts
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.GetCompanyRegisterSummary")
@@ -327,7 +343,7 @@ func (a *CompanyAPIService) GetCompanyRegisterSummaryExecute(r CompanyAPIGetComp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -356,6 +372,14 @@ func (a *CompanyAPIService) GetCompanyRegisterSummaryExecute(r CompanyAPIGetComp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -383,7 +407,7 @@ func (r CompanyAPIGetCompanyReviewRequest) Limit(limit int64) CompanyAPIGetCompa
 	return r
 }
 
-func (r CompanyAPIGetCompanyReviewRequest) Execute() (*ReviewQueue, *http.Response, error) {
+func (r CompanyAPIGetCompanyReviewRequest) Execute() (*CompanyReviewQueue, *http.Response, error) {
 	return r.ApiService.GetCompanyReviewExecute(r)
 }
 
@@ -409,13 +433,13 @@ func (a *CompanyAPIService) GetCompanyReview(ctx context.Context) CompanyAPIGetC
 
 // Execute executes the request
 //
-//	@return ReviewQueue
-func (a *CompanyAPIService) GetCompanyReviewExecute(r CompanyAPIGetCompanyReviewRequest) (*ReviewQueue, *http.Response, error) {
+//	@return CompanyReviewQueue
+func (a *CompanyAPIService) GetCompanyReviewExecute(r CompanyAPIGetCompanyReviewRequest) (*CompanyReviewQueue, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ReviewQueue
+		localVarReturnValue *CompanyReviewQueue
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.GetCompanyReview")
@@ -442,7 +466,7 @@ func (a *CompanyAPIService) GetCompanyReviewExecute(r CompanyAPIGetCompanyReview
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -471,6 +495,14 @@ func (a *CompanyAPIService) GetCompanyReviewExecute(r CompanyAPIGetCompanyReview
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -487,24 +519,24 @@ func (a *CompanyAPIService) GetCompanyReviewExecute(r CompanyAPIGetCompanyReview
 }
 
 type CompanyAPIPostCompanyRequest struct {
-	ctx        context.Context
-	ApiService *CompanyAPIService
-	beginIn    *BeginIn
+	ctx            context.Context
+	ApiService     *CompanyAPIService
+	companyBeginIn *CompanyBeginIn
 }
 
-func (r CompanyAPIPostCompanyRequest) BeginIn(beginIn BeginIn) CompanyAPIPostCompanyRequest {
-	r.beginIn = &beginIn
+func (r CompanyAPIPostCompanyRequest) CompanyBeginIn(companyBeginIn CompanyBeginIn) CompanyAPIPostCompanyRequest {
+	r.companyBeginIn = &companyBeginIn
 	return r
 }
 
-func (r CompanyAPIPostCompanyRequest) Execute() (*FormationView, *http.Response, error) {
+func (r CompanyAPIPostCompanyRequest) Execute() (*CompanyFormationView, *http.Response, error) {
 	return r.ApiService.PostCompanyExecute(r)
 }
 
 /*
-PostCompany Begin starts the org's one formation and returns it with the stages reachable from it.
+PostCompany Starts the org's one formation and returns it with the stages reachable from it.
 
-Begin starts the org's one formation and returns it with the stages reachable
+Starts the org's one formation and returns it with the stages reachable
 from it. It is idempotent: an org that already has a formation gets that one
 back with 200, while a first call creates it and answers 201.
 
@@ -520,13 +552,13 @@ func (a *CompanyAPIService) PostCompany(ctx context.Context) CompanyAPIPostCompa
 
 // Execute executes the request
 //
-//	@return FormationView
-func (a *CompanyAPIService) PostCompanyExecute(r CompanyAPIPostCompanyRequest) (*FormationView, *http.Response, error) {
+//	@return CompanyFormationView
+func (a *CompanyAPIService) PostCompanyExecute(r CompanyAPIPostCompanyRequest) (*CompanyFormationView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FormationView
+		localVarReturnValue *CompanyFormationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompany")
@@ -539,8 +571,8 @@ func (a *CompanyAPIService) PostCompanyExecute(r CompanyAPIPostCompanyRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.beginIn == nil {
-		return localVarReturnValue, nil, reportError("beginIn is required and must be specified")
+	if r.companyBeginIn == nil {
+		return localVarReturnValue, nil, reportError("companyBeginIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -553,7 +585,7 @@ func (a *CompanyAPIService) PostCompanyExecute(r CompanyAPIPostCompanyRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -561,7 +593,7 @@ func (a *CompanyAPIService) PostCompanyExecute(r CompanyAPIPostCompanyRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.beginIn
+	localVarPostBody = r.companyBeginIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -584,6 +616,14 @@ func (a *CompanyAPIService) PostCompanyExecute(r CompanyAPIPostCompanyRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -600,24 +640,24 @@ func (a *CompanyAPIService) PostCompanyExecute(r CompanyAPIPostCompanyRequest) (
 }
 
 type CompanyAPIPostCompanyAdvanceRequest struct {
-	ctx        context.Context
-	ApiService *CompanyAPIService
-	advanceIn  *AdvanceIn
+	ctx              context.Context
+	ApiService       *CompanyAPIService
+	companyAdvanceIn *CompanyAdvanceIn
 }
 
-func (r CompanyAPIPostCompanyAdvanceRequest) AdvanceIn(advanceIn AdvanceIn) CompanyAPIPostCompanyAdvanceRequest {
-	r.advanceIn = &advanceIn
+func (r CompanyAPIPostCompanyAdvanceRequest) CompanyAdvanceIn(companyAdvanceIn CompanyAdvanceIn) CompanyAPIPostCompanyAdvanceRequest {
+	r.companyAdvanceIn = &companyAdvanceIn
 	return r
 }
 
-func (r CompanyAPIPostCompanyAdvanceRequest) Execute() (*FormationView, *http.Response, error) {
+func (r CompanyAPIPostCompanyAdvanceRequest) Execute() (*CompanyFormationView, *http.Response, error) {
 	return r.ApiService.PostCompanyAdvanceExecute(r)
 }
 
 /*
-PostCompanyAdvance Advance runs the ONE guarded transition of the formation machine.
+PostCompanyAdvance Runs the ONE guarded transition of the formation machine.
 
-Advance runs the ONE guarded transition of the formation machine. It is the
+Runs the ONE guarded transition of the formation machine. It is the
 only endpoint between stages: the actions populate data, this decides ordering.
 
 An edge the machine does not define answers 409; an edge whose guard is not yet
@@ -637,13 +677,13 @@ func (a *CompanyAPIService) PostCompanyAdvance(ctx context.Context) CompanyAPIPo
 
 // Execute executes the request
 //
-//	@return FormationView
-func (a *CompanyAPIService) PostCompanyAdvanceExecute(r CompanyAPIPostCompanyAdvanceRequest) (*FormationView, *http.Response, error) {
+//	@return CompanyFormationView
+func (a *CompanyAPIService) PostCompanyAdvanceExecute(r CompanyAPIPostCompanyAdvanceRequest) (*CompanyFormationView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FormationView
+		localVarReturnValue *CompanyFormationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyAdvance")
@@ -656,8 +696,8 @@ func (a *CompanyAPIService) PostCompanyAdvanceExecute(r CompanyAPIPostCompanyAdv
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.advanceIn == nil {
-		return localVarReturnValue, nil, reportError("advanceIn is required and must be specified")
+	if r.companyAdvanceIn == nil {
+		return localVarReturnValue, nil, reportError("companyAdvanceIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -670,7 +710,7 @@ func (a *CompanyAPIService) PostCompanyAdvanceExecute(r CompanyAPIPostCompanyAdv
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -678,7 +718,7 @@ func (a *CompanyAPIService) PostCompanyAdvanceExecute(r CompanyAPIPostCompanyAdv
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.advanceIn
+	localVarPostBody = r.companyAdvanceIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -701,6 +741,14 @@ func (a *CompanyAPIService) PostCompanyAdvanceExecute(r CompanyAPIPostCompanyAdv
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -721,7 +769,7 @@ type CompanyAPIPostCompanyDocumentsRequest struct {
 	ApiService *CompanyAPIService
 }
 
-func (r CompanyAPIPostCompanyDocumentsRequest) Execute() (*FormationView, *http.Response, error) {
+func (r CompanyAPIPostCompanyDocumentsRequest) Execute() (*CompanyFormationView, *http.Response, error) {
 	return r.ApiService.PostCompanyDocumentsExecute(r)
 }
 
@@ -747,13 +795,13 @@ func (a *CompanyAPIService) PostCompanyDocuments(ctx context.Context) CompanyAPI
 
 // Execute executes the request
 //
-//	@return FormationView
-func (a *CompanyAPIService) PostCompanyDocumentsExecute(r CompanyAPIPostCompanyDocumentsRequest) (*FormationView, *http.Response, error) {
+//	@return CompanyFormationView
+func (a *CompanyAPIService) PostCompanyDocumentsExecute(r CompanyAPIPostCompanyDocumentsRequest) (*CompanyFormationView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FormationView
+		localVarReturnValue *CompanyFormationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyDocuments")
@@ -777,7 +825,7 @@ func (a *CompanyAPIService) PostCompanyDocumentsExecute(r CompanyAPIPostCompanyD
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -806,6 +854,14 @@ func (a *CompanyAPIService) PostCompanyDocumentsExecute(r CompanyAPIPostCompanyD
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -822,17 +878,17 @@ func (a *CompanyAPIService) PostCompanyDocumentsExecute(r CompanyAPIPostCompanyD
 }
 
 type CompanyAPIPostCompanyEinRequest struct {
-	ctx        context.Context
-	ApiService *CompanyAPIService
-	einIn      *EinIn
+	ctx          context.Context
+	ApiService   *CompanyAPIService
+	companyEinIn *CompanyEinIn
 }
 
-func (r CompanyAPIPostCompanyEinRequest) EinIn(einIn EinIn) CompanyAPIPostCompanyEinRequest {
-	r.einIn = &einIn
+func (r CompanyAPIPostCompanyEinRequest) CompanyEinIn(companyEinIn CompanyEinIn) CompanyAPIPostCompanyEinRequest {
+	r.companyEinIn = &companyEinIn
 	return r
 }
 
-func (r CompanyAPIPostCompanyEinRequest) Execute() (*EIN, *http.Response, error) {
+func (r CompanyAPIPostCompanyEinRequest) Execute() (*CompanyEIN, *http.Response, error) {
 	return r.ApiService.PostCompanyEinExecute(r)
 }
 
@@ -858,13 +914,13 @@ func (a *CompanyAPIService) PostCompanyEin(ctx context.Context) CompanyAPIPostCo
 
 // Execute executes the request
 //
-//	@return EIN
-func (a *CompanyAPIService) PostCompanyEinExecute(r CompanyAPIPostCompanyEinRequest) (*EIN, *http.Response, error) {
+//	@return CompanyEIN
+func (a *CompanyAPIService) PostCompanyEinExecute(r CompanyAPIPostCompanyEinRequest) (*CompanyEIN, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EIN
+		localVarReturnValue *CompanyEIN
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyEin")
@@ -877,8 +933,8 @@ func (a *CompanyAPIService) PostCompanyEinExecute(r CompanyAPIPostCompanyEinRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.einIn == nil {
-		return localVarReturnValue, nil, reportError("einIn is required and must be specified")
+	if r.companyEinIn == nil {
+		return localVarReturnValue, nil, reportError("companyEinIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -891,7 +947,7 @@ func (a *CompanyAPIService) PostCompanyEinExecute(r CompanyAPIPostCompanyEinRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -899,7 +955,7 @@ func (a *CompanyAPIService) PostCompanyEinExecute(r CompanyAPIPostCompanyEinRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.einIn
+	localVarPostBody = r.companyEinIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -922,6 +978,14 @@ func (a *CompanyAPIService) PostCompanyEinExecute(r CompanyAPIPostCompanyEinRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -942,7 +1006,7 @@ type CompanyAPIPostCompanyEsignRequest struct {
 	ApiService *CompanyAPIService
 }
 
-func (r CompanyAPIPostCompanyEsignRequest) Execute() (*EsignOut, *http.Response, error) {
+func (r CompanyAPIPostCompanyEsignRequest) Execute() (*CompanyEsignOut, *http.Response, error) {
 	return r.ApiService.PostCompanyEsignExecute(r)
 }
 
@@ -965,13 +1029,13 @@ func (a *CompanyAPIService) PostCompanyEsign(ctx context.Context) CompanyAPIPost
 
 // Execute executes the request
 //
-//	@return EsignOut
-func (a *CompanyAPIService) PostCompanyEsignExecute(r CompanyAPIPostCompanyEsignRequest) (*EsignOut, *http.Response, error) {
+//	@return CompanyEsignOut
+func (a *CompanyAPIService) PostCompanyEsignExecute(r CompanyAPIPostCompanyEsignRequest) (*CompanyEsignOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EsignOut
+		localVarReturnValue *CompanyEsignOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyEsign")
@@ -995,7 +1059,7 @@ func (a *CompanyAPIService) PostCompanyEsignExecute(r CompanyAPIPostCompanyEsign
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1024,6 +1088,14 @@ func (a *CompanyAPIService) PostCompanyEsignExecute(r CompanyAPIPostCompanyEsign
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1040,17 +1112,17 @@ func (a *CompanyAPIService) PostCompanyEsignExecute(r CompanyAPIPostCompanyEsign
 }
 
 type CompanyAPIPostCompanyEsignCompleteRequest struct {
-	ctx             context.Context
-	ApiService      *CompanyAPIService
-	esignCompleteIn *EsignCompleteIn
+	ctx                    context.Context
+	ApiService             *CompanyAPIService
+	companyEsignCompleteIn *CompanyEsignCompleteIn
 }
 
-func (r CompanyAPIPostCompanyEsignCompleteRequest) EsignCompleteIn(esignCompleteIn EsignCompleteIn) CompanyAPIPostCompanyEsignCompleteRequest {
-	r.esignCompleteIn = &esignCompleteIn
+func (r CompanyAPIPostCompanyEsignCompleteRequest) CompanyEsignCompleteIn(companyEsignCompleteIn CompanyEsignCompleteIn) CompanyAPIPostCompanyEsignCompleteRequest {
+	r.companyEsignCompleteIn = &companyEsignCompleteIn
 	return r
 }
 
-func (r CompanyAPIPostCompanyEsignCompleteRequest) Execute() (*FormationView, *http.Response, error) {
+func (r CompanyAPIPostCompanyEsignCompleteRequest) Execute() (*CompanyFormationView, *http.Response, error) {
 	return r.ApiService.PostCompanyEsignCompleteExecute(r)
 }
 
@@ -1076,13 +1148,13 @@ func (a *CompanyAPIService) PostCompanyEsignComplete(ctx context.Context) Compan
 
 // Execute executes the request
 //
-//	@return FormationView
-func (a *CompanyAPIService) PostCompanyEsignCompleteExecute(r CompanyAPIPostCompanyEsignCompleteRequest) (*FormationView, *http.Response, error) {
+//	@return CompanyFormationView
+func (a *CompanyAPIService) PostCompanyEsignCompleteExecute(r CompanyAPIPostCompanyEsignCompleteRequest) (*CompanyFormationView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FormationView
+		localVarReturnValue *CompanyFormationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyEsignComplete")
@@ -1095,8 +1167,8 @@ func (a *CompanyAPIService) PostCompanyEsignCompleteExecute(r CompanyAPIPostComp
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.esignCompleteIn == nil {
-		return localVarReturnValue, nil, reportError("esignCompleteIn is required and must be specified")
+	if r.companyEsignCompleteIn == nil {
+		return localVarReturnValue, nil, reportError("companyEsignCompleteIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1109,7 +1181,7 @@ func (a *CompanyAPIService) PostCompanyEsignCompleteExecute(r CompanyAPIPostComp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1117,7 +1189,7 @@ func (a *CompanyAPIService) PostCompanyEsignCompleteExecute(r CompanyAPIPostComp
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.esignCompleteIn
+	localVarPostBody = r.companyEsignCompleteIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1140,6 +1212,14 @@ func (a *CompanyAPIService) PostCompanyEsignCompleteExecute(r CompanyAPIPostComp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1156,17 +1236,17 @@ func (a *CompanyAPIService) PostCompanyEsignCompleteExecute(r CompanyAPIPostComp
 }
 
 type CompanyAPIPostCompanyFoundersRequest struct {
-	ctx        context.Context
-	ApiService *CompanyAPIService
-	foundersIn *FoundersIn
+	ctx               context.Context
+	ApiService        *CompanyAPIService
+	companyFoundersIn *CompanyFoundersIn
 }
 
-func (r CompanyAPIPostCompanyFoundersRequest) FoundersIn(foundersIn FoundersIn) CompanyAPIPostCompanyFoundersRequest {
-	r.foundersIn = &foundersIn
+func (r CompanyAPIPostCompanyFoundersRequest) CompanyFoundersIn(companyFoundersIn CompanyFoundersIn) CompanyAPIPostCompanyFoundersRequest {
+	r.companyFoundersIn = &companyFoundersIn
 	return r
 }
 
-func (r CompanyAPIPostCompanyFoundersRequest) Execute() (*FormationView, *http.Response, error) {
+func (r CompanyAPIPostCompanyFoundersRequest) Execute() (*CompanyFormationView, *http.Response, error) {
 	return r.ApiService.PostCompanyFoundersExecute(r)
 }
 
@@ -1189,13 +1269,13 @@ func (a *CompanyAPIService) PostCompanyFounders(ctx context.Context) CompanyAPIP
 
 // Execute executes the request
 //
-//	@return FormationView
-func (a *CompanyAPIService) PostCompanyFoundersExecute(r CompanyAPIPostCompanyFoundersRequest) (*FormationView, *http.Response, error) {
+//	@return CompanyFormationView
+func (a *CompanyAPIService) PostCompanyFoundersExecute(r CompanyAPIPostCompanyFoundersRequest) (*CompanyFormationView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FormationView
+		localVarReturnValue *CompanyFormationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyFounders")
@@ -1208,8 +1288,8 @@ func (a *CompanyAPIService) PostCompanyFoundersExecute(r CompanyAPIPostCompanyFo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.foundersIn == nil {
-		return localVarReturnValue, nil, reportError("foundersIn is required and must be specified")
+	if r.companyFoundersIn == nil {
+		return localVarReturnValue, nil, reportError("companyFoundersIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1222,7 +1302,7 @@ func (a *CompanyAPIService) PostCompanyFoundersExecute(r CompanyAPIPostCompanyFo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1230,7 +1310,7 @@ func (a *CompanyAPIService) PostCompanyFoundersExecute(r CompanyAPIPostCompanyFo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.foundersIn
+	localVarPostBody = r.companyFoundersIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1253,6 +1333,14 @@ func (a *CompanyAPIService) PostCompanyFoundersExecute(r CompanyAPIPostCompanyFo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1379,17 +1467,17 @@ func (a *CompanyAPIService) PostCompanyFundraiseDeckExecute(r CompanyAPIPostComp
 }
 
 type CompanyAPIPostCompanyFundraiseRoundRequest struct {
-	ctx        context.Context
-	ApiService *CompanyAPIService
-	roundInput *RoundInput
+	ctx               context.Context
+	ApiService        *CompanyAPIService
+	companyRoundInput *CompanyRoundInput
 }
 
-func (r CompanyAPIPostCompanyFundraiseRoundRequest) RoundInput(roundInput RoundInput) CompanyAPIPostCompanyFundraiseRoundRequest {
-	r.roundInput = &roundInput
+func (r CompanyAPIPostCompanyFundraiseRoundRequest) CompanyRoundInput(companyRoundInput CompanyRoundInput) CompanyAPIPostCompanyFundraiseRoundRequest {
+	r.companyRoundInput = &companyRoundInput
 	return r
 }
 
-func (r CompanyAPIPostCompanyFundraiseRoundRequest) Execute() (*RoundOut, *http.Response, error) {
+func (r CompanyAPIPostCompanyFundraiseRoundRequest) Execute() (*CompanyRoundOut, *http.Response, error) {
 	return r.ApiService.PostCompanyFundraiseRoundExecute(r)
 }
 
@@ -1412,13 +1500,13 @@ func (a *CompanyAPIService) PostCompanyFundraiseRound(ctx context.Context) Compa
 
 // Execute executes the request
 //
-//	@return RoundOut
-func (a *CompanyAPIService) PostCompanyFundraiseRoundExecute(r CompanyAPIPostCompanyFundraiseRoundRequest) (*RoundOut, *http.Response, error) {
+//	@return CompanyRoundOut
+func (a *CompanyAPIService) PostCompanyFundraiseRoundExecute(r CompanyAPIPostCompanyFundraiseRoundRequest) (*CompanyRoundOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RoundOut
+		localVarReturnValue *CompanyRoundOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyFundraiseRound")
@@ -1431,8 +1519,8 @@ func (a *CompanyAPIService) PostCompanyFundraiseRoundExecute(r CompanyAPIPostCom
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.roundInput == nil {
-		return localVarReturnValue, nil, reportError("roundInput is required and must be specified")
+	if r.companyRoundInput == nil {
+		return localVarReturnValue, nil, reportError("companyRoundInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1445,7 +1533,7 @@ func (a *CompanyAPIService) PostCompanyFundraiseRoundExecute(r CompanyAPIPostCom
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1453,7 +1541,7 @@ func (a *CompanyAPIService) PostCompanyFundraiseRoundExecute(r CompanyAPIPostCom
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.roundInput
+	localVarPostBody = r.companyRoundInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1476,6 +1564,14 @@ func (a *CompanyAPIService) PostCompanyFundraiseRoundExecute(r CompanyAPIPostCom
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1492,17 +1588,17 @@ func (a *CompanyAPIService) PostCompanyFundraiseRoundExecute(r CompanyAPIPostCom
 }
 
 type CompanyAPIPostCompanyFundraiseSafeRequest struct {
-	ctx        context.Context
-	ApiService *CompanyAPIService
-	safeIn     *SafeIn
+	ctx           context.Context
+	ApiService    *CompanyAPIService
+	companySafeIn *CompanySafeIn
 }
 
-func (r CompanyAPIPostCompanyFundraiseSafeRequest) SafeIn(safeIn SafeIn) CompanyAPIPostCompanyFundraiseSafeRequest {
-	r.safeIn = &safeIn
+func (r CompanyAPIPostCompanyFundraiseSafeRequest) CompanySafeIn(companySafeIn CompanySafeIn) CompanyAPIPostCompanyFundraiseSafeRequest {
+	r.companySafeIn = &companySafeIn
 	return r
 }
 
-func (r CompanyAPIPostCompanyFundraiseSafeRequest) Execute() (*SafeOut, *http.Response, error) {
+func (r CompanyAPIPostCompanyFundraiseSafeRequest) Execute() (*CompanySafeOut, *http.Response, error) {
 	return r.ApiService.PostCompanyFundraiseSafeExecute(r)
 }
 
@@ -1525,13 +1621,13 @@ func (a *CompanyAPIService) PostCompanyFundraiseSafe(ctx context.Context) Compan
 
 // Execute executes the request
 //
-//	@return SafeOut
-func (a *CompanyAPIService) PostCompanyFundraiseSafeExecute(r CompanyAPIPostCompanyFundraiseSafeRequest) (*SafeOut, *http.Response, error) {
+//	@return CompanySafeOut
+func (a *CompanyAPIService) PostCompanyFundraiseSafeExecute(r CompanyAPIPostCompanyFundraiseSafeRequest) (*CompanySafeOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SafeOut
+		localVarReturnValue *CompanySafeOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyFundraiseSafe")
@@ -1544,8 +1640,8 @@ func (a *CompanyAPIService) PostCompanyFundraiseSafeExecute(r CompanyAPIPostComp
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.safeIn == nil {
-		return localVarReturnValue, nil, reportError("safeIn is required and must be specified")
+	if r.companySafeIn == nil {
+		return localVarReturnValue, nil, reportError("companySafeIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1558,7 +1654,7 @@ func (a *CompanyAPIService) PostCompanyFundraiseSafeExecute(r CompanyAPIPostComp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1566,7 +1662,7 @@ func (a *CompanyAPIService) PostCompanyFundraiseSafeExecute(r CompanyAPIPostComp
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.safeIn
+	localVarPostBody = r.companySafeIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1589,6 +1685,14 @@ func (a *CompanyAPIService) PostCompanyFundraiseSafeExecute(r CompanyAPIPostComp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1609,7 +1713,7 @@ type CompanyAPIPostCompanyGenesisRequest struct {
 	ApiService *CompanyAPIService
 }
 
-func (r CompanyAPIPostCompanyGenesisRequest) Execute() (*FormationView, *http.Response, error) {
+func (r CompanyAPIPostCompanyGenesisRequest) Execute() (*CompanyFormationView, *http.Response, error) {
 	return r.ApiService.PostCompanyGenesisExecute(r)
 }
 
@@ -1637,13 +1741,13 @@ func (a *CompanyAPIService) PostCompanyGenesis(ctx context.Context) CompanyAPIPo
 
 // Execute executes the request
 //
-//	@return FormationView
-func (a *CompanyAPIService) PostCompanyGenesisExecute(r CompanyAPIPostCompanyGenesisRequest) (*FormationView, *http.Response, error) {
+//	@return CompanyFormationView
+func (a *CompanyAPIService) PostCompanyGenesisExecute(r CompanyAPIPostCompanyGenesisRequest) (*CompanyFormationView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FormationView
+		localVarReturnValue *CompanyFormationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyGenesis")
@@ -1667,7 +1771,7 @@ func (a *CompanyAPIService) PostCompanyGenesisExecute(r CompanyAPIPostCompanyGen
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1696,6 +1800,14 @@ func (a *CompanyAPIService) PostCompanyGenesisExecute(r CompanyAPIPostCompanyGen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1712,17 +1824,17 @@ func (a *CompanyAPIService) PostCompanyGenesisExecute(r CompanyAPIPostCompanyGen
 }
 
 type CompanyAPIPostCompanyImportCaptableRequest struct {
-	ctx              context.Context
-	ApiService       *CompanyAPIService
-	importCapTableIn *ImportCapTableIn
+	ctx                     context.Context
+	ApiService              *CompanyAPIService
+	companyImportCapTableIn *CompanyImportCapTableIn
 }
 
-func (r CompanyAPIPostCompanyImportCaptableRequest) ImportCapTableIn(importCapTableIn ImportCapTableIn) CompanyAPIPostCompanyImportCaptableRequest {
-	r.importCapTableIn = &importCapTableIn
+func (r CompanyAPIPostCompanyImportCaptableRequest) CompanyImportCapTableIn(companyImportCapTableIn CompanyImportCapTableIn) CompanyAPIPostCompanyImportCaptableRequest {
+	r.companyImportCapTableIn = &companyImportCapTableIn
 	return r
 }
 
-func (r CompanyAPIPostCompanyImportCaptableRequest) Execute() (*ImportCapTableOut, *http.Response, error) {
+func (r CompanyAPIPostCompanyImportCaptableRequest) Execute() (*CompanyImportCapTableOut, *http.Response, error) {
 	return r.ApiService.PostCompanyImportCaptableExecute(r)
 }
 
@@ -1749,13 +1861,13 @@ func (a *CompanyAPIService) PostCompanyImportCaptable(ctx context.Context) Compa
 
 // Execute executes the request
 //
-//	@return ImportCapTableOut
-func (a *CompanyAPIService) PostCompanyImportCaptableExecute(r CompanyAPIPostCompanyImportCaptableRequest) (*ImportCapTableOut, *http.Response, error) {
+//	@return CompanyImportCapTableOut
+func (a *CompanyAPIService) PostCompanyImportCaptableExecute(r CompanyAPIPostCompanyImportCaptableRequest) (*CompanyImportCapTableOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ImportCapTableOut
+		localVarReturnValue *CompanyImportCapTableOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyImportCaptable")
@@ -1768,8 +1880,8 @@ func (a *CompanyAPIService) PostCompanyImportCaptableExecute(r CompanyAPIPostCom
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.importCapTableIn == nil {
-		return localVarReturnValue, nil, reportError("importCapTableIn is required and must be specified")
+	if r.companyImportCapTableIn == nil {
+		return localVarReturnValue, nil, reportError("companyImportCapTableIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1782,7 +1894,7 @@ func (a *CompanyAPIService) PostCompanyImportCaptableExecute(r CompanyAPIPostCom
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1790,7 +1902,7 @@ func (a *CompanyAPIService) PostCompanyImportCaptableExecute(r CompanyAPIPostCom
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.importCapTableIn
+	localVarPostBody = r.companyImportCapTableIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1813,6 +1925,14 @@ func (a *CompanyAPIService) PostCompanyImportCaptableExecute(r CompanyAPIPostCom
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1829,17 +1949,17 @@ func (a *CompanyAPIService) PostCompanyImportCaptableExecute(r CompanyAPIPostCom
 }
 
 type CompanyAPIPostCompanyImportDocumentsRequest struct {
-	ctx               context.Context
-	ApiService        *CompanyAPIService
-	importDocumentsIn *ImportDocumentsIn
+	ctx                      context.Context
+	ApiService               *CompanyAPIService
+	companyImportDocumentsIn *CompanyImportDocumentsIn
 }
 
-func (r CompanyAPIPostCompanyImportDocumentsRequest) ImportDocumentsIn(importDocumentsIn ImportDocumentsIn) CompanyAPIPostCompanyImportDocumentsRequest {
-	r.importDocumentsIn = &importDocumentsIn
+func (r CompanyAPIPostCompanyImportDocumentsRequest) CompanyImportDocumentsIn(companyImportDocumentsIn CompanyImportDocumentsIn) CompanyAPIPostCompanyImportDocumentsRequest {
+	r.companyImportDocumentsIn = &companyImportDocumentsIn
 	return r
 }
 
-func (r CompanyAPIPostCompanyImportDocumentsRequest) Execute() (*ImportDocumentsOut, *http.Response, error) {
+func (r CompanyAPIPostCompanyImportDocumentsRequest) Execute() (*CompanyImportDocumentsOut, *http.Response, error) {
 	return r.ApiService.PostCompanyImportDocumentsExecute(r)
 }
 
@@ -1862,13 +1982,13 @@ func (a *CompanyAPIService) PostCompanyImportDocuments(ctx context.Context) Comp
 
 // Execute executes the request
 //
-//	@return ImportDocumentsOut
-func (a *CompanyAPIService) PostCompanyImportDocumentsExecute(r CompanyAPIPostCompanyImportDocumentsRequest) (*ImportDocumentsOut, *http.Response, error) {
+//	@return CompanyImportDocumentsOut
+func (a *CompanyAPIService) PostCompanyImportDocumentsExecute(r CompanyAPIPostCompanyImportDocumentsRequest) (*CompanyImportDocumentsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ImportDocumentsOut
+		localVarReturnValue *CompanyImportDocumentsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyImportDocuments")
@@ -1881,8 +2001,8 @@ func (a *CompanyAPIService) PostCompanyImportDocumentsExecute(r CompanyAPIPostCo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.importDocumentsIn == nil {
-		return localVarReturnValue, nil, reportError("importDocumentsIn is required and must be specified")
+	if r.companyImportDocumentsIn == nil {
+		return localVarReturnValue, nil, reportError("companyImportDocumentsIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1895,7 +2015,7 @@ func (a *CompanyAPIService) PostCompanyImportDocumentsExecute(r CompanyAPIPostCo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1903,7 +2023,7 @@ func (a *CompanyAPIService) PostCompanyImportDocumentsExecute(r CompanyAPIPostCo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.importDocumentsIn
+	localVarPostBody = r.companyImportDocumentsIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1926,6 +2046,14 @@ func (a *CompanyAPIService) PostCompanyImportDocumentsExecute(r CompanyAPIPostCo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1946,14 +2074,14 @@ type CompanyAPIPostCompanyKycRequest struct {
 	ApiService *CompanyAPIService
 }
 
-func (r CompanyAPIPostCompanyKycRequest) Execute() (*KycStartOut, *http.Response, error) {
+func (r CompanyAPIPostCompanyKycRequest) Execute() (*CompanyKycStartOut, *http.Response, error) {
 	return r.ApiService.PostCompanyKycExecute(r)
 }
 
 /*
-PostCompanyKyc StartKYC opens an identity-verification session for every founder with the wired provider and records each session's reference on the formation.
+PostCompanyKyc Opens an identity-verification session for every founder with the wired provider and records each session's reference on the formation.
 
-StartKYC opens an identity-verification session for every founder with the
+Opens an identity-verification session for every founder with the
 wired provider and records each session's reference on the formation.
 
 A start is never a decision: any terminal status the provider reports at
@@ -1973,13 +2101,13 @@ func (a *CompanyAPIService) PostCompanyKyc(ctx context.Context) CompanyAPIPostCo
 
 // Execute executes the request
 //
-//	@return KycStartOut
-func (a *CompanyAPIService) PostCompanyKycExecute(r CompanyAPIPostCompanyKycRequest) (*KycStartOut, *http.Response, error) {
+//	@return CompanyKycStartOut
+func (a *CompanyAPIService) PostCompanyKycExecute(r CompanyAPIPostCompanyKycRequest) (*CompanyKycStartOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KycStartOut
+		localVarReturnValue *CompanyKycStartOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyKyc")
@@ -2003,7 +2131,7 @@ func (a *CompanyAPIService) PostCompanyKycExecute(r CompanyAPIPostCompanyKycRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2032,124 +2160,14 @@ func (a *CompanyAPIService) PostCompanyKycExecute(r CompanyAPIPostCompanyKycRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type CompanyAPIPostCompanyKycDecisionRequest struct {
-	ctx        context.Context
-	ApiService *CompanyAPIService
-	decisionIn *DecisionIn
-}
-
-func (r CompanyAPIPostCompanyKycDecisionRequest) DecisionIn(decisionIn DecisionIn) CompanyAPIPostCompanyKycDecisionRequest {
-	r.decisionIn = &decisionIn
-	return r
-}
-
-func (r CompanyAPIPostCompanyKycDecisionRequest) Execute() (*FormationView, *http.Response, error) {
-	return r.ApiService.PostCompanyKycDecisionExecute(r)
-}
-
-/*
-PostCompanyKycDecision DecideKYC records a privileged reviewer's MANUAL decision on a founder's KYC — the human-in-the-loop path, and the ONLY route to a pass when no real provider is wired.
-
-DecideKYC records a privileged reviewer's MANUAL decision on a founder's KYC —
-the human-in-the-loop path, and the ONLY route to a pass when no real provider
-is wired. It produces a DISTINCT reviewer_confirmed, never a provider
-"verified".
-
-Because Hanzo forms the entity and carries the formation KYC/AML obligation,
-the reviewer is a HANZO platform reviewer (SuperAdmin), and the decision is
-ATTRIBUTED to them.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return CompanyAPIPostCompanyKycDecisionRequest
-*/
-func (a *CompanyAPIService) PostCompanyKycDecision(ctx context.Context) CompanyAPIPostCompanyKycDecisionRequest {
-	return CompanyAPIPostCompanyKycDecisionRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return FormationView
-func (a *CompanyAPIService) PostCompanyKycDecisionExecute(r CompanyAPIPostCompanyKycDecisionRequest) (*FormationView, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *FormationView
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyKycDecision")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/company/kyc/decision"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.decisionIn == nil {
-		return localVarReturnValue, nil, reportError("decisionIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.decisionIn
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2170,7 +2188,7 @@ type CompanyAPIPostCompanyKycRefreshRequest struct {
 	ApiService *CompanyAPIService
 }
 
-func (r CompanyAPIPostCompanyKycRefreshRequest) Execute() (*KycRefreshOut, *http.Response, error) {
+func (r CompanyAPIPostCompanyKycRefreshRequest) Execute() (*CompanyKycRefreshOut, *http.Response, error) {
 	return r.ApiService.PostCompanyKycRefreshExecute(r)
 }
 
@@ -2198,13 +2216,13 @@ func (a *CompanyAPIService) PostCompanyKycRefresh(ctx context.Context) CompanyAP
 
 // Execute executes the request
 //
-//	@return KycRefreshOut
-func (a *CompanyAPIService) PostCompanyKycRefreshExecute(r CompanyAPIPostCompanyKycRefreshRequest) (*KycRefreshOut, *http.Response, error) {
+//	@return CompanyKycRefreshOut
+func (a *CompanyAPIService) PostCompanyKycRefreshExecute(r CompanyAPIPostCompanyKycRefreshRequest) (*CompanyKycRefreshOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KycRefreshOut
+		localVarReturnValue *CompanyKycRefreshOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyKycRefresh")
@@ -2228,7 +2246,7 @@ func (a *CompanyAPIService) PostCompanyKycRefreshExecute(r CompanyAPIPostCompany
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2257,6 +2275,14 @@ func (a *CompanyAPIService) PostCompanyKycRefreshExecute(r CompanyAPIPostCompany
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2277,7 +2303,7 @@ type CompanyAPIPostCompanyPaymentRequest struct {
 	ApiService *CompanyAPIService
 }
 
-func (r CompanyAPIPostCompanyPaymentRequest) Execute() (*FormationView, *http.Response, error) {
+func (r CompanyAPIPostCompanyPaymentRequest) Execute() (*CompanyFormationView, *http.Response, error) {
 	return r.ApiService.PostCompanyPaymentExecute(r)
 }
 
@@ -2318,13 +2344,13 @@ func (a *CompanyAPIService) PostCompanyPayment(ctx context.Context) CompanyAPIPo
 
 // Execute executes the request
 //
-//	@return FormationView
-func (a *CompanyAPIService) PostCompanyPaymentExecute(r CompanyAPIPostCompanyPaymentRequest) (*FormationView, *http.Response, error) {
+//	@return CompanyFormationView
+func (a *CompanyAPIService) PostCompanyPaymentExecute(r CompanyAPIPostCompanyPaymentRequest) (*CompanyFormationView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FormationView
+		localVarReturnValue *CompanyFormationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyPayment")
@@ -2348,7 +2374,7 @@ func (a *CompanyAPIService) PostCompanyPaymentExecute(r CompanyAPIPostCompanyPay
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2377,6 +2403,14 @@ func (a *CompanyAPIService) PostCompanyPaymentExecute(r CompanyAPIPostCompanyPay
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2397,14 +2431,14 @@ type CompanyAPIPostCompanySkipRequest struct {
 	ApiService *CompanyAPIService
 }
 
-func (r CompanyAPIPostCompanySkipRequest) Execute() (*FormationView, *http.Response, error) {
+func (r CompanyAPIPostCompanySkipRequest) Execute() (*CompanyFormationView, *http.Response, error) {
 	return r.ApiService.PostCompanySkipExecute(r)
 }
 
 /*
-PostCompanySkip Skip marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
+PostCompanySkip Marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
 
-Skip marks the org as already incorporated and moves it onto the import path,
+Marks the org as already incorporated and moves it onto the import path,
 so an existing company brings its documents and cap table in instead of forming
 a new entity. Available only at the structure stage.
 
@@ -2420,13 +2454,13 @@ func (a *CompanyAPIService) PostCompanySkip(ctx context.Context) CompanyAPIPostC
 
 // Execute executes the request
 //
-//	@return FormationView
-func (a *CompanyAPIService) PostCompanySkipExecute(r CompanyAPIPostCompanySkipRequest) (*FormationView, *http.Response, error) {
+//	@return CompanyFormationView
+func (a *CompanyAPIService) PostCompanySkipExecute(r CompanyAPIPostCompanySkipRequest) (*CompanyFormationView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FormationView
+		localVarReturnValue *CompanyFormationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanySkip")
@@ -2450,7 +2484,7 @@ func (a *CompanyAPIService) PostCompanySkipExecute(r CompanyAPIPostCompanySkipRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2479,6 +2513,14 @@ func (a *CompanyAPIService) PostCompanySkipExecute(r CompanyAPIPostCompanySkipRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2495,17 +2537,17 @@ func (a *CompanyAPIService) PostCompanySkipExecute(r CompanyAPIPostCompanySkipRe
 }
 
 type CompanyAPIPostCompanyTariffRequest struct {
-	ctx        context.Context
-	ApiService *CompanyAPIService
-	tariffIn   *TariffIn
+	ctx             context.Context
+	ApiService      *CompanyAPIService
+	companyTariffIn *CompanyTariffIn
 }
 
-func (r CompanyAPIPostCompanyTariffRequest) TariffIn(tariffIn TariffIn) CompanyAPIPostCompanyTariffRequest {
-	r.tariffIn = &tariffIn
+func (r CompanyAPIPostCompanyTariffRequest) CompanyTariffIn(companyTariffIn CompanyTariffIn) CompanyAPIPostCompanyTariffRequest {
+	r.companyTariffIn = &companyTariffIn
 	return r
 }
 
-func (r CompanyAPIPostCompanyTariffRequest) Execute() (*Tariff, *http.Response, error) {
+func (r CompanyAPIPostCompanyTariffRequest) Execute() (*CompanyTariff, *http.Response, error) {
 	return r.ApiService.PostCompanyTariffExecute(r)
 }
 
@@ -2535,13 +2577,13 @@ func (a *CompanyAPIService) PostCompanyTariff(ctx context.Context) CompanyAPIPos
 
 // Execute executes the request
 //
-//	@return Tariff
-func (a *CompanyAPIService) PostCompanyTariffExecute(r CompanyAPIPostCompanyTariffRequest) (*Tariff, *http.Response, error) {
+//	@return CompanyTariff
+func (a *CompanyAPIService) PostCompanyTariffExecute(r CompanyAPIPostCompanyTariffRequest) (*CompanyTariff, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Tariff
+		localVarReturnValue *CompanyTariff
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PostCompanyTariff")
@@ -2554,8 +2596,8 @@ func (a *CompanyAPIService) PostCompanyTariffExecute(r CompanyAPIPostCompanyTari
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.tariffIn == nil {
-		return localVarReturnValue, nil, reportError("tariffIn is required and must be specified")
+	if r.companyTariffIn == nil {
+		return localVarReturnValue, nil, reportError("companyTariffIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2568,7 +2610,7 @@ func (a *CompanyAPIService) PostCompanyTariffExecute(r CompanyAPIPostCompanyTari
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2576,7 +2618,7 @@ func (a *CompanyAPIService) PostCompanyTariffExecute(r CompanyAPIPostCompanyTari
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.tariffIn
+	localVarPostBody = r.companyTariffIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2599,6 +2641,14 @@ func (a *CompanyAPIService) PostCompanyTariffExecute(r CompanyAPIPostCompanyTari
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2615,17 +2665,17 @@ func (a *CompanyAPIService) PostCompanyTariffExecute(r CompanyAPIPostCompanyTari
 }
 
 type CompanyAPIPutCompanyStructureRequest struct {
-	ctx         context.Context
-	ApiService  *CompanyAPIService
-	structureIn *StructureIn
+	ctx                context.Context
+	ApiService         *CompanyAPIService
+	companyStructureIn *CompanyStructureIn
 }
 
-func (r CompanyAPIPutCompanyStructureRequest) StructureIn(structureIn StructureIn) CompanyAPIPutCompanyStructureRequest {
-	r.structureIn = &structureIn
+func (r CompanyAPIPutCompanyStructureRequest) CompanyStructureIn(companyStructureIn CompanyStructureIn) CompanyAPIPutCompanyStructureRequest {
+	r.companyStructureIn = &companyStructureIn
 	return r
 }
 
-func (r CompanyAPIPutCompanyStructureRequest) Execute() (*FormationView, *http.Response, error) {
+func (r CompanyAPIPutCompanyStructureRequest) Execute() (*CompanyFormationView, *http.Response, error) {
 	return r.ApiService.PutCompanyStructureExecute(r)
 }
 
@@ -2648,13 +2698,13 @@ func (a *CompanyAPIService) PutCompanyStructure(ctx context.Context) CompanyAPIP
 
 // Execute executes the request
 //
-//	@return FormationView
-func (a *CompanyAPIService) PutCompanyStructureExecute(r CompanyAPIPutCompanyStructureRequest) (*FormationView, *http.Response, error) {
+//	@return CompanyFormationView
+func (a *CompanyAPIService) PutCompanyStructureExecute(r CompanyAPIPutCompanyStructureRequest) (*CompanyFormationView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FormationView
+		localVarReturnValue *CompanyFormationView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompanyAPIService.PutCompanyStructure")
@@ -2667,8 +2717,8 @@ func (a *CompanyAPIService) PutCompanyStructureExecute(r CompanyAPIPutCompanyStr
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.structureIn == nil {
-		return localVarReturnValue, nil, reportError("structureIn is required and must be specified")
+	if r.companyStructureIn == nil {
+		return localVarReturnValue, nil, reportError("companyStructureIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2681,7 +2731,7 @@ func (a *CompanyAPIService) PutCompanyStructureExecute(r CompanyAPIPutCompanyStr
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2689,7 +2739,7 @@ func (a *CompanyAPIService) PutCompanyStructureExecute(r CompanyAPIPutCompanyStr
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.structureIn
+	localVarPostBody = r.companyStructureIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2712,6 +2762,14 @@ func (a *CompanyAPIService) PutCompanyStructureExecute(r CompanyAPIPutCompanyStr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -19,32 +19,35 @@ var _ MappedNullable = &Chat{}
 
 // Chat struct for Chat
 type Chat struct {
-	Category      *string  `json:"category,omitempty"`
-	ClientIp      *string  `json:"clientIp,omitempty"`
-	ClientIpDesc  *string  `json:"clientIpDesc,omitempty"`
-	CreatedTime   *string  `json:"createdTime,omitempty"`
-	Currency      *string  `json:"currency,omitempty"`
-	DisplayName   *string  `json:"displayName,omitempty"`
-	IsDeleted     *bool    `json:"isDeleted,omitempty"`
-	IsHidden      *bool    `json:"isHidden,omitempty"`
-	MessageCount  *int32   `json:"messageCount,omitempty"`
-	ModelProvider *string  `json:"modelProvider,omitempty"`
-	Name          *string  `json:"name,omitempty"`
-	NeedTitle     *bool    `json:"needTitle,omitempty"`
-	Organization  *string  `json:"organization,omitempty"`
-	Owner         *string  `json:"owner,omitempty"`
-	Price         *float32 `json:"price,omitempty"`
-	Store         *string  `json:"store,omitempty"`
-	TokenCount    *int32   `json:"tokenCount,omitempty"`
-	Type          *string  `json:"type,omitempty"`
-	UpdatedTime   *string  `json:"updatedTime,omitempty"`
-	User          *string  `json:"user,omitempty"`
-	User1         *string  `json:"user1,omitempty"`
-	User2         *string  `json:"user2,omitempty"`
-	UserAgent     *string  `json:"userAgent,omitempty"`
-	UserAgentDesc *string  `json:"userAgentDesc,omitempty"`
-	Users         []string `json:"users,omitempty"`
+	Category             *string  `json:"category,omitempty"`
+	ClientIp             *string  `json:"clientIp,omitempty"`
+	ClientIpDesc         *string  `json:"clientIpDesc,omitempty"`
+	CreatedTime          *string  `json:"createdTime,omitempty"`
+	Currency             *string  `json:"currency,omitempty"`
+	DisplayName          *string  `json:"displayName,omitempty"`
+	IsDeleted            *bool    `json:"isDeleted,omitempty"`
+	IsHidden             *bool    `json:"isHidden,omitempty"`
+	MessageCount         *int32   `json:"messageCount,omitempty"`
+	ModelProvider        *string  `json:"modelProvider,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	NeedTitle            *bool    `json:"needTitle,omitempty"`
+	Organization         *string  `json:"organization,omitempty"`
+	Owner                *string  `json:"owner,omitempty"`
+	Price                *float32 `json:"price,omitempty"`
+	Store                *string  `json:"store,omitempty"`
+	TokenCount           *int32   `json:"tokenCount,omitempty"`
+	Type                 *string  `json:"type,omitempty"`
+	UpdatedTime          *string  `json:"updatedTime,omitempty"`
+	User                 *string  `json:"user,omitempty"`
+	User1                *string  `json:"user1,omitempty"`
+	User2                *string  `json:"user2,omitempty"`
+	UserAgent            *string  `json:"userAgent,omitempty"`
+	UserAgentDesc        *string  `json:"userAgentDesc,omitempty"`
+	Users                []string `json:"users,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Chat Chat
 
 // NewChat instantiates a new Chat object
 // This constructor will assign default values to properties that have it defined,
@@ -948,7 +951,57 @@ func (o Chat) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Users) {
 		toSerialize["users"] = o.Users
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Chat) UnmarshalJSON(data []byte) (err error) {
+	varChat := _Chat{}
+
+	err = json.Unmarshal(data, &varChat)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Chat(varChat)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "clientIp")
+		delete(additionalProperties, "clientIpDesc")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "isDeleted")
+		delete(additionalProperties, "isHidden")
+		delete(additionalProperties, "messageCount")
+		delete(additionalProperties, "modelProvider")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "needTitle")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "price")
+		delete(additionalProperties, "store")
+		delete(additionalProperties, "tokenCount")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updatedTime")
+		delete(additionalProperties, "user")
+		delete(additionalProperties, "user1")
+		delete(additionalProperties, "user2")
+		delete(additionalProperties, "userAgent")
+		delete(additionalProperties, "userAgentDesc")
+		delete(additionalProperties, "users")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableChat struct {

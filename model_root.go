@@ -19,9 +19,12 @@ var _ MappedNullable = &Root{}
 
 // Root struct for Root
 type Root struct {
-	Links        map[string]Link `json:"_links,omitempty"`
-	Capabilities []Capability    `json:"capabilities,omitempty"`
+	Links                map[string]Link `json:"_links,omitempty"`
+	Capabilities         []Capability    `json:"capabilities,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Root Root
 
 // NewRoot instantiates a new Root object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o Root) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Capabilities) {
 		toSerialize["capabilities"] = o.Capabilities
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Root) UnmarshalJSON(data []byte) (err error) {
+	varRoot := _Root{}
+
+	err = json.Unmarshal(data, &varRoot)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Root(varRoot)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "_links")
+		delete(additionalProperties, "capabilities")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRoot struct {

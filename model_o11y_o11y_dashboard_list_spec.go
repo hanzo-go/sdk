@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yDashboardListSpec{}
 // O11yO11yDashboardListSpec struct for O11yO11yDashboardListSpec
 type O11yO11yDashboardListSpec struct {
 	// Display is the dashboard's display metadata.
-	Display *O11yO11yDashboardDisplay `json:"display,omitempty"`
+	Display              *O11yO11yDashboardDisplay `json:"display,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardListSpec O11yO11yDashboardListSpec
 
 // NewO11yO11yDashboardListSpec instantiates a new O11yO11yDashboardListSpec object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yDashboardListSpec) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Display) {
 		toSerialize["display"] = o.Display
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardListSpec) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardListSpec := _O11yO11yDashboardListSpec{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardListSpec)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardListSpec(varO11yO11yDashboardListSpec)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "display")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardListSpec struct {

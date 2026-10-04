@@ -26,7 +26,7 @@ type ExplorerAPIGetExplorerIndexersRequest struct {
 	ApiService *ExplorerAPIService
 }
 
-func (r ExplorerAPIGetExplorerIndexersRequest) Execute() (*IndexersOut, *http.Response, error) {
+func (r ExplorerAPIGetExplorerIndexersRequest) Execute() (*ExplorerIndexersOut, *http.Response, error) {
 	return r.ApiService.GetExplorerIndexersExecute(r)
 }
 
@@ -52,13 +52,13 @@ func (a *ExplorerAPIService) GetExplorerIndexers(ctx context.Context) ExplorerAP
 
 // Execute executes the request
 //
-//	@return IndexersOut
-func (a *ExplorerAPIService) GetExplorerIndexersExecute(r ExplorerAPIGetExplorerIndexersRequest) (*IndexersOut, *http.Response, error) {
+//	@return ExplorerIndexersOut
+func (a *ExplorerAPIService) GetExplorerIndexersExecute(r ExplorerAPIGetExplorerIndexersRequest) (*ExplorerIndexersOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *IndexersOut
+		localVarReturnValue *ExplorerIndexersOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExplorerAPIService.GetExplorerIndexers")
@@ -82,7 +82,7 @@ func (a *ExplorerAPIService) GetExplorerIndexersExecute(r ExplorerAPIGetExplorer
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -111,6 +111,14 @@ func (a *ExplorerAPIService) GetExplorerIndexersExecute(r ExplorerAPIGetExplorer
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -131,7 +139,7 @@ type ExplorerAPIGetExplorerOraclesRequest struct {
 	ApiService *ExplorerAPIService
 }
 
-func (r ExplorerAPIGetExplorerOraclesRequest) Execute() (*OraclesOut, *http.Response, error) {
+func (r ExplorerAPIGetExplorerOraclesRequest) Execute() (*ExplorerOraclesOut, *http.Response, error) {
 	return r.ApiService.GetExplorerOraclesExecute(r)
 }
 
@@ -155,13 +163,13 @@ func (a *ExplorerAPIService) GetExplorerOracles(ctx context.Context) ExplorerAPI
 
 // Execute executes the request
 //
-//	@return OraclesOut
-func (a *ExplorerAPIService) GetExplorerOraclesExecute(r ExplorerAPIGetExplorerOraclesRequest) (*OraclesOut, *http.Response, error) {
+//	@return ExplorerOraclesOut
+func (a *ExplorerAPIService) GetExplorerOraclesExecute(r ExplorerAPIGetExplorerOraclesRequest) (*ExplorerOraclesOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *OraclesOut
+		localVarReturnValue *ExplorerOraclesOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExplorerAPIService.GetExplorerOracles")
@@ -185,7 +193,7 @@ func (a *ExplorerAPIService) GetExplorerOraclesExecute(r ExplorerAPIGetExplorerO
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -214,6 +222,14 @@ func (a *ExplorerAPIService) GetExplorerOraclesExecute(r ExplorerAPIGetExplorerO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

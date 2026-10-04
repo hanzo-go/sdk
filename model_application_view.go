@@ -19,15 +19,18 @@ var _ MappedNullable = &ApplicationView{}
 
 // ApplicationView struct for ApplicationView
 type ApplicationView struct {
-	CreatedTime *string            `json:"createdTime,omitempty"`
-	Credentials []EnvVariable      `json:"credentials,omitempty"`
-	Deployments []DeploymentDetail `json:"deployments,omitempty"`
-	Events      []ApplicationEvent `json:"events,omitempty"`
-	Metrics     *ResourceMetrics   `json:"metrics,omitempty"`
-	Namespace   *string            `json:"namespace,omitempty"`
-	Services    []ServiceDetail    `json:"services,omitempty"`
-	Status      *string            `json:"status,omitempty"`
+	CreatedTime          *string            `json:"createdTime,omitempty"`
+	Credentials          []EnvVariable      `json:"credentials,omitempty"`
+	Deployments          []DeploymentDetail `json:"deployments,omitempty"`
+	Events               []ApplicationEvent `json:"events,omitempty"`
+	Metrics              *ResourceMetrics   `json:"metrics,omitempty"`
+	Namespace            *string            `json:"namespace,omitempty"`
+	Services             []ServiceDetail    `json:"services,omitempty"`
+	Status               *string            `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ApplicationView ApplicationView
 
 // NewApplicationView instantiates a new ApplicationView object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o ApplicationView) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ApplicationView) UnmarshalJSON(data []byte) (err error) {
+	varApplicationView := _ApplicationView{}
+
+	err = json.Unmarshal(data, &varApplicationView)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApplicationView(varApplicationView)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "credentials")
+		delete(additionalProperties, "deployments")
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "metrics")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "services")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableApplicationView struct {

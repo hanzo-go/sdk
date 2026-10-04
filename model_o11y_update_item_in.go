@@ -26,8 +26,11 @@ type O11yUpdateItemIn struct {
 	// ItemID is the item to update, from the path.
 	ItemId *string `json:"itemId,omitempty"`
 	// Status is the item's new review state: PENDING or COMPLETED. Required.
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yUpdateItemIn O11yUpdateItemIn
 
 // NewO11yUpdateItemIn instantiates a new O11yUpdateItemIn object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yUpdateItemIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yUpdateItemIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yUpdateItemIn := _O11yUpdateItemIn{}
+
+	err = json.Unmarshal(data, &varO11yUpdateItemIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yUpdateItemIn(varO11yUpdateItemIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "assignee")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "itemId")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yUpdateItemIn struct {

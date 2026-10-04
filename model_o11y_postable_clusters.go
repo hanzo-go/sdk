@@ -19,14 +19,17 @@ var _ MappedNullable = &O11yPostableClusters{}
 
 // O11yPostableClusters struct for O11yPostableClusters
 type O11yPostableClusters struct {
-	End     *int64                          `json:"end,omitempty"`
-	Filter  *O11yFilter                     `json:"filter,omitempty"`
-	GroupBy []O11yGroupByKey                `json:"groupBy,omitempty"`
-	Limit   *int64                          `json:"limit,omitempty"`
-	Offset  *int64                          `json:"offset,omitempty"`
-	OrderBy *O11yQuerybuildertypesv5OrderBy `json:"orderBy,omitempty"`
-	Start   *int64                          `json:"start,omitempty"`
+	End                  *int64                          `json:"end,omitempty"`
+	Filter               *O11yFilter                     `json:"filter,omitempty"`
+	GroupBy              []O11yGroupByKey                `json:"groupBy,omitempty"`
+	Limit                *int64                          `json:"limit,omitempty"`
+	Offset               *int64                          `json:"offset,omitempty"`
+	OrderBy              *O11yQuerybuildertypesv5OrderBy `json:"orderBy,omitempty"`
+	Start                *int64                          `json:"start,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPostableClusters O11yPostableClusters
 
 // NewO11yPostableClusters instantiates a new O11yPostableClusters object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o O11yPostableClusters) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Start) {
 		toSerialize["start"] = o.Start
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPostableClusters) UnmarshalJSON(data []byte) (err error) {
+	varO11yPostableClusters := _O11yPostableClusters{}
+
+	err = json.Unmarshal(data, &varO11yPostableClusters)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPostableClusters(varO11yPostableClusters)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		delete(additionalProperties, "orderBy")
+		delete(additionalProperties, "start")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPostableClusters struct {

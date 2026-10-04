@@ -66,7 +66,10 @@ type Provider struct {
 	Type                         *string         `json:"type,omitempty"`
 	UserCert                     *string         `json:"userCert,omitempty"`
 	UserKey                      *string         `json:"userKey,omitempty"`
+	AdditionalProperties         map[string]interface{}
 }
+
+type _Provider Provider
 
 // NewProvider instantiates a new Provider object
 // This constructor will assign default values to properties that have it defined,
@@ -1740,7 +1743,79 @@ func (o Provider) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserKey) {
 		toSerialize["userKey"] = o.UserKey
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Provider) UnmarshalJSON(data []byte) (err error) {
+	varProvider := _Provider{}
+
+	err = json.Unmarshal(data, &varProvider)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Provider(varProvider)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "apiVersion")
+		delete(additionalProperties, "asset")
+		delete(additionalProperties, "browserUrl")
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "chain")
+		delete(additionalProperties, "clientId")
+		delete(additionalProperties, "clientSecret")
+		delete(additionalProperties, "compatibleProvider")
+		delete(additionalProperties, "configText")
+		delete(additionalProperties, "contractMethod")
+		delete(additionalProperties, "contractName")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "enableThinking")
+		delete(additionalProperties, "errorText")
+		delete(additionalProperties, "flavor")
+		delete(additionalProperties, "frequencyPenalty")
+		delete(additionalProperties, "inputPricePerThousandTokens")
+		delete(additionalProperties, "isDefault")
+		delete(additionalProperties, "isRemote")
+		delete(additionalProperties, "mcpTools")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "network")
+		delete(additionalProperties, "outputPricePerThousandTokens")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "presencePenalty")
+		delete(additionalProperties, "providerKey")
+		delete(additionalProperties, "providerUrl")
+		delete(additionalProperties, "rawText")
+		delete(additionalProperties, "region")
+		delete(additionalProperties, "resultSummary")
+		delete(additionalProperties, "runner")
+		delete(additionalProperties, "signCert")
+		delete(additionalProperties, "signKey")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "subType")
+		delete(additionalProperties, "target")
+		delete(additionalProperties, "targetMode")
+		delete(additionalProperties, "temperature")
+		delete(additionalProperties, "testContent")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "topK")
+		delete(additionalProperties, "topP")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "userCert")
+		delete(additionalProperties, "userKey")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableProvider struct {

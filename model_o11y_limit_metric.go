@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yLimitMetric{}
 
 // O11yLimitMetric struct for O11yLimitMetric
 type O11yLimitMetric struct {
-	Day    *O11yLimitMetricValue `json:"day,omitempty"`
-	Second *O11yLimitMetricValue `json:"second,omitempty"`
+	Day                  *O11yLimitMetricValue `json:"day,omitempty"`
+	Second               *O11yLimitMetricValue `json:"second,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yLimitMetric O11yLimitMetric
 
 // NewO11yLimitMetric instantiates a new O11yLimitMetric object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yLimitMetric) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Second) {
 		toSerialize["second"] = o.Second
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yLimitMetric) UnmarshalJSON(data []byte) (err error) {
+	varO11yLimitMetric := _O11yLimitMetric{}
+
+	err = json.Unmarshal(data, &varO11yLimitMetric)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yLimitMetric(varO11yLimitMetric)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "day")
+		delete(additionalProperties, "second")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yLimitMetric struct {

@@ -19,17 +19,15 @@ var _ MappedNullable = &Voucher{}
 
 // Voucher struct for Voucher
 type Voucher struct {
-	// Description is the human line for the event, e.g. the vendor a bill came from.
-	Description *string `json:"description,omitempty"`
-	// Legs are the sides of the posting. They must balance: Σdebit == Σcredit, give or take the 2¢ round-off allowance.
-	Legs []Leg `json:"legs,omitempty"`
-	// PostingAt is the RFC3339 instant the event posts at — the time every statement window filters on.
-	PostingAt *string `json:"postingAt,omitempty"`
-	// SourceID is the source event's own id within that namespace. Together with SourceKind it is the key that makes a repeat posting a no-op.
-	SourceId *string `json:"sourceId,omitempty"`
-	// SourceKind is the idempotency namespace naming what booked this, e.g. \"scan\".
-	SourceKind *string `json:"sourceKind,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	Legs                 []Leg   `json:"legs,omitempty"`
+	PostingAt            *string `json:"postingAt,omitempty"`
+	SourceId             *string `json:"sourceId,omitempty"`
+	SourceKind           *string `json:"sourceKind,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Voucher Voucher
 
 // NewVoucher instantiates a new Voucher object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +231,37 @@ func (o Voucher) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SourceKind) {
 		toSerialize["sourceKind"] = o.SourceKind
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Voucher) UnmarshalJSON(data []byte) (err error) {
+	varVoucher := _Voucher{}
+
+	err = json.Unmarshal(data, &varVoucher)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Voucher(varVoucher)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "legs")
+		delete(additionalProperties, "postingAt")
+		delete(additionalProperties, "sourceId")
+		delete(additionalProperties, "sourceKind")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableVoucher struct {

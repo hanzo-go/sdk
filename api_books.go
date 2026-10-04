@@ -34,7 +34,7 @@ func (r BooksAPIGetBooksAccountsRequest) Sandbox(sandbox string) BooksAPIGetBook
 	return r
 }
 
-func (r BooksAPIGetBooksAccountsRequest) Execute() ([]Account, *http.Response, error) {
+func (r BooksAPIGetBooksAccountsRequest) Execute() ([]BooksAccount, *http.Response, error) {
 	return r.ApiService.GetBooksAccountsExecute(r)
 }
 
@@ -56,13 +56,13 @@ func (a *BooksAPIService) GetBooksAccounts(ctx context.Context) BooksAPIGetBooks
 
 // Execute executes the request
 //
-//	@return []Account
-func (a *BooksAPIService) GetBooksAccountsExecute(r BooksAPIGetBooksAccountsRequest) ([]Account, *http.Response, error) {
+//	@return []BooksAccount
+func (a *BooksAPIService) GetBooksAccountsExecute(r BooksAPIGetBooksAccountsRequest) ([]BooksAccount, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []Account
+		localVarReturnValue []BooksAccount
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksAccounts")
@@ -89,7 +89,7 @@ func (a *BooksAPIService) GetBooksAccountsExecute(r BooksAPIGetBooksAccountsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -118,6 +118,14 @@ func (a *BooksAPIService) GetBooksAccountsExecute(r BooksAPIGetBooksAccountsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -152,7 +160,7 @@ func (r BooksAPIGetBooksBankTransactionsRequest) Limit(limit int64) BooksAPIGetB
 	return r
 }
 
-func (r BooksAPIGetBooksBankTransactionsRequest) Execute() ([]BankTxnRow, *http.Response, error) {
+func (r BooksAPIGetBooksBankTransactionsRequest) Execute() ([]BooksBankTxnRow, *http.Response, error) {
 	return r.ApiService.GetBooksBankTransactionsExecute(r)
 }
 
@@ -175,13 +183,13 @@ func (a *BooksAPIService) GetBooksBankTransactions(ctx context.Context) BooksAPI
 
 // Execute executes the request
 //
-//	@return []BankTxnRow
-func (a *BooksAPIService) GetBooksBankTransactionsExecute(r BooksAPIGetBooksBankTransactionsRequest) ([]BankTxnRow, *http.Response, error) {
+//	@return []BooksBankTxnRow
+func (a *BooksAPIService) GetBooksBankTransactionsExecute(r BooksAPIGetBooksBankTransactionsRequest) ([]BooksBankTxnRow, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []BankTxnRow
+		localVarReturnValue []BooksBankTxnRow
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksBankTransactions")
@@ -211,7 +219,7 @@ func (a *BooksAPIService) GetBooksBankTransactionsExecute(r BooksAPIGetBooksBank
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -240,6 +248,14 @@ func (a *BooksAPIService) GetBooksBankTransactionsExecute(r BooksAPIGetBooksBank
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -267,7 +283,7 @@ func (r BooksAPIGetBooksBankUnreconciledRequest) Sandbox(sandbox string) BooksAP
 	return r
 }
 
-func (r BooksAPIGetBooksBankUnreconciledRequest) Execute() (*UnreconciledOut, *http.Response, error) {
+func (r BooksAPIGetBooksBankUnreconciledRequest) Execute() (*BooksUnreconciledOut, *http.Response, error) {
 	return r.ApiService.GetBooksBankUnreconciledExecute(r)
 }
 
@@ -290,13 +306,13 @@ func (a *BooksAPIService) GetBooksBankUnreconciled(ctx context.Context) BooksAPI
 
 // Execute executes the request
 //
-//	@return UnreconciledOut
-func (a *BooksAPIService) GetBooksBankUnreconciledExecute(r BooksAPIGetBooksBankUnreconciledRequest) (*UnreconciledOut, *http.Response, error) {
+//	@return BooksUnreconciledOut
+func (a *BooksAPIService) GetBooksBankUnreconciledExecute(r BooksAPIGetBooksBankUnreconciledRequest) (*BooksUnreconciledOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UnreconciledOut
+		localVarReturnValue *BooksUnreconciledOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksBankUnreconciled")
@@ -323,7 +339,7 @@ func (a *BooksAPIService) GetBooksBankUnreconciledExecute(r BooksAPIGetBooksBank
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -352,6 +368,14 @@ func (a *BooksAPIService) GetBooksBankUnreconciledExecute(r BooksAPIGetBooksBank
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -407,7 +431,7 @@ func (r BooksAPIGetBooksExportRequest) Limit(limit int64) BooksAPIGetBooksExport
 	return r
 }
 
-func (r BooksAPIGetBooksExportRequest) Execute() (*FinancialPackage, *http.Response, error) {
+func (r BooksAPIGetBooksExportRequest) Execute() (*BooksFinancialPackage, *http.Response, error) {
 	return r.ApiService.GetBooksExportExecute(r)
 }
 
@@ -431,13 +455,13 @@ func (a *BooksAPIService) GetBooksExport(ctx context.Context) BooksAPIGetBooksEx
 
 // Execute executes the request
 //
-//	@return FinancialPackage
-func (a *BooksAPIService) GetBooksExportExecute(r BooksAPIGetBooksExportRequest) (*FinancialPackage, *http.Response, error) {
+//	@return BooksFinancialPackage
+func (a *BooksAPIService) GetBooksExportExecute(r BooksAPIGetBooksExportRequest) (*BooksFinancialPackage, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FinancialPackage
+		localVarReturnValue *BooksFinancialPackage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksExport")
@@ -476,7 +500,7 @@ func (a *BooksAPIService) GetBooksExportExecute(r BooksAPIGetBooksExportRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -505,6 +529,14 @@ func (a *BooksAPIService) GetBooksExportExecute(r BooksAPIGetBooksExportRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -539,14 +571,14 @@ func (r BooksAPIGetBooksGlRequest) Limit(limit int64) BooksAPIGetBooksGlRequest 
 	return r
 }
 
-func (r BooksAPIGetBooksGlRequest) Execute() ([]GLRow, *http.Response, error) {
+func (r BooksAPIGetBooksGlRequest) Execute() ([]BooksGLRow, *http.Response, error) {
 	return r.ApiService.GetBooksGlExecute(r)
 }
 
 /*
-GetBooksGl ListGL returns the org's most recent GL Entry rows, newest first.
+GetBooksGl Returns the org's most recent GL Entry rows, newest first.
 
-ListGL returns the org's most recent GL Entry rows, newest first. This is the raw
+Returns the org's most recent GL Entry rows, newest first. This is the raw
 double-entry detail behind every statement: one row per leg, with its debit, credit,
 posting time and the source that booked it.
 
@@ -562,13 +594,13 @@ func (a *BooksAPIService) GetBooksGl(ctx context.Context) BooksAPIGetBooksGlRequ
 
 // Execute executes the request
 //
-//	@return []GLRow
-func (a *BooksAPIService) GetBooksGlExecute(r BooksAPIGetBooksGlRequest) ([]GLRow, *http.Response, error) {
+//	@return []BooksGLRow
+func (a *BooksAPIService) GetBooksGlExecute(r BooksAPIGetBooksGlRequest) ([]BooksGLRow, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []GLRow
+		localVarReturnValue []BooksGLRow
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksGl")
@@ -598,7 +630,7 @@ func (a *BooksAPIService) GetBooksGlExecute(r BooksAPIGetBooksGlRequest) ([]GLRo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -627,6 +659,14 @@ func (a *BooksAPIService) GetBooksGlExecute(r BooksAPIGetBooksGlRequest) ([]GLRo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -654,7 +694,7 @@ func (r BooksAPIGetBooksInboxRequest) Sandbox(sandbox string) BooksAPIGetBooksIn
 	return r
 }
 
-func (r BooksAPIGetBooksInboxRequest) Execute() (*InboxOut, *http.Response, error) {
+func (r BooksAPIGetBooksInboxRequest) Execute() (*BooksInboxOut, *http.Response, error) {
 	return r.ApiService.GetBooksInboxExecute(r)
 }
 
@@ -677,13 +717,13 @@ func (a *BooksAPIService) GetBooksInbox(ctx context.Context) BooksAPIGetBooksInb
 
 // Execute executes the request
 //
-//	@return InboxOut
-func (a *BooksAPIService) GetBooksInboxExecute(r BooksAPIGetBooksInboxRequest) (*InboxOut, *http.Response, error) {
+//	@return BooksInboxOut
+func (a *BooksAPIService) GetBooksInboxExecute(r BooksAPIGetBooksInboxRequest) (*BooksInboxOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InboxOut
+		localVarReturnValue *BooksInboxOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksInbox")
@@ -710,7 +750,7 @@ func (a *BooksAPIService) GetBooksInboxExecute(r BooksAPIGetBooksInboxRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -739,6 +779,14 @@ func (a *BooksAPIService) GetBooksInboxExecute(r BooksAPIGetBooksInboxRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -780,14 +828,14 @@ func (r BooksAPIGetBooksMetricsRequest) To(to string) BooksAPIGetBooksMetricsReq
 	return r
 }
 
-func (r BooksAPIGetBooksMetricsRequest) Execute() (*MetricsResponse, *http.Response, error) {
+func (r BooksAPIGetBooksMetricsRequest) Execute() (*BooksMetricsResponse, *http.Response, error) {
 	return r.ApiService.GetBooksMetricsExecute(r)
 }
 
 /*
-GetBooksMetrics Metrics returns the org's deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
+GetBooksMetrics Returns the org's deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
 
-Metrics returns the org's deterministic SaaS-metrics snapshot over an optional
+Returns the org's deterministic SaaS-metrics snapshot over an optional
 (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash,
 deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same
 figures already formatted. Every number is the ledger, aggregated the one way the books
@@ -805,13 +853,13 @@ func (a *BooksAPIService) GetBooksMetrics(ctx context.Context) BooksAPIGetBooksM
 
 // Execute executes the request
 //
-//	@return MetricsResponse
-func (a *BooksAPIService) GetBooksMetricsExecute(r BooksAPIGetBooksMetricsRequest) (*MetricsResponse, *http.Response, error) {
+//	@return BooksMetricsResponse
+func (a *BooksAPIService) GetBooksMetricsExecute(r BooksAPIGetBooksMetricsRequest) (*BooksMetricsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MetricsResponse
+		localVarReturnValue *BooksMetricsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksMetrics")
@@ -844,7 +892,7 @@ func (a *BooksAPIService) GetBooksMetricsExecute(r BooksAPIGetBooksMetricsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -873,6 +921,14 @@ func (a *BooksAPIService) GetBooksMetricsExecute(r BooksAPIGetBooksMetricsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -914,7 +970,7 @@ func (r BooksAPIGetBooksPnlRequest) To(to string) BooksAPIGetBooksPnlRequest {
 	return r
 }
 
-func (r BooksAPIGetBooksPnlRequest) Execute() (*PnL, *http.Response, error) {
+func (r BooksAPIGetBooksPnlRequest) Execute() (*BooksPnL, *http.Response, error) {
 	return r.ApiService.GetBooksPnlExecute(r)
 }
 
@@ -936,13 +992,13 @@ func (a *BooksAPIService) GetBooksPnl(ctx context.Context) BooksAPIGetBooksPnlRe
 
 // Execute executes the request
 //
-//	@return PnL
-func (a *BooksAPIService) GetBooksPnlExecute(r BooksAPIGetBooksPnlRequest) (*PnL, *http.Response, error) {
+//	@return BooksPnL
+func (a *BooksAPIService) GetBooksPnlExecute(r BooksAPIGetBooksPnlRequest) (*BooksPnL, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PnL
+		localVarReturnValue *BooksPnL
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksPnl")
@@ -975,7 +1031,7 @@ func (a *BooksAPIService) GetBooksPnlExecute(r BooksAPIGetBooksPnlRequest) (*PnL
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1004,6 +1060,14 @@ func (a *BooksAPIService) GetBooksPnlExecute(r BooksAPIGetBooksPnlRequest) (*PnL
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1038,7 +1102,7 @@ func (r BooksAPIGetBooksPositionRequest) To(to string) BooksAPIGetBooksPositionR
 	return r
 }
 
-func (r BooksAPIGetBooksPositionRequest) Execute() (*BalanceSheet, *http.Response, error) {
+func (r BooksAPIGetBooksPositionRequest) Execute() (*BooksBalanceSheet, *http.Response, error) {
 	return r.ApiService.GetBooksPositionExecute(r)
 }
 
@@ -1060,13 +1124,13 @@ func (a *BooksAPIService) GetBooksPosition(ctx context.Context) BooksAPIGetBooks
 
 // Execute executes the request
 //
-//	@return BalanceSheet
-func (a *BooksAPIService) GetBooksPositionExecute(r BooksAPIGetBooksPositionRequest) (*BalanceSheet, *http.Response, error) {
+//	@return BooksBalanceSheet
+func (a *BooksAPIService) GetBooksPositionExecute(r BooksAPIGetBooksPositionRequest) (*BooksBalanceSheet, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BalanceSheet
+		localVarReturnValue *BooksBalanceSheet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksPosition")
@@ -1096,7 +1160,7 @@ func (a *BooksAPIService) GetBooksPositionExecute(r BooksAPIGetBooksPositionRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1125,6 +1189,14 @@ func (a *BooksAPIService) GetBooksPositionExecute(r BooksAPIGetBooksPositionRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1152,7 +1224,7 @@ func (r BooksAPIGetBooksQuestionsRequest) Sandbox(sandbox string) BooksAPIGetBoo
 	return r
 }
 
-func (r BooksAPIGetBooksQuestionsRequest) Execute() (*QuestionsResponse, *http.Response, error) {
+func (r BooksAPIGetBooksQuestionsRequest) Execute() (*BooksQuestionsResponse, *http.Response, error) {
 	return r.ApiService.GetBooksQuestionsExecute(r)
 }
 
@@ -1176,13 +1248,13 @@ func (a *BooksAPIService) GetBooksQuestions(ctx context.Context) BooksAPIGetBook
 
 // Execute executes the request
 //
-//	@return QuestionsResponse
-func (a *BooksAPIService) GetBooksQuestionsExecute(r BooksAPIGetBooksQuestionsRequest) (*QuestionsResponse, *http.Response, error) {
+//	@return BooksQuestionsResponse
+func (a *BooksAPIService) GetBooksQuestionsExecute(r BooksAPIGetBooksQuestionsRequest) (*BooksQuestionsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *QuestionsResponse
+		localVarReturnValue *BooksQuestionsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksQuestions")
@@ -1209,7 +1281,7 @@ func (a *BooksAPIService) GetBooksQuestionsExecute(r BooksAPIGetBooksQuestionsRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1238,6 +1310,14 @@ func (a *BooksAPIService) GetBooksQuestionsExecute(r BooksAPIGetBooksQuestionsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1265,7 +1345,7 @@ func (r BooksAPIGetBooksRulesRequest) Sandbox(sandbox string) BooksAPIGetBooksRu
 	return r
 }
 
-func (r BooksAPIGetBooksRulesRequest) Execute() (*RulesOut, *http.Response, error) {
+func (r BooksAPIGetBooksRulesRequest) Execute() (*BooksRulesOut, *http.Response, error) {
 	return r.ApiService.GetBooksRulesExecute(r)
 }
 
@@ -1289,13 +1369,13 @@ func (a *BooksAPIService) GetBooksRules(ctx context.Context) BooksAPIGetBooksRul
 
 // Execute executes the request
 //
-//	@return RulesOut
-func (a *BooksAPIService) GetBooksRulesExecute(r BooksAPIGetBooksRulesRequest) (*RulesOut, *http.Response, error) {
+//	@return BooksRulesOut
+func (a *BooksAPIService) GetBooksRulesExecute(r BooksAPIGetBooksRulesRequest) (*BooksRulesOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *RulesOut
+		localVarReturnValue *BooksRulesOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksRules")
@@ -1322,7 +1402,7 @@ func (a *BooksAPIService) GetBooksRulesExecute(r BooksAPIGetBooksRulesRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1351,6 +1431,14 @@ func (a *BooksAPIService) GetBooksRulesExecute(r BooksAPIGetBooksRulesRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1413,7 +1501,7 @@ func (r BooksAPIGetBooksTransactionsRequest) Limit(limit int64) BooksAPIGetBooks
 	return r
 }
 
-func (r BooksAPIGetBooksTransactionsRequest) Execute() (*TransactionsOut, *http.Response, error) {
+func (r BooksAPIGetBooksTransactionsRequest) Execute() (*BooksTransactionsOut, *http.Response, error) {
 	return r.ApiService.GetBooksTransactionsExecute(r)
 }
 
@@ -1438,13 +1526,13 @@ func (a *BooksAPIService) GetBooksTransactions(ctx context.Context) BooksAPIGetB
 
 // Execute executes the request
 //
-//	@return TransactionsOut
-func (a *BooksAPIService) GetBooksTransactionsExecute(r BooksAPIGetBooksTransactionsRequest) (*TransactionsOut, *http.Response, error) {
+//	@return BooksTransactionsOut
+func (a *BooksAPIService) GetBooksTransactionsExecute(r BooksAPIGetBooksTransactionsRequest) (*BooksTransactionsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TransactionsOut
+		localVarReturnValue *BooksTransactionsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksTransactions")
@@ -1486,7 +1574,7 @@ func (a *BooksAPIService) GetBooksTransactionsExecute(r BooksAPIGetBooksTransact
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1515,6 +1603,14 @@ func (a *BooksAPIService) GetBooksTransactionsExecute(r BooksAPIGetBooksTransact
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1556,7 +1652,7 @@ func (r BooksAPIGetBooksTrialRequest) To(to string) BooksAPIGetBooksTrialRequest
 	return r
 }
 
-func (r BooksAPIGetBooksTrialRequest) Execute() (*TrialBalance, *http.Response, error) {
+func (r BooksAPIGetBooksTrialRequest) Execute() (*BooksTrialBalance, *http.Response, error) {
 	return r.ApiService.GetBooksTrialExecute(r)
 }
 
@@ -1579,13 +1675,13 @@ func (a *BooksAPIService) GetBooksTrial(ctx context.Context) BooksAPIGetBooksTri
 
 // Execute executes the request
 //
-//	@return TrialBalance
-func (a *BooksAPIService) GetBooksTrialExecute(r BooksAPIGetBooksTrialRequest) (*TrialBalance, *http.Response, error) {
+//	@return BooksTrialBalance
+func (a *BooksAPIService) GetBooksTrialExecute(r BooksAPIGetBooksTrialRequest) (*BooksTrialBalance, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TrialBalance
+		localVarReturnValue *BooksTrialBalance
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksTrial")
@@ -1618,7 +1714,7 @@ func (a *BooksAPIService) GetBooksTrialExecute(r BooksAPIGetBooksTrialRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1647,6 +1743,14 @@ func (a *BooksAPIService) GetBooksTrialExecute(r BooksAPIGetBooksTrialRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1674,7 +1778,7 @@ func (r BooksAPIGetBooksVendorsRequest) Sandbox(sandbox string) BooksAPIGetBooks
 	return r
 }
 
-func (r BooksAPIGetBooksVendorsRequest) Execute() (*VendorsOut, *http.Response, error) {
+func (r BooksAPIGetBooksVendorsRequest) Execute() (*BooksVendorsOut, *http.Response, error) {
 	return r.ApiService.GetBooksVendorsExecute(r)
 }
 
@@ -1697,13 +1801,13 @@ func (a *BooksAPIService) GetBooksVendors(ctx context.Context) BooksAPIGetBooksV
 
 // Execute executes the request
 //
-//	@return VendorsOut
-func (a *BooksAPIService) GetBooksVendorsExecute(r BooksAPIGetBooksVendorsRequest) (*VendorsOut, *http.Response, error) {
+//	@return BooksVendorsOut
+func (a *BooksAPIService) GetBooksVendorsExecute(r BooksAPIGetBooksVendorsRequest) (*BooksVendorsOut, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *VendorsOut
+		localVarReturnValue *BooksVendorsOut
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.GetBooksVendors")
@@ -1730,7 +1834,7 @@ func (a *BooksAPIService) GetBooksVendorsExecute(r BooksAPIGetBooksVendorsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1759,6 +1863,14 @@ func (a *BooksAPIService) GetBooksVendorsExecute(r BooksAPIGetBooksVendorsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1775,17 +1887,17 @@ func (a *BooksAPIService) GetBooksVendorsExecute(r BooksAPIGetBooksVendorsReques
 }
 
 type BooksAPIPostBooksAskRequest struct {
-	ctx        context.Context
-	ApiService *BooksAPIService
-	askRequest *AskRequest
+	ctx             context.Context
+	ApiService      *BooksAPIService
+	booksAskRequest *BooksAskRequest
 }
 
-func (r BooksAPIPostBooksAskRequest) AskRequest(askRequest AskRequest) BooksAPIPostBooksAskRequest {
-	r.askRequest = &askRequest
+func (r BooksAPIPostBooksAskRequest) BooksAskRequest(booksAskRequest BooksAskRequest) BooksAPIPostBooksAskRequest {
+	r.booksAskRequest = &booksAskRequest
 	return r
 }
 
-func (r BooksAPIPostBooksAskRequest) Execute() (*AskResponse, *http.Response, error) {
+func (r BooksAPIPostBooksAskRequest) Execute() (*BooksAskResponse, *http.Response, error) {
 	return r.ApiService.PostBooksAskExecute(r)
 }
 
@@ -1812,13 +1924,13 @@ func (a *BooksAPIService) PostBooksAsk(ctx context.Context) BooksAPIPostBooksAsk
 
 // Execute executes the request
 //
-//	@return AskResponse
-func (a *BooksAPIService) PostBooksAskExecute(r BooksAPIPostBooksAskRequest) (*AskResponse, *http.Response, error) {
+//	@return BooksAskResponse
+func (a *BooksAPIService) PostBooksAskExecute(r BooksAPIPostBooksAskRequest) (*BooksAskResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AskResponse
+		localVarReturnValue *BooksAskResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.PostBooksAsk")
@@ -1831,8 +1943,8 @@ func (a *BooksAPIService) PostBooksAskExecute(r BooksAPIPostBooksAskRequest) (*A
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.askRequest == nil {
-		return localVarReturnValue, nil, reportError("askRequest is required and must be specified")
+	if r.booksAskRequest == nil {
+		return localVarReturnValue, nil, reportError("booksAskRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1845,7 +1957,7 @@ func (a *BooksAPIService) PostBooksAskExecute(r BooksAPIPostBooksAskRequest) (*A
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1853,7 +1965,7 @@ func (a *BooksAPIService) PostBooksAskExecute(r BooksAPIPostBooksAskRequest) (*A
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.askRequest
+	localVarPostBody = r.booksAskRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1876,6 +1988,14 @@ func (a *BooksAPIService) PostBooksAskExecute(r BooksAPIPostBooksAskRequest) (*A
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1889,98 +2009,6 @@ func (a *BooksAPIService) PostBooksAskExecute(r BooksAPIPostBooksAskRequest) (*A
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type BooksAPIPostBooksBankExchangeRequest struct {
-	ctx        context.Context
-	ApiService *BooksAPIService
-}
-
-func (r BooksAPIPostBooksBankExchangeRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostBooksBankExchangeExecute(r)
-}
-
-/*
-PostBooksBankExchange Finish connecting a bank account (not yet available)
-
-ANSWERS 501 UNCONDITIONALLY. It is the intended second hop of the bank-linking handshake — trade the provider's short-lived public token for the durable access credential and seal that credential into KMS — and nothing on the HTTP path reaches an implementation today.
-
-The durable bank credential is the reason this hop exists: it is meant to be sealed server-side and never handed back to the caller. Since the route never succeeds, no credential is stored by it and no bank is connected through it.
-
-Documented as refusing rather than declared with a success body, for the same reason as the first hop: it has never sent one, and stating a shape it has never produced would put a return type in every SDK for a call that always fails. A caller with no principal gets 401 before the 501.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return BooksAPIPostBooksBankExchangeRequest
-*/
-func (a *BooksAPIService) PostBooksBankExchange(ctx context.Context) BooksAPIPostBooksBankExchangeRequest {
-	return BooksAPIPostBooksBankExchangeRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *BooksAPIService) PostBooksBankExchangeExecute(r BooksAPIPostBooksBankExchangeRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.PostBooksBankExchange")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/books/bank/exchange"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
 }
 
 type BooksAPIPostBooksBankImportRequest struct {
@@ -2100,7 +2128,7 @@ type BooksAPIPostBooksBankSyncRequest struct {
 	ApiService *BooksAPIService
 }
 
-func (r BooksAPIPostBooksBankSyncRequest) Execute() (*BankTally, *http.Response, error) {
+func (r BooksAPIPostBooksBankSyncRequest) Execute() (*BooksBankTally, *http.Response, error) {
 	return r.ApiService.PostBooksBankSyncExecute(r)
 }
 
@@ -2128,13 +2156,13 @@ func (a *BooksAPIService) PostBooksBankSync(ctx context.Context) BooksAPIPostBoo
 
 // Execute executes the request
 //
-//	@return BankTally
-func (a *BooksAPIService) PostBooksBankSyncExecute(r BooksAPIPostBooksBankSyncRequest) (*BankTally, *http.Response, error) {
+//	@return BooksBankTally
+func (a *BooksAPIService) PostBooksBankSyncExecute(r BooksAPIPostBooksBankSyncRequest) (*BooksBankTally, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BankTally
+		localVarReturnValue *BooksBankTally
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.PostBooksBankSync")
@@ -2158,7 +2186,7 @@ func (a *BooksAPIService) PostBooksBankSyncExecute(r BooksAPIPostBooksBankSyncRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2187,6 +2215,14 @@ func (a *BooksAPIService) PostBooksBankSyncExecute(r BooksAPIPostBooksBankSyncRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2200,98 +2236,6 @@ func (a *BooksAPIService) PostBooksBankSyncExecute(r BooksAPIPostBooksBankSyncRe
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type BooksAPIPostBooksBankTokenRequest struct {
-	ctx        context.Context
-	ApiService *BooksAPIService
-}
-
-func (r BooksAPIPostBooksBankTokenRequest) Execute() (*http.Response, error) {
-	return r.ApiService.PostBooksBankTokenExecute(r)
-}
-
-/*
-PostBooksBankToken Begin connecting a bank account (not yet available)
-
-ANSWERS 501 UNCONDITIONALLY. It is the intended first hop of the bank-linking handshake — mint the short-lived session token a browser hands to the provider's link widget — and nothing on the HTTP path reaches an implementation today.
-
-The connectors behind it are written and tested; only the wiring is missing, so an org cannot connect a bank through the API at all. Until that lands, bank data reaches the books by statement import.
-
-It is documented as refusing rather than declared with a success body precisely because it has never sent one. A response schema here would be invention: every generated SDK would carry a return type for a call that has only ever failed. A caller with no principal gets 401 before the 501.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return BooksAPIPostBooksBankTokenRequest
-*/
-func (a *BooksAPIService) PostBooksBankToken(ctx context.Context) BooksAPIPostBooksBankTokenRequest {
-	return BooksAPIPostBooksBankTokenRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-func (a *BooksAPIService) PostBooksBankTokenExecute(r BooksAPIPostBooksBankTokenRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.PostBooksBankToken")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/books/bank/token"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
 }
 
 type BooksAPIPostBooksInboxRequest struct {
@@ -2409,15 +2353,15 @@ func (a *BooksAPIService) PostBooksInboxExecute(r BooksAPIPostBooksInboxRequest)
 type BooksAPIPostBooksRulesRequest struct {
 	ctx        context.Context
 	ApiService *BooksAPIService
-	rule       *Rule
+	booksRule  *BooksRule
 }
 
-func (r BooksAPIPostBooksRulesRequest) Rule(rule Rule) BooksAPIPostBooksRulesRequest {
-	r.rule = &rule
+func (r BooksAPIPostBooksRulesRequest) BooksRule(booksRule BooksRule) BooksAPIPostBooksRulesRequest {
+	r.booksRule = &booksRule
 	return r
 }
 
-func (r BooksAPIPostBooksRulesRequest) Execute() (*Rule, *http.Response, error) {
+func (r BooksAPIPostBooksRulesRequest) Execute() (*BooksRule, *http.Response, error) {
 	return r.ApiService.PostBooksRulesExecute(r)
 }
 
@@ -2443,13 +2387,13 @@ func (a *BooksAPIService) PostBooksRules(ctx context.Context) BooksAPIPostBooksR
 
 // Execute executes the request
 //
-//	@return Rule
-func (a *BooksAPIService) PostBooksRulesExecute(r BooksAPIPostBooksRulesRequest) (*Rule, *http.Response, error) {
+//	@return BooksRule
+func (a *BooksAPIService) PostBooksRulesExecute(r BooksAPIPostBooksRulesRequest) (*BooksRule, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Rule
+		localVarReturnValue *BooksRule
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.PostBooksRules")
@@ -2462,8 +2406,8 @@ func (a *BooksAPIService) PostBooksRulesExecute(r BooksAPIPostBooksRulesRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.rule == nil {
-		return localVarReturnValue, nil, reportError("rule is required and must be specified")
+	if r.booksRule == nil {
+		return localVarReturnValue, nil, reportError("booksRule is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2476,7 +2420,7 @@ func (a *BooksAPIService) PostBooksRulesExecute(r BooksAPIPostBooksRulesRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2484,7 +2428,7 @@ func (a *BooksAPIService) PostBooksRulesExecute(r BooksAPIPostBooksRulesRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.rule
+	localVarPostBody = r.booksRule
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2507,6 +2451,14 @@ func (a *BooksAPIService) PostBooksRulesExecute(r BooksAPIPostBooksRulesRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2635,17 +2587,17 @@ func (a *BooksAPIService) PostBooksScanExecute(r BooksAPIPostBooksScanRequest) (
 }
 
 type BooksAPIPostBooksScanBookRequest struct {
-	ctx         context.Context
-	ApiService  *BooksAPIService
-	bookRequest *BookRequest
+	ctx              context.Context
+	ApiService       *BooksAPIService
+	booksBookRequest *BooksBookRequest
 }
 
-func (r BooksAPIPostBooksScanBookRequest) BookRequest(bookRequest BookRequest) BooksAPIPostBooksScanBookRequest {
-	r.bookRequest = &bookRequest
+func (r BooksAPIPostBooksScanBookRequest) BooksBookRequest(booksBookRequest BooksBookRequest) BooksAPIPostBooksScanBookRequest {
+	r.booksBookRequest = &booksBookRequest
 	return r
 }
 
-func (r BooksAPIPostBooksScanBookRequest) Execute() (*BookResponse, *http.Response, error) {
+func (r BooksAPIPostBooksScanBookRequest) Execute() (*BooksBookResponse, *http.Response, error) {
 	return r.ApiService.PostBooksScanBookExecute(r)
 }
 
@@ -2672,13 +2624,13 @@ func (a *BooksAPIService) PostBooksScanBook(ctx context.Context) BooksAPIPostBoo
 
 // Execute executes the request
 //
-//	@return BookResponse
-func (a *BooksAPIService) PostBooksScanBookExecute(r BooksAPIPostBooksScanBookRequest) (*BookResponse, *http.Response, error) {
+//	@return BooksBookResponse
+func (a *BooksAPIService) PostBooksScanBookExecute(r BooksAPIPostBooksScanBookRequest) (*BooksBookResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BookResponse
+		localVarReturnValue *BooksBookResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.PostBooksScanBook")
@@ -2691,8 +2643,8 @@ func (a *BooksAPIService) PostBooksScanBookExecute(r BooksAPIPostBooksScanBookRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.bookRequest == nil {
-		return localVarReturnValue, nil, reportError("bookRequest is required and must be specified")
+	if r.booksBookRequest == nil {
+		return localVarReturnValue, nil, reportError("booksBookRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2705,7 +2657,7 @@ func (a *BooksAPIService) PostBooksScanBookExecute(r BooksAPIPostBooksScanBookRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2713,7 +2665,7 @@ func (a *BooksAPIService) PostBooksScanBookExecute(r BooksAPIPostBooksScanBookRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.bookRequest
+	localVarPostBody = r.booksBookRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2736,6 +2688,14 @@ func (a *BooksAPIService) PostBooksScanBookExecute(r BooksAPIPostBooksScanBookRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2756,14 +2716,14 @@ type BooksAPIPostBooksSyncRequest struct {
 	ApiService *BooksAPIService
 }
 
-func (r BooksAPIPostBooksSyncRequest) Execute() (*SyncTally, *http.Response, error) {
+func (r BooksAPIPostBooksSyncRequest) Execute() (*BooksSyncTally, *http.Response, error) {
 	return r.ApiService.PostBooksSyncExecute(r)
 }
 
 /*
-PostBooksSync Sync ingests the caller's OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
+PostBooksSync Ingests the caller's OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
 
-Sync ingests the caller's OWN org from commerce into BOTH ledgers (live and sandbox)
+Ingests the caller's OWN org from commerce into BOTH ledgers (live and sandbox)
 and reports how many new vouchers posted to each. It is idempotent — money that has
 already been booked posts nothing on a repeat — and it is read-only against commerce:
 it never mints a deposit, a credit or a payout, only the accounting twin of money that
@@ -2781,13 +2741,13 @@ func (a *BooksAPIService) PostBooksSync(ctx context.Context) BooksAPIPostBooksSy
 
 // Execute executes the request
 //
-//	@return SyncTally
-func (a *BooksAPIService) PostBooksSyncExecute(r BooksAPIPostBooksSyncRequest) (*SyncTally, *http.Response, error) {
+//	@return BooksSyncTally
+func (a *BooksAPIService) PostBooksSyncExecute(r BooksAPIPostBooksSyncRequest) (*BooksSyncTally, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SyncTally
+		localVarReturnValue *BooksSyncTally
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.PostBooksSync")
@@ -2811,7 +2771,7 @@ func (a *BooksAPIService) PostBooksSyncExecute(r BooksAPIPostBooksSyncRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2840,6 +2800,14 @@ func (a *BooksAPIService) PostBooksSyncExecute(r BooksAPIPostBooksSyncRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2856,17 +2824,17 @@ func (a *BooksAPIService) PostBooksSyncExecute(r BooksAPIPostBooksSyncRequest) (
 }
 
 type BooksAPIPostBooksVendorsRequest struct {
-	ctx        context.Context
-	ApiService *BooksAPIService
-	vendorRow  *VendorRow
+	ctx            context.Context
+	ApiService     *BooksAPIService
+	booksVendorRow *BooksVendorRow
 }
 
-func (r BooksAPIPostBooksVendorsRequest) VendorRow(vendorRow VendorRow) BooksAPIPostBooksVendorsRequest {
-	r.vendorRow = &vendorRow
+func (r BooksAPIPostBooksVendorsRequest) BooksVendorRow(booksVendorRow BooksVendorRow) BooksAPIPostBooksVendorsRequest {
+	r.booksVendorRow = &booksVendorRow
 	return r
 }
 
-func (r BooksAPIPostBooksVendorsRequest) Execute() (*VendorRow, *http.Response, error) {
+func (r BooksAPIPostBooksVendorsRequest) Execute() (*BooksVendorRow, *http.Response, error) {
 	return r.ApiService.PostBooksVendorsExecute(r)
 }
 
@@ -2893,13 +2861,13 @@ func (a *BooksAPIService) PostBooksVendors(ctx context.Context) BooksAPIPostBook
 
 // Execute executes the request
 //
-//	@return VendorRow
-func (a *BooksAPIService) PostBooksVendorsExecute(r BooksAPIPostBooksVendorsRequest) (*VendorRow, *http.Response, error) {
+//	@return BooksVendorRow
+func (a *BooksAPIService) PostBooksVendorsExecute(r BooksAPIPostBooksVendorsRequest) (*BooksVendorRow, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *VendorRow
+		localVarReturnValue *BooksVendorRow
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BooksAPIService.PostBooksVendors")
@@ -2912,8 +2880,8 @@ func (a *BooksAPIService) PostBooksVendorsExecute(r BooksAPIPostBooksVendorsRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.vendorRow == nil {
-		return localVarReturnValue, nil, reportError("vendorRow is required and must be specified")
+	if r.booksVendorRow == nil {
+		return localVarReturnValue, nil, reportError("booksVendorRow is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2926,7 +2894,7 @@ func (a *BooksAPIService) PostBooksVendorsExecute(r BooksAPIPostBooksVendorsRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2934,7 +2902,7 @@ func (a *BooksAPIService) PostBooksVendorsExecute(r BooksAPIPostBooksVendorsRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.vendorRow
+	localVarPostBody = r.booksVendorRow
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2957,6 +2925,14 @@ func (a *BooksAPIService) PostBooksVendorsExecute(r BooksAPIPostBooksVendorsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

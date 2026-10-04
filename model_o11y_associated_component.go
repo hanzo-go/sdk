@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yAssociatedComponent{}
 
 // O11yAssociatedComponent struct for O11yAssociatedComponent
 type O11yAssociatedComponent struct {
-	Name *string     `json:"name,omitempty"`
-	Type interface{} `json:"type,omitempty"`
+	Name                 *string     `json:"name,omitempty"`
+	Type                 interface{} `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAssociatedComponent O11yAssociatedComponent
 
 // NewO11yAssociatedComponent instantiates a new O11yAssociatedComponent object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o O11yAssociatedComponent) ToMap() (map[string]interface{}, error) {
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAssociatedComponent) UnmarshalJSON(data []byte) (err error) {
+	varO11yAssociatedComponent := _O11yAssociatedComponent{}
+
+	err = json.Unmarshal(data, &varO11yAssociatedComponent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAssociatedComponent(varO11yAssociatedComponent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAssociatedComponent struct {

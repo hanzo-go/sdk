@@ -598,17 +598,17 @@ func (a *WebsearchAPIService) PutWebsearchSearchExecute(r WebsearchAPIPutWebsear
 }
 
 type WebsearchAPISearchWebRequest struct {
-	ctx            context.Context
-	ApiService     *WebsearchAPIService
-	webSearchQuery *WebSearchQuery
+	ctx                     context.Context
+	ApiService              *WebsearchAPIService
+	websearchWebSearchQuery *WebsearchWebSearchQuery
 }
 
-func (r WebsearchAPISearchWebRequest) WebSearchQuery(webSearchQuery WebSearchQuery) WebsearchAPISearchWebRequest {
-	r.webSearchQuery = &webSearchQuery
+func (r WebsearchAPISearchWebRequest) WebsearchWebSearchQuery(websearchWebSearchQuery WebsearchWebSearchQuery) WebsearchAPISearchWebRequest {
+	r.websearchWebSearchQuery = &websearchWebSearchQuery
 	return r
 }
 
-func (r WebsearchAPISearchWebRequest) Execute() (*WebSearchResults, *http.Response, error) {
+func (r WebsearchAPISearchWebRequest) Execute() (*WebsearchWebSearchResults, *http.Response, error) {
 	return r.ApiService.SearchWebExecute(r)
 }
 
@@ -672,13 +672,13 @@ func (a *WebsearchAPIService) SearchWeb(ctx context.Context) WebsearchAPISearchW
 
 // Execute executes the request
 //
-//	@return WebSearchResults
-func (a *WebsearchAPIService) SearchWebExecute(r WebsearchAPISearchWebRequest) (*WebSearchResults, *http.Response, error) {
+//	@return WebsearchWebSearchResults
+func (a *WebsearchAPIService) SearchWebExecute(r WebsearchAPISearchWebRequest) (*WebsearchWebSearchResults, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *WebSearchResults
+		localVarReturnValue *WebsearchWebSearchResults
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebsearchAPIService.SearchWeb")
@@ -691,8 +691,8 @@ func (a *WebsearchAPIService) SearchWebExecute(r WebsearchAPISearchWebRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.webSearchQuery == nil {
-		return localVarReturnValue, nil, reportError("webSearchQuery is required and must be specified")
+	if r.websearchWebSearchQuery == nil {
+		return localVarReturnValue, nil, reportError("websearchWebSearchQuery is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -705,7 +705,7 @@ func (a *WebsearchAPIService) SearchWebExecute(r WebsearchAPISearchWebRequest) (
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -713,7 +713,7 @@ func (a *WebsearchAPIService) SearchWebExecute(r WebsearchAPISearchWebRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.webSearchQuery
+	localVarPostBody = r.websearchWebSearchQuery
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -736,6 +736,14 @@ func (a *WebsearchAPIService) SearchWebExecute(r WebsearchAPISearchWebRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

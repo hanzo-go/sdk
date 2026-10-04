@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 ## GetTelCalls
 
-> CallList GetTelCalls(ctx).Execute()
+> TelCallList GetTelCalls(ctx).Execute()
 
 Lists the calls this org has placed or received, newest first.
 
@@ -182,7 +182,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TelAPI.GetTelCalls``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTelCalls`: CallList
+	// response from `GetTelCalls`: TelCallList
 	fmt.Fprintf(os.Stdout, "Response from `TelAPI.GetTelCalls`: %v\n", resp)
 }
 ```
@@ -198,7 +198,7 @@ Other parameters are passed through a pointer to a apiGetTelCallsRequest struct 
 
 ### Return type
 
-[**CallList**](CallList.md)
+[**TelCallList**](TelCallList.md)
 
 ### Authorization
 
@@ -207,7 +207,7 @@ Other parameters are passed through a pointer to a apiGetTelCallsRequest struct 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -216,7 +216,7 @@ Other parameters are passed through a pointer to a apiGetTelCallsRequest struct 
 
 ## GetTelMessages
 
-> MessageList GetTelMessages(ctx).Execute()
+> TelMessageList GetTelMessages(ctx).Execute()
 
 Lists the messages this org has sent or received, newest first.
 
@@ -243,7 +243,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TelAPI.GetTelMessages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTelMessages`: MessageList
+	// response from `GetTelMessages`: TelMessageList
 	fmt.Fprintf(os.Stdout, "Response from `TelAPI.GetTelMessages`: %v\n", resp)
 }
 ```
@@ -259,7 +259,7 @@ Other parameters are passed through a pointer to a apiGetTelMessagesRequest stru
 
 ### Return type
 
-[**MessageList**](MessageList.md)
+[**TelMessageList**](TelMessageList.md)
 
 ### Authorization
 
@@ -268,7 +268,7 @@ Other parameters are passed through a pointer to a apiGetTelMessagesRequest stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -277,7 +277,7 @@ Other parameters are passed through a pointer to a apiGetTelMessagesRequest stru
 
 ## GetTelNumbers
 
-> NumberList GetTelNumbers(ctx).Execute()
+> TelNumberList GetTelNumbers(ctx).Execute()
 
 Lists the phone numbers this org HOLDS — the ones it has bought and not released.
 
@@ -304,7 +304,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TelAPI.GetTelNumbers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTelNumbers`: NumberList
+	// response from `GetTelNumbers`: TelNumberList
 	fmt.Fprintf(os.Stdout, "Response from `TelAPI.GetTelNumbers`: %v\n", resp)
 }
 ```
@@ -320,7 +320,7 @@ Other parameters are passed through a pointer to a apiGetTelNumbersRequest struc
 
 ### Return type
 
-[**NumberList**](NumberList.md)
+[**TelNumberList**](TelNumberList.md)
 
 ### Authorization
 
@@ -329,7 +329,7 @@ Other parameters are passed through a pointer to a apiGetTelNumbersRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -338,7 +338,7 @@ Other parameters are passed through a pointer to a apiGetTelNumbersRequest struc
 
 ## GetTelNumbersAvailable
 
-> NumberList GetTelNumbersAvailable(ctx).Country(country).Area(area).Type_(type_).Limit(limit).Execute()
+> TelNumberList GetTelNumbersAvailable(ctx).Country(country).Area(area).Type_(type_).Limit(limit).Execute()
 
 Asks the carrier what is available to buy.
 
@@ -369,7 +369,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TelAPI.GetTelNumbersAvailable``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTelNumbersAvailable`: NumberList
+	// response from `GetTelNumbersAvailable`: TelNumberList
 	fmt.Fprintf(os.Stdout, "Response from `TelAPI.GetTelNumbersAvailable`: %v\n", resp)
 }
 ```
@@ -392,7 +392,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NumberList**](NumberList.md)
+[**TelNumberList**](TelNumberList.md)
 
 ### Authorization
 
@@ -401,7 +401,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -410,7 +410,7 @@ Name | Type | Description  | Notes
 
 ## GetTelSummary
 
-> Summary GetTelSummary(ctx).Execute()
+> TelSummary GetTelSummary(ctx).Execute()
 
 Counts what this org holds on the telephony plane: its numbers, its calls and its messages.
 
@@ -437,7 +437,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TelAPI.GetTelSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTelSummary`: Summary
+	// response from `GetTelSummary`: TelSummary
 	fmt.Fprintf(os.Stdout, "Response from `TelAPI.GetTelSummary`: %v\n", resp)
 }
 ```
@@ -453,7 +453,7 @@ Other parameters are passed through a pointer to a apiGetTelSummaryRequest struc
 
 ### Return type
 
-[**Summary**](Summary.md)
+[**TelSummary**](TelSummary.md)
 
 ### Authorization
 
@@ -462,7 +462,7 @@ Other parameters are passed through a pointer to a apiGetTelSummaryRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -471,7 +471,7 @@ Other parameters are passed through a pointer to a apiGetTelSummaryRequest struc
 
 ## PostTelCalls
 
-> Call PostTelCalls(ctx).CallInput(callInput).Execute()
+> TelCall PostTelCalls(ctx).TelCallInput(telCallInput).Execute()
 
 Dials.
 
@@ -490,16 +490,16 @@ import (
 )
 
 func main() {
-	callInput := *openapiclient.NewCallInput() // CallInput | 
+	telCallInput := *openapiclient.NewTelCallInput() // TelCallInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TelAPI.PostTelCalls(context.Background()).CallInput(callInput).Execute()
+	resp, r, err := apiClient.TelAPI.PostTelCalls(context.Background()).TelCallInput(telCallInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TelAPI.PostTelCalls``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostTelCalls`: Call
+	// response from `PostTelCalls`: TelCall
 	fmt.Fprintf(os.Stdout, "Response from `TelAPI.PostTelCalls`: %v\n", resp)
 }
 ```
@@ -515,11 +515,11 @@ Other parameters are passed through a pointer to a apiPostTelCallsRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **callInput** | [**CallInput**](CallInput.md) |  | 
+ **telCallInput** | [**TelCallInput**](TelCallInput.md) |  | 
 
 ### Return type
 
-[**Call**](Call.md)
+[**TelCall**](TelCall.md)
 
 ### Authorization
 
@@ -528,7 +528,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -537,7 +537,7 @@ Name | Type | Description  | Notes
 
 ## PostTelMessages
 
-> SMS PostTelMessages(ctx).MessageInput(messageInput).Execute()
+> TelSMS PostTelMessages(ctx).TelMessageInput(telMessageInput).Execute()
 
 Sends a message from one of this org's own numbers.
 
@@ -556,16 +556,16 @@ import (
 )
 
 func main() {
-	messageInput := *openapiclient.NewMessageInput() // MessageInput | 
+	telMessageInput := *openapiclient.NewTelMessageInput() // TelMessageInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TelAPI.PostTelMessages(context.Background()).MessageInput(messageInput).Execute()
+	resp, r, err := apiClient.TelAPI.PostTelMessages(context.Background()).TelMessageInput(telMessageInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TelAPI.PostTelMessages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostTelMessages`: SMS
+	// response from `PostTelMessages`: TelSMS
 	fmt.Fprintf(os.Stdout, "Response from `TelAPI.PostTelMessages`: %v\n", resp)
 }
 ```
@@ -581,11 +581,11 @@ Other parameters are passed through a pointer to a apiPostTelMessagesRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **messageInput** | [**MessageInput**](MessageInput.md) |  | 
+ **telMessageInput** | [**TelMessageInput**](TelMessageInput.md) |  | 
 
 ### Return type
 
-[**SMS**](SMS.md)
+[**TelSMS**](TelSMS.md)
 
 ### Authorization
 
@@ -594,7 +594,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -603,7 +603,7 @@ Name | Type | Description  | Notes
 
 ## PostTelNumbers
 
-> Number PostTelNumbers(ctx).BuyInput(buyInput).Execute()
+> TelNumber PostTelNumbers(ctx).TelBuyInput(telBuyInput).Execute()
 
 Provisions with the carrier FIRST and records second.
 
@@ -622,16 +622,16 @@ import (
 )
 
 func main() {
-	buyInput := *openapiclient.NewBuyInput() // BuyInput | 
+	telBuyInput := *openapiclient.NewTelBuyInput() // TelBuyInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TelAPI.PostTelNumbers(context.Background()).BuyInput(buyInput).Execute()
+	resp, r, err := apiClient.TelAPI.PostTelNumbers(context.Background()).TelBuyInput(telBuyInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TelAPI.PostTelNumbers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostTelNumbers`: Number
+	// response from `PostTelNumbers`: TelNumber
 	fmt.Fprintf(os.Stdout, "Response from `TelAPI.PostTelNumbers`: %v\n", resp)
 }
 ```
@@ -647,11 +647,11 @@ Other parameters are passed through a pointer to a apiPostTelNumbersRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyInput** | [**BuyInput**](BuyInput.md) |  | 
+ **telBuyInput** | [**TelBuyInput**](TelBuyInput.md) |  | 
 
 ### Return type
 
-[**Number**](Number.md)
+[**TelNumber**](TelNumber.md)
 
 ### Authorization
 
@@ -660,7 +660,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

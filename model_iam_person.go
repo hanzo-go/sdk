@@ -19,15 +19,18 @@ var _ MappedNullable = &IamPerson{}
 
 // IamPerson struct for IamPerson
 type IamPerson struct {
-	DisplayName  *string `json:"displayName,omitempty"`
-	Email        *string `json:"email,omitempty"`
-	IsAdmin      *bool   `json:"isAdmin,omitempty"`
-	Name         *string `json:"name,omitempty"`
-	Owner        *string `json:"owner,omitempty"`
-	Password     *string `json:"password,omitempty"`
-	PasswordType *string `json:"passwordType,omitempty"`
-	Phone        *string `json:"phone,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
+	Email                *string `json:"email,omitempty"`
+	IsAdmin              *bool   `json:"isAdmin,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	Password             *string `json:"password,omitempty"`
+	PasswordType         *string `json:"passwordType,omitempty"`
+	Phone                *string `json:"phone,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamPerson IamPerson
 
 // NewIamPerson instantiates a new IamPerson object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o IamPerson) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Phone) {
 		toSerialize["phone"] = o.Phone
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamPerson) UnmarshalJSON(data []byte) (err error) {
+	varIamPerson := _IamPerson{}
+
+	err = json.Unmarshal(data, &varIamPerson)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamPerson(varIamPerson)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "isAdmin")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "passwordType")
+		delete(additionalProperties, "phone")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamPerson struct {

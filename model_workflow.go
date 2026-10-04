@@ -19,15 +19,18 @@ var _ MappedNullable = &Workflow{}
 
 // Workflow struct for Workflow
 type Workflow struct {
-	CreatedTime      *string `json:"createdTime,omitempty"`
-	DisplayName      *string `json:"displayName,omitempty"`
-	Message          *string `json:"message,omitempty"`
-	Name             *string `json:"name,omitempty"`
-	Owner            *string `json:"owner,omitempty"`
-	QuestionTemplate *string `json:"questionTemplate,omitempty"`
-	Text             *string `json:"text,omitempty"`
-	Text2            *string `json:"text2,omitempty"`
+	CreatedTime          *string `json:"createdTime,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	QuestionTemplate     *string `json:"questionTemplate,omitempty"`
+	Text                 *string `json:"text,omitempty"`
+	Text2                *string `json:"text2,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Workflow Workflow
 
 // NewWorkflow instantiates a new Workflow object
 // This constructor will assign default values to properties that have it defined,
@@ -336,7 +339,40 @@ func (o Workflow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Text2) {
 		toSerialize["text2"] = o.Text2
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Workflow) UnmarshalJSON(data []byte) (err error) {
+	varWorkflow := _Workflow{}
+
+	err = json.Unmarshal(data, &varWorkflow)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Workflow(varWorkflow)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "questionTemplate")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "text2")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableWorkflow struct {

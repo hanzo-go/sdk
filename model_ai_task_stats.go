@@ -19,9 +19,12 @@ var _ MappedNullable = &AiTaskStats{}
 
 // AiTaskStats struct for AiTaskStats
 type AiTaskStats struct {
-	Events *int32           `json:"events,omitempty"`
-	Models map[string]int32 `json:"models,omitempty"`
+	Events               *int32           `json:"events,omitempty"`
+	Models               map[string]int32 `json:"models,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiTaskStats AiTaskStats
 
 // NewAiTaskStats instantiates a new AiTaskStats object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o AiTaskStats) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Models) {
 		toSerialize["models"] = o.Models
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiTaskStats) UnmarshalJSON(data []byte) (err error) {
+	varAiTaskStats := _AiTaskStats{}
+
+	err = json.Unmarshal(data, &varAiTaskStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiTaskStats(varAiTaskStats)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "models")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiTaskStats struct {

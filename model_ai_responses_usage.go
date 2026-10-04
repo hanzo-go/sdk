@@ -19,12 +19,15 @@ var _ MappedNullable = &AiResponsesUsage{}
 
 // AiResponsesUsage struct for AiResponsesUsage
 type AiResponsesUsage struct {
-	InputTokens         *int32                    `json:"input_tokens,omitempty"`
-	InputTokensDetails  *AiResponsesInputDetails  `json:"input_tokens_details,omitempty"`
-	OutputTokens        *int32                    `json:"output_tokens,omitempty"`
-	OutputTokensDetails *AiResponsesOutputDetails `json:"output_tokens_details,omitempty"`
-	TotalTokens         *int32                    `json:"total_tokens,omitempty"`
+	InputTokens          *int32                    `json:"input_tokens,omitempty"`
+	InputTokensDetails   *AiResponsesInputDetails  `json:"input_tokens_details,omitempty"`
+	OutputTokens         *int32                    `json:"output_tokens,omitempty"`
+	OutputTokensDetails  *AiResponsesOutputDetails `json:"output_tokens_details,omitempty"`
+	TotalTokens          *int32                    `json:"total_tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AiResponsesUsage AiResponsesUsage
 
 // NewAiResponsesUsage instantiates a new AiResponsesUsage object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o AiResponsesUsage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalTokens) {
 		toSerialize["total_tokens"] = o.TotalTokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AiResponsesUsage) UnmarshalJSON(data []byte) (err error) {
+	varAiResponsesUsage := _AiResponsesUsage{}
+
+	err = json.Unmarshal(data, &varAiResponsesUsage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AiResponsesUsage(varAiResponsesUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "input_tokens")
+		delete(additionalProperties, "input_tokens_details")
+		delete(additionalProperties, "output_tokens")
+		delete(additionalProperties, "output_tokens_details")
+		delete(additionalProperties, "total_tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAiResponsesUsage struct {

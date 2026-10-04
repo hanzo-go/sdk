@@ -19,15 +19,18 @@ var _ MappedNullable = &O11yQueryRangeParamsV3{}
 
 // O11yQueryRangeParamsV3 struct for O11yQueryRangeParamsV3
 type O11yQueryRangeParamsV3 struct {
-	CompositeQuery *O11yCompositeQuery `json:"compositeQuery,omitempty"`
-	End            *int64              `json:"end,omitempty"`
-	FormatForWeb   *bool               `json:"formatForWeb,omitempty"`
-	NoCache        *bool               `json:"noCache,omitempty"`
-	Start          *int64              `json:"start,omitempty"`
+	CompositeQuery *O11yV3CompositeQuery `json:"compositeQuery,omitempty"`
+	End            *int64                `json:"end,omitempty"`
+	FormatForWeb   *bool                 `json:"formatForWeb,omitempty"`
+	NoCache        *bool                 `json:"noCache,omitempty"`
+	Start          *int64                `json:"start,omitempty"`
 	// step is in seconds; used for prometheus queries
-	Step      *int64                            `json:"step,omitempty"`
-	Variables map[string]map[string]interface{} `json:"variables,omitempty"`
+	Step                 *int64                 `json:"step,omitempty"`
+	Variables            map[string]interface{} `json:"variables,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yQueryRangeParamsV3 O11yQueryRangeParamsV3
 
 // NewO11yQueryRangeParamsV3 instantiates a new O11yQueryRangeParamsV3 object
 // This constructor will assign default values to properties that have it defined,
@@ -47,9 +50,9 @@ func NewO11yQueryRangeParamsV3WithDefaults() *O11yQueryRangeParamsV3 {
 }
 
 // GetCompositeQuery returns the CompositeQuery field value if set, zero value otherwise.
-func (o *O11yQueryRangeParamsV3) GetCompositeQuery() O11yCompositeQuery {
+func (o *O11yQueryRangeParamsV3) GetCompositeQuery() O11yV3CompositeQuery {
 	if o == nil || IsNil(o.CompositeQuery) {
-		var ret O11yCompositeQuery
+		var ret O11yV3CompositeQuery
 		return ret
 	}
 	return *o.CompositeQuery
@@ -57,7 +60,7 @@ func (o *O11yQueryRangeParamsV3) GetCompositeQuery() O11yCompositeQuery {
 
 // GetCompositeQueryOk returns a tuple with the CompositeQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yQueryRangeParamsV3) GetCompositeQueryOk() (*O11yCompositeQuery, bool) {
+func (o *O11yQueryRangeParamsV3) GetCompositeQueryOk() (*O11yV3CompositeQuery, bool) {
 	if o == nil || IsNil(o.CompositeQuery) {
 		return nil, false
 	}
@@ -73,8 +76,8 @@ func (o *O11yQueryRangeParamsV3) HasCompositeQuery() bool {
 	return false
 }
 
-// SetCompositeQuery gets a reference to the given O11yCompositeQuery and assigns it to the CompositeQuery field.
-func (o *O11yQueryRangeParamsV3) SetCompositeQuery(v O11yCompositeQuery) {
+// SetCompositeQuery gets a reference to the given O11yV3CompositeQuery and assigns it to the CompositeQuery field.
+func (o *O11yQueryRangeParamsV3) SetCompositeQuery(v O11yV3CompositeQuery) {
 	o.CompositeQuery = &v
 }
 
@@ -239,9 +242,9 @@ func (o *O11yQueryRangeParamsV3) SetStep(v int64) {
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *O11yQueryRangeParamsV3) GetVariables() map[string]map[string]interface{} {
+func (o *O11yQueryRangeParamsV3) GetVariables() map[string]interface{} {
 	if o == nil || IsNil(o.Variables) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Variables
@@ -249,9 +252,9 @@ func (o *O11yQueryRangeParamsV3) GetVariables() map[string]map[string]interface{
 
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yQueryRangeParamsV3) GetVariablesOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yQueryRangeParamsV3) GetVariablesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Variables) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
@@ -265,8 +268,8 @@ func (o *O11yQueryRangeParamsV3) HasVariables() bool {
 	return false
 }
 
-// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
-func (o *O11yQueryRangeParamsV3) SetVariables(v map[string]map[string]interface{}) {
+// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
+func (o *O11yQueryRangeParamsV3) SetVariables(v map[string]interface{}) {
 	o.Variables = v
 }
 
@@ -301,7 +304,39 @@ func (o O11yQueryRangeParamsV3) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yQueryRangeParamsV3) UnmarshalJSON(data []byte) (err error) {
+	varO11yQueryRangeParamsV3 := _O11yQueryRangeParamsV3{}
+
+	err = json.Unmarshal(data, &varO11yQueryRangeParamsV3)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yQueryRangeParamsV3(varO11yQueryRangeParamsV3)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "compositeQuery")
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "formatForWeb")
+		delete(additionalProperties, "noCache")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "step")
+		delete(additionalProperties, "variables")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yQueryRangeParamsV3 struct {

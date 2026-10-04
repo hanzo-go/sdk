@@ -19,14 +19,17 @@ var _ MappedNullable = &O11ySlackAction{}
 
 // O11ySlackAction struct for O11ySlackAction
 type O11ySlackAction struct {
-	Confirm *O11ySlackConfirmationField `json:"confirm,omitempty"`
-	Name    *string                     `json:"name,omitempty"`
-	Style   *string                     `json:"style,omitempty"`
-	Text    *string                     `json:"text,omitempty"`
-	Type    *string                     `json:"type,omitempty"`
-	Url     *string                     `json:"url,omitempty"`
-	Value   *string                     `json:"value,omitempty"`
+	Confirm              *O11ySlackConfirmationField `json:"confirm,omitempty"`
+	Name                 *string                     `json:"name,omitempty"`
+	Style                *string                     `json:"style,omitempty"`
+	Text                 *string                     `json:"text,omitempty"`
+	Type                 *string                     `json:"type,omitempty"`
+	Url                  *string                     `json:"url,omitempty"`
+	Value                *string                     `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11ySlackAction O11ySlackAction
 
 // NewO11ySlackAction instantiates a new O11ySlackAction object
 // This constructor will assign default values to properties that have it defined,
@@ -300,7 +303,39 @@ func (o O11ySlackAction) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11ySlackAction) UnmarshalJSON(data []byte) (err error) {
+	varO11ySlackAction := _O11ySlackAction{}
+
+	err = json.Unmarshal(data, &varO11ySlackAction)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11ySlackAction(varO11ySlackAction)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "confirm")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "style")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11ySlackAction struct {

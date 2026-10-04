@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attributes** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Attributes** | Pointer to **map[string]interface{}** |  | [optional] 
 **DurationNano** | Pointer to **int32** |  | [optional] 
 **Event** | Pointer to [**[]O11yEvent**](O11yEvent.md) |  | [optional] 
 **HasError** | Pointer to **bool** |  | [optional] 
@@ -36,20 +36,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAttributes
 
-`func (o *O11yFlamegraphSpan) GetAttributes() map[string]map[string]interface{}`
+`func (o *O11yFlamegraphSpan) GetAttributes() map[string]interface{}`
 
 GetAttributes returns the Attributes field if non-nil, zero value otherwise.
 
 ### GetAttributesOk
 
-`func (o *O11yFlamegraphSpan) GetAttributesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *O11yFlamegraphSpan) GetAttributesOk() (*map[string]interface{}, bool)`
 
 GetAttributesOk returns a tuple with the Attributes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttributes
 
-`func (o *O11yFlamegraphSpan) SetAttributes(v map[string]map[string]interface{})`
+`func (o *O11yFlamegraphSpan) SetAttributes(v map[string]interface{})`
 
 SetAttributes sets Attributes field to given value.
 

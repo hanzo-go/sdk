@@ -4,8 +4,8 @@ All URIs are relative to *https://api.hanzo.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetLeaderboard**](LeaderboardAPI.md#GetLeaderboard) | **Get** /v1/leaderboard | Leaderboard ranks AI usage over a window, either the users of the caller&#39;s own org or organizations against each other, and always reports the caller&#39;s own standing even when it falls outside the returned page.
-[**GetLeaderboardActivity**](LeaderboardAPI.md#GetLeaderboardActivity) | **Get** /v1/leaderboard/activity | Activity returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
+[**GetLeaderboard**](LeaderboardAPI.md#GetLeaderboard) | **Get** /v1/leaderboard | Ranks AI usage over a window, either the users of the caller&#39;s own org or organizations against each other, and always reports the caller&#39;s own standing even when it falls outside the returned page.
+[**GetLeaderboardActivity**](LeaderboardAPI.md#GetLeaderboardActivity) | **Get** /v1/leaderboard/activity | Returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
 [**GetLeaderboardOptin**](LeaderboardAPI.md#GetLeaderboardOptin) | **Get** /v1/leaderboard/optin | Returns the caller&#39;s own public-listing preference and their org&#39;s, each with whether the caller may change it.
 [**PutLeaderboardOptin**](LeaderboardAPI.md#PutLeaderboardOptin) | **Put** /v1/leaderboard/optin | Sets the CALLER&#39;s own public-listing preference on the leaderboard.
 [**PutLeaderboardOptinOrg**](LeaderboardAPI.md#PutLeaderboardOptinOrg) | **Put** /v1/leaderboard/optin/org | Sets the ORG&#39;s listing on the cross-org global board.
@@ -14,9 +14,9 @@ Method | HTTP request | Description
 
 ## GetLeaderboard
 
-> LeaderboardView GetLeaderboard(ctx).Scope(scope).Metric(metric).Period(period).Limit(limit).Execute()
+> LeaderboardLeaderboardView GetLeaderboard(ctx).Scope(scope).Metric(metric).Period(period).Limit(limit).Execute()
 
-Leaderboard ranks AI usage over a window, either the users of the caller's own org or organizations against each other, and always reports the caller's own standing even when it falls outside the returned page.
+Ranks AI usage over a window, either the users of the caller's own org or organizations against each other, and always reports the caller's own standing even when it falls outside the returned page.
 
 
 
@@ -45,7 +45,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LeaderboardAPI.GetLeaderboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLeaderboard`: LeaderboardView
+	// response from `GetLeaderboard`: LeaderboardLeaderboardView
 	fmt.Fprintf(os.Stdout, "Response from `LeaderboardAPI.GetLeaderboard`: %v\n", resp)
 }
 ```
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**LeaderboardView**](LeaderboardView.md)
+[**LeaderboardLeaderboardView**](LeaderboardLeaderboardView.md)
 
 ### Authorization
 
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -86,9 +86,9 @@ Name | Type | Description  | Notes
 
 ## GetLeaderboardActivity
 
-> ActivityView GetLeaderboardActivity(ctx).Subject(subject).Id(id).From(from).To(to).Execute()
+> LeaderboardActivityView GetLeaderboardActivity(ctx).Subject(subject).Id(id).From(from).To(to).Execute()
 
-Activity returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
+Returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
 
 
 
@@ -117,7 +117,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LeaderboardAPI.GetLeaderboardActivity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLeaderboardActivity`: ActivityView
+	// response from `GetLeaderboardActivity`: LeaderboardActivityView
 	fmt.Fprintf(os.Stdout, "Response from `LeaderboardAPI.GetLeaderboardActivity`: %v\n", resp)
 }
 ```
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ActivityView**](ActivityView.md)
+[**LeaderboardActivityView**](LeaderboardActivityView.md)
 
 ### Authorization
 
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 ## GetLeaderboardOptin
 
-> OptinView GetLeaderboardOptin(ctx).Execute()
+> LeaderboardOptinView GetLeaderboardOptin(ctx).Execute()
 
 Returns the caller's own public-listing preference and their org's, each with whether the caller may change it.
 
@@ -185,7 +185,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `LeaderboardAPI.GetLeaderboardOptin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetLeaderboardOptin`: OptinView
+	// response from `GetLeaderboardOptin`: LeaderboardOptinView
 	fmt.Fprintf(os.Stdout, "Response from `LeaderboardAPI.GetLeaderboardOptin`: %v\n", resp)
 }
 ```
@@ -201,7 +201,7 @@ Other parameters are passed through a pointer to a apiGetLeaderboardOptinRequest
 
 ### Return type
 
-[**OptinView**](OptinView.md)
+[**LeaderboardOptinView**](LeaderboardOptinView.md)
 
 ### Authorization
 
@@ -210,7 +210,7 @@ Other parameters are passed through a pointer to a apiGetLeaderboardOptinRequest
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -219,7 +219,7 @@ Other parameters are passed through a pointer to a apiGetLeaderboardOptinRequest
 
 ## PutLeaderboardOptin
 
-> UserOptinView PutLeaderboardOptin(ctx).UserOptinReq(userOptinReq).Execute()
+> LeaderboardUserOptinView PutLeaderboardOptin(ctx).LeaderboardUserOptinReq(leaderboardUserOptinReq).Execute()
 
 Sets the CALLER's own public-listing preference on the leaderboard.
 
@@ -238,16 +238,16 @@ import (
 )
 
 func main() {
-	userOptinReq := *openapiclient.NewUserOptinReq() // UserOptinReq | 
+	leaderboardUserOptinReq := *openapiclient.NewLeaderboardUserOptinReq() // LeaderboardUserOptinReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LeaderboardAPI.PutLeaderboardOptin(context.Background()).UserOptinReq(userOptinReq).Execute()
+	resp, r, err := apiClient.LeaderboardAPI.PutLeaderboardOptin(context.Background()).LeaderboardUserOptinReq(leaderboardUserOptinReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LeaderboardAPI.PutLeaderboardOptin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutLeaderboardOptin`: UserOptinView
+	// response from `PutLeaderboardOptin`: LeaderboardUserOptinView
 	fmt.Fprintf(os.Stdout, "Response from `LeaderboardAPI.PutLeaderboardOptin`: %v\n", resp)
 }
 ```
@@ -263,11 +263,11 @@ Other parameters are passed through a pointer to a apiPutLeaderboardOptinRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userOptinReq** | [**UserOptinReq**](UserOptinReq.md) |  | 
+ **leaderboardUserOptinReq** | [**LeaderboardUserOptinReq**](LeaderboardUserOptinReq.md) |  | 
 
 ### Return type
 
-[**UserOptinView**](UserOptinView.md)
+[**LeaderboardUserOptinView**](LeaderboardUserOptinView.md)
 
 ### Authorization
 
@@ -276,7 +276,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 
 ## PutLeaderboardOptinOrg
 
-> OrgOptinView PutLeaderboardOptinOrg(ctx).OrgOptinReq(orgOptinReq).Execute()
+> LeaderboardOrgOptinView PutLeaderboardOptinOrg(ctx).LeaderboardOrgOptinReq(leaderboardOrgOptinReq).Execute()
 
 Sets the ORG's listing on the cross-org global board.
 
@@ -304,16 +304,16 @@ import (
 )
 
 func main() {
-	orgOptinReq := *openapiclient.NewOrgOptinReq() // OrgOptinReq | 
+	leaderboardOrgOptinReq := *openapiclient.NewLeaderboardOrgOptinReq() // LeaderboardOrgOptinReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LeaderboardAPI.PutLeaderboardOptinOrg(context.Background()).OrgOptinReq(orgOptinReq).Execute()
+	resp, r, err := apiClient.LeaderboardAPI.PutLeaderboardOptinOrg(context.Background()).LeaderboardOrgOptinReq(leaderboardOrgOptinReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LeaderboardAPI.PutLeaderboardOptinOrg``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PutLeaderboardOptinOrg`: OrgOptinView
+	// response from `PutLeaderboardOptinOrg`: LeaderboardOrgOptinView
 	fmt.Fprintf(os.Stdout, "Response from `LeaderboardAPI.PutLeaderboardOptinOrg`: %v\n", resp)
 }
 ```
@@ -329,11 +329,11 @@ Other parameters are passed through a pointer to a apiPutLeaderboardOptinOrgRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **orgOptinReq** | [**OrgOptinReq**](OrgOptinReq.md) |  | 
+ **leaderboardOrgOptinReq** | [**LeaderboardOrgOptinReq**](LeaderboardOrgOptinReq.md) |  | 
 
 ### Return type
 
-[**OrgOptinView**](OrgOptinView.md)
+[**LeaderboardOrgOptinView**](LeaderboardOrgOptinView.md)
 
 ### Authorization
 
@@ -342,7 +342,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

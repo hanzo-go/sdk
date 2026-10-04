@@ -1,0 +1,82 @@
+# LspPosition
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Character** | Pointer to **int64** | Character is a 0-based UTF-16 code-unit offset within Line, per the LSP specification: not a byte offset and not a rune index. An emoji before the cursor counts as one here and as two in Go&#39;s arithmetic. | [optional] 
+**Line** | Pointer to **int64** | Line is 0-BASED, per the LSP specification — one less than the line an editor shows a human. | [optional] 
+
+## Methods
+
+### NewLspPosition
+
+`func NewLspPosition() *LspPosition`
+
+NewLspPosition instantiates a new LspPosition object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewLspPositionWithDefaults
+
+`func NewLspPositionWithDefaults() *LspPosition`
+
+NewLspPositionWithDefaults instantiates a new LspPosition object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetCharacter
+
+`func (o *LspPosition) GetCharacter() int64`
+
+GetCharacter returns the Character field if non-nil, zero value otherwise.
+
+### GetCharacterOk
+
+`func (o *LspPosition) GetCharacterOk() (*int64, bool)`
+
+GetCharacterOk returns a tuple with the Character field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCharacter
+
+`func (o *LspPosition) SetCharacter(v int64)`
+
+SetCharacter sets Character field to given value.
+
+### HasCharacter
+
+`func (o *LspPosition) HasCharacter() bool`
+
+HasCharacter returns a boolean if a field has been set.
+
+### GetLine
+
+`func (o *LspPosition) GetLine() int64`
+
+GetLine returns the Line field if non-nil, zero value otherwise.
+
+### GetLineOk
+
+`func (o *LspPosition) GetLineOk() (*int64, bool)`
+
+GetLineOk returns a tuple with the Line field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLine
+
+`func (o *LspPosition) SetLine(v int64)`
+
+SetLine sets Line field to given value.
+
+### HasLine
+
+`func (o *LspPosition) HasLine() bool`
+
+HasLine returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

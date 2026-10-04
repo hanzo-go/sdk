@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Action** | Pointer to **string** |  | [optional] 
-**Data** | Pointer to **map[string]interface{}** |  | [optional] 
+**Data** | Pointer to **interface{}** |  | [optional] 
 **Msg** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 
@@ -55,20 +55,20 @@ HasAction returns a boolean if a field has been set.
 
 ### GetData
 
-`func (o *IamReply) GetData() map[string]interface{}`
+`func (o *IamReply) GetData() interface{}`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *IamReply) GetDataOk() (*map[string]interface{}, bool)`
+`func (o *IamReply) GetDataOk() (*interface{}, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *IamReply) SetData(v map[string]interface{})`
+`func (o *IamReply) SetData(v interface{})`
 
 SetData sets Data field to given value.
 
@@ -78,6 +78,16 @@ SetData sets Data field to given value.
 
 HasData returns a boolean if a field has been set.
 
+### SetDataNil
+
+`func (o *IamReply) SetDataNil(b bool)`
+
+ SetDataNil sets the value for Data to be an explicit nil
+
+### UnsetData
+`func (o *IamReply) UnsetData()`
+
+UnsetData ensures that no value is present for Data, not even an explicit nil
 ### GetMsg
 
 `func (o *IamReply) GetMsg() string`

@@ -1,0 +1,632 @@
+# CaptableCaptableShareIn
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**BoardApprovalDate** | Pointer to **interface{}** |  | [optional] 
+**CapitalContribution** | Pointer to **interface{}** |  | [optional] 
+**CertificateId** | Pointer to **interface{}** |  | [optional] 
+**CliffYears** | Pointer to **interface{}** |  | [optional] 
+**CompanyLegends** | Pointer to **[]interface{}** | CompanyLegends are the restrictive legends printed on the certificate.  A LIST, and it must be sent as one: the bundle substitutes an EMPTY list for anything that is not an array, so a single string would be accepted and silently discarded — the certificate issued with no legends and nothing reporting it. | [optional] 
+**DebtCancelled** | Pointer to **interface{}** |  | [optional] 
+**IpContribution** | Pointer to **interface{}** |  | [optional] 
+**IssueDate** | Pointer to **interface{}** |  | [optional] 
+**OtherContributions** | Pointer to **interface{}** |  | [optional] 
+**PricePerShare** | Pointer to **interface{}** |  | [optional] 
+**Quantity** | Pointer to **interface{}** |  | [optional] 
+**Rule144Date** | Pointer to **interface{}** |  | [optional] 
+**ShareClassId** | Pointer to **interface{}** |  | [optional] 
+**StakeholderId** | Pointer to **interface{}** |  | [optional] 
+**Status** | Pointer to **interface{}** |  | [optional] 
+**VestingStartDate** | Pointer to **interface{}** |  | [optional] 
+**VestingYears** | Pointer to **interface{}** |  | [optional] 
+
+## Methods
+
+### NewCaptableCaptableShareIn
+
+`func NewCaptableCaptableShareIn() *CaptableCaptableShareIn`
+
+NewCaptableCaptableShareIn instantiates a new CaptableCaptableShareIn object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewCaptableCaptableShareInWithDefaults
+
+`func NewCaptableCaptableShareInWithDefaults() *CaptableCaptableShareIn`
+
+NewCaptableCaptableShareInWithDefaults instantiates a new CaptableCaptableShareIn object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetBoardApprovalDate
+
+`func (o *CaptableCaptableShareIn) GetBoardApprovalDate() interface{}`
+
+GetBoardApprovalDate returns the BoardApprovalDate field if non-nil, zero value otherwise.
+
+### GetBoardApprovalDateOk
+
+`func (o *CaptableCaptableShareIn) GetBoardApprovalDateOk() (*interface{}, bool)`
+
+GetBoardApprovalDateOk returns a tuple with the BoardApprovalDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBoardApprovalDate
+
+`func (o *CaptableCaptableShareIn) SetBoardApprovalDate(v interface{})`
+
+SetBoardApprovalDate sets BoardApprovalDate field to given value.
+
+### HasBoardApprovalDate
+
+`func (o *CaptableCaptableShareIn) HasBoardApprovalDate() bool`
+
+HasBoardApprovalDate returns a boolean if a field has been set.
+
+### SetBoardApprovalDateNil
+
+`func (o *CaptableCaptableShareIn) SetBoardApprovalDateNil(b bool)`
+
+ SetBoardApprovalDateNil sets the value for BoardApprovalDate to be an explicit nil
+
+### UnsetBoardApprovalDate
+`func (o *CaptableCaptableShareIn) UnsetBoardApprovalDate()`
+
+UnsetBoardApprovalDate ensures that no value is present for BoardApprovalDate, not even an explicit nil
+### GetCapitalContribution
+
+`func (o *CaptableCaptableShareIn) GetCapitalContribution() interface{}`
+
+GetCapitalContribution returns the CapitalContribution field if non-nil, zero value otherwise.
+
+### GetCapitalContributionOk
+
+`func (o *CaptableCaptableShareIn) GetCapitalContributionOk() (*interface{}, bool)`
+
+GetCapitalContributionOk returns a tuple with the CapitalContribution field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCapitalContribution
+
+`func (o *CaptableCaptableShareIn) SetCapitalContribution(v interface{})`
+
+SetCapitalContribution sets CapitalContribution field to given value.
+
+### HasCapitalContribution
+
+`func (o *CaptableCaptableShareIn) HasCapitalContribution() bool`
+
+HasCapitalContribution returns a boolean if a field has been set.
+
+### SetCapitalContributionNil
+
+`func (o *CaptableCaptableShareIn) SetCapitalContributionNil(b bool)`
+
+ SetCapitalContributionNil sets the value for CapitalContribution to be an explicit nil
+
+### UnsetCapitalContribution
+`func (o *CaptableCaptableShareIn) UnsetCapitalContribution()`
+
+UnsetCapitalContribution ensures that no value is present for CapitalContribution, not even an explicit nil
+### GetCertificateId
+
+`func (o *CaptableCaptableShareIn) GetCertificateId() interface{}`
+
+GetCertificateId returns the CertificateId field if non-nil, zero value otherwise.
+
+### GetCertificateIdOk
+
+`func (o *CaptableCaptableShareIn) GetCertificateIdOk() (*interface{}, bool)`
+
+GetCertificateIdOk returns a tuple with the CertificateId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCertificateId
+
+`func (o *CaptableCaptableShareIn) SetCertificateId(v interface{})`
+
+SetCertificateId sets CertificateId field to given value.
+
+### HasCertificateId
+
+`func (o *CaptableCaptableShareIn) HasCertificateId() bool`
+
+HasCertificateId returns a boolean if a field has been set.
+
+### SetCertificateIdNil
+
+`func (o *CaptableCaptableShareIn) SetCertificateIdNil(b bool)`
+
+ SetCertificateIdNil sets the value for CertificateId to be an explicit nil
+
+### UnsetCertificateId
+`func (o *CaptableCaptableShareIn) UnsetCertificateId()`
+
+UnsetCertificateId ensures that no value is present for CertificateId, not even an explicit nil
+### GetCliffYears
+
+`func (o *CaptableCaptableShareIn) GetCliffYears() interface{}`
+
+GetCliffYears returns the CliffYears field if non-nil, zero value otherwise.
+
+### GetCliffYearsOk
+
+`func (o *CaptableCaptableShareIn) GetCliffYearsOk() (*interface{}, bool)`
+
+GetCliffYearsOk returns a tuple with the CliffYears field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCliffYears
+
+`func (o *CaptableCaptableShareIn) SetCliffYears(v interface{})`
+
+SetCliffYears sets CliffYears field to given value.
+
+### HasCliffYears
+
+`func (o *CaptableCaptableShareIn) HasCliffYears() bool`
+
+HasCliffYears returns a boolean if a field has been set.
+
+### SetCliffYearsNil
+
+`func (o *CaptableCaptableShareIn) SetCliffYearsNil(b bool)`
+
+ SetCliffYearsNil sets the value for CliffYears to be an explicit nil
+
+### UnsetCliffYears
+`func (o *CaptableCaptableShareIn) UnsetCliffYears()`
+
+UnsetCliffYears ensures that no value is present for CliffYears, not even an explicit nil
+### GetCompanyLegends
+
+`func (o *CaptableCaptableShareIn) GetCompanyLegends() []interface{}`
+
+GetCompanyLegends returns the CompanyLegends field if non-nil, zero value otherwise.
+
+### GetCompanyLegendsOk
+
+`func (o *CaptableCaptableShareIn) GetCompanyLegendsOk() (*[]interface{}, bool)`
+
+GetCompanyLegendsOk returns a tuple with the CompanyLegends field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCompanyLegends
+
+`func (o *CaptableCaptableShareIn) SetCompanyLegends(v []interface{})`
+
+SetCompanyLegends sets CompanyLegends field to given value.
+
+### HasCompanyLegends
+
+`func (o *CaptableCaptableShareIn) HasCompanyLegends() bool`
+
+HasCompanyLegends returns a boolean if a field has been set.
+
+### GetDebtCancelled
+
+`func (o *CaptableCaptableShareIn) GetDebtCancelled() interface{}`
+
+GetDebtCancelled returns the DebtCancelled field if non-nil, zero value otherwise.
+
+### GetDebtCancelledOk
+
+`func (o *CaptableCaptableShareIn) GetDebtCancelledOk() (*interface{}, bool)`
+
+GetDebtCancelledOk returns a tuple with the DebtCancelled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDebtCancelled
+
+`func (o *CaptableCaptableShareIn) SetDebtCancelled(v interface{})`
+
+SetDebtCancelled sets DebtCancelled field to given value.
+
+### HasDebtCancelled
+
+`func (o *CaptableCaptableShareIn) HasDebtCancelled() bool`
+
+HasDebtCancelled returns a boolean if a field has been set.
+
+### SetDebtCancelledNil
+
+`func (o *CaptableCaptableShareIn) SetDebtCancelledNil(b bool)`
+
+ SetDebtCancelledNil sets the value for DebtCancelled to be an explicit nil
+
+### UnsetDebtCancelled
+`func (o *CaptableCaptableShareIn) UnsetDebtCancelled()`
+
+UnsetDebtCancelled ensures that no value is present for DebtCancelled, not even an explicit nil
+### GetIpContribution
+
+`func (o *CaptableCaptableShareIn) GetIpContribution() interface{}`
+
+GetIpContribution returns the IpContribution field if non-nil, zero value otherwise.
+
+### GetIpContributionOk
+
+`func (o *CaptableCaptableShareIn) GetIpContributionOk() (*interface{}, bool)`
+
+GetIpContributionOk returns a tuple with the IpContribution field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIpContribution
+
+`func (o *CaptableCaptableShareIn) SetIpContribution(v interface{})`
+
+SetIpContribution sets IpContribution field to given value.
+
+### HasIpContribution
+
+`func (o *CaptableCaptableShareIn) HasIpContribution() bool`
+
+HasIpContribution returns a boolean if a field has been set.
+
+### SetIpContributionNil
+
+`func (o *CaptableCaptableShareIn) SetIpContributionNil(b bool)`
+
+ SetIpContributionNil sets the value for IpContribution to be an explicit nil
+
+### UnsetIpContribution
+`func (o *CaptableCaptableShareIn) UnsetIpContribution()`
+
+UnsetIpContribution ensures that no value is present for IpContribution, not even an explicit nil
+### GetIssueDate
+
+`func (o *CaptableCaptableShareIn) GetIssueDate() interface{}`
+
+GetIssueDate returns the IssueDate field if non-nil, zero value otherwise.
+
+### GetIssueDateOk
+
+`func (o *CaptableCaptableShareIn) GetIssueDateOk() (*interface{}, bool)`
+
+GetIssueDateOk returns a tuple with the IssueDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIssueDate
+
+`func (o *CaptableCaptableShareIn) SetIssueDate(v interface{})`
+
+SetIssueDate sets IssueDate field to given value.
+
+### HasIssueDate
+
+`func (o *CaptableCaptableShareIn) HasIssueDate() bool`
+
+HasIssueDate returns a boolean if a field has been set.
+
+### SetIssueDateNil
+
+`func (o *CaptableCaptableShareIn) SetIssueDateNil(b bool)`
+
+ SetIssueDateNil sets the value for IssueDate to be an explicit nil
+
+### UnsetIssueDate
+`func (o *CaptableCaptableShareIn) UnsetIssueDate()`
+
+UnsetIssueDate ensures that no value is present for IssueDate, not even an explicit nil
+### GetOtherContributions
+
+`func (o *CaptableCaptableShareIn) GetOtherContributions() interface{}`
+
+GetOtherContributions returns the OtherContributions field if non-nil, zero value otherwise.
+
+### GetOtherContributionsOk
+
+`func (o *CaptableCaptableShareIn) GetOtherContributionsOk() (*interface{}, bool)`
+
+GetOtherContributionsOk returns a tuple with the OtherContributions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOtherContributions
+
+`func (o *CaptableCaptableShareIn) SetOtherContributions(v interface{})`
+
+SetOtherContributions sets OtherContributions field to given value.
+
+### HasOtherContributions
+
+`func (o *CaptableCaptableShareIn) HasOtherContributions() bool`
+
+HasOtherContributions returns a boolean if a field has been set.
+
+### SetOtherContributionsNil
+
+`func (o *CaptableCaptableShareIn) SetOtherContributionsNil(b bool)`
+
+ SetOtherContributionsNil sets the value for OtherContributions to be an explicit nil
+
+### UnsetOtherContributions
+`func (o *CaptableCaptableShareIn) UnsetOtherContributions()`
+
+UnsetOtherContributions ensures that no value is present for OtherContributions, not even an explicit nil
+### GetPricePerShare
+
+`func (o *CaptableCaptableShareIn) GetPricePerShare() interface{}`
+
+GetPricePerShare returns the PricePerShare field if non-nil, zero value otherwise.
+
+### GetPricePerShareOk
+
+`func (o *CaptableCaptableShareIn) GetPricePerShareOk() (*interface{}, bool)`
+
+GetPricePerShareOk returns a tuple with the PricePerShare field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPricePerShare
+
+`func (o *CaptableCaptableShareIn) SetPricePerShare(v interface{})`
+
+SetPricePerShare sets PricePerShare field to given value.
+
+### HasPricePerShare
+
+`func (o *CaptableCaptableShareIn) HasPricePerShare() bool`
+
+HasPricePerShare returns a boolean if a field has been set.
+
+### SetPricePerShareNil
+
+`func (o *CaptableCaptableShareIn) SetPricePerShareNil(b bool)`
+
+ SetPricePerShareNil sets the value for PricePerShare to be an explicit nil
+
+### UnsetPricePerShare
+`func (o *CaptableCaptableShareIn) UnsetPricePerShare()`
+
+UnsetPricePerShare ensures that no value is present for PricePerShare, not even an explicit nil
+### GetQuantity
+
+`func (o *CaptableCaptableShareIn) GetQuantity() interface{}`
+
+GetQuantity returns the Quantity field if non-nil, zero value otherwise.
+
+### GetQuantityOk
+
+`func (o *CaptableCaptableShareIn) GetQuantityOk() (*interface{}, bool)`
+
+GetQuantityOk returns a tuple with the Quantity field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuantity
+
+`func (o *CaptableCaptableShareIn) SetQuantity(v interface{})`
+
+SetQuantity sets Quantity field to given value.
+
+### HasQuantity
+
+`func (o *CaptableCaptableShareIn) HasQuantity() bool`
+
+HasQuantity returns a boolean if a field has been set.
+
+### SetQuantityNil
+
+`func (o *CaptableCaptableShareIn) SetQuantityNil(b bool)`
+
+ SetQuantityNil sets the value for Quantity to be an explicit nil
+
+### UnsetQuantity
+`func (o *CaptableCaptableShareIn) UnsetQuantity()`
+
+UnsetQuantity ensures that no value is present for Quantity, not even an explicit nil
+### GetRule144Date
+
+`func (o *CaptableCaptableShareIn) GetRule144Date() interface{}`
+
+GetRule144Date returns the Rule144Date field if non-nil, zero value otherwise.
+
+### GetRule144DateOk
+
+`func (o *CaptableCaptableShareIn) GetRule144DateOk() (*interface{}, bool)`
+
+GetRule144DateOk returns a tuple with the Rule144Date field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRule144Date
+
+`func (o *CaptableCaptableShareIn) SetRule144Date(v interface{})`
+
+SetRule144Date sets Rule144Date field to given value.
+
+### HasRule144Date
+
+`func (o *CaptableCaptableShareIn) HasRule144Date() bool`
+
+HasRule144Date returns a boolean if a field has been set.
+
+### SetRule144DateNil
+
+`func (o *CaptableCaptableShareIn) SetRule144DateNil(b bool)`
+
+ SetRule144DateNil sets the value for Rule144Date to be an explicit nil
+
+### UnsetRule144Date
+`func (o *CaptableCaptableShareIn) UnsetRule144Date()`
+
+UnsetRule144Date ensures that no value is present for Rule144Date, not even an explicit nil
+### GetShareClassId
+
+`func (o *CaptableCaptableShareIn) GetShareClassId() interface{}`
+
+GetShareClassId returns the ShareClassId field if non-nil, zero value otherwise.
+
+### GetShareClassIdOk
+
+`func (o *CaptableCaptableShareIn) GetShareClassIdOk() (*interface{}, bool)`
+
+GetShareClassIdOk returns a tuple with the ShareClassId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShareClassId
+
+`func (o *CaptableCaptableShareIn) SetShareClassId(v interface{})`
+
+SetShareClassId sets ShareClassId field to given value.
+
+### HasShareClassId
+
+`func (o *CaptableCaptableShareIn) HasShareClassId() bool`
+
+HasShareClassId returns a boolean if a field has been set.
+
+### SetShareClassIdNil
+
+`func (o *CaptableCaptableShareIn) SetShareClassIdNil(b bool)`
+
+ SetShareClassIdNil sets the value for ShareClassId to be an explicit nil
+
+### UnsetShareClassId
+`func (o *CaptableCaptableShareIn) UnsetShareClassId()`
+
+UnsetShareClassId ensures that no value is present for ShareClassId, not even an explicit nil
+### GetStakeholderId
+
+`func (o *CaptableCaptableShareIn) GetStakeholderId() interface{}`
+
+GetStakeholderId returns the StakeholderId field if non-nil, zero value otherwise.
+
+### GetStakeholderIdOk
+
+`func (o *CaptableCaptableShareIn) GetStakeholderIdOk() (*interface{}, bool)`
+
+GetStakeholderIdOk returns a tuple with the StakeholderId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStakeholderId
+
+`func (o *CaptableCaptableShareIn) SetStakeholderId(v interface{})`
+
+SetStakeholderId sets StakeholderId field to given value.
+
+### HasStakeholderId
+
+`func (o *CaptableCaptableShareIn) HasStakeholderId() bool`
+
+HasStakeholderId returns a boolean if a field has been set.
+
+### SetStakeholderIdNil
+
+`func (o *CaptableCaptableShareIn) SetStakeholderIdNil(b bool)`
+
+ SetStakeholderIdNil sets the value for StakeholderId to be an explicit nil
+
+### UnsetStakeholderId
+`func (o *CaptableCaptableShareIn) UnsetStakeholderId()`
+
+UnsetStakeholderId ensures that no value is present for StakeholderId, not even an explicit nil
+### GetStatus
+
+`func (o *CaptableCaptableShareIn) GetStatus() interface{}`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *CaptableCaptableShareIn) GetStatusOk() (*interface{}, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *CaptableCaptableShareIn) SetStatus(v interface{})`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *CaptableCaptableShareIn) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
+### SetStatusNil
+
+`func (o *CaptableCaptableShareIn) SetStatusNil(b bool)`
+
+ SetStatusNil sets the value for Status to be an explicit nil
+
+### UnsetStatus
+`func (o *CaptableCaptableShareIn) UnsetStatus()`
+
+UnsetStatus ensures that no value is present for Status, not even an explicit nil
+### GetVestingStartDate
+
+`func (o *CaptableCaptableShareIn) GetVestingStartDate() interface{}`
+
+GetVestingStartDate returns the VestingStartDate field if non-nil, zero value otherwise.
+
+### GetVestingStartDateOk
+
+`func (o *CaptableCaptableShareIn) GetVestingStartDateOk() (*interface{}, bool)`
+
+GetVestingStartDateOk returns a tuple with the VestingStartDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVestingStartDate
+
+`func (o *CaptableCaptableShareIn) SetVestingStartDate(v interface{})`
+
+SetVestingStartDate sets VestingStartDate field to given value.
+
+### HasVestingStartDate
+
+`func (o *CaptableCaptableShareIn) HasVestingStartDate() bool`
+
+HasVestingStartDate returns a boolean if a field has been set.
+
+### SetVestingStartDateNil
+
+`func (o *CaptableCaptableShareIn) SetVestingStartDateNil(b bool)`
+
+ SetVestingStartDateNil sets the value for VestingStartDate to be an explicit nil
+
+### UnsetVestingStartDate
+`func (o *CaptableCaptableShareIn) UnsetVestingStartDate()`
+
+UnsetVestingStartDate ensures that no value is present for VestingStartDate, not even an explicit nil
+### GetVestingYears
+
+`func (o *CaptableCaptableShareIn) GetVestingYears() interface{}`
+
+GetVestingYears returns the VestingYears field if non-nil, zero value otherwise.
+
+### GetVestingYearsOk
+
+`func (o *CaptableCaptableShareIn) GetVestingYearsOk() (*interface{}, bool)`
+
+GetVestingYearsOk returns a tuple with the VestingYears field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVestingYears
+
+`func (o *CaptableCaptableShareIn) SetVestingYears(v interface{})`
+
+SetVestingYears sets VestingYears field to given value.
+
+### HasVestingYears
+
+`func (o *CaptableCaptableShareIn) HasVestingYears() bool`
+
+HasVestingYears returns a boolean if a field has been set.
+
+### SetVestingYearsNil
+
+`func (o *CaptableCaptableShareIn) SetVestingYearsNil(b bool)`
+
+ SetVestingYearsNil sets the value for VestingYears to be an explicit nil
+
+### UnsetVestingYears
+`func (o *CaptableCaptableShareIn) UnsetVestingYears()`
+
+UnsetVestingYears ensures that no value is present for VestingYears, not even an explicit nil
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

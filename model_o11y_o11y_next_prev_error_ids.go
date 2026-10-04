@@ -29,8 +29,11 @@ type O11yO11yNextPrevErrorIDs struct {
 	// PrevErrorID is the id of the instance immediately before this one.
 	PrevErrorID *string `json:"prevErrorID,omitempty"`
 	// PrevTimestamp is that instance's time.
-	PrevTimestamp *time.Time `json:"prevTimestamp,omitempty"`
+	PrevTimestamp        *time.Time `json:"prevTimestamp,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yNextPrevErrorIDs O11yO11yNextPrevErrorIDs
 
 // NewO11yO11yNextPrevErrorIDs instantiates a new O11yO11yNextPrevErrorIDs object
 // This constructor will assign default values to properties that have it defined,
@@ -234,7 +237,37 @@ func (o O11yO11yNextPrevErrorIDs) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PrevTimestamp) {
 		toSerialize["prevTimestamp"] = o.PrevTimestamp
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yNextPrevErrorIDs) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yNextPrevErrorIDs := _O11yO11yNextPrevErrorIDs{}
+
+	err = json.Unmarshal(data, &varO11yO11yNextPrevErrorIDs)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yNextPrevErrorIDs(varO11yO11yNextPrevErrorIDs)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "groupID")
+		delete(additionalProperties, "nextErrorID")
+		delete(additionalProperties, "nextTimestamp")
+		delete(additionalProperties, "prevErrorID")
+		delete(additionalProperties, "prevTimestamp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yNextPrevErrorIDs struct {

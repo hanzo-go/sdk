@@ -82,7 +82,7 @@ func (a *AdAPIService) DeleteAdCampaignsByIdExecute(r AdAPIDeleteAdCampaignsById
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -111,6 +111,14 @@ func (a *AdAPIService) DeleteAdCampaignsByIdExecute(r AdAPIDeleteAdCampaignsById
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -136,7 +144,7 @@ func (r AdAPIGetAdCampaignsRequest) Limit(limit int64) AdAPIGetAdCampaignsReques
 	return r
 }
 
-func (r AdAPIGetAdCampaignsRequest) Execute() (*CampaignList, *http.Response, error) {
+func (r AdAPIGetAdCampaignsRequest) Execute() (*AdCampaignList, *http.Response, error) {
 	return r.ApiService.GetAdCampaignsExecute(r)
 }
 
@@ -159,13 +167,13 @@ func (a *AdAPIService) GetAdCampaigns(ctx context.Context) AdAPIGetAdCampaignsRe
 
 // Execute executes the request
 //
-//	@return CampaignList
-func (a *AdAPIService) GetAdCampaignsExecute(r AdAPIGetAdCampaignsRequest) (*CampaignList, *http.Response, error) {
+//	@return AdCampaignList
+func (a *AdAPIService) GetAdCampaignsExecute(r AdAPIGetAdCampaignsRequest) (*AdCampaignList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CampaignList
+		localVarReturnValue *AdCampaignList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdAPIService.GetAdCampaigns")
@@ -195,7 +203,7 @@ func (a *AdAPIService) GetAdCampaignsExecute(r AdAPIGetAdCampaignsRequest) (*Cam
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -224,6 +232,14 @@ func (a *AdAPIService) GetAdCampaignsExecute(r AdAPIGetAdCampaignsRequest) (*Cam
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -245,7 +261,7 @@ type AdAPIGetAdCampaignsByIdRequest struct {
 	id         string
 }
 
-func (r AdAPIGetAdCampaignsByIdRequest) Execute() (*AdCampaign, *http.Response, error) {
+func (r AdAPIGetAdCampaignsByIdRequest) Execute() (*AdAdCampaign, *http.Response, error) {
 	return r.ApiService.GetAdCampaignsByIdExecute(r)
 }
 
@@ -269,13 +285,13 @@ func (a *AdAPIService) GetAdCampaignsById(ctx context.Context, id string) AdAPIG
 
 // Execute executes the request
 //
-//	@return AdCampaign
-func (a *AdAPIService) GetAdCampaignsByIdExecute(r AdAPIGetAdCampaignsByIdRequest) (*AdCampaign, *http.Response, error) {
+//	@return AdAdCampaign
+func (a *AdAPIService) GetAdCampaignsByIdExecute(r AdAPIGetAdCampaignsByIdRequest) (*AdAdCampaign, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AdCampaign
+		localVarReturnValue *AdAdCampaign
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdAPIService.GetAdCampaignsById")
@@ -300,7 +316,7 @@ func (a *AdAPIService) GetAdCampaignsByIdExecute(r AdAPIGetAdCampaignsByIdReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -329,6 +345,14 @@ func (a *AdAPIService) GetAdCampaignsByIdExecute(r AdAPIGetAdCampaignsByIdReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -349,7 +373,7 @@ type AdAPIGetAdSummaryRequest struct {
 	ApiService *AdAPIService
 }
 
-func (r AdAPIGetAdSummaryRequest) Execute() (*AdSummary, *http.Response, error) {
+func (r AdAPIGetAdSummaryRequest) Execute() (*AdAdSummary, *http.Response, error) {
 	return r.ApiService.GetAdSummaryExecute(r)
 }
 
@@ -373,13 +397,13 @@ func (a *AdAPIService) GetAdSummary(ctx context.Context) AdAPIGetAdSummaryReques
 
 // Execute executes the request
 //
-//	@return AdSummary
-func (a *AdAPIService) GetAdSummaryExecute(r AdAPIGetAdSummaryRequest) (*AdSummary, *http.Response, error) {
+//	@return AdAdSummary
+func (a *AdAPIService) GetAdSummaryExecute(r AdAPIGetAdSummaryRequest) (*AdAdSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AdSummary
+		localVarReturnValue *AdAdSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdAPIService.GetAdSummary")
@@ -403,7 +427,7 @@ func (a *AdAPIService) GetAdSummaryExecute(r AdAPIGetAdSummaryRequest) (*AdSumma
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -432,6 +456,14 @@ func (a *AdAPIService) GetAdSummaryExecute(r AdAPIGetAdSummaryRequest) (*AdSumma
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -448,17 +480,17 @@ func (a *AdAPIService) GetAdSummaryExecute(r AdAPIGetAdSummaryRequest) (*AdSumma
 }
 
 type AdAPIPostAdCampaignsRequest struct {
-	ctx           context.Context
-	ApiService    *AdAPIService
-	campaignInput *CampaignInput
+	ctx             context.Context
+	ApiService      *AdAPIService
+	adCampaignInput *AdCampaignInput
 }
 
-func (r AdAPIPostAdCampaignsRequest) CampaignInput(campaignInput CampaignInput) AdAPIPostAdCampaignsRequest {
-	r.campaignInput = &campaignInput
+func (r AdAPIPostAdCampaignsRequest) AdCampaignInput(adCampaignInput AdCampaignInput) AdAPIPostAdCampaignsRequest {
+	r.adCampaignInput = &adCampaignInput
 	return r
 }
 
-func (r AdAPIPostAdCampaignsRequest) Execute() (*AdCampaign, *http.Response, error) {
+func (r AdAPIPostAdCampaignsRequest) Execute() (*AdAdCampaign, *http.Response, error) {
 	return r.ApiService.PostAdCampaignsExecute(r)
 }
 
@@ -483,13 +515,13 @@ func (a *AdAPIService) PostAdCampaigns(ctx context.Context) AdAPIPostAdCampaigns
 
 // Execute executes the request
 //
-//	@return AdCampaign
-func (a *AdAPIService) PostAdCampaignsExecute(r AdAPIPostAdCampaignsRequest) (*AdCampaign, *http.Response, error) {
+//	@return AdAdCampaign
+func (a *AdAPIService) PostAdCampaignsExecute(r AdAPIPostAdCampaignsRequest) (*AdAdCampaign, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AdCampaign
+		localVarReturnValue *AdAdCampaign
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdAPIService.PostAdCampaigns")
@@ -502,8 +534,8 @@ func (a *AdAPIService) PostAdCampaignsExecute(r AdAPIPostAdCampaignsRequest) (*A
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.campaignInput == nil {
-		return localVarReturnValue, nil, reportError("campaignInput is required and must be specified")
+	if r.adCampaignInput == nil {
+		return localVarReturnValue, nil, reportError("adCampaignInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -516,7 +548,7 @@ func (a *AdAPIService) PostAdCampaignsExecute(r AdAPIPostAdCampaignsRequest) (*A
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -524,7 +556,7 @@ func (a *AdAPIService) PostAdCampaignsExecute(r AdAPIPostAdCampaignsRequest) (*A
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.campaignInput
+	localVarPostBody = r.adCampaignInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -547,6 +579,14 @@ func (a *AdAPIService) PostAdCampaignsExecute(r AdAPIPostAdCampaignsRequest) (*A
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -655,18 +695,18 @@ func (a *AdAPIService) PostAdCampaignsByIdLaunchExecute(r AdAPIPostAdCampaignsBy
 }
 
 type AdAPIPutAdCampaignsByIdRequest struct {
-	ctx              context.Context
-	ApiService       *AdAPIService
-	id               string
-	updateCampaignIn *UpdateCampaignIn
+	ctx                context.Context
+	ApiService         *AdAPIService
+	id                 string
+	adUpdateCampaignIn *AdUpdateCampaignIn
 }
 
-func (r AdAPIPutAdCampaignsByIdRequest) UpdateCampaignIn(updateCampaignIn UpdateCampaignIn) AdAPIPutAdCampaignsByIdRequest {
-	r.updateCampaignIn = &updateCampaignIn
+func (r AdAPIPutAdCampaignsByIdRequest) AdUpdateCampaignIn(adUpdateCampaignIn AdUpdateCampaignIn) AdAPIPutAdCampaignsByIdRequest {
+	r.adUpdateCampaignIn = &adUpdateCampaignIn
 	return r
 }
 
-func (r AdAPIPutAdCampaignsByIdRequest) Execute() (*AdCampaign, *http.Response, error) {
+func (r AdAPIPutAdCampaignsByIdRequest) Execute() (*AdAdCampaign, *http.Response, error) {
 	return r.ApiService.PutAdCampaignsByIdExecute(r)
 }
 
@@ -693,13 +733,13 @@ func (a *AdAPIService) PutAdCampaignsById(ctx context.Context, id string) AdAPIP
 
 // Execute executes the request
 //
-//	@return AdCampaign
-func (a *AdAPIService) PutAdCampaignsByIdExecute(r AdAPIPutAdCampaignsByIdRequest) (*AdCampaign, *http.Response, error) {
+//	@return AdAdCampaign
+func (a *AdAPIService) PutAdCampaignsByIdExecute(r AdAPIPutAdCampaignsByIdRequest) (*AdAdCampaign, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AdCampaign
+		localVarReturnValue *AdAdCampaign
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdAPIService.PutAdCampaignsById")
@@ -713,8 +753,8 @@ func (a *AdAPIService) PutAdCampaignsByIdExecute(r AdAPIPutAdCampaignsByIdReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.updateCampaignIn == nil {
-		return localVarReturnValue, nil, reportError("updateCampaignIn is required and must be specified")
+	if r.adUpdateCampaignIn == nil {
+		return localVarReturnValue, nil, reportError("adUpdateCampaignIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -727,7 +767,7 @@ func (a *AdAPIService) PutAdCampaignsByIdExecute(r AdAPIPutAdCampaignsByIdReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -735,7 +775,7 @@ func (a *AdAPIService) PutAdCampaignsByIdExecute(r AdAPIPutAdCampaignsByIdReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateCampaignIn
+	localVarPostBody = r.adUpdateCampaignIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -758,6 +798,14 @@ func (a *AdAPIService) PutAdCampaignsByIdExecute(r AdAPIPutAdCampaignsByIdReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

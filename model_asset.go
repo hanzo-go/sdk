@@ -19,22 +19,25 @@ var _ MappedNullable = &Asset{}
 
 // Asset struct for Asset
 type Asset struct {
-	CreatedTime *string `json:"createdTime,omitempty"`
-	DisplayName *string `json:"displayName,omitempty"`
-	Id          *string `json:"id,omitempty"`
-	Name        *string `json:"name,omitempty"`
-	Owner       *string `json:"owner,omitempty"`
-	Password    *string `json:"password,omitempty"`
-	Properties  *string `json:"properties,omitempty"`
-	Provider    *string `json:"provider,omitempty"`
-	Region      *string `json:"region,omitempty"`
-	State       *string `json:"state,omitempty"`
-	Tag         *string `json:"tag,omitempty"`
-	Type        *string `json:"type,omitempty"`
-	UpdatedTime *string `json:"updatedTime,omitempty"`
-	Username    *string `json:"username,omitempty"`
-	Zone        *string `json:"zone,omitempty"`
+	CreatedTime          *string `json:"createdTime,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Owner                *string `json:"owner,omitempty"`
+	Password             *string `json:"password,omitempty"`
+	Properties           *string `json:"properties,omitempty"`
+	Provider             *string `json:"provider,omitempty"`
+	Region               *string `json:"region,omitempty"`
+	State                *string `json:"state,omitempty"`
+	Tag                  *string `json:"tag,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	UpdatedTime          *string `json:"updatedTime,omitempty"`
+	Username             *string `json:"username,omitempty"`
+	Zone                 *string `json:"zone,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Asset Asset
 
 // NewAsset instantiates a new Asset object
 // This constructor will assign default values to properties that have it defined,
@@ -588,7 +591,47 @@ func (o Asset) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Zone) {
 		toSerialize["zone"] = o.Zone
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Asset) UnmarshalJSON(data []byte) (err error) {
+	varAsset := _Asset{}
+
+	err = json.Unmarshal(data, &varAsset)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Asset(varAsset)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "properties")
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "region")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "tag")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updatedTime")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "zone")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAsset struct {

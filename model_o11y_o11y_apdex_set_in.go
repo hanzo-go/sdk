@@ -24,8 +24,11 @@ type O11yO11yApdexSetIn struct {
 	// ServiceName is the service the threshold applies to.
 	ServiceName *string `json:"serviceName,omitempty"`
 	// Threshold is the satisfied-response time in seconds.
-	Threshold *float64 `json:"threshold,omitempty"`
+	Threshold            *float64 `json:"threshold,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yApdexSetIn O11yO11yApdexSetIn
 
 // NewO11yO11yApdexSetIn instantiates a new O11yO11yApdexSetIn object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yApdexSetIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Threshold) {
 		toSerialize["threshold"] = o.Threshold
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yApdexSetIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yApdexSetIn := _O11yO11yApdexSetIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yApdexSetIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yApdexSetIn(varO11yO11yApdexSetIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "excludeStatusCodes")
+		delete(additionalProperties, "serviceName")
+		delete(additionalProperties, "threshold")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yApdexSetIn struct {

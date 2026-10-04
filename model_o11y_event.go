@@ -19,11 +19,14 @@ var _ MappedNullable = &O11yEvent{}
 
 // O11yEvent struct for O11yEvent
 type O11yEvent struct {
-	AttributeMap map[string]map[string]interface{} `json:"attributeMap,omitempty"`
-	IsError      *bool                             `json:"isError,omitempty"`
-	Name         *string                           `json:"name,omitempty"`
-	TimeUnixNano *int32                            `json:"timeUnixNano,omitempty"`
+	AttributeMap         map[string]interface{} `json:"attributeMap,omitempty"`
+	IsError              *bool                  `json:"isError,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	TimeUnixNano         *int32                 `json:"timeUnixNano,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yEvent O11yEvent
 
 // NewO11yEvent instantiates a new O11yEvent object
 // This constructor will assign default values to properties that have it defined,
@@ -43,9 +46,9 @@ func NewO11yEventWithDefaults() *O11yEvent {
 }
 
 // GetAttributeMap returns the AttributeMap field value if set, zero value otherwise.
-func (o *O11yEvent) GetAttributeMap() map[string]map[string]interface{} {
+func (o *O11yEvent) GetAttributeMap() map[string]interface{} {
 	if o == nil || IsNil(o.AttributeMap) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.AttributeMap
@@ -53,9 +56,9 @@ func (o *O11yEvent) GetAttributeMap() map[string]map[string]interface{} {
 
 // GetAttributeMapOk returns a tuple with the AttributeMap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yEvent) GetAttributeMapOk() (map[string]map[string]interface{}, bool) {
+func (o *O11yEvent) GetAttributeMapOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.AttributeMap) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.AttributeMap, true
 }
@@ -69,8 +72,8 @@ func (o *O11yEvent) HasAttributeMap() bool {
 	return false
 }
 
-// SetAttributeMap gets a reference to the given map[string]map[string]interface{} and assigns it to the AttributeMap field.
-func (o *O11yEvent) SetAttributeMap(v map[string]map[string]interface{}) {
+// SetAttributeMap gets a reference to the given map[string]interface{} and assigns it to the AttributeMap field.
+func (o *O11yEvent) SetAttributeMap(v map[string]interface{}) {
 	o.AttributeMap = v
 }
 
@@ -192,7 +195,36 @@ func (o O11yEvent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TimeUnixNano) {
 		toSerialize["timeUnixNano"] = o.TimeUnixNano
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yEvent) UnmarshalJSON(data []byte) (err error) {
+	varO11yEvent := _O11yEvent{}
+
+	err = json.Unmarshal(data, &varO11yEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yEvent(varO11yEvent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributeMap")
+		delete(additionalProperties, "isError")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "timeUnixNano")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yEvent struct {

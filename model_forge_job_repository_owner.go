@@ -19,9 +19,12 @@ var _ MappedNullable = &ForgeJobRepositoryOwner{}
 
 // ForgeJobRepositoryOwner struct for ForgeJobRepositoryOwner
 type ForgeJobRepositoryOwner struct {
-	Login    *string `json:"login,omitempty"`
-	Username *string `json:"username,omitempty"`
+	Login                *string `json:"login,omitempty"`
+	Username             *string `json:"username,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ForgeJobRepositoryOwner ForgeJobRepositoryOwner
 
 // NewForgeJobRepositoryOwner instantiates a new ForgeJobRepositoryOwner object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o ForgeJobRepositoryOwner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ForgeJobRepositoryOwner) UnmarshalJSON(data []byte) (err error) {
+	varForgeJobRepositoryOwner := _ForgeJobRepositoryOwner{}
+
+	err = json.Unmarshal(data, &varForgeJobRepositoryOwner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ForgeJobRepositoryOwner(varForgeJobRepositoryOwner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "login")
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableForgeJobRepositoryOwner struct {

@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,10 +20,11 @@ var _ MappedNullable = &IamUpdateSessionIn{}
 
 // IamUpdateSessionIn struct for IamUpdateSessionIn
 type IamUpdateSessionIn struct {
-	Application string   `json:"application"`
-	Name        string   `json:"name"`
-	Owner       string   `json:"owner"`
-	SessionId   []string `json:"sessionId,omitempty"`
+	Application          string   `json:"application"`
+	Name                 string   `json:"name"`
+	Owner                string   `json:"owner"`
+	SessionId            []string `json:"sessionId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _IamUpdateSessionIn IamUpdateSessionIn
@@ -169,6 +169,11 @@ func (o IamUpdateSessionIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SessionId) {
 		toSerialize["sessionId"] = o.SessionId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -198,15 +203,23 @@ func (o *IamUpdateSessionIn) UnmarshalJSON(data []byte) (err error) {
 
 	varIamUpdateSessionIn := _IamUpdateSessionIn{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varIamUpdateSessionIn)
+	err = json.Unmarshal(data, &varIamUpdateSessionIn)
 
 	if err != nil {
 		return err
 	}
 
 	*o = IamUpdateSessionIn(varIamUpdateSessionIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "application")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "sessionId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

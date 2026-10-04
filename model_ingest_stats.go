@@ -19,17 +19,20 @@ var _ MappedNullable = &IngestStats{}
 
 // IngestStats struct for IngestStats
 type IngestStats struct {
-	Async            *bool    `json:"async,omitempty"`
-	DocumentsIndexed *int32   `json:"documentsIndexed,omitempty"`
-	Errors           []string `json:"errors,omitempty"`
-	FilesIngested    *int32   `json:"filesIngested,omitempty"`
-	FilesSkipped     *int32   `json:"filesSkipped,omitempty"`
-	IndexName        *string  `json:"indexName,omitempty"`
-	Skipped          []string `json:"skipped,omitempty"`
-	Source           *string  `json:"source,omitempty"`
-	Store            *string  `json:"store,omitempty"`
-	WorkflowId       *string  `json:"workflowId,omitempty"`
+	Async                *bool    `json:"async,omitempty"`
+	DocumentsIndexed     *int32   `json:"documentsIndexed,omitempty"`
+	Errors               []string `json:"errors,omitempty"`
+	FilesIngested        *int32   `json:"filesIngested,omitempty"`
+	FilesSkipped         *int32   `json:"filesSkipped,omitempty"`
+	IndexName            *string  `json:"indexName,omitempty"`
+	Skipped              []string `json:"skipped,omitempty"`
+	Source               *string  `json:"source,omitempty"`
+	Store                *string  `json:"store,omitempty"`
+	WorkflowId           *string  `json:"workflowId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IngestStats IngestStats
 
 // NewIngestStats instantiates a new IngestStats object
 // This constructor will assign default values to properties that have it defined,
@@ -408,7 +411,42 @@ func (o IngestStats) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WorkflowId) {
 		toSerialize["workflowId"] = o.WorkflowId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IngestStats) UnmarshalJSON(data []byte) (err error) {
+	varIngestStats := _IngestStats{}
+
+	err = json.Unmarshal(data, &varIngestStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IngestStats(varIngestStats)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "async")
+		delete(additionalProperties, "documentsIndexed")
+		delete(additionalProperties, "errors")
+		delete(additionalProperties, "filesIngested")
+		delete(additionalProperties, "filesSkipped")
+		delete(additionalProperties, "indexName")
+		delete(additionalProperties, "skipped")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "store")
+		delete(additionalProperties, "workflowId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIngestStats struct {

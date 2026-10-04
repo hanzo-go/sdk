@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Code** | Pointer to **string** |  | [optional] 
-**Data** | Pointer to **map[string]interface{}** |  | [optional] 
-**Data2** | Pointer to **map[string]interface{}** |  | [optional] 
-**Data3** | Pointer to **map[string]interface{}** |  | [optional] 
+**Data** | Pointer to **interface{}** |  | [optional] 
+**Data2** | Pointer to **interface{}** |  | [optional] 
+**Data3** | Pointer to **interface{}** |  | [optional] 
 **Msg** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
@@ -59,20 +59,20 @@ HasCode returns a boolean if a field has been set.
 
 ### GetData
 
-`func (o *IamAnswer) GetData() map[string]interface{}`
+`func (o *IamAnswer) GetData() interface{}`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *IamAnswer) GetDataOk() (*map[string]interface{}, bool)`
+`func (o *IamAnswer) GetDataOk() (*interface{}, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *IamAnswer) SetData(v map[string]interface{})`
+`func (o *IamAnswer) SetData(v interface{})`
 
 SetData sets Data field to given value.
 
@@ -82,22 +82,32 @@ SetData sets Data field to given value.
 
 HasData returns a boolean if a field has been set.
 
+### SetDataNil
+
+`func (o *IamAnswer) SetDataNil(b bool)`
+
+ SetDataNil sets the value for Data to be an explicit nil
+
+### UnsetData
+`func (o *IamAnswer) UnsetData()`
+
+UnsetData ensures that no value is present for Data, not even an explicit nil
 ### GetData2
 
-`func (o *IamAnswer) GetData2() map[string]interface{}`
+`func (o *IamAnswer) GetData2() interface{}`
 
 GetData2 returns the Data2 field if non-nil, zero value otherwise.
 
 ### GetData2Ok
 
-`func (o *IamAnswer) GetData2Ok() (*map[string]interface{}, bool)`
+`func (o *IamAnswer) GetData2Ok() (*interface{}, bool)`
 
 GetData2Ok returns a tuple with the Data2 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData2
 
-`func (o *IamAnswer) SetData2(v map[string]interface{})`
+`func (o *IamAnswer) SetData2(v interface{})`
 
 SetData2 sets Data2 field to given value.
 
@@ -107,22 +117,32 @@ SetData2 sets Data2 field to given value.
 
 HasData2 returns a boolean if a field has been set.
 
+### SetData2Nil
+
+`func (o *IamAnswer) SetData2Nil(b bool)`
+
+ SetData2Nil sets the value for Data2 to be an explicit nil
+
+### UnsetData2
+`func (o *IamAnswer) UnsetData2()`
+
+UnsetData2 ensures that no value is present for Data2, not even an explicit nil
 ### GetData3
 
-`func (o *IamAnswer) GetData3() map[string]interface{}`
+`func (o *IamAnswer) GetData3() interface{}`
 
 GetData3 returns the Data3 field if non-nil, zero value otherwise.
 
 ### GetData3Ok
 
-`func (o *IamAnswer) GetData3Ok() (*map[string]interface{}, bool)`
+`func (o *IamAnswer) GetData3Ok() (*interface{}, bool)`
 
 GetData3Ok returns a tuple with the Data3 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData3
 
-`func (o *IamAnswer) SetData3(v map[string]interface{})`
+`func (o *IamAnswer) SetData3(v interface{})`
 
 SetData3 sets Data3 field to given value.
 
@@ -132,6 +152,16 @@ SetData3 sets Data3 field to given value.
 
 HasData3 returns a boolean if a field has been set.
 
+### SetData3Nil
+
+`func (o *IamAnswer) SetData3Nil(b bool)`
+
+ SetData3Nil sets the value for Data3 to be an explicit nil
+
+### UnsetData3
+`func (o *IamAnswer) UnsetData3()`
+
+UnsetData3 ensures that no value is present for Data3, not even an explicit nil
 ### GetMsg
 
 `func (o *IamAnswer) GetMsg() string`

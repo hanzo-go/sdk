@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **time.Time** | CreatedAt is when they joined. | [optional] 
-**DisplayName** | Pointer to **string** | DisplayName is what the console shows for them. | [optional] 
-**Email** | Pointer to **string** | Email is their address. | [optional] 
-**Id** | Pointer to **string** | ID is the user id. | [optional] 
-**IsRoot** | Pointer to **bool** | IsRoot marks the org&#39;s root user, which cannot be deleted or demoted. | [optional] 
-**OrgId** | Pointer to **string** | OrgID is the org they belong to. | [optional] 
-**Status** | Pointer to **string** | Status is their lifecycle state — active, pending_invite or deleted. | [optional] 
-**UpdatedAt** | Pointer to **time.Time** | UpdatedAt is when their record last changed. | [optional] 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
+**DisplayName** | Pointer to **string** |  | [optional] 
+**Email** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** |  | [optional] 
+**IsRoot** | Pointer to **bool** |  | [optional] 
+**OrgId** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to **string** |  | [optional] 
+**UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 

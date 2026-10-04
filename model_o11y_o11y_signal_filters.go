@@ -22,8 +22,11 @@ type O11yO11ySignalFilters struct {
 	// Filters are the attributes offered, in display order.
 	Filters []O11yO11yFilterKey `json:"filters,omitempty"`
 	// Signal is the signal the filters belong to.
-	Signal *string `json:"signal,omitempty"`
+	Signal               *string `json:"signal,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11ySignalFilters O11yO11ySignalFilters
 
 // NewO11yO11ySignalFilters instantiates a new O11yO11ySignalFilters object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11ySignalFilters) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Signal) {
 		toSerialize["signal"] = o.Signal
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11ySignalFilters) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11ySignalFilters := _O11yO11ySignalFilters{}
+
+	err = json.Unmarshal(data, &varO11yO11ySignalFilters)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11ySignalFilters(varO11yO11ySignalFilters)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "filters")
+		delete(additionalProperties, "signal")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11ySignalFilters struct {

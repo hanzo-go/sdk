@@ -28,8 +28,11 @@ type O11yTraceRow struct {
 	// Start is the earliest span start, RFC3339 with nanoseconds, in UTC.
 	Start *string `json:"start,omitempty"`
 	// TraceID is the trace's id — the {traceId} of the detail read.
-	TraceId *string `json:"traceId,omitempty"`
+	TraceId              *string `json:"traceId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yTraceRow O11yTraceRow
 
 // NewO11yTraceRow instantiates a new O11yTraceRow object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yTraceRow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TraceId) {
 		toSerialize["traceId"] = o.TraceId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yTraceRow) UnmarshalJSON(data []byte) (err error) {
+	varO11yTraceRow := _O11yTraceRow{}
+
+	err = json.Unmarshal(data, &varO11yTraceRow)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yTraceRow(varO11yTraceRow)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "durationMs")
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "numSpans")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "traceId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yTraceRow struct {

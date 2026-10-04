@@ -19,12 +19,15 @@ var _ MappedNullable = &InsightsEvent{}
 
 // InsightsEvent struct for InsightsEvent
 type InsightsEvent struct {
-	DistinctId *string                `json:"distinct_id,omitempty"`
-	Event      *string                `json:"event,omitempty"`
-	Properties map[string]interface{} `json:"properties,omitempty"`
-	Timestamp  *string                `json:"timestamp,omitempty"`
-	Uuid       *string                `json:"uuid,omitempty"`
+	DistinctId           *string                `json:"distinct_id,omitempty"`
+	Event                *string                `json:"event,omitempty"`
+	Properties           map[string]interface{} `json:"properties,omitempty"`
+	Timestamp            *string                `json:"timestamp,omitempty"`
+	Uuid                 *string                `json:"uuid,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _InsightsEvent InsightsEvent
 
 // NewInsightsEvent instantiates a new InsightsEvent object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o InsightsEvent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Uuid) {
 		toSerialize["uuid"] = o.Uuid
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *InsightsEvent) UnmarshalJSON(data []byte) (err error) {
+	varInsightsEvent := _InsightsEvent{}
+
+	err = json.Unmarshal(data, &varInsightsEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InsightsEvent(varInsightsEvent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "distinct_id")
+		delete(additionalProperties, "event")
+		delete(additionalProperties, "properties")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "uuid")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInsightsEvent struct {

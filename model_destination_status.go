@@ -19,29 +19,21 @@ var _ MappedNullable = &DestinationStatus{}
 
 // DestinationStatus struct for DestinationStatus
 type DestinationStatus struct {
-	// Account is the operator's own label for the connected account, as supplied on connect. Absent when unset.
-	Account *string `json:"account,omitempty"`
-	// groups the card: Analytics | Advertising
-	Category *string `json:"category,omitempty"`
-	// Config is the org's stored NON-SECRET configuration — the measurement/pixel ids keyed by DestinationField.Key. A secret is never in here; secrets live in KMS and only their names are published, in Secrets.
-	Config map[string]string `json:"config,omitempty"`
-	// Connected is true when this org has a stored row for the platform — it has been configured here at least once. It says nothing about whether a credential still resolves; that is Live.
-	Connected *bool `json:"connected,omitempty"`
-	// Enabled is whether the fan-out forwards to this destination. False on a destination that is connected but paused, and on one never connected.
-	Enabled *bool `json:"enabled,omitempty"`
-	// Fields are the non-secret inputs this platform needs, which the console card renders and the connect body fills.
-	Fields []DestinationField `json:"fields,omitempty"`
-	// Live is whether a credential resolves RIGHT NOW: a KMS-sealed secret for this org, else the integrations connection named by the platform's Fallback, else no credential needed at all (a public-ingest sink like Analytics). False on a connected destination whose secret has gone missing — Connected && !Live is exactly the \"reconnect me\" state.
-	Live *bool `json:"live,omitempty"`
-	// the platform's display name (\"Google Analytics 4\")
-	Name *string `json:"name,omitempty"`
-	// Pixel is whether the hosted tag can inject a browser pixel for this platform, so a console offers a per-SITE pixel input for exactly these. False means the platform receives conversions server-side only, and an input would promise an injection that never happens. Derived from the tag's own map (event.BrowserTags), never restated — a second list is how a console offers a pixel nothing fires.
-	Pixel *bool `json:"pixel,omitempty"`
-	// the platform slug, and the path segment every route addresses it by
-	Platform *string `json:"platform,omitempty"`
-	// Secrets are the KMS secret NAMES this platform custodies for the org — names only, never values. The connect body accepts each under its camelCase form.
-	Secrets []string `json:"secrets,omitempty"`
+	Account              *string            `json:"account,omitempty"`
+	Category             *string            `json:"category,omitempty"`
+	Config               map[string]string  `json:"config,omitempty"`
+	Connected            *bool              `json:"connected,omitempty"`
+	Enabled              *bool              `json:"enabled,omitempty"`
+	Fields               []DestinationField `json:"fields,omitempty"`
+	Live                 *bool              `json:"live,omitempty"`
+	Name                 *string            `json:"name,omitempty"`
+	Pixel                *bool              `json:"pixel,omitempty"`
+	Platform             *string            `json:"platform,omitempty"`
+	Secrets              []string           `json:"secrets,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DestinationStatus DestinationStatus
 
 // NewDestinationStatus instantiates a new DestinationStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -455,7 +447,43 @@ func (o DestinationStatus) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Secrets) {
 		toSerialize["secrets"] = o.Secrets
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DestinationStatus) UnmarshalJSON(data []byte) (err error) {
+	varDestinationStatus := _DestinationStatus{}
+
+	err = json.Unmarshal(data, &varDestinationStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DestinationStatus(varDestinationStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account")
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "connected")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "fields")
+		delete(additionalProperties, "live")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "pixel")
+		delete(additionalProperties, "platform")
+		delete(additionalProperties, "secrets")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDestinationStatus struct {

@@ -20,10 +20,13 @@ var _ MappedNullable = &O11yO11yLicensesOut{}
 // O11yO11yLicensesOut struct for O11yO11yLicensesOut
 type O11yO11yLicensesOut struct {
 	// Data are the licenses.
-	Data []map[string]interface{} `json:"data,omitempty"`
+	Data []interface{} `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLicensesOut O11yO11yLicensesOut
 
 // NewO11yO11yLicensesOut instantiates a new O11yO11yLicensesOut object
 // This constructor will assign default values to properties that have it defined,
@@ -43,9 +46,9 @@ func NewO11yO11yLicensesOutWithDefaults() *O11yO11yLicensesOut {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *O11yO11yLicensesOut) GetData() []map[string]interface{} {
+func (o *O11yO11yLicensesOut) GetData() []interface{} {
 	if o == nil || IsNil(o.Data) {
-		var ret []map[string]interface{}
+		var ret []interface{}
 		return ret
 	}
 	return o.Data
@@ -53,7 +56,7 @@ func (o *O11yO11yLicensesOut) GetData() []map[string]interface{} {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *O11yO11yLicensesOut) GetDataOk() ([]map[string]interface{}, bool) {
+func (o *O11yO11yLicensesOut) GetDataOk() ([]interface{}, bool) {
 	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
@@ -69,8 +72,8 @@ func (o *O11yO11yLicensesOut) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given []map[string]interface{} and assigns it to the Data field.
-func (o *O11yO11yLicensesOut) SetData(v []map[string]interface{}) {
+// SetData gets a reference to the given []interface{} and assigns it to the Data field.
+func (o *O11yO11yLicensesOut) SetData(v []interface{}) {
 	o.Data = v
 }
 
@@ -122,7 +125,34 @@ func (o O11yO11yLicensesOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLicensesOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLicensesOut := _O11yO11yLicensesOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yLicensesOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLicensesOut(varO11yO11yLicensesOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLicensesOut struct {

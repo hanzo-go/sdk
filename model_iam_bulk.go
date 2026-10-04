@@ -19,10 +19,13 @@ var _ MappedNullable = &IamBulk{}
 
 // IamBulk struct for IamBulk
 type IamBulk struct {
-	MaxOperations  *int64 `json:"maxOperations,omitempty"`
-	MaxPayloadSize *int64 `json:"maxPayloadSize,omitempty"`
-	Supported      *bool  `json:"supported,omitempty"`
+	MaxOperations        *int64 `json:"maxOperations,omitempty"`
+	MaxPayloadSize       *int64 `json:"maxPayloadSize,omitempty"`
+	Supported            *bool  `json:"supported,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IamBulk IamBulk
 
 // NewIamBulk instantiates a new IamBulk object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o IamBulk) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Supported) {
 		toSerialize["supported"] = o.Supported
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IamBulk) UnmarshalJSON(data []byte) (err error) {
+	varIamBulk := _IamBulk{}
+
+	err = json.Unmarshal(data, &varIamBulk)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IamBulk(varIamBulk)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "maxOperations")
+		delete(additionalProperties, "maxPayloadSize")
+		delete(additionalProperties, "supported")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIamBulk struct {

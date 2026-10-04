@@ -23,11 +23,14 @@ type LicensingHealthView struct {
 	Env *string `json:"env,omitempty"`
 	// Service is always \"licensing\".
 	Service *string `json:"service,omitempty"`
-	// Signer names the KMS provider signing licenses here. \"local\" means a development key: tokens it mints are not production credentials.
+	// Signer names where the signing key lives: \"kms\" or \"local\". \"local\" means a development key: tokens it mints are not production credentials.
 	Signer *string `json:"signer,omitempty"`
 	// Status is \"ok\" whenever the process is up — this is not a dependency probe.
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicensingHealthView LicensingHealthView
 
 // NewLicensingHealthView instantiates a new LicensingHealthView object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o LicensingHealthView) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicensingHealthView) UnmarshalJSON(data []byte) (err error) {
+	varLicensingHealthView := _LicensingHealthView{}
+
+	err = json.Unmarshal(data, &varLicensingHealthView)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicensingHealthView(varLicensingHealthView)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "env")
+		delete(additionalProperties, "service")
+		delete(additionalProperties, "signer")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicensingHealthView struct {

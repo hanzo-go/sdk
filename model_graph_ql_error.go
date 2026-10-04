@@ -19,9 +19,12 @@ var _ MappedNullable = &GraphQLError{}
 
 // GraphQLError struct for GraphQLError
 type GraphQLError struct {
-	Message *string  `json:"message,omitempty"`
-	Path    []string `json:"path,omitempty"`
+	Message              *string  `json:"message,omitempty"`
+	Path                 []string `json:"path,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GraphQLError GraphQLError
 
 // NewGraphQLError instantiates a new GraphQLError object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o GraphQLError) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Path) {
 		toSerialize["path"] = o.Path
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GraphQLError) UnmarshalJSON(data []byte) (err error) {
+	varGraphQLError := _GraphQLError{}
+
+	err = json.Unmarshal(data, &varGraphQLError)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GraphQLError(varGraphQLError)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "path")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGraphQLError struct {

@@ -19,8 +19,11 @@ var _ MappedNullable = &O11yAWSAccountConfig{}
 
 // O11yAWSAccountConfig struct for O11yAWSAccountConfig
 type O11yAWSAccountConfig struct {
-	Regions []string `json:"regions,omitempty"`
+	Regions              []string `json:"regions,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAWSAccountConfig O11yAWSAccountConfig
 
 // NewO11yAWSAccountConfig instantiates a new O11yAWSAccountConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o O11yAWSAccountConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Regions) {
 		toSerialize["regions"] = o.Regions
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAWSAccountConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yAWSAccountConfig := _O11yAWSAccountConfig{}
+
+	err = json.Unmarshal(data, &varO11yAWSAccountConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAWSAccountConfig(varO11yAWSAccountConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "regions")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAWSAccountConfig struct {

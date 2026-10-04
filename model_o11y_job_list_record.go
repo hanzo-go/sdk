@@ -32,7 +32,10 @@ type O11yJobListRecord struct {
 	Meta                  map[string]string `json:"meta,omitempty"`
 	Restarts              *int64            `json:"restarts,omitempty"`
 	SuccessfulPods        *int64            `json:"successfulPods,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
+
+type _O11yJobListRecord O11yJobListRecord
 
 // NewO11yJobListRecord instantiates a new O11yJobListRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -516,7 +519,45 @@ func (o O11yJobListRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SuccessfulPods) {
 		toSerialize["successfulPods"] = o.SuccessfulPods
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yJobListRecord) UnmarshalJSON(data []byte) (err error) {
+	varO11yJobListRecord := _O11yJobListRecord{}
+
+	err = json.Unmarshal(data, &varO11yJobListRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yJobListRecord(varO11yJobListRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "activePods")
+		delete(additionalProperties, "cpuLimit")
+		delete(additionalProperties, "cpuRequest")
+		delete(additionalProperties, "cpuUsage")
+		delete(additionalProperties, "desiredSuccessfulPods")
+		delete(additionalProperties, "failedPods")
+		delete(additionalProperties, "jobName")
+		delete(additionalProperties, "memoryLimit")
+		delete(additionalProperties, "memoryRequest")
+		delete(additionalProperties, "memoryUsage")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "restarts")
+		delete(additionalProperties, "successfulPods")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yJobListRecord struct {

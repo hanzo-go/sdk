@@ -21,7 +21,10 @@ var _ MappedNullable = &OpenaiPromptFilterResult{}
 type OpenaiPromptFilterResult struct {
 	ContentFilterResults *OpenaiContentFilterResults `json:"content_filter_results,omitempty"`
 	Index                *int32                      `json:"index,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiPromptFilterResult OpenaiPromptFilterResult
 
 // NewOpenaiPromptFilterResult instantiates a new OpenaiPromptFilterResult object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o OpenaiPromptFilterResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Index) {
 		toSerialize["index"] = o.Index
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiPromptFilterResult) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiPromptFilterResult := _OpenaiPromptFilterResult{}
+
+	err = json.Unmarshal(data, &varOpenaiPromptFilterResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiPromptFilterResult(varOpenaiPromptFilterResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "content_filter_results")
+		delete(additionalProperties, "index")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiPromptFilterResult struct {

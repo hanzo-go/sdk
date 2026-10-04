@@ -26,8 +26,11 @@ type O11yO11yQueueIn struct {
 	// Start is the window's start, epoch nanoseconds.
 	Start *int64 `json:"start,omitempty"`
 	// Variables name what the view drills into — topic, partition, service, consumer_group — keyed by the name the view expects.
-	Variables map[string]string `json:"variables,omitempty"`
+	Variables            map[string]string `json:"variables,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yQueueIn O11yO11yQueueIn
 
 // NewO11yO11yQueueIn instantiates a new O11yO11yQueueIn object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o O11yO11yQueueIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yQueueIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yQueueIn := _O11yO11yQueueIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yQueueIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yQueueIn(varO11yO11yQueueIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "eval_time")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "variables")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yQueueIn struct {

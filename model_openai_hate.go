@@ -19,9 +19,12 @@ var _ MappedNullable = &OpenaiHate{}
 
 // OpenaiHate struct for OpenaiHate
 type OpenaiHate struct {
-	Filtered *bool   `json:"filtered,omitempty"`
-	Severity *string `json:"severity,omitempty"`
+	Filtered             *bool   `json:"filtered,omitempty"`
+	Severity             *string `json:"severity,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OpenaiHate OpenaiHate
 
 // NewOpenaiHate instantiates a new OpenaiHate object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o OpenaiHate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Severity) {
 		toSerialize["severity"] = o.Severity
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OpenaiHate) UnmarshalJSON(data []byte) (err error) {
+	varOpenaiHate := _OpenaiHate{}
+
+	err = json.Unmarshal(data, &varOpenaiHate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OpenaiHate(varOpenaiHate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "filtered")
+		delete(additionalProperties, "severity")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOpenaiHate struct {

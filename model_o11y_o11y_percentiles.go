@@ -24,8 +24,11 @@ type O11yO11yPercentiles struct {
 	// P90 is the 90th percentile.
 	P90 *float64 `json:"p90,omitempty"`
 	// P99 is the 99th percentile.
-	P99 *float64 `json:"p99,omitempty"`
+	P99                  *float64 `json:"p99,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yPercentiles O11yO11yPercentiles
 
 // NewO11yO11yPercentiles instantiates a new O11yO11yPercentiles object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yPercentiles) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.P99) {
 		toSerialize["p99"] = o.P99
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yPercentiles) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yPercentiles := _O11yO11yPercentiles{}
+
+	err = json.Unmarshal(data, &varO11yO11yPercentiles)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yPercentiles(varO11yO11yPercentiles)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "p50")
+		delete(additionalProperties, "p90")
+		delete(additionalProperties, "p99")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yPercentiles struct {

@@ -33,7 +33,7 @@ func main() {
 	name := fmt.Sprintf("sdk-example-%d", os.Getpid())
 
 	created, _, err := client.ProvisioningAPI.PostProvisioningKv(ctx).
-		ProvisionRequest(hanzoai.ProvisionRequest{Name: &name}).Execute()
+		ProvisioningProvisionRequest(hanzoai.ProvisioningProvisionRequest{Name: &name}).Execute()
 	if err != nil {
 		log.Fatalf("provision %s: %v", name, err)
 	}

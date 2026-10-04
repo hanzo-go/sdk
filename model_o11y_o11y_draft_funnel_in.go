@@ -28,8 +28,11 @@ type O11yO11yDraftFunnelIn struct {
 	// StepStart is the step the transition runs from, 1-based. Ignored by the reads that span the whole funnel.
 	StepStart *int64 `json:"step_start,omitempty"`
 	// Steps are the funnel's steps, in order. At least two are needed.
-	Steps []O11yFunnelStep `json:"steps,omitempty"`
+	Steps                []O11yFunnelStep `json:"steps,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDraftFunnelIn O11yO11yDraftFunnelIn
 
 // NewO11yO11yDraftFunnelIn instantiates a new O11yO11yDraftFunnelIn object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yDraftFunnelIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Steps) {
 		toSerialize["steps"] = o.Steps
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDraftFunnelIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDraftFunnelIn := _O11yO11yDraftFunnelIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yDraftFunnelIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDraftFunnelIn(varO11yO11yDraftFunnelIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end_time")
+		delete(additionalProperties, "start_time")
+		delete(additionalProperties, "step_end")
+		delete(additionalProperties, "step_start")
+		delete(additionalProperties, "steps")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDraftFunnelIn struct {

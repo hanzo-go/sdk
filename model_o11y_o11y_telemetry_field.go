@@ -24,8 +24,11 @@ type O11yO11yTelemetryField struct {
 	// Name is the field's name.
 	Name *string `json:"name,omitempty"`
 	// Type is where the field lives: attributes or resources.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTelemetryField O11yO11yTelemetryField
 
 // NewO11yO11yTelemetryField instantiates a new O11yO11yTelemetryField object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yTelemetryField) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTelemetryField) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTelemetryField := _O11yO11yTelemetryField{}
+
+	err = json.Unmarshal(data, &varO11yO11yTelemetryField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTelemetryField(varO11yO11yTelemetryField)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dataType")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTelemetryField struct {

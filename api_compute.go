@@ -23,17 +23,17 @@ import (
 type ComputeAPIService service
 
 type ComputeAPIAttachClusterRequest struct {
-	ctx           context.Context
-	ApiService    *ComputeAPIService
-	clusterAttach *ClusterAttach
+	ctx                  context.Context
+	ApiService           *ComputeAPIService
+	computeClusterAttach *ComputeClusterAttach
 }
 
-func (r ComputeAPIAttachClusterRequest) ClusterAttach(clusterAttach ClusterAttach) ComputeAPIAttachClusterRequest {
-	r.clusterAttach = &clusterAttach
+func (r ComputeAPIAttachClusterRequest) ComputeClusterAttach(computeClusterAttach ComputeClusterAttach) ComputeAPIAttachClusterRequest {
+	r.computeClusterAttach = &computeClusterAttach
 	return r
 }
 
-func (r ComputeAPIAttachClusterRequest) Execute() (*ClusterView, *http.Response, error) {
+func (r ComputeAPIAttachClusterRequest) Execute() (*ComputeClusterView, *http.Response, error) {
 	return r.ApiService.AttachClusterExecute(r)
 }
 
@@ -57,13 +57,13 @@ func (a *ComputeAPIService) AttachCluster(ctx context.Context) ComputeAPIAttachC
 
 // Execute executes the request
 //
-//	@return ClusterView
-func (a *ComputeAPIService) AttachClusterExecute(r ComputeAPIAttachClusterRequest) (*ClusterView, *http.Response, error) {
+//	@return ComputeClusterView
+func (a *ComputeAPIService) AttachClusterExecute(r ComputeAPIAttachClusterRequest) (*ComputeClusterView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterView
+		localVarReturnValue *ComputeClusterView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.AttachCluster")
@@ -76,8 +76,8 @@ func (a *ComputeAPIService) AttachClusterExecute(r ComputeAPIAttachClusterReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.clusterAttach == nil {
-		return localVarReturnValue, nil, reportError("clusterAttach is required and must be specified")
+	if r.computeClusterAttach == nil {
+		return localVarReturnValue, nil, reportError("computeClusterAttach is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -90,7 +90,7 @@ func (a *ComputeAPIService) AttachClusterExecute(r ComputeAPIAttachClusterReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -98,7 +98,7 @@ func (a *ComputeAPIService) AttachClusterExecute(r ComputeAPIAttachClusterReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.clusterAttach
+	localVarPostBody = r.computeClusterAttach
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -121,6 +121,14 @@ func (a *ComputeAPIService) AttachClusterExecute(r ComputeAPIAttachClusterReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -137,18 +145,18 @@ func (a *ComputeAPIService) AttachClusterExecute(r ComputeAPIAttachClusterReques
 }
 
 type ComputeAPIBindMachineAgentRequest struct {
-	ctx          context.Context
-	ApiService   *ComputeAPIService
-	id           string
-	bindAgentReq *BindAgentReq
+	ctx                 context.Context
+	ApiService          *ComputeAPIService
+	id                  string
+	computeBindAgentReq *ComputeBindAgentReq
 }
 
-func (r ComputeAPIBindMachineAgentRequest) BindAgentReq(bindAgentReq BindAgentReq) ComputeAPIBindMachineAgentRequest {
-	r.bindAgentReq = &bindAgentReq
+func (r ComputeAPIBindMachineAgentRequest) ComputeBindAgentReq(computeBindAgentReq ComputeBindAgentReq) ComputeAPIBindMachineAgentRequest {
+	r.computeBindAgentReq = &computeBindAgentReq
 	return r
 }
 
-func (r ComputeAPIBindMachineAgentRequest) Execute() (*AgentBinding, *http.Response, error) {
+func (r ComputeAPIBindMachineAgentRequest) Execute() (*ComputeAgentBinding, *http.Response, error) {
 	return r.ApiService.BindMachineAgentExecute(r)
 }
 
@@ -173,13 +181,13 @@ func (a *ComputeAPIService) BindMachineAgent(ctx context.Context, id string) Com
 
 // Execute executes the request
 //
-//	@return AgentBinding
-func (a *ComputeAPIService) BindMachineAgentExecute(r ComputeAPIBindMachineAgentRequest) (*AgentBinding, *http.Response, error) {
+//	@return ComputeAgentBinding
+func (a *ComputeAPIService) BindMachineAgentExecute(r ComputeAPIBindMachineAgentRequest) (*ComputeAgentBinding, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AgentBinding
+		localVarReturnValue *ComputeAgentBinding
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.BindMachineAgent")
@@ -193,8 +201,8 @@ func (a *ComputeAPIService) BindMachineAgentExecute(r ComputeAPIBindMachineAgent
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.bindAgentReq == nil {
-		return localVarReturnValue, nil, reportError("bindAgentReq is required and must be specified")
+	if r.computeBindAgentReq == nil {
+		return localVarReturnValue, nil, reportError("computeBindAgentReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -207,7 +215,7 @@ func (a *ComputeAPIService) BindMachineAgentExecute(r ComputeAPIBindMachineAgent
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -215,7 +223,7 @@ func (a *ComputeAPIService) BindMachineAgentExecute(r ComputeAPIBindMachineAgent
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.bindAgentReq
+	localVarPostBody = r.computeBindAgentReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -238,6 +246,14 @@ func (a *ComputeAPIService) BindMachineAgentExecute(r ComputeAPIBindMachineAgent
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -254,18 +270,18 @@ func (a *ComputeAPIService) BindMachineAgentExecute(r ComputeAPIBindMachineAgent
 }
 
 type ComputeAPICancelFleetJobRequest struct {
-	ctx        context.Context
-	ApiService *ComputeAPIService
-	id         string
-	jobCancel  *JobCancel
+	ctx              context.Context
+	ApiService       *ComputeAPIService
+	id               string
+	computeJobCancel *ComputeJobCancel
 }
 
-func (r ComputeAPICancelFleetJobRequest) JobCancel(jobCancel JobCancel) ComputeAPICancelFleetJobRequest {
-	r.jobCancel = &jobCancel
+func (r ComputeAPICancelFleetJobRequest) ComputeJobCancel(computeJobCancel ComputeJobCancel) ComputeAPICancelFleetJobRequest {
+	r.computeJobCancel = &computeJobCancel
 	return r
 }
 
-func (r ComputeAPICancelFleetJobRequest) Execute() (*JobCanceled, *http.Response, error) {
+func (r ComputeAPICancelFleetJobRequest) Execute() (*ComputeJobCanceled, *http.Response, error) {
 	return r.ApiService.CancelFleetJobExecute(r)
 }
 
@@ -291,13 +307,13 @@ func (a *ComputeAPIService) CancelFleetJob(ctx context.Context, id string) Compu
 
 // Execute executes the request
 //
-//	@return JobCanceled
-func (a *ComputeAPIService) CancelFleetJobExecute(r ComputeAPICancelFleetJobRequest) (*JobCanceled, *http.Response, error) {
+//	@return ComputeJobCanceled
+func (a *ComputeAPIService) CancelFleetJobExecute(r ComputeAPICancelFleetJobRequest) (*ComputeJobCanceled, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *JobCanceled
+		localVarReturnValue *ComputeJobCanceled
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.CancelFleetJob")
@@ -311,8 +327,8 @@ func (a *ComputeAPIService) CancelFleetJobExecute(r ComputeAPICancelFleetJobRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.jobCancel == nil {
-		return localVarReturnValue, nil, reportError("jobCancel is required and must be specified")
+	if r.computeJobCancel == nil {
+		return localVarReturnValue, nil, reportError("computeJobCancel is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -325,7 +341,7 @@ func (a *ComputeAPIService) CancelFleetJobExecute(r ComputeAPICancelFleetJobRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -333,7 +349,7 @@ func (a *ComputeAPIService) CancelFleetJobExecute(r ComputeAPICancelFleetJobRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.jobCancel
+	localVarPostBody = r.computeJobCancel
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -356,6 +372,14 @@ func (a *ComputeAPIService) CancelFleetJobExecute(r ComputeAPICancelFleetJobRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -372,17 +396,17 @@ func (a *ComputeAPIService) CancelFleetJobExecute(r ComputeAPICancelFleetJobRequ
 }
 
 type ComputeAPICreateKubernetesClusterRequest struct {
-	ctx              context.Context
-	ApiService       *ComputeAPIService
-	createClusterReq *CreateClusterReq
+	ctx                     context.Context
+	ApiService              *ComputeAPIService
+	computeCreateClusterReq *ComputeCreateClusterReq
 }
 
-func (r ComputeAPICreateKubernetesClusterRequest) CreateClusterReq(createClusterReq CreateClusterReq) ComputeAPICreateKubernetesClusterRequest {
-	r.createClusterReq = &createClusterReq
+func (r ComputeAPICreateKubernetesClusterRequest) ComputeCreateClusterReq(computeCreateClusterReq ComputeCreateClusterReq) ComputeAPICreateKubernetesClusterRequest {
+	r.computeCreateClusterReq = &computeCreateClusterReq
 	return r
 }
 
-func (r ComputeAPICreateKubernetesClusterRequest) Execute() (*ClusterView, *http.Response, error) {
+func (r ComputeAPICreateKubernetesClusterRequest) Execute() (*ComputeClusterView, *http.Response, error) {
 	return r.ApiService.CreateKubernetesClusterExecute(r)
 }
 
@@ -407,13 +431,13 @@ func (a *ComputeAPIService) CreateKubernetesCluster(ctx context.Context) Compute
 
 // Execute executes the request
 //
-//	@return ClusterView
-func (a *ComputeAPIService) CreateKubernetesClusterExecute(r ComputeAPICreateKubernetesClusterRequest) (*ClusterView, *http.Response, error) {
+//	@return ComputeClusterView
+func (a *ComputeAPIService) CreateKubernetesClusterExecute(r ComputeAPICreateKubernetesClusterRequest) (*ComputeClusterView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterView
+		localVarReturnValue *ComputeClusterView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.CreateKubernetesCluster")
@@ -426,8 +450,8 @@ func (a *ComputeAPIService) CreateKubernetesClusterExecute(r ComputeAPICreateKub
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createClusterReq == nil {
-		return localVarReturnValue, nil, reportError("createClusterReq is required and must be specified")
+	if r.computeCreateClusterReq == nil {
+		return localVarReturnValue, nil, reportError("computeCreateClusterReq is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -440,7 +464,7 @@ func (a *ComputeAPIService) CreateKubernetesClusterExecute(r ComputeAPICreateKub
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -448,7 +472,7 @@ func (a *ComputeAPIService) CreateKubernetesClusterExecute(r ComputeAPICreateKub
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createClusterReq
+	localVarPostBody = r.computeCreateClusterReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -471,6 +495,14 @@ func (a *ComputeAPIService) CreateKubernetesClusterExecute(r ComputeAPICreateKub
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -487,18 +519,18 @@ func (a *ComputeAPIService) CreateKubernetesClusterExecute(r ComputeAPICreateKub
 }
 
 type ComputeAPICreateNodePoolRequest struct {
-	ctx        context.Context
-	ApiService *ComputeAPIService
-	clusterId  string
-	poolCreate *PoolCreate
+	ctx               context.Context
+	ApiService        *ComputeAPIService
+	clusterId         string
+	computePoolCreate *ComputePoolCreate
 }
 
-func (r ComputeAPICreateNodePoolRequest) PoolCreate(poolCreate PoolCreate) ComputeAPICreateNodePoolRequest {
-	r.poolCreate = &poolCreate
+func (r ComputeAPICreateNodePoolRequest) ComputePoolCreate(computePoolCreate ComputePoolCreate) ComputeAPICreateNodePoolRequest {
+	r.computePoolCreate = &computePoolCreate
 	return r
 }
 
-func (r ComputeAPICreateNodePoolRequest) Execute() (*NodePoolView, *http.Response, error) {
+func (r ComputeAPICreateNodePoolRequest) Execute() (*ComputeNodePoolView, *http.Response, error) {
 	return r.ApiService.CreateNodePoolExecute(r)
 }
 
@@ -523,13 +555,13 @@ func (a *ComputeAPIService) CreateNodePool(ctx context.Context, clusterId string
 
 // Execute executes the request
 //
-//	@return NodePoolView
-func (a *ComputeAPIService) CreateNodePoolExecute(r ComputeAPICreateNodePoolRequest) (*NodePoolView, *http.Response, error) {
+//	@return ComputeNodePoolView
+func (a *ComputeAPIService) CreateNodePoolExecute(r ComputeAPICreateNodePoolRequest) (*ComputeNodePoolView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *NodePoolView
+		localVarReturnValue *ComputeNodePoolView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.CreateNodePool")
@@ -543,8 +575,8 @@ func (a *ComputeAPIService) CreateNodePoolExecute(r ComputeAPICreateNodePoolRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.poolCreate == nil {
-		return localVarReturnValue, nil, reportError("poolCreate is required and must be specified")
+	if r.computePoolCreate == nil {
+		return localVarReturnValue, nil, reportError("computePoolCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -557,7 +589,7 @@ func (a *ComputeAPIService) CreateNodePoolExecute(r ComputeAPICreateNodePoolRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -565,7 +597,7 @@ func (a *ComputeAPIService) CreateNodePoolExecute(r ComputeAPICreateNodePoolRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.poolCreate
+	localVarPostBody = r.computePoolCreate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -588,6 +620,14 @@ func (a *ComputeAPIService) CreateNodePoolExecute(r ComputeAPICreateNodePoolRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -662,7 +702,7 @@ func (a *ComputeAPIService) DeleteKubernetesClusterExecute(r ComputeAPIDeleteKub
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -691,6 +731,14 @@ func (a *ComputeAPIService) DeleteKubernetesClusterExecute(r ComputeAPIDeleteKub
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -756,7 +804,7 @@ func (a *ComputeAPIService) DeleteMachineExecute(r ComputeAPIDeleteMachineReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -785,6 +833,14 @@ func (a *ComputeAPIService) DeleteMachineExecute(r ComputeAPIDeleteMachineReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -864,7 +920,7 @@ func (a *ComputeAPIService) DeleteNodePoolExecute(r ComputeAPIDeleteNodePoolRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -893,6 +949,14 @@ func (a *ComputeAPIService) DeleteNodePoolExecute(r ComputeAPIDeleteNodePoolRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -905,7 +969,7 @@ type ComputeAPIDetachClusterRequest struct {
 	id         string
 }
 
-func (r ComputeAPIDetachClusterRequest) Execute() (*ClusterDetached, *http.Response, error) {
+func (r ComputeAPIDetachClusterRequest) Execute() (*ComputeClusterDetached, *http.Response, error) {
 	return r.ApiService.DetachClusterExecute(r)
 }
 
@@ -930,13 +994,13 @@ func (a *ComputeAPIService) DetachCluster(ctx context.Context, id string) Comput
 
 // Execute executes the request
 //
-//	@return ClusterDetached
-func (a *ComputeAPIService) DetachClusterExecute(r ComputeAPIDetachClusterRequest) (*ClusterDetached, *http.Response, error) {
+//	@return ComputeClusterDetached
+func (a *ComputeAPIService) DetachClusterExecute(r ComputeAPIDetachClusterRequest) (*ComputeClusterDetached, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterDetached
+		localVarReturnValue *ComputeClusterDetached
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.DetachCluster")
@@ -961,7 +1025,7 @@ func (a *ComputeAPIService) DetachClusterExecute(r ComputeAPIDetachClusterReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -990,6 +1054,14 @@ func (a *ComputeAPIService) DetachClusterExecute(r ComputeAPIDetachClusterReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1015,9 +1087,9 @@ func (r ComputeAPIGetComputeRegionsRequest) Execute() (interface{}, *http.Respon
 }
 
 /*
-GetComputeRegions Regions lists the regions a machine can be launched in.
+GetComputeRegions Lists the regions a machine can be launched in.
 
-Regions lists the regions a machine can be launched in.
+Lists the regions a machine can be launched in.
 
 The catalog is GLOBAL — identical for every tenant — so no owner is forwarded
 upstream. It is still org-gated, because a catalog is a map of what this
@@ -1065,7 +1137,7 @@ func (a *ComputeAPIService) GetComputeRegionsExecute(r ComputeAPIGetComputeRegio
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1094,6 +1166,14 @@ func (a *ComputeAPIService) GetComputeRegionsExecute(r ComputeAPIGetComputeRegio
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1119,9 +1199,9 @@ func (r ComputeAPIGetComputeSizesRequest) Execute() (interface{}, *http.Response
 }
 
 /*
-GetComputeSizes Sizes lists the machine sizes available to launch, with their specifications.
+GetComputeSizes Lists the machine sizes available to launch, with their specifications.
 
-Sizes lists the machine sizes available to launch, with their specifications.
+Lists the machine sizes available to launch, with their specifications.
 
 Global and org-gated, exactly as the region catalog is, and for the same reasons.
 
@@ -1167,7 +1247,7 @@ func (a *ComputeAPIService) GetComputeSizesExecute(r ComputeAPIGetComputeSizesRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1196,6 +1276,14 @@ func (a *ComputeAPIService) GetComputeSizesExecute(r ComputeAPIGetComputeSizesRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1217,7 +1305,7 @@ type ComputeAPIGetKubernetesClusterRequest struct {
 	id         string
 }
 
-func (r ComputeAPIGetKubernetesClusterRequest) Execute() (*ClusterDetailView, *http.Response, error) {
+func (r ComputeAPIGetKubernetesClusterRequest) Execute() (*ComputeClusterDetailView, *http.Response, error) {
 	return r.ApiService.GetKubernetesClusterExecute(r)
 }
 
@@ -1242,13 +1330,13 @@ func (a *ComputeAPIService) GetKubernetesCluster(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return ClusterDetailView
-func (a *ComputeAPIService) GetKubernetesClusterExecute(r ComputeAPIGetKubernetesClusterRequest) (*ClusterDetailView, *http.Response, error) {
+//	@return ComputeClusterDetailView
+func (a *ComputeAPIService) GetKubernetesClusterExecute(r ComputeAPIGetKubernetesClusterRequest) (*ComputeClusterDetailView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterDetailView
+		localVarReturnValue *ComputeClusterDetailView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.GetKubernetesCluster")
@@ -1273,7 +1361,7 @@ func (a *ComputeAPIService) GetKubernetesClusterExecute(r ComputeAPIGetKubernete
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1302,6 +1390,14 @@ func (a *ComputeAPIService) GetKubernetesClusterExecute(r ComputeAPIGetKubernete
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1323,7 +1419,7 @@ type ComputeAPIGetMachineRequest struct {
 	id         string
 }
 
-func (r ComputeAPIGetMachineRequest) Execute() (*MachineView, *http.Response, error) {
+func (r ComputeAPIGetMachineRequest) Execute() (*ComputeMachineView, *http.Response, error) {
 	return r.ApiService.GetMachineExecute(r)
 }
 
@@ -1348,13 +1444,13 @@ func (a *ComputeAPIService) GetMachine(ctx context.Context, id string) ComputeAP
 
 // Execute executes the request
 //
-//	@return MachineView
-func (a *ComputeAPIService) GetMachineExecute(r ComputeAPIGetMachineRequest) (*MachineView, *http.Response, error) {
+//	@return ComputeMachineView
+func (a *ComputeAPIService) GetMachineExecute(r ComputeAPIGetMachineRequest) (*ComputeMachineView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MachineView
+		localVarReturnValue *ComputeMachineView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.GetMachine")
@@ -1379,7 +1475,7 @@ func (a *ComputeAPIService) GetMachineExecute(r ComputeAPIGetMachineRequest) (*M
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1408,6 +1504,14 @@ func (a *ComputeAPIService) GetMachineExecute(r ComputeAPIGetMachineRequest) (*M
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1429,7 +1533,7 @@ type ComputeAPIGetMachineAgentRequest struct {
 	id         string
 }
 
-func (r ComputeAPIGetMachineAgentRequest) Execute() (*AgentBinding, *http.Response, error) {
+func (r ComputeAPIGetMachineAgentRequest) Execute() (*ComputeAgentBinding, *http.Response, error) {
 	return r.ApiService.GetMachineAgentExecute(r)
 }
 
@@ -1453,13 +1557,13 @@ func (a *ComputeAPIService) GetMachineAgent(ctx context.Context, id string) Comp
 
 // Execute executes the request
 //
-//	@return AgentBinding
-func (a *ComputeAPIService) GetMachineAgentExecute(r ComputeAPIGetMachineAgentRequest) (*AgentBinding, *http.Response, error) {
+//	@return ComputeAgentBinding
+func (a *ComputeAPIService) GetMachineAgentExecute(r ComputeAPIGetMachineAgentRequest) (*ComputeAgentBinding, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AgentBinding
+		localVarReturnValue *ComputeAgentBinding
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.GetMachineAgent")
@@ -1484,7 +1588,7 @@ func (a *ComputeAPIService) GetMachineAgentExecute(r ComputeAPIGetMachineAgentRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1513,6 +1617,14 @@ func (a *ComputeAPIService) GetMachineAgentExecute(r ComputeAPIGetMachineAgentRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1533,7 +1645,7 @@ type ComputeAPIListClustersRequest struct {
 	ApiService *ComputeAPIService
 }
 
-func (r ComputeAPIListClustersRequest) Execute() (*ClusterList, *http.Response, error) {
+func (r ComputeAPIListClustersRequest) Execute() (*ComputeClusterList, *http.Response, error) {
 	return r.ApiService.ListClustersExecute(r)
 }
 
@@ -1558,13 +1670,13 @@ func (a *ComputeAPIService) ListClusters(ctx context.Context) ComputeAPIListClus
 
 // Execute executes the request
 //
-//	@return ClusterList
-func (a *ComputeAPIService) ListClustersExecute(r ComputeAPIListClustersRequest) (*ClusterList, *http.Response, error) {
+//	@return ComputeClusterList
+func (a *ComputeAPIService) ListClustersExecute(r ComputeAPIListClustersRequest) (*ComputeClusterList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterList
+		localVarReturnValue *ComputeClusterList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListClusters")
@@ -1588,7 +1700,7 @@ func (a *ComputeAPIService) ListClustersExecute(r ComputeAPIListClustersRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1617,6 +1729,14 @@ func (a *ComputeAPIService) ListClustersExecute(r ComputeAPIListClustersRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1637,7 +1757,7 @@ type ComputeAPIListFleetRequest struct {
 	ApiService *ComputeAPIService
 }
 
-func (r ComputeAPIListFleetRequest) Execute() (*FleetBoard, *http.Response, error) {
+func (r ComputeAPIListFleetRequest) Execute() (*ComputeFleetBoard, *http.Response, error) {
 	return r.ApiService.ListFleetExecute(r)
 }
 
@@ -1666,13 +1786,13 @@ func (a *ComputeAPIService) ListFleet(ctx context.Context) ComputeAPIListFleetRe
 
 // Execute executes the request
 //
-//	@return FleetBoard
-func (a *ComputeAPIService) ListFleetExecute(r ComputeAPIListFleetRequest) (*FleetBoard, *http.Response, error) {
+//	@return ComputeFleetBoard
+func (a *ComputeAPIService) ListFleetExecute(r ComputeAPIListFleetRequest) (*ComputeFleetBoard, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *FleetBoard
+		localVarReturnValue *ComputeFleetBoard
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListFleet")
@@ -1696,7 +1816,7 @@ func (a *ComputeAPIService) ListFleetExecute(r ComputeAPIListFleetRequest) (*Fle
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1725,6 +1845,14 @@ func (a *ComputeAPIService) ListFleetExecute(r ComputeAPIListFleetRequest) (*Fle
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1759,7 +1887,7 @@ func (r ComputeAPIListFleetJobsRequest) Status(status string) ComputeAPIListFlee
 	return r
 }
 
-func (r ComputeAPIListFleetJobsRequest) Execute() (*JobList, *http.Response, error) {
+func (r ComputeAPIListFleetJobsRequest) Execute() (*ComputeJobList, *http.Response, error) {
 	return r.ApiService.ListFleetJobsExecute(r)
 }
 
@@ -1786,13 +1914,13 @@ func (a *ComputeAPIService) ListFleetJobs(ctx context.Context) ComputeAPIListFle
 
 // Execute executes the request
 //
-//	@return JobList
-func (a *ComputeAPIService) ListFleetJobsExecute(r ComputeAPIListFleetJobsRequest) (*JobList, *http.Response, error) {
+//	@return ComputeJobList
+func (a *ComputeAPIService) ListFleetJobsExecute(r ComputeAPIListFleetJobsRequest) (*ComputeJobList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *JobList
+		localVarReturnValue *ComputeJobList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListFleetJobs")
@@ -1822,7 +1950,7 @@ func (a *ComputeAPIService) ListFleetJobsExecute(r ComputeAPIListFleetJobsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1851,6 +1979,14 @@ func (a *ComputeAPIService) ListFleetJobsExecute(r ComputeAPIListFleetJobsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1892,7 +2028,7 @@ func (r ComputeAPIListFleetSamplesRequest) Range_(range_ string) ComputeAPIListF
 	return r
 }
 
-func (r ComputeAPIListFleetSamplesRequest) Execute() (*SampleList, *http.Response, error) {
+func (r ComputeAPIListFleetSamplesRequest) Execute() (*ComputeSampleList, *http.Response, error) {
 	return r.ApiService.ListFleetSamplesExecute(r)
 }
 
@@ -1919,13 +2055,13 @@ func (a *ComputeAPIService) ListFleetSamples(ctx context.Context) ComputeAPIList
 
 // Execute executes the request
 //
-//	@return SampleList
-func (a *ComputeAPIService) ListFleetSamplesExecute(r ComputeAPIListFleetSamplesRequest) (*SampleList, *http.Response, error) {
+//	@return ComputeSampleList
+func (a *ComputeAPIService) ListFleetSamplesExecute(r ComputeAPIListFleetSamplesRequest) (*ComputeSampleList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SampleList
+		localVarReturnValue *ComputeSampleList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListFleetSamples")
@@ -1958,7 +2094,7 @@ func (a *ComputeAPIService) ListFleetSamplesExecute(r ComputeAPIListFleetSamples
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1987,6 +2123,14 @@ func (a *ComputeAPIService) ListFleetSamplesExecute(r ComputeAPIListFleetSamples
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2007,7 +2151,7 @@ type ComputeAPIListFleetWorkersRequest struct {
 	ApiService *ComputeAPIService
 }
 
-func (r ComputeAPIListFleetWorkersRequest) Execute() (*WorkerList, *http.Response, error) {
+func (r ComputeAPIListFleetWorkersRequest) Execute() (*ComputeWorkerList, *http.Response, error) {
 	return r.ApiService.ListFleetWorkersExecute(r)
 }
 
@@ -2031,13 +2175,13 @@ func (a *ComputeAPIService) ListFleetWorkers(ctx context.Context) ComputeAPIList
 
 // Execute executes the request
 //
-//	@return WorkerList
-func (a *ComputeAPIService) ListFleetWorkersExecute(r ComputeAPIListFleetWorkersRequest) (*WorkerList, *http.Response, error) {
+//	@return ComputeWorkerList
+func (a *ComputeAPIService) ListFleetWorkersExecute(r ComputeAPIListFleetWorkersRequest) (*ComputeWorkerList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *WorkerList
+		localVarReturnValue *ComputeWorkerList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListFleetWorkers")
@@ -2061,7 +2205,7 @@ func (a *ComputeAPIService) ListFleetWorkersExecute(r ComputeAPIListFleetWorkers
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2090,6 +2234,14 @@ func (a *ComputeAPIService) ListFleetWorkersExecute(r ComputeAPIListFleetWorkers
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2110,7 +2262,7 @@ type ComputeAPIListGpuAlertsRequest struct {
 	ApiService *ComputeAPIService
 }
 
-func (r ComputeAPIListGpuAlertsRequest) Execute() (*GpuAlertList, *http.Response, error) {
+func (r ComputeAPIListGpuAlertsRequest) Execute() (*ComputeGpuAlertList, *http.Response, error) {
 	return r.ApiService.ListGpuAlertsExecute(r)
 }
 
@@ -2134,13 +2286,13 @@ func (a *ComputeAPIService) ListGpuAlerts(ctx context.Context) ComputeAPIListGpu
 
 // Execute executes the request
 //
-//	@return GpuAlertList
-func (a *ComputeAPIService) ListGpuAlertsExecute(r ComputeAPIListGpuAlertsRequest) (*GpuAlertList, *http.Response, error) {
+//	@return ComputeGpuAlertList
+func (a *ComputeAPIService) ListGpuAlertsExecute(r ComputeAPIListGpuAlertsRequest) (*ComputeGpuAlertList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GpuAlertList
+		localVarReturnValue *ComputeGpuAlertList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListGpuAlerts")
@@ -2164,7 +2316,7 @@ func (a *ComputeAPIService) ListGpuAlertsExecute(r ComputeAPIListGpuAlertsReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2193,6 +2345,14 @@ func (a *ComputeAPIService) ListGpuAlertsExecute(r ComputeAPIListGpuAlertsReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2213,7 +2373,7 @@ type ComputeAPIListGpusRequest struct {
 	ApiService *ComputeAPIService
 }
 
-func (r ComputeAPIListGpusRequest) Execute() (*GpuList, *http.Response, error) {
+func (r ComputeAPIListGpusRequest) Execute() (*ComputeGpuList, *http.Response, error) {
 	return r.ApiService.ListGpusExecute(r)
 }
 
@@ -2239,13 +2399,13 @@ func (a *ComputeAPIService) ListGpus(ctx context.Context) ComputeAPIListGpusRequ
 
 // Execute executes the request
 //
-//	@return GpuList
-func (a *ComputeAPIService) ListGpusExecute(r ComputeAPIListGpusRequest) (*GpuList, *http.Response, error) {
+//	@return ComputeGpuList
+func (a *ComputeAPIService) ListGpusExecute(r ComputeAPIListGpusRequest) (*ComputeGpuList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GpuList
+		localVarReturnValue *ComputeGpuList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListGpus")
@@ -2269,7 +2429,7 @@ func (a *ComputeAPIService) ListGpusExecute(r ComputeAPIListGpusRequest) (*GpuLi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2298,6 +2458,14 @@ func (a *ComputeAPIService) ListGpusExecute(r ComputeAPIListGpusRequest) (*GpuLi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2318,7 +2486,7 @@ type ComputeAPIListKubernetesClustersRequest struct {
 	ApiService *ComputeAPIService
 }
 
-func (r ComputeAPIListKubernetesClustersRequest) Execute() (*ClusterList, *http.Response, error) {
+func (r ComputeAPIListKubernetesClustersRequest) Execute() (*ComputeClusterList, *http.Response, error) {
 	return r.ApiService.ListKubernetesClustersExecute(r)
 }
 
@@ -2341,13 +2509,13 @@ func (a *ComputeAPIService) ListKubernetesClusters(ctx context.Context) ComputeA
 
 // Execute executes the request
 //
-//	@return ClusterList
-func (a *ComputeAPIService) ListKubernetesClustersExecute(r ComputeAPIListKubernetesClustersRequest) (*ClusterList, *http.Response, error) {
+//	@return ComputeClusterList
+func (a *ComputeAPIService) ListKubernetesClustersExecute(r ComputeAPIListKubernetesClustersRequest) (*ComputeClusterList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterList
+		localVarReturnValue *ComputeClusterList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListKubernetesClusters")
@@ -2371,7 +2539,7 @@ func (a *ComputeAPIService) ListKubernetesClustersExecute(r ComputeAPIListKubern
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2400,6 +2568,14 @@ func (a *ComputeAPIService) ListKubernetesClustersExecute(r ComputeAPIListKubern
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2420,7 +2596,7 @@ type ComputeAPIListKubernetesNodesRequest struct {
 	ApiService *ComputeAPIService
 }
 
-func (r ComputeAPIListKubernetesNodesRequest) Execute() (*NodeList, *http.Response, error) {
+func (r ComputeAPIListKubernetesNodesRequest) Execute() (*ComputeNodeList, *http.Response, error) {
 	return r.ApiService.ListKubernetesNodesExecute(r)
 }
 
@@ -2443,13 +2619,13 @@ func (a *ComputeAPIService) ListKubernetesNodes(ctx context.Context) ComputeAPIL
 
 // Execute executes the request
 //
-//	@return NodeList
-func (a *ComputeAPIService) ListKubernetesNodesExecute(r ComputeAPIListKubernetesNodesRequest) (*NodeList, *http.Response, error) {
+//	@return ComputeNodeList
+func (a *ComputeAPIService) ListKubernetesNodesExecute(r ComputeAPIListKubernetesNodesRequest) (*ComputeNodeList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *NodeList
+		localVarReturnValue *ComputeNodeList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListKubernetesNodes")
@@ -2473,7 +2649,7 @@ func (a *ComputeAPIService) ListKubernetesNodesExecute(r ComputeAPIListKubernete
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2502,6 +2678,14 @@ func (a *ComputeAPIService) ListKubernetesNodesExecute(r ComputeAPIListKubernete
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2522,7 +2706,7 @@ type ComputeAPIListMachineAgentsRequest struct {
 	ApiService *ComputeAPIService
 }
 
-func (r ComputeAPIListMachineAgentsRequest) Execute() (*BindingList, *http.Response, error) {
+func (r ComputeAPIListMachineAgentsRequest) Execute() (*ComputeBindingList, *http.Response, error) {
 	return r.ApiService.ListMachineAgentsExecute(r)
 }
 
@@ -2544,13 +2728,13 @@ func (a *ComputeAPIService) ListMachineAgents(ctx context.Context) ComputeAPILis
 
 // Execute executes the request
 //
-//	@return BindingList
-func (a *ComputeAPIService) ListMachineAgentsExecute(r ComputeAPIListMachineAgentsRequest) (*BindingList, *http.Response, error) {
+//	@return ComputeBindingList
+func (a *ComputeAPIService) ListMachineAgentsExecute(r ComputeAPIListMachineAgentsRequest) (*ComputeBindingList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BindingList
+		localVarReturnValue *ComputeBindingList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListMachineAgents")
@@ -2574,7 +2758,7 @@ func (a *ComputeAPIService) ListMachineAgentsExecute(r ComputeAPIListMachineAgen
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2603,6 +2787,14 @@ func (a *ComputeAPIService) ListMachineAgentsExecute(r ComputeAPIListMachineAgen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2629,7 +2821,7 @@ func (r ComputeAPIListMachinesRequest) Kind(kind string) ComputeAPIListMachinesR
 	return r
 }
 
-func (r ComputeAPIListMachinesRequest) Execute() (*MachineList, *http.Response, error) {
+func (r ComputeAPIListMachinesRequest) Execute() (*ComputeMachineList, *http.Response, error) {
 	return r.ApiService.ListMachinesExecute(r)
 }
 
@@ -2655,13 +2847,13 @@ func (a *ComputeAPIService) ListMachines(ctx context.Context) ComputeAPIListMach
 
 // Execute executes the request
 //
-//	@return MachineList
-func (a *ComputeAPIService) ListMachinesExecute(r ComputeAPIListMachinesRequest) (*MachineList, *http.Response, error) {
+//	@return ComputeMachineList
+func (a *ComputeAPIService) ListMachinesExecute(r ComputeAPIListMachinesRequest) (*ComputeMachineList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MachineList
+		localVarReturnValue *ComputeMachineList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ListMachines")
@@ -2688,7 +2880,7 @@ func (a *ComputeAPIService) ListMachinesExecute(r ComputeAPIListMachinesRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2717,6 +2909,14 @@ func (a *ComputeAPIService) ListMachinesExecute(r ComputeAPIListMachinesRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2746,7 +2946,7 @@ PostComputeMachines Launch a metered machine for your org, or price one first wi
 
 Provisions a machine owned by the caller's org and answers 201 with the machine. Send `dryRun: true` to get a PRICE QUOTE instead: 200 with the upstream quote passed through verbatim, nothing launched and nothing spent. Two response shapes on one address is the rule to know, and it is why this is not a typed op.
 
-Metering is not this plane's: the launch fronts the compute provider's resell endpoint, which owns the balance gate and the per-hour meter, and cloud only forwards the tenant. Ownership is the validated principal's org and is never read from the body, so a launch always lands in the caller's OWN tenant and the machine it creates is only ever visible to that tenant. Fails closed: a validated principal is required (403 without one) and `size` (or its `instanceType` alias) is required (400).
+Metering is not this plane's: the launch fronts the compute provider's resell endpoint, which owns the balance gate and the per-hour meter, and cloud only forwards the tenant. Ownership is the validated principal's org and is never read from the body, so a launch always lands in the caller's OWN tenant and the machine it creates is only ever visible to that tenant. Fails closed: a validated principal is required (401 without one) and `size` (or its `instanceType` alias) is required (400).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ComputeAPIPostComputeMachinesRequest
@@ -2838,7 +3038,7 @@ PostComputeMachinesByIdByAction Message a bot, or stop it, by naming the action 
 
 Dispatches one verb against a bot the caller's org owns. `message` runs the bot's bound agent with the request body as the message and streams the agent's answer back VERBATIM — the upstream body, its content type and its status — so a message is a real agent run, recorded, billed and traced exactly like any other, under the caller's own identity rather than a fabricated one. `stop` and `pause` are the same single honest capability: they halt the runtime by unbinding the agent while LEAVING THE MACHINE UP, so the bot stops answering but keeps costing — rebind to resume, or delete the bot to tear it down. Stopping is idempotent; a bot with no binding still reports stopped.
 
-Org-scoped and fails closed: a validated principal is required (403 without one) and the bot is addressed under the caller's OWN org, so another tenant's id is not reachable. An unknown action is a clean 400 naming the three it accepts, never a silent no-op, and messaging a bot with no bound agent is a 400.
+Org-scoped and fails closed: a validated principal is required (401 without one) and the bot is addressed under the caller's OWN org, so another tenant's id is not reachable. An unknown action is a clean 400 naming the three it accepts, never a silent no-op, and messaging a bot with no bound agent is a 400.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -2921,17 +3121,17 @@ func (a *ComputeAPIService) PostComputeMachinesByIdByActionExecute(r ComputeAPIP
 }
 
 type ComputeAPIRecordFleetSampleRequest struct {
-	ctx          context.Context
-	ApiService   *ComputeAPIService
-	sampleIngest *SampleIngest
+	ctx                 context.Context
+	ApiService          *ComputeAPIService
+	computeSampleIngest *ComputeSampleIngest
 }
 
-func (r ComputeAPIRecordFleetSampleRequest) SampleIngest(sampleIngest SampleIngest) ComputeAPIRecordFleetSampleRequest {
-	r.sampleIngest = &sampleIngest
+func (r ComputeAPIRecordFleetSampleRequest) ComputeSampleIngest(computeSampleIngest ComputeSampleIngest) ComputeAPIRecordFleetSampleRequest {
+	r.computeSampleIngest = &computeSampleIngest
 	return r
 }
 
-func (r ComputeAPIRecordFleetSampleRequest) Execute() (*SampleAccepted, *http.Response, error) {
+func (r ComputeAPIRecordFleetSampleRequest) Execute() (*ComputeSampleAccepted, *http.Response, error) {
 	return r.ApiService.RecordFleetSampleExecute(r)
 }
 
@@ -2957,13 +3157,13 @@ func (a *ComputeAPIService) RecordFleetSample(ctx context.Context) ComputeAPIRec
 
 // Execute executes the request
 //
-//	@return SampleAccepted
-func (a *ComputeAPIService) RecordFleetSampleExecute(r ComputeAPIRecordFleetSampleRequest) (*SampleAccepted, *http.Response, error) {
+//	@return ComputeSampleAccepted
+func (a *ComputeAPIService) RecordFleetSampleExecute(r ComputeAPIRecordFleetSampleRequest) (*ComputeSampleAccepted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SampleAccepted
+		localVarReturnValue *ComputeSampleAccepted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.RecordFleetSample")
@@ -2976,8 +3176,8 @@ func (a *ComputeAPIService) RecordFleetSampleExecute(r ComputeAPIRecordFleetSamp
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.sampleIngest == nil {
-		return localVarReturnValue, nil, reportError("sampleIngest is required and must be specified")
+	if r.computeSampleIngest == nil {
+		return localVarReturnValue, nil, reportError("computeSampleIngest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2990,7 +3190,7 @@ func (a *ComputeAPIService) RecordFleetSampleExecute(r ComputeAPIRecordFleetSamp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2998,7 +3198,7 @@ func (a *ComputeAPIService) RecordFleetSampleExecute(r ComputeAPIRecordFleetSamp
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.sampleIngest
+	localVarPostBody = r.computeSampleIngest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3021,6 +3221,14 @@ func (a *ComputeAPIService) RecordFleetSampleExecute(r ComputeAPIRecordFleetSamp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3037,19 +3245,19 @@ func (a *ComputeAPIService) RecordFleetSampleExecute(r ComputeAPIRecordFleetSamp
 }
 
 type ComputeAPIScaleNodePoolRequest struct {
-	ctx        context.Context
-	ApiService *ComputeAPIService
-	clusterId  string
-	poolId     string
-	poolScale  *PoolScale
+	ctx              context.Context
+	ApiService       *ComputeAPIService
+	clusterId        string
+	poolId           string
+	computePoolScale *ComputePoolScale
 }
 
-func (r ComputeAPIScaleNodePoolRequest) PoolScale(poolScale PoolScale) ComputeAPIScaleNodePoolRequest {
-	r.poolScale = &poolScale
+func (r ComputeAPIScaleNodePoolRequest) ComputePoolScale(computePoolScale ComputePoolScale) ComputeAPIScaleNodePoolRequest {
+	r.computePoolScale = &computePoolScale
 	return r
 }
 
-func (r ComputeAPIScaleNodePoolRequest) Execute() (*NodePoolView, *http.Response, error) {
+func (r ComputeAPIScaleNodePoolRequest) Execute() (*ComputeNodePoolView, *http.Response, error) {
 	return r.ApiService.ScaleNodePoolExecute(r)
 }
 
@@ -3075,13 +3283,13 @@ func (a *ComputeAPIService) ScaleNodePool(ctx context.Context, clusterId string,
 
 // Execute executes the request
 //
-//	@return NodePoolView
-func (a *ComputeAPIService) ScaleNodePoolExecute(r ComputeAPIScaleNodePoolRequest) (*NodePoolView, *http.Response, error) {
+//	@return ComputeNodePoolView
+func (a *ComputeAPIService) ScaleNodePoolExecute(r ComputeAPIScaleNodePoolRequest) (*ComputeNodePoolView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *NodePoolView
+		localVarReturnValue *ComputeNodePoolView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ComputeAPIService.ScaleNodePool")
@@ -3096,8 +3304,8 @@ func (a *ComputeAPIService) ScaleNodePoolExecute(r ComputeAPIScaleNodePoolReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.poolScale == nil {
-		return localVarReturnValue, nil, reportError("poolScale is required and must be specified")
+	if r.computePoolScale == nil {
+		return localVarReturnValue, nil, reportError("computePoolScale is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3110,7 +3318,7 @@ func (a *ComputeAPIService) ScaleNodePoolExecute(r ComputeAPIScaleNodePoolReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3118,7 +3326,7 @@ func (a *ComputeAPIService) ScaleNodePoolExecute(r ComputeAPIScaleNodePoolReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.poolScale
+	localVarPostBody = r.computePoolScale
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3141,6 +3349,14 @@ func (a *ComputeAPIService) ScaleNodePoolExecute(r ComputeAPIScaleNodePoolReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -3215,7 +3431,7 @@ func (a *ComputeAPIService) UnbindMachineAgentExecute(r ComputeAPIUnbindMachineA
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3244,6 +3460,14 @@ func (a *ComputeAPIService) UnbindMachineAgentExecute(r ComputeAPIUnbindMachineA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 

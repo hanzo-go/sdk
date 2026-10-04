@@ -19,21 +19,24 @@ var _ MappedNullable = &App{}
 
 // App struct for App
 type App struct {
-	BasicConfigOptions []ApplicationConfigOption `json:"basicConfigOptions,omitempty"`
-	CreatedTime        *string                   `json:"createdTime,omitempty"`
-	Description        *string                   `json:"description,omitempty"`
-	Details            *ApplicationView          `json:"details,omitempty"`
-	DisplayName        *string                   `json:"displayName,omitempty"`
-	Manifest           *string                   `json:"manifest,omitempty"`
-	Name               *string                   `json:"name,omitempty"`
-	Namespace          *string                   `json:"namespace,omitempty"`
-	Owner              *string                   `json:"owner,omitempty"`
-	Parameters         *string                   `json:"parameters,omitempty"`
-	Status             *string                   `json:"status,omitempty"`
-	Template           *string                   `json:"template,omitempty"`
-	UpdatedTime        *string                   `json:"updatedTime,omitempty"`
-	Url                *string                   `json:"url,omitempty"`
+	BasicConfigOptions   []ApplicationConfigOption `json:"basicConfigOptions,omitempty"`
+	CreatedTime          *string                   `json:"createdTime,omitempty"`
+	Description          *string                   `json:"description,omitempty"`
+	Details              *ApplicationView          `json:"details,omitempty"`
+	DisplayName          *string                   `json:"displayName,omitempty"`
+	Manifest             *string                   `json:"manifest,omitempty"`
+	Name                 *string                   `json:"name,omitempty"`
+	Namespace            *string                   `json:"namespace,omitempty"`
+	Owner                *string                   `json:"owner,omitempty"`
+	Parameters           *string                   `json:"parameters,omitempty"`
+	Status               *string                   `json:"status,omitempty"`
+	Template             *string                   `json:"template,omitempty"`
+	UpdatedTime          *string                   `json:"updatedTime,omitempty"`
+	Url                  *string                   `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _App App
 
 // NewApp instantiates a new App object
 // This constructor will assign default values to properties that have it defined,
@@ -552,7 +555,46 @@ func (o App) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *App) UnmarshalJSON(data []byte) (err error) {
+	varApp := _App{}
+
+	err = json.Unmarshal(data, &varApp)
+
+	if err != nil {
+		return err
+	}
+
+	*o = App(varApp)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "basicConfigOptions")
+		delete(additionalProperties, "createdTime")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "details")
+		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "manifest")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "parameters")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "template")
+		delete(additionalProperties, "updatedTime")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableApp struct {

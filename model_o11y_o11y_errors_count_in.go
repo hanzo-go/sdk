@@ -28,8 +28,11 @@ type O11yO11yErrorsCountIn struct {
 	// Start is the window start, as a nanosecond epoch spelled as a string.
 	Start *string `json:"start,omitempty"`
 	// Tags narrow the scan to spans carrying the given tag values.
-	Tags []O11yO11yTagQuery `json:"tags,omitempty"`
+	Tags                 []O11yO11yTagQuery `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yErrorsCountIn O11yO11yErrorsCountIn
 
 // NewO11yO11yErrorsCountIn instantiates a new O11yO11yErrorsCountIn object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o O11yO11yErrorsCountIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yErrorsCountIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yErrorsCountIn := _O11yO11yErrorsCountIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yErrorsCountIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yErrorsCountIn(varO11yO11yErrorsCountIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "end")
+		delete(additionalProperties, "exceptionType")
+		delete(additionalProperties, "serviceName")
+		delete(additionalProperties, "start")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yErrorsCountIn struct {

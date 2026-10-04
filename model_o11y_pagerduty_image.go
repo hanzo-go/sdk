@@ -19,10 +19,13 @@ var _ MappedNullable = &O11yPagerdutyImage{}
 
 // O11yPagerdutyImage struct for O11yPagerdutyImage
 type O11yPagerdutyImage struct {
-	Alt  *string `json:"alt,omitempty"`
-	Href *string `json:"href,omitempty"`
-	Src  *string `json:"src,omitempty"`
+	Alt                  *string `json:"alt,omitempty"`
+	Href                 *string `json:"href,omitempty"`
+	Src                  *string `json:"src,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPagerdutyImage O11yPagerdutyImage
 
 // NewO11yPagerdutyImage instantiates a new O11yPagerdutyImage object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o O11yPagerdutyImage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Src) {
 		toSerialize["src"] = o.Src
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPagerdutyImage) UnmarshalJSON(data []byte) (err error) {
+	varO11yPagerdutyImage := _O11yPagerdutyImage{}
+
+	err = json.Unmarshal(data, &varO11yPagerdutyImage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPagerdutyImage(varO11yPagerdutyImage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alt")
+		delete(additionalProperties, "href")
+		delete(additionalProperties, "src")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPagerdutyImage struct {

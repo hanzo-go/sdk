@@ -28,7 +28,7 @@ type TaxonomyAPIDeleteTaxonomyCategoriesByIdRequest struct {
 	id         string
 }
 
-func (r TaxonomyAPIDeleteTaxonomyCategoriesByIdRequest) Execute() (*Deleted, *http.Response, error) {
+func (r TaxonomyAPIDeleteTaxonomyCategoriesByIdRequest) Execute() (*TaxonomyDeleted, *http.Response, error) {
 	return r.ApiService.DeleteTaxonomyCategoriesByIdExecute(r)
 }
 
@@ -55,13 +55,13 @@ func (a *TaxonomyAPIService) DeleteTaxonomyCategoriesById(ctx context.Context, i
 
 // Execute executes the request
 //
-//	@return Deleted
-func (a *TaxonomyAPIService) DeleteTaxonomyCategoriesByIdExecute(r TaxonomyAPIDeleteTaxonomyCategoriesByIdRequest) (*Deleted, *http.Response, error) {
+//	@return TaxonomyDeleted
+func (a *TaxonomyAPIService) DeleteTaxonomyCategoriesByIdExecute(r TaxonomyAPIDeleteTaxonomyCategoriesByIdRequest) (*TaxonomyDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Deleted
+		localVarReturnValue *TaxonomyDeleted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaxonomyAPIService.DeleteTaxonomyCategoriesById")
@@ -86,7 +86,7 @@ func (a *TaxonomyAPIService) DeleteTaxonomyCategoriesByIdExecute(r TaxonomyAPIDe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -115,6 +115,14 @@ func (a *TaxonomyAPIService) DeleteTaxonomyCategoriesByIdExecute(r TaxonomyAPIDe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -136,7 +144,7 @@ type TaxonomyAPIDeleteTaxonomyTaxaByIdRequest struct {
 	id         string
 }
 
-func (r TaxonomyAPIDeleteTaxonomyTaxaByIdRequest) Execute() (*Deleted, *http.Response, error) {
+func (r TaxonomyAPIDeleteTaxonomyTaxaByIdRequest) Execute() (*TaxonomyDeleted, *http.Response, error) {
 	return r.ApiService.DeleteTaxonomyTaxaByIdExecute(r)
 }
 
@@ -161,13 +169,13 @@ func (a *TaxonomyAPIService) DeleteTaxonomyTaxaById(ctx context.Context, id stri
 
 // Execute executes the request
 //
-//	@return Deleted
-func (a *TaxonomyAPIService) DeleteTaxonomyTaxaByIdExecute(r TaxonomyAPIDeleteTaxonomyTaxaByIdRequest) (*Deleted, *http.Response, error) {
+//	@return TaxonomyDeleted
+func (a *TaxonomyAPIService) DeleteTaxonomyTaxaByIdExecute(r TaxonomyAPIDeleteTaxonomyTaxaByIdRequest) (*TaxonomyDeleted, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Deleted
+		localVarReturnValue *TaxonomyDeleted
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaxonomyAPIService.DeleteTaxonomyTaxaById")
@@ -192,7 +200,7 @@ func (a *TaxonomyAPIService) DeleteTaxonomyTaxaByIdExecute(r TaxonomyAPIDeleteTa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -221,6 +229,14 @@ func (a *TaxonomyAPIService) DeleteTaxonomyTaxaByIdExecute(r TaxonomyAPIDeleteTa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -248,14 +264,14 @@ func (r TaxonomyAPIGetTaxonomyRequest) Brand(brand string) TaxonomyAPIGetTaxonom
 	return r
 }
 
-func (r TaxonomyAPIGetTaxonomyRequest) Execute() (*Taxonomy, *http.Response, error) {
+func (r TaxonomyAPIGetTaxonomyRequest) Execute() (*TaxonomyTaxonomy, *http.Response, error) {
 	return r.ApiService.GetTaxonomyExecute(r)
 }
 
 /*
-GetTaxonomy Read returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo's own products, the part that is true for everyone — plus the caller's own org's rows, every category in display order and each carrying the products filed under it in theirs.
+GetTaxonomy Returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo's own products, the part that is true for everyone — plus the caller's own org's rows, every category in display order and each carrying the products filed under it in theirs.
 
-Read returns the product catalogue as this caller sees it: the PLATFORM
+Returns the product catalogue as this caller sees it: the PLATFORM
 catalogue — Hanzo's own products, the part that is true for everyone — plus the
 caller's own org's rows, every category in display order and each carrying the
 products filed under it in theirs. Another customer's rows are never in it. It
@@ -287,13 +303,13 @@ func (a *TaxonomyAPIService) GetTaxonomy(ctx context.Context) TaxonomyAPIGetTaxo
 
 // Execute executes the request
 //
-//	@return Taxonomy
-func (a *TaxonomyAPIService) GetTaxonomyExecute(r TaxonomyAPIGetTaxonomyRequest) (*Taxonomy, *http.Response, error) {
+//	@return TaxonomyTaxonomy
+func (a *TaxonomyAPIService) GetTaxonomyExecute(r TaxonomyAPIGetTaxonomyRequest) (*TaxonomyTaxonomy, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Taxonomy
+		localVarReturnValue *TaxonomyTaxonomy
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaxonomyAPIService.GetTaxonomy")
@@ -320,7 +336,7 @@ func (a *TaxonomyAPIService) GetTaxonomyExecute(r TaxonomyAPIGetTaxonomyRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -349,6 +365,14 @@ func (a *TaxonomyAPIService) GetTaxonomyExecute(r TaxonomyAPIGetTaxonomyRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -365,18 +389,18 @@ func (a *TaxonomyAPIService) GetTaxonomyExecute(r TaxonomyAPIGetTaxonomyRequest)
 }
 
 type TaxonomyAPIPutTaxonomyCategoriesByIdRequest struct {
-	ctx        context.Context
-	ApiService *TaxonomyAPIService
-	id         string
-	categoryIn *CategoryIn
+	ctx                context.Context
+	ApiService         *TaxonomyAPIService
+	id                 string
+	taxonomyCategoryIn *TaxonomyCategoryIn
 }
 
-func (r TaxonomyAPIPutTaxonomyCategoriesByIdRequest) CategoryIn(categoryIn CategoryIn) TaxonomyAPIPutTaxonomyCategoriesByIdRequest {
-	r.categoryIn = &categoryIn
+func (r TaxonomyAPIPutTaxonomyCategoriesByIdRequest) TaxonomyCategoryIn(taxonomyCategoryIn TaxonomyCategoryIn) TaxonomyAPIPutTaxonomyCategoriesByIdRequest {
+	r.taxonomyCategoryIn = &taxonomyCategoryIn
 	return r
 }
 
-func (r TaxonomyAPIPutTaxonomyCategoriesByIdRequest) Execute() (*Category, *http.Response, error) {
+func (r TaxonomyAPIPutTaxonomyCategoriesByIdRequest) Execute() (*TaxonomyCategory, *http.Response, error) {
 	return r.ApiService.PutTaxonomyCategoriesByIdExecute(r)
 }
 
@@ -405,13 +429,13 @@ func (a *TaxonomyAPIService) PutTaxonomyCategoriesById(ctx context.Context, id s
 
 // Execute executes the request
 //
-//	@return Category
-func (a *TaxonomyAPIService) PutTaxonomyCategoriesByIdExecute(r TaxonomyAPIPutTaxonomyCategoriesByIdRequest) (*Category, *http.Response, error) {
+//	@return TaxonomyCategory
+func (a *TaxonomyAPIService) PutTaxonomyCategoriesByIdExecute(r TaxonomyAPIPutTaxonomyCategoriesByIdRequest) (*TaxonomyCategory, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Category
+		localVarReturnValue *TaxonomyCategory
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaxonomyAPIService.PutTaxonomyCategoriesById")
@@ -425,8 +449,8 @@ func (a *TaxonomyAPIService) PutTaxonomyCategoriesByIdExecute(r TaxonomyAPIPutTa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.categoryIn == nil {
-		return localVarReturnValue, nil, reportError("categoryIn is required and must be specified")
+	if r.taxonomyCategoryIn == nil {
+		return localVarReturnValue, nil, reportError("taxonomyCategoryIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -439,7 +463,7 @@ func (a *TaxonomyAPIService) PutTaxonomyCategoriesByIdExecute(r TaxonomyAPIPutTa
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -447,7 +471,7 @@ func (a *TaxonomyAPIService) PutTaxonomyCategoriesByIdExecute(r TaxonomyAPIPutTa
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.categoryIn
+	localVarPostBody = r.taxonomyCategoryIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -470,6 +494,14 @@ func (a *TaxonomyAPIService) PutTaxonomyCategoriesByIdExecute(r TaxonomyAPIPutTa
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -486,18 +518,18 @@ func (a *TaxonomyAPIService) PutTaxonomyCategoriesByIdExecute(r TaxonomyAPIPutTa
 }
 
 type TaxonomyAPIPutTaxonomyTaxaByIdRequest struct {
-	ctx        context.Context
-	ApiService *TaxonomyAPIService
-	id         string
-	taxonIn    *TaxonIn
+	ctx             context.Context
+	ApiService      *TaxonomyAPIService
+	id              string
+	taxonomyTaxonIn *TaxonomyTaxonIn
 }
 
-func (r TaxonomyAPIPutTaxonomyTaxaByIdRequest) TaxonIn(taxonIn TaxonIn) TaxonomyAPIPutTaxonomyTaxaByIdRequest {
-	r.taxonIn = &taxonIn
+func (r TaxonomyAPIPutTaxonomyTaxaByIdRequest) TaxonomyTaxonIn(taxonomyTaxonIn TaxonomyTaxonIn) TaxonomyAPIPutTaxonomyTaxaByIdRequest {
+	r.taxonomyTaxonIn = &taxonomyTaxonIn
 	return r
 }
 
-func (r TaxonomyAPIPutTaxonomyTaxaByIdRequest) Execute() (*Taxon, *http.Response, error) {
+func (r TaxonomyAPIPutTaxonomyTaxaByIdRequest) Execute() (*TaxonomyTaxon, *http.Response, error) {
 	return r.ApiService.PutTaxonomyTaxaByIdExecute(r)
 }
 
@@ -529,13 +561,13 @@ func (a *TaxonomyAPIService) PutTaxonomyTaxaById(ctx context.Context, id string)
 
 // Execute executes the request
 //
-//	@return Taxon
-func (a *TaxonomyAPIService) PutTaxonomyTaxaByIdExecute(r TaxonomyAPIPutTaxonomyTaxaByIdRequest) (*Taxon, *http.Response, error) {
+//	@return TaxonomyTaxon
+func (a *TaxonomyAPIService) PutTaxonomyTaxaByIdExecute(r TaxonomyAPIPutTaxonomyTaxaByIdRequest) (*TaxonomyTaxon, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Taxon
+		localVarReturnValue *TaxonomyTaxon
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaxonomyAPIService.PutTaxonomyTaxaById")
@@ -549,8 +581,8 @@ func (a *TaxonomyAPIService) PutTaxonomyTaxaByIdExecute(r TaxonomyAPIPutTaxonomy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.taxonIn == nil {
-		return localVarReturnValue, nil, reportError("taxonIn is required and must be specified")
+	if r.taxonomyTaxonIn == nil {
+		return localVarReturnValue, nil, reportError("taxonomyTaxonIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -563,7 +595,7 @@ func (a *TaxonomyAPIService) PutTaxonomyTaxaByIdExecute(r TaxonomyAPIPutTaxonomy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -571,7 +603,7 @@ func (a *TaxonomyAPIService) PutTaxonomyTaxaByIdExecute(r TaxonomyAPIPutTaxonomy
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.taxonIn
+	localVarPostBody = r.taxonomyTaxonIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -594,6 +626,14 @@ func (a *TaxonomyAPIService) PutTaxonomyTaxaByIdExecute(r TaxonomyAPIPutTaxonomy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

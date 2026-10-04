@@ -19,9 +19,12 @@ var _ MappedNullable = &ResourceRequests{}
 
 // ResourceRequests struct for ResourceRequests
 type ResourceRequests struct {
-	Cpu    *string `json:"cpu,omitempty"`
-	Memory *string `json:"memory,omitempty"`
+	Cpu                  *string `json:"cpu,omitempty"`
+	Memory               *string `json:"memory,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ResourceRequests ResourceRequests
 
 // NewResourceRequests instantiates a new ResourceRequests object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o ResourceRequests) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Memory) {
 		toSerialize["memory"] = o.Memory
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ResourceRequests) UnmarshalJSON(data []byte) (err error) {
+	varResourceRequests := _ResourceRequests{}
+
+	err = json.Unmarshal(data, &varResourceRequests)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResourceRequests(varResourceRequests)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cpu")
+		delete(additionalProperties, "memory")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableResourceRequests struct {

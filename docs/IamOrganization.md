@@ -55,6 +55,7 @@ Name | Type | Description | Notes
 **PasswordOptions** | Pointer to **[]string** |  | [optional] 
 **PasswordSalt** | Pointer to **string** |  | [optional] 
 **PasswordType** | Pointer to **string** |  | [optional] 
+**Platform** | Pointer to **bool** | Platform marks an organization the platform itself declares (init_data.json): the brand orgs and the others the seed creates, never one a customer made. The seed stamps it on every declared organization at boot, and no request sets or clears it. Only a SuperAdmin may delete an organization that carries it. | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
 **ThemeData** | Pointer to [**IamThemeData**](IamThemeData.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -1359,6 +1360,31 @@ SetPasswordType sets PasswordType field to given value.
 `func (o *IamOrganization) HasPasswordType() bool`
 
 HasPasswordType returns a boolean if a field has been set.
+
+### GetPlatform
+
+`func (o *IamOrganization) GetPlatform() bool`
+
+GetPlatform returns the Platform field if non-nil, zero value otherwise.
+
+### GetPlatformOk
+
+`func (o *IamOrganization) GetPlatformOk() (*bool, bool)`
+
+GetPlatformOk returns a tuple with the Platform field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPlatform
+
+`func (o *IamOrganization) SetPlatform(v bool)`
+
+SetPlatform sets Platform field to given value.
+
+### HasPlatform
+
+`func (o *IamOrganization) HasPlatform() bool`
+
+HasPlatform returns a boolean if a field has been set.
 
 ### GetTags
 

@@ -24,8 +24,11 @@ type O11yO11yLLMUsersPage struct {
 	// Limit is the page cap the read ran with.
 	Limit *int64 `json:"limit,omitempty"`
 	// Offset is the row offset this page started at.
-	Offset *int64 `json:"offset,omitempty"`
+	Offset               *int64 `json:"offset,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yLLMUsersPage O11yO11yLLMUsersPage
 
 // NewO11yO11yLLMUsersPage instantiates a new O11yO11yLLMUsersPage object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o O11yO11yLLMUsersPage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Offset) {
 		toSerialize["offset"] = o.Offset
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yLLMUsersPage) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yLLMUsersPage := _O11yO11yLLMUsersPage{}
+
+	err = json.Unmarshal(data, &varO11yO11yLLMUsersPage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yLLMUsersPage(varO11yO11yLLMUsersPage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "offset")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yLLMUsersPage struct {

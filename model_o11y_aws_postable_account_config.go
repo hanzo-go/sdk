@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yAWSPostableAccountConfig{}
 
 // O11yAWSPostableAccountConfig struct for O11yAWSPostableAccountConfig
 type O11yAWSPostableAccountConfig struct {
-	DeploymentRegion *string  `json:"deploymentRegion,omitempty"`
-	Regions          []string `json:"regions,omitempty"`
+	DeploymentRegion     *string  `json:"deploymentRegion,omitempty"`
+	Regions              []string `json:"regions,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAWSPostableAccountConfig O11yAWSPostableAccountConfig
 
 // NewO11yAWSPostableAccountConfig instantiates a new O11yAWSPostableAccountConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yAWSPostableAccountConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Regions) {
 		toSerialize["regions"] = o.Regions
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAWSPostableAccountConfig) UnmarshalJSON(data []byte) (err error) {
+	varO11yAWSPostableAccountConfig := _O11yAWSPostableAccountConfig{}
+
+	err = json.Unmarshal(data, &varO11yAWSPostableAccountConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAWSPostableAccountConfig(varO11yAWSPostableAccountConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "deploymentRegion")
+		delete(additionalProperties, "regions")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAWSPostableAccountConfig struct {

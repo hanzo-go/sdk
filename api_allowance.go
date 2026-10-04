@@ -26,7 +26,7 @@ type AllowanceAPIGetAllowanceRequest struct {
 	ApiService *AllowanceAPIService
 }
 
-func (r AllowanceAPIGetAllowanceRequest) Execute() (*Allowance, *http.Response, error) {
+func (r AllowanceAPIGetAllowanceRequest) Execute() (*AllowanceAllowance, *http.Response, error) {
 	return r.ApiService.GetAllowanceExecute(r)
 }
 
@@ -39,6 +39,13 @@ and the instant the count starts again.
 This is the number a product shows beside the composer — "17 of 20 left today" —
 and the moment to offer a plan is when it reaches zero. It READS: asking does not
 spend, so a page that polls it costs the caller nothing.
+
+A bounded caller is POOLED: the Free plan is limited usage from one pool every
+free user shares — the platform's vendor accounts for free models — so the answer
+says so (pooled) and carries that pool's standing: available, busy or exhausted,
+and when it refills. The pool is read from the process that spends it and is
+absent when that process does not answer, never guessed. A paid plan is not
+pooled and carries no pool: its usage is metered in money.
 
 The subject is the caller's own, resolved from the verified credential, and can
 never be named in the request — so this is a mirror, not a lookup of someone else.
@@ -59,13 +66,13 @@ func (a *AllowanceAPIService) GetAllowance(ctx context.Context) AllowanceAPIGetA
 
 // Execute executes the request
 //
-//	@return Allowance
-func (a *AllowanceAPIService) GetAllowanceExecute(r AllowanceAPIGetAllowanceRequest) (*Allowance, *http.Response, error) {
+//	@return AllowanceAllowance
+func (a *AllowanceAPIService) GetAllowanceExecute(r AllowanceAPIGetAllowanceRequest) (*AllowanceAllowance, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Allowance
+		localVarReturnValue *AllowanceAllowance
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AllowanceAPIService.GetAllowance")
@@ -89,7 +96,7 @@ func (a *AllowanceAPIService) GetAllowanceExecute(r AllowanceAPIGetAllowanceRequ
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -118,6 +125,14 @@ func (a *AllowanceAPIService) GetAllowanceExecute(r AllowanceAPIGetAllowanceRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

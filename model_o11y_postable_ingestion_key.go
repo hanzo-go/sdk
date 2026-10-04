@@ -20,10 +20,13 @@ var _ MappedNullable = &O11yPostableIngestionKey{}
 
 // O11yPostableIngestionKey struct for O11yPostableIngestionKey
 type O11yPostableIngestionKey struct {
-	ExpiresAt *time.Time `json:"expires_at,omitempty"`
-	Name      *string    `json:"name,omitempty"`
-	Tags      []string   `json:"tags,omitempty"`
+	ExpiresAt            *time.Time `json:"expires_at,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	Tags                 []string   `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPostableIngestionKey O11yPostableIngestionKey
 
 // NewO11yPostableIngestionKey instantiates a new O11yPostableIngestionKey object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o O11yPostableIngestionKey) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPostableIngestionKey) UnmarshalJSON(data []byte) (err error) {
+	varO11yPostableIngestionKey := _O11yPostableIngestionKey{}
+
+	err = json.Unmarshal(data, &varO11yPostableIngestionKey)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPostableIngestionKey(varO11yPostableIngestionKey)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "expires_at")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPostableIngestionKey struct {

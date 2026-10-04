@@ -80,7 +80,7 @@ func (a *TemplateAPIService) DeleteTemplateBySlugExecute(r TemplateAPIDeleteTemp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -109,6 +109,14 @@ func (a *TemplateAPIService) DeleteTemplateBySlugExecute(r TemplateAPIDeleteTemp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -120,7 +128,7 @@ type TemplateAPIGetTemplateRequest struct {
 	ApiService *TemplateAPIService
 }
 
-func (r TemplateAPIGetTemplateRequest) Execute() (*KitList, *http.Response, error) {
+func (r TemplateAPIGetTemplateRequest) Execute() (*TemplateKitList, *http.Response, error) {
 	return r.ApiService.GetTemplateExecute(r)
 }
 
@@ -144,13 +152,13 @@ func (a *TemplateAPIService) GetTemplate(ctx context.Context) TemplateAPIGetTemp
 
 // Execute executes the request
 //
-//	@return KitList
-func (a *TemplateAPIService) GetTemplateExecute(r TemplateAPIGetTemplateRequest) (*KitList, *http.Response, error) {
+//	@return TemplateKitList
+func (a *TemplateAPIService) GetTemplateExecute(r TemplateAPIGetTemplateRequest) (*TemplateKitList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KitList
+		localVarReturnValue *TemplateKitList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateAPIService.GetTemplate")
@@ -174,7 +182,7 @@ func (a *TemplateAPIService) GetTemplateExecute(r TemplateAPIGetTemplateRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -203,6 +211,14 @@ func (a *TemplateAPIService) GetTemplateExecute(r TemplateAPIGetTemplateRequest)
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -224,7 +240,7 @@ type TemplateAPIGetTemplateBySlugRequest struct {
 	slug       string
 }
 
-func (r TemplateAPIGetTemplateBySlugRequest) Execute() (*StarterKit, *http.Response, error) {
+func (r TemplateAPIGetTemplateBySlugRequest) Execute() (*TemplateStarterKit, *http.Response, error) {
 	return r.ApiService.GetTemplateBySlugExecute(r)
 }
 
@@ -248,13 +264,13 @@ func (a *TemplateAPIService) GetTemplateBySlug(ctx context.Context, slug string)
 
 // Execute executes the request
 //
-//	@return StarterKit
-func (a *TemplateAPIService) GetTemplateBySlugExecute(r TemplateAPIGetTemplateBySlugRequest) (*StarterKit, *http.Response, error) {
+//	@return TemplateStarterKit
+func (a *TemplateAPIService) GetTemplateBySlugExecute(r TemplateAPIGetTemplateBySlugRequest) (*TemplateStarterKit, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *StarterKit
+		localVarReturnValue *TemplateStarterKit
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateAPIService.GetTemplateBySlug")
@@ -279,7 +295,7 @@ func (a *TemplateAPIService) GetTemplateBySlugExecute(r TemplateAPIGetTemplateBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -308,6 +324,14 @@ func (a *TemplateAPIService) GetTemplateBySlugExecute(r TemplateAPIGetTemplateBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -324,17 +348,17 @@ func (a *TemplateAPIService) GetTemplateBySlugExecute(r TemplateAPIGetTemplateBy
 }
 
 type TemplateAPIPostTemplateRequest struct {
-	ctx          context.Context
-	ApiService   *TemplateAPIService
-	publishKitIn *PublishKitIn
+	ctx                  context.Context
+	ApiService           *TemplateAPIService
+	templatePublishKitIn *TemplatePublishKitIn
 }
 
-func (r TemplateAPIPostTemplateRequest) PublishKitIn(publishKitIn PublishKitIn) TemplateAPIPostTemplateRequest {
-	r.publishKitIn = &publishKitIn
+func (r TemplateAPIPostTemplateRequest) TemplatePublishKitIn(templatePublishKitIn TemplatePublishKitIn) TemplateAPIPostTemplateRequest {
+	r.templatePublishKitIn = &templatePublishKitIn
 	return r
 }
 
-func (r TemplateAPIPostTemplateRequest) Execute() (*StarterKit, *http.Response, error) {
+func (r TemplateAPIPostTemplateRequest) Execute() (*TemplateStarterKit, *http.Response, error) {
 	return r.ApiService.PostTemplateExecute(r)
 }
 
@@ -358,13 +382,13 @@ func (a *TemplateAPIService) PostTemplate(ctx context.Context) TemplateAPIPostTe
 
 // Execute executes the request
 //
-//	@return StarterKit
-func (a *TemplateAPIService) PostTemplateExecute(r TemplateAPIPostTemplateRequest) (*StarterKit, *http.Response, error) {
+//	@return TemplateStarterKit
+func (a *TemplateAPIService) PostTemplateExecute(r TemplateAPIPostTemplateRequest) (*TemplateStarterKit, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *StarterKit
+		localVarReturnValue *TemplateStarterKit
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateAPIService.PostTemplate")
@@ -377,8 +401,8 @@ func (a *TemplateAPIService) PostTemplateExecute(r TemplateAPIPostTemplateReques
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.publishKitIn == nil {
-		return localVarReturnValue, nil, reportError("publishKitIn is required and must be specified")
+	if r.templatePublishKitIn == nil {
+		return localVarReturnValue, nil, reportError("templatePublishKitIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -391,7 +415,7 @@ func (a *TemplateAPIService) PostTemplateExecute(r TemplateAPIPostTemplateReques
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -399,7 +423,7 @@ func (a *TemplateAPIService) PostTemplateExecute(r TemplateAPIPostTemplateReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.publishKitIn
+	localVarPostBody = r.templatePublishKitIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -422,6 +446,14 @@ func (a *TemplateAPIService) PostTemplateExecute(r TemplateAPIPostTemplateReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -438,18 +470,18 @@ func (a *TemplateAPIService) PostTemplateExecute(r TemplateAPIPostTemplateReques
 }
 
 type TemplateAPIPutTemplateBySlugRequest struct {
-	ctx          context.Context
-	ApiService   *TemplateAPIService
-	slug         string
-	replaceKitIn *ReplaceKitIn
+	ctx                  context.Context
+	ApiService           *TemplateAPIService
+	slug                 string
+	templateReplaceKitIn *TemplateReplaceKitIn
 }
 
-func (r TemplateAPIPutTemplateBySlugRequest) ReplaceKitIn(replaceKitIn ReplaceKitIn) TemplateAPIPutTemplateBySlugRequest {
-	r.replaceKitIn = &replaceKitIn
+func (r TemplateAPIPutTemplateBySlugRequest) TemplateReplaceKitIn(templateReplaceKitIn TemplateReplaceKitIn) TemplateAPIPutTemplateBySlugRequest {
+	r.templateReplaceKitIn = &templateReplaceKitIn
 	return r
 }
 
-func (r TemplateAPIPutTemplateBySlugRequest) Execute() (*StarterKit, *http.Response, error) {
+func (r TemplateAPIPutTemplateBySlugRequest) Execute() (*TemplateStarterKit, *http.Response, error) {
 	return r.ApiService.PutTemplateBySlugExecute(r)
 }
 
@@ -474,13 +506,13 @@ func (a *TemplateAPIService) PutTemplateBySlug(ctx context.Context, slug string)
 
 // Execute executes the request
 //
-//	@return StarterKit
-func (a *TemplateAPIService) PutTemplateBySlugExecute(r TemplateAPIPutTemplateBySlugRequest) (*StarterKit, *http.Response, error) {
+//	@return TemplateStarterKit
+func (a *TemplateAPIService) PutTemplateBySlugExecute(r TemplateAPIPutTemplateBySlugRequest) (*TemplateStarterKit, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *StarterKit
+		localVarReturnValue *TemplateStarterKit
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateAPIService.PutTemplateBySlug")
@@ -494,8 +526,8 @@ func (a *TemplateAPIService) PutTemplateBySlugExecute(r TemplateAPIPutTemplateBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.replaceKitIn == nil {
-		return localVarReturnValue, nil, reportError("replaceKitIn is required and must be specified")
+	if r.templateReplaceKitIn == nil {
+		return localVarReturnValue, nil, reportError("templateReplaceKitIn is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -508,7 +540,7 @@ func (a *TemplateAPIService) PutTemplateBySlugExecute(r TemplateAPIPutTemplateBy
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -516,7 +548,7 @@ func (a *TemplateAPIService) PutTemplateBySlugExecute(r TemplateAPIPutTemplateBy
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.replaceKitIn
+	localVarPostBody = r.templateReplaceKitIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -539,6 +571,14 @@ func (a *TemplateAPIService) PutTemplateBySlugExecute(r TemplateAPIPutTemplateBy
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		var v ProblemDetails
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

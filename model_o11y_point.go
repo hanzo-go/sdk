@@ -22,8 +22,11 @@ type O11yPoint struct {
 	// T is the bucket start, RFC3339 in UTC.
 	T *string `json:"t,omitempty"`
 	// V is the bucket's value.
-	V *float64 `json:"v,omitempty"`
+	V                    *float64 `json:"v,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yPoint O11yPoint
 
 // NewO11yPoint instantiates a new O11yPoint object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yPoint) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.V) {
 		toSerialize["v"] = o.V
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yPoint) UnmarshalJSON(data []byte) (err error) {
+	varO11yPoint := _O11yPoint{}
+
+	err = json.Unmarshal(data, &varO11yPoint)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yPoint(varO11yPoint)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "t")
+		delete(additionalProperties, "v")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yPoint struct {

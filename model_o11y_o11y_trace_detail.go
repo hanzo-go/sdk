@@ -22,8 +22,11 @@ type O11yO11yTraceDetail struct {
 	// Events are the error events carrying the trace id.
 	Events []O11yO11yEvent `json:"events,omitempty"`
 	// TraceID is the trace that was read.
-	TraceId *string `json:"traceId,omitempty"`
+	TraceId              *string `json:"traceId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yTraceDetail O11yO11yTraceDetail
 
 // NewO11yO11yTraceDetail instantiates a new O11yO11yTraceDetail object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yTraceDetail) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TraceId) {
 		toSerialize["traceId"] = o.TraceId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yTraceDetail) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yTraceDetail := _O11yO11yTraceDetail{}
+
+	err = json.Unmarshal(data, &varO11yO11yTraceDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yTraceDetail(varO11yO11yTraceDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "traceId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yTraceDetail struct {

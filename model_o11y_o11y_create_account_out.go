@@ -22,8 +22,11 @@ type O11yO11yCreateAccountOut struct {
 	// Data holds the account and the connection artifact.
 	Data *O11yGettableAccountWithConnectionArtifact `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yCreateAccountOut O11yO11yCreateAccountOut
 
 // NewO11yO11yCreateAccountOut instantiates a new O11yO11yCreateAccountOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yCreateAccountOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yCreateAccountOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yCreateAccountOut := _O11yO11yCreateAccountOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yCreateAccountOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yCreateAccountOut(varO11yO11yCreateAccountOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yCreateAccountOut struct {

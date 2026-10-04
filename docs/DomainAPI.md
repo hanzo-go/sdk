@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## GetDomainAvailability
 
-> QuoteList GetDomainAvailability(ctx).Domain(domain).Execute()
+> DomainQuoteList GetDomainAvailability(ctx).Domain(domain).Execute()
 
 Checks exact names rather than searching for them, and answers the same quote shape search does — purchasable, premium, first-term and renewal price in cents.
 
@@ -44,7 +44,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DomainAPI.GetDomainAvailability``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDomainAvailability`: QuoteList
+	// response from `GetDomainAvailability`: DomainQuoteList
 	fmt.Fprintf(os.Stdout, "Response from `DomainAPI.GetDomainAvailability`: %v\n", resp)
 }
 ```
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**QuoteList**](QuoteList.md)
+[**DomainQuoteList**](DomainQuoteList.md)
 
 ### Authorization
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## GetDomainDomains
 
-> Holdings GetDomainDomains(ctx).Execute()
+> DomainHoldings GetDomainDomains(ctx).Execute()
 
 Is the domains your org has bought here, newest registration first, each carrying the name, when it was registered, when it expires, what the org paid, the registrar order id and the nameservers it points at.
 
@@ -109,7 +109,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DomainAPI.GetDomainDomains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDomainDomains`: Holdings
+	// response from `GetDomainDomains`: DomainHoldings
 	fmt.Fprintf(os.Stdout, "Response from `DomainAPI.GetDomainDomains`: %v\n", resp)
 }
 ```
@@ -125,7 +125,7 @@ Other parameters are passed through a pointer to a apiGetDomainDomainsRequest st
 
 ### Return type
 
-[**Holdings**](Holdings.md)
+[**DomainHoldings**](DomainHoldings.md)
 
 ### Authorization
 
@@ -134,7 +134,7 @@ Other parameters are passed through a pointer to a apiGetDomainDomainsRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -143,7 +143,7 @@ Other parameters are passed through a pointer to a apiGetDomainDomainsRequest st
 
 ## GetDomainHealth
 
-> Reachability GetDomainHealth(ctx).Execute()
+> DomainReachability GetDomainHealth(ctx).Execute()
 
 Reports registrar reachability honestly: ok only when the wholesale credentials are present AND name.com accepted them on a live call made while you waited.
 
@@ -170,7 +170,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DomainAPI.GetDomainHealth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDomainHealth`: Reachability
+	// response from `GetDomainHealth`: DomainReachability
 	fmt.Fprintf(os.Stdout, "Response from `DomainAPI.GetDomainHealth`: %v\n", resp)
 }
 ```
@@ -186,7 +186,7 @@ Other parameters are passed through a pointer to a apiGetDomainHealthRequest str
 
 ### Return type
 
-[**Reachability**](Reachability.md)
+[**DomainReachability**](DomainReachability.md)
 
 ### Authorization
 
@@ -195,7 +195,7 @@ Other parameters are passed through a pointer to a apiGetDomainHealthRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -204,7 +204,7 @@ Other parameters are passed through a pointer to a apiGetDomainHealthRequest str
 
 ## GetDomainSearch
 
-> QuoteList GetDomainSearch(ctx).Q(q).Tld(tld).Execute()
+> DomainQuoteList GetDomainSearch(ctx).Q(q).Tld(tld).Execute()
 
 Finds names built from the keyword q, plus the registrar's alternate-TLD suggestions, and answers a quote for each: the name, whether it is purchasable, whether it is premium, the first-term and renewal price in cents, and the TLD.
 
@@ -233,7 +233,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `DomainAPI.GetDomainSearch``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetDomainSearch`: QuoteList
+	// response from `GetDomainSearch`: DomainQuoteList
 	fmt.Fprintf(os.Stdout, "Response from `DomainAPI.GetDomainSearch`: %v\n", resp)
 }
 ```
@@ -254,7 +254,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**QuoteList**](QuoteList.md)
+[**DomainQuoteList**](DomainQuoteList.md)
 
 ### Authorization
 
@@ -263,7 +263,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -272,7 +272,7 @@ Name | Type | Description  | Notes
 
 ## PostDomainRegister
 
-> RegisterResult PostDomainRegister(ctx).Order(order).Execute()
+> DomainRegisterResult PostDomainRegister(ctx).DomainOrder(domainOrder).Execute()
 
 Buys a domain for your org and answers the ownership record together with the quote it was bought at.
 
@@ -291,16 +291,16 @@ import (
 )
 
 func main() {
-	order := *openapiclient.NewOrder("Domain_example") // Order | 
+	domainOrder := *openapiclient.NewDomainOrder("Domain_example") // DomainOrder | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DomainAPI.PostDomainRegister(context.Background()).Order(order).Execute()
+	resp, r, err := apiClient.DomainAPI.PostDomainRegister(context.Background()).DomainOrder(domainOrder).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DomainAPI.PostDomainRegister``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDomainRegister`: RegisterResult
+	// response from `PostDomainRegister`: DomainRegisterResult
 	fmt.Fprintf(os.Stdout, "Response from `DomainAPI.PostDomainRegister`: %v\n", resp)
 }
 ```
@@ -316,11 +316,11 @@ Other parameters are passed through a pointer to a apiPostDomainRegisterRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **order** | [**Order**](Order.md) |  | 
+ **domainOrder** | [**DomainOrder**](DomainOrder.md) |  | 
 
 ### Return type
 
-[**RegisterResult**](RegisterResult.md)
+[**DomainRegisterResult**](DomainRegisterResult.md)
 
 ### Authorization
 
@@ -329,7 +329,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -338,7 +338,7 @@ Name | Type | Description  | Notes
 
 ## PostDomainRenew
 
-> RenewResult PostDomainRenew(ctx).RenewReq(renewReq).Execute()
+> DomainRenewResult PostDomainRenew(ctx).DomainRenewReq(domainRenewReq).Execute()
 
 Extends a domain your org already owns and answers the updated record with its new expiry alongside what was paid.
 
@@ -357,16 +357,16 @@ import (
 )
 
 func main() {
-	renewReq := *openapiclient.NewRenewReq("Domain_example") // RenewReq | 
+	domainRenewReq := *openapiclient.NewDomainRenewReq("Domain_example") // DomainRenewReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DomainAPI.PostDomainRenew(context.Background()).RenewReq(renewReq).Execute()
+	resp, r, err := apiClient.DomainAPI.PostDomainRenew(context.Background()).DomainRenewReq(domainRenewReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DomainAPI.PostDomainRenew``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDomainRenew`: RenewResult
+	// response from `PostDomainRenew`: DomainRenewResult
 	fmt.Fprintf(os.Stdout, "Response from `DomainAPI.PostDomainRenew`: %v\n", resp)
 }
 ```
@@ -382,11 +382,11 @@ Other parameters are passed through a pointer to a apiPostDomainRenewRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **renewReq** | [**RenewReq**](RenewReq.md) |  | 
+ **domainRenewReq** | [**DomainRenewReq**](DomainRenewReq.md) |  | 
 
 ### Return type
 
-[**RenewResult**](RenewResult.md)
+[**DomainRenewResult**](DomainRenewResult.md)
 
 ### Authorization
 
@@ -395,7 +395,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -404,7 +404,7 @@ Name | Type | Description  | Notes
 
 ## PostDomainTransfer
 
-> RegisterResult PostDomainTransfer(ctx).TransferReq(transferReq).Execute()
+> DomainRegisterResult PostDomainTransfer(ctx).DomainTransferReq(domainTransferReq).Execute()
 
 Moves a domain you own at another registrar onto your org here, using its authCode, and answers the same record-plus-quote a purchase does.
 
@@ -423,16 +423,16 @@ import (
 )
 
 func main() {
-	transferReq := *openapiclient.NewTransferReq("AuthCode_example", "Domain_example") // TransferReq | 
+	domainTransferReq := *openapiclient.NewDomainTransferReq("AuthCode_example", "Domain_example") // DomainTransferReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DomainAPI.PostDomainTransfer(context.Background()).TransferReq(transferReq).Execute()
+	resp, r, err := apiClient.DomainAPI.PostDomainTransfer(context.Background()).DomainTransferReq(domainTransferReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DomainAPI.PostDomainTransfer``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostDomainTransfer`: RegisterResult
+	// response from `PostDomainTransfer`: DomainRegisterResult
 	fmt.Fprintf(os.Stdout, "Response from `DomainAPI.PostDomainTransfer`: %v\n", resp)
 }
 ```
@@ -448,11 +448,11 @@ Other parameters are passed through a pointer to a apiPostDomainTransferRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **transferReq** | [**TransferReq**](TransferReq.md) |  | 
+ **domainTransferReq** | [**DomainTransferReq**](DomainTransferReq.md) |  | 
 
 ### Return type
 
-[**RegisterResult**](RegisterResult.md)
+[**DomainRegisterResult**](DomainRegisterResult.md)
 
 ### Authorization
 
@@ -461,7 +461,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## GetUsageAnalytics
 
-> UsageAnalyticsView GetUsageAnalytics(ctx).End(end).Plan(plan).Range_(range_).Start(start).Execute()
+> UsageUsageAnalyticsView GetUsageAnalytics(ctx).End(end).Plan(plan).Range_(range_).Start(start).Execute()
 
 Is the entitlement-GATED per-provider breakdown of the caller org's LLM usage — the paid lens over the same warehouse ledger GET /v1/usage/summary reads its totals from.
 
@@ -45,7 +45,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetUsageAnalytics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetUsageAnalytics`: UsageAnalyticsView
+	// response from `GetUsageAnalytics`: UsageUsageAnalyticsView
 	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetUsageAnalytics`: %v\n", resp)
 }
 ```
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UsageAnalyticsView**](UsageAnalyticsView.md)
+[**UsageUsageAnalyticsView**](UsageUsageAnalyticsView.md)
 
 ### Authorization
 
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## GetUsageAnalyticsAccess
 
-> UsageAnalyticsAccess GetUsageAnalyticsAccess(ctx).Plan(plan).Execute()
+> UsageUsageAnalyticsAccess GetUsageAnalyticsAccess(ctx).Plan(plan).Execute()
 
 Echoes a plan's resolved analytics entitlement so a dashboard can configure itself against the LIVE catalog instead of hardcoding tier numbers.
 
@@ -114,7 +114,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetUsageAnalyticsAccess``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetUsageAnalyticsAccess`: UsageAnalyticsAccess
+	// response from `GetUsageAnalyticsAccess`: UsageUsageAnalyticsAccess
 	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetUsageAnalyticsAccess`: %v\n", resp)
 }
 ```
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UsageAnalyticsAccess**](UsageAnalyticsAccess.md)
+[**UsageUsageAnalyticsAccess**](UsageUsageAnalyticsAccess.md)
 
 ### Authorization
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ## GetUsageSamples
 
-> DashResp GetUsageSamples(ctx).Account(account).Provider(provider).Range_(range_).Window(window).Execute()
+> UsageDashResp GetUsageSamples(ctx).Account(account).Provider(provider).Range_(range_).Window(window).Execute()
 
 Is the PER-PROVIDER view: one connected account's own consumption of its own plan — \"my plan is 47% through its 6h window, resets at 14:20\".
 
@@ -183,7 +183,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetUsageSamples``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetUsageSamples`: DashResp
+	// response from `GetUsageSamples`: UsageDashResp
 	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetUsageSamples`: %v\n", resp)
 }
 ```
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DashResp**](DashResp.md)
+[**UsageDashResp**](UsageDashResp.md)
 
 ### Authorization
 
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 
 ## GetUsageSummary
 
-> UsageSummary GetUsageSummary(ctx).Range_(range_).Start(start).End(end).Execute()
+> UsageUsageSummary GetUsageSummary(ctx).Range_(range_).Start(start).End(end).Execute()
 
 Answers GET /v1/usage/summary: the caller's own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org's LLM usage totals from the warehouse, and the caller's OWN linked provider accounts beside the org's Hanzo-routed usage.
 
@@ -254,7 +254,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetUsageSummary``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetUsageSummary`: UsageSummary
+	// response from `GetUsageSummary`: UsageUsageSummary
 	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetUsageSummary`: %v\n", resp)
 }
 ```
@@ -276,7 +276,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UsageSummary**](UsageSummary.md)
+[**UsageUsageSummary**](UsageUsageSummary.md)
 
 ### Authorization
 
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -294,7 +294,7 @@ Name | Type | Description  | Notes
 
 ## PostUsage
 
-> ReportResp PostUsage(ctx).ReportReq(reportReq).Execute()
+> UsageReportResp PostUsage(ctx).UsageReportReq(usageReportReq).Execute()
 
 Ingests a batch of account-usage samples — what a developer's OWN AI accounts have consumed of their OWN plans, metered from each provider's own login — and appends them to the warehouse series.
 
@@ -313,16 +313,16 @@ import (
 )
 
 func main() {
-	reportReq := *openapiclient.NewReportReq() // ReportReq | 
+	usageReportReq := *openapiclient.NewUsageReportReq() // UsageReportReq | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.PostUsage(context.Background()).ReportReq(reportReq).Execute()
+	resp, r, err := apiClient.UsageAPI.PostUsage(context.Background()).UsageReportReq(usageReportReq).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.PostUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostUsage`: ReportResp
+	// response from `PostUsage`: UsageReportResp
 	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.PostUsage`: %v\n", resp)
 }
 ```
@@ -338,11 +338,11 @@ Other parameters are passed through a pointer to a apiPostUsageRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **reportReq** | [**ReportReq**](ReportReq.md) |  | 
+ **usageReportReq** | [**UsageReportReq**](UsageReportReq.md) |  | 
 
 ### Return type
 
-[**ReportResp**](ReportResp.md)
+[**UsageReportResp**](UsageReportResp.md)
 
 ### Authorization
 
@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

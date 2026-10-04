@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## GetWeb3Chains
 
-> ChainList GetWeb3Chains(ctx).Execute()
+> Web3ChainList GetWeb3Chains(ctx).Execute()
 
 Reports the chains this deployment can reach.
 
@@ -40,7 +40,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `Web3API.GetWeb3Chains``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWeb3Chains`: ChainList
+	// response from `GetWeb3Chains`: Web3ChainList
 	fmt.Fprintf(os.Stdout, "Response from `Web3API.GetWeb3Chains`: %v\n", resp)
 }
 ```
@@ -56,7 +56,7 @@ Other parameters are passed through a pointer to a apiGetWeb3ChainsRequest struc
 
 ### Return type
 
-[**ChainList**](ChainList.md)
+[**Web3ChainList**](Web3ChainList.md)
 
 ### Authorization
 
@@ -65,7 +65,7 @@ Other parameters are passed through a pointer to a apiGetWeb3ChainsRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -74,7 +74,7 @@ Other parameters are passed through a pointer to a apiGetWeb3ChainsRequest struc
 
 ## GetWeb3ChainsByChain
 
-> ChainStatus GetWeb3ChainsByChain(ctx, chain).Execute()
+> Web3ChainStatus GetWeb3ChainsByChain(ctx, chain).Execute()
 
 Reports one chain and whether its upstream is answering.
 
@@ -102,7 +102,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `Web3API.GetWeb3ChainsByChain``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWeb3ChainsByChain`: ChainStatus
+	// response from `GetWeb3ChainsByChain`: Web3ChainStatus
 	fmt.Fprintf(os.Stdout, "Response from `Web3API.GetWeb3ChainsByChain`: %v\n", resp)
 }
 ```
@@ -126,7 +126,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ChainStatus**](ChainStatus.md)
+[**Web3ChainStatus**](Web3ChainStatus.md)
 
 ### Authorization
 
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -144,7 +144,7 @@ Name | Type | Description  | Notes
 
 ## GetWeb3TokensByChainByAddress
 
-> Balances GetWeb3TokensByChainByAddress(ctx, chain, address).Execute()
+> Web3Balances GetWeb3TokensByChainByAddress(ctx, chain, address).Execute()
 
 Reads an address's native balance on a chain.
 
@@ -173,7 +173,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `Web3API.GetWeb3TokensByChainByAddress``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWeb3TokensByChainByAddress`: Balances
+	// response from `GetWeb3TokensByChainByAddress`: Web3Balances
 	fmt.Fprintf(os.Stdout, "Response from `Web3API.GetWeb3TokensByChainByAddress`: %v\n", resp)
 }
 ```
@@ -199,7 +199,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Balances**](Balances.md)
+[**Web3Balances**](Web3Balances.md)
 
 ### Authorization
 
@@ -208,7 +208,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 ## PostWeb3RpcByChain
 
-> RpcOut PostWeb3RpcByChain(ctx, chain).RpcIn(rpcIn).Execute()
+> Web3RpcOut PostWeb3RpcByChain(ctx, chain).Web3RpcIn(web3RpcIn).Execute()
 
 Forwards a JSON-RPC call to the named chain and returns its answer unchanged.
 
@@ -237,16 +237,16 @@ import (
 
 func main() {
 	chain := "chain_example" // string | Chain is the registry id, from the URL.
-	rpcIn := *openapiclient.NewRpcIn() // RpcIn | 
+	web3RpcIn := *openapiclient.NewWeb3RpcIn() // Web3RpcIn | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.Web3API.PostWeb3RpcByChain(context.Background(), chain).RpcIn(rpcIn).Execute()
+	resp, r, err := apiClient.Web3API.PostWeb3RpcByChain(context.Background(), chain).Web3RpcIn(web3RpcIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `Web3API.PostWeb3RpcByChain``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostWeb3RpcByChain`: RpcOut
+	// response from `PostWeb3RpcByChain`: Web3RpcOut
 	fmt.Fprintf(os.Stdout, "Response from `Web3API.PostWeb3RpcByChain`: %v\n", resp)
 }
 ```
@@ -267,11 +267,11 @@ Other parameters are passed through a pointer to a apiPostWeb3RpcByChainRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **rpcIn** | [**RpcIn**](RpcIn.md) |  | 
+ **web3RpcIn** | [**Web3RpcIn**](Web3RpcIn.md) |  | 
 
 ### Return type
 
-[**RpcOut**](RpcOut.md)
+[**Web3RpcOut**](Web3RpcOut.md)
 
 ### Authorization
 
@@ -280,7 +280,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

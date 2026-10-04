@@ -1,0 +1,420 @@
+# LabelRiskLabelCoverage
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Contested** | Pointer to **int64** | Contested is how many matured events have two visible assertions that disagree. It is the number that says whether the precedence rule is load-bearing or decorative, and it is the one to watch after wiring a new source. | [optional] 
+**Events** | Pointer to **int64** | Events is how many DISTINCT judged events those assertions name, keyed on (kind, subject, at). It counts only events something was ASSERTED about: what share of the whole event stream carries a label is a question about the feature plane&#39;s denominator and is not answerable here. Matured + Unmatured is Events. | [optional] 
+**Explore** | Pointer to **float64** | Explore is the share of judged events whose winning assertion came from the below-the-line sample. A blocked transaction never produces a chargeback, so a training set with no exploration in it is a description of the incumbent block list rather than of the world — and a champion measured on it is measured on whether it agrees with the incumbent. | [optional] 
+**Facts** | Pointer to **int64** | Facts is how many assertions the window holds; Events is how many distinct judged events they cover. The two differ by exactly the corroboration and the conflict in the plane. | [optional] 
+**From** | Pointer to **string** | From is the INCLUSIVE start of the EVENT window these counts were folded over, RFC 3339, echoed with the defaults filled in — the caller&#39;s, or 90 days before To. An assertion is in the window when its event time satisfies at &gt;&#x3D; From. | [optional] 
+**Horizon** | Pointer to **int64** | Horizon is the maturity horizon these counts were measured under, IN DAYS — the caller&#39;s, or 120. It decides Matured (an event is matured when its &#x60;at&#x60; plus this many days is not after now), it sets each event&#39;s own as-of and so which assertions were visible to it, and when the caller bounds nothing it also places the default window&#39;s end. | [optional] 
+**Judged** | Pointer to **int64** | Judged is how many MATURED events resolve, at their own as-of, to something other than unjudged. | [optional] 
+**Matured** | Pointer to **int64** | Matured is how many of those events have aged past the horizon and may therefore be admitted to a supervised set at all. It counts every matured event, judged or not — it is the DENOMINATOR an operator divides Judged by, and a denominator that excluded the unjudged would read 1.0 on a plane with one label in it. | [optional] 
+**Pending** | Pointer to **int64** | Pending is how many of this tenant&#39;s assertions the DERIVED columnar copy is not known to hold yet. Every count above is folded from the record, so they are right regardless — but a materialiser that joins in the warehouse while this is non-zero is joining against an incomplete answer key, and a missing fraud label is indistinguishable from an honest customer. It is reported at the training gate because that is where somebody is deciding whether the ground truth is good enough to fit on. Counted under a cap, so it saturates rather than costing a full scan on every read. | [optional] 
+**Productive** | Pointer to **int64** | Productive is how many matured events resolve, at their own as-of, to a WINNING assertion of &#x60;productive&#x60; — the event led somewhere: escalated, reported, charged back. It is the positive class a supervised fit would train on, and a near-zero count is the number that says the fit is not worth running. | [optional] 
+**Sources** | Pointer to [**[]LabelRiskSourceCoverage**](LabelRiskSourceCoverage.md) | Sources breaks the judged events down by the source that WON, so a plane that looks labelled because one noisy source dominates is visible as such. | [optional] 
+**To** | Pointer to **string** | To is the EXCLUSIVE end of that window (at &lt; To). Unstated it is one horizon before now, never now: a window running to now under a maturity horizon can hold no matured event at all, so every count below would read zero however much ground truth the tenant held. | [optional] 
+**Unlabelled** | Pointer to **int64** | Unlabelled is how many MATURED events had no assertion knowable by their own as-of — including every assertion that arrived after that instant. It is the field that says WHY judged is low: a tenant whose ground truth was filed long after the events it judges reads matured&#x3D;n, judged&#x3D;0, unlabelled&#x3D;n, which is diagnosable, rather than a bare zero, which is not. | [optional] 
+**Unmatured** | Pointer to **int64** | Unmatured is how many events in the window have NOT aged past the horizon. They are not unlabelled — they are not yet askable, and a supervised set must exclude them rather than treat them as negatives. Matured + Unmatured is Events. | [optional] 
+**Unproductive** | Pointer to **int64** | Unproductive is every OTHER judged event: the winner claimed &#x60;unproductive&#x60;, judged not suspicious. Productive + Unproductive is Judged exactly, because a winner of the explicit unjudged is counted in neither — it is a matured event somebody looked at and could not conclude about, and rolling it into the negatives would hand a model a claim nobody made. | [optional] 
+
+## Methods
+
+### NewLabelRiskLabelCoverage
+
+`func NewLabelRiskLabelCoverage() *LabelRiskLabelCoverage`
+
+NewLabelRiskLabelCoverage instantiates a new LabelRiskLabelCoverage object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewLabelRiskLabelCoverageWithDefaults
+
+`func NewLabelRiskLabelCoverageWithDefaults() *LabelRiskLabelCoverage`
+
+NewLabelRiskLabelCoverageWithDefaults instantiates a new LabelRiskLabelCoverage object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetContested
+
+`func (o *LabelRiskLabelCoverage) GetContested() int64`
+
+GetContested returns the Contested field if non-nil, zero value otherwise.
+
+### GetContestedOk
+
+`func (o *LabelRiskLabelCoverage) GetContestedOk() (*int64, bool)`
+
+GetContestedOk returns a tuple with the Contested field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContested
+
+`func (o *LabelRiskLabelCoverage) SetContested(v int64)`
+
+SetContested sets Contested field to given value.
+
+### HasContested
+
+`func (o *LabelRiskLabelCoverage) HasContested() bool`
+
+HasContested returns a boolean if a field has been set.
+
+### GetEvents
+
+`func (o *LabelRiskLabelCoverage) GetEvents() int64`
+
+GetEvents returns the Events field if non-nil, zero value otherwise.
+
+### GetEventsOk
+
+`func (o *LabelRiskLabelCoverage) GetEventsOk() (*int64, bool)`
+
+GetEventsOk returns a tuple with the Events field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEvents
+
+`func (o *LabelRiskLabelCoverage) SetEvents(v int64)`
+
+SetEvents sets Events field to given value.
+
+### HasEvents
+
+`func (o *LabelRiskLabelCoverage) HasEvents() bool`
+
+HasEvents returns a boolean if a field has been set.
+
+### GetExplore
+
+`func (o *LabelRiskLabelCoverage) GetExplore() float64`
+
+GetExplore returns the Explore field if non-nil, zero value otherwise.
+
+### GetExploreOk
+
+`func (o *LabelRiskLabelCoverage) GetExploreOk() (*float64, bool)`
+
+GetExploreOk returns a tuple with the Explore field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExplore
+
+`func (o *LabelRiskLabelCoverage) SetExplore(v float64)`
+
+SetExplore sets Explore field to given value.
+
+### HasExplore
+
+`func (o *LabelRiskLabelCoverage) HasExplore() bool`
+
+HasExplore returns a boolean if a field has been set.
+
+### GetFacts
+
+`func (o *LabelRiskLabelCoverage) GetFacts() int64`
+
+GetFacts returns the Facts field if non-nil, zero value otherwise.
+
+### GetFactsOk
+
+`func (o *LabelRiskLabelCoverage) GetFactsOk() (*int64, bool)`
+
+GetFactsOk returns a tuple with the Facts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFacts
+
+`func (o *LabelRiskLabelCoverage) SetFacts(v int64)`
+
+SetFacts sets Facts field to given value.
+
+### HasFacts
+
+`func (o *LabelRiskLabelCoverage) HasFacts() bool`
+
+HasFacts returns a boolean if a field has been set.
+
+### GetFrom
+
+`func (o *LabelRiskLabelCoverage) GetFrom() string`
+
+GetFrom returns the From field if non-nil, zero value otherwise.
+
+### GetFromOk
+
+`func (o *LabelRiskLabelCoverage) GetFromOk() (*string, bool)`
+
+GetFromOk returns a tuple with the From field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFrom
+
+`func (o *LabelRiskLabelCoverage) SetFrom(v string)`
+
+SetFrom sets From field to given value.
+
+### HasFrom
+
+`func (o *LabelRiskLabelCoverage) HasFrom() bool`
+
+HasFrom returns a boolean if a field has been set.
+
+### GetHorizon
+
+`func (o *LabelRiskLabelCoverage) GetHorizon() int64`
+
+GetHorizon returns the Horizon field if non-nil, zero value otherwise.
+
+### GetHorizonOk
+
+`func (o *LabelRiskLabelCoverage) GetHorizonOk() (*int64, bool)`
+
+GetHorizonOk returns a tuple with the Horizon field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHorizon
+
+`func (o *LabelRiskLabelCoverage) SetHorizon(v int64)`
+
+SetHorizon sets Horizon field to given value.
+
+### HasHorizon
+
+`func (o *LabelRiskLabelCoverage) HasHorizon() bool`
+
+HasHorizon returns a boolean if a field has been set.
+
+### GetJudged
+
+`func (o *LabelRiskLabelCoverage) GetJudged() int64`
+
+GetJudged returns the Judged field if non-nil, zero value otherwise.
+
+### GetJudgedOk
+
+`func (o *LabelRiskLabelCoverage) GetJudgedOk() (*int64, bool)`
+
+GetJudgedOk returns a tuple with the Judged field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJudged
+
+`func (o *LabelRiskLabelCoverage) SetJudged(v int64)`
+
+SetJudged sets Judged field to given value.
+
+### HasJudged
+
+`func (o *LabelRiskLabelCoverage) HasJudged() bool`
+
+HasJudged returns a boolean if a field has been set.
+
+### GetMatured
+
+`func (o *LabelRiskLabelCoverage) GetMatured() int64`
+
+GetMatured returns the Matured field if non-nil, zero value otherwise.
+
+### GetMaturedOk
+
+`func (o *LabelRiskLabelCoverage) GetMaturedOk() (*int64, bool)`
+
+GetMaturedOk returns a tuple with the Matured field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMatured
+
+`func (o *LabelRiskLabelCoverage) SetMatured(v int64)`
+
+SetMatured sets Matured field to given value.
+
+### HasMatured
+
+`func (o *LabelRiskLabelCoverage) HasMatured() bool`
+
+HasMatured returns a boolean if a field has been set.
+
+### GetPending
+
+`func (o *LabelRiskLabelCoverage) GetPending() int64`
+
+GetPending returns the Pending field if non-nil, zero value otherwise.
+
+### GetPendingOk
+
+`func (o *LabelRiskLabelCoverage) GetPendingOk() (*int64, bool)`
+
+GetPendingOk returns a tuple with the Pending field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPending
+
+`func (o *LabelRiskLabelCoverage) SetPending(v int64)`
+
+SetPending sets Pending field to given value.
+
+### HasPending
+
+`func (o *LabelRiskLabelCoverage) HasPending() bool`
+
+HasPending returns a boolean if a field has been set.
+
+### GetProductive
+
+`func (o *LabelRiskLabelCoverage) GetProductive() int64`
+
+GetProductive returns the Productive field if non-nil, zero value otherwise.
+
+### GetProductiveOk
+
+`func (o *LabelRiskLabelCoverage) GetProductiveOk() (*int64, bool)`
+
+GetProductiveOk returns a tuple with the Productive field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProductive
+
+`func (o *LabelRiskLabelCoverage) SetProductive(v int64)`
+
+SetProductive sets Productive field to given value.
+
+### HasProductive
+
+`func (o *LabelRiskLabelCoverage) HasProductive() bool`
+
+HasProductive returns a boolean if a field has been set.
+
+### GetSources
+
+`func (o *LabelRiskLabelCoverage) GetSources() []LabelRiskSourceCoverage`
+
+GetSources returns the Sources field if non-nil, zero value otherwise.
+
+### GetSourcesOk
+
+`func (o *LabelRiskLabelCoverage) GetSourcesOk() (*[]LabelRiskSourceCoverage, bool)`
+
+GetSourcesOk returns a tuple with the Sources field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSources
+
+`func (o *LabelRiskLabelCoverage) SetSources(v []LabelRiskSourceCoverage)`
+
+SetSources sets Sources field to given value.
+
+### HasSources
+
+`func (o *LabelRiskLabelCoverage) HasSources() bool`
+
+HasSources returns a boolean if a field has been set.
+
+### GetTo
+
+`func (o *LabelRiskLabelCoverage) GetTo() string`
+
+GetTo returns the To field if non-nil, zero value otherwise.
+
+### GetToOk
+
+`func (o *LabelRiskLabelCoverage) GetToOk() (*string, bool)`
+
+GetToOk returns a tuple with the To field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTo
+
+`func (o *LabelRiskLabelCoverage) SetTo(v string)`
+
+SetTo sets To field to given value.
+
+### HasTo
+
+`func (o *LabelRiskLabelCoverage) HasTo() bool`
+
+HasTo returns a boolean if a field has been set.
+
+### GetUnlabelled
+
+`func (o *LabelRiskLabelCoverage) GetUnlabelled() int64`
+
+GetUnlabelled returns the Unlabelled field if non-nil, zero value otherwise.
+
+### GetUnlabelledOk
+
+`func (o *LabelRiskLabelCoverage) GetUnlabelledOk() (*int64, bool)`
+
+GetUnlabelledOk returns a tuple with the Unlabelled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnlabelled
+
+`func (o *LabelRiskLabelCoverage) SetUnlabelled(v int64)`
+
+SetUnlabelled sets Unlabelled field to given value.
+
+### HasUnlabelled
+
+`func (o *LabelRiskLabelCoverage) HasUnlabelled() bool`
+
+HasUnlabelled returns a boolean if a field has been set.
+
+### GetUnmatured
+
+`func (o *LabelRiskLabelCoverage) GetUnmatured() int64`
+
+GetUnmatured returns the Unmatured field if non-nil, zero value otherwise.
+
+### GetUnmaturedOk
+
+`func (o *LabelRiskLabelCoverage) GetUnmaturedOk() (*int64, bool)`
+
+GetUnmaturedOk returns a tuple with the Unmatured field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnmatured
+
+`func (o *LabelRiskLabelCoverage) SetUnmatured(v int64)`
+
+SetUnmatured sets Unmatured field to given value.
+
+### HasUnmatured
+
+`func (o *LabelRiskLabelCoverage) HasUnmatured() bool`
+
+HasUnmatured returns a boolean if a field has been set.
+
+### GetUnproductive
+
+`func (o *LabelRiskLabelCoverage) GetUnproductive() int64`
+
+GetUnproductive returns the Unproductive field if non-nil, zero value otherwise.
+
+### GetUnproductiveOk
+
+`func (o *LabelRiskLabelCoverage) GetUnproductiveOk() (*int64, bool)`
+
+GetUnproductiveOk returns a tuple with the Unproductive field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnproductive
+
+`func (o *LabelRiskLabelCoverage) SetUnproductive(v int64)`
+
+SetUnproductive sets Unproductive field to given value.
+
+### HasUnproductive
+
+`func (o *LabelRiskLabelCoverage) HasUnproductive() bool`
+
+HasUnproductive returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

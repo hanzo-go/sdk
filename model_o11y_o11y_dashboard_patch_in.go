@@ -22,8 +22,11 @@ type O11yO11yDashboardPatchIn struct {
 	// ID is the dashboard id from the path.
 	Id *string `json:"id,omitempty"`
 	// Ops are the JSON Patch operations, applied in order. On the wire this IS the request body — a bare array, not an object.
-	Ops []O11yO11yDashboardPatchOp `json:"ops,omitempty"`
+	Ops                  []O11yO11yDashboardPatchOp `json:"ops,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yDashboardPatchIn O11yO11yDashboardPatchIn
 
 // NewO11yO11yDashboardPatchIn instantiates a new O11yO11yDashboardPatchIn object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yDashboardPatchIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Ops) {
 		toSerialize["ops"] = o.Ops
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yDashboardPatchIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yDashboardPatchIn := _O11yO11yDashboardPatchIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yDashboardPatchIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yDashboardPatchIn(varO11yO11yDashboardPatchIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "ops")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yDashboardPatchIn struct {

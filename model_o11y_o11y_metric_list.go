@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yMetricList{}
 // O11yO11yMetricList struct for O11yO11yMetricList
 type O11yO11yMetricList struct {
 	// Metrics are the metrics, with their metadata.
-	Metrics []O11yO11yMetricSummary `json:"metrics,omitempty"`
+	Metrics              []O11yO11yMetricSummary `json:"metrics,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yMetricList O11yO11yMetricList
 
 // NewO11yO11yMetricList instantiates a new O11yO11yMetricList object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yMetricList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metrics) {
 		toSerialize["metrics"] = o.Metrics
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yMetricList) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yMetricList := _O11yO11yMetricList{}
+
+	err = json.Unmarshal(data, &varO11yO11yMetricList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yMetricList(varO11yO11yMetricList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "metrics")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yMetricList struct {

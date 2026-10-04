@@ -20,8 +20,11 @@ var _ MappedNullable = &O11yO11yServiceAccountRoleGrantIn{}
 // O11yO11yServiceAccountRoleGrantIn struct for O11yO11yServiceAccountRoleGrantIn
 type O11yO11yServiceAccountRoleGrantIn struct {
 	// RoleID is the id of the role to assign. Required.
-	Id *string `json:"id,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yServiceAccountRoleGrantIn O11yO11yServiceAccountRoleGrantIn
 
 // NewO11yO11yServiceAccountRoleGrantIn instantiates a new O11yO11yServiceAccountRoleGrantIn object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o O11yO11yServiceAccountRoleGrantIn) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yServiceAccountRoleGrantIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yServiceAccountRoleGrantIn := _O11yO11yServiceAccountRoleGrantIn{}
+
+	err = json.Unmarshal(data, &varO11yO11yServiceAccountRoleGrantIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yServiceAccountRoleGrantIn(varO11yO11yServiceAccountRoleGrantIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yServiceAccountRoleGrantIn struct {

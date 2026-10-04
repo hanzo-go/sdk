@@ -19,9 +19,12 @@ var _ MappedNullable = &O11yMetricsResponseRange{}
 
 // O11yMetricsResponseRange Range is the window actually used, after clamping — not what was asked for. A caller that wants to know what it got reads this rather than its own query.
 type O11yMetricsResponseRange struct {
-	SinceSec *int64 `json:"sinceSec,omitempty"`
-	StepSec  *int64 `json:"stepSec,omitempty"`
+	SinceSec             *int64 `json:"sinceSec,omitempty"`
+	StepSec              *int64 `json:"stepSec,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yMetricsResponseRange O11yMetricsResponseRange
 
 // NewO11yMetricsResponseRange instantiates a new O11yMetricsResponseRange object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o O11yMetricsResponseRange) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StepSec) {
 		toSerialize["stepSec"] = o.StepSec
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yMetricsResponseRange) UnmarshalJSON(data []byte) (err error) {
+	varO11yMetricsResponseRange := _O11yMetricsResponseRange{}
+
+	err = json.Unmarshal(data, &varO11yMetricsResponseRange)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yMetricsResponseRange(varO11yMetricsResponseRange)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "sinceSec")
+		delete(additionalProperties, "stepSec")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yMetricsResponseRange struct {

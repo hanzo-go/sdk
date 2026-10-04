@@ -22,8 +22,11 @@ type O11yAddItemsIn struct {
 	// ID is the annotation queue to add to, from the path.
 	Id *string `json:"id,omitempty"`
 	// Items are the objects to enqueue for review, 1–200 per request. Each names exactly one object.
-	Items []O11yItemInput `json:"items,omitempty"`
+	Items                []O11yItemInput `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yAddItemsIn O11yAddItemsIn
 
 // NewO11yAddItemsIn instantiates a new O11yAddItemsIn object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yAddItemsIn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yAddItemsIn) UnmarshalJSON(data []byte) (err error) {
+	varO11yAddItemsIn := _O11yAddItemsIn{}
+
+	err = json.Unmarshal(data, &varO11yAddItemsIn)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yAddItemsIn(varO11yAddItemsIn)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yAddItemsIn struct {

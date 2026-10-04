@@ -22,8 +22,11 @@ type O11yO11yReductionSeriesResult struct {
 	// Aggregations are the query's aggregation buckets.
 	Aggregations []O11yO11yAggregation `json:"aggregations,omitempty"`
 	// QueryName names the query the result answers.
-	QueryName *string `json:"queryName,omitempty"`
+	QueryName            *string `json:"queryName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yReductionSeriesResult O11yO11yReductionSeriesResult
 
 // NewO11yO11yReductionSeriesResult instantiates a new O11yO11yReductionSeriesResult object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yReductionSeriesResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.QueryName) {
 		toSerialize["queryName"] = o.QueryName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yReductionSeriesResult) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yReductionSeriesResult := _O11yO11yReductionSeriesResult{}
+
+	err = json.Unmarshal(data, &varO11yO11yReductionSeriesResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yReductionSeriesResult(varO11yO11yReductionSeriesResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aggregations")
+		delete(additionalProperties, "queryName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yReductionSeriesResult struct {

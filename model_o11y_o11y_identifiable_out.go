@@ -22,8 +22,11 @@ type O11yO11yIdentifiableOut struct {
 	// Data is the created resource's id.
 	Data *O11yO11yIdentifiable `json:"data,omitempty"`
 	// Status is \"success\".
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _O11yO11yIdentifiableOut O11yO11yIdentifiableOut
 
 // NewO11yO11yIdentifiableOut instantiates a new O11yO11yIdentifiableOut object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o O11yO11yIdentifiableOut) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *O11yO11yIdentifiableOut) UnmarshalJSON(data []byte) (err error) {
+	varO11yO11yIdentifiableOut := _O11yO11yIdentifiableOut{}
+
+	err = json.Unmarshal(data, &varO11yO11yIdentifiableOut)
+
+	if err != nil {
+		return err
+	}
+
+	*o = O11yO11yIdentifiableOut(varO11yO11yIdentifiableOut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableO11yO11yIdentifiableOut struct {

@@ -11,7 +11,6 @@ API version: v1
 package hanzoai
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -26,7 +25,8 @@ type O11yO11ySentryPostableProject struct {
 	// Platform is the reporting runtime, e.g. go, python, javascript.
 	Platform *string `json:"platform,omitempty"`
 	// Slug is the project's short name. Server-assigned from Name when empty.
-	Slug *string `json:"slug,omitempty"`
+	Slug                 *string `json:"slug,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _O11yO11ySentryPostableProject O11yO11ySentryPostableProject
@@ -154,6 +154,11 @@ func (o O11yO11ySentryPostableProject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Slug) {
 		toSerialize["slug"] = o.Slug
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -181,15 +186,22 @@ func (o *O11yO11ySentryPostableProject) UnmarshalJSON(data []byte) (err error) {
 
 	varO11yO11ySentryPostableProject := _O11yO11ySentryPostableProject{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varO11yO11ySentryPostableProject)
+	err = json.Unmarshal(data, &varO11yO11ySentryPostableProject)
 
 	if err != nil {
 		return err
 	}
 
 	*o = O11yO11ySentryPostableProject(varO11yO11ySentryPostableProject)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "platform")
+		delete(additionalProperties, "slug")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
